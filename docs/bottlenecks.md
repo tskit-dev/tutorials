@@ -1,22 +1,19 @@
 
+# Bottlenecks
+
+The site frequency spectrum (SFS) summarises variants by their frequency in a sample and is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). First, the SFS is a lossless summary of unlinked variants, so any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, F_st, Tajima's D and D) are summaries of the SFS.
+
+The SFS is convenient analytically, because it only depends on the mean length and frequency of genealogical branches. For many demographic models of interest the means can be derived analytically either using coalescent theory (cite Huang, TPB) or diffusion equations (cite dadi). A number of composite likelihood approaches have been developed based on either analytic results for the SFS (cite dadi Excoffier, Jaada). However, analytic expectations for the SFS break down for large samples and/or complex demographic models. 
+
 
 ```python
 %matplotlib inline
 %config InlineBackend.figure_format = 'svg'
 import msprime
 import numpy as np
-import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-from IPython.display import SVG
 ```
-
-### Approximating the site frequency spectrum for a bottleneck
-
-The site frequency spectrum (SFS) summarises variants by their frequency in a sample and is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). First, the SFS is a lossless summary of unlinked variants, so any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, F_st, Tajima's D and D) are summaries of the SFS.
-
-The SFS is convenient analytically, because it only depends on the mean length and frequency of genealogical branches. For many demographic models of interest the means can be derived analytically either using coalescent theory (cite Huang, TPB) or diffusion equations (cite dadi). A number of composite likelihood approaches have been developed based on either analytic results for the SFS (cite dadi Excoffier, Jaada). However, analytic expectations for the SFS break down for large samples and/or complex demographic models. 
 
 In the following section we show how the SFS can be approximated using coalescence simulations and compare such approximations to analytic results. We will assume a simple toy history of a single panmictic population that is affected by an instaneous bottleneck at time T with strenght s (cite Galtier et al). The effect of this bottleneck is to induce sudden burst of coalescence, which simultaneous multiple merges. We measure bottleneck strength as the probability that a pair of lineages coalesces during the bottleneck (we could could of course convert s into on (imaginary) time period that would give the same probability of coalescence s=1-e^-T).
 
@@ -160,6 +157,16 @@ fig.tight_layout()
 plt.show()
 ```
 
+    [ 0.54474183  0.27407036  0.18118781]
+    [ 0.55186469  0.26647432  0.181661  ]
+    [ 0.56819938  0.25679356  0.17500706]
+    [ 0.58875024  0.24738596  0.16386379]
+
+
+
+![svg](bottlenecks_files/bottlenecks_13_1.svg)
+
+
 ## The distribution of nton branches
 
 Given that the SFS only depends on mean  branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.
@@ -167,8 +174,10 @@ Given that the SFS only depends on mean  branch lengths, it is interesting to in
 
 ```python
 s=1
-demographic_events = [msprime.InstantaneousBottleneck(time=T, strength=s)]
-reps = msprime.simulate(sample_size=num_samp, Ne=Ne, num_replicates = num_rep, demographic_events = demographic_events)
+demographic_events = [msprime.InstantaneousBottleneck(time=T, strength=s, population=0)]
+reps = msprime.simulate(
+    sample_size=num_samp, Ne=Ne, num_replicates=num_rep, 
+    demographic_events=demographic_events)
 B = np.zeros((num_rep, num_samp))
 for rep_index, ts in enumerate(reps):
     tree = next(ts.trees())
@@ -183,8 +192,12 @@ for rep_index, ts in enumerate(reps):
 Btrans=np.array(B).T.tolist()
 sns.distplot(Btrans[1],axlabel="f(t)")
 sns.distplot(Btrans[2],axlabel="f(t)")
-sns.distplot(Btrans[3],axlabel="f(t)")
+sns.distplot(Btrans[3],axlabel="f(t)");
 ```
+
+
+![svg](bottlenecks_files/bottlenecks_17_0.svg)
+
 
 ### To Do
 
