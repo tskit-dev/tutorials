@@ -2,17 +2,19 @@ all: md
 
 MD=wfforward.md
 
-md: $(MD) $(OUTPUT)
+md: $(MD) 
 
 clean:
+	rm -f *.output.ipynb
+	rm -rf *.output_files
+
+reallyclean: clean
 	for i in $(MD) ; do \
 		rm -f ../docs/$$i ; \
 	done
 	for i in $(basename $(MD)) ; do \
 		rm -fr ../docs/$$i"_files" ; \
 	done
-	rm -f *.output.ipynb
-	rm -rf *.output_files
 
 %.output.ipynb: %.ipynb
 	python execute.py $< $@
@@ -24,5 +26,5 @@ clean:
 	# output name and location
 	jupyter nbconvert --to markdown --output-dir=../docs --output=$@ $<
 
-.PHONY: md
+.PHONY: md 
 .PRECIOUS: %.output.ipynb
