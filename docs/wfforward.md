@@ -60,7 +60,7 @@ The simplification algorithm works with respect to a *sample*.  Here, a sample w
 
 ## A Wright-Fisher simulation with no recombination
 
-Here, we simulate a constant-sized Wright-Fisher population of $N$ _diploid_ individuals with no mutation, no recombination, and no selection.  We generate nodes and edges as we go, simplify once at the end, and add mutations with msprime.
+Here, we simulate a constant-sized Wright-Fisher population of $N$ _diploid_ individuals with no mutation, no recombination, and no selection.  We generate nodes and edges as we go and simplify once at the end.
 
 The mechanics of transmission in this case are simple.  Each generation simply adds $2N$ more nodes to a `NodeTable` and $2N$ edges to an `EdgeTable` (one for each paretal gamete).  In the absence of recombination, an offspring inherits the interval $[0,1)$ from each of two parental nodes.  To generate an offspring, we pick two parents, and then one node from each parent, and create edges reflecting the transmission.
 
@@ -281,7 +281,7 @@ def wf2(N, ngens, gc):
         else:
             # If we have NOT simplified the data, 
             # then we have appended 2N new nodes to the end of
-            # nodes.  Thus, the last 2N nodes are the potential
+            # temp_nodes.  Thus, the last 2N nodes are the potential
             # parents of the next generation.  Since
             # next_offspring_index is set to the correct value,
             # we can simply use that as our baseline:
