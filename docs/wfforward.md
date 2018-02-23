@@ -21,6 +21,10 @@ A sub-section titled "Technical notes" will contain long-winded **Pro tip** entr
 
 A sub-section titled "Gory details" will attempt to unpack a complex piece of code.  Usually, this will be a discussion of implementation details that have to do with corner cases of stochastic simulations.  These can probably be skipped be skipped by most readers most of the time but will hopefully be useful to someone.
 
+## Design note
+
+For examples where simplification happens at regular intervals, we make use of temporary containers for nodes and mutations.  Strictly speaking, we can avoid this when working entirely in Python.  However, if writing a simulation in C or C++ and sending the data to `msprime` or to the `tskit` C API, these temporary containers will be either very handy and/or required.
+
 
 ```python
 %matplotlib inline
@@ -33,7 +37,6 @@ import seaborn as sns
 from collections import namedtuple
 import pickle
 ```
-
 
 ```python
 msprime.__version__
@@ -68,7 +71,7 @@ The simplification algorithm works with respect to a *sample*.  Here, a sample w
 
 Here, we simulate a constant-sized Wright-Fisher population of $N$ _diploid_ individuals with no mutation, no recombination, and no selection.  We generate nodes and edges as we go and simplify once at the end.
 
-The mechanics of transmission in this case are simple.  Each generation simply adds $2N$ more nodes to a `NodeTable` and $2N$ edges to an `EdgeTable` (one for each paretal gamete).  In the absence of recombination, an offspring inherits the interval $[0,1)$ from each of two parental nodes.  To generate an offspring, we pick two parents, and then one node from each parent, and create edges reflecting the transmission.
+The mechanics of transmission in this case are simple.  Each generation simply adds $2N$ more nodes to a `NodeTable` and $2N$ edges to an `EdgeTable` (one for each parental gamete).  In the absence of recombination, an offspring inherits the interval $[0,1)$ from each of two parental nodes.  To generate an offspring, we pick two parents, and then one node from each parent, and create edges reflecting the transmission.
 
 The simulation is shown in the following function:
 
@@ -86,7 +89,7 @@ def wf1(N, ngens):
     # initial list of parental
     # gametes
     for i in range(2*N):
-        nodes.add_row(time=0)
+        nodes.add_row(time=0, flags=msprime.NODE_IS_SAMPLE)
     
     next_offspring_index = len(nodes)
     first_parental_index = 0
@@ -103,8 +106,8 @@ def wf1(N, ngens):
 
             # Add nodes for our offspring's
             # two gametes
-            nodes.add_row(time=float(gen))
-            nodes.add_row(time=float(gen))
+            nodes.add_row(time=gen, flags=msprime.NODE_IS_SAMPLE)
+            nodes.add_row(time=gen, flags=msprime.NODE_IS_SAMPLE)
   
             # Add edges reflecting the
             # transmission from parental
@@ -131,15 +134,10 @@ nodes, edges = wf1(3, 4)
 
 First, we have to convert time from forwards to backwards, and reset the node table accordingly.
 
-**Detail:** We also set the "flags" to 1 for each node, marking it as a sample.
-
 
 ```python
-t = nodes.time
-t -= t.max()
-t *= -1.0
-flags = np.ones(len(nodes),dtype=np.uint32)
-nodes.set_columns(time=t,flags=flags)
+nodes.set_columns(time=-1.0*(nodes.time - nodes.time.max()),
+                  flags=nodes.flags)
 msprime.sort_tables(nodes=nodes,edges=edges)
 ```
 
@@ -171,7 +169,8 @@ We are now ready to simplify and load tables:
 
 
 ```python
-node_map = msprime.simplify_tables(samples=samples.tolist(),nodes=nodes,edges=edges)
+node_map = msprime.simplify_tables(samples=samples.tolist(),
+                                   nodes=nodes,edges=edges)
 ts = msprime.load_tables(nodes=nodes,edges=edges)
 ```
 
@@ -226,7 +225,8 @@ def simplify_nodes_edges(nodes,edges,temp_nodes,dt):
     """
     :param nodes (msprime.NodeTable): All nodes simplified so far
     :param edges (msprime.EdgeTable): All edges simplified so far
-    :param temp_nodes (msprime.NodeTable): All new nodes since the last simplification happened.
+    :param temp_nodes (msprime.NodeTable): All new nodes since
+        the last simplification happened.
     :param dt (int): The number of generations since the last simplification
     
     :rtype: None
@@ -240,7 +240,7 @@ def simplify_nodes_edges(nodes,edges,temp_nodes,dt):
         return nodes,edges
     
     # "Push" existing nodes dt generations further back into the past:
-    nodes.set_columns(time=nodes.time+float(dt),flags=nodes.flags)
+    nodes.set_columns(time=nodes.time+dt,flags=nodes.flags)
     
     # Reverse direction of time for our new nodes:
     t = temp_nodes.time
@@ -248,10 +248,11 @@ def simplify_nodes_edges(nodes,edges,temp_nodes,dt):
     t *= -1.0
     
     # Append new nodes to old nodes, sort, simplify:
-    nodes.append_columns(time=t,flags=np.ones(len(temp_nodes),dtype=np.uint32))
+    nodes.append_columns(time=t,flags=temp_nodes.flags)
     msprime.sort_tables(nodes=nodes,edges=edges)
     samples = np.where(nodes.time == 0.0)[0]
-    node_map = msprime.simplify_tables(samples=samples.tolist(),nodes=nodes,edges=edges)
+    node_map = msprime.simplify_tables(samples=samples.tolist(),
+                                       nodes=nodes,edges=edges)
     
     # Assert that the plot shown in the previous section always holds true.
     assert(all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype)))
@@ -265,7 +266,7 @@ Our new simulation will return a tuple of *simplified* nodes and edges:
 def wf2(N, ngens, gc):
     """
     Constant-sized WF model with no mutation, no recombination, no selection,
-    and no simplification.
+    amd regular simplification.
     
     :param N (int): Diploid population size
     :param ngens (int): Number of generations to simulate
@@ -285,19 +286,19 @@ def wf2(N, ngens, gc):
     # initial list of parental
     # gametes
     for i in range(2*N):
-        nodes.add_row(time=0)
+        nodes.add_row(time=0, flags=msprime.NODE_IS_SAMPLE)
     
     next_offspring_index = len(nodes)
     first_parental_index = 0
     last_gc_time = 0
     for gen in range(1,ngens+1):
-        if (gen) % gc == 0.0:
+        if gen % gc == 0.0:
             # Simplify the data
             simplify_nodes_edges(nodes,edges,temp_nodes,gen-last_gc_time)
             last_gc_time=gen
             
             # Empty out our temp node table
-            temp_nodes.reset()
+            temp_nodes.clear()
             
             # len(nodes) has been changed by simplification.
             # Node ids are [0,len(nodes)), implying
@@ -337,8 +338,8 @@ def wf2(N, ngens, gc):
 
             # Add nodes for our offspring's
             # two gametes
-            temp_nodes.add_row(time=float(gen))
-            temp_nodes.add_row(time=float(gen))
+            temp_nodes.add_row(time=gen, flags=msprime.NODE_IS_SAMPLE)
+            temp_nodes.add_row(time=gen, flags=msprime.NODE_IS_SAMPLE)
   
             # Add edges reflecting the
             # transmission from parental
@@ -352,7 +353,7 @@ def wf2(N, ngens, gc):
         # Handle any new nodes before returning
         simplify_nodes_edges(nodes, edges, temp_nodes, gen + 1 - last_gc_time)
 
-    return (nodes,edges)
+    return nodes,edges
 ```
 
 ### Invariance to simplification interval
@@ -605,35 +606,28 @@ def simplify_nodes_edges_mutations(nodes,edges,sites,mutations,temp_nodes,temp_m
     if len(edges) == 0:
         return nodes,edges,sites,mutations
     
-    nodes.set_columns(time=nodes.time+float(dt),flags=nodes.flags)
+    nodes.set_columns(time=nodes.time+dt,flags=nodes.flags)
     
     t = temp_nodes.time
     t -= t.max()
     t *= -1.0
  
-    nodes.append_columns(time=t,flags=np.ones(len(temp_nodes),dtype=np.uint32))
+    nodes.append_columns(time=t,flags=temp_nodes.flags)
     samples = np.where(nodes.time == 0.0)[0]
     
     # What we need to do now is add update our site and mutation tables
-    
-    # First, convert our meta data into raw bytes, which is handled via 
-    # Python's built-in pickling:
-    encoded, offset = msprime.pack_bytes(list(map(pickle.dumps,[i[1] for i in temp_mutations])))
-    
-    sites.append_columns(position=[i[1].pos for i in temp_mutations],
-                         # encode ancestral state as '0'
-                        ancestral_state=np.zeros(len(temp_mutations), np.int8) + ord('0'),
-                        ancestral_state_offset=np.arange(len(temp_mutations) + 1, dtype=np.uint32))
-    mutations.append_columns(site=np.arange(len(temp_mutations),dtype=np.int32)+len(mutations),
-                             node=[i[0] for i in temp_mutations],
-                             # encode derived state as '1'
-                             derived_state=np.ones(len(temp_mutations),dtype=np.int8)+ord('0'),
-                             derived_state_offset=np.arange(len(temp_mutations)+1,dtype=np.uint32),
-                             metadata_offset=offset,
-                             metadata=encoded)
-    
+    for i in temp_mutations:
+        sites.add_row(position=i[1].pos, 
+                     ancestral_state='0')
+        mutations.add_row(site=len(sites)-1,
+                          node=i[0],
+                          derived_state='1',
+                          metadata=pickle.dumps(i[1]))
     # Sort and simplify
-    msprime.sort_tables(nodes=nodes,edges=edges,sites=sites,mutations=mutations)
+    msprime.sort_tables(nodes=nodes,
+                        edges=edges,
+                        sites=sites,
+                        mutations=mutations)
     node_map = msprime.simplify_tables(samples=samples.tolist(),
                                        nodes=nodes,edges=edges,
                                        sites=sites,
@@ -663,7 +657,7 @@ def wf3(N, ngens, theta, rho, gc):
     r = rho/float(4*N)
     
     for i in range(2*N):
-        nodes.add_row(time=0)
+        nodes.add_row(time=0, flags=msprime.NODE_IS_SAMPLE)
     
     next_offspring_index = len(nodes)
     first_parental_index = 0
@@ -680,7 +674,7 @@ def wf3(N, ngens, theta, rho, gc):
                                            gen-last_gc_time)
             last_gc_time=gen
             temp_mutations.clear()
-            temp_nodes.reset()
+            temp_nodes.clear()
             lookup = {i:True for i in sites.position}
             next_offspring_index = len(nodes)
             first_parental_index = 0
@@ -738,8 +732,8 @@ def wf3(N, ngens, theta, rho, gc):
 
             # Add nodes for our offspring's
             # two gametes
-            temp_nodes.add_row(time=float(gen))
-            temp_nodes.add_row(time=float(gen))
+            temp_nodes.add_row(time=gen, flags=msprime.NODE_IS_SAMPLE)
+            temp_nodes.add_row(time=gen, flags=msprime.NODE_IS_SAMPLE)
 
     if len(temp_nodes)>0:
         # Handle any new nodes before returning
@@ -780,7 +774,7 @@ for GC in range(1,1000,67):
 
 #### Technical notes
 
-Our mutation scheme of continuous mutation positions on a specific interval would require some care in order to properly implement back-mutation.  We will not bother to do so.  However, it is important to realize that it would be incorrect to consider the case where a new draw from `np.random.random_sample` is the same as a currently-existing mutation position as a back mutation.  The reason why this would be an error has to do with the how floating-point values are distributed within specific intervals and how random number generators are implemented.  To do models with back mutation correctly:
+Our mutation scheme of continuous mutation positions on a specific interval would require some care in order to properly implement back-mutation.  We will not bother to do so.  However, it is important to realize that it would be incorrect to consider the case where a new draw from `np.random.random_sample` is the same as a currently-existing mutation position as a back mutation.  The reason why this would be an error has to do with how floating-point values are distributed within specific intervals and how random number generators are implemented.  To do models with back mutation correctly:
 
 * Define genomic regions as integers of intervals, $R \in {0, 1, 2, \ldots, L-1}$, where $L$ is the region length.
 * Use functions designed to sample from ranges of integers to generate mutation positions.  For example, [`np.random.randint`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html).
@@ -829,15 +823,14 @@ p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 
 So, some fraction of marginal trees have *very* large TMRCA! 
 
-When running forward simulations and *not* simulating neutral mutations, uncoalesced marginal trees matter.  These "sub-trees" (the disjoint ancestries within a non-recombining part of the population history) have been simplified such that the most ancient node on a sub-tree is the most-recent time poing required to represent that lineage.  In other words, the sub trees *do not* go all the way back to one of the original $2N$ nodes used to start the simulation.  The implication is that you will get an incorrect total number of neutral mutations when you add mutations to your simulation at the end with an `msprime.MutationGenerator` instance.
+When running forward simulations and *not* simulating neutral mutations, uncoalesced marginal trees matter.  These "sub-trees" (the disjoint ancestries within a non-recombining part of the population history) have been simplified such that the most ancient node on a sub-tree is the most-recent time point required to represent that lineage.  In other words, the sub trees *do not* go all the way back to one of the original $2N$ nodes used to start the simulation.  The implication is that you will get an incorrect total number of neutral mutations when you add mutations to your simulation at the end with an `msprime.MutationGenerator` instance.
 
-We have threeways to deal with this:
+We have two ways to deal with this:
 
 * Run the forward simulations longer. (Boo! Hiss!)
 * Start the simulation with a (reasonable) coalescent tree.
-* Retain the original $2N$ nodes as samples.
 
-In this section, we show how to implement the second option.  We'll put the third option aside for now.
+In this section, we show how to implement the second option.  
 
 ### Scaling the parameters
 
@@ -915,7 +908,7 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
                                            gen-last_gc_time)
             last_gc_time=gen
             temp_mutations.clear()
-            temp_nodes.reset()
+            temp_nodes.clear()
             lookup = {i:True for i in sites.position}
             next_offspring_index = len(nodes)
             first_parental_index = 0
@@ -958,9 +951,10 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
                                      MutationMetaData(gen,mi)))
             next_offspring_index += 1
                 
-
-            temp_nodes.add_row(time=float(gen))
-            temp_nodes.add_row(time=float(gen))
+            temp_nodes.add_row(time=gen,
+                               flags=msprime.NODE_IS_SAMPLE)
+            temp_nodes.add_row(time=gen,
+                               flags=msprime.NODE_IS_SAMPLE)
 
     if len(temp_nodes)>0:
          simplify_nodes_edges_mutations(nodes,edges,
@@ -997,9 +991,9 @@ np.random.seed(42)
 # Simulate without recombination and
 # with a low mutation rate
 n, e, s, m = wf4(100, 1000, 1., 0.0, 10, 42)
-#Let's simplify it further to every other of
-#the first 20 lineages.  This just makes
-#the plot less cluttered
+# Let's simplify it further to take a subset
+# of the first 2N lineags, which makes the plot
+# cleaner:
 msprime.simplify_tables(samples=[i for i in range(0,200,25)],nodes=n,edges=e,sites=s,mutations=m)
 ts = msprime.load_tables(nodes=n, edges=e, sites=s, mutations=m)
 SVG(ts.first().draw(width=600, height=500))
@@ -1036,10 +1030,10 @@ for mi in m:
     print(pickle.loads(mi.metadata))
 ```
 
-    MutationMetaData(origin=170, pos=0.22196283387567961)
-    MutationMetaData(origin=859, pos=0.82585751489093973)
-    MutationMetaData(origin=284, pos=0.86918038199988279)
-    MutationMetaData(origin=923, pos=0.86932622547380545)
+    MutationMetaData(origin=170, pos=0.2219628338756796)
+    MutationMetaData(origin=859, pos=0.8258575148909397)
+    MutationMetaData(origin=284, pos=0.8691803819998828)
+    MutationMetaData(origin=923, pos=0.8693262254738054)
 
 
 The meta-data positions match the positions in the site table (phew!).  The times when the mutations arose are encoded forwards in time.  We simulated for 1,000 generations, meaning that the allele ages are 1,001 - origin, and we can check that the mutation age is greater than the node time it is found on and less than the node time of its parental node:
@@ -1059,16 +1053,16 @@ for mi in m:
     assert(age > node_time)
 ```
 
-    0.221962833876 311.0 831 None
-    0.825857514891 74.0 142 163.0
-    0.869180382 311.0 717 None
-    0.869326225474 -0.0 78 163.0
+    0.2219628338756796 311.0 831 None
+    0.8258575148909397 74.0 142 163.0
+    0.8691803819998828 311.0 717 None
+    0.8693262254738054 -0.0 78 163.0
 
 
 **Detail:** the simplistic searching for parents of nodes used above only works because we simulated without recombination.  With recombination, a parent can have multiple segments leading to a child, meaning multiple rows in an `msprime.EdgeTable`.  For such cases, you have to search both by position and by node id.
 ### Summary and comments
 
-For many standard modeling scenarios, it is straightforward to start the forward simulation with a set of nodes and edges generated by a coalescent simulation.  However, it is important to recognize that this approach does not easily generalize.  If your forward simulation involves complex demographic and/or life history scenarios, then it is very likely that its effective population size is quite different from that assumed by Kingman's coalescent or that an $N_e$ simply does not exist for your model.  For the former case, it is possible (in an "on paper" sense) to generate an initial history under the correct model, and doing so may require a custom coalescent simulation.  For the latter scenario, where no sensible definition of $N_e$ holds, you will have to skip seeding with a coalescent-based history and instead "hold" an initial set of nodes as "ancient samples".  We show how to do that below.
+For many standard modeling scenarios, it is straightforward to start the forward simulation with a set of nodes and edges generated by a coalescent simulation.  However, it is important to recognize that this approach does not easily generalize.  If your forward simulation involves complex demographic and/or life history scenarios, then it is very likely that its effective population size is quite different from that assumed by Kingman's coalescent or that an $N_e$ simply does not exist for your model.  For the former case, it is possible (in an "on paper" sense) to generate an initial history under the correct model, and doing so may require a custom coalescent simulation.  For the latter scenario, where no sensible definition of $N_e$ holds, you may simply have to simulate longer, and implement a check after simulating for a certain length of time that each marginal tree has a single root.
 
 We have only shown very simple examples of seeding with trees.  It is completely possible to seed a forward simulation with an `msprime.TreeSequence` generated under a model of population structure with unequal effective sizes, asymmetric migration, and change in effective sizes in each deme over time.  We leave that as an excercise for the reader...
 
