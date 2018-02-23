@@ -780,7 +780,7 @@ for GC in range(1,1000,67):
 
 #### Technical notes
 
-Our mutation scheme of continuous mutation positions on a specific interval would require some care in order to properly implement back-mutation.  We will not bother to do so.  However, it is important to realize that it would be incorrect to consider the case where a new draw from `np.random.random_sample` is the same as a currently-existing mutation position as a back mutation.  The reason why this would be an error has to do with the how floating-point values are distributed within specific intervals and how random number generators are implements.  To do models with back mutation correctly:
+Our mutation scheme of continuous mutation positions on a specific interval would require some care in order to properly implement back-mutation.  We will not bother to do so.  However, it is important to realize that it would be incorrect to consider the case where a new draw from `np.random.random_sample` is the same as a currently-existing mutation position as a back mutation.  The reason why this would be an error has to do with the how floating-point values are distributed within specific intervals and how random number generators are implemented.  To do models with back mutation correctly:
 
 * Define genomic regions as integers of intervals, $R \in {0, 1, 2, \ldots, L-1}$, where $L$ is the region length.
 * Use functions designed to sample from ranges of integers to generate mutation positions.  For example, [`np.random.randint`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html).
@@ -802,8 +802,8 @@ ts = msprime.load_tables(nodes=n,edges=e,sites=s,mutations=m)
 nroots=[]
 for i in ts.trees():
     nroots.append(i.num_roots)
-p = sns.distplot(nroots)
-p.set(xlabel="Number of roots",ylabel="Density");
+p = sns.distplot(nroots, kde=False)
+p.set(xlabel="Number of roots",ylabel="Number");
 ```
 
 
@@ -819,8 +819,8 @@ sims=msprime.simulate(100,recombination_rate=25.0,random_seed=42,num_replicates=
 for sim in sims:
     for marginal in sim.trees():
         tmrca.append(marginal.get_time(marginal.get_root()))
-p = sns.distplot(tmrca)
-p.set(xlabel="TMRCA (units of N generations)",ylabel="Density");
+p = sns.distplot(tmrca, kde=False)
+p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 ```
 
 
@@ -989,6 +989,83 @@ for GC in range(1,1000,67):
 
 ```
 
+Let's take a look at a tree with mutations on it:
+
+
+```python
+np.random.seed(42)
+# Simulate without recombination and
+# with a low mutation rate
+n, e, s, m = wf4(100, 1000, 1., 0.0, 10, 42)
+#Let's simplify it further to every other of
+#the first 20 lineages.  This just makes
+#the plot less cluttered
+msprime.simplify_tables(samples=[i for i in range(0,200,25)],nodes=n,edges=e,sites=s,mutations=m)
+ts = msprime.load_tables(nodes=n, edges=e, sites=s, mutations=m)
+SVG(ts.first().draw(width=600, height=500))
+```
+
+
+
+
+![svg](wfforward_files/wfforward_63_0.svg)
+
+
+
+The red blocks are the mutations.  Mutations 1 and 3 are segregating, while 0 and 2 are fixed on this tree, which is actually a sub-tree of the entire population. (The mutations are not fixed in the entire population, which is not possible given how we are applying the simplification methods.)
+
+Let's take a look at our site table:
+
+
+```python
+print(s)
+```
+
+    id	position	ancestral_state	metadata
+    0	0.22196283	0	
+    1	0.82585751	0	
+    2	0.86918038	0	
+    3	0.86932623	0	
+
+
+What does our meta-data from the mutation table look like?
+
+
+```python
+for mi in m:
+    print(pickle.loads(mi.metadata))
+```
+
+    MutationMetaData(origin=170, pos=0.22196283387567961)
+    MutationMetaData(origin=859, pos=0.82585751489093973)
+    MutationMetaData(origin=284, pos=0.86918038199988279)
+    MutationMetaData(origin=923, pos=0.86932622547380545)
+
+
+The meta-data positions match the positions in the site table (phew!).  The times when the mutations arose are encoded forwards in time.  We simulated for 1,000 generations, meaning that the allele ages are 1,001 - origin, and we can check that the mutation age is greater than the node time it is found on and less than the node time of its parental node:
+
+
+```python
+for mi in m:
+    x = pickle.loads(mi.metadata)
+    age = 1001 - x.origin
+    node_time = n[mi.node].time
+    node_index = np.where(e.child == mi.node)[0]
+    pnode_time = None
+    if len(node_index) != 0:
+        pnode_time = n[e[node_index[0]].parent].time
+        assert(age < pnode_time)
+    print(x.pos, node_time, age, pnode_time)
+    assert(age > node_time)
+```
+
+    0.221962833876 311.0 831 None
+    0.825857514891 74.0 142 163.0
+    0.869180382 311.0 717 None
+    0.869326225474 -0.0 78 163.0
+
+
+**Detail:** the simplistic searching for parents of nodes used above only works because we simulated without recombination.  With recombination, a parent can have multiple segments leading to a child, meaning multiple rows in an `msprime.EdgeTable`.  For such cases, you have to search both by position and by node id.
 ### Summary and comments
 
 For many standard modeling scenarios, it is straightforward to start the forward simulation with a set of nodes and edges generated by a coalescent simulation.  However, it is important to recognize that this approach does not easily generalize.  If your forward simulation involves complex demographic and/or life history scenarios, then it is very likely that its effective population size is quite different from that assumed by Kingman's coalescent or that an $N_e$ simply does not exist for your model.  For the former case, it is possible (in an "on paper" sense) to generate an initial history under the correct model, and doing so may require a custom coalescent simulation.  For the latter scenario, where no sensible definition of $N_e$ holds, you will have to skip seeding with a coalescent-based history and instead "hold" an initial set of nodes as "ancient samples".  We show how to do that below.
