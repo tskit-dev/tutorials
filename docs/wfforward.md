@@ -38,6 +38,11 @@ from collections import namedtuple
 import pickle
 ```
 
+    /Users/kevin/anaconda3/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+      from ._conv import register_converters as _register_converters
+
+
+
 ```python
 msprime.__version__
 ```
@@ -667,7 +672,7 @@ def wf3(N, ngens, theta, rho, gc):
     # mutation model
     lookup = dict()
     for gen in range(1,ngens+1):
-        if (gen) % gc == 0.0:
+        if gen % gc == 0.0:
             simplify_nodes_edges_mutations(nodes,edges,
                                            sites,mutations,
                                            temp_nodes, temp_mutations,
@@ -901,7 +906,7 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
         # The check on len(temp_nodes) is
         # a hack to allow simplification to
         # be applied each generation.
-        if (gen) % gc == 0.0 and len(temp_nodes) > 0:
+        if gen % gc == 0.0 and len(temp_nodes) > 0:
             simplify_nodes_edges_mutations(nodes,edges,
                                            sites,mutations,
                                            temp_nodes, temp_mutations,
