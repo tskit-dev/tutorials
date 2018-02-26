@@ -38,6 +38,10 @@ from collections import namedtuple
 import pickle
 ```
 
+    /Users/kevin/anaconda3/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+      from ._conv import register_converters as _register_converters
+
+
 
 ```python
 msprime.__version__
@@ -46,7 +50,7 @@ msprime.__version__
 
 
 
-    '0.5.0'
+    '0.5.0b2'
 
 
 
@@ -727,7 +731,7 @@ def wf3(N, ngens, theta, rho, gc):
             # each new mutation
             for mi in mpos:
                 temp_mutations.append((next_offspring_index,
-                                     MutationMetaData(gen,mi)))
+                                     MutationMetaData(gen+1,mi)))
             next_offspring_index += 1
             
             # Repeat operations for parent2 
@@ -738,7 +742,7 @@ def wf3(N, ngens, theta, rho, gc):
             mpos = infsites(mu,lookup)
             for mi in mpos:
                 temp_mutations.append((next_offspring_index,
-                                     MutationMetaData(gen,mi)))
+                                     MutationMetaData(gen+1,mi)))
             next_offspring_index += 1
                 
 
@@ -950,7 +954,7 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
             mpos = infsites(mu,lookup)
             for mi in mpos:
                 temp_mutations.append((next_offspring_index,
-                                     MutationMetaData(gen,mi)))
+                                     MutationMetaData(gen+1,mi)))
             next_offspring_index += 1
             
             poisson_recombination(r,
@@ -960,7 +964,7 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
             mpos = infsites(mu,lookup)
             for mi in mpos:
                 temp_mutations.append((next_offspring_index,
-                                     MutationMetaData(gen,mi)))
+                                     MutationMetaData(gen+1,mi)))
             next_offspring_index += 1
                 
             temp_nodes.add_row(time=gen+1,
@@ -1042,10 +1046,10 @@ for mi in m:
     print(pickle.loads(mi.metadata))
 ```
 
-    MutationMetaData(origin=169, pos=0.22196283387567961)
-    MutationMetaData(origin=858, pos=0.82585751489093973)
-    MutationMetaData(origin=283, pos=0.86918038199988279)
-    MutationMetaData(origin=922, pos=0.86932622547380545)
+    MutationMetaData(origin=170, pos=0.2219628338756796)
+    MutationMetaData(origin=859, pos=0.8258575148909397)
+    MutationMetaData(origin=284, pos=0.8691803819998828)
+    MutationMetaData(origin=923, pos=0.8693262254738054)
 
 
 The meta-data positions match the positions in the site table (phew!).  The times when the mutations arose are encoded forwards in time.  We simulated for 1,000 generations, meaning that the allele ages are 1,001 - origin, and we can check that the mutation age is greater than the node time it is found on and less than the node time of its parental node:
@@ -1065,10 +1069,10 @@ for mi in m:
     assert(age > node_time)
 ```
 
-    0.221962833876 311.0 832 None
-    0.825857514891 74.0 143 163.0
-    0.869180382 311.0 718 None
-    0.869326225474 -0.0 79 163.0
+    0.2219628338756796 311.0 831 None
+    0.8258575148909397 74.0 142 163.0
+    0.8691803819998828 311.0 717 None
+    0.8693262254738054 -0.0 78 163.0
 
 
 **Detail:** the simplistic searching for parents of nodes used above only works because we simulated without recombination.  With recombination, a parent can have multiple segments leading to a child, meaning multiple rows in an `msprime.EdgeTable`.  For such cases, you have to search both by position and by node id.
