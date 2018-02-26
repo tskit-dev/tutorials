@@ -31,15 +31,19 @@ Some comments:
 * We get copy-free transfer (I think...) from C to numpy arrays via Cython's typed memory views.
 * The `cimport` commands below bring names into scope. It is considered best practice to only `cimport` the symbols you use, but that quickly gets tedious here, and I gave myself a break and imported everything from `gsl_vector`.
 
+Some details:
+
+For reasons I don't understand, attempting to pickle a `collections.namedtuple` instance in a `cdef` function raises an exception.  The workaround is a Cython class decorated with `\@cython.auto_pickle(True)`.  A side-effect is that the semantics for un-pickling the metadata differ from our Python examples.  Clearly, metadata is one of the trickier corners of `msprime/tskit`.
+
 
 ```cython
 %%cython -3 -lgsl -lgslcblas -lm
 
 import msprime
 import numpy as np
-from collections import namedtuple
 import pickle
 cimport numpy as np
+cimport cython
 from cython.view cimport array as cvarray
 from libc.stdlib cimport malloc, realloc, free
 from libc.stdint cimport int32_t, uint32_t
@@ -368,7 +372,17 @@ cdef void handle_error_code(int error, Tables * tables):
     else:
         raise ValueError("invalid error code")
 
-MutationMetadata = namedtuple('MutationMetadata',['pos','origin'])
+@cython.auto_pickle(True)
+cdef class MutationMetadata(object):
+    cdef readonly int generation
+    cdef readonly float pos
+    
+    def __init__(self,int32_t generation, double pos):
+        self.generation=generation
+        self.pos=pos
+        
+    def __repr__(self):
+        return "MutationMetaData({}, {})".format(self.generation,self.pos)
 
 cdef int simplify(Tables * tables, 
             double dt,
@@ -413,6 +427,13 @@ cdef int simplify(Tables * tables,
     # append_columns interface instead of the 
     # much slower (but easier to understand)
     # add_rows
+    mdata=[]
+    for i in range(tables.mutations.next_mutation):
+        m = MutationMetadata(tables.mutations.time[i],
+                             tables.mutations.pos[i])
+        mp = pickle.dumps(m,-1)
+        mdata.append(mp)
+    encoded, offset = msprime.pack_bytes(mdata)
     cdef size_t nsites = len(sites)
     dview = np.asarray(<double[:tables.mutations.next_mutation]>tables.mutations.pos)
     sites.append_columns(position=dview,
@@ -425,7 +446,8 @@ cdef int simplify(Tables * tables,
                             derived_state=np.ones(len(dview),
                                                   dtype=np.int8)+ord('0'),
                             derived_state_offset=np.arange(len(dview)+1,
-                                                          dtype=np.uint32)
+                                                          dtype=np.uint32),
+                            metadata_offset=offset, metadata=encoded
                             )
     
     msprime.sort_tables(nodes=nodes,edges=edges,
@@ -541,8 +563,8 @@ def evolve(int N, int ngens, double theta, double rho, int gc, int seed):
 ts = evolve(100, 1000, 100.0, 100.0, 1, 42)
 ```
 
-    CPU times: user 1.84 s, sys: 182 ms, total: 2.02 s
-    Wall time: 2.02 s
+    CPU times: user 2.17 s, sys: 152 ms, total: 2.32 s
+    Wall time: 2.31 s
 
 
 Make sure that output is invariant to how often we simplify:
@@ -563,8 +585,8 @@ for gc in range(10,1000,29):
 ts = evolve(1000,10000,1000.0,1000.0,1000,42)
 ```
 
-    CPU times: user 16.3 s, sys: 2.16 s, total: 18.5 s
-    Wall time: 18.5 s
+    CPU times: user 58.9 s, sys: 3.32 s, total: 1min 2s
+    Wall time: 1min 2s
 
 
 
@@ -573,15 +595,21 @@ ts = evolve(1000,10000,1000.0,1000.0,1000,42)
 ts = evolve(10000,10000,1000.0,1000.0,1000,42)
 ```
 
-    CPU times: user 1min 23s, sys: 12.7 s, total: 1min 36s
-    Wall time: 1min 36s
+    CPU times: user 2min 4s, sys: 13.3 s, total: 2min 17s
+    Wall time: 2min 17s
 
+
+
+```python
+mdata = msprime.unpack_bytes(ts.tables.mutations.metadata,ts.tables.mutations.metadata_offset)
+```
+
+
+```python
+for i in mdata:
+    md = pickle.loads(i)
+```
 
 # TODO
 
 * Run neutral simulations, process with pylibseq, and compare output to msprime!
-
-
-```python
-
-```
