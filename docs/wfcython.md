@@ -3,7 +3,7 @@
 
 This tutorial implements a Wright-Fisher simulation with mutation and recombination using [Cython](http://www.cython.org).  Cython is two things:
 
-* A grammer/dialect of Python that allows static typic of C/C++ types.
+* A grammer/dialect of Python that allows static typing Python and of C/C++ types.
 * A static compiler to turn the Cython grammer in to C or C++ code to compile into a Python extension module.
 
 Cython has a learning curve of its own. A lot of what is shown below reflects best practices.  For those, we refer you to the Cython documentation.
@@ -541,8 +541,8 @@ def evolve(int N, int ngens, double theta, double rho, int gc, int seed):
 ts = evolve(100, 1000, 100.0, 100.0, 1, 42)
 ```
 
-    CPU times: user 1.76 s, sys: 214 ms, total: 1.98 s
-    Wall time: 1.98 s
+    CPU times: user 1.84 s, sys: 182 ms, total: 2.02 s
+    Wall time: 2.02 s
 
 
 Make sure that output is invariant to how often we simplify:
@@ -563,8 +563,8 @@ for gc in range(10,1000,29):
 ts = evolve(1000,10000,1000.0,1000.0,1000,42)
 ```
 
-    CPU times: user 16.8 s, sys: 2.15 s, total: 19 s
-    Wall time: 19 s
+    CPU times: user 16.3 s, sys: 2.16 s, total: 18.5 s
+    Wall time: 18.5 s
 
 
 
@@ -573,8 +573,8 @@ ts = evolve(1000,10000,1000.0,1000.0,1000,42)
 ts = evolve(10000,10000,1000.0,1000.0,1000,42)
 ```
 
-    CPU times: user 1min 25s, sys: 12.9 s, total: 1min 38s
-    Wall time: 1min 38s
+    CPU times: user 1min 23s, sys: 12.7 s, total: 1min 36s
+    Wall time: 1min 36s
 
 
 # TODO
