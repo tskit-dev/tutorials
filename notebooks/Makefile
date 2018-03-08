@@ -1,6 +1,6 @@
 all: md
 
-MD=wfforward.md wfcython.md
+MD=wfforward.md 
 
 md: $(MD) 
 
