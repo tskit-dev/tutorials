@@ -199,7 +199,7 @@ SVG(tree.draw(height=200, width=400, node_labels=labels))
 
 The simplified tree looks a lot more like a typical diagram of a coalescent history and it shows how the input node IDs map to the output node IDs.  
 
-**Pro tip:** This figure also shows something curious:  Input node 4, which is the only node from the original generation to have left any descendants, is gone.  We've simplified the ancestry down to the minimal representation needed to represent *segregating* genetic variation.  The "4 to 9" branch", upon which mutations would lead to fixations in the current generation, is gone.  The implication is that neutral fixations cannot be tracked without extra work, which is a point we return to below.
+**Pro tip:** This figure also shows something curious:  Input node 4, which is the only node from the original generation to have left any descendants, is gone.  We've simplified the ancestry down to the minimal representation needed to represent *segregating* genetic variation.  The "4 to 9" branch", upon which mutations would lead to fixations in the current generation, is gone.  The implication is that neutral fixations cannot be tracked without extra work.
 
 The `node_map` returned from the simplify function is the same length as our input (un-simplified) node table.  Each element has a value of -1 if the input node is not an output node (e.g., it was "simplified out" of the final data), otherwise it contains the index of the node in the simplified node table.  Let's look at the relationship between the indexes for the final generation before and after simplification:
 
@@ -771,8 +771,8 @@ np.random.seed(42)
 n, e, s, m = wf3(100,1000,100.0,100.0,500)
 ```
 
-    CPU times: user 3.17 s, sys: 51.2 ms, total: 3.22 s
-    Wall time: 3.22 s
+    CPU times: user 3.7 s, sys: 71.4 ms, total: 3.77 s
+    Wall time: 3.78 s
 
 
 ### Invariance to the simplification interval
@@ -826,8 +826,8 @@ All of numpy's random number distributions are in fact members of `numpy.random.
 The same trick of using two RNG objects would also apply in other languages.
 
 ### Summary
-* Our simplification function is getting more complex and taking more arguments.  At this point, we'd help ourselves by encapsulating some of this work into a proper class, which we do below.
-* `collections.namedtuple` plus pickling is a straightforward method to handle metadata in Python
+* Our simplification function is getting more complex and taking more arguments. We would benefit from encapsulating much of the functionality for simplification into a class. 
+* `collections.namedtuple` plus pickling is a straightforward method to handle metadata in Python. An even faster method involves [struct.pack](https://docs.python.org/3/library/struct.html), which can write data directly to binary.
 
 ## Starting with a prior history
 
