@@ -25,6 +25,10 @@ A sub-section titled "Gory details" will attempt to unpack a complex piece of co
 
 For examples where simplification happens at regular intervals, we make use of temporary containers for nodes and mutations.  Strictly speaking, we can avoid this when working entirely in Python.  However, if writing a simulation in C or C++ and sending the data to `msprime` or to the `tskit` C API, these temporary containers will be either very handy and/or required.
 
+## Correctness testing
+
+We have done the work to show that the `wf3` function below gives the correct distribution of summary statistics.  We leave that out of this notebook because it takes many hours on a laptop using multiple processors because this is all pure Python.  You'll have to trust us for now or, better yet, do it yourself!
+
 
 ```python
 %matplotlib inline
@@ -36,11 +40,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import namedtuple
 import pickle
+import warnings
 ```
-
-    /Users/kevin/anaconda3/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
-      from ._conv import register_converters as _register_converters
-
 
 
 ```python
@@ -50,7 +51,7 @@ msprime.__version__
 
 
 
-    '0.5.0b2'
+    '0.5.0'
 
 
 
@@ -374,6 +375,8 @@ def wf2(N, ngens, gc):
 ### Invariance to simplification interval
 
 A critical concept to keep in mind is that the simulation itself is the only random component.  The simplification algorithm is deterministic *given a set of (nodes, edges) satisfying msprime/tskit's sorting requirements*.
+
+**Detail:** This invariance property only holds in some cases.  We discuss this in more detail below when we add in mutation and recombination.
 
 Therefore, the results of our `wf2` function must be the same for all simplification intervals:
 
@@ -763,21 +766,28 @@ def wf3(N, ngens, theta, rho, gc):
 
 
 ```python
+%%time
 np.random.seed(42)
-n, e, s, m = wf3(100,1000,10.0,100.0,10)
+n, e, s, m = wf3(100,1000,100.0,100.0,500)
 ```
 
-Let's test the sensitivity to the GC interval:
+    CPU times: user 3.17 s, sys: 51.2 ms, total: 3.22 s
+    Wall time: 3.22 s
+
+
+### Invariance to the simplification interval
+
+Let's test the sensitivity to the GC interval.  We're going to *warn* if difference GC intervals give different results and not assert that they do.  We'll exlpain why in the technical notes section below.
 
 
 ```python
 for GC in range(1,1000,67):
     np.random.seed(42)
-    ni, ei, si, mi = wf3(100,1000,10.0,100.0,GC)
-    assert(n == ni)
-    assert(e == ei)
-    assert(s == si)
-    assert(m == mi)
+    ni, ei, si, mi = wf3(100,1000,100.0,100.0,GC)
+    if n != ni: warnings.warn("nodes differ {}".format(GC), RuntimeWarning)
+    if e != ei: warnings.warn("edges differ {}".format(GC), RuntimeWarning)
+    if s != si: warnings.warn("sites differ {}".format(GC), RuntimeWarning)
+    if m != mi: warnings.warn("mutations differ {}".format(GC), RuntimeWarning)
 ```
 
 ### Comments
@@ -794,6 +804,26 @@ Our mutation scheme of continuous mutation positions on a specific interval woul
 
 * Define genomic regions as integers of intervals, $R \in {0, 1, 2, \ldots, L-1}$, where $L$ is the region length.
 * Use functions designed to sample from ranges of integers to generate mutation positions.  For example, [`np.random.randint`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html).
+
+The introduction of mutations into the simulation creates a condition where the final output can depend on how often we simplify.  This differs from the case of simply simulating segregation and recombiantion events.  The reason is that the final results of a simululation can only be identical if the same random number seed is used and if all accesses to the random number generator (RNG) occur in the same order.  (For example, if you mutate then recombine, you'll get a different result from recombining before mutating.)  When simulating mutations using our infinitely-many sites scheme, the contents of `lookup` depends on the GC interval. For example, we may draw a new mutation position and reject it (because it is already in `lookup`) with one GC interval, but accept it with another GC interval (becuase that lineage is removed during simplification, making that position a candidate mutation target again). For models with reversible mutation, a simulation may as if a back mutation happens on a lineage that would not exist ("simplified out") with a different GC interval.  When things like this happen, the context of subsequent RNG accesses will differ, and thus node/edge/site/mutation data are very likely to differ. Note that this is not a bug, and results will be correct *in distribution* (well, should be--you do need to test that, too!).  Rather, it is a subtlety to keep in mind when implementing and testing simulations.
+
+(The fact that the above code raises no warnings is because we've done relatively few simulations with a small population size and a low mutation rate.)
+
+It is desirable, for testing purposes if nothing else, to have the final nodes/edges be invariant to the GC interval.  One way to do that, which I think is the easiest, is to make use of two RNG objects.  One is used for mutations, and the other for everything else.  Using numpy, we can accomplish this as follows:
+
+
+```python
+rng1 = np.random.RandomState(42)
+rng2 = np.random.RandomState(42)
+print(rng1.random_sample(2),rng2.random_sample(2))
+```
+
+    [ 0.37454012  0.95071431] [ 0.37454012  0.95071431]
+
+
+All of numpy's random number distributions are in fact members of `numpy.random.RandomState`.  Our functions could be modified to take an instance of this type as an argument.  Done properly ("exercise for the reader"), the final nodes and edges would be the same for any GC interval, but the final Site/Mutation Tables would not be.
+
+The same trick of using two RNG objects would also apply in other languages.
 
 ### Summary
 * Our simplification function is getting more complex and taking more arguments.  At this point, we'd help ourselves by encapsulating some of this work into a proper class, which we do below.
@@ -817,7 +847,7 @@ p.set(xlabel="Number of roots",ylabel="Number");
 ```
 
 
-![svg](wfforward_files/wfforward_51_0.svg)
+![svg](wfforward_files/wfforward_53_0.svg)
 
 
 Most of our trees have one root, but a handful have two.  What is happening is that even though we simulated for $10N$ generations, and $E[TMRCA]=4N$, the variance is pretty big, such that some marginal trees are not completely coalesced.  Let's take a look at the distribution of TMRCA using msprime:
@@ -834,7 +864,7 @@ p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 ```
 
 
-![svg](wfforward_files/wfforward_53_0.svg)
+![svg](wfforward_files/wfforward_55_0.svg)
 
 
 So, some fraction of marginal trees have *very* large TMRCA! 
@@ -884,7 +914,7 @@ p.set(xlabel='Node time');
 ```
 
 
-![svg](wfforward_files/wfforward_57_0.svg)
+![svg](wfforward_files/wfforward_59_0.svg)
 
 
 It is straightforward to update our simulation to start with a history from `msprime`:
@@ -992,11 +1022,10 @@ n, e, s, m = wf4(100, 1000, 10., 100., 10, 42)
 for GC in range(1,1000,67):
     np.random.seed(42)
     ni, ei, si, mi = wf4(100,1000,10.0,100.0,GC,42)
-    assert(n == ni)
-    assert(e == ei)
-    assert(s == si)
-    assert(m == mi)
-
+    if n != ni: warnings.warn("nodes differ", RuntimeWarning)
+    if e != ei: warnings.warn("edges differ", RuntimeWarning)
+    if s != si: warnings.warn("sites differ", RuntimeWarning)
+    if m != mi: warnings.warn("mutations differ", RuntimeWarning)
 ```
 
 Let's take a look at a tree with mutations on it:
@@ -1008,7 +1037,7 @@ np.random.seed(42)
 # with a low mutation rate
 n, e, s, m = wf4(100, 1000, 1., 0.0, 10, 42)
 # Let's simplify it further to take a subset
-# of the first 2N lineags, which makes the plot
+# of the first 2N lineages, which makes the plot
 # cleaner:
 msprime.simplify_tables(samples=[i for i in range(0,200,25)],nodes=n,edges=e,sites=s,mutations=m)
 ts = msprime.load_tables(nodes=n, edges=e, sites=s, mutations=m)
@@ -1018,7 +1047,7 @@ SVG(ts.first().draw(width=600, height=500))
 
 
 
-![svg](wfforward_files/wfforward_63_0.svg)
+![svg](wfforward_files/wfforward_65_0.svg)
 
 
 
@@ -1046,10 +1075,10 @@ for mi in m:
     print(pickle.loads(mi.metadata))
 ```
 
-    MutationMetaData(origin=170, pos=0.2219628338756796)
-    MutationMetaData(origin=859, pos=0.8258575148909397)
-    MutationMetaData(origin=284, pos=0.8691803819998828)
-    MutationMetaData(origin=923, pos=0.8693262254738054)
+    MutationMetaData(origin=170, pos=0.22196283387567961)
+    MutationMetaData(origin=859, pos=0.82585751489093973)
+    MutationMetaData(origin=284, pos=0.86918038199988279)
+    MutationMetaData(origin=923, pos=0.86932622547380545)
 
 
 The meta-data positions match the positions in the site table (phew!).  The times when the mutations arose are encoded forwards in time.  We simulated for 1,000 generations, meaning that the allele ages are 1,001 - origin, and we can check that the mutation age is greater than the node time it is found on and less than the node time of its parental node:
@@ -1069,10 +1098,10 @@ for mi in m:
     assert(age > node_time)
 ```
 
-    0.2219628338756796 311.0 831 None
-    0.8258575148909397 74.0 142 163.0
-    0.8691803819998828 311.0 717 None
-    0.8693262254738054 -0.0 78 163.0
+    0.221962833876 311.0 831 None
+    0.825857514891 74.0 142 163.0
+    0.869180382 311.0 717 None
+    0.869326225474 -0.0 78 163.0
 
 
 **Detail:** the simplistic searching for parents of nodes used above only works because we simulated without recombination.  With recombination, a parent can have multiple segments leading to a child, meaning multiple rows in an `msprime.EdgeTable`.  For such cases, you have to search both by position and by node id.
