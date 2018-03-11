@@ -607,6 +607,9 @@ for l,r,p in zip(brk[:len(brk)-1],brk[1:len(brk)],pg):
     left = 0.75 right = 1.0 parent = 162
 
 
+We should also admit to a subtle error in our implementation.  We are only adding breakpoints to the list if they don't already exists.  Roughly, what this does is convert double crossovers (specifically, two identical breakpoints) into single crossovers.  The reason for this is that `msprime` will throw an error if `left==right` for an edge.  A correct implementation would simply remove all double crossovers at the same position.  The error is subtle enough that it is not noticeable for models of uniform recombination along a region, but this is not what should be used for "production" code.
+
+
 **End of gory details**
 
 
@@ -771,8 +774,8 @@ np.random.seed(42)
 n, e, s, m = wf3(100,1000,100.0,100.0,500)
 ```
 
-    CPU times: user 3.7 s, sys: 71.4 ms, total: 3.77 s
-    Wall time: 3.78 s
+    CPU times: user 3.2 s, sys: 44.2 ms, total: 3.24 s
+    Wall time: 3.24 s
 
 
 ### Invariance to the simplification interval
@@ -823,7 +826,7 @@ print(rng1.random_sample(2),rng2.random_sample(2))
 
 All of numpy's random number distributions are in fact members of `numpy.random.RandomState`.  Our functions could be modified to take an instance of this type as an argument.  Done properly ("exercise for the reader"), the final nodes and edges would be the same for any GC interval, but the final Site/Mutation Tables would not be.
 
-The same trick of using two RNG objects would also apply in other languages.
+The same trick of using two RNG objects would also apply in other languages.  It is also important to note that this issue of the results depending on the GC interval depends on the coupling of `lookup` to the contents of the `SiteTable`.  When using other simulation engines, such as [fwdpp](https://github.com/molpopgen/fwdpp), the lookup table is updated each generation using that library's functionality, which uncouples the book-keeping from the simplification, and the results will be invariant to the GC interval.
 
 ### Summary
 * Our simplification function is getting more complex and taking more arguments. We would benefit from encapsulating much of the functionality for simplification into a class. 
