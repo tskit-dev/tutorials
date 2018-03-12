@@ -1,6 +1,6 @@
 all: md
 
-MD=wfforward.md 
+MD=wfcython.md 
 
 md: $(MD) 
 
@@ -17,7 +17,7 @@ reallyclean: clean
 	done
 
 %.output.ipynb: %.ipynb
-	python execute.py $< $@
+	python execute.py $< $@ --timeout 2000
 
 %.md: %.output.ipynb
 	# Set --output so that supporting
