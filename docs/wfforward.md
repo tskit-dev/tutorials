@@ -1,7 +1,13 @@
 
 # Tracking the genealogy during forward simulation
 
+<<<<<<< HEAD
 This tutorial will cover several use cases of `tskit` for forward simulations.  We start with a simple Wright-Fisher simulation with no selection and no recomination, and gradually increase the complexity of our examples until we are recording mutations, ancient samples, and associated meta-data.
+=======
+This tutorial will cover several use cases of `tskit` for forward simulations.  We start with a simple Wright-Fisher simulation with no selection and no recombination, and gradually increase the complexity of our examples until we are recording mutations, ancient samples, and associated meta-data.
+
+We will record all data using `tskit` machinery contained in `msprime`.  We will show how to periodically "garbage collect", which means apply the tree sequence simplification algorithm, at regular intervals, which keeps RAM use controlled.
+>>>>>>> master
 
 The code used here is written in Python3.  However, the logic will apply to a simulation written in any language where `tskit` is used for simplification.
 
@@ -57,7 +63,11 @@ msprime.__version__
 
 ## Definitions
 
+<<<<<<< HEAD
 Before we can make any progress, we require a few definitions.  We will focus on the case of diploids, but the concepts used here generalize to any ploidy. Actually, things generalize to any mixtures of ploidys if you are willing to do the book-keeping!
+=======
+Before we can make any progress, we require a few definitions.  We will focus on the case of diploids, but the concepts used here generalize to any ploidy. Actually, things generalize to any mixtures of ploidies if you are willing to do the book-keeping!
+>>>>>>> master
 
 A *node* is used to label the birth time of a lineage.  A node can be described by a tuple, `(id, time)`, where `id` is unique and `time` reflects the birth time of that `id`. A *diploid* is a pair of nodes.
 
@@ -100,8 +110,13 @@ def wf1(N, ngens):
     next_offspring_index = len(nodes)
     first_parental_index = 0
     for gen in range(1,ngens+1):
+<<<<<<< HEAD
         assert(next_offspring_index == len(nodes))
         assert(first_parental_index == len(nodes) - 2*N)
+=======
+        assert next_offspring_index == len(nodes)
+        assert first_parental_index == len(nodes) - 2*N
+>>>>>>> master
         # Pick 2N parents
         parents = np.random.randint(0, N, 2*N)
         for parent1, parent2 in zip(parents[::2], parents[1::2]):
@@ -158,7 +173,11 @@ SVG(ts.first().draw(width=600))
 
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_11_0.svg)
+=======
+![svg](wfforward_files/wfforward_12_0.svg)
+>>>>>>> master
 
 
 
@@ -175,7 +194,11 @@ We are now ready to simplify and load tables:
 
 
 ```python
+<<<<<<< HEAD
 node_map = msprime.simplify_tables(samples=samples.tolist(),
+=======
+node_map = msprime.simplify_tables(samples=samples.astype(np.int32),
+>>>>>>> master
                                    nodes=nodes,edges=edges)
 ts = msprime.load_tables(nodes=nodes,edges=edges)
 ```
@@ -193,7 +216,11 @@ SVG(tree.draw(height=200, width=400, node_labels=labels))
 
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_18_0.svg)
+=======
+![svg](wfforward_files/wfforward_19_0.svg)
+>>>>>>> master
 
 
 
@@ -210,7 +237,11 @@ p.set(xlabel="Input node ID",ylabel="Output node ID");
 ```
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_20_0.svg)
+=======
+![svg](wfforward_files/wfforward_21_0.svg)
+>>>>>>> master
 
 
 The above figure is quite important: when we simplify with respect to the *last* generation simulated, those nodes become the *first* nodes in the simplified tables!  The reason is because our simplified tables represent time from the present to the past.  The implication is that our simple book-keeping of `next_offspring_index` and `first_parental_index` will be less simple when we apply the simplification step *during* a forward simulation instead of once at the end.
@@ -258,16 +289,28 @@ def simplify_nodes_edges(nodes,edges,temp_nodes,dt):
     # range over generations), then
     # gap must equal 1
     gap = nodes.time.min()-t.max()
+<<<<<<< HEAD
     assert(gap==1)
+=======
+    assert gap==1
+>>>>>>> master
     # Append new nodes to old nodes, sort, simplify:
     nodes.append_columns(time=t,flags=temp_nodes.flags)
     msprime.sort_tables(nodes=nodes,edges=edges)
     samples = np.where(nodes.time == 0.0)[0]
+<<<<<<< HEAD
     node_map = msprime.simplify_tables(samples=samples.tolist(),
                                        nodes=nodes,edges=edges)
     
     # Assert that the plot shown in the previous section always holds true.
     assert(all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype)))
+=======
+    node_map = msprime.simplify_tables(samples=samples.astype(np.int32),
+                                       nodes=nodes,edges=edges)
+    
+    # Assert that the plot shown in the previous section always holds true.
+    assert all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype))
+>>>>>>> master
 
 ```
 
@@ -325,7 +368,11 @@ def wf2(N, ngens, gc):
             # have been remapped to start at 0, which is the 
             # value of the first valid parent:
             first_parental_index = 0
+<<<<<<< HEAD
             assert(all(nodes.time[:2*N] == 0.0))
+=======
+            assert all(nodes.time[:2*N] == 0.0)
+>>>>>>> master
         else:
             # If we have NOT simplified the data, 
             # then we have appended 2N new nodes to the end of
@@ -341,7 +388,11 @@ def wf2(N, ngens, gc):
             # since the last simplification.  Thus, the sum of the
             # two NodeTables gives a second way to calculate
             # first_parental_index:
+<<<<<<< HEAD
             assert(first_parental_index == len(nodes)+len(temp_nodes)-2*N)
+=======
+            assert first_parental_index == len(nodes)+len(temp_nodes)-2*N
+>>>>>>> master
             
         # Pick 2N parents
         parents = np.random.randint(0, N, 2*N)
@@ -393,8 +444,13 @@ for i in range(2,1000,33):
     # starts with same random seed!
     np.random.seed(42)
     ni, ei = wf2(100, 1000, i)
+<<<<<<< HEAD
     assert(n == ni)
     assert(e == ei)
+=======
+    assert n == ni
+    assert e == ei 
+>>>>>>> master
 ```
 
 **Pro tip**: testing your own code using loops like the one above is a very good way to identify subtle bugs in book-keeping.
@@ -607,6 +663,12 @@ for l,r,p in zip(brk[:len(brk)-1],brk[1:len(brk)],pg):
     left = 0.75 right = 1.0 parent = 162
 
 
+<<<<<<< HEAD
+=======
+We should also admit to a subtle error in our implementation.  We are only adding breakpoints to the list if they don't already exists.  Roughly, what this does is convert double crossovers (specifically, two identical breakpoints) into single crossovers.  The reason for this is that `msprime` will throw an error if `left==right` for an edge.  A correct implementation would simply remove all double crossovers at the same position.  The error is subtle enough that it is not noticeable for models of uniform recombination along a region, but this is not what should be used for "production" code.
+
+
+>>>>>>> master
 **End of gory details**
 
 
@@ -630,7 +692,11 @@ def simplify_nodes_edges_mutations(nodes,edges,sites,mutations,temp_nodes,temp_m
     t -= t.max()
     t *= -1.0
     gap = nodes.time.min()-t.max()
+<<<<<<< HEAD
     assert(gap==1)
+=======
+    assert gap==1
+>>>>>>> master
     nodes.append_columns(time=t,flags=temp_nodes.flags)
     samples = np.where(nodes.time == 0.0)[0]
     
@@ -647,11 +713,19 @@ def simplify_nodes_edges_mutations(nodes,edges,sites,mutations,temp_nodes,temp_m
                         edges=edges,
                         sites=sites,
                         mutations=mutations)
+<<<<<<< HEAD
     node_map = msprime.simplify_tables(samples=samples.tolist(),
                                        nodes=nodes,edges=edges,
                                        sites=sites,
                                        mutations=mutations)
     assert(all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype)))
+=======
+    node_map = msprime.simplify_tables(samples=samples.astype(np.int32),
+                                       nodes=nodes,edges=edges,
+                                       sites=sites,
+                                       mutations=mutations)
+    assert all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype))
+>>>>>>> master
     return nodes,edges,sites,mutations
 ```
 
@@ -697,10 +771,17 @@ def wf3(N, ngens, theta, rho, gc):
             lookup = {i:True for i in sites.position}
             next_offspring_index = len(nodes)
             first_parental_index = 0
+<<<<<<< HEAD
             assert(all(nodes.time[:2*N] == 0.0))
         else:
             first_parental_index = next_offspring_index - 2*N
             assert(first_parental_index == len(nodes)+len(temp_nodes)-2*N)
+=======
+            assert all(nodes.time[:2*N] == 0.0)
+        else:
+            first_parental_index = next_offspring_index - 2*N
+            assert first_parental_index == len(nodes)+len(temp_nodes)-2*N
+>>>>>>> master
             
         parents = np.random.randint(0, N, 2*N)
         for parent1, parent2 in zip(parents[::2], parents[1::2]):
@@ -771,13 +852,22 @@ np.random.seed(42)
 n, e, s, m = wf3(100,1000,100.0,100.0,500)
 ```
 
+<<<<<<< HEAD
     CPU times: user 3.7 s, sys: 71.4 ms, total: 3.77 s
     Wall time: 3.78 s
+=======
+    CPU times: user 2.94 s, sys: 34 ms, total: 2.98 s
+    Wall time: 2.98 s
+>>>>>>> master
 
 
 ### Invariance to the simplification interval
 
+<<<<<<< HEAD
 Let's test the sensitivity to the GC interval.  We're going to *warn* if difference GC intervals give different results and not assert that they do.  We'll exlpain why in the technical notes section below.
+=======
+Let's test the sensitivity to the GC interval.  We're going to *warn* if difference GC intervals give different results and not assert that they do.  We'll explain why in the technical notes section below.
+>>>>>>> master
 
 
 ```python
@@ -805,7 +895,11 @@ Our mutation scheme of continuous mutation positions on a specific interval woul
 * Define genomic regions as integers of intervals, $R \in {0, 1, 2, \ldots, L-1}$, where $L$ is the region length.
 * Use functions designed to sample from ranges of integers to generate mutation positions.  For example, [`np.random.randint`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html).
 
+<<<<<<< HEAD
 The introduction of mutations into the simulation creates a condition where the final output can depend on how often we simplify.  This differs from the case of simply simulating segregation and recombiantion events.  The reason is that the final results of a simululation can only be identical if the same random number seed is used and if all accesses to the random number generator (RNG) occur in the same order.  (For example, if you mutate then recombine, you'll get a different result from recombining before mutating.)  When simulating mutations using our infinitely-many sites scheme, the contents of `lookup` depends on the GC interval. For example, we may draw a new mutation position and reject it (because it is already in `lookup`) with one GC interval, but accept it with another GC interval (becuase that lineage is removed during simplification, making that position a candidate mutation target again). For models with reversible mutation, a simulation may as if a back mutation happens on a lineage that would not exist ("simplified out") with a different GC interval.  When things like this happen, the context of subsequent RNG accesses will differ, and thus node/edge/site/mutation data are very likely to differ. Note that this is not a bug, and results will be correct *in distribution* (well, should be--you do need to test that, too!).  Rather, it is a subtlety to keep in mind when implementing and testing simulations.
+=======
+**Gotcha:** The introduction of mutations into the simulation creates a condition where the final output can depend on how often we simplify.  This differs from the case of simply simulating segregation and recombination events.  The reason is that the final results of a simululation can only be identical if the same random number seed is used and if all accesses to the random number generator (RNG) occur in the same order.  (For example, if you mutate then recombine, you'll get a different result from recombining before mutating.)  When simulating mutations using our infinitely-many sites scheme, the contents of `lookup` depends on the GC interval. For example, we may draw a new mutation position and reject it (because it is already in `lookup`) with one GC interval, but accept it with another GC interval (because that lineage is removed during simplification, making that position a candidate mutation target again). For models with reversible mutation, a simulation may accept a back mutation on a lineage that would not exist ("simplified out") with a different GC interval.  When things like this happen, the context of subsequent RNG accesses will differ, and thus node/edge/site/mutation data are very likely to differ. Note that this is not a bug, and results will be correct *in distribution* (well, should be--you do need to test that, too!).  Rather, it is a subtlety to keep in mind when implementing and testing simulations.
+>>>>>>> master
 
 (The fact that the above code raises no warnings is because we've done relatively few simulations with a small population size and a low mutation rate.)
 
@@ -813,6 +907,15 @@ It is desirable, for testing purposes if nothing else, to have the final nodes/e
 
 
 ```python
+<<<<<<< HEAD
+=======
+# This is an example!!! In practice,
+# do not use the same seeds for the two 
+# instances, as it may induce auto-correlations
+# between your nodes/edges and mutations.
+# Always check your results against theoretical
+# expectations!!!
+>>>>>>> master
 rng1 = np.random.RandomState(42)
 rng2 = np.random.RandomState(42)
 print(rng1.random_sample(2),rng2.random_sample(2))
@@ -823,7 +926,11 @@ print(rng1.random_sample(2),rng2.random_sample(2))
 
 All of numpy's random number distributions are in fact members of `numpy.random.RandomState`.  Our functions could be modified to take an instance of this type as an argument.  Done properly ("exercise for the reader"), the final nodes and edges would be the same for any GC interval, but the final Site/Mutation Tables would not be.
 
+<<<<<<< HEAD
 The same trick of using two RNG objects would also apply in other languages.
+=======
+The same trick of using two RNG objects would also apply in other languages.  It is also important to note that this issue of the results depending on the GC interval depends on the coupling of `lookup` to the contents of the `SiteTable`.  When using other simulation engines, such as [fwdpp](https://github.com/molpopgen/fwdpp), the lookup table is updated each generation using that library's functionality, which uncouples the book-keeping from the simplification, and the results will be invariant to the GC interval.
+>>>>>>> master
 
 ### Summary
 * Our simplification function is getting more complex and taking more arguments. We would benefit from encapsulating much of the functionality for simplification into a class. 
@@ -847,7 +954,11 @@ p.set(xlabel="Number of roots",ylabel="Number");
 ```
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_53_0.svg)
+=======
+![svg](wfforward_files/wfforward_54_0.svg)
+>>>>>>> master
 
 
 Most of our trees have one root, but a handful have two.  What is happening is that even though we simulated for $10N$ generations, and $E[TMRCA]=4N$, the variance is pretty big, such that some marginal trees are not completely coalesced.  Let's take a look at the distribution of TMRCA using msprime:
@@ -864,7 +975,11 @@ p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 ```
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_55_0.svg)
+=======
+![svg](wfforward_files/wfforward_56_0.svg)
+>>>>>>> master
 
 
 So, some fraction of marginal trees have *very* large TMRCA! 
@@ -914,7 +1029,11 @@ p.set(xlabel='Node time');
 ```
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_59_0.svg)
+=======
+![svg](wfforward_files/wfforward_60_0.svg)
+>>>>>>> master
 
 
 It is straightforward to update our simulation to start with a history from `msprime`:
@@ -958,10 +1077,17 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
             lookup = {i:True for i in sites.position}
             next_offspring_index = len(nodes)
             first_parental_index = 0
+<<<<<<< HEAD
             assert(all(nodes.time[:2*N] == 0.0))
         else:
             first_parental_index = next_offspring_index - 2*N
             assert(first_parental_index == len(nodes)+len(temp_nodes)-2*N)
+=======
+            assert all(nodes.time[:2*N] == 0.0)
+        else:
+            first_parental_index = next_offspring_index - 2*N
+            assert first_parental_index == len(nodes)+len(temp_nodes)-2*N
+>>>>>>> master
             
         parents = np.random.randint(0, N, 2*N)
         for parent1, parent2 in zip(parents[::2], parents[1::2]):
@@ -1047,7 +1173,11 @@ SVG(ts.first().draw(width=600, height=500))
 
 
 
+<<<<<<< HEAD
 ![svg](wfforward_files/wfforward_65_0.svg)
+=======
+![svg](wfforward_files/wfforward_66_0.svg)
+>>>>>>> master
 
 
 
@@ -1093,9 +1223,15 @@ for mi in m:
     pnode_time = None
     if len(node_index) != 0:
         pnode_time = n[e[node_index[0]].parent].time
+<<<<<<< HEAD
         assert(age < pnode_time)
     print(x.pos, node_time, age, pnode_time)
     assert(age > node_time)
+=======
+        assert age < pnode_time
+    print(x.pos, node_time, age, pnode_time)
+    assert age > node_time
+>>>>>>> master
 ```
 
     0.221962833876 311.0 831 None
@@ -1109,6 +1245,10 @@ for mi in m:
 
 For many standard modeling scenarios, it is straightforward to start the forward simulation with a set of nodes and edges generated by a coalescent simulation.  However, it is important to recognize that this approach does not easily generalize.  If your forward simulation involves complex demographic and/or life history scenarios, then it is very likely that its effective population size is quite different from that assumed by Kingman's coalescent or that an $N_e$ simply does not exist for your model.  For the former case, it is possible (in an "on paper" sense) to generate an initial history under the correct model, and doing so may require a custom coalescent simulation.  For the latter scenario, where no sensible definition of $N_e$ holds, you may simply have to simulate longer, and implement a check after simulating for a certain length of time that each marginal tree has a single root.
 
+<<<<<<< HEAD
 We have only shown very simple examples of seeding with trees.  It is completely possible to seed a forward simulation with an `msprime.TreeSequence` generated under a model of population structure with unequal effective sizes, asymmetric migration, and change in effective sizes in each deme over time.  We leave that as an excercise for the reader...
 
 **Detail:** Readers familiar with `msprime` will note that, although the time units of the input `TreeSequence` are generations, that the input times are not all integer values.  That seems to be "fine", in the sense that we've done a lot of testing of simulation output and things are turning out as we expect them to.
+=======
+We have only shown very simple examples of seeding with trees.  It is completely possible to seed a forward simulation with an `msprime.TreeSequence` generated under a model of population structure with unequal effective sizes, asymmetric migration, and change in effective sizes in each deme over time.  We leave that as an exercise for the reader...
+>>>>>>> master
