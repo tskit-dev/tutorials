@@ -3,20 +3,20 @@
 
 This tutorial implements a Wright-Fisher simulation with mutation and recombination using [Cython](http://www.cython.org).  Cython is two things:
 
-* A grammer/dialect of Python that allows static typing Python and of C/C++ types.
-* A static compiler to turn the Cython grammer in to C or C++ code to compile into a Python extension module.
+* A gammar/dialect of Python that allows static typing Python and of C/C++ types.
+* A static compiler to turn the Cython gammar in to C or C++ code to compile into a Python extension module.
 
 Cython has a learning curve of its own. A lot of what is shown below reflects best practices.  For those, we refer you to the [Cython documentation](https://cython.readthedocs.io/en/latest/).
 
-Here, we avoid all use of [numpy](http://www.numpy.org) until we have to talk to [msprime](http://msprime.readthedocs.io).  We replace all numpy functionality with the equivalent routines from the C++11 standard library or the excellent GNU Scientific Library, or [GSL](https://www.gnu.org/software/gsl/doc/html/index.html). Yes, numpy is fast!  Numpy is written in C!  But, numpy has to talk back and forth to Python, meaning we can out-perform it by writing routines that execute completely on the C/C++ side.
+In Python, we would use numpy for random number generation and fast access/manipulation of numeric vectors.  As fast as numpy is, it has to talk back and forth to Python, meaning we can outperform it by writing code that executes solely on the C/C++ side.  In order to do so, we make use of the C++ standard library and the excellent GNU Scientific Library.
 
 This example is closer to reality for those working in lower-level languages.  First, we must build our world, which means defining data types (a C++ class in this case) and functions acting on those types.  After all that, we can code up the `simplify` and `evolve` functions. Such is the price of speed.
 
-Here, we use C++ rather than C so that we don't have to worry about memory management and error handling.  Cython will nicely convert and C++ exception into a Python exception, meaning that one big `try/execept` block is sufficient to not leak memory for our `gsl_rng` object.
+Here, we use C++ rather than C so that we don't have to worry about memory management and error handling.  Cython will nicely convert any C++ exception into a Python exception, meaning that one big `try/execept` block is sufficient to not leak memory for our `gsl_rng` object.
 
 However, Cython does not allow *idiomatic* C++ to be written.  We do not have access to all C++11 syntax and concepts, nor do we have access to a fully const-correct grammar.  Cython is a "C first" tool, and the limited C++ support is simply a fact of life.
 
-This example is conceptually idential to previous Python examples.  It does the following:
+This example is conceptually identical to previous Python examples.  It does the following:
 
 * Model mutations according to an infinitely-many sites scheme
 * Model recombination as a uniform Poisson process
@@ -38,7 +38,7 @@ The Cython cell magic directs Cython to generate C++ code and compile is using t
     
 The following code block is long.  The length is unavoidable, as the `cdef` functions are only accessible to C++, and therefore they must be in the same scope as our `evolve` function.
 
-We use [struct.pack](https://docs.python.org/3/library/struct.html) to encode mutation metadata.  It is much faster than pickling. The metadata we record is the mutation position, generation when it first arose, and the node ID on which it first arose.  A "real-world" simulation would probably record effect sizes and other interesting things.
+We use [struct.pack](https://docs.python.org/3/library/struct.html) to encode mutation metadata.  It is much faster than pickling, and portable across languages because it is equivalent to writing the raw bits to a character string. The metadata we record is the mutation position, generation when it first arose, and the node ID on which it first arose.  A "real-world" simulation would probably record effect sizes and other interesting things.
 
 
 ```cython
@@ -340,14 +340,14 @@ def evolve(int N, int ngens, double theta, double rho, int gc, int seed):
 evolve(1000,20000,100,100,603,42)
 ```
 
-    CPU times: user 26.2 s, sys: 2.08 s, total: 28.3 s
-    Wall time: 28.3 s
+    CPU times: user 26.2 s, sys: 2.18 s, total: 28.4 s
+    Wall time: 28.5 s
 
 
 
 
 
-    <msprime.trees.TreeSequence at 0x105e5fcf8>
+    <msprime.trees.TreeSequence at 0x10b50eef0>
 
 
 
@@ -430,8 +430,8 @@ for i in msprime.simulate(10,mutation_rate=100.0/4.0,
                                       ps.hprime(),ps.rm()))
 ```
 
-    CPU times: user 3.26 s, sys: 7.28 ms, total: 3.26 s
-    Wall time: 3.26 s
+    CPU times: user 3.19 s, sys: 7.86 ms, total: 3.2 s
+    Wall time: 3.19 s
 
 
 To run the forward simulations, we will use multiple Python processes via Python 3's [`concurrent.futures`](https://docs.python.org/3/library/concurrent.futures.html) library. The short of it is that we need a Python function to send out to different processes and return results, which will be pickled into a future back in the main process.
@@ -470,8 +470,8 @@ print(x)
 ```
 
     [SummStats(S=226, pi=74.28888888888902, D=-0.3499577299573632, hprime=-0.15240332105445048, rmin=17)]
-    CPU times: user 13.1 s, sys: 1.28 s, total: 14.3 s
-    Wall time: 14.3 s
+    CPU times: user 13.2 s, sys: 1.4 s, total: 14.6 s
+    Wall time: 14.7 s
 
 
 In the next bit, we map our function into four separate processes.
@@ -491,8 +491,8 @@ with concurrent.futures.ProcessPoolExecutor(max_workers=4) as executor:
         fwd_sim_data.extend(fn)
 ```
 
-    CPU times: user 45.9 ms, sys: 173 ms, total: 219 ms
-    Wall time: 13min 28s
+    CPU times: user 46.9 ms, sys: 246 ms, total: 293 ms
+    Wall time: 13min 31s
 
 
 
