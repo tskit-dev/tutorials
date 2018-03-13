@@ -3,8 +3,8 @@
 
 This tutorial implements a Wright-Fisher simulation with mutation and recombination using [Cython](http://www.cython.org).  Cython is two things:
 
-* A gammar/dialect of Python that allows static typing Python and of C/C++ types.
-* A static compiler to turn the Cython gammar in to C or C++ code to compile into a Python extension module.
+* A grammar/dialect of Python that allows static typing Python and of C/C++ types.
+* A static compiler to turn the Cython grammar in to C or C++ code to compile into a Python extension module.
 
 Cython has a learning curve of its own. A lot of what is shown below reflects best practices.  For those, we refer you to the [Cython documentation](https://cython.readthedocs.io/en/latest/).
 
@@ -340,14 +340,14 @@ def evolve(int N, int ngens, double theta, double rho, int gc, int seed):
 evolve(1000,20000,100,100,603,42)
 ```
 
-    CPU times: user 26.2 s, sys: 2.18 s, total: 28.4 s
-    Wall time: 28.5 s
+    CPU times: user 26 s, sys: 1.78 s, total: 27.8 s
+    Wall time: 27.8 s
 
 
 
 
 
-    <msprime.trees.TreeSequence at 0x10b50eef0>
+    <msprime.trees.TreeSequence at 0x116e5cfd0>
 
 
 
@@ -430,8 +430,8 @@ for i in msprime.simulate(10,mutation_rate=100.0/4.0,
                                       ps.hprime(),ps.rm()))
 ```
 
-    CPU times: user 3.19 s, sys: 7.86 ms, total: 3.2 s
-    Wall time: 3.19 s
+    CPU times: user 3.2 s, sys: 10.1 ms, total: 3.21 s
+    Wall time: 3.21 s
 
 
 To run the forward simulations, we will use multiple Python processes via Python 3's [`concurrent.futures`](https://docs.python.org/3/library/concurrent.futures.html) library. The short of it is that we need a Python function to send out to different processes and return results, which will be pickled into a future back in the main process.
@@ -470,8 +470,8 @@ print(x)
 ```
 
     [SummStats(S=226, pi=74.28888888888902, D=-0.3499577299573632, hprime=-0.15240332105445048, rmin=17)]
-    CPU times: user 13.2 s, sys: 1.4 s, total: 14.6 s
-    Wall time: 14.7 s
+    CPU times: user 13 s, sys: 1.13 s, total: 14.2 s
+    Wall time: 14.2 s
 
 
 In the next bit, we map our function into four separate processes.
@@ -491,8 +491,8 @@ with concurrent.futures.ProcessPoolExecutor(max_workers=4) as executor:
         fwd_sim_data.extend(fn)
 ```
 
-    CPU times: user 46.9 ms, sys: 246 ms, total: 293 ms
-    Wall time: 13min 31s
+    CPU times: user 59.3 ms, sys: 342 ms, total: 401 ms
+    Wall time: 14min 25s
 
 
 
