@@ -1,4 +1,20 @@
 
+# Introgression 
+
+**Jerome Kelleher and Konrad Lohse**
+
+There has been great interest in understanding the contributions past populations have made to the genetic diversity of current populations via admixture. In particular, the availability of whole genome sequence data from archaic hominins (Green et al 2010) has allowed geneticists to identify admixture tracks (Sankararaman 2016). In the simplest case, admixture tracts can be defined heuristically as regions of the genome that show excessive similarity between a putative source and a recipient population (usually quantified relative to some non-admixted reference population, ref Durand et al 2010). Because recombination breaks down admixture tracts, their length distribution gives a clock for calibrating admixture and this information been used to date the admixure contributions Neanderthals and other archaic hominins have made to non-African humans (Sankararaman 2016) and to recontruct the admixture history between different modern human populations (ref).
+
+Crucially, the power to identify admixture depends on the relative time bewteen the admixture event and the earlier divergence between source and the recipient population: the shorter this interval, the harder it becomes to detect admixture. This is because ancestral material is increasingly likely to trace its ancestry back to the common ancestral population regardless of whether it has been involved in any recent admixture or not. In other words, it becomes increasingly difficult to distinguish between admixtjure from Incomplete lineage sorting (ILS).
+
+In the following section we use msprime simulations to ask what fraction of admixture tracts are identifyable as such. 
+
+To illustrate this, we simulate ancestral recombination graphs (ARGs) under a simple toy history of divergence and admixture which is loosely motivated by the demographic history of modern humans and Neandertals. As in previous sections, we will first examine properties of the ARG directly rather than use it to simulate mutations. We assume a minimal sample of a single (haploid) genome from a modern human population in African and Eurasia as well as an ancient Neandertal sample.
+
+Considering a rooted ARG, we want to distinguish three categories of segments: i) tracts actually involved in Neandertal admixture, ii) the subset of those tracts that coalesces in the Neandertal population and iii) segments at which Eurasians are more closely related to Neandertals than either are to Africans. This latter category must include all of ii) but also an additional set of short tracts that are due to incomplete lineage sorting (ILS). The last category is interesting because it is the only one that can be unambiguously detected in data (via derived mutations that are shared by Neandertals and Eurasians).
+
+First we set up a highly simplified demographic history of human neandertal demography and simulate a single chromosome of 100Mb length:
+
 
 ```python
 %matplotlib inline
@@ -13,20 +29,6 @@ import matplotlib.pyplot as plt
 
 from IPython.display import SVG
 ```
-
-# Introgression 
-
-There has been great interest in understanding the contributions past populations have made to the genetic diversity of current populations via admixture. In particular, the availability of whole genome sequence data from archaic hominins (Green et al 2010) has allowed geneticists to identify admixture tracks (Sankararaman 2016). In the simplest case, admixture tracts can be defined heuristically as regions of the genome that show excessive similarity between a putative source and a recipient population (usually quantified relative to some non-admixted reference population, ref Durand et al 2010). Because recombination breaks down admixture tracts, their length distribution gives a clock for calibrating admixture and this information been used to date the admixure contributions Neanderthals and other archaic hominins have made to non-African humans (Sankararaman 2016) and to recontruct the admixture history between different modern human populations (ref).
-
-Crucially, the power to identify admixture depends on the relative time bewteen the admixture event and the earlier divergence between source and the recipient population: the shorter this interval, the harder it becomes to detect admixture. This is because ancestral material is increasingly likely to trace its ancestry back to the common ancestral population regardless of whether it has been involved in any recent admixture or not. In other words, it becomes increasingly difficult to distinguish between admixtjure from Incomplete lineage sorting (ILS).
-
-In the following section we use msprime simulations to ask what fraction of admixture tracts are identifyable as such. 
-
-To illustrate this, we simulate ancestral recombination graphs (ARGs) under a simple toy history of divergence and admixture which is loosely motivated by the demographic history of modern humans and Neandertals. As in previous sections, we will first examine properties of the ARG directly rather than use it to simulate mutations. We assume a minimal sample of a single (haploid) genome from a modern human population in African and Eurasia as well as an ancient Neandertal sample.
-
-Considering a rooted ARG, we want to distinguish three categories of segments: i) tracts actually involved in Neandertal admixture, ii) the subset of those tracts that coalesces in the Neandertal population and iii) segments at which Eurasians are more closely related to Neandertals than either are to Africans. This latter category must include all of ii) but also an additional set of short tracts that are due to incomplete lineage sorting (ILS). The last category is interesting because it is the only one that can be unambiguously detected in data (via derived mutations that are shared by Neandertals and Eurasians).
-
-First we set up a highly simplified demographic history of human neandertal demography and simulate a single chromosome of 100Mb length:
 
 
 ```python

@@ -1,9 +1,17 @@
 
 # Bottlenecks
 
+**Konrad Lohse and Jerome Kelleher**
+
 The site frequency spectrum (SFS) summarises variants by their frequency in a sample and is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). First, the SFS is a lossless summary of unlinked variants, so any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, F_st, Tajima's D and D) are summaries of the SFS.
 
 The SFS is convenient analytically, because it only depends on the mean length and frequency of genealogical branches. For many demographic models of interest the means can be derived analytically either using coalescent theory (cite Huang, TPB) or diffusion equations (cite dadi). A number of composite likelihood approaches have been developed based on either analytic results for the SFS (cite dadi Excoffier, Jaada). However, analytic expectations for the SFS break down for large samples and/or complex demographic models. 
+
+In the following section we show how the SFS can be approximated using coalescence simulations and compare such approximations to analytic results. We will assume a simple toy history of a single panmictic population that is affected by an instaneous bottleneck at time T with strenght s (cite Galtier et al). The effect of this bottleneck is to induce sudden burst of coalescence, which simultaneous multiple merges. We measure bottleneck strength as the probability that a pair of lineages coalesces during the bottleneck (we could could of course convert s into on (imaginary) time period that would give the same probability of coalescence $s=1-e^{-T}$).
+
+We assume a sample of size 10 and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function bottSFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.
+
+We use a for loop to record the SFS for a range of bottleneck strengths parameters in a dictionary:
 
 
 ```python
@@ -14,12 +22,6 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 ```
-
-In the following section we show how the SFS can be approximated using coalescence simulations and compare such approximations to analytic results. We will assume a simple toy history of a single panmictic population that is affected by an instaneous bottleneck at time T with strenght s (cite Galtier et al). The effect of this bottleneck is to induce sudden burst of coalescence, which simultaneous multiple merges. We measure bottleneck strength as the probability that a pair of lineages coalesces during the bottleneck (we could could of course convert s into on (imaginary) time period that would give the same probability of coalescence s=1-e^-T).
-
-We assume a sample of size 10 and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function bottSFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.
-
-We use a for loop to record the SFS for a range of bottleneck strengths parameters in a dictionary:
 
 
 ```python
@@ -71,7 +73,7 @@ for s, B in datalist.items():
 ```
 
 
-![svg](bottlenecks_files/bottlenecks_5_0.svg)
+![svg](bottlenecks_files/bottlenecks_4_0.svg)
 
 
 ### Comparison with analytic predictions
@@ -96,7 +98,7 @@ plt.show()
 ```
 
 
-![svg](bottlenecks_files/bottlenecks_8_0.svg)
+![svg](bottlenecks_files/bottlenecks_7_0.svg)
 
 
 The analytic prediction for the SFS under a bottleneck model is more complicated (Bunnefeld et al. 2015, Appendix). For a sample of n=4 lineages the SFS is:
@@ -164,7 +166,7 @@ plt.show()
 
 
 
-![svg](bottlenecks_files/bottlenecks_13_1.svg)
+![svg](bottlenecks_files/bottlenecks_12_1.svg)
 
 
 ## The distribution of nton branches
@@ -196,7 +198,7 @@ sns.distplot(Btrans[3],axlabel="f(t)");
 ```
 
 
-![svg](bottlenecks_files/bottlenecks_17_0.svg)
+![svg](bottlenecks_files/bottlenecks_16_0.svg)
 
 
 ### To Do
