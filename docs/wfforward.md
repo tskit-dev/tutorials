@@ -1,6 +1,8 @@
 
 # Tracking the genealogy during forward simulation
 
+**Kevin Thornton**
+
 This tutorial will cover several use cases of `tskit` for forward simulations.  We start with a simple Wright-Fisher simulation with no selection and no recombination, and gradually increase the complexity of our examples until we are recording mutations, ancient samples, and associated meta-data.
 
 We will record all data using `tskit` machinery contained in `msprime`.  We will show how to periodically "garbage collect", which means apply the tree sequence simplification algorithm, at regular intervals, which keeps RAM use controlled.
@@ -160,7 +162,7 @@ SVG(ts.first().draw(width=600))
 
 
 
-![svg](wfforward_files/wfforward_12_0.svg)
+![svg](wfforward_files/wfforward_11_0.svg)
 
 
 
@@ -195,7 +197,7 @@ SVG(tree.draw(height=200, width=400, node_labels=labels))
 
 
 
-![svg](wfforward_files/wfforward_19_0.svg)
+![svg](wfforward_files/wfforward_18_0.svg)
 
 
 
@@ -212,7 +214,7 @@ p.set(xlabel="Input node ID",ylabel="Output node ID");
 ```
 
 
-![svg](wfforward_files/wfforward_21_0.svg)
+![svg](wfforward_files/wfforward_20_0.svg)
 
 
 The above figure is quite important: when we simplify with respect to the *last* generation simulated, those nodes become the *first* nodes in the simplified tables!  The reason is because our simplified tables represent time from the present to the past.  The implication is that our simple book-keeping of `next_offspring_index` and `first_parental_index` will be less simple when we apply the simplification step *during* a forward simulation instead of once at the end.
@@ -776,8 +778,8 @@ np.random.seed(42)
 n, e, s, m = wf3(100,1000,100.0,100.0,500)
 ```
 
-    CPU times: user 2.94 s, sys: 34 ms, total: 2.98 s
-    Wall time: 2.98 s
+    CPU times: user 3.32 s, sys: 47.7 ms, total: 3.37 s
+    Wall time: 3.39 s
 
 
 ### Invariance to the simplification interval
@@ -858,7 +860,7 @@ p.set(xlabel="Number of roots",ylabel="Number");
 ```
 
 
-![svg](wfforward_files/wfforward_54_0.svg)
+![svg](wfforward_files/wfforward_53_0.svg)
 
 
 Most of our trees have one root, but a handful have two.  What is happening is that even though we simulated for $10N$ generations, and $E[TMRCA]=4N$, the variance is pretty big, such that some marginal trees are not completely coalesced.  Let's take a look at the distribution of TMRCA using msprime:
@@ -875,7 +877,7 @@ p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 ```
 
 
-![svg](wfforward_files/wfforward_56_0.svg)
+![svg](wfforward_files/wfforward_55_0.svg)
 
 
 So, some fraction of marginal trees have *very* large TMRCA! 
@@ -925,7 +927,7 @@ p.set(xlabel='Node time');
 ```
 
 
-![svg](wfforward_files/wfforward_60_0.svg)
+![svg](wfforward_files/wfforward_59_0.svg)
 
 
 It is straightforward to update our simulation to start with a history from `msprime`:
@@ -1058,7 +1060,7 @@ SVG(ts.first().draw(width=600, height=500))
 
 
 
-![svg](wfforward_files/wfforward_66_0.svg)
+![svg](wfforward_files/wfforward_65_0.svg)
 
 
 
