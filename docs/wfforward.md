@@ -1,8 +1,6 @@
 
 # Tracking the genealogy during forward simulation
 
-**Kevin Thornton**
-
 This tutorial will cover several use cases of `tskit` for forward simulations.  We start with a simple Wright-Fisher simulation with no selection and no recombination, and gradually increase the complexity of our examples until we are recording mutations, ancient samples, and associated meta-data.
 
 We will record all data using `tskit` machinery contained in `msprime`.  We will show how to periodically "garbage collect", which means apply the tree sequence simplification algorithm, at regular intervals, which keeps RAM use controlled.
@@ -159,12 +157,7 @@ ts = msprime.load_tables(nodes=nodes,edges=edges)
 SVG(ts.first().draw(width=600))
 ```
 
-
-
-
 ![svg](wfforward_files/wfforward_11_0.svg)
-
-
 
 Each row in this figure corresponds to a generation, so that the nodes in the bottom row correspond to the currently alive population. We can see here that only node 4 from the original population has left any descendents in the present generation, and that the most recent common ancestor of the current population is 9. We can also see that there is a significant amount of redundancy in this representation, as there are many nodes and edges that do not contribute to the genealogy of the extant sample. The process of *simplification* removes this redundancy.
 
@@ -194,12 +187,7 @@ labels = {u: "{}->{}".format(inverse_map[u], u) for u in tree.nodes()}
 SVG(tree.draw(height=200, width=400, node_labels=labels))
 ```
 
-
-
-
 ![svg](wfforward_files/wfforward_18_0.svg)
-
-
 
 The simplified tree looks a lot more like a typical diagram of a coalescent history and it shows how the input node IDs map to the output node IDs.  
 
@@ -213,9 +201,7 @@ p = sns.regplot(x=samples,y=node_map[samples],fit_reg=False)
 p.set(xlabel="Input node ID",ylabel="Output node ID");
 ```
 
-
 ![svg](wfforward_files/wfforward_20_0.svg)
-
 
 The above figure is quite important: when we simplify with respect to the *last* generation simulated, those nodes become the *first* nodes in the simplified tables!  The reason is because our simplified tables represent time from the present to the past.  The implication is that our simple book-keeping of `next_offspring_index` and `first_parental_index` will be less simple when we apply the simplification step *during* a forward simulation instead of once at the end.
 
@@ -263,6 +249,7 @@ def simplify_nodes_edges(nodes,edges,temp_nodes,dt):
     # gap must equal 1
     gap = nodes.time.min()-t.max()
     assert gap==1
+
     # Append new nodes to old nodes, sort, simplify:
     nodes.append_columns(time=t,flags=temp_nodes.flags)
     msprime.sort_tables(nodes=nodes,edges=edges)
@@ -272,7 +259,6 @@ def simplify_nodes_edges(nodes,edges,temp_nodes,dt):
     
     # Assert that the plot shown in the previous section always holds true.
     assert all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype))
-
 ```
 
 Our new simulation will return a tuple of *simplified* nodes and edges:
@@ -612,8 +598,6 @@ for l,r,p in zip(brk[:len(brk)-1],brk[1:len(brk)],pg):
 
 
 We should also admit to a subtle error in our implementation.  We are only adding breakpoints to the list if they don't already exists.  Roughly, what this does is convert double crossovers (specifically, two identical breakpoints) into single crossovers.  The reason for this is that `msprime` will throw an error if `left==right` for an edge.  A correct implementation would simply remove all double crossovers at the same position.  The error is subtle enough that it is not noticeable for models of uniform recombination along a region, but this is not what should be used for "production" code.
-
-
 **End of gory details**
 
 
@@ -704,7 +688,7 @@ def wf3(N, ngens, theta, rho, gc):
             lookup = {i:True for i in sites.position}
             next_offspring_index = len(nodes)
             first_parental_index = 0
-            assert all(nodes.time[:2*N] == 0.0)
+        assert all(nodes.time[:2*N] == 0.0)
         else:
             first_parental_index = next_offspring_index - 2*N
             assert first_parental_index == len(nodes)+len(temp_nodes)-2*N
@@ -778,8 +762,8 @@ np.random.seed(42)
 n, e, s, m = wf3(100,1000,100.0,100.0,500)
 ```
 
-    CPU times: user 3.32 s, sys: 47.7 ms, total: 3.37 s
-    Wall time: 3.39 s
+    CPU times: user 2.94 s, sys: 34 ms, total: 2.98 s
+    Wall time: 2.98 s
 
 
 ### Invariance to the simplification interval
@@ -820,12 +804,6 @@ It is desirable, for testing purposes if nothing else, to have the final nodes/e
 
 
 ```python
-# This is an example!!! In practice,
-# do not use the same seeds for the two 
-# instances, as it may induce auto-correlations
-# between your nodes/edges and mutations.
-# Always check your results against theoretical
-# expectations!!!
 rng1 = np.random.RandomState(42)
 rng2 = np.random.RandomState(42)
 print(rng1.random_sample(2),rng2.random_sample(2))
@@ -876,9 +854,7 @@ p = sns.distplot(tmrca, kde=False)
 p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 ```
 
-
 ![svg](wfforward_files/wfforward_55_0.svg)
-
 
 So, some fraction of marginal trees have *very* large TMRCA! 
 
@@ -926,9 +902,7 @@ p=sns.distplot(ts.tables.nodes.time,kde=False)
 p.set(xlabel='Node time');
 ```
 
-
 ![svg](wfforward_files/wfforward_59_0.svg)
-
 
 It is straightforward to update our simulation to start with a history from `msprime`:
 
