@@ -9,6 +9,7 @@ These tutorials show how it is possible to write your own simulators
 using the ``tskit`` Tables API.
 
 - A simple forwards-time [Wright-Fisher](wfforward.md) simulator.
+- The simple Wright-Fisher example implemented using [Cython](wfcython.md)
 
 
 ## Advanced topics in coalescent simulation
