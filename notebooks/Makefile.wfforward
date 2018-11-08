@@ -17,7 +17,7 @@ reallyclean: clean
 	done
 
 %.output.ipynb: %.ipynb
-	python execute.py $< $@
+	python3 execute.py $< $@
 
 %.md: %.output.ipynb
 	# Set --output so that supporting
