@@ -759,8 +759,8 @@ np.random.seed(42)
 tc = wf3(100,1000,100.0,100.0,500)
 ```
 
-    CPU times: user 2.6 s, sys: 7.94 ms, total: 2.61 s
-    Wall time: 2.6 s
+    CPU times: user 2.48 s, sys: 11.9 ms, total: 2.49 s
+    Wall time: 2.49 s
 
 
 ### Invariance to the simplification interval
@@ -831,19 +831,17 @@ nroots=[]
 for i in ts.trees():
     nroots.append(i.num_roots)
 print(np.unique(nroots))
-p = sns.distplot(nroots, kde=False)
-p.set(xlabel="Number of roots",ylabel="Number");
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    p = sns.distplot(nroots, kde=False)
+    p.set(xlabel="Number of roots",ylabel="Number");
 ```
 
     [1 2]
 
 
-    /usr/lib/python3/dist-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
 
-
-
-![svg](wfforward_files/wfforward_53_2.svg)
+![svg](wfforward_files/wfforward_53_1.svg)
 
 
 Most of our trees have one root, but a handful have two.  What is happening is that even though we simulated for $10N$ generations, and $E[TMRCA]=4N$, the variance is pretty big, such that some marginal trees are not completely coalesced.  Let's take a look at the distribution of TMRCA using msprime:
@@ -855,8 +853,10 @@ sims=msprime.simulate(100,recombination_rate=25.0,random_seed=42,num_replicates=
 for sim in sims:
     for marginal in sim.trees():
         tmrca.append(marginal.get_time(marginal.get_root()))
-p = sns.distplot(tmrca, kde=False)
-p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    p = sns.distplot(tmrca, kde=False)
+    p.set(xlabel="TMRCA (units of N generations)",ylabel="Number");
 ```
 
 
@@ -903,8 +903,10 @@ Note that the node times are in generations:
 
 
 ```python
-p=sns.distplot(ts.tables.nodes.time,kde=False)
-p.set(xlabel='Node time');
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    p=sns.distplot(ts.tables.nodes.time,kde=False)
+    p.set(xlabel='Node time');
 ```
 
 
