@@ -1,7 +1,7 @@
 
 # Tracking the genealogy during forward simulation
 
-This tutorial will cover several use cases of `tskit` for forward simulations.  We start with a simple Wright-Fisher simulation with no selection and no recomination, and gradually increase the complexity of our examples until we are recording mutations, ancient samples, and associated meta-data.
+This tutorial will cover several use cases of `tskit` for forward simulations.  We start with a simple Wright-Fisher simulation with no selection and no recombination, and gradually increase the complexity of our examples until we are recording mutations, ancient samples, and associated meta-data.
 
 The code used here is written in Python3.  However, the logic will apply to a simulation written in any language where `tskit` is used for simplification.
 
@@ -104,8 +104,8 @@ def wf1(N, ngens):
     next_offspring_index = len(tc.nodes)
     first_parental_index = 0
     for gen in range(1,ngens+1):
-        assert(next_offspring_index == len(tc.nodes))
-        assert(first_parental_index == len(tc.nodes) - 2*N)
+        assert next_offspring_index == len(tc.nodes)
+        assert first_parental_index == len(tc.nodes) - 2*N
         # Pick 2N parents
         parents = np.random.randint(0, N, 2*N)
         for parent1, parent2 in zip(parents[::2], parents[1::2]):
@@ -260,7 +260,7 @@ def simplify_nodes_edges(tc, temp_nodes,dt):
     # range over generations), then
     # gap must equal 1
     gap = tc.nodes.time.min()-t.max()
-    assert(gap==1)
+    assert gap==1
     # Append new nodes to old nodes, sort, simplify:
     tc.nodes.append_columns(time=t,flags=temp_nodes.flags)
     tc.sort()
@@ -268,7 +268,7 @@ def simplify_nodes_edges(tc, temp_nodes,dt):
     node_map = tc.simplify(samples=samples.tolist())
     
     # Assert that the plot shown in the previous section always holds true.
-    assert(all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype)))
+    assert all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype))
 
 ```
 
@@ -326,7 +326,7 @@ def wf2(N, ngens, gc):
             # have been remapped to start at 0, which is the 
             # value of the first valid parent:
             first_parental_index = 0
-            assert(all(tc.nodes.time[:2*N] == 0.0))
+            assert all(tc.nodes.time[:2*N] == 0.0)
         else:
             # If we have NOT simplified the data, 
             # then we have appended 2N new nodes to the end of
@@ -342,7 +342,7 @@ def wf2(N, ngens, gc):
             # since the last simplification.  Thus, the sum of the
             # two NodeTables gives a second way to calculate
             # first_parental_index:
-            assert(first_parental_index == len(tc.nodes)+len(temp_nodes)-2*N)
+            assert first_parental_index == len(tc.nodes)+len(temp_nodes)-2*N
             
         # Pick 2N parents
         parents = np.random.randint(0, N, 2*N)
@@ -394,8 +394,8 @@ for i in range(2,1000,33):
     # starts with same random seed!
     np.random.seed(42)
     tc2 = wf2(100, 1000, i)
-    assert(tc.nodes == tc2.nodes)
-    assert(tc.edges == tc2.edges)
+    assert tc.nodes == tc2.nodes
+    assert tc.edges == tc2.edges
 ```
 
 **Pro tip**: testing your own code using loops like the one above is a very good way to identify subtle bugs in book-keeping.
@@ -631,7 +631,7 @@ def simplify_nodes_edges_mutations(tc,temp_nodes,temp_mutations,dt):
     t -= t.max()
     t *= -1.0
     gap = tc.nodes.time.min()-t.max()
-    assert(gap==1)
+    assert gap==1
     tc.nodes.append_columns(time=t,flags=temp_nodes.flags)
     samples = np.where(tc.nodes.time == 0.0)[0]
     
@@ -646,7 +646,7 @@ def simplify_nodes_edges_mutations(tc,temp_nodes,temp_mutations,dt):
     # Sort and simplify
     tc.sort()
     node_map = tc.simplify(samples=samples.tolist())
-    assert(all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype)))
+    assert all(node_map[samples] == np.arange(len(samples),dtype=node_map.dtype))
     return tc
 ```
 
@@ -687,10 +687,10 @@ def wf3(N, ngens, theta, rho, gc):
             lookup = {i:True for i in tc.sites.position}
             next_offspring_index = len(tc.nodes)
             first_parental_index = 0
-            assert(all(tc.nodes.time[:2*N] == 0.0))
+            assert all(tc.nodes.time[:2*N] == 0.0)
         else:
             first_parental_index = next_offspring_index - 2*N
-            assert(first_parental_index == len(tc.nodes)+len(temp_nodes)-2*N)
+            assert first_parental_index == len(tc.nodes)+len(temp_nodes)-2*N
             
         parents = np.random.randint(0, N, 2*N)
         for parent1, parent2 in zip(parents[::2], parents[1::2]):
@@ -759,8 +759,8 @@ np.random.seed(42)
 tc = wf3(100,1000,100.0,100.0,500)
 ```
 
-    CPU times: user 2.02 s, sys: 0 ns, total: 2.02 s
-    Wall time: 2.02 s
+    CPU times: user 2.6 s, sys: 7.94 ms, total: 2.61 s
+    Wall time: 2.6 s
 
 
 ### Invariance to the simplification interval
@@ -947,10 +947,10 @@ def wf4(N, ngens, theta, rho, gc, msprime_seed=42):
             lookup = {i:True for i in tc.sites.position}
             next_offspring_index = len(tc.nodes)
             first_parental_index = 0
-            assert(all(tc.nodes.time[:2*N] == 0.0))
+            assert all(tc.nodes.time[:2*N] == 0.0)
         else:
             first_parental_index = next_offspring_index - 2*N
-            assert(first_parental_index == len(tc.nodes)+len(temp_nodes)-2*N)
+            assert first_parental_index == len(tc.nodes)+len(temp_nodes)-2*N
             
         parents = np.random.randint(0, N, 2*N)
         for parent1, parent2 in zip(parents[::2], parents[1::2]):
@@ -1080,9 +1080,9 @@ for mi in ts.tables.mutations:
     pnode_time = None
     if len(node_index) != 0:
         pnode_time = ts.tables.nodes[ts.tables.edges[node_index[0]].parent].time
-        assert(age < pnode_time)
+        assert age < pnode_time
     print(x.pos, node_time, age, pnode_time)
-    assert(age > node_time)
+    assert age > node_time
 ```
 
     0.2219628338756796 311.0 831 None
