@@ -21,3 +21,7 @@ specific scenarios and how to analyse the resulting tree sequences.
 
 - Simulating [introgression](introgression.html) with msprime.
 - Simulating [bottlenecks](bottlenecks.html) with msprime
+
+## Slides from workshops, etc..
+
+- [Slides](msprime_out.md) from a workshop given by Kevin Thornton at UC Davis in December 2018.
