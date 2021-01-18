@@ -1,0 +1,27 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: Tskit Tutorial
+author: Tskit Developers
+# logo: logo.png
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: cache
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/tsk-dev/tutorials
+  branch: main
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
+
+only_build_toc_files: true
+
+parse:
+    myst_extended_syntax: true
