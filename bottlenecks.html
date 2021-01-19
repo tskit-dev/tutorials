@@ -92,31 +92,46 @@
   </a>
  </li>
 </ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Coalescent simulations with msprime
+ </span>
+</p>
 <ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="reference internal" href="msprime.html">
-   Advanced msprime topics
+ <li class="toctree-l1">
+  <a class="reference internal" href="demography.html">
+   Demography
   </a>
-  <ul class="current collapse-ul">
-   <li class="toctree-l2">
-    <a class="reference internal" href="demography.html">
-     Demography
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Bottlenecks
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="introgression.html">
-     Introgression
-    </a>
-   </li>
-  </ul>
-  <i class="fas fa-chevron-down">
-  </i>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Bottlenecks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="introgression.html">
+   Introgression
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Forward time simulations
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="forward_sims.html">
+   Forward simulations
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Development
+ </span>
+</p>
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="development.html">
    Development
@@ -266,8 +281,8 @@
 <p>We use a for loop to record the SFS for a range of bottleneck strengths parameters in a dictionary:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="kn">import</span> <span class="nn">msprime</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -278,7 +293,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_bott_sims</span><span class="p">(</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>    
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_bott_sims</span><span class="p">(</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>    
     <span class="n">demographic_events</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">msprime</span><span class="o">.</span><span class="n">InstantaneousBottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
     <span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
@@ -318,7 +333,7 @@
 <p>With increasing bottleneck strength the SFS becomes increasingly skewed (the leftmost blue bars show the SFS for a population of constant size). However, bottlenecks have a complex effect on the different frequency classes of the SFS: while the relative frequency of singletons increases, other frequency classes (e.g. doubletons) have a non-monotonic relationship with bottleneck strength:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bar_width</span><span class="o">=</span><span class="mf">0.2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bar_width</span><span class="o">=</span><span class="mf">0.2</span>
 <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_samp</span><span class="p">)</span>
 <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">datalist</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -327,13 +342,15 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/bottlenecks_4_0.svg" src="_images/bottlenecks_4_0.svg" /></div>
 </div>
 <div class="section" id="comparison-with-analytic-predictions">
 <h2>Comparison with analytic predictions<a class="headerlink" href="#comparison-with-analytic-predictions" title="Permalink to this headline">¶</a></h2>
 <p>How does the approximate SFS compare to analytic expectations? For a population of constant size, the SFS is simply given by Watterson’s correction factor, that is the total length branches with i leafnodes is given is 1/i. Reassuringly, in the limit of s=0 (no bottleneck), our SFS approximation based on simulated genealogies agrees with this prediction:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">expsfs</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="o">/</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expsfs</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="o">/</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
 <span class="n">expsfs</span><span class="o">/=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">expsfs</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -349,11 +366,13 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/bottlenecks_7_0.svg" src="_images/bottlenecks_7_0.svg" /></div>
 </div>
 <p>The analytic prediction for the SFS under a bottleneck model is more complicated (Bunnefeld et al. 2015, Appendix). For a sample of n=4 lineages the SFS is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#We are assuming a bottleneck of strength tau = 4 N_e generations </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#We are assuming a bottleneck of strength tau = 4 N_e generations </span>
 <span class="c1">#and a bottleneck time of T=1 (2 in units of 4 Ne)</span>
 <span class="c1">#I am pretty sure the analytic prediction for the SFS is correct: the limit mfor s-&gt;0 is correct and</span>
 <span class="c1">#itr matches the automatically generated expression in the Mathematica .nb...</span>
@@ -373,11 +392,19 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.54545455 0.27272727 0.18181818]
+[0.5644372  0.26717043 0.16839237]
+[0.57248098 0.26486068 0.16265835]
+[0.57559102 0.26396986 0.16043912]
+</pre></div>
+</div>
+</div>
 </div>
 <p>The fit between the SFS simulated with msprime and the analytic prediction is noty convincing (given the 100,000 replicates):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_samp</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_samp</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">num_rep</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">data4</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">T</span> <span class="o">=</span> <span class="mi">1</span>
@@ -389,7 +416,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">bar_width</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data4</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
@@ -405,6 +432,14 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.53883781 0.29012296 0.17103923]
+[0.58115956 0.24693164 0.17190881]
+[0.61025946 0.24221112 0.14752942]
+[0.65210157 0.23046165 0.11743678]
+</pre></div>
+</div>
+<img alt="_images/bottlenecks_12_1.svg" src="_images/bottlenecks_12_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="the-distribution-of-nton-branches">
@@ -412,7 +447,7 @@
 <p>Given that the SFS only depends on mean  branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">=</span><span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">=</span><span class="mi">1</span>
 <span class="n">demographic_events</span> <span class="o">=</span> <span class="p">[</span><span class="n">msprime</span><span class="o">.</span><span class="n">InstantaneousBottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
 <span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
     <span class="n">sample_size</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="n">Ne</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> 
@@ -430,13 +465,23 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Btrans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Btrans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">axlabel</span><span class="o">=</span><span class="s2">&quot;f(t)&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">axlabel</span><span class="o">=</span><span class="s2">&quot;f(t)&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">axlabel</span><span class="o">=</span><span class="s2">&quot;f(t)&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+</pre></div>
+</div>
+<img alt="_images/bottlenecks_16_1.svg" src="_images/bottlenecks_16_1.svg" /></div>
 </div>
 <div class="section" id="to-do">
 <h3>To Do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h3>
