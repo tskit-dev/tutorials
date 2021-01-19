@@ -1,4 +1,5 @@
 jupyter-book
 matplotlib
 numpy
-msprime>=1.0
+# Uncomment and update the workflow when 1.0 is released.
+# msprime>=1.0
