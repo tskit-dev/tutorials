@@ -25,7 +25,9 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        jupyter-book build -W -n --keep-going .
+        # would like to make the build more strict but we lose the ability to see
+        # the error logs if we don't deploy to gh-pages.
+        jupyter-book build .
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
