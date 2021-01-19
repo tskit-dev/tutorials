@@ -2,12 +2,28 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 #
 - file: intro
-- file: msprime
-  sections:
+
+# TODO splitting this up into parts to give room to grow
+# and make it clear where content should go
+# see https://jupyterbook.org/customize/toc.html
+
+
+
+- part: Coalescent simulations with msprime
+  # TODO this will be broken down more finely as we add more content[:w
+  chapters:
     - file: demography
     - file: bottlenecks
     - file: introgression
-- file: forward_sims
-  # TODO port/add forward simulation contents
 
-- file: development
+- part: Forward time simulations
+  # TODO port/add forward simulation contents
+  # What can we put in here?
+  chapters:
+    - file: forward_sims
+
+- part: Development
+  # TODO This would be a great place to put the general tskit development
+  # guidelines.
+  chapters:
+    - file: development
