@@ -4,6 +4,7 @@
 - file: intro
 - file: msprime
   sections:
+    - file: demography
     - file: bottlenecks
     - file: introgression
 - file: forward_sims

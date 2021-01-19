@@ -25,3 +25,12 @@ only_build_toc_files: true
 
 parse:
     myst_extended_syntax: true
+
+sphinx:
+    extra_extensions:
+    - sphinx.ext.todo
+    - sphinx.ext.intersphinx
+    config:
+      intersphinx_mapping:
+        tskit: ["https://tskit.readthedocs.io/en/stable", null]
+        msprime: ["https://tskit.dev/msprime/docs/", null]
