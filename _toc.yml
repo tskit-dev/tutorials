@@ -8,13 +8,13 @@
 # see https://jupyterbook.org/customize/toc.html
 
 
-
-- part: Coalescent simulations with msprime
+- part: Retrospective simulations
   # TODO this will be broken down more finely as we add more content[:w
   chapters:
     - file: demography
     - file: bottlenecks
     - file: introgression
+    - file: completing-forward-sims
 
 - part: Forward time simulations
   # TODO port/add forward simulation contents
