@@ -249,8 +249,8 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-record-the-initial-generation">
-   Why record the initial generation?
+  <a class="reference internal nav-link" href="#why-keep-input-roots-i-e-the-initial-generation">
+   Why keep input roots (i.e., the initial generation)?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -309,15 +309,14 @@ for a formal description of these properties):</p>
     <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">add_row</span><span class="p">()</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-    <span class="c1"># Mark the initial generation as samples so that we remember these nodes.</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">tskit</span><span class="o">.</span><span class="n">NODE_IS_SAMPLE</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">T</span>
     <span class="k">while</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">t</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="n">Pp</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-            <span class="n">u</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">Pp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -328,23 +327,17 @@ for a formal description of these properties):</p>
 
     <span class="c1"># Now do some table manipulations to ensure that the tree sequence</span>
     <span class="c1"># that we output has the form that msprime needs to finish the</span>
-    <span class="c1"># simulation. Much of the complexity here is caused by the tables API</span>
-    <span class="c1"># not allowing direct access to memory, which will change soon.</span>
+    <span class="c1"># simulation. (Note: table columns are not modified in place because the</span>
+    <span class="c1"># tables API does not currently allow direct access to memory.)</span>
 
-    <span class="c1"># Mark the extant population as samples also</span>
+    <span class="c1"># Mark the extant population as samples.</span>
     <span class="n">flags</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span>
     <span class="n">flags</span><span class="p">[</span><span class="n">P</span><span class="p">]</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NODE_IS_SAMPLE</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">flags</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="c1"># Simplify with respect to the current generation, but ensuring we keep the</span>
     <span class="c1"># ancient nodes from the initial population.</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
-    <span class="c1"># Unmark the initial generation as samples</span>
-    <span class="n">flags</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span>
-    <span class="n">time</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">time</span>
-    <span class="n">flags</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">flags</span><span class="p">[</span><span class="n">time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NODE_IS_SAMPLE</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">flags</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">keep_input_roots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -354,10 +347,10 @@ for a formal description of these properties):</p>
 for 5 generations, and print out the resulting trees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">num_loci</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">wf_ts</span> <span class="o">=</span> <span class="n">wright_fisher</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">num_loci</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">SVG</span><span class="p">(</span><span class="n">wf_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_loci</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">wf_ts</span> <span class="o">=</span> <span class="n">wright_fisher</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">num_loci</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">wf_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -367,12 +360,11 @@ for 5 generations, and print out the resulting trees:</p>
 <p>Because our Wright Fisher simulation ran for only 5 generations, there has not
 been enough time for the trees to fully coalesce. Therefore, instead of having
 one root, the trees have several — the first tree has 2 and the second 4.
-Nodes 0 to 9 in this simulation represent the initial population of the
-simulation, and so we can see that all samples in the first tree trace back
-to one of two individuals from the initial generation.
-These unary branches joining samples and coalesced subtrees to the nodes
-in the initial generation are essential as they allow use to correctly
-assemble the various fragments of ancestral material into chromosomes
+Nodes 16, 17, 18, and 19 in this simulation represent the members of the
+initial population of the simulation that have genetic descendants at the end
+of the simulation. These unary branches joining samples and coalesced subtrees
+to the nodes in the initial generation are essential as they allow use to
+correctly assemble the various fragments of ancestral material into chromosomes
 when creating the initial conditions for the coalescent simulation.
 (Please see the
 <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#sec-ancestry-initial-state" title="(in msprime v0.1)"><span class="xref std std-ref">msprime documentation</span></a>
@@ -381,17 +373,17 @@ required properties of input tree sequences.)</p>
 <p>The process of completing this tree sequence using a coalescent simulation
 begins by first examining the root segments on the input trees. We get the
 following segments:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
 </pre></div>
 </div>
-<p>where each segment is a <code class="docutils literal notranslate"><span class="pre">(left,</span> <span class="pre">right,</span> <span class="pre">node)</span></code> tuple. As nodes 0 and 7 are
-present in both trees, they have segments spanning both loci. Nodes 8 and 4 are
+<p>where each segment is a <code class="docutils literal notranslate"><span class="pre">(left,</span> <span class="pre">right,</span> <span class="pre">node)</span></code> tuple. As nodes 17 and 18 are
+present in both trees, they have segments spanning both loci. Nodes 16 and 19 are
 present only in the second tree, and so they have ancestral segments only for
 the second locus. Note that this means that we do <em>not</em> simulate the ancestry
 of the entire initial generation of the simulation, but rather the exact
 minimum that we need in order to complete the ancestry of the current
-generation. For instance, root <code class="docutils literal notranslate"><span class="pre">8</span></code> has not coalesced over the interval from
-<code class="docutils literal notranslate"><span class="pre">1.0</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code>, while root <code class="docutils literal notranslate"><span class="pre">0</span></code> has not coalesced over the entire segment
+generation. For instance, root <code class="docutils literal notranslate"><span class="pre">19</span></code> has not coalesced over the interval from
+<code class="docutils literal notranslate"><span class="pre">1.0</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code>, while root <code class="docutils literal notranslate"><span class="pre">17</span></code> has not coalesced over the entire segment
 from <code class="docutils literal notranslate"><span class="pre">0.0</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code>.</p>
 <p>We run the coalescent simulation to complete this tree sequence using the
 <code class="docutils literal notranslate"><span class="pre">initial_state</span></code> argument to <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a>. Because we have simulated a
@@ -401,13 +393,13 @@ Note that we set the <code class="docutils literal notranslate"><span class="pre
 is haploid and msprime uses a diploid time scale by default.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">coalesced_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-        <span class="n">population_size</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> 
-        <span class="n">initial_state</span><span class="o">=</span><span class="n">wf_ts</span><span class="p">,</span> 
-        <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">num_loci</span><span class="p">,</span> 
-        <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-    <span class="n">SVG</span><span class="p">(</span><span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coalesced_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="n">population_size</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> 
+    <span class="n">initial_state</span><span class="o">=</span><span class="n">wf_ts</span><span class="p">,</span> 
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">num_loci</span><span class="p">,</span> 
+    <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -416,24 +408,27 @@ is haploid and msprime uses a diploid time scale by default.</p>
 </div>
 <p>The trees have fully coalesced and we’ve successfully combined a forwards-time
 Wright-Fisher simulation with a coalescent simulation: hooray!</p>
-<div class="section" id="why-record-the-initial-generation">
-<h2>Why record the initial generation?<a class="headerlink" href="#why-record-the-initial-generation" title="Permalink to this headline">¶</a></h2>
-<p>We can now see why it is essential that the forwards simulator records the
-<em>initial</em> generation in a tree sequence that will later be used as a
+<div class="section" id="why-keep-input-roots-i-e-the-initial-generation">
+<h2>Why keep input roots (i.e., the initial generation)?<a class="headerlink" href="#why-keep-input-roots-i-e-the-initial-generation" title="Permalink to this headline">¶</a></h2>
+<p>We can now see why it is essential that we take care to preserve the roots of all
+trees when we simplified the tree sequence (by passing <code class="docutils literal notranslate"><span class="pre">keep_input_roots=True</span></code>),
+so that the initial generation can be properly used as the
 <code class="docutils literal notranslate"><span class="pre">initial_state</span></code> argument to <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a>. In the example above, if node
-<code class="docutils literal notranslate"><span class="pre">7</span></code> was not in the tree sequence, we would not know that the segment that
-node <code class="docutils literal notranslate"><span class="pre">20</span></code> inherits from on <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0)</span></code> and the segment that node <code class="docutils literal notranslate"><span class="pre">12</span></code>
-inherits from on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code> both exist in the same node (here, node <code class="docutils literal notranslate"><span class="pre">7</span></code>).</p>
-<p>However, note that although the intial generation (above, nodes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">4</span></code>,
-<code class="docutils literal notranslate"><span class="pre">7</span></code>, and <code class="docutils literal notranslate"><span class="pre">8</span></code>) must be in the tree sequence, they do <em>not</em> have to be
-samples. The easiest way to do this is to
-(a) retain the initial generation as samples throughout the forwards simulation
-(so they persist through <a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>), but then (b) before we output
-the final tree sequence, we remove the flags that mark them as samples,
-so that <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> does not simulate their entire history as well. This
-is the approach taken in the toy simulator provided above (although we skip
-the periodic <a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> steps which are essential
-in any practical simulation for simplicity).</p>
+<code class="docutils literal notranslate"><span class="pre">18</span></code> was not in the tree sequence, we would not know that the segment that
+node <code class="docutils literal notranslate"><span class="pre">10</span></code> inherits from on <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0)</span></code> and the segment that node <code class="docutils literal notranslate"><span class="pre">2</span></code>
+inherits from on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code> both exist in the same node.</p>
+<p>Note that although the portions of intial generation (above, nodes <code class="docutils literal notranslate"><span class="pre">16</span></code>, <code class="docutils literal notranslate"><span class="pre">17</span></code>,
+<code class="docutils literal notranslate"><span class="pre">18</span></code>, and <code class="docutils literal notranslate"><span class="pre">19</span></code>) must be in the tree sequence, they do <em>not</em> have to be
+samples, and their entire genomes need not be represented (e.g., node <code class="docutils literal notranslate"><span class="pre">19</span></code> is
+only present on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code>). This allows <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> to not simulate
+the entire history of the first generation, but only what is necessary to complete
+any uncoalesced trees. Happily, this is easily done with the <code class="docutils literal notranslate"><span class="pre">keep_input_roots</span></code> argument
+to <a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>. Note that this argument would need
+to be provided to the periodic <a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> steps
+which are essential in practical simulation, but that we skipped in the toy simulator above.</p>
+<p>In fact, this is precisely how tree sequence recording in <a class="reference external" href="https://messerlab.org/slim">SLiM</a>,
+works, and <a class="reference external" href="https://pyslim.readthedocs.io/en/stable/python_api.html#pyslim.SlimTreeSequence.recapitate" title="(in pyslim v0.501)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyslim.SlimTreeSequence.recapitate()</span></code></a> provides a front-end to
+the method presented here.</p>
 </div>
 <div class="section" id="topology-gotchas">
 <h2>Topology gotchas<a class="headerlink" href="#topology-gotchas" title="Permalink to this headline">¶</a></h2>
@@ -454,7 +449,7 @@ root node, you may overestimate the height because there is a unary edge
 above the “real” root (this would happen if one of the trees had already
 coalesced in the forwards-time simulation).</p></li>
 </ol>
-<p>For these reasons it is usually better to remove this redundancy from your
+<p>For these reasons it may be better to remove this redundancy from your
 computed tree sequence which is easily done using the
 <a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify</span></code></a> method:</p>
 <div class="cell docutils container">
@@ -468,7 +463,7 @@ computed tree sequence which is easily done using the
 <img alt="_images/completing-forward-sims_7_0.svg" src="_images/completing-forward-sims_7_0.svg" /></div>
 </div>
 <p>This final tree sequence is topologically identical to the original tree sequence,
-but has the redundant nodes and edges removed. Note also that he node IDs have been
+but has the redundant nodes and edges removed. Note also that the node IDs have been
 reassigned so that the samples are 0 to 9 — if you need the IDs from the original
 tree sequence, please set <code class="docutils literal notranslate"><span class="pre">map_nodes=True</span></code> when calling <code class="docutils literal notranslate"><span class="pre">simplify</span></code> to get a
 mapping between the two sets of IDs.</p>
