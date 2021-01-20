@@ -31,6 +31,7 @@ sphinx:
     - sphinx.ext.todo
     - sphinx.ext.intersphinx
     config:
+      todo_include_todos: true
       intersphinx_mapping:
         tskit: ["https://tskit.readthedocs.io/en/stable", null]
         msprime: ["https://tskit.dev/msprime/docs/", null]

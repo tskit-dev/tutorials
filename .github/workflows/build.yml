@@ -24,10 +24,7 @@ jobs:
         pip install -r requirements.txt
     # Build the book
     - name: Build the book
-      run: |
-        # would like to make the build more strict but we lose the ability to see
-        # the error logs if we don't deploy to gh-pages.
-        jupyter-book build .
+      run: ./build.sh
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action

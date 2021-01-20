@@ -27,17 +27,14 @@ Considering a rooted ARG, we want to distinguish three categories of segments: i
 
 +++
 
-First we set up a highly simplified demographic history of human neandertal demography and simulate a single chromosome of 100Mb length:
+First we set up a highly simplified demographic history of human neandertal demography and simulate a single chromosome of 20Mb length:
 
 ```{code-cell} ipython3
-%matplotlib inline
-%config InlineBackend.figure_format = 'svg'
 import random
 import collections
 import msprime
 import numpy as np
 import seaborn as sns
-import multiprocessing
 import matplotlib.pyplot as plt
 
 from IPython.display import SVG
@@ -52,7 +49,7 @@ def run_simulation(random_seed=None):
     ts = msprime.simulate(
         Ne=10**4,  # The same for all populations; highly unrealistic!
         recombination_rate=1e-8,
-        length=100*10**6,  # 100 Mb
+        length=20 * 10**6,  
         samples=[
             msprime.Sample(time=0, population=AFR),
             msprime.Sample(time=0, population=EUR),
@@ -170,6 +167,10 @@ Plotting these tract lengths for a single replicate shows that, as expected, adm
 ## Locating mutations
 
 We are interested in finding the population in which mutations arose. Because mutations are just associated with a specific tree node in msprime, we must simulate some extra information in order to make this question answerable. This is quite straightforward to do, since we can generate a time for each mutation uniformly along a branch and therefore unambiguously locate it time (and, therefore, space).
+
+```{todo}
+We don't need to simulate times any more
+```
 
 ```{code-cell} ipython3
 def simulate_mutation_times(ts, random_seed=None):
