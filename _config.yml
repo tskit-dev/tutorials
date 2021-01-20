@@ -35,3 +35,4 @@ sphinx:
       intersphinx_mapping:
         tskit: ["https://tskit.readthedocs.io/en/stable", null]
         msprime: ["https://tskit.dev/msprime/docs/", null]
+        pyslim: ["https://pyslim.readthedocs.io/en/stable", null]
