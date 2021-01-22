@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Completing forwards simulations &#8212; Tskit Tutorial</title>
+    <title>Completing forwards simulations &#8212; Tskit Tutorials</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -77,7 +77,7 @@
 <a class="navbar-brand text-wrap" href="index.html">
   
   
-  <h1 class="site-logo" id="site-title">Tskit Tutorial</h1>
+  <h1 class="site-logo" id="site-title">Tskit Tutorials</h1>
   
 </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -94,7 +94,24 @@
 </ul>
 <p class="caption collapsible-parent">
  <span class="caption-text">
-  Retrospective simulations
+  Using tskit
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started with tskit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
+   Data structures
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Backward time simulations
  </span>
 </p>
 <ul class="current nav sidenav_l1">
@@ -288,7 +305,7 @@ simulation of the ancient past using <code class="docutils literal notranslate">
 “recapitation”, as we can think of it as adding a “head” onto a tree sequence.)</p>
 <p>First, we define a simple Wright-Fisher simulator which returns a tree sequence
 with the properties that we require (please see the
-<a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#sec-ancestry-initial-state" title="(in msprime v0.1)"><span class="xref std std-ref">msprime documentation</span></a>
+<a class="reference external" href="https://tskit.dev/msprime/docs/latest/ancestry.html#sec-ancestry-initial-state" title="(in Python)"><span class="xref std std-ref">msprime documentation</span></a>
 for a formal description of these properties):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -367,7 +384,7 @@ to the nodes in the initial generation are essential as they allow use to
 correctly assemble the various fragments of ancestral material into chromosomes
 when creating the initial conditions for the coalescent simulation.
 (Please see the
-<a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#sec-ancestry-initial-state" title="(in msprime v0.1)"><span class="xref std std-ref">msprime documentation</span></a>
+<a class="reference external" href="https://tskit.dev/msprime/docs/latest/ancestry.html#sec-ancestry-initial-state" title="(in Python)"><span class="xref std std-ref">msprime documentation</span></a>
 for for more details on the
 required properties of input tree sequences.)</p>
 <p>The process of completing this tree sequence using a coalescent simulation
@@ -386,7 +403,7 @@ generation. For instance, root <code class="docutils literal notranslate"><span 
 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code>, while root <code class="docutils literal notranslate"><span class="pre">17</span></code> has not coalesced over the entire segment
 from <code class="docutils literal notranslate"><span class="pre">0.0</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code>.</p>
 <p>We run the coalescent simulation to complete this tree sequence using the
-<code class="docutils literal notranslate"><span class="pre">initial_state</span></code> argument to <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a>. Because we have simulated a
+<code class="docutils literal notranslate"><span class="pre">initial_state</span></code> argument to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a>. Because we have simulated a
 two locus system with a recombination rate of <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">num_loci</span></code> per generation
 in the Wright-Fisher model, we want to use the same system in the coalescent simulation.
 Note that we set the <code class="docutils literal notranslate"><span class="pre">ploidy</span></code> argument to 1 here because our forward time simulation
@@ -413,14 +430,14 @@ Wright-Fisher simulation with a coalescent simulation: hooray!</p>
 <p>We can now see why it is essential that we take care to preserve the roots of all
 trees when we simplified the tree sequence (by passing <code class="docutils literal notranslate"><span class="pre">keep_input_roots=True</span></code>),
 so that the initial generation can be properly used as the
-<code class="docutils literal notranslate"><span class="pre">initial_state</span></code> argument to <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a>. In the example above, if node
+<code class="docutils literal notranslate"><span class="pre">initial_state</span></code> argument to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a>. In the example above, if node
 <code class="docutils literal notranslate"><span class="pre">18</span></code> was not in the tree sequence, we would not know that the segment that
 node <code class="docutils literal notranslate"><span class="pre">10</span></code> inherits from on <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0)</span></code> and the segment that node <code class="docutils literal notranslate"><span class="pre">2</span></code>
 inherits from on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code> both exist in the same node.</p>
 <p>Note that although the portions of intial generation (above, nodes <code class="docutils literal notranslate"><span class="pre">16</span></code>, <code class="docutils literal notranslate"><span class="pre">17</span></code>,
 <code class="docutils literal notranslate"><span class="pre">18</span></code>, and <code class="docutils literal notranslate"><span class="pre">19</span></code>) must be in the tree sequence, they do <em>not</em> have to be
 samples, and their entire genomes need not be represented (e.g., node <code class="docutils literal notranslate"><span class="pre">19</span></code> is
-only present on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code>). This allows <a class="reference external" href="https://tskit.dev/msprime/docs/ancestry.html#msprime.sim_ancestry" title="(in msprime v0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> to not simulate
+only present on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code>). This allows <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> to not simulate
 the entire history of the first generation, but only what is necessary to complete
 any uncoalesced trees. Happily, this is easily done with the <code class="docutils literal notranslate"><span class="pre">keep_input_roots</span></code> argument
 to <a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>. Note that this argument would need
@@ -519,7 +536,7 @@ mapping between the two sets of IDs.</p>
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

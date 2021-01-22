@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Development &#8212; Tskit Tutorials</title>
+    <title>Getting started with tskit &#8212; Tskit Tutorials</title>
     
   <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -56,7 +56,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Forward simulations" href="forward_sims.html" />
+    <link rel="next" title="Data structures" href="data_structures.html" />
+    <link rel="prev" title="Introduction" href="intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -96,9 +97,9 @@
   Using tskit
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Getting started with tskit
   </a>
  </li>
@@ -152,9 +153,9 @@
   Development
  </span>
 </p>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="development.html">
    Development
   </a>
  </li>
@@ -196,9 +197,12 @@
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        
+        <a class="dropdown-buttons"
+            href="_sources/getting_started.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/development.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/getting_started.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -218,7 +222,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tsk-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fdevelopment.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tsk-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fgetting_started.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -234,10 +238,56 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/tsk-dev/tutorials/main?urlpath=tree/getting_started.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-trees">
+   Processing trees
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-mutations">
+   Processing mutations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compute-statistics">
+   Compute statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exporting-data">
+   Exporting data
+  </a>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -246,11 +296,162 @@
         
               <div>
                 
-  <div class="section" id="development">
-<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Add content for helping developers to add more tutorials.</p>
+  <div class="section" id="getting-started-with-tskit">
+<span id="sec-tskit-getting-started"></span><h1>Getting started with tskit<a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">¶</a></h1>
+<p>You’ve run some simulations or inference methods, and you now have a
+<a class="reference external" href="https://tskit.readthedocs.io/en/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tskit.TreeSequence</span></code></a> object; what now? This tutorial is aimed
+users who are new to <strong class="program">tskit</strong> and would like to get some
+basic tasks completed. We’ll look at four fundamental things you might
+need to do, and provide some pointers to where you can learn more.</p>
+<p>First, let’s simulate an example tree sequence using <a class="reference external" href="https://tskit.dev/msprime">msprime</a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+ 
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="mi">20</span><span class="p">,</span>
+    <span class="n">population_size</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+    <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">,</span>
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>   
+<span class="n">ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+  <style>
+    .tskit-table thead tr th {text-align: left;}
+    .tskit-table tbody tr td:first-of-type {text-align: left;}
+    .tskit-details-label {vertical-align: top; padding-right:5px;}
+    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+    .tskit-table-set-table {margin: 12px 0 0 12px;}
+    details {display: inline-block;}
+    summary {cursor: pointer; outline: 0; display: list-item;}
+  </style>
+  <div class="tskit-table-set">
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="padding:0;line-height:21px;">
+              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;"src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+              <a target="_blank" href="https://tskit.readthedocs.io/en/latest/python-api.html#the-treesequence-class"> Tree Sequence
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Trees</td><td>1416</td></tr>
+          <tr><td>Sequence Length</td><td>1000000.0</td></tr>
+          <tr><td>Sample Nodes</td><td>40</td></tr>
+          <tr><td>Total Size</td><td>197.3 KiB</td></tr>
+          <tr>
+            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="line-height:21px;">Table</th>
+            <th>Rows</th>
+            <th>Size</th>
+            <th>Has Metadata</th>
+          </tr>
+        </thead>
+        <tbody>
+
+      <tr>
+        <td>Edges</td>
+          <td>4872</td>
+          <td>133.2 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Individuals</td>
+          <td>20</td>
+          <td>248 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Migrations</td>
+          <td>0</td>
+          <td>4 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Mutations</td>
+          <td>0</td>
+          <td>8 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Nodes</td>
+          <td>1050</td>
+          <td>24.6 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Populations</td>
+          <td>1</td>
+          <td>218 Bytes</td>
+          <td style="text-align: center;">
+            ✅
+          </td>
+        </tr>
+
+      <tr>
+        <td>Provenances</td>
+          <td>1</td>
+          <td>970 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Sites</td>
+          <td>0</td>
+          <td>8 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+<div class="section" id="processing-trees">
+<h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="processing-mutations">
+<h2>Processing mutations<a class="headerlink" href="#processing-mutations" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="compute-statistics">
+<h2>Compute statistics<a class="headerlink" href="#compute-statistics" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="exporting-data">
+<h2>Exporting data<a class="headerlink" href="#exporting-data" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -282,7 +483,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="forward_sims.html" title="previous page">Forward simulations</a>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Introduction</a>
+    <a class='right-next' id="next-link" href="data_structures.html" title="next page">Data structures</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
