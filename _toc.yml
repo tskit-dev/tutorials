@@ -4,6 +4,7 @@
 - part: Using tskit
   chapters:
   - file: getting_started
+  - file: viz
   - file: data_structures
 
 - part: Backward time simulations
