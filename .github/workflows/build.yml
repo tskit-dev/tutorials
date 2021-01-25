@@ -2,33 +2,51 @@
 name: build
 
 on:
-  # TODO build also on PRs
+  pull_request:
   push:
     branches: [main]
-
+    tags:
+      - '*'
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ github.token }}
+
+    - name: Checkout
+      uses: actions/checkout@v2
 
     # Install dependencies
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
+
     - name: Install dependencies
       run: |
         pip install msprime --pre # Needed until we have a stable 1.0
         pip install -r requirements.txt
+
     # Build the book
     - name: Build the book
       run: ./build.sh
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
+      if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3.5.9
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_build/html
+
+    - name: Trigger docs site rebuild
+      if: github.ref == 'refs/heads/main'
+      run: |
+        curl -X POST https://api.github.com/repos/tskit-dev/tskit-site/dispatches \
+                  -H 'Accept: application/vnd.github.everest-preview+json' \
+                  -u AdminBot-tskit:${{ secrets.ADMINBOT_TOKEN }} \
+                  --data '{"event_type":"build-docs"}'
