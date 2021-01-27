@@ -6,6 +6,7 @@
   - file: getting_started
   - file: viz
   - file: data_structures
+  - file: no_mutations
 
 - part: Backward time simulations
   # TODO this will be broken down more finely as we add more content
