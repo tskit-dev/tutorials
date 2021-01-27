@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Bottlenecks" href="bottlenecks.html" />
-    <link rel="prev" title="Data structures" href="data_structures.html" />
+    <link rel="prev" title="Do you really need mutations?" href="no_mutations.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -111,6 +111,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="data_structures.html">
    Data structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="no_mutations.html">
+   Do you really need mutations?
   </a>
  </li>
 </ul>
@@ -316,7 +321,7 @@ or run the exercises in an online binder session by following the instructions a
 <div class="section" id="population-structure">
 <h2>Population structure<a class="headerlink" href="#population-structure" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">msprime</span></code> supports simulation from multiple discrete populations,
-each of which is initialized with a <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.PopulationConfiguration" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.PopulationConfiguration</span></code></a> object.
+each of which is initialized with a <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.PopulationConfiguration" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.PopulationConfiguration</span></code></a> object.
 For each population, you can specify a sample size, an effective population size
 at time = 0 and an exponential growth rate.</p>
 <div class="admonition note">
@@ -333,7 +338,7 @@ with a constant effective population size of 500.</p>
 <span class="n">pop1</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationConfiguration</span><span class="p">(</span><span class="n">sample_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">initial_size</span> <span class="o">=</span> <span class="mi">500</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You can give these to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> as a list
+<p>You can give these to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python v0.1.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> as a list
 using the <code class="docutils literal notranslate"><span class="pre">population_configurations</span></code> argument.
 (Note that we no longer need to specify <code class="docutils literal notranslate"><span class="pre">Ne</span></code> as we have provided a separate size for each population).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ts = msprime.simulate(population_configurations = [pop0, pop1],</span>
@@ -358,7 +363,7 @@ populations, as well as one-off mass migrations.</p>
 <h3>Constant migration<a class="headerlink" href="#constant-migration" title="Permalink to this headline">¶</a></h3>
 <a class="reference internal image-reference" href="_images/tute-population-structure-1.png"><img alt="2 populations with constant migration rate." src="_images/tute-population-structure-1.png" style="width: 500px;" /></a>
 <p>Migration rates between the populations can be specified as the elements of an
-<em>N</em> by <em>N</em> numpy array, and given to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> via the
+<em>N</em> by <em>N</em> numpy array, and given to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python v0.1.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> via the
 <code class="docutils literal notranslate"><span class="pre">migration_matrix</span></code> argument. The diagonal elements of this array must each be
 0, and the <em>(i, j)</em> th element specifies the expected number of migrants moving
 from population <em>j</em> to population <em>i</em> per generation, divided by the size of
@@ -380,7 +385,7 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
         <span class="n">recombination_rate</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>One consequence of specifying <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.PopulationConfiguration" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.PopulationConfiguration</span></code></a> objects
+<p>One consequence of specifying <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.PopulationConfiguration" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.PopulationConfiguration</span></code></a> objects
 is that each of the simulated nodes will now belong to one of our specified
 populations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
@@ -421,7 +426,7 @@ population 0 than vice versa.</p>
 <div class="section" id="changing-migration-rates">
 <h3>Changing migration rates<a class="headerlink" href="#changing-migration-rates" title="Permalink to this headline">¶</a></h3>
 <p>We can change any of the migration rates at any time in the simulation.
-To do this, we just need to add a <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.MigrationRateChange" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.MigrationRateChange</span></code></a> object
+To do this, we just need to add a <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.MigrationRateChange" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.MigrationRateChange</span></code></a> object
 specifying the index of the migration matrix to be changed,
 the time of the change and the new migration rate.</p>
 <p>For instance, say we wanted to specify that in each generation prior to
@@ -430,7 +435,7 @@ time = 100, 1% of population 0 consisted of migrants from population 1.</p>
             <span class="n">time</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">rate</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">matrix_index</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>A list of these changes can be supplied to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> via the
+<p>A list of these changes can be supplied to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python v0.1.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a> via the
 <code class="docutils literal notranslate"><span class="pre">demographic_events</span></code> input:
 (If there is more than 1 change, ensure they are ordered by backwards-time!)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
@@ -445,7 +450,7 @@ time = 100, 1% of population 0 consisted of migrants from population 1.</p>
 </div>
 <div class="section" id="mass-migrations">
 <h3>Mass migrations<a class="headerlink" href="#mass-migrations" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.MassMigration" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.MassMigration</span></code></a> objects are used to specify one-off events in which some fraction of a population moves into another population. These are useful for specifying divergence and admixture events.</p>
+<p><a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.MassMigration" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.MassMigration</span></code></a> objects are used to specify one-off events in which some fraction of a population moves into another population. These are useful for specifying divergence and admixture events.</p>
 <a class="reference internal image-reference" href="_images/tute-mass-migration.png"><img alt="2 populations with a mass migration." src="_images/tute-mass-migration.png" style="width: 500px;" /></a>
 <p>You’ll need to provide the time of the event in generations,
 the ID of the source and destination populations,
@@ -457,7 +462,7 @@ For example, the following specifies that 50 generations ago,
 </div>
 <p>Note that these are viewed as backwards-in-time events,
 so <code class="docutils literal notranslate"><span class="pre">source</span></code> is the population that receives migrants from <code class="docutils literal notranslate"><span class="pre">dest</span></code>.</p>
-<p>Any mass migrations can be added into the list of <code class="docutils literal notranslate"><span class="pre">demographic_events</span></code> supplied to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a>.</p>
+<p>Any mass migrations can be added into the list of <code class="docutils literal notranslate"><span class="pre">demographic_events</span></code> supplied to <a class="reference external" href="https://tskit.dev/msprime/docs/latest/v0/api.html#msprime.simulate" title="(in Python v0.1.dev1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.simulate()</span></code></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
         <span class="n">population_configurations</span> <span class="o">=</span> <span class="p">[</span><span class="n">pop0</span><span class="p">,</span> <span class="n">pop1</span><span class="p">],</span>
         <span class="n">migration_matrix</span> <span class="o">=</span> <span class="n">M</span><span class="p">,</span>
@@ -468,7 +473,7 @@ so <code class="docutils literal notranslate"><span class="pre">source</span></c
         <span class="n">mutation_rate</span> <span class="o">=</span> <span class="mf">7e-4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.MassMigration" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.MassMigration</span></code></a> objects can also be used to specify divergence events, but we must take some care.</p>
+<p><a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.MassMigration" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.MassMigration</span></code></a> objects can also be used to specify divergence events, but we must take some care.</p>
 <a class="reference internal image-reference" href="_images/tute-divergence-1.png"><img alt="2 populations with a divergence." src="_images/tute-divergence-1.png" style="width: 500px;" /></a>
 <p>The following specifies that 200 generations ago, 100% of population 1 was a migrant from population 0.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">divergence_event</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">MassMigration</span><span class="p">(</span>
@@ -526,7 +531,7 @@ so <code class="docutils literal notranslate"><span class="pre">source</span></c
 <a class="reference internal image-reference" href="_images/tute-parameter-changes.png"><img alt="2 populations with a complex demographic history." src="_images/tute-parameter-changes.png" style="width: 500px;" /></a>
 <p>We may wish to specify changes to rates of population growth,
 or sudden changes in population size at a particular time.
-Both of these can be specified with <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.PopulationParametersChange" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.PopulationParametersChange</span></code></a>
+Both of these can be specified with <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.PopulationParametersChange" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.PopulationParametersChange</span></code></a>
 objects in the supplied list of <code class="docutils literal notranslate"><span class="pre">demographic_events</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bottleneck in Population 0 between 50 - 150 generations ago.</span>
 <span class="n">pop0_bottleneck_ends</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationParametersChange</span><span class="p">(</span>
@@ -561,7 +566,7 @@ generations in the past.</p>
 <p>As we’ve seen, it’s pretty easy to make mistakes when specifying demography!</p>
 <p>To help you spot these, msprime provides a debugger that prints out your
 population history in a more human-readable form.
-It’s good to get into the habit of running the <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.DemographyDebugger" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.DemographyDebugger</span></code></a>
+It’s good to get into the habit of running the <a class="reference external" href="https://tskit.dev/msprime/docs/latest/api.html#msprime.DemographyDebugger" title="(in Python v0.1.dev1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.DemographyDebugger</span></code></a>
 before running your simulations.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_history</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">DemographyDebugger</span><span class="p">(</span>
 <span class="n">population_configurations</span><span class="o">=</span><span class="p">[</span><span class="n">pop0</span><span class="p">,</span> <span class="n">pop1</span><span class="p">],</span> <span class="n">migration_matrix</span> <span class="o">=</span> <span class="n">M</span><span class="p">,</span>
@@ -633,7 +638,7 @@ before running your simulations.</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="data_structures.html" title="previous page">Data structures</a>
+    <a class='left-prev' id="prev-link" href="no_mutations.html" title="previous page">Do you really need mutations?</a>
     <a class='right-next' id="next-link" href="bottlenecks.html" title="next page">Bottlenecks</a>
 
     </div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data structures &#8212; Tskit Tutorials</title>
+    <title>Do you really need mutations? &#8212; Tskit Tutorials</title>
     
   <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Do you really need mutations?" href="no_mutations.html" />
-    <link rel="prev" title="Visualisation" href="viz.html" />
+    <link rel="next" title="Demography" href="demography.html" />
+    <link rel="prev" title="Data structures" href="data_structures.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -108,13 +108,13 @@
    Visualisation
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
    Data structures
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="no_mutations.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Do you really need mutations?
   </a>
  </li>
@@ -208,11 +208,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="_sources/data_structures.ipynb"><button type="button"
+            href="_sources/no_mutations.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/data_structures.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/no_mutations.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -232,7 +232,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tsk-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fdata_structures.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tsk-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fno_mutations.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -253,7 +253,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/tsk-dev/tutorials/main?urlpath=tree/data_structures.md"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/tsk-dev/tutorials/main?urlpath=tree/no_mutations.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -276,13 +276,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tables">
-   Tables
+  <a class="reference internal nav-link" href="#background">
+   Background
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#trees">
-   Trees
+  <a class="reference internal nav-link" href="#computing-statistics">
+   Computing statistics
   </a>
  </li>
 </ul>
@@ -296,13 +296,17 @@
         
               <div>
                 
-  <div class="section" id="data-structures">
-<h1>Data structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="tables">
-<h2>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="do-you-really-need-mutations">
+<span id="sec-tskit-no-mutations"></span><h1>Do you really need mutations?<a class="headerlink" href="#do-you-really-need-mutations" title="Permalink to this headline">¶</a></h1>
+<p>Maybe not! This tutorial takes you through a number of common tasks
+and shows how to do things by working directly with the underlying
+topology.</p>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Why is it better to avoid using mutations if we don’t have to?</p>
 </div>
-<div class="section" id="trees">
-<h2>Trees<a class="headerlink" href="#trees" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="computing-statistics">
+<h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -334,8 +338,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="viz.html" title="previous page">Visualisation</a>
-    <a class='right-next' id="next-link" href="no_mutations.html" title="next page">Do you really need mutations?</a>
+    <a class='left-prev' id="prev-link" href="data_structures.html" title="previous page">Data structures</a>
+    <a class='right-next' id="next-link" href="demography.html" title="next page">Demography</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
