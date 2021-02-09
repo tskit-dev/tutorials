@@ -1,4 +1,4 @@
-# Introduction
+# Tskit tutorials
 
 This is the home of tskit tutorials.
 

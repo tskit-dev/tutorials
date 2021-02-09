@@ -1,5 +1,8 @@
-
 - file: intro
+
+- part: Introduction
+  chapters:
+  - file: what_is
 
 - part: Using tskit
   chapters:
