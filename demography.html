@@ -45,6 +45,8 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -679,10 +681,7 @@ Epoch: 100.0 -- 150.0 generations
      start     end      growth_rate |     0        1    
    -------- --------       -------- | -------- -------- 
 0 |   250      250                0 |     0      0.05   
-1 |   500      303             0.01 | 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0.02       0    
+1 |   500      303             0.01 |   0.02       0    
 
 Events @ generation 150.0
    - Population parameter change: population=0: initial_size → 500
@@ -692,7 +691,9 @@ Epoch: 150.0 -- inf generations
      start     end      growth_rate |     0        1    
    -------- --------       -------- | -------- -------- 
 0 |   500      500                0 |     0      0.05   
-1 |   303       0              0.01 |   0.02       0    
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 |   303       0              0.01 |   0.02       0    
 </pre></div>
 </div>
 </div>

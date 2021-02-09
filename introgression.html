@@ -45,6 +45,8 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -441,7 +443,7 @@
 </div>
 </div>
 </div>
-<p>Although $f=0.02$ the total length of admixted segments is 5% of the chromosome. Presumably this excess is just due to coalescence variance? We expect a proportion $1-e^{-(T_{split}-T_{ad})}$ of admixted lineages to coalesce. Given our time parameters $T_{split}-T_{ad})= 1/2$ (in units of $2 N_e$ generations), so we expect $1 -(e^-\frac{1}{2})=0.39$ of admixted sequence to have a coalesce in the neandertal population. Why is the observed fraction just 0.029?</p>
+<p>Although <span class="math notranslate nohighlight">\(f=0.02\)</span> the total length of admixted segments is 5% of the chromosome. Presumably this excess is just due to coalescence variance? We expect a proportion <span class="math notranslate nohighlight">\(1-e^{-(T_{split}-T_{ad})}\)</span> of admixted lineages to coalesce. Given our time parameters <span class="math notranslate nohighlight">\(T_{split}-T_{ad})= 1/2\)</span> (in units of <span class="math notranslate nohighlight">\(2 N_e\)</span> generations), so we expect <span class="math notranslate nohighlight">\(1 -(e^-\frac{1}{2})=0.39\)</span> of admixted sequence to have a coalesce in the neandertal population. Why is the observed fraction just 0.029?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kb</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">1000</span>
