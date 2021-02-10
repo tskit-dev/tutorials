@@ -21,10 +21,51 @@ efficiently, and enable powerful analysis of millions of whole genomes at a time
 They can be created by [simulation](https://tskit.dev/software/#simulate) or by
 [inferring relationships from genetic variation](https://tskit.dev/software/#infer).
 
-As the name suggests, the simplest way to think about a tree sequences is as a set of
-"local trees" - i.e. trees located at different points along the chromosome. Here's an
-example based on ten genomes, $\mathrm{a}$ to $\mathrm{j}$, spanning a short 1kb
-chromosome.
+<!-- 
+SOME EXTRA SUGGESTED CONTENT:
+
+Before diving in, we hope these plots will convince you that tree sequence methods can
+(a) store and (b) analyse genetic data thousands of times more efficiently than
+conventional methods
+
+```{code-cell}
+:"tags": ["hide-input"]
+from IPython.display import SVG, set_matplotlib_formats
+import matplotlib.pyplot as plt
+%matplotlib inline
+set_matplotlib_formats('svg')
+fig, (ax1, ax2) = plt.subplots(1,2, figsize=(10,4))
+fig.subplots_adjust(wspace=0.5)
+ax1.loglog([1, 1e3, 1e4, 1e5, 1e6], [1,2,3,4,5])
+ax1.set_xlabel('Number of genomes', fontsize=10)
+ax1.set_ylabel('Space required (MB)', fontsize=10)
+txt = ax1.text(0.5,-0.2, "(a) Storing genomes as tree sequences takes up many thousands of times less disk space",
+    ha='center', va='top',
+    transform=ax1.transAxes,
+    wrap=True,
+)
+txt._get_wrap_line_width = lambda: 300
+
+ax2.loglog([1, 1e3, 1e4, 1e5, 1e6], [1,2,3,4,5])
+ax2.set_xlabel("Number of genomes", fontsize=10)
+ax2.set_ylabel("Speed of calculating Tajima's D (sites/sec)", fontsize=10)
+txt = ax2.text(0.5,-0.2, "(b) Tree sequences can make genetic calculations thousands of times faster",
+    ha='center', va='top',
+    transform=ax2.transAxes,
+    wrap=True,
+)
+txt._get_wrap_line_width = lambda: 300
+plt.show()
+```
+
+## Trees and tree sequences
+-->
+
+Tree sequences are based on fundamental biological principles of inheritance,
+DNA duplication, and recombination. As the name suggests, the simplest way to think
+about a tree sequence is as a set of "local trees" - i.e. trees located at different
+points along the chromosome. Here's an example based on ten genomes,
+$\mathrm{a}$ to $\mathrm{j}$, spanning a short 1kb chromosome.
 
 ```{code-cell}
 :"tags": ["hide-input"]
