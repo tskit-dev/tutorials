@@ -24,41 +24,63 @@ principles of inheritance, DNA duplication and recombination; they can be create
 Tree sequences provide an efficient way of storing genetic data, and enable powerful
 analysis of millions of whole genomes.
 
-```{todo}
-Insert plots:
-
-a. A simplified "storing everyone" plot. Caption: storing genomes as tree sequences takes up many thousands of times less disk space
-
-b. A simplified "calculating Tajima's D" plot. Caption: tree sequences can make genetic calculations thousands of times faster
-<!-- {code-cell}
+```{code-cell}
 :"tags": ["hide-input"]
 from IPython.display import SVG, set_matplotlib_formats
 import matplotlib.pyplot as plt
+import numpy as np
 %matplotlib inline
 set_matplotlib_formats('svg')
-fig, (ax1, ax2) = plt.subplots(1,2, figsize=(10,4))
-fig.subplots_adjust(wspace=0.5)
-ax1.loglog([1, 1e3, 1e4, 1e5, 1e6], [1,2,3,4,5])
-ax1.set_xlabel('Number of genomes', fontsize=10)
-ax1.set_ylabel('Space required (MB)', fontsize=10)
-txt = ax1.text(0.5,-0.2, "(a) Storing genomes as tree sequences takes up many thousands of times less disk space",
-    ha='center', va='top',
-    transform=ax1.transAxes,
-    wrap=True,
-)
-txt._get_wrap_line_width = lambda: 300
 
-ax2.loglog([1, 1e3, 1e4, 1e5, 1e6], [1,2,3,4,5])
-ax2.set_xlabel("Number of genomes", fontsize=10)
-ax2.set_ylabel("Speed of calculating Tajima's D (sites/sec)", fontsize=10)
-txt = ax2.text(0.5,-0.2, "(b) Tree sequences can make genetic calculations thousands of times faster",
-    ha='center', va='top',
-    transform=ax2.transAxes,
-    wrap=True,
-)
-txt._get_wrap_line_width = lambda: 300
+data1 = np.genfromtxt("data/storing_everyone.csv", delimiter=",", usecols=np.arange(1,12), names=True)
+fig, (ax1, ax2) = plt.subplots(1,2, figsize=(14,4.5))
+fig.subplots_adjust(wspace=0.5, left=0, right=1)
+keep = data1['sample_size'] <= 1e6
+x, ts_y, vcf_y = data1['sample_size'][keep], data1['tsk_fit'][keep], data1['vcf_fit'][keep]
+ax1.spines["top"].set_visible(False)
+ax1.spines["right"].set_visible(False)
+ax1.loglog(x, vcf_y, c="C1", linewidth=4)
+ax1.loglog(x, ts_y, c="C0", linewidth=4)
+ax1.set_xlabel('# of 100Mb genomes', fontsize=18)
+ax1.set_ylabel('Space required (GB)', fontsize=18)
+ax1.tick_params(axis="both", labelsize=16)
+ax1.text(np.exp(np.mean(np.log(x))), np.exp(np.mean(np.log(ts_y))),
+    'tree sequence storage', ha="center", va="top", rotation=5, c="C0", size=24)
+ax1.text(max(x) * 1.2, max(ts_y), '200 MB', ha="left", va="center", c="C0", size=20)
+ax1.text(np.exp(np.mean(np.log(x))), np.exp(np.mean(np.log(vcf_y * 0.3))),
+    'VCF storage', ha="center", va="bottom", rotation=35, c="C1", size=24)
+ax1.text(max(x) * 1.2, max(vcf_y), '1 TB', ha="left", va="center", c="C1", size=20)
+
+txt = ax1.text(0.5, 1.3, "(a) Storing genomes as tree sequences takes over a thousandfold less disk space",
+    ha='center', va='top', transform=ax1.transAxes, wrap=True, size=24)
+txt._get_wrap_line_width = lambda: 550
+
+data2 = np.genfromtxt("data/benchmarks_without_copy_longer_genome.txt", encoding=None, names=True, dtype=None)
+ts_time = np.array([[n,t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'tskit'])
+ska_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'allel'])
+libseq_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'libseq'])
+
+ax2.spines["top"].set_visible(False)
+ax2.spines["right"].set_visible(False)
+ax2.loglog(ska_time[:,0], 3600/ska_time[:,1], c="C3", linewidth=4)
+ax2.loglog(libseq_time[:,0], 3600/libseq_time[:,1], c="C1", linewidth=4)
+ax2.loglog(ts_time[:,0],3600/ts_time[:,1], c="C0", linewidth=4)
+ax2.text(np.exp(np.mean(np.log(ts_time[:,0]*5))), np.exp(np.mean(np.log(3600/ts_time[:,1]*0.5))),
+    'tree sequence method', ha="center", va="bottom", rotation=-8, c="C0", size=24)
+ax2.text(np.exp(np.mean(np.log(libseq_time[:,0]))), np.exp(np.mean(np.log(3600/libseq_time[:,1]*0.2))),
+    'conventional methods', ha="center", va="center", rotation=-31, c="C1", size=24)
+ax2.text(max(ts_time[:,0]) * 1.2, min(3600/ts_time[:,1]),
+    f"{round(min(3600/ts_time[:,1]), -1):g} sites/hour", ha="left", va="center", c="C0", size=20)
+ax2.text(max(libseq_time[:,0]) * 1.2, min(3600/libseq_time[:,1]),
+    f"{min(3600/libseq_time[:,1]):.0f} sites/hour", ha="left", va="center", c="C1", size=20)
+ax2.set_xlabel("# of genomes", fontsize=18)
+ax2.set_ylabel("Speed of calculating\n Tajima's D (sites/hour)", fontsize=18)
+ax2.tick_params(axis="both", labelsize=16)
+txt = ax2.text(0.5, 1.3, "(b) Tree sequences can speed up genetic calculations by orders of magnitude",
+    ha='center', va='top', transform=ax2.transAxes, wrap=True, size=24
+)    
+txt._get_wrap_line_width = lambda: 550
 plt.show()
--->
 ```
 
 As the name suggests, the simplest way to think
@@ -89,7 +111,7 @@ start up to position 715, the relationships between the ten genomes are shown by
 the first tree. The second tree shows the relationships between positions 715 and 932,
 and the third from position 932 until the end.
 
-Multiple trees, rather than just one, are needed because genetic recombination causes
+Multiple trees are needed because of genetic recombination, which causes
 different regions of the chromosome to have different histories. Together, the sequence
 of trees describe the full ancestry, or *genetic genealogy* of our 10 genomes.
 
