@@ -84,7 +84,7 @@ plt.show()
 ```
 
 As the name suggests, the simplest way to think
-about a tree sequence is as a set of "local trees" - i.e. trees located at different
+about a tree sequence is as a collection of "local trees" --- i.e. trees located at different
 points along the chromosome. Here's a tiny example based on ten genomes,
 $\mathrm{a}$ to $\mathrm{j}$, spanning a short 1kb chromosome.
 
@@ -107,9 +107,9 @@ SVG(ts.draw_svg(size=sz, node_labels=labels, style=style1))
 ```
 
 For almost three quarters of the chromosome, from the
-start up to position 715, the relationships between the ten genomes are shown by
+start until position 715, the relationships between the ten genomes are shown by
 the first tree. The second tree shows the relationships between positions 715 and 932,
-and the third from position 932 until the end.
+and the third from position 932 to the end.
 
 Multiple trees are needed because of genetic recombination, which causes
 different regions of the chromosome to have different histories. Together, the sequence
@@ -188,21 +188,42 @@ Here's the take-home message:
 Tree sequences are efficient because they don't store each tree separately
 ```
 
-To demonstrate, we can calculate the space needed to store 10 billion simulated human
-chromosomes - roughly one for every living human. In tree sequence format, the DNA
-sequences are expected to take 20,000 times less space than using the conventional
-(so-called VCF) format, and are also many thousands of times faster to process.
+Extending the analysis plotted at the start of this page, this efficiency is predicted
+to extend to the case of simulating chromosomes for every human on the planet. Moreover,
+the advantage of using tree sequences persists even when compared to compressed versions
+of the standard VCF storage format (original published data
+[here](https://www.nature.com/articles/s41588-019-0483-y/figures/1)). Simply by virtue
+of the reduced file size, simulated genome data stored as a tree sequence can be several
+orders of magnitude faster to process than other storage formats.
 
-```{todo}
-Insert "storing everyone" plot, a simplified version of 
-[this](https://www.nature.com/articles/s41588-019-0483-y/figures/1).
+```{code-cell}
+:"tags": ["hide-input"]
+x = data1['sample_size']
+fig, ax1 = plt.subplots(1, figsize=(10, 4))
+ax1.spines["top"].set_visible(False)
+ax1.spines["right"].set_visible(False)
+
+plt.loglog(x,  data1['vcf_fit'], c="C1", label="VCF", linewidth=2)
+plt.loglog(x,  data1['vcfz_fit'], c="C1", label="compressed VCF", linewidth=2, linestyle=":")
+
+plt.loglog(x, data1['tsk_fit'], c="C0", label="tree sequence", linewidth=2)
+plt.loglog(x, data1['tskz_fit'], c="C0", label="compressed tree sequence", linewidth=2, linestyle=":")
+
+plt.xlabel('Number of 100Mb genomes (log scale)', fontsize=12)
+plt.ylabel('Space required (GB, log scale)', fontsize=12)
+plt.text(max(x), 0.001, 'Size of\nentire\nhuman\npopulation', ha="center", va="bottom", size=14)
+plt.annotate('', xy=(max(x), 0.0001), xytext=(max(x), 0.001), 
+            arrowprops=dict(facecolor='black', shrink=0))
+plt.legend()
+plt.show()
 ```
+
 (sec_what_is_ancestry)=
 
 ## A record of genetic ancestry
 
 Often, we're not interested so much in the DNA sequence data as the genetic ancestry
-itself (see [this summary](https://www.nature.com/articles/s41588-019-0492-x)). For
+itself (e.g. see [this summary](https://www.nature.com/articles/s41588-019-0492-x)). For
 instance, tree sequences can be used to determine the origin and age of variants under
 selection, to capture the spatial structure of populations, or to uncover the effects of
 hybridization and admixture in the past.
