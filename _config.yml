@@ -12,7 +12,7 @@ execute:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/tsk-dev/tutorials
+  url: https://github.com/tskit-dev/tutorials
   branch: main
 
 # Add GitHub buttons to your book
