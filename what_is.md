@@ -19,7 +19,7 @@ A *succinct tree sequence*, or tree sequence for short, represents the relations
 between a set of DNA sequences. Tree sequences are based on fundamental biological
 principles of inheritance, DNA duplication and recombination; they can be created by
 [simulation](https://tskit.dev/software/#simulate) or by
-[inferring relationships from genetic variation](https://tskit.dev/software/#infer).
+[inferring relationships from empirical DNA data](https://tskit.dev/software/#infer).
 
 Tree sequences provide an efficient way of storing genetic data, and enable powerful
 analysis of millions of whole genomes. Plots (a) and (b) summarize results presented
@@ -97,7 +97,7 @@ and the third from position 932 to the end.
 
 Multiple trees are needed because of genetic recombination, which causes
 different regions of the chromosome to have different histories. Together, the sequence
-of trees describe the full ancestry, or *genetic genealogy* of our 10 genomes.
+of trees describe the full genetic ancestry, or *genetic genealogy* of our 10 genomes.
 
 (sec_what_is_dna_data)=
 
