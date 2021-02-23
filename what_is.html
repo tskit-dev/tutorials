@@ -324,7 +324,7 @@
 between a set of DNA sequences. Tree sequences are based on fundamental biological
 principles of inheritance, DNA duplication and recombination; they can be created by
 <a class="reference external" href="https://tskit.dev/software/#simulate">simulation</a> or by
-<a class="reference external" href="https://tskit.dev/software/#infer">inferring relationships from genetic variation</a>.</p>
+<a class="reference external" href="https://tskit.dev/software/#infer">inferring relationships from empirical DNA data</a>.</p>
 <p>Tree sequences provide an efficient way of storing genetic data, and enable powerful
 analysis of millions of whole genomes. Plots (a) and (b) summarize results presented
 <a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
@@ -406,7 +406,7 @@ the first tree. The second tree shows the relationships between positions 715 an
 and the third from position 932 to the end.</p>
 <p>Multiple trees are needed because of genetic recombination, which causes
 different regions of the chromosome to have different histories. Together, the sequence
-of trees describe the full ancestry, or <em>genetic genealogy</em> of our 10 genomes.</p>
+of trees describe the full genetic ancestry, or <em>genetic genealogy</em> of our 10 genomes.</p>
 <div class="section" id="an-efficient-encoding-of-dna-data">
 <span id="sec-what-is-dna-data"></span><h2>An efficient encoding of DNA data<a class="headerlink" href="#an-efficient-encoding-of-dna-data" title="Permalink to this headline">¶</a></h2>
 <p>A tree sequence can be used to describe patterns of genetic variation by combining the
