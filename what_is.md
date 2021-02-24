@@ -15,15 +15,15 @@ kernelspec:
 
 # What is a tree sequence?
 
-A *succinct tree sequence*, or tree sequence for short, represents the relationships
+A *succinct tree sequence*, or "tree sequence" for short, represents the relationships
 between a set of DNA sequences. Tree sequences are based on fundamental biological
-principles of inheritance, DNA duplication and recombination; they can be created by
+principles of inheritance, DNA duplication, and recombination; they can be created by
 [simulation](https://tskit.dev/software/#simulate) or by
 [inferring relationships from empirical DNA data](https://tskit.dev/software/#infer).
 
 Tree sequences provide an efficient way of storing genetic data, and enable powerful
-analysis of millions of whole genomes. Plots (a) and (b) summarize results presented
-[further](plot_storing_everyone) [down](plot_incremental_calculation) this tutorial.
+analyses of millions of whole genomes. Plots (a) and (b) summarize results presented
+[further](plot_storing_everyone) [down](plot_incremental_calculation) in this tutorial.
 
 ```{code-cell}
 :"tags": ["hide-input"]
@@ -69,8 +69,8 @@ plt.show()
 ```
 
 As the name suggests, the simplest way to think
-about a tree sequence is as a collection of "local trees" --- i.e. trees located at different
-points along the chromosome. Here's a tiny example based on ten genomes,
+about a tree sequence is as a sequence of "local trees" --- i.e. trees located at
+different points along the chromosome. Here's a tiny example based on ten genomes,
 $\mathrm{a}$ to $\mathrm{j}$, spanning a short 1kb chromosome.
 
 ```{code-cell}
@@ -98,7 +98,7 @@ and the third from position 932 to the end.
 
 Multiple trees are needed because of genetic recombination, which causes
 different regions of the chromosome to have different histories. Together, the sequence
-of trees describe the full genetic ancestry, or *genetic genealogy* of our 10 genomes.
+of trees describe the full genetic ancestry, or *genetic genealogy*, of our 10 genomes.
 
 (sec_what_is_dna_data)=
 
@@ -121,10 +121,12 @@ for mut in mutated_ts.mutations():  # This entire loop is just to make pretty la
     prev = mutated_ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
     mut_labels[mut.id] = l.format(site.position, prev, mut.derived_state)
 
-SVG(mutated_ts.draw_svg(size=sz, node_labels=labels, mutation_labels=mut_labels, style=style1))
+SVG(mutated_ts.draw_svg(
+    size=sz, style=style1,
+    node_labels=labels, mutation_labels=mut_labels)) #, x_label="Chromosome base pair position"))
 ```
 
-The trees tell us that, for example, the final mutation (at position 980) is inherited
+<!-- The mutations on the branches of the trees are also **** -->.The trees tell us that, for example, the final mutation (at position 980) is inherited
 by genomes $\mathrm{a}$ to $\mathrm{i}$. These genomes must have a *G* at that position,
 compared to the original value of *C*. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
@@ -137,7 +139,7 @@ print("Position  " + " ".join(str(int(s.position)) for s in mutated_ts.sites()))
 print("\n".join(sorted([f"Genome {labels[i]}:  {h}" for i, h in enumerate(haplotypes)])))
 ```
 
-This approach scales effectively to millions of genomes and chromosomes of
+This approach scales effectively to millions of genomes, and to chromosomes of
 hundreds of megabases in length. The ability to deal with huge datasets comes down to
 one key feature of genomic data: adjacent trees along a chromosome are highly correlated,
 that is, they *share structure*. In our example this becomes evident
@@ -173,13 +175,15 @@ Here's the take-home message:
 Tree sequences are efficient because they don't store each tree separately
 ```
 
-Extending the analysis plotted at the start of this page, this efficiency is predicted
-to extend to the case of simulating chromosomes for every human on the planet. Moreover,
-the advantage of using tree sequences persists even when compared to compressed versions
-of the standard VCF storage format (original published data
-[here](https://www.nature.com/articles/s41588-019-0483-y/figures/1)). Simply by virtue
-of the reduced file size, simulated genome data stored as a tree sequence can be several
-orders of magnitude faster to process than other storage formats.
+Below is an extension of the plot at the top of this page, showing predicted
+file sizes when storing not just millions, but billions of human-like genomes:
+enough to encompass every human on the planet. This demonstrates that the tree sequence
+encoding leads to savings of many orders of magnitude, even when compared against
+compressed versions of the standard VCF storage format (original published data
+[here](https://www.nature.com/articles/s41588-019-0483-y/figures/1)). What's more,
+simply by virtue of the reduced file size, analysing these genomes can be
+several orders of magnitude faster when using the tree sequence format
+compared to other approaches.
 
 (plot_storing_everyone)=
 
@@ -210,10 +214,12 @@ plt.show()
 ## A record of genetic ancestry
 
 Often, we're not interested so much in the DNA sequence data as the genetic ancestry
-itself (e.g. see [this summary](https://www.nature.com/articles/s41588-019-0492-x)). For
-instance, tree sequences can be used to determine the origin and age of variants under
-selection, to capture the spatial structure of populations, or to uncover the effects of
-hybridization and admixture in the past.
+itself (as discussed in [this summary](https://www.nature.com/articles/s41588-019-0492-x)).
+In other words, the main consideration is the actual trees in a tree sequence, rather
+than the distributions of mutations placed upon them (indeed in simulations, it may not
+be necessary to incorporate neutral mutations at all). The trees can be used, for example,
+to determine the origin and age of alleles under selection, to capture the spatial structure of
+populations, or to uncover the effects of hybridization and admixture in the past.
 
 ```{todo}
 Insert illustration of the above, e.g. use of branch length calculations rather than
@@ -223,10 +229,11 @@ tree sequence over geographical space.
 
 
 A major benefit of "tree sequence thinking" is the close relationship between the
-tree sequence and the underlying biological processes that produced
-the genomes in the first place. For example, each branch point in one of the trees above
-represents a most recent common ancestor (MRCA), in other words a genome which existed at
-a specific time in the past. 
+tree sequence and the underlying biological processes that produced the genetic sequences
+in the first place. For example, each branch point in one of the trees above
+can be imagined as a genome which existed at a specific time in the past, and which
+is a "most recent common ancestor" (MRCA) of the descendant genomes at that position on
+the chromosome
 
 ```{todo}
 The tree sequence format gives us access to those ancestral genomes: insert diagram of
@@ -235,8 +242,8 @@ reconstructed (partial) ancestral haplotypes
 
 We can mark these extra "ancestral genomes" on our picture,
 although is helpful to distinguish them from the *sampled* genomes
-($\mathrm{a}$ to $\mathrm{j}$) which we have measured more directly. Here we'll plot
-the MRCA genomes as circular nodes, rather than the squares we have used previously. 
+($\mathrm{a}$ to $\mathrm{j}$) we have been talking about up to this point. Here we'll
+plot the MRCA genomes as circular nodes, rather than the squares we have used previously. 
 
 ```{code-cell}
 :"tags": ["hide-input"]
@@ -280,7 +287,7 @@ the local trees with the mutations on each branch (or, often preferably, the len
 branches: see [this summary](https://www.genetics.org/content/genetics/215/3/779)).
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
-move along the genome, without having to perform the calculation *de-novo* on each tree.
+move along the genome, without having to perform the calculation *de novo* on each tree.
 When perfoming calculations on large datasets, this can result in speed-ups of many
 orders of magnitude, as in this example of calculating Tajima's D (from
 [this source](https://www.genetics.org/content/215/3/779#F9))
@@ -310,8 +317,11 @@ Very brief discussion of efficient counting of topologies, i.e. the combinatoric
 Summary of this subsection:
 
 ```{epigraph}
-Genetic calculations involve iterating over trees, which is highly efficient in ``tskit`` 
+Genetic calculations involve iterating over trees, which is highly efficient in tskit 
 ```
+
+<-- ## An efficient analysis framework (suggested by Ben Haller) -->
+
 
 ## Further reading
 
