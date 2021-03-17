@@ -21,11 +21,11 @@ principles of inheritance, DNA duplication, and recombination; they can be creat
 [simulation](https://tskit.dev/software/#simulate) or by
 [inferring relationships from empirical DNA data](https://tskit.dev/software/#infer).
 
-Tree sequences provide an efficient way of storing genetic data, and enable powerful
+Tree sequences provide an efficient way of storing genetic data, and can power
 analyses of millions of whole genomes. Plots (a) and (b) summarize results presented
 [further](plot_storing_everyone) [down](plot_incremental_calculation) in this tutorial.
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
 from IPython.display import SVG
 import matplotlib_inline
@@ -73,7 +73,7 @@ about a tree sequence is as a sequence of "local trees" --- i.e. trees located a
 different points along the chromosome. Here's a tiny example based on ten genomes,
 $\mathrm{a}$ to $\mathrm{j}$, spanning a short 1kb chromosome.
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
 import string
 import msprime
@@ -83,18 +83,23 @@ seed = 3096  # chosen to create a nice example simulation
 ts = msprime.sim_ancestry(5, population_size=1e4, sequence_length=1000,
     recombination_rate=1e-8, random_seed=seed)
 # Extra code to label and order the tips alphabetically rather than numerically
+labels = {i: string.ascii_lowercase[i] for i in range(ts.num_nodes)}
 genome_order = [n for n in ts.first().nodes(order="minlex_postorder") if ts.node(n).is_sample()]
-labels = {n:string.ascii_lowercase[i] for i, n in enumerate(genome_order)}
-style1 = ".node:not(.sample) > .sym {visibility: hidden;}"  # hide internal tree nodes
+labels.update({n: labels[i] for i, n in enumerate(genome_order)})
+style1 = (
+    ".node:not(.sample) > .sym, .node:not(.sample) > .lab {visibility: hidden;}"
+    ".mut {font-size: 12px}")
 sz = (800, 250)  # size of the plot, slightly larger than the default
 
 SVG(ts.draw_svg(size=sz, node_labels=labels, style=style1))
 ```
 
-For almost three quarters of the chromosome, from the
+The tickmarks on the X axis and background shading indicates the genomic positions covered
+by the trees. For almost three quarters of the chromosome, from the
 start until position 715, the relationships between the ten genomes are shown by
 the first tree. The second tree shows the relationships between positions 715 and 932,
-and the third from position 932 to the end.
+and the third from position 932 to the end. We can say that the first tree spans 715bp,
+the second 217bp, and the third 68bp.
 
 Multiple trees are needed because of genetic recombination, which causes
 different regions of the chromosome to have different histories. Together, the sequence
@@ -108,10 +113,10 @@ A tree sequence can be used to describe patterns of genetic variation by combini
 trees with a knowledge of where *mutations* occur on their branches. Here's how that
 might look in our simple example:
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
-seed = 3
-mutated_ts = msprime.sim_mutations(ts, rate=1e-7, random_seed=seed)
+seed = 244  # a simpler example uses 214
+mutated_ts = msprime.sim_mutations(ts, rate=5e-8, random_seed=seed)
 
 mut_labels = {}  # An array of labels for the mutations, listing position & allele change
 l = "{:g} ({}→{})"
@@ -123,16 +128,20 @@ for mut in mutated_ts.mutations():  # This entire loop is just to make pretty la
 
 SVG(mutated_ts.draw_svg(
     size=sz, style=style1,
-    node_labels=labels, mutation_labels=mut_labels)) #, x_label="Chromosome base pair position"))
+    node_labels=labels, mutation_labels=mut_labels))
 ```
 
-<!-- The mutations on the branches of the trees are also **** -->.The trees tell us that, for example, the final mutation (at position 980) is inherited
+There are now ten single nucleotide mutations in the tree sequence. They are shown on the
+branches of the trees, and the positions of the ten variable sites associated with the
+mutations are shown along the X axis.
+
+The trees inform us that, for example, the final mutation (at position 986) is inherited
 by genomes $\mathrm{a}$ to $\mathrm{i}$. These genomes must have a *G* at that position,
 compared to the original value of *C*. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
-variation. Here's the result from all 11 variable sites in our example:
+variation. Here's the resulting "variant matrix":
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
 haplotypes = ["   ".join(h) for h in mutated_ts.haplotypes()]
 print("Position  " + " ".join(str(int(s.position)) for s in mutated_ts.sites()))
@@ -146,7 +155,7 @@ that is, they *share structure*. In our example this becomes evident
 if we highlight the branches ("edges" in tree sequence terminology) that remain
 unchanged between the first and the second tree.
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
 # Highlight certain edges in certain trees. Other visualization possibilities in tutorials/viz.html
 kept_edges = [e for e in ts.edges() if e.left==0 and e.right>ts.breakpoints(True)[1]]
@@ -154,17 +163,19 @@ style3 = (
     ",".join(f"#svg1 .tree:not(.t2) .node.a{e.parent}.n{e.child} > .edge" for e in kept_edges)
     + "{stroke:#00DD00; stroke-width: 2px}"
     + style1)
-SVG(ts.draw_svg(size=sz, root_svg_attributes={'id':'svg1'}, node_labels=labels, style=style3))
+sz = (500, 250)
+SVG(ts.draw_svg(
+    size=sz, x_lim=(0, 900), root_svg_attributes={'id':'svg1'}, node_labels=labels, style=style3))
 ```
 
-<!-- Another way to think about shared structure is to notice that the second tree can be
-formed by a simple rearrangement of the first tree. This can be done by simply switching
-the centre group of five genomes, labelled $\mathrm{d}$ to $\mathrm{h}$, next to
-$\mathrm{a}+\mathrm{b}+\mathrm{c}$. Similarly, the third tree just involves a single
-adjustment: the movement of genome $\mathrm{i}$ away from being the closest relative of
-$\mathrm{j}$. These sort of small rearrangements are typical of how genetic relationships
-change along chromosomes, in both simulated and real datasets. -->
-<!-- possible link here to a tutorial which talks about SPRs -->
+% Another way to think about shared structure is to notice that the second tree can be
+% formed by a simple rearrangement of the first tree. This can be done by simply switching
+% the centre group of five genomes, labelled $\mathrm{d}$ to $\mathrm{h}$, next to
+% $\mathrm{a}+\mathrm{b}+\mathrm{c}$. Similarly, the third tree just involves a single
+% adjustment: the movement of genome $\mathrm{i}$ away from being the closest relative of
+% $\mathrm{j}$. These sort of small rearrangements are typical of how genetic relationships
+% change along chromosomes, in both simulated and real datasets.
+%%% possible link here to a tutorial which talks about SPRs
 
 A branch can be shared by many adjacent trees, but is stored just once in the tree
 sequence. For large datasets this is a great saving, because typically each tree-change
@@ -180,14 +191,13 @@ file sizes when storing not just millions, but billions of human-like genomes:
 enough to encompass every human on the planet. This demonstrates that the tree sequence
 encoding leads to savings of many orders of magnitude, even when compared against
 compressed versions of the standard VCF storage format (original published data
-[here](https://www.nature.com/articles/s41588-019-0483-y/figures/1)). What's more,
-simply by virtue of the reduced file size, analysing these genomes can be
-several orders of magnitude faster when using the tree sequence format
-compared to other approaches.
+[here](https://www.nature.com/articles/s41588-019-0483-y/figures/1)). It's also worth
+noting that the efficiency extends to processing time too: tree sequences are often
+several orders of magnitude faster to process than other storage formats.
 
 (plot_storing_everyone)=
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
 x = data1['sample_size']
 fig, ax1 = plt.subplots(1, figsize=(10, 4))
@@ -202,8 +212,8 @@ plt.loglog(x, data1['tskz_fit'], c="C0", label="compressed tree sequence", linew
 
 plt.xlabel('Number of 100Mb genomes (log scale)', fontsize=12)
 plt.ylabel('Space required (GB, log scale)', fontsize=12)
-plt.text(max(x), 0.001, 'Size of\nentire\nhuman\npopulation', ha="center", va="bottom", size=14)
-plt.annotate('', xy=(max(x), 0.0001), xytext=(max(x), 0.001), 
+plt.text(16e9, 0.001, 'Size of\nentire\nhuman\npopulation', ha="center", va="bottom", size=14)
+plt.annotate('', xy=(16e9, 0.0001), xytext=(16e9, 0.001), 
             arrowprops=dict(facecolor='black', shrink=0))
 plt.legend()
 plt.show()
@@ -230,10 +240,10 @@ tree sequence over geographical space.
 
 A major benefit of "tree sequence thinking" is the close relationship between the
 tree sequence and the underlying biological processes that produced the genetic sequences
-in the first place. For example, each branch point in one of the trees above
-can be imagined as a genome which existed at a specific time in the past, and which
-is a "most recent common ancestor" (MRCA) of the descendant genomes at that position on
-the chromosome
+in the first place. For example, each branch point (or "internal node") in one of the
+trees above can be imagined as a genome which existed at a specific time in the past, and
+which is a "most recent common ancestor" (MRCA) of the descendant genomes at that
+position on the chromosome.
 
 ```{todo}
 The tree sequence format gives us access to those ancestral genomes: insert diagram of
@@ -245,41 +255,37 @@ although is helpful to distinguish them from the *sampled* genomes
 ($\mathrm{a}$ to $\mathrm{j}$) we have been talking about up to this point. Here we'll
 plot the MRCA genomes as circular nodes, rather than the squares we have used previously. 
 
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
-all_labels = {n:n for n in range(ts.num_nodes)}
-all_labels.update(labels)  # For consistency, keep letters for the sample nodes
 style2 = "#svg2 .node > .sym {visibility: visible;}"  # force-show all nodes: not normally needed
-SVG(ts.draw_svg(size=sz, root_svg_attributes={'id':'svg2'}, node_labels=all_labels, style=style2))
+SVG(ts.draw_svg(size=sz, root_svg_attributes={'id':'svg2'}, node_labels=labels, style=style2))
 ```
 ```{note}
-For clarity in these examples, we have been relabelling the sample genomes as
-$\mathrm{a}$ to $\mathrm{j}$, and for the rest of this page we will continue to do so.
-However, in standard tree sequences, all the genomes (which are referred to as "nodes"),
-including the samples, are numbered sequentially from 0.
+For clarity in these examples, we have been using letters to label nodes, but normally
+the nodes are referred to by number.
 ```
 
 ```{todo}
 Mention ARGs in passing and link out to the ARG tutorial.
-<!-- Somewhere we should explain *why* trees change along the genome, and it
-would be good to mention ARGs in passing somewhere. We previously had too much
-detail, though:
-
-The change from one tree to another is also biologically meaningful. It indicates that
-one or more recombination events occured at this genomic location in the past. Note,
-however, that for efficiency reasons and more, neither the recombination event itself
-nor the branches on which it occurred are usually present in a tree sequence, although
-it is possible to incorporate them via simulation (see the ARG tutorial). -->
+% Somewhere we should explain *why* trees change along the genome, and it
+% would be good to mention ARGs in passing somewhere. We previously had too much
+% detail, though:
+%
+% The change from one tree to another is also biologically meaningful. It indicates that
+% one or more recombination events occured at this genomic location in the past. Note,
+% however, that for efficiency reasons and more, neither the recombination event itself
+% nor the branches on which it occurred are usually present in a tree sequence, although
+% it is possible to incorporate them via simulation (see the ARG tutorial).
 ```
 
 (sec_what_is_analysis)=
 
-## An efficient analysis framework
+## A framework for efficient computation
 
 
 ```{todo}
 Introduction: algorithms on trees are known to be efficient (phylogenetics). We
-extend these to multiple correlated trees. Mention "dynamic programming" in passing
+extend these to multiple correlated trees. Mention "dynamic programming" in passing.
 ```
 
 Statistical measures of genetic variation can be thought of as a calculation combining
@@ -293,7 +299,7 @@ orders of magnitude, as in this example of calculating Tajima's D (from
 [this source](https://www.genetics.org/content/215/3/779#F9))
 
 (plot_incremental_calculation)=
-```{code-cell}
+```{code-cell} ipython3
 :"tags": ["hide-input"]
 ts_time = np.array([[n,t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'tskit'])
 ska_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'allel'])
@@ -319,8 +325,6 @@ Summary of this subsection:
 ```{epigraph}
 Genetic calculations involve iterating over trees, which is highly efficient in tskit 
 ```
-
-<-- ## An efficient analysis framework (suggested by Ben Haller) -->
 
 
 ## Further reading
