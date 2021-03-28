@@ -38,25 +38,43 @@ at time = 0, an exponential growth rate and a name.
 ``ms`` simulator.
 Unlike ``ms`` however, all times and rates are specified
 in generations and all populations sizes are absolute (that is, not
-multiples of :math:`N_e`).*
+multiples of ``N_e``).*
 
 Suppose we wanted to simulate three sequences each from two populations
 with a constant effective population size of 500.
 
 ```{code-cell} ipython3
-pop0 = msprime.Population(initial_size=500, growth_rate=0, name='Population0')
-pop1 = msprime.Population(initial_size=500, growth_rate=0, name='Population1')
+dem = msprime.Demography()
+dem.add_population(
+  name="Population0",
+  description="Plotted in red.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="Population1",
+  description="Plotted in blue.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem  
 samples0 = msprime.SampleSet(num_samples=3, population='Population0')
 samples1 = msprime.SampleSet(num_samples=3, population='Population1')
 ```
 
-You can give these to your {class}`msprime.Demography` object as a list
-using the ``populations`` argument.
+You can give these to your {class}`msprime.Demography` object
+using the ``add_population`` method.
 (Note that we no longer need to specify ``Ne`` as we have provided a separate size for each population).
 
 ```{code-cell} ipython3
 # dem = msprime.Demography(populations=[pop0, pop1])
-# ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, random-seed=12, sequence_length=1000, recombination_rate=1e-4)
+# ts = msprime.sim_ancestry(
+#   samples={"Population0" : 3, "Population1" : 3}, 
+#   demography=dem,
+#   random-seed=12,
+#   sequence_length=1000, 
+#   recombination_rate=1e-4
+#   )
 ```
 
 However, **this simulation will run forever** unless we also
@@ -92,11 +110,22 @@ approximately 2% of population 1 consists of migrants from population 0.
 
 
 ```{code-cell} ipython3
-M = np.array([
-[0, 0.05],
-[0.02, 0]])
-dem = msprime.Demography(populations=[pop0, pop1], migration_matrix=M)
-ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence_length=1000, random_seed=17, recombination_rate=1e-7)
+dem = msprime.Demography()
+dem.add_population(
+  name="Population0",
+  description="Plotted in red.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="Population1",
+  description="Plotted in blue.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.set_migration_rate(source=0, dest=1, rate=0.05)
+dem.set_migration_rate(source=1, dest=0, rate=0.02)
+ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=17, recombination_rate=1e-7)
 ```
 
 One consequence of specifying :class:`msprime.Population` objects
@@ -135,7 +164,7 @@ For instance, say we wanted to specify that in each generation prior to
 time = 100, 1% of population 0 consisted of migrants from population 1.
 
 ```{code-cell} ipython3
-migration_rate_change = msprime.MigrationRateChange(time = 100, rate = 0.01, source=0, dest=1)
+dem.add_migration_rate_change(time=100, rate=0.01, source=0, dest=1)
 ```
 
 A list of these changes can be supplied to {func}`msprime.sim_ancestry` via the
@@ -143,8 +172,7 @@ A list of these changes can be supplied to {func}`msprime.sim_ancestry` via the
 (If there is more than 1 change, ensure they are ordered by backwards-time!)
 
 ```{code-cell} ipython3
-dem = msprime.Demography(populations=[pop0, pop1], migration_matrix=M, events=[migration_rate_change])
-ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
 ```
 
 ### Mass migrations
@@ -160,7 +188,23 @@ For example, the following specifies that 50 generations ago,
 30% of population 0 was a migrant from population 1.
 
 ```{code-cell} ipython3
-admixture_event  = msprime.MassMigration(time = 50, source = 0, dest = 1, proportion = 0.3)
+dem = msprime.Demography()
+dem.add_population(
+  name="Population0",
+  description="Plotted in red.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="Population1",
+  description="Plotted in blue.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.set_migration_rate(source=0, dest=1, rate=0.05)
+dem.set_migration_rate(source=1, dest=0, rate=0.02)
+dem.add_mass_migration(time=50, source=0, dest=1, proportion=0.3)
+dem
 ```
 
 Note that these are viewed as backwards-in-time events,
@@ -169,8 +213,7 @@ so ``source`` is the population that receives migrants from ``dest``.
 Any mass migrations can be added into the list of ``events`` supplied to {func}`msprime.sim_ancestry` via the {class}`msprime.Demography` object.
 
 ```{code-cell} ipython3
-dem = msprime.Demography(populations=[pop0, pop1], migration_matrix=M, events=[admixture_event])
-ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
 ```
 
 {class}`msprime.MassMigration` objects can also be used to specify divergence events, but we must take some care.
@@ -180,15 +223,13 @@ ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence
 The following specifies that 200 generations ago, 100% of population 1 was a migrant from population 0.
 
 ```{code-cell} ipython3
-divergence_event = msprime.MassMigration(
-        time = 200, source = 1, dest = 0, proportion = 1)
+dem.add_mass_migration(time=200, source=1, dest=0, proportion=1)
 ```
 
 We'll add this to our list of ``events`` in our {class}`msprime.Demography` object.
 
 ```{code-cell} ipython3
-dem = msprime.Demography(populations=[pop0, pop1], migration_matrix=M, events=[admixture_event, divergence_event])
-ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
 ```
 
 
@@ -205,9 +246,8 @@ The reason is that at present, we are simulating a situation in which population
 We can fix this by also specifying that prior to time = 200, population 1 had no migration from population 0.
 
 ```{code-cell} ipython3
-rate_change = msprime.MigrationRateChange(time = 200, rate = 0, matrix_index=None)
-dem = msprime.Demography(populations=[pop0, pop1], migration_matrix=M, events=[admixture_event, divergence_event, rate_change])
-ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+dem.add_migration_rate_change(time=200, rate=0)
+ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
 ```
 
 Now all ancestral nodes prior to generation 200 are exclusively from population 0. Hooray!
@@ -234,18 +274,34 @@ Both of these can be specified with {class}`msprime.PopulationParametersChange`
 objects in the supplied list of ``events``.
 
 ```{code-cell} ipython3
+dem = msprime.Demography()
+dem.add_population(
+  name="Population0",
+  description="Plotted in red.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="Population1",
+  description="Plotted in blue.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.set_migration_rate(source=0, dest=1, rate=0.05)
+dem.set_migration_rate(source=1, dest=0, rate=0.02)
+
 # Bottleneck in Population 0 between 50 - 150 generations ago.
-pop0_bottleneck_ends = msprime.PopulationParametersChange(
-    time = 50, initial_size = 250, population = 0)
-pop0_bottleneck_starts = msprime.PopulationParametersChange(
-    time = 150, initial_size = 500, population = 0)
+dem.add_population_parameters_change(time=50, initial_size=250, population=0)
+dem.add_population_parameters_change(time=150, initial_size=500, population=0)
 
 # Exponential growth in Population 1 starting 50 generations ago.
-pop1_growth = msprime.PopulationParametersChange(
-    time = 100, growth_rate = 0.01, population = 1)
+dem.add_population_parameters_change(time=100, growth_rate=0.01, population=1)
 
-dem = msprime.Demography(populations=[pop0, pop1], migration_matrix=M, events=[pop0_bottleneck_ends, pop1_growth, pop0_bottleneck_starts])
-ts = msprime.sim_ancestry(samples=[samples0, samples1], demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+# Sort events, since we've added some out of time order.
+dem.sort_events()
+
+# Simulate.
+ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
 ```
 
 Note that because ``msprime`` simulates backwards-in-time, parameter changes must be
@@ -266,6 +322,6 @@ before running your simulations.
 
 ```{code-cell} ipython3
 my_history = msprime.DemographyDebugger(demography=dem)
-my_history.print_history()
+my_history
 ```
 
