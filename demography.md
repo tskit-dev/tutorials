@@ -15,7 +15,7 @@ kernelspec:
 
 **Georgia Tsambos**
 
-So far, we've been simulating samples from a single population of a constant size,
+By default, {func}`msprime.sim_ancestry` simulates samples from a single population of a constant size,
 which isn't particularly exciting!
 One of the strengths of msprime is that it can be used to specify quite complicated
 models of demography and population history with a simple Python API.
@@ -29,16 +29,23 @@ from IPython.display import SVG
 
 ## Population structure
 
+All population structure and demography is passed to {func}`msprime.sim_ancestry` via a {class}`msprime.Demography` object.
+
+```{code-cell} ipython3
+dem = msprime.Demography()
+```
+
 ``msprime`` supports simulation from multiple discrete populations,
-each of which is initialized with a {class}`msprime.Population` object.
+each of which is initialized in {class}`msprime.Demography` via the {meth}`msprime.Demography.add_population` method.
 For each population, you can specify a sample size, an effective population size
 at time = 0, an exponential growth rate and a name.
+In this default setup, the samples will be drawn from time = 0, but see [here](https://tskit.dev/msprime/docs/latest/ancestry.html#sampling-time) if you wish to change this.
 
 *Note: Population structure in ``msprime`` closely follows the model used in the
 ``ms`` simulator.
 Unlike ``ms`` however, all times and rates are specified
 in generations and all populations sizes are absolute (that is, not
-multiples of ``N_e``).*
+multiples of ``population_size``).*
 
 Suppose we wanted to simulate three sequences each from two populations
 with a constant effective population size of 500.
@@ -58,16 +65,13 @@ dem.add_population(
   growth_rate=0
   )
 dem  
-samples0 = msprime.SampleSet(num_samples=3, population='Population0')
-samples1 = msprime.SampleSet(num_samples=3, population='Population1')
 ```
-
-You can give these to your {class}`msprime.Demography` object
-using the ``add_population`` method.
-(Note that we no longer need to specify ``Ne`` as we have provided a separate size for each population).
+The {class}`msprime.Demography` object that we've just created can be passed to {func}`msprime.sim_ancestry` via the ``demography`` argument.
+We'll also use the ``samples`` argument to specify how many sample haplotypes we wish to draw from each of these populations.
+In this case, we'll simulate three from each.
+Also, note that we no longer need to specify ``population_size`` in {func}`msprime.sim_ancestry` as we have provided a separate size for each population.
 
 ```{code-cell} ipython3
-# dem = msprime.Demography(populations=[pop0, pop1])
 # ts = msprime.sim_ancestry(
 #   samples={"Population0" : 3, "Population1" : 3}, 
 #   demography=dem,
@@ -89,20 +93,24 @@ To fix this, let's add some migration events to the specific demographic history
 ## Migrations
 
 With msprime, you can specify continual rates of migrations between
-populations, as well as one-off mass migrations.
+populations, as well as admixture events, divergences and one-off mass migrations.
 
 ### Constant migration
 
 ![constant-migration-diagram](_static/tute-population-structure-1.png)
 
-Migration rates between the populations can be specified as the elements of an
-*N* by *N* numpy array, and given to {func}`msprime.sim_ancestry` via the
-``migration_matrix`` argument. The diagonal elements of this array must each be
-0, and the *(i, j)* th element specifies the expected number of migrants moving
-from population *j* to population *i* per generation, divided by the size of
-population *i*.  When this rate is small (close to 0), it is approximately
-equal to the fraction of population *i* that consists of new migrants from
-population *j* in each generation.
+Migration rates between the populations can be thought as the elements of an
+*N* by *N* numpy array, and are passed to our {class}`msprime.Demography` object individually via the {meth}`msprime.Demography.set_migration_rate`
+method.
+This allows us to specify the expected number of migrants moving
+from population `dest` to population `source` per generation, divided by the size of
+population `source`.  When this rate is small (close to 0), it is approximately
+equal to the fraction of population `source` that consists of new migrants from
+population `dest` in each generation.
+
+```{note}
+The reason for this (perhaps) counter-intuitive specification of `source` and `dest` is that ``msprime`` simulates backwards-in-time. See [this](https://tskit.dev/msprime/docs/latest/demography.html#direction-of-time) for further explanation.
+```
 
 For instance, the following migration matrix specifies that in each generation,
 approximately 5% of population 0 consists of migrants from population 1, and
@@ -125,15 +133,21 @@ dem.add_population(
   )
 dem.set_migration_rate(source=0, dest=1, rate=0.05)
 dem.set_migration_rate(source=1, dest=0, rate=0.02)
-ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=17, recombination_rate=1e-7)
+ts = msprime.sim_ancestry(
+  samples={"Population0" : 3, "Population1" : 3},
+  demography=dem,
+  sequence_length=1000,
+  random_seed=141,
+  recombination_rate=1e-7)
+ts
 ```
 
-One consequence of specifying :class:`msprime.Population` objects
+One consequence of specifying {class}`msprime.Population` objects
 is that each of the simulated nodes will now belong to one of our specified
 populations:
 
 ```{code-cell} ipython3
-print(ts.tables.nodes)
+ts.tables.nodes
 ```
 
 Notice that the ``population`` column of the node table now contains values of 0 and 1.
@@ -156,8 +170,8 @@ population 0 than vice versa.
 ### Changing migration rates
 
 We can change any of the migration rates at any time in the simulation.
-To do this, we just need to add a {class}`msprime.MigrationRateChange` object
-specifying the index of the migration matrix to be changed,
+To do this, we just need to use the {meth}`msprime.Demography.add_migration_rate_change` method on our {class}`msprime.Demography` object,
+specifying the populations whose migration rates are to be changed,
 the time of the change and the new migration rate.
 
 For instance, say we wanted to specify that in each generation prior to
@@ -165,14 +179,20 @@ time = 100, 1% of population 0 consisted of migrants from population 1.
 
 ```{code-cell} ipython3
 dem.add_migration_rate_change(time=100, rate=0.01, source=0, dest=1)
+dem
 ```
 
-A list of these changes can be supplied to {func}`msprime.sim_ancestry` via the
-``demographic_events`` input:
-(If there is more than 1 change, ensure they are ordered by backwards-time!)
+The output above shows that we have successfully added our first demographic event to our {class}`msprime.Demography` object, a migration rate change.
+We are now ready to simulate:
 
 ```{code-cell} ipython3
-ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+ts = msprime.sim_ancestry(
+  samples={"Population0" : 3, "Population1" : 3},
+  demography=dem,
+  sequence_length=1000,
+  random_seed=63461,
+  recombination_rate=1e-7)
+ts
 ```
 
 ### Mass migrations
@@ -270,8 +290,8 @@ for tree in ts.trees():
 
 We may wish to specify changes to rates of population growth,
 or sudden changes in population size at a particular time.
-Both of these can be specified with {class}`msprime.PopulationParametersChange`
-objects in the supplied list of ``events``.
+Both of these can be specified by applying the {meth}`msprime.Demography.add_population_parameters_change`
+method to our {class}`msprime.Demography` object.
 
 ```{code-cell} ipython3
 dem = msprime.Demography()
