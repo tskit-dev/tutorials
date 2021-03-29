@@ -435,6 +435,40 @@ For instance, the ``pop1_growth`` event in the example above
 specifies continual growth in the early history of population 1 up until 100
 generations in the past.
 
+## Census events
+
+There may be situations where you are particularly interested in the chromosomes that are ancestral to your simulated sample at a particular time.
+For instance, you might want to know how many different lineages are ancestral to your sample at some past time.
+Perhaps you are interested to know which populations these ancestors belonged to (ie. *local ancestry*).
+In both cases, msprime can help you by allowing you to add a *census* to your simulation at a particular time.
+This is done with the {meth}`msprime.Demography.add_census`
+ method:
+
+```{code-cell} ipython3
+dem = msprime.Demography()
+dem.add_population(name="A", initial_size=500)
+
+# Add a census at time 350.
+dem.add_census(time=350)
+
+# Simulate.
+ts = msprime.sim_ancestry(
+  samples={"A" : 2},
+  demography=dem,
+  sequence_length=1000,
+  random_seed=112,
+  recombination_rate=1e-7)
+```
+The effect of the census is to add nodes onto each branch of the tree sequence at the census time.
+
+```{code-cell} ipython3
+print("IDs of census nodes:")
+print([u.id for u in ts.nodes() if u.flags==msprime.NODE_IS_CEN_EVENT])
+SVG(ts.draw_svg())
+```
+
+By extracting these node IDs, you can perform further analyses using the ancestral haplotypes.
+See [here](https://tskit.dev/msprime/docs/latest/ancestry.html#census-events) for a slightly more involved example of this.
 
 ## Debugging demography
 
