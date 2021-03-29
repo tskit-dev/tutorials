@@ -341,13 +341,19 @@ print([u.population for u in ts.nodes() if u.time >= 100])
 
 ### Mass migrations
 
-:class:`msprime.MassMigration` objects are used to specify one-off events in which some fraction of a population moves into another population. These are useful for specifying divergence and admixture events.
+If you used any of versions of msprime prior to 1.0,
+you may be familiar with mass migration events.
+These are used to specify one-off events in which some fraction of a population moves into another population, and can be supplied to a {class}`msprime.Demography` object using the {meth}`msprime.Demography.add_mass_migration` method.
+
+```{warning}
+Unlike {meth}`msprime.Demography.add_admixture` and {meth}`msprime.Demography.add_population_split` mentioned above, {meth}`msprime.Demography.add_mass_migration` **does not** change any population states or migration rates. We **strongly recommend** that you use the more specialised methods to model admixture and divergence events -- it is both simpler and safer!
+```
+You'll need to provide the time of the mass migration in generations,
+the ID of the source and destination populations,
+and a migration proportion.
 
 ![](_static/tute-mass-migration.png)
 
-You'll need to provide the time of the event in generations,
-the ID of the source and destination populations,
-and a migration proportion (which defaults to 1.0).
 For example, the following specifies that 50 generations ago,
 30% of population 0 was a migrant from population 1.
 
@@ -374,58 +380,13 @@ dem
 Note that these are viewed as backwards-in-time events,
 so ``source`` is the population that receives migrants from ``dest``.
 
-Any mass migrations can be added into the list of ``events`` supplied to {func}`msprime.sim_ancestry` via the {class}`msprime.Demography` object.
-
 ```{code-cell} ipython3
-ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
-```
-
-{class}`msprime.MassMigration` objects can also be used to specify divergence events, but we must take some care.
-
-![](_static/tute-divergence-1.png)
-
-The following specifies that 200 generations ago, 100% of population 1 was a migrant from population 0.
-
-```{code-cell} ipython3
-dem.add_mass_migration(time=200, source=1, dest=0, proportion=1)
-```
-
-We'll add this to our list of ``events`` in our {class}`msprime.Demography` object.
-
-```{code-cell} ipython3
-ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
-```
-
-
-However, when we look at the population IDs corresponding to the the nodes from more than 200 generations ago, there are still some nodes from both populations. This is not what what we'd expect to see if we'd correctly simulated a divergence event!
-
-```{code-cell} ipython3
-[u.population for u in ts.nodes() if u.time > 200]
-```
-
-The reason is that at present, we are simulating a situation in which population 1 exists prior to generation 200, but is completely replaced by migrants from population 0 at time = 200. And because we've specified a migration matrix, there will still be some migrants from population 0 to population 1 in prior generations.
-
-![](_static/tute-divergence-2.png)
-
-We can fix this by also specifying that prior to time = 200, population 1 had no migration from population 0.
-
-```{code-cell} ipython3
-dem.add_migration_rate_change(time=200, rate=0)
-ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
-```
-
-Now all ancestral nodes prior to generation 200 are exclusively from population 0. Hooray!
-
-```{code-cell} ipython3
-[u.population for u in ts.nodes() if u.time > 200]
-
-# This only works in a Jupyter notebook.
-from IPython.display import SVG
-
-colour_map = {0:"red", 1:"blue"}
-node_colours = {u.id: colour_map[u.population] for u in ts.nodes()}
-for tree in ts.trees():
-    display(SVG(tree.draw(node_colours=node_colours)))
+ts = msprime.sim_ancestry(
+  samples={"Population0" : 3, "Population1" : 3},
+  demography=dem,
+  sequence_length=1000,
+  random_seed=63461,
+  recombination_rate=1e-7)
 ```
 
 ## Changing population sizes or growth rates
