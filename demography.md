@@ -20,8 +20,7 @@ which isn't particularly exciting!
 One of the strengths of msprime is that it can be used to specify quite complicated
 models of demography and population history with a simple Python API.
 
-```{code-cell} ipython3
-%config InlineBackend.figure_format = 'svg'
+```{code-cell}
 import msprime
 import numpy as np
 from IPython.display import SVG
@@ -29,53 +28,30 @@ from IPython.display import SVG
 
 ## Population structure
 
-All population structure and demography is passed to {func}`msprime.sim_ancestry` via a {class}`msprime.Demography` object.
-
-```{code-cell} ipython3
-dem = msprime.Demography()
-```
-
 ``msprime`` supports simulation from multiple discrete populations,
 each of which is initialized in {class}`msprime.Demography` via the {meth}`msprime.Demography.add_population` method.
 For each population, you can specify a sample size, an effective population size
 at time = 0, an exponential growth rate and a name.
-In this default setup, the samples will be drawn from time = 0, but see [here](https://tskit.dev/msprime/docs/latest/ancestry.html#sampling-time) if you wish to change this.
-
-*Note: Population structure in ``msprime`` closely follows the model used in the
-``ms`` simulator.
-Unlike ``ms`` however, all times and rates are specified
-in generations and all populations sizes are absolute (that is, not
-multiples of ``population_size``).*
 
 Suppose we wanted to simulate three sequences each from two populations
 with a constant effective population size of 500.
 
-```{code-cell} ipython3
+```{code-cell} 
 dem = msprime.Demography()
-dem.add_population(
-  name="Population0",
-  description="Plotted in red.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="Population1",
-  description="Plotted in blue.",
-  initial_size=500,
-  growth_rate=0
-  )
+dem.add_population(name="A", description="Plotted in red.", initial_size=500)
+dem.add_population(name="B", description="Plotted in blue.",initial_size=500)
 dem  
 ```
 The {class}`msprime.Demography` object that we've just created can be passed to {func}`msprime.sim_ancestry` via the ``demography`` argument.
-We'll also use the ``samples`` argument to specify how many sample haplotypes we wish to draw from each of these populations.
+We'll also use the ``samples`` argument to specify how many sample inividuals we wish to draw from each of these populations.
 In this case, we'll simulate three from each.
 Also, note that we no longer need to specify ``population_size`` in {func}`msprime.sim_ancestry` as we have provided a separate size for each population.
 
-```{code-cell} ipython3
+```{code-cell} 
 # ts = msprime.sim_ancestry(
-#   samples={"Population0" : 3, "Population1" : 3}, 
+#   samples={"A" : 3, "B" : 3}, 
 #   demography=dem,
-#   random-seed=12,
+#   random_seed=12,
 #   sequence_length=1000, 
 #   recombination_rate=1e-4
 #   )
@@ -89,6 +65,18 @@ coalesced to a single common ancestor at each genomic location.
 However, with no migration between our two populations, samples in one
 population will never coalesce with samples in another population.
 To fix this, let's add some migration events to the specific demographic history.
+
+```{note}
+In this default setup, the samples will be drawn from time = 0, but see [here](https://tskit.dev/msprime/docs/latest/ancestry.html#sampling-time) if you wish to change this.
+```
+
+```{note}
+Population structure in ``msprime`` closely follows the model used in the
+``ms`` simulator.
+Unlike ``ms`` however, all times and rates are specified
+in generations and all population sizes are absolute (that is, not
+multiples of ``population_size``).
+```
 
 ## Migrations
 
@@ -107,6 +95,7 @@ from population `dest` to population `source` per generation, divided by the siz
 population `source`.  When this rate is small (close to 0), it is approximately
 equal to the fraction of population `source` that consists of new migrants from
 population `dest` in each generation.
+And if both of your populations are exchanging migrants at the same rate, you can save yourself some typing by specifying them with a single {meth}`msprime.Demography.set_symmetric_migration_rate` call.
 
 ```{note}
 The reason for this (perhaps) counter-intuitive specification of `source` and `dest` is that ``msprime`` simulates backwards-in-time. See [this](https://tskit.dev/msprime/docs/latest/demography.html#direction-of-time) for further explanation.
@@ -117,24 +106,18 @@ approximately 5% of population 0 consists of migrants from population 1, and
 approximately 2% of population 1 consists of migrants from population 0.
 
 
-```{code-cell} ipython3
+```{code-cell} 
 dem = msprime.Demography()
-dem.add_population(
-  name="Population0",
-  description="Plotted in red.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="Population1",
-  description="Plotted in blue.",
-  initial_size=500,
-  growth_rate=0
-  )
+dem.add_population(name="A", description="Plotted in red.", initial_size=500)
+dem.add_population(name="B", description="Plotted in blue.",initial_size=500)
+
+# Set migration rates.
 dem.set_migration_rate(source=0, dest=1, rate=0.05)
 dem.set_migration_rate(source=1, dest=0, rate=0.02)
+
+# Simulate.
 ts = msprime.sim_ancestry(
-  samples={"Population0" : 3, "Population1" : 3},
+  samples={"A" : 1, "B" : 1},
   demography=dem,
   sequence_length=1000,
   random_seed=141,
@@ -146,7 +129,7 @@ One consequence of specifying {class}`msprime.Population` objects
 is that each of the simulated nodes will now belong to one of our specified
 populations:
 
-```{code-cell} ipython3
+```{code-cell} 
 ts.tables.nodes
 ```
 
@@ -154,7 +137,7 @@ Notice that the ``population`` column of the node table now contains values of 0
 If you are working in a Jupyter notebook, you can draw the tree sequence
 with nodes coloured by population label using SVG:
 
-```{code-cell} ipython3
+```{code-cell} 
 colour_map = {0:"red", 1:"blue"}
 node_colours = {u.id: colour_map[u.population] for u in ts.nodes()}
 for tree in ts.trees():
@@ -177,7 +160,7 @@ the time of the change and the new migration rate.
 For instance, say we wanted to specify that in each generation prior to
 time = 100, 1% of population 0 consisted of migrants from population 1.
 
-```{code-cell} ipython3
+```{code-cell} 
 dem.add_migration_rate_change(time=100, rate=0.01, source=0, dest=1)
 dem
 ```
@@ -185,9 +168,9 @@ dem
 The output above shows that we have successfully added our first demographic event to our {class}`msprime.Demography` object, a migration rate change.
 We are now ready to simulate:
 
-```{code-cell} ipython3
+```{code-cell} 
 ts = msprime.sim_ancestry(
-  samples={"Population0" : 3, "Population1" : 3},
+  samples={"A" : 1, "B" : 1},
   demography=dem,
   sequence_length=1000,
   random_seed=63461,
@@ -209,40 +192,21 @@ make a diagram showing this
 We can do this by using the {meth}`msprime.Demography.add_admixture` method on our demography object.
 We must supply a list of ancestral populations participating in the admixture, and a list of the same size specifying the proportions of migrants from each of these populations.
 
-```{code-cell} ipython3
+```{code-cell} 
 dem = msprime.Demography()
-dem.add_population(
-  name="AncestralPop0",
-  description="Plotted in red.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="AncestralPop1",
-  description="Plotted in blue.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="AdmixedPop",
-  description="Plotted in green.",
-  initial_size=500,
-  growth_rate=0
-  )
+dem.add_population(name="AncestralPop0", description="Plotted in red.", initial_size=500, growth_rate=0)
+dem.add_population(name="AncestralPop1", description="Plotted in blue.", initial_size=500, growth_rate=0)
+dem.add_population(name="AdmixedPop", description="Plotted in green.", initial_size=500)
 dem.set_migration_rate(source=0, dest=1, rate=0.05)
 dem.set_migration_rate(source=1, dest=0, rate=0.02)
 
 # Specify admixture event.
-dem.add_admixture(
-  time=50,
-  derived="AdmixedPop",
-  ancestral=["AncestralPop0", "AncestralPop1"],
-  proportions=[0.3, 0.7])
+dem.add_admixture(time=50, derived="AdmixedPop", ancestral=["AncestralPop0", "AncestralPop1"], proportions=[0.3, 0.7]);
 ```
 
 This simulates a sample where all nodes (ancestral haplotypes) are from the admixed population up until the time of the admixture event, and before this, all nodes are from one of the ancestral populations.
 
-```{code-cell} ipython3
+```{code-cell} 
 ts = msprime.sim_ancestry(
   samples={"AncestralPop0" : 0, "AncestralPop1" : 0, "AdmixedPop" : 6},
   demography=dem,
@@ -260,14 +224,14 @@ Admixtures and population splits are special types of demographic events that af
 The output below shows that by adding the admixture event, we are triggering a change in the state of ``AdmixedPop`` at time = 50;
 the population is active at the start of the simulation, but becomes inactive for all steps of the simulation beyond time 50.
 
-```{code-cell} ipython3
+```{code-cell} 
 dem
 ```
 
 This means that, for example, adding any demographic events that affect ``AdmixedPop`` beyond this time will produce an error:
 
-```{code-cell} ipython3
-dem.add_migration_rate_change(time=80, rate=0.01, source="AncestralPop0", dest="AdmixedPop")
+```{code-cell} 
+dem.add_migration_rate_change(time=80, rate=0.01, source="AncestralPop0", dest="AdmixedPop");
 # ts = msprime.sim_ancestry(
 #   samples={"AncestralPop0" : 0, "AncestralPop1" : 0, "AdmixedPop" : 6},
 #   demography=dem,
@@ -295,39 +259,21 @@ Any differences in 'quantities' of migrants must be modelled by sizes of the der
 
 ```{code-cell} ipython 3
 dem = msprime.Demography()
-dem.add_population(
-  name="Population0",
-  description="Plotted in red.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="Population1",
-  description="Plotted in blue.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="AncestralPopulation",
-  description="Plotted in green.",
-  initial_size=500,
-  growth_rate=0
-  )
+dem.add_population(name="A", description="Plotted in red.", initial_size=500)
+dem.add_population(name="B", description="Plotted in blue.",initial_size=500)
+dem.add_population(name="AncestralPopulation", description="Plotted in green.", initial_size=500)
 
 # Add the population split.
-dem.add_population_split(
-  time=100,
-  derived=["Population0","Population1"],
-  ancestral="AncestralPopulation")
+dem.add_population_split(time=100, derived=["A","B"], ancestral="AncestralPopulation")
 dem
 ```
 
 Population splits will also modify the state of each of the derived populations,
 changing them from active to inactive at the time of the split. 
 
-```{code-cell} ipython3
+```{code-cell} 
 ts = msprime.sim_ancestry(
-  samples={"Population0" : 3, "Population1" : 3, "AncestralPopulation" : 0},
+  samples={"A" : 3, "B" : 3, "AncestralPopulation" : 0},
   demography=dem,
   sequence_length=1000,
   random_seed=63,
@@ -357,22 +303,14 @@ and a migration proportion.
 For example, the following specifies that 50 generations ago,
 30% of population 0 was a migrant from population 1.
 
-```{code-cell} ipython3
+```{code-cell} 
 dem = msprime.Demography()
-dem.add_population(
-  name="Population0",
-  description="Plotted in red.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="Population1",
-  description="Plotted in blue.",
-  initial_size=500,
-  growth_rate=0
-  )
+dem.add_population(name="A", description="Plotted in red.", initial_size=500)
+dem.add_population(name="B", description="Plotted in blue.",initial_size=500)
 dem.set_migration_rate(source=0, dest=1, rate=0.05)
 dem.set_migration_rate(source=1, dest=0, rate=0.02)
+
+# Add the mass migration.
 dem.add_mass_migration(time=50, source=0, dest=1, proportion=0.3)
 dem
 ```
@@ -380,9 +318,9 @@ dem
 Note that these are viewed as backwards-in-time events,
 so ``source`` is the population that receives migrants from ``dest``.
 
-```{code-cell} ipython3
+```{code-cell} 
 ts = msprime.sim_ancestry(
-  samples={"Population0" : 3, "Population1" : 3},
+  samples={"A" : 3, "B" : 3},
   demography=dem,
   sequence_length=1000,
   random_seed=63461,
@@ -398,20 +336,10 @@ or sudden changes in population size at a particular time.
 Both of these can be specified by applying the {meth}`msprime.Demography.add_population_parameters_change`
 method to our {class}`msprime.Demography` object.
 
-```{code-cell} ipython3
+```{code-cell} 
 dem = msprime.Demography()
-dem.add_population(
-  name="Population0",
-  description="Plotted in red.",
-  initial_size=500,
-  growth_rate=0
-  )
-dem.add_population(
-  name="Population1",
-  description="Plotted in blue.",
-  initial_size=500,
-  growth_rate=0
-  )
+dem.add_population(name="A", description="Plotted in red.", initial_size=500)
+dem.add_population(name="B", description="Plotted in blue.",initial_size=500)
 dem.set_migration_rate(source=0, dest=1, rate=0.05)
 dem.set_migration_rate(source=1, dest=0, rate=0.02)
 
@@ -426,7 +354,7 @@ dem.add_population_parameters_change(time=100, growth_rate=0.01, population=1)
 dem.sort_events()
 
 # Simulate.
-ts = msprime.sim_ancestry(samples={"Population0" : 3, "Population1" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
+ts = msprime.sim_ancestry(samples={"A" : 3, "B" : 3}, demography=dem, sequence_length=1000, random_seed=63461, recombination_rate=1e-7)
 ```
 
 Note that because ``msprime`` simulates backwards-in-time, parameter changes must be
@@ -444,7 +372,7 @@ In both cases, msprime can help you by allowing you to add a *census* to your si
 This is done with the {meth}`msprime.Demography.add_census`
  method:
 
-```{code-cell} ipython3
+```{code-cell} 
 dem = msprime.Demography()
 dem.add_population(name="A", initial_size=500)
 
@@ -461,7 +389,7 @@ ts = msprime.sim_ancestry(
 ```
 The effect of the census is to add nodes onto each branch of the tree sequence at the census time.
 
-```{code-cell} ipython3
+```{code-cell} 
 print("IDs of census nodes:")
 print([u.id for u in ts.nodes() if u.flags==msprime.NODE_IS_CEN_EVENT])
 SVG(ts.draw_svg())
@@ -479,7 +407,7 @@ population history in a more human-readable form.
 It's good to get into the habit of running the {class}`msprime.DemographyDebugger`
 before running your simulations.
 
-```{code-cell} ipython3
+```{code-cell} 
 my_history = msprime.DemographyDebugger(demography=dem)
 my_history
 ```
