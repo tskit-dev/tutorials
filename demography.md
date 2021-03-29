@@ -194,6 +194,150 @@ ts = msprime.sim_ancestry(
   recombination_rate=1e-7)
 ts
 ```
+### Admixture and population splits
+
+#### Admixture
+
+It is also easy to specify admixture and divergence events with msprime.
+Suppose we wanted to specify our demography so that 50 generations ago,
+30% of population 0 was a migrant from population 1:
+
+```{todo}
+make a diagram showing this
+```
+
+We can do this by using the {meth}`msprime.Demography.add_admixture` method on our demography object.
+We must supply a list of ancestral populations participating in the admixture, and a list of the same size specifying the proportions of migrants from each of these populations.
+
+```{code-cell} ipython3
+dem = msprime.Demography()
+dem.add_population(
+  name="AncestralPop0",
+  description="Plotted in red.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="AncestralPop1",
+  description="Plotted in blue.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="AdmixedPop",
+  description="Plotted in green.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.set_migration_rate(source=0, dest=1, rate=0.05)
+dem.set_migration_rate(source=1, dest=0, rate=0.02)
+
+# Specify admixture event.
+dem.add_admixture(
+  time=50,
+  derived="AdmixedPop",
+  ancestral=["AncestralPop0", "AncestralPop1"],
+  proportions=[0.3, 0.7])
+```
+
+This simulates a sample where all nodes (ancestral haplotypes) are from the admixed population up until the time of the admixture event, and before this, all nodes are from one of the ancestral populations.
+
+```{code-cell} ipython3
+ts = msprime.sim_ancestry(
+  samples={"AncestralPop0" : 0, "AncestralPop1" : 0, "AdmixedPop" : 6},
+  demography=dem,
+  sequence_length=1000,
+  random_seed=63,
+  recombination_rate=1e-7)
+
+print("Populations of nodes from time < 50:")
+print([u.population for u in ts.nodes() if u.time < 50])
+print("Populations of nodes from time >= 50:")
+print([u.population for u in ts.nodes() if u.time >= 50])
+```
+
+Admixtures and population splits are special types of demographic events that affect the *state* of some of the defined populations, in addition to moving lineages between populations.
+The output below shows that by adding the admixture event, we are triggering a change in the state of ``AdmixedPop`` at time = 50;
+the population is active at the start of the simulation, but becomes inactive for all steps of the simulation beyond time 50.
+
+```{code-cell} ipython3
+dem
+```
+
+This means that, for example, adding any demographic events that affect ``AdmixedPop`` beyond this time will produce an error:
+
+```{code-cell} ipython3
+dem.add_migration_rate_change(time=80, rate=0.01, source="AncestralPop0", dest="AdmixedPop")
+# ts = msprime.sim_ancestry(
+#   samples={"AncestralPop0" : 0, "AncestralPop1" : 0, "AdmixedPop" : 6},
+#   demography=dem,
+#   sequence_length=1000,
+#   random_seed=63,
+#   recombination_rate=1e-7)
+```
+
+To read more about the way that msprime treats the life cycle of populations, see [here](https://tskit.dev/msprime/docs/latest/demography.html#sec-demography-populations-life-cycle).
+
+#### Population splits
+
+We can also simulate population divergences with msprime.
+Suppose we want to model a situation where all lineages from multiple populations are migrants from a single ancestral population at a single point in time.
+
+```{todo}
+make a diagram showing this
+```
+
+We'll specify this with the {meth}`msprime.Demography.add_population_split` method.
+We need to know the time of the event, and the IDs or labels of the derived and ancestral populations participating in the divergence event.
+Notice that in this case, we do not need to provide proportions as we did in the case of admixture.
+This makes sense when you think about the fact that msprime simulates backwards-in-time: all lineages in all of the derived populations originate from the ancestral population in a split event.
+Any differences in 'quantities' of migrants must be modelled by sizes of the derived populations at the time of the split. 
+
+```{code-cell} ipython 3
+dem = msprime.Demography()
+dem.add_population(
+  name="Population0",
+  description="Plotted in red.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="Population1",
+  description="Plotted in blue.",
+  initial_size=500,
+  growth_rate=0
+  )
+dem.add_population(
+  name="AncestralPopulation",
+  description="Plotted in green.",
+  initial_size=500,
+  growth_rate=0
+  )
+
+# Add the population split.
+dem.add_population_split(
+  time=100,
+  derived=["Population0","Population1"],
+  ancestral="AncestralPopulation")
+dem
+```
+
+Population splits will also modify the state of each of the derived populations,
+changing them from active to inactive at the time of the split. 
+
+```{code-cell} ipython3
+ts = msprime.sim_ancestry(
+  samples={"Population0" : 3, "Population1" : 3, "AncestralPopulation" : 0},
+  demography=dem,
+  sequence_length=1000,
+  random_seed=63,
+  recombination_rate=1e-7)
+
+print("Populations of nodes from time < 100:")
+print([u.population for u in ts.nodes() if u.time < 100])
+print("Populations of nodes from time >= 100:")
+print([u.population for u in ts.nodes() if u.time >= 100])
+```
 
 ### Mass migrations
 
