@@ -33,8 +33,10 @@ jobs:
 
     - name: Install R support
       run: |
-        sudo apt-get install r-base-dev
-        sudo R -e 'install.packages(c("reticulate", "IRkernel"))'
+        # We need to remove R to pull in a version that's compatible with CRAN, weirdly.
+        sudo apt-get remove r-base-core
+        sudo apt-get install r-cran-reticulate r-cran-pbdzmq r-cran-uuid
+        sudo R -e 'install.packages("IRkernel")'
         R -e 'IRkernel::installspec()'
 
     # Build the book
