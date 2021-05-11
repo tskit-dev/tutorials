@@ -293,12 +293,13 @@
                 
   <div class="section" id="tskit-and-r">
 <h1>Tskit and R<a class="headerlink" href="#tskit-and-r" title="Permalink to this headline">¶</a></h1>
+<p>To interface with <code class="docutils literal notranslate"><span class="pre">tskit</span></code> in R, we can use the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> R package, which lets you call Python functions within an R session. In this short tutorial, we’ll go through a couple of examples to show you how to get started. If you haven’t done so already, you’ll need to install <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> in your R session via <code class="docutils literal notranslate"><span class="pre">install.packages(&quot;reticulate&quot;)</span></code>.</p>
+<p>We’ll begin by simulating a small tree sequence using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">reticulate</span><span class="p">)</span>
-<span class="n">msprime</span> <span class="o">&lt;-</span> <span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span> <span class="o">&lt;-</span> <span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
 
-<span class="n">ts</span> <span class="o">&lt;-</span> <span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">&lt;-</span> <span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="n">sequence_length</span> <span class="o">=</span> <span class="m">100</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
 <span class="n">ts</span>
 </pre></div>
 </div>
@@ -309,28 +310,28 @@
 ╠═══════════════╤═══════╣
 ║Trees          │      1║
 ╟───────────────┼───────╢
-║Sequence Length│    1.0║
+║Sequence Length│  100.0║
 ╟───────────────┼───────╢
-║Sample Nodes   │     10║
+║Sample Nodes   │     20║
 ╟───────────────┼───────╢
-║Total Size     │2.3 KiB║
+║Total Size     │3.6 KiB║
 ╚═══════════════╧═══════╝
 ╔═══════════╤════╤═════════╤════════════╗
 ║Table      │Rows│Size     │Has Metadata║
 ╠═══════════╪════╪═════════╪════════════╣
-║Edges      │  18│508 Bytes│          No║
+║Edges      │  38│  1.0 KiB│          No║
 ╟───────────┼────┼─────────┼────────────╢
-║Individuals│   5│ 92 Bytes│          No║
+║Individuals│  10│172 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Migrations │   0│  4 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Mutations  │   0│  8 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
-║Nodes      │  19│460 Bytes│          No║
+║Nodes      │  39│940 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Populations│   1│216 Bytes│         Yes║
 ╟───────────┼────┼─────────┼────────────╢
-║Provenances│   1│949 Bytes│          No║
+║Provenances│   1│952 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Sites      │   0│  8 Bytes│          No║
 ╚═══════════╧════╧═════════╧════════════╝
@@ -338,6 +339,76 @@
 </div>
 </div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">reticulate</span></code> allows us to access a Python object’s attributes or call its methods via the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a variable) the number of samples in the tree sequence:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">&lt;-</span> <span class="n">ts</span><span class="o">$</span><span class="n">num_samples</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">20</div></div>
+</div>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s powerful <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html">Statistics</a> framework to efficiently compute many different summary statistics from a tree sequence. To illustrate this, we’ll first add some mutations to our tree sequence with <code class="docutils literal notranslate"><span class="pre">msprime</span></code>’s <code class="docutils literal notranslate"><span class="pre">sim_mutations</span></code> function, and then compute the genetic diversity for each of the tree sequence’s sample nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span> <span class="o">=</span> <span class="m">1e-2</span><span class="p">,</span> <span class="n">random_seed</span> <span class="o">=</span> <span class="m">42</span><span class="p">)</span>
+<span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span>
+<span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">14</div><div class="output text_html">0.0232631578947368</div></div>
+</div>
+<p>As a final example, we can also use the tree sequence <code class="docutils literal notranslate"><span class="pre">genotype_matrix()</span></code> method to return the genotypes of the the tree sequence as a matrix object in R.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">ts_mut</span><span class="o">$</span><span class="nf">genotype_matrix</span><span class="p">()</span>
+<span class="n">G</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A matrix: 13 × 20 of type int</caption>
+<tbody>
+	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>We can then use R functions directly on the genotype matrix:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">allele_frequency</span> <span class="o">=</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">allele_frequency</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>0.05</li><li>0.95</li><li>0.45</li><li>0.9</li><li>0.65</li><li>0.2</li><li>0.95</li><li>0.95</li><li>0.05</li><li>0.05</li><li>1</li><li>0.05</li><li>0.05</li></ol>
+</div></div>
+</div>
+<p>It’s as simple as that! Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> documentation, in particular on <a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>, which includes important information on how R data types are converted to their equivalent Python types.</p>
 </div>
 
     <script type="text/x-thebe-config">
