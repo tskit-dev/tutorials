@@ -30,9 +30,8 @@ sphinx:
     config:
       todo_include_todos: true
       intersphinx_mapping:
-        tskit: ["https://tskit.readthedocs.io/en/stable", null]
-        # TODO change to stable when 1.0 is released
-        msprime: ["https://tskit.dev/msprime/docs/latest", null]
+        tskit: ["https://tskit.dev/tskit/docs/stable", null]
+        msprime: ["https://tskit.dev/msprime/docs/stable", null]
         pyslim: ["https://pyslim.readthedocs.io/en/stable", null]
       myst_enable_extensions:
       - colon_fence

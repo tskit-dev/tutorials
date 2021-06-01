@@ -3,5 +3,4 @@ matplotlib
 seaborn
 pandas
 numpy
-# Uncomment and update the workflow when 1.0 is released.
-# msprime>=1.0
+msprime>=1.0
