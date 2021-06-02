@@ -27,11 +27,12 @@ analysis of millions of whole genomes. Plots (a) and (b) summarize results prese
 
 ```{code-cell}
 :"tags": ["hide-input"]
-from IPython.display import SVG, set_matplotlib_formats
+from IPython.display import SVG
+import matplotlib_inline
 import matplotlib.pyplot as plt
 import numpy as np
 %matplotlib inline
-set_matplotlib_formats('svg')
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 
 data1 = np.genfromtxt("data/storing_everyone.csv", delimiter=",", usecols=np.arange(1,12), names=True)
 data2 = np.genfromtxt("data/benchmarks_without_copy_longer_genome.txt", encoding=None, names=True, dtype=None)
