@@ -712,10 +712,132 @@ means that there can be sample nodes which are "isolated" in a tree. These are d
 unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).
 :::
 
+#### Animation
+
+The classes attached to the SVG also allow elements to be animated. Here's a
+[d3.js](https://d3js.org)-based animation of sucessive subtree-prune-and-regraft (SPR)
+operations, using the {ref}`ARG representation <msprime:sec_ancestry_full_arg>` of a
+tree sequence to allow identification of pruned edges.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-print("SVG animations - TODO")
+css_string = ".node:not(.sample) > .lab, .node:not(.sample) > .sym {visibility: hidden}"
+html_string = r"""
+<div id="animated_svg_canvas">%s</div>
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+function diff(A) {return A.slice(1).map((n, i) => { return n - A[i]; });};
+function mean(A) {return A.reduce((sum, a) => { return 0 + sum + a },0)/(A.length||1);};
+function getRelativeXY(canvas, element, x, y) {
+  var p = canvas._groups[0][0].createSVGPoint();
+  var ctm = element.getCTM();
+  p.x = x || 0;
+  p.y = y || 0;
+  return p.matrixTransform(ctm);
+};
+
+function animate_SPR(canvas, num_trees) {
+  d3.selectAll(".tree").attr("opacity", 0);
+  for(var i=0; i<num_trees - 1; i++) 
+  {
+    var source_tree = ".tree.t" + i;
+    var target_tree = ".tree.t" + (i+1);
+    var dur = 2000;
+    var delay = i * dur;
+    d3.select(source_tree)
+      .datum(function() { return d3.select(this).attr("transform")}) // store the original value
+      .transition()
+      .on("start", function() {d3.select(this).attr("opacity", "1");}) 
+      .delay(delay)
+      .duration(dur)
+      .attr(
+        "transform", d3.select(target_tree).attr("transform"))
+      .on("end", function() {
+        d3.select(this).attr("opacity", "0");
+        d3.select(this).attr("transform", d3.select(this).datum()); // reset
+      });
+    transform_tree(canvas, source_tree, target_tree, dur, delay);
+  }
+};
+
+// NB - this is buggy and doesn't correctly reset the transformations on the elements
+// because it is hard to put the subtree back into the correct place in the hierarchy
+
+function transform_tree(canvas, src_tree, target_tree, dur, delay) {
+  canvas.selectAll(src_tree + " .node").each(function() {
+    var n_ids = d3.select(this).attr("class").split(/\s+/g).filter(x=>x.match(/^n\d/));
+    if (n_ids.length != 1) {alert("Bad node classes in SVG tree")};
+    var node_id = n_ids[0].replace(/^n/, "")
+    var src = src_tree + " .node.n" + node_id;
+    var target = target_tree + " .node.n" + node_id;
+
+    if (d3.select(src).nodes()[0] && d3.select(target).nodes()[0]) {
+      // The same source and target edges exist, so we can simply move them
+      d3.select(src).transition()
+        .delay(delay)
+        .duration(dur)
+        .attr("transform", d3.select(target).attr("transform"))
+      var selection = d3.select(src + " > .edge");
+      if (!selection.empty()) { // the root may not have an edge
+        selection.transition()
+          .delay(delay)
+          .duration(dur)
+          .attr("d", d3.select(target +" > .edge").attr("d"))
+      }
+    } else {
+      // No matching node: this could be a recombination
+      // Hack: the equivalent recombination node is the next one labelled
+      var target = target_tree + " .node.n" + (1+parseInt(node_id));
+      // Extract the edge
+      src_tree_pos = getRelativeXY(canvas, d3.select(src_tree).node());
+      target_tree_pos = getRelativeXY(canvas, d3.select(target_tree).node());
+      src_xy = getRelativeXY(canvas, d3.select(src).node());
+      target_xy = getRelativeXY(canvas, d3.select(target).node());
+      // Move the subtree out of the hierarchy and into the local tree space,
+      // so that movements of the containing hierarchy do not affect position
+      d3.select(src_tree).append(
+        () => d3.select(src)
+          .attr(
+            "transform",
+            "translate(" + (src_xy.x - src_tree_pos.x) + " " + (src_xy.y - src_tree_pos.y) + ")"
+          )
+          .remove()
+          .node()
+      );
+      d3.select(src).transition()
+        .delay(delay)
+        .duration(dur)
+        .attr(
+          "transform",
+          "translate(" + (target_xy.x-target_tree_pos.x) + " " + (target_xy.y-target_tree_pos.y) + ")")
+      selection = d3.select(src + " > .edge");
+      if (!selection.empty()) {
+        selection.transition()
+          .delay(delay)
+          .duration(dur)
+          .attr("d", d3.select(target +" > .edge").attr("d"))
+      }
+    }
+  })
+};
+
+var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
+
+</script>
+
+<button onclick='animate_SPR(d3.select("#animated_svg_canvas svg"), %s);'>Animate</button>
+<button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
+"""
+
+ts = msprime.sim_ancestry(
+    5, ploidy=1,
+    sequence_length=10000,
+    recombination_rate=0.00005,
+    random_seed=6787, model="smc_prime", record_full_arg=True)                
+# record_full_arg needed to track recombination nodes (branch positions)
+# random_seed chosen to produce a ts whose leaves are plotted in the same order
+
+HTML(html_string % (ts.draw_svg(style=css_string), ts.num_trees))
 ```
   
 
