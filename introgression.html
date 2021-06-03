@@ -331,40 +331,36 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Population IDs: Africa, Eurasia, Neanderthal</span>
-<span class="n">AFR</span><span class="p">,</span> <span class="n">EUR</span><span class="p">,</span> <span class="n">NEA</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
-    
-<span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>   
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_simulation</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">time_units</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">25</span>  <span class="c1"># Conversion factor for kya to generations</span>
-    <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
-        <span class="n">Ne</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># The same for all populations; highly unrealistic!</span>
+
+    <span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
+    <span class="c1"># The same size for all populations; highly unrealistic!</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Africa&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Eurasia&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Neanderthal&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># 2% introgression 50 kya</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_mass_migration</span><span class="p">(</span>
+        <span class="n">time</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;Eurasia&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;Neanderthal&#39;</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="c1"># Eurasian &amp; Africa populations &#39;merge&#39; backwards in time, 70 kya</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_mass_migration</span><span class="p">(</span>
+        <span class="n">time</span><span class="o">=</span><span class="mi">70</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;Eurasia&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;Africa&#39;</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Neanderthal and African populations &#39;merge&#39; backwards in time, 300 kya</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_mass_migration</span><span class="p">(</span>
+        <span class="n">time</span><span class="o">=</span><span class="mi">300</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;Neanderthal&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;Africa&#39;</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+        
         <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
-        <span class="n">length</span><span class="o">=</span><span class="mi">20</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>  
+        <span class="n">sequence_length</span><span class="o">=</span><span class="mi">20</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>  
         <span class="n">samples</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">Sample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="n">AFR</span><span class="p">),</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">Sample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="n">EUR</span><span class="p">),</span>
+            <span class="n">msprime</span><span class="o">.</span><span class="n">SampleSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="s1">&#39;Africa&#39;</span><span class="p">),</span>
+            <span class="n">msprime</span><span class="o">.</span><span class="n">SampleSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="s1">&#39;Eurasia&#39;</span><span class="p">),</span>
             <span class="c1"># Neanderthal sample taken 30 kya</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">Sample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="n">NEA</span><span class="p">),</span>
+            <span class="n">msprime</span><span class="o">.</span><span class="n">SampleSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mi">30</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="s1">&#39;Neanderthal&#39;</span><span class="p">),</span>
         <span class="p">],</span>
-        <span class="n">population_configurations</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationConfiguration</span><span class="p">(),</span> <span class="c1"># Africa</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationConfiguration</span><span class="p">(),</span> <span class="c1"># Eurasia</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationConfiguration</span><span class="p">(),</span> <span class="c1"># Neanderthal</span>
-        <span class="p">],</span>
-        <span class="n">demographic_events</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">MassMigration</span><span class="p">(</span>
-                <span class="c1"># 2% introgression 50 kya</span>
-                <span class="n">time</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span>
-                <span class="n">source</span><span class="o">=</span><span class="n">EUR</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">NEA</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="mf">0.02</span><span class="p">),</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">MassMigration</span><span class="p">(</span>
-                <span class="c1"># Eurasian &amp; Africa populations merge 70 kya</span>
-                <span class="n">time</span><span class="o">=</span><span class="mi">70</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span> 
-                <span class="n">source</span><span class="o">=</span><span class="n">EUR</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">AFR</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-            <span class="n">msprime</span><span class="o">.</span><span class="n">MassMigration</span><span class="p">(</span>
-                <span class="c1"># Neanderthal and African populations merge 300 kya</span>
-                <span class="n">time</span><span class="o">=</span><span class="mi">300</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">,</span>
-                <span class="n">source</span><span class="o">=</span><span class="n">NEA</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">AFR</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-        <span class="p">],</span>
+        <span class="n">demography</span> <span class="o">=</span> <span class="n">demography</span><span class="p">,</span>
         <span class="n">record_migrations</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Needed for tracking segments.</span>
         <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span>
     <span class="p">)</span>
@@ -375,28 +371,30 @@
 </div>
 </div>
 </div>
-<p>Here we run our simulation in the usual way, but including the <code class="docutils literal notranslate"><span class="pre">record_migrations</span></code> option. This allows us to track segments of ancestral material that migrate from the European population into the Neanderthal population (backwards in time). We can then examine the length distributions of these segments and compare them with the length of the segments that also go on to coalesce within the Neanderthal population.</p>
+<p>Here we’ve run our simulation in the usual way, but included the <code class="docutils literal notranslate"><span class="pre">record_migrations</span></code> option. This allows us to track segments of ancestral material that migrate from the European population into the Neanderthal population (backwards in time). We can then examine the length distributions of these segments and compare them with the length of the segments that also go on to coalesce within the Neanderthal population.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_migrating_tracts</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="n">neanderthal_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Neanderthal&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">migrating_tracts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1"># Get all tracts that migrated into the neanderthal population</span>
     <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">migrations</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">migration</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">NEA</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">migration</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">neanderthal_id</span><span class="p">:</span>
             <span class="n">migrating_tracts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">migration</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">migration</span><span class="o">.</span><span class="n">right</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">migrating_tracts</span><span class="p">)</span> 
 
 <span class="k">def</span> <span class="nf">get_coalescing_tracts</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="n">neanderthal_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Neanderthal&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">coalescing_tracts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">tract_left</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>    
+    <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
         <span class="c1"># 1 is the Eurasian sample and 2 is the Neanderthal</span>
-        <span class="n">mrca_pop</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">mrca</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">mrca_pop</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">mrca</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">population</span>
         <span class="n">left</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">mrca_pop</span> <span class="o">==</span> <span class="n">NEA</span> <span class="ow">and</span> <span class="n">tract_left</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mrca_pop</span> <span class="o">==</span> <span class="n">neanderthal_id</span> <span class="ow">and</span> <span class="n">tract_left</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Start a new tract</span>
             <span class="n">tract_left</span> <span class="o">=</span> <span class="n">left</span>      
-        <span class="k">elif</span> <span class="n">mrca_pop</span> <span class="o">!=</span> <span class="n">NEA</span> <span class="ow">and</span> <span class="n">tract_left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">mrca_pop</span> <span class="o">!=</span> <span class="n">neanderthal_id</span> <span class="ow">and</span> <span class="n">tract_left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># End the last tract</span>
             <span class="n">coalescing_tracts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tract_left</span><span class="p">,</span> <span class="n">left</span><span class="p">))</span>
             <span class="n">tract_left</span> <span class="o">=</span> <span class="kc">None</span>
@@ -407,7 +405,7 @@
 <span class="k">def</span> <span class="nf">get_eur_nea_tracts</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
     <span class="n">tracts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">tract_left</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>    
+    <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
         <span class="c1"># 1 is the Eurasian sample and 2 is the Neanderthal</span>
         <span class="n">mrca</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">mrca</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">left</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -430,7 +428,7 @@
 </div>
 </div>
 </div>
-<p>We build three different lists. The first is the set of tracts that have migrated from the Eurasian population into the Neanderthal population, and is done simply by finding all migration records in which the destination population is equal to NEA. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments that migrated to the Neanderthal population and segments that did not migrate and did not coalesce until after the Neanderthal-Human population split 300kya.</p>
+<p>We build three different lists. The first is the set of tracts that have migrated from the Eurasian population into the Neanderthal population, and is done simply by finding all migration records in which the destination population name is ‘Neanderthal’. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments that migrated to the Neanderthal population and segments that did not migrate and did not coalesce until after the Neanderthal-Human population split 300kya.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nea_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">eur_nea</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">eur_nea</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
@@ -441,7 +439,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[10077464.05508275, 316645.8476603916, 164413.62338078953]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[10322227.0, 373730.0, 165617.0]
 </pre></div>
 </div>
 </div>

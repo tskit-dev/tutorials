@@ -41,40 +41,37 @@ from IPython.display import SVG
 ```
 
 ```{code-cell} ipython3
-# Population IDs: Africa, Eurasia, Neanderthal
-AFR, EUR, NEA = 0, 1, 2
     
-def run_simulation(random_seed=None):   
+def run_simulation(random_seed=None):
     time_units = 1000 / 25  # Conversion factor for kya to generations
-    ts = msprime.simulate(
-        Ne=10**4,  # The same for all populations; highly unrealistic!
+
+    demography = msprime.Demography()
+    # The same size for all populations; highly unrealistic!
+    demography.add_population(name="Africa", initial_size=10**4)
+    demography.add_population(name="Eurasia", initial_size=10**4)
+    demography.add_population(name="Neanderthal", initial_size=10**4)
+
+    # 2% introgression 50 kya
+    demography.add_mass_migration(
+        time=50 * time_units, source='Eurasia', dest='Neanderthal', proportion=0.02)
+    # Eurasian & Africa populations 'merge' backwards in time, 70 kya
+    demography.add_mass_migration(
+        time=70 * time_units, source='Eurasia', dest='Africa', proportion=1)
+    # Neanderthal and African populations 'merge' backwards in time, 300 kya
+    demography.add_mass_migration(
+        time=300 * time_units, source='Neanderthal', dest='Africa', proportion=1)
+
+    ts = msprime.sim_ancestry(
+        
         recombination_rate=1e-8,
-        length=20 * 10**6,  
+        sequence_length=20 * 10**6,  
         samples=[
-            msprime.Sample(time=0, population=AFR),
-            msprime.Sample(time=0, population=EUR),
+            msprime.SampleSet(1, ploidy=1, population='Africa'),
+            msprime.SampleSet(1, ploidy=1, population='Eurasia'),
             # Neanderthal sample taken 30 kya
-            msprime.Sample(time=30 * time_units, population=NEA),
+            msprime.SampleSet(1, ploidy=1, time=30 * time_units, population='Neanderthal'),
         ],
-        population_configurations = [
-            msprime.PopulationConfiguration(), # Africa
-            msprime.PopulationConfiguration(), # Eurasia
-            msprime.PopulationConfiguration(), # Neanderthal
-        ],
-        demographic_events = [
-            msprime.MassMigration(
-                # 2% introgression 50 kya
-                time=50 * time_units,
-                source=EUR, dest=NEA, proportion=0.02),
-            msprime.MassMigration(
-                # Eurasian & Africa populations merge 70 kya
-                time=70 * time_units, 
-                source=EUR, dest=AFR, proportion=1),
-            msprime.MassMigration(
-                # Neanderthal and African populations merge 300 kya
-                time=300 * time_units,
-                source=NEA, destination=AFR, proportion=1),
-        ],
+        demography = demography,
         record_migrations=True,  # Needed for tracking segments.
         random_seed=random_seed,
     )
@@ -83,28 +80,30 @@ def run_simulation(random_seed=None):
 ts = run_simulation(1)
 ```
 
-Here we run our simulation in the usual way, but including the ``record_migrations`` option. This allows us to track segments of ancestral material that migrate from the European population into the Neanderthal population (backwards in time). We can then examine the length distributions of these segments and compare them with the length of the segments that also go on to coalesce within the Neanderthal population.
+Here we've run our simulation in the usual way, but included the ``record_migrations`` option. This allows us to track segments of ancestral material that migrate from the European population into the Neanderthal population (backwards in time). We can then examine the length distributions of these segments and compare them with the length of the segments that also go on to coalesce within the Neanderthal population.
 
 ```{code-cell} ipython3
 def get_migrating_tracts(ts):
+    neanderthal_id = [p.id for p in ts.populations() if p.metadata['name']=='Neanderthal'][0]
     migrating_tracts = []
     # Get all tracts that migrated into the neanderthal population
     for migration in ts.migrations():
-        if migration.dest == NEA:
+        if migration.dest == neanderthal_id:
             migrating_tracts.append((migration.left, migration.right))
     return np.array(migrating_tracts) 
 
 def get_coalescing_tracts(ts):
+    neanderthal_id = [p.id for p in ts.populations() if p.metadata['name']=='Neanderthal'][0]
     coalescing_tracts = []
     tract_left = None
-    for tree in ts.trees():    
+    for tree in ts.trees():
         # 1 is the Eurasian sample and 2 is the Neanderthal
-        mrca_pop = tree.population(tree.mrca(1, 2))
+        mrca_pop = ts.node(tree.mrca(1, 2)).population
         left = tree.interval[0]
-        if mrca_pop == NEA and tract_left is None:
+        if mrca_pop == neanderthal_id and tract_left is None:
             # Start a new tract
             tract_left = left      
-        elif mrca_pop != NEA and tract_left is not None:
+        elif mrca_pop != neanderthal_id and tract_left is not None:
             # End the last tract
             coalescing_tracts.append((tract_left, left))
             tract_left = None
@@ -115,7 +114,7 @@ def get_coalescing_tracts(ts):
 def get_eur_nea_tracts(ts):
     tracts = []
     tract_left = None
-    for tree in ts.trees():    
+    for tree in ts.trees():
         # 1 is the Eurasian sample and 2 is the Neanderthal
         mrca = tree.mrca(1, 2)
         left = tree.interval[0]
@@ -136,7 +135,7 @@ within_nea = get_coalescing_tracts(ts)
 eur_nea = get_eur_nea_tracts(ts)
 ```
 
-We build three different lists. The first is the set of tracts that have migrated from the Eurasian population into the Neanderthal population, and is done simply by finding all migration records in which the destination population is equal to NEA. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments that migrated to the Neanderthal population and segments that did not migrate and did not coalesce until after the Neanderthal-Human population split 300kya.
+We build three different lists. The first is the set of tracts that have migrated from the Eurasian population into the Neanderthal population, and is done simply by finding all migration records in which the destination population name is 'Neanderthal'. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments that migrated to the Neanderthal population and segments that did not migrate and did not coalesce until after the Neanderthal-Human population split 300kya.
 
 ```{code-cell} ipython3
 nea_total = np.sum(eur_nea[:,1] - eur_nea[:,0])

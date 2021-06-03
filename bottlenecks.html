@@ -324,13 +324,14 @@
 <p>The site frequency spectrum (SFS) summarises variants by their frequency in a sample and is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). First, the SFS is a lossless summary of unlinked variants, so any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, F_st, Tajima’s D and D) are summaries of the SFS.</p>
 <p>The SFS is convenient analytically, because it only depends on the mean length and frequency of genealogical branches. For many demographic models of interest the means can be derived analytically either using coalescent theory (cite Huang, TPB) or diffusion equations (cite dadi). A number of composite likelihood approaches have been developed based on either analytic results for the SFS (cite dadi Excoffier, Jaada). However, analytic expectations for the SFS break down for large samples and/or complex demographic models.</p>
 <p>In the following section we show how the SFS can be approximated using coalescence simulations and compare such approximations to analytic results. We will assume a simple toy history of a single panmictic population that is affected by an instaneous bottleneck at time T with strenght s (cite Galtier et al). The effect of this bottleneck is to induce sudden burst of coalescence, which simultaneous multiple merges. We measure bottleneck strength as the probability that a pair of lineages coalesces during the bottleneck (we could could of course convert s into on (imaginary) time period that would give the same probability of coalescence <span class="math notranslate nohighlight">\(s=1-e^{-T}\)</span>).</p>
-<p>We assume a sample of size 10 and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function bottSFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.</p>
+<p>We assume a sample of 10 haploid genomes and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function approx_SFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.</p>
 <p>We use a for loop to record the SFS for a range of bottleneck strengths parameters in a dictionary:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">tskit</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -341,11 +342,11 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_bott_sims</span><span class="p">(</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>    
-    <span class="n">demographic_events</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">msprime</span><span class="o">.</span><span class="n">InstantaneousBottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
-    <span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
-        <span class="n">sample_size</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="n">Ne</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> 
-        <span class="n">demographic_events</span><span class="o">=</span><span class="n">demographic_events</span><span class="p">)</span>
+    <span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="n">Ne</span><span class="p">)</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_instantaneous_bottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+        <span class="n">samples</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">reps</span>
 
 <span class="k">def</span> <span class="nf">approx_SFS</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
@@ -355,7 +356,7 @@
         <span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
             <span class="n">nleaves</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">NULL_NODE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
                 <span class="n">B</span><span class="p">[</span><span class="n">rep_index</span><span class="p">,</span> <span class="n">nleaves</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>    
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -363,7 +364,7 @@
 
 <span class="n">num_rep</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">num_samp</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">Ne</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Ne</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Use coalescent time units</span>
 <span class="n">T</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">taulist</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="n">datalist</span> <span class="o">=</span> <span class="p">{}</span>
@@ -373,12 +374,6 @@
 <span class="c1"># My guess/assumption is that currently bottleneck strength in msprime is scaled as an (imaginary) time tau (in units of 4N_e) generations. </span>
 <span class="c1"># It makes a lot more sense to express the bottleneck strength as the probability of pairwise coalescence</span>
 <span class="c1"># during the bottelenck s=1-np.exp(-tau/2)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/msprime/__init__.py:226: FutureWarning: &#39;msprime.NULL_NODE&#39; is deprecated and will be removed in future versions. Use &#39;tskit.NULL&#39;.
-  warnings.warn(
 </pre></div>
 </div>
 </div>
@@ -454,7 +449,8 @@
 </div>
 </div>
 </div>
-<p>The fit between the SFS simulated with msprime and the analytic prediction is noty convincing (given the 100,000 replicates):</p>
+<p>The fit between the SFS simulated with msprime and the analytic prediction is not very convincing
+(given the 100,000 replicates):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_samp</span> <span class="o">=</span> <span class="mi">4</span>
@@ -486,10 +482,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.5461073  0.28136078 0.17253192]
-[0.5681696  0.24102008 0.19081033]
-[0.57196656 0.25134528 0.17668815]
-[0.58870645 0.24233286 0.16896068]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.53511505 0.29077811 0.17410684]
+[0.58124776 0.25844797 0.16030427]
+[0.5898418  0.27504704 0.13511116]
+[0.62318168 0.23966368 0.13715465]
 </pre></div>
 </div>
 <img alt="_images/bottlenecks_12_1.svg" src="_images/bottlenecks_12_1.svg" /></div>
@@ -497,20 +493,22 @@
 </div>
 <div class="section" id="the-distribution-of-nton-branches">
 <h2>The distribution of nton branches<a class="headerlink" href="#the-distribution-of-nton-branches" title="Permalink to this headline">¶</a></h2>
-<p>Given that the SFS only depends on mean  branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.</p>
+<p>Given that the SFS only depends on mean branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">demographic_events</span> <span class="o">=</span> <span class="p">[</span><span class="n">msprime</span><span class="o">.</span><span class="n">InstantaneousBottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
-<span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
-    <span class="n">sample_size</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="n">Ne</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> 
-    <span class="n">demographic_events</span><span class="o">=</span><span class="n">demographic_events</span><span class="p">)</span>
+<span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="n">Ne</span><span class="p">)</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_instantaneous_bottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="n">samples</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">)</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
     <span class="n">tree</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
         <span class="n">nleaves</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">NULL_NODE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
             <span class="n">B</span><span class="p">[</span><span class="n">rep_index</span><span class="p">,</span> <span class="n">nleaves</span><span class="p">]</span><span class="o">+=</span><span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
 </pre></div>
 </div>
