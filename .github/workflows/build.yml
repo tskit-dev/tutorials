@@ -28,7 +28,6 @@ jobs:
 
     - name: Install python dependencies
       run: |
-        pip install msprime --pre # Needed until we have a stable 1.0
         pip install -r requirements.txt
 
     - name: Install R support
