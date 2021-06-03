@@ -21,7 +21,7 @@ The SFS is convenient analytically, because it only depends on the mean length a
 
 In the following section we show how the SFS can be approximated using coalescence simulations and compare such approximations to analytic results. We will assume a simple toy history of a single panmictic population that is affected by an instaneous bottleneck at time T with strenght s (cite Galtier et al). The effect of this bottleneck is to induce sudden burst of coalescence, which simultaneous multiple merges. We measure bottleneck strength as the probability that a pair of lineages coalesces during the bottleneck (we could could of course convert s into on (imaginary) time period that would give the same probability of coalescence $s=1-e^{-T}$).
 
-We assume a sample of size 10 and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function bottSFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.
+We assume a sample of 10 haploid genomes and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function approx_SFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.
 
 We use a for loop to record the SFS for a range of bottleneck strengths parameters in a dictionary:
 
@@ -29,6 +29,7 @@ We use a for loop to record the SFS for a range of bottleneck strengths paramete
 %matplotlib inline
 %config InlineBackend.figure_format = 'svg'
 import msprime
+import tskit
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -36,11 +37,11 @@ import matplotlib.pyplot as plt
 
 ```{code-cell} ipython3
 def run_bott_sims(num_rep, num_samp, T, s):    
-    demographic_events = [
-        msprime.InstantaneousBottleneck(time=T, strength=s, population=0)]
-    reps = msprime.simulate(
-        sample_size=num_samp, Ne=Ne, num_replicates=num_rep, 
-        demographic_events=demographic_events)
+    demography = msprime.Demography()
+    demography.add_population(initial_size=Ne)
+    demography.add_instantaneous_bottleneck(time=T, strength=s, population=0)
+    reps = msprime.sim_ancestry(
+        samples=num_samp, ploidy=1, num_replicates=num_rep, demography=demography)
     return reps
 
 def approx_SFS(reps):
@@ -50,7 +51,7 @@ def approx_SFS(reps):
         tree = ts.first()
         for u in tree.nodes():
             nleaves = tree.num_samples(u)
-            if tree.parent(u) != msprime.NULL_NODE:
+            if tree.parent(u) != tskit.NULL:
                 B[rep_index, nleaves] += tree.branch_length(u)    
     data = np.mean(B, axis=0)
     data /= np.sum(data)
@@ -58,7 +59,7 @@ def approx_SFS(reps):
 
 num_rep = 1000
 num_samp = 10
-Ne = 1
+Ne = 1  # Use coalescent time units
 T = 0.5
 taulist= np.array([0,1,2,3])
 datalist = {}
@@ -125,7 +126,8 @@ for s in slist:
     print(expsfsBottlN)
 ```
 
-The fit between the SFS simulated with msprime and the analytic prediction is noty convincing (given the 100,000 replicates):
+The fit between the SFS simulated with msprime and the analytic prediction is not very convincing
+(given the 100,000 replicates):
 
 ```{code-cell} ipython3
 num_samp = 4
@@ -156,20 +158,22 @@ plt.show()
 
 +++
 
-Given that the SFS only depends on mean  branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.
+Given that the SFS only depends on mean branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.
 
 ```{code-cell} ipython3
 s=1
-demographic_events = [msprime.InstantaneousBottleneck(time=T, strength=s, population=0)]
-reps = msprime.simulate(
-    sample_size=num_samp, Ne=Ne, num_replicates=num_rep, 
-    demographic_events=demographic_events)
+demography = msprime.Demography()
+demography.add_population(initial_size=Ne)
+demography.add_instantaneous_bottleneck(time=T, strength=s, population=0)
+
+reps = msprime.sim_ancestry(
+    samples=num_samp, ploidy=1, num_replicates=num_rep, demography=demography)
 B = np.zeros((num_rep, num_samp))
 for rep_index, ts in enumerate(reps):
     tree = next(ts.trees())
     for u in tree.nodes():
         nleaves = tree.num_samples(u)
-        if tree.parent(u) != msprime.NULL_NODE:
+        if tree.parent(u) != tskit.NULL:
             B[rep_index, nleaves]+=tree.branch_length(u)
 ```
 
