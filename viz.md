@@ -58,8 +58,8 @@ can create them.
 
 ## Text format
 
-The {meth}`TreeSequence.draw_text <tskit.TreeSequence.draw_text>` and
-{meth}`Tree.draw_text <tskit.Tree.draw_text>` methods provide
+The ``TreeSequence.draw_text`` and
+``Tree.draw_text`` methods provide
 a quick way to print out a tree sequence, or an individual tree within it. They are
 primarily useful for looking at topologies in small datasets (e.g. fewer than 20 sampled
 genomes), and do not display mutations.
@@ -339,7 +339,7 @@ single letter (respectively `t`, `n`, `a`, `i`, `p`, `m`, and `s`) followed by a
 numerical ID. A comprehensive example is the rightmost leaf (node 7) in the third tree
 in the mutated tree sequence, plotted in the previous section but one. In that tree
 sequence, node 7 is a leaf and also a
-{ref}`sample node <sec_data_model_definitions_sample>`. It belongs to
+sample node. It belongs to
 an {ref}`individual <sec_nodes_or_individuals>` with ID 3, comes from the population with
 ID 2, and has an immediate ancestor (parent) node with ID 10. It also has mutations with
 IDs 16 and 17 above it, and those mutations are associated with site IDs 15 and 16.
@@ -871,7 +871,7 @@ picture like this:
 
 ### Demographic processes
 
-If you are generating a tree sequence via a {ref}`<msprime:sec_demography_importing_demes>`
+If you are generating a tree sequence via a {ref}`Demes <msprime:sec_demography_importing>`
 model, then you can visualize a schematic of the demography itself (rather than the
 resulting tree sequence) using the [demesdraw](https://grahamgower.github.io/demesdraw/)
 software.
