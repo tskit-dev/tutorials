@@ -1,32 +1,29 @@
-- file: intro
-
-- part: Introduction
+format: jb-book
+root: intro
+parts:
+- caption: Introduction
   chapters:
   - file: what_is
-
-- part: Using tskit
+- caption: Using tskit
   chapters:
   - file: getting_started
   - file: viz
   - file: data_structures
   - file: no_mutations
   - file: tskitr
-
-- part: Backward time simulations
+- caption: Backward time simulations
   # TODO this will be broken down more finely as we add more content
   chapters:
   - file: demography
   - file: bottlenecks
   - file: introgression
   - file: completing-forward-sims
-
-- part: Forward time simulations
+- caption: Forward time simulations
   # TODO port/add forward simulation contents
   # What can we put in here?
   chapters:
   - file: forward_sims
-
-- part: Development
+- caption: Development
   # TODO This would be a great place to put the general tskit development
   # guidelines.
   chapters:
