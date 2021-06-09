@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualisation &#8212; Tskit Tutorials</title>
+    <title>Visualization &#8212; Tskit Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -112,7 +112,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Visualisation
+   Visualization
   </a>
  </li>
  <li class="toctree-l1">
@@ -289,24 +289,165 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simple-svg">
-   Simple SVG
+  <a class="reference internal nav-link" href="#text-format">
+   Text format
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#converting-svg">
-   Converting SVG
+  <a class="reference internal nav-link" href="#svg-format">
+   SVG format
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#axes-and-scaling">
+     Axes and scaling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#larger-tree-sequences">
+     Larger tree sequences
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plotting-mutations">
+     Plotting mutations
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#which-mutations-are-shown">
+       Which mutations are shown?
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#labelling">
+     Labelling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#styling">
+     Styling
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#moving-graphical-elements">
+       Moving graphical elements
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#styling-and-svg-structure">
+       Styling and SVG structure
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#styling-subtrees">
+       Styling subtrees
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#restricting-styling">
+       Restricting styling
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#more-about-styling">
+       More about styling
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#converting-and-editing-svg">
+     Converting and editing SVG
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#converting">
+       Converting
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#editing-the-svg">
+       Editing the SVG
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#advanced-svg">
-   Advanced SVG
+  <a class="reference internal nav-link" href="#examples">
+   Examples
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#text-examples">
+     Text examples
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#tree-orientation">
+       Tree orientation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#svg-examples">
+     SVG examples
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-standard-ts-plot">
+       A standard ts plot
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-fancy-formatted-plot">
+       A fancy formatted plot
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#highlighted-mutations">
+       Highlighted mutations
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#leaf-sample-isolated-nodes">
+       Leaf, sample &amp; isolated nodes
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#animation">
+       Animation
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#text-output">
-   Text output
+  <a class="reference internal nav-link" href="#other-visualizations">
+   Other visualizations
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#graph-representations">
+     Graph representations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#demographic-processes">
+     Demographic processes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geography">
+     Geography
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -319,36 +460,1183 @@
         
               <div>
                 
-  <div class="section" id="visualisation">
-<span id="sec-tskit-viz"></span><h1>Visualisation<a class="headerlink" href="#visualisation" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p>apologies to EN-US users, this is going to be annoying: colour and color.</p></li>
-</ul>
-<div class="section" id="simple-svg">
-<h2>Simple SVG<a class="headerlink" href="#simple-svg" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>A guide to doing the most common things we want to do using SVG (colouring
-nodes, etc, using draw())</p></li>
-</ul>
+  <div class="section" id="visualization">
+<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h1>
+<p><strong>Yan Wong</strong></p>
+<p>It is often helpful to visualize a single tree — or multiple trees along a tree
+sequence — together with sites and mutations. <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in tskit v0.3)"><span class="xref std std-ref">Tskit</span></a>
+provides functions to do this, outputting either plain ascii or unicode text, or the more
+flexible <a class="reference external" href="https://www.w3.org/TR/SVG11/">Scalable Vector Graphics</a> (SVG) format.
+This tutorial illustrates various examples, based on a few 50kb tree sequences generated by
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/intro.html#sec-intro" title="(in Python)"><span class="xref std std-ref">msprime</span></a>, in which genomes have been sampled from one of 3
+contemporary populations (labelled <em>A</em>, <em>B</em>, and <em>C</em>).</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tskit</span>
+
+<span class="n">ts_full</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_full.ts&quot;</span><span class="p">)</span>
+<span class="c1">### NB: ts_full was made with the following msprime 1.0 commands:</span>
+<span class="c1"># dem = msprime.Demography.from_species_tree(&quot;((A:900,B:900)ab:100,C:1000)abc;&quot;, initial_size=1e3)</span>
+<span class="c1"># samples = {&quot;A&quot;: 20, &quot;B&quot;: 20, &quot;C&quot;:20}  # take 20 diploids from terminal populations A, B, C</span>
+<span class="c1"># ts_full = msprime.sim_ancestry(</span>
+<span class="c1">#    samples, demography=dem, sequence_length=5e4, recombination_rate=1e-8, random_seed=1234</span>
+<span class="c1"># )</span>
+<span class="n">first_4_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># ids of the first 4 sample nodes (here, 2 individuals from A)</span>
+<span class="n">eight_nodes</span> <span class="o">=</span> <span class="n">first_4_nodes</span> <span class="o">+</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">81</span><span class="p">]</span>  <span class="c1"># Add nodes from individuals in B &amp; C</span>
+<span class="n">ts_tiny</span> <span class="o">=</span> <span class="n">ts_full</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">first_4_nodes</span><span class="p">)</span>  <span class="c1"># a tiny 4-tip TS</span>
+<span class="n">ts_small</span> <span class="o">=</span> <span class="n">ts_full</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">eight_nodes</span><span class="p">)</span>   <span class="c1"># a small 8-tip TS</span>
+</pre></div>
 </div>
-<div class="section" id="converting-svg">
-<h2>Converting SVG<a class="headerlink" href="#converting-svg" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Guide to converting SVG to various outputs.</p></li>
-</ul>
 </div>
-<div class="section" id="advanced-svg">
-<h2>Advanced SVG<a class="headerlink" href="#advanced-svg" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>How to do fancy things with the SVG output using CSS etc. Can be a “TODO”
-for the first version.</p></li>
-</ul>
 </div>
-<div class="section" id="text-output">
-<h2>Text output<a class="headerlink" href="#text-output" title="Permalink to this headline">¶</a></h2>
+<p>If you just want a quick look at visualization possibilities, you might want to skip to
+the <a class="reference internal" href="#sec-tskit-viz-examples"><span class="std std-ref">Examples</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial is primarily focussed on showing a tree sequence as a set of marginal
+trees along a genome. The section titled <a class="reference internal" href="#sec-tskit-viz-other-visualizations"><span class="std std-ref">Other visualizations</span></a>
+provides examples of other representations of tree sequences, or the processes that
+can create them.</p>
+</div>
+<div class="section" id="text-format">
+<h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TreeSequence.draw_text</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Tree.draw_text</span></code> methods provide
+a quick way to print out a tree sequence, or an individual tree within it. They are
+primarily useful for looking at topologies in small datasets (e.g. fewer than 20 sampled
+genomes), and do not display mutations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print a tree sequence</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_text</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first tree in the tree sequence above, but replacing some node ids with names:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_tiny</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_text</span><span class="p">(</span>
+    <span class="c1"># An example of how to change or omit node labels: unspecified nodes are omitted</span>
+    <span class="c1"># The same convention applies to SVG graphics</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s2">&quot;Chris&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Dora&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;MRCA&quot;</span><span class="p">}</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11428.48┊         ┊         ┊         ┊         ┊   13    ┊         ┊         ┊         ┊    
+        ┊         ┊         ┊         ┊         ┊  ┏━┻━┓  ┊         ┊         ┊         ┊    
+11144.74┊         ┊         ┊         ┊         ┊  ┃   ┃  ┊   12    ┊         ┊         ┊    
+        ┊         ┊         ┊         ┊         ┊  ┃   ┃  ┊  ┏━┻━┓  ┊         ┊         ┊    
+9753.69 ┊         ┊         ┊         ┊         ┊  ┃   ┃  ┊  ┃   ┃  ┊   11    ┊         ┊    
+        ┊         ┊         ┊         ┊         ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┏━┻━┓  ┊         ┊    
+6204.42 ┊         ┊         ┊         ┊   10    ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊         ┊    
+        ┊         ┊         ┊         ┊  ┏━┻━┓  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊         ┊    
+3893.05 ┊         ┊         ┊         ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊    9    ┊    
+        ┊         ┊         ┊         ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┏━┻━┓  ┊    
+3378.92 ┊         ┊    8    ┊    8    ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊    
+        ┊         ┊  ┏━┻━┓  ┊  ┏━┻━┓  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊  ┃   ┃  ┊    
+2076.43 ┊         ┊  ┃   ┃  ┊  7   ┃  ┊  7   ┃  ┊  7   ┃  ┊  7   ┃  ┊  7   ┃  ┊  7   ┃  ┊    
+        ┊         ┊  ┃   ┃  ┊ ┏┻┓  ┃  ┊ ┏┻┓  ┃  ┊ ┏┻┓  ┃  ┊ ┏┻┓  ┃  ┊ ┏┻┓  ┃  ┊ ┏┻┓  ┃  ┊    
+1941.72 ┊   6     ┊  6   ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊    
+        ┊ ┏━┻━┓   ┊ ┏┻┓  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊    
+1439.14 ┊ ┃   5   ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊    
+        ┊ ┃ ┏━┻┓  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊ ┃ ┃  ┃  ┊    
+33.99   ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊ ┃ ┃  4  ┊    
+        ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊ ┃ ┃ ┏┻┓ ┊    
+0.00    ┊ 0 1 2 3 ┊ 0 1 2 3 ┊ 0 1 2 3 ┊ 0 1 2 3 ┊ 0 1 2 3 ┊ 0 1 2 3 ┊ 0 1 2 3 ┊ 0 1 2 3 ┊    
+      0.00     9855.00  13901.00  21285.00  23424.00  25213.00  30463.00  46237.00  50000.00 
+
+The first tree in the tree sequence above, but replacing some node ids with names:
+    MRCA            
+  ┏━━━┻━━━━┓        
+  ┃        ┃        
+  ┃    ┏━━━┻━━━┓    
+  ┃    ┃       ┃    
+  ┃    ┃    ┏━━┻━━┓ 
+Alice Bob Chris Dora
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="svg-format">
+<h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this headline">¶</a></h2>
+<p>Most users will want to use the SVG drawing functions
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg</span></code></a> for visualization.
+Being a vectorised format, SVG files are suitable for presentations, publication, and
+<a class="reference internal" href="#sec-tskit-viz-converting"><span class="std std-ref">editing or converting</span></a> to other graphic formats. Some
+basic forms of animation are also possible. The SVG output can also be displayed in a
+Jupyter notebook using the IPython <code class="docutils literal notranslate"><span class="pre">display</span></code> and <code class="docutils literal notranslate"><span class="pre">SVG</span></code> functions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">SVG</span>
+<span class="n">svg_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span> <span class="c1"># Height and width for the SVG: optional but useful for this notebook</span>
+<span class="n">svg_string</span> <span class="o">=</span> <span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">svg_size</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>  <span class="c1"># optional: show a time scale on the left</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span>  <span class="c1"># Match the axis coordinate systems to the text view</span>
+<span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">svg_string</span><span class="p">))</span>  <span class="c1"># If the last line in a cell, wrapping this in display() is not needed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_5_0.svg" src="_images/viz_5_0.svg" /></div>
+</div>
+<p>By default, sample nodes are drawn as black squares, and non-sample nodes are drawn as
+black circles (but see below for ways to e.g. hide or colour these node symbols - NB.
+apologies to US readers: the British spelling of “colour” will be used in the rest of
+this tutorial).</p>
+<div class="section" id="axes-and-scaling">
+<h3>Axes and scaling<a class="headerlink" href="#axes-and-scaling" title="Permalink to this headline">¶</a></h3>
+<p>For ease of drawing, the text representation and the SVG image above use unconventional
+non-linear X and Y coordinate systems. By default, the SVG output uses a more
+conventional linear scale for both time (Y) and genome position (X), and indicates the
+position of each tree along the genome by an alternating shaded background. Although
+more intuitive, linear scales can obscure some features of the trees, for example
+causing labels to overlap:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">svg_size</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_7_0.svg" src="_images/viz_7_0.svg" /></div>
+</div>
+<p>One way to avoid overlapping labels on the Y axis is to use the <code class="docutils literal notranslate"><span class="pre">y_ticks</span></code> parameter,
+which will be used in most subsequent examples in this tutorial.</p>
+</div>
+<div class="section" id="larger-tree-sequences">
+<h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Permalink to this headline">¶</a></h3>
+<p>So far, we have plotted only very small tree sequences. To visualize larger tree
+sequences it is sometimes advisable to focus on a small region of the genome, possibly
+even a single tree. The <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter allows you to plot the part of a tree
+sequence that spans a particular genomic region: here’s a slighly larger tree sequence
+with 8 samples, but where we’ve restricted the amount of the tree sequence we plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_limits</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">]</span>
+<span class="c1"># Create evenly-spaced y tick positions to avoid overlap</span>
+<span class="n">y_tick_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The tree sequence between positions </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2"> ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x_limits</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">)))</span>
+
+<span class="n">third_tree</span> <span class="o">=</span> <span class="n">ts_small</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... or just look at (say) the third tree&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tree sequence between positions 5000 and 15000 ...
+</pre></div>
+</div>
+<img alt="_images/viz_9_1.svg" src="_images/viz_9_1.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... or just look at (say) the third tree
+</pre></div>
+</div>
+<img alt="_images/viz_9_3.svg" src="_images/viz_9_3.svg" /></div>
+</div>
+<p>As the number of sample nodes increases, internal nodes often bunch up at recent time
+points, obscuring relationships. Setting <code class="docutils literal notranslate"><span class="pre">time_scale=&quot;rank&quot;</span></code>, as in the first SVG plot,
+is one way to solve this. Another is to use a log-scale on the time axis, which can be
+done by specifying <code class="docutils literal notranslate"><span class="pre">time_scale=&quot;log_time&quot;</span></code>, as below. To compare node times across the
+plot, this example also uses the <code class="docutils literal notranslate"><span class="pre">y_gridlines</span></code> option, which puts a very faint grid
+line at each y tick (if you are finding the lines difficult to see, note that the line
+intensity, along with many other plot features, can be modified through
+<a class="reference internal" href="#sec-tskit-viz-styling"><span class="std std-ref">styling</span></a>, which we also use in this example to avoid
+overlapping text by shrinking the node labels and rotating those associated with leaves;
+styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling"><span class="std std-ref">later in this tutorial</span></a>).</p>
+<div class="cell docutils container" id="sec-tskit-viz-large-tree-sequence">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A larger tree, on a log timescale&quot;</span><span class="p">)</span>
+<span class="n">wide_fmt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+<span class="c1"># Create a stylesheet that shrinks labels and rotates leaf labels, to avoid overlap</span>
+<span class="n">node_label_style</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;.node &gt; .lab {font-size: 80%}&quot;</span>
+    <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span>
+<span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_full</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">node_label_style</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A larger tree, on a log timescale
+</pre></div>
+</div>
+<img alt="_images/viz_11_1.svg" src="_images/viz_11_1.svg" /></div>
+</div>
+</div>
+<div class="section" id="plotting-mutations">
+<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this headline">¶</a></h3>
+<p>The SVG visualization also allows mutations to displayed on the tree or tree sequence.
+Here are the same plots as above but where the tree sequence now contains mutations. Each
+mutation is plotted as a red cross on the branch where it occurs. This mutation symbol is
+placed either at the mutation’s known time, or spaced evenly along the branch (if the
+mutation time is unknown or the <code class="docutils literal notranslate"><span class="pre">time_scale</span></code> parameter has been set to <code class="docutils literal notranslate"><span class="pre">&quot;rank&quot;</span></code>).
+By default, each mutation is also labelled with its <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mutation</span> <span class="pre">ID</span></code></a>.</p>
+<p>If the X axis is shown (which it is by default when drawing a tree sequence, but not
+when drawing an individual tree) then the sites are plotted using a black tickmark above
+the axis line. Each plotted mutation at the site is then overlaid on top of this
+as a red downwards-pointing chevron.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mutated</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts_small</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">342</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_13_0.svg" src="_images/viz_13_0.svg" /></div>
+</div>
+<p>Note that, unusually, the rightmost site on the axis has more than one stacked chevron,
+indicating that multiple mutations in the tree occur at the same site. These could be
+mutations to different allelic states, or recurrent/back mutations. In this case the
+mutations, 14 and 15 (above nodes 1 and 6) are recurrent mutations from T to G.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site_descr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">site_descr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;[</span><span class="se">\n</span><span class="s2">  &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;),&quot;</span><span class="p">,</span> <span class="s2">&quot;),</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;],&quot;</span><span class="p">,</span> <span class="s2">&quot;],</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site(id=14, position=13963.0, ancestral_state=&#39;T&#39;, mutations=[
+  Mutation(id=14, site=14, node=1, derived_state=&#39;G&#39;, parent=-1, metadata=b&#39;&#39;, time=619.6499091610359),
+  Mutation(id=15, site=14, node=6, derived_state=&#39;G&#39;, parent=-1, metadata=b&#39;&#39;, time=370.24979591084764)],
+ metadata=b&#39;&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="which-mutations-are-shown">
+<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Permalink to this headline">¶</a></h4>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter, only the mutations in the plotted region are shown.
+For the third tree in the tree sequence visualization above, we thus haven’t plotted
+mutations above position 15000. We can see <em>all</em> the mutations in the tree by changing the
+plot region, or simply plotting the tree itself:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">third_tree</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The third tree in the mutated tree sequence, which covers </span><span class="si">{</span><span class="n">third_tree</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The third tree in the mutated tree sequence, which covers Interval(left=13901.0, right=21285.0)
+</pre></div>
+</div>
+<img alt="_images/viz_17_1.svg" src="_images/viz_17_1.svg" /></div>
+</div>
+<p id="sec-tskit-viz-extra-mutations">However, when plotting a single tree it may not be evident that identical branches
+may exist in several adjacent trees, indicating an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in tskit v0.3)"><span class="xref std std-ref">edge</span></a>
+that persists across adjacent trees. For instance the rightmost branch in the tree above,
+from node 10 down to 7, exists in the previous two trees too. Indeed, this edge has a
+mutation on it at position 6295, in the first tree. This mutation is not plotted in the
+tree above, but if you want <em>all</em> the mutations on each edge to be plotted, you can set
+the <code class="docutils literal notranslate"><span class="pre">all_edge_mutations</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">True</span></code>. This adds any extra mutations that are
+associated with an edge in the tree but which fall outside the interval of that tree; by
+default these mutations are drawn in a slightly different shade (e.g. mutation 64 below).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">all_edge_mutations</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_19_0.svg" src="_images/viz_19_0.svg" /></div>
+</div>
+</div>
+</div>
+<div class="section" id="labelling">
+<h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this headline">¶</a></h3>
+<p>Although the default node and mutation labels show unique identifiers, they are’t
+terribly intuituive. The <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters can be used
+to set more meaningful labels (for example from the tree sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in tskit v0.3)"><span>Metadata</span></a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nd_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the nodes</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="c1"># Set sample node labels from metadata. Here we use the population name, but you might want</span>
+    <span class="c1"># to use the *individual* name instead, if the individuals in your tree sequence have names</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">is_sample</span><span class="p">():</span>
+        <span class="n">nd_labels</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+
+<span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations</span>
+<span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">mutations</span><span class="p">():</span>  <span class="c1"># Make pretty labels showing the change in state</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">site</span><span class="p">)</span>
+    <span class="n">older_mut</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1"># is there an older mutation at the same position?</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
+    <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">→</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labels</span><span class="p">,</span>
+    <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span>
+    <span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_21_0.svg" src="_images/viz_21_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="styling">
+<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Permalink to this headline">¶</a></h3>
+<p>The SVG output produced by tskit contains a large number of
+<a class="reference external" href="https://www.w3.org/TR/SVG2/styling.html#ClassAttribute">classes</a> which can be used to
+target different elements of the drawing, allowing them to be hidden, styled, or
+otherwise manipulated. This is done by passing a
+<a class="reference external" href="https://www.w3.org/TR/SVG/styling.html">cascading style sheet (CSS)</a> string to
+<code class="docutils literal notranslate"><span class="pre">draw_svg</span></code>. A common use of styles is to colour nodes by their population:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">styles</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Create a style for each population, programmatically (or just type the string by hand)</span>
+<span class="k">for</span> <span class="n">colour</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="n">ts_full</span><span class="o">.</span><span class="n">populations</span><span class="p">()):</span>
+    <span class="c1"># target the symbols only (class &quot;sym&quot;)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;.node.p</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym &quot;</span> <span class="o">+</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;fill: </span><span class="si">{</span><span class="n">colour</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+    <span class="n">styles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&quot; applies to nodes from population </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> (id </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CSS string applied:</span><span class="se">\n</span><span class="s1">    &quot;</span><span class="si">{</span><span class="n">css_string</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_full</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>    <span class="c1"># Remove all node labels for a clearer viz</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span>  <span class="c1"># Apply the stylesheet</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;.node.p0 &gt; .sym {fill: red}&quot; applies to nodes from population A (id 0)
+&quot;.node.p1 &gt; .sym {fill: green}&quot; applies to nodes from population B (id 1)
+&quot;.node.p2 &gt; .sym {fill: blue}&quot; applies to nodes from population C (id 2)
+CSS string applied:
+    &quot;.node.p0 &gt; .sym {fill: red} .node.p1 &gt; .sym {fill: green} .node.p2 &gt; .sym {fill: blue}&quot;
+</pre></div>
+</div>
+<img alt="_images/viz_23_1.svg" src="_images/viz_23_1.svg" /></div>
+</div>
+<p>Colouring nodes by population makes it immediately clear that, while the tree structure
+does not exactly reflect the population divisions, there’s still considerable
+population substructure present in this larger tree.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>The (older) <code class="docutils literal notranslate"><span class="pre">Tree.draw()</span></code> function also has a <code class="docutils literal notranslate"><span class="pre">node_colour</span></code> argument that can be
+used to colour tree nodes, which is used in some of the other tskit tutorials. Under the
+hood, this function simply sets appropriate SVG styles on nodes. We intend to make it
+easier to set colours in a similar way: see https://github.com/tskit-dev/tskit/issues/579.</p>
+</div>
+<p>The CSS string used to style the tree above takes advantage of the general classes defined
+in a tskit SVG file: a node symbol always has a class named <code class="docutils literal notranslate"><span class="pre">sym</span></code>, which is contained
+within a <a class="reference external" href="https://www.w3.org/TR/SVG2/struct.html#Groups">grouping element</a> of class
+<code class="docutils literal notranslate"><span class="pre">node</span></code>. Moreover, elements such as <code class="docutils literal notranslate"><span class="pre">node</span></code> have <em>additional</em> classes, such as <code class="docutils literal notranslate"><span class="pre">p1</span></code>,
+indicating that the node in this case belongs to the population with ID 1.</p>
+<p>Here are the general tskit SVG classes that can be used to style specific elements.</p>
 <ul class="simple">
-<li><p>Demonstrate some of the things we can do with unicode output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tree</span></code>: a grouping element containing each tree</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: a grouping element within a tree, containing a node and its descendant
+elements such as a node symbol, an edge, mutations, and other nodes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mut</span></code>: a grouping element containing a mutation symbol and label</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extra</span></code>: an extra class for mutations <a class="reference internal" href="#sec-tskit-viz-extra-mutations"><span class="std std-ref">outside the tree</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lab</span></code>: a label element (for a node, mutation, axis, tick number, etc.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sym</span></code>: a symbol element (e.g. a node, mutation, or site symbol)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">edge</span></code>: an edge element (i.e. a branch in a tree)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root</span></code>, <code class="docutils literal notranslate"><span class="pre">leaf</span></code> and <code class="docutils literal notranslate"><span class="pre">sample</span></code>: additional classes applied to a node group if the
+node is a root node, a leaf node or a sample node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgt</span></code> and <code class="docutils literal notranslate"><span class="pre">lft</span></code>: additional classes applied to labels for left- or
+right-justification</p></li>
 </ul>
+<p>A few extra classes may be used to style the plot decorations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">axes</span></code>: a grouping element containing the X and Y axes, if either are present</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x-axis</span></code>, <code class="docutils literal notranslate"><span class="pre">y-axis</span></code>: more specific grouping elements contained within <code class="docutils literal notranslate"><span class="pre">axes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tick</span></code>: a single tick on an axis, containing a tickmark line and a label</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">site</span></code>: a grouping element representing a site (plotted on the X axis), containing a
+site symbol (a tick line) and zero or more mutation groups, each containing a
+chevron-shaped mutation symbol</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">background</span></code>: the shaded background of a tree sequence plot</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid</span></code>: a gridline</p></li>
+</ul>
+<p>The additional classes are primarily based on the IDs of trees, nodes, parent (ancestor)
+nodes, individuals, populations, mutations, and sites. These class names start with a
+single letter (respectively <code class="docutils literal notranslate"><span class="pre">t</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, and <code class="docutils literal notranslate"><span class="pre">s</span></code>) followed by a
+numerical ID. A comprehensive example is the rightmost leaf (node 7) in the third tree
+in the mutated tree sequence, plotted in the previous section but one. In that tree
+sequence, node 7 is a leaf and also a
+sample node. It belongs to
+an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-nodes-or-individuals" title="(in tskit v0.3)"><span class="xref std std-ref">individual</span></a> with ID 3, comes from the population with
+ID 2, and has an immediate ancestor (parent) node with ID 10. It also has mutations with
+IDs 16 and 17 above it, and those mutations are associated with site IDs 15 and 16.
+In the SVG file, the node (containing a symbol and label) is therefore represented by
+the following element:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This makes it easy to e.g. colour branches that are shared between trees (i.e. that
+have the same parent and child):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;.a15.n9 &gt; .edge {stroke: cyan; stroke-width: 2px}&quot;</span>  <span class="c1"># branches from 15-&gt;9</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_25_0.svg" src="_images/viz_25_0.svg" /></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Branches in multiple trees that have the same parent and child do not always
+correspond to a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in tskit v0.3)"><span class="xref std std-ref">edge</span></a>
+in a tree sequence: for example, edges have the
+additional constraint that they must belong to <em>adjacent</em> trees.</p>
+</div>
+<div class="section" id="moving-graphical-elements">
+<h4>Moving graphical elements<a class="headerlink" href="#moving-graphical-elements" title="Permalink to this headline">¶</a></h4>
+<p>We can also use styles to transform elements of the drawing, shifting them into different
+locations or changing their orientation. For example,
+<a class="reference internal" href="#sec-tskit-viz-large-tree-sequence"><span class="std std-ref">earlier in this tutorial</span></a> we used the
+following CSS string to rotate leaf labels:</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">leaf</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">lab</span> <span class="p">{</span><span class="n">text-anchor</span><span class="p">:</span> <span class="kc">start</span><span class="p">;</span> <span class="k">transform</span><span class="p">:</span> <span class="nb">rotate</span><span class="p">(</span><span class="mi">90</span><span class="kt">deg</span><span class="p">)</span> <span class="nb">translate</span><span class="p">(</span><span class="mi">6</span><span class="kt">px</span><span class="p">)}</span>
+</pre></div>
+</div>
+<p>Transformations not only allow us to shift e.g. labels about, but also change the size
+of symbols, which can create rather different formatting styles:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># Draw large yellow circles for nodes ...</span>
+    <span class="s2">&quot;.node &gt; .sym {transform: scale(2.2); fill: yellow; stroke: black; stroke-width: 0.5px}&quot;</span>
+
+    <span class="c1"># ...but for leaf nodes, override the yellow circle using a more specific CSS target</span>
+    <span class="s2">&quot;.node.leaf &gt; .sym {transform: scale(1); fill:black}&quot;</span>
+
+    <span class="c1"># Override default node text position to be based at (0, 0) relative to the node pos</span>
+    <span class="c1"># Note that the .tree specifier is needed to make this more specific than the default</span>
+    <span class="c1"># positioning which is targetted at &quot;.lab.lft&quot; and &quot;.lab.rgt&quot;</span>
+    <span class="s2">&quot;.tree .node &gt; .lab {transform: translate(0, 0); text-anchor: middle; font-size: 7pt}&quot;</span>
+
+    <span class="c1"># For leaf nodes, override the above positioning using a subsequent CSS style</span>
+    <span class="s2">&quot;.node.leaf &gt; .lab {transform: translate(0, 12px); font-size: 10pt}&quot;</span>
+<span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_27_0.svg" src="_images/viz_27_0.svg" /></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">transform</span></code> in styles is an SVG2 feature, and has not yet been implemented in
+the software programs Inkscape or librsvg. Therefore if you are
+<a class="reference internal" href="#sec-tskit-viz-converting"><span class="std std-ref">converting or editing</span></a> the examples above, symbol sizes
+and label positions may be incorrect. The <code class="docutils literal notranslate"><span class="pre">symbol_size</span></code> option can be used if you want
+to simply change the size of all symbols in the plot, but otherwise you may need
+to use the <code class="docutils literal notranslate"><span class="pre">chromium</span></code> workaround documented <a class="reference internal" href="#sec-tskit-viz-converting-note"><span class="std std-ref">here</span></a>.</p>
+</div>
+</div>
+<div class="section" id="styling-and-svg-structure">
+<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this headline">¶</a></h4>
+<p>To take full advantage of the SVG styling capabilities in tskit, it is worth knowing how
+the SVG file is structured. In particular tskit SVGs use a hierarchical grouping
+structure that reflects the tree topology. This allows easy styling and manipulation of
+both individual elements and entire subtrees. Currently, the hierarchical structure of a
+simple 2-tip SVG tree produced by tskit looks something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;tree t0&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;plotbox&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;node n2 root&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;node n1 a2 i1 p1 m0 s0 sample leaf&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">path</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;edge&quot;</span> <span class="o">...</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;mut m0 s0&quot;</span> <span class="o">...&gt;</span>
+          <span class="o">&lt;</span><span class="n">line</span> <span class="o">.../&gt;</span>
+          <span class="o">&lt;</span><span class="n">path</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sym&quot;</span> <span class="o">.../&gt;</span>
+          <span class="o">&lt;</span><span class="n">text</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;lab&quot;</span><span class="o">&gt;</span><span class="n">Mutation</span> <span class="mi">0</span><span class="o">&lt;/</span><span class="n">text</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">rect</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sym&quot;</span> <span class="o">...</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">text</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;lab&quot;</span> <span class="o">...&gt;</span><span class="n">Node</span> <span class="mi">1</span><span class="o">&lt;/</span><span class="n">text</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;node n0 a2 i2 p1 sample leaf&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">path</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;edge&quot;</span> <span class="o">...</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">rect</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sym&quot;</span> <span class="o">.../&gt;</span>
+        <span class="o">&lt;</span><span class="n">text</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;lab&quot;</span> <span class="o">...&gt;</span><span class="n">Node</span> <span class="mi">0</span><span class="o">&lt;/</span><span class="n">text</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">path</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;edge&quot;</span> <span class="o">...</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">circle</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;sym&quot;</span> <span class="o">...</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">text</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;lab&quot;</span><span class="o">&gt;</span><span class="n">Root</span> <span class="p">(</span><span class="n">Node</span> <span class="mi">2</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">text</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>And in a tree sequence plot, the SVG simply consists of a set of such trees, together
+with groups containing the background and axes, if required.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;tree-sequence&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;background&quot;</span><span class="o">&gt;&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;axes&quot;</span><span class="o">&gt;&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;trees&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;tree t0&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;tree t1&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;tree t2&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+    <span class="o">...</span>
+    <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="section" id="styling-subtrees">
+<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Permalink to this headline">¶</a></h4>
+<p>The nested grouping structure makes it easy to target a node and all its descendants.
+For instance, here’s how to draw all the edges of node 13 and its descendants using a
+thicker blue line:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_style</span> <span class="o">=</span> <span class="s2">&quot;.n13 .edge {stroke: blue; stroke-width: 2px}&quot;</span>
+<span class="n">nd_labs</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">]}</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_style</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_29_0.svg" src="_images/viz_29_0.svg" /></div>
+</div>
+<p>This might not be quite what you expected: the branch leading from node 13 to its parent
+(node 17) has also been coloured. That’s because the SVG node group deliberately contains
+the branch that leads to the parent (this can be helpful, for example, for hiding the
+entire subtree leading to node 13, using e.g. <code class="docutils literal notranslate"><span class="pre">.n13</span> <span class="pre">{visibility:</span> <span class="pre">hidden}</span></code>). To colour
+the branches <em>descending</em> from node 13, you therefore need to target the nodes nested
+at least one level deep within the <code class="docutils literal notranslate"><span class="pre">n13</span></code> group. One way to do that is to add an
+extra <code class="docutils literal notranslate"><span class="pre">.node</span></code> class to the style, e.g.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_style</span> <span class="o">=</span> <span class="s2">&quot;.n13 .node .edge {stroke: blue; stroke-width: 2px}&quot;</span>
+<span class="c1"># NB to target the edges in only (say) the 1st tree you could use &quot;.t0 .n13 .node .edge ...&quot;</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_style</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_31_0.svg" src="_images/viz_31_0.svg" /></div>
+</div>
+<p>If you want to colour the branches descending from a particular mutation (say mutation 7)
+then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
+that connects a mutation downwards to its associated node). The tskit SVG format provides
+a special <code class="docutils literal notranslate"><span class="pre">&lt;line&gt;</span></code> element to enable this, which is normally made invisible using
+<code class="docutils literal notranslate"><span class="pre">fill:</span> <span class="pre">none</span> <span class="pre">stroke:</span> <span class="pre">none</span></code> in the default stylesheet. Here’s an example of activating
+this normally-hidden line:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_muts</span> <span class="o">=</span> <span class="s2">&quot;.mut .lab {fill: gray} .mut .sym {stroke: gray}&quot;</span>  <span class="c1"># all other muts in gray</span>
+<span class="n">m8_mut</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;.m8 .node .edge, &quot;</span>  <span class="c1"># the descendant edges</span>
+    <span class="s2">&quot;.mut.m8 line, &quot;</span>  <span class="c1"># activate the hidden line between the mutation and the node</span>
+    <span class="s2">&quot;.mut.m8 .sym &quot;</span>  <span class="c1"># the mutation symbols on the tree and the axis</span>
+    <span class="s2">&quot;{stroke: red; stroke-width: 2px}&quot;</span>
+    <span class="s2">&quot;.mut.m8 .lab {fill: red}&quot;</span>  <span class="c1"># colour the label &quot;8&quot; in red too</span>
+<span class="p">)</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="n">default_muts</span> <span class="o">+</span> <span class="n">m8_mut</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_33_0.svg" src="_images/viz_33_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="restricting-styling">
+<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes the hierarchical nesting leads to styles being applied too widely. For example,
+since style selectors include all the descendants of a target, to target just the node
+itself (and not its descendants) a slightly different specification is required,
+involving, the “<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>” symbol, or
+<a class="reference external" href="https://www.w3.org/TR/selectors-3/#child-combinators">child combinator</a> (we have,
+in fact, used it in several previous examples). The following plot shows the difference
+when all decendant symbols are targetted, versus just the immediate child symbol:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_style1</span> <span class="o">=</span> <span class="s2">&quot;.n13 .sym {fill: yellow}&quot;</span>  <span class="c1"># All symbols under node 13 </span>
+<span class="n">node_style2</span> <span class="o">=</span> <span class="s2">&quot;.n15 &gt; .sym {fill: cyan}&quot;</span>  <span class="c1"># Only symbols that are an immediate child of node 15</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="n">node_style1</span> <span class="o">+</span> <span class="n">node_style2</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_35_0.svg" src="_images/viz_35_0.svg" /></div>
+</div>
+<p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
+to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
+target <em>all</em> the node symbols first, then replace the style with a more specific
+targetting of the leaf symbols only:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hide_internal_symlabs</span> <span class="o">=</span> <span class="s2">&quot;.node &gt; .sym, .node &gt; .lab {visibility: hidden}&quot;</span>
+<span class="n">show_leaf_symlabs</span> <span class="o">=</span> <span class="s2">&quot;.node.leaf &gt; .sym, .node.leaf &gt; .lab {visibility: visible}&quot;</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="n">hide_internal_symlabs</span> <span class="o">+</span> <span class="n">show_leaf_symlabs</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_37_0.svg" src="_images/viz_37_0.svg" /></div>
+</div>
+<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
+so the following style specification should produce the same effect:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">style_string</span> <span class="o">=</span> <span class="s2">&quot;.node:not(.leaf) &gt; .sym, .node:not(.leaf) &gt; .lab {visibility: hidden}&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-about-styling">
+<h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this headline">¶</a></h4>
+<p>NOTE: if your SVG is embedded directly into an HTML page (a common way for jupyter
+notebooks to render SVGs), then according to the HTML specifications, any styles applied
+to one SVG will apply to all SVGs in the document. To avoid this confusing state of
+affairs,  we recommend that you tag the SVG with a unique ID using the
+<code class="docutils literal notranslate"><span class="pre">root_svg_attributes</span></code> parameter, then prepend this ID to the style string:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span>
+    <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s2">&quot;myUID&quot;</span><span class="p">},</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;#myUID .background * {fill: #00FF00}&quot;</span><span class="p">,</span>  <span class="c1"># apply any old style to this specific SVG</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_39_0.svg" src="_images/viz_39_0.svg" /></div>
+</div>
+<p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
+animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
+inspiration.</p>
+</div>
+</div>
+<div class="section" id="converting-and-editing-svg">
+<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="converting">
+<h4>Converting<a class="headerlink" href="#converting" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://inkscape.org">Inkscape</a> is an open source SVG editor that can also be scripted
+to output bitmap files.</p>
+<p><a class="reference external" href="https://imagemagick.org/">Imagemagick</a> is a common piece of software used to convert
+between image formats. It can
+be configured to delegate to one of several different SVG libraries when converting
+SVGs to bitmap formats. Currently, both the librsvg library or the Inkscape library
+produce reasonable output, although librsvg currently misaligns some labels due to
+<a class="reference external" href="https://gitlab.gnome.org/GNOME/librsvg/-/issues/414">ignoring certain SVG properties</a>.</p>
+<div class="admonition note" id="sec-tskit-viz-converting-note">
+<p class="admonition-title">Note</p>
+<p>A few styling properties, such as the <code class="docutils literal notranslate"><span class="pre">transform</span></code> property, are SVG2 features,
+and have not yet been implemented in Inkscape or librsvg.
+These properties will therefore not be applied to elements when converted with these
+tools. A workaround is to convert the SVG to PDF first, using e.g. the
+programmable chromium engine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromium</span> <span class="o">--</span><span class="n">headless</span> <span class="o">--</span><span class="nb">print</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">pdf</span><span class="o">=</span><span class="n">out</span><span class="o">.</span><span class="n">pdf</span> <span class="ow">in</span><span class="o">.</span><span class="n">svg</span>
+</pre></div>
+</div>
+<p>The resulting PDF file can be converted by Inkscape, retaining the correct
+transformations.</p>
+</div>
+</div>
+<div class="section" id="editing-the-svg">
+<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Editing can be done in <a class="reference external" href="https://inkscape.org">Inkscape</a> (subject to the note above)</p></li>
+</ul>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Tips on how to cope with the hierarchical grouping when editing (e.g. in Inkscape using
+<code class="docutils literal notranslate"><span class="pre">Extensions</span> <span class="pre">menu</span> <span class="pre">&gt;</span> <span class="pre">Arrange</span> <span class="pre">&gt;</span> <span class="pre">Deep</span> <span class="pre">Ungroup</span></code>, but note that this will mess with the styles!)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="text-examples">
+<h3>Text examples<a class="headerlink" href="#text-examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="tree-orientation">
+<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Permalink to this headline">¶</a></h4>
+<p>In the text format, trees (but not tree sequences) can be displayed in different orientations</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">orient</span> <span class="o">=</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span>
+<span class="n">html</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">orient</span><span class="p">:</span>
+    <span class="n">tree_string</span> <span class="o">=</span> <span class="n">ts_small</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_text</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">o</span><span class="p">)</span>
+    <span class="n">html</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;pre style=&#39;display: inline-block&#39;&gt;</span><span class="si">{</span><span class="n">tree_string</span><span class="si">}</span><span class="s2">&lt;/pre&gt;&quot;</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">((</span><span class="s2">&quot;&amp;nbsp;&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style='display: inline-block'>      17       
+  ┏━━━━┻━━━━┓  
+  ┃        16  
+  ┃       ┏━┻┓ 
+ 13       ┃  ┃ 
+┏━┻━┓     ┃  ┃ 
+┃  12     ┃  ┃ 
+┃ ┏━┻━┓   ┃  ┃ 
+┃ ┃   ┃   ┃ 10 
+┃ ┃   ┃   ┃ ┏┻┓
+┃ ┃   9   ┃ ┃ ┃
+┃ ┃  ┏┻━┓ ┃ ┃ ┃
+┃ ┃  8  ┃ ┃ ┃ ┃
+┃ ┃ ┏┻┓ ┃ ┃ ┃ ┃
+0 1 2 3 4 5 6 7
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>       ┏━━━━━━━━━0
+       ┃          
+  ┏━━13┫  ┏━━━━━━1
+  ┃    ┃  ┃       
+  ┃    ┗12┫     ┏2
+  ┃       ┃   ┏8┫ 
+  ┃       ┗━━9┫ ┗3
+17┫           ┃   
+  ┃           ┗━━4
+  ┃               
+  ┃  ┏━━━━━━━━━━━5
+  ┃  ┃            
+  ┗16┫      ┏━━━━6
+     ┗━━━━10┫     
+            ┗━━━━7
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 2 3 4 5 6 7
+┃ ┃ ┗┳┛ ┃ ┃ ┃ ┃
+┃ ┃  8  ┃ ┃ ┃ ┃
+┃ ┃  ┗┳━┛ ┃ ┃ ┃
+┃ ┃   9   ┃ ┃ ┃
+┃ ┃   ┃   ┃ ┗┳┛
+┃ ┃   ┃   ┃ 10 
+┃ ┗━┳━┛   ┃  ┃ 
+┃  12     ┃  ┃ 
+┗━┳━┛     ┃  ┃ 
+ 13       ┃  ┃ 
+  ┃       ┗━┳┛ 
+  ┃        16  
+  ┗━━━━┳━━━━┛  
+      17       
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━┓       
+          ┃       
+1━━━━━━┓  ┣13━━┓  
+       ┃  ┃    ┃  
+2┓     ┣12┛    ┃  
+ ┣8┓   ┃       ┃  
+3┛ ┣9━━┛       ┃  
+   ┃           ┣17
+4━━┛           ┃  
+               ┃  
+5━━━━━━━━━━━┓  ┃  
+            ┃  ┃  
+6━━━━┓      ┣16┛  
+     ┣10━━━━┛     
+7━━━━┛            
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="svg-examples">
+<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="a-standard-ts-plot">
+<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Permalink to this headline">¶</a></h4>
+<p>Note that this tree sequence also illustrates a few features which are not normally
+produced e.g. by <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulations, in particular a “empty” site (with no
+associated mutations) at position 50, and some mutations that occur above root nodes in
+the trees. Graphically, root mutations necessitate a line above the root node on which to
+place them, so each tree in this SVG has a nominal “root branch” at the top. Normally,
+root branches are not drawn, unless the <code class="docutils literal notranslate"><span class="pre">force_root_branch</span></code> parameter is specified.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.ts&quot;</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_43_0.svg" src="_images/viz_43_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="a-fancy-formatted-plot">
+<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Permalink to this headline">¶</a></h4>
+<p>Here we have activated the Y axis, and changed the node style. In particular, we have
+coloured nodes by time, and increased the internal node symbol size while moving
+the internal node labels into the symbol; node labels have also been plotted in a
+sans-serif font. Axis tick labels have been changed to avoid potential overlapping (some
+Y tick labels have been removed, and the X tick labels rotated).</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">seed</span><span class="o">=</span><span class="mi">370009</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">y_ticks</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">time</span>
+<span class="c1"># Thin the tick values so we don&#39;t get labels within 0.01 of each other</span>
+<span class="n">y_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ediff1d</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.01</span><span class="p">))</span>
+
+<span class="n">svg</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">350</span><span class="p">),</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_ticks</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">(</span>
+    <span class="s2">&quot;.tree .lab {font-family: sans-serif}&quot;</span>
+    <span class="s2">&quot;.x-axis .tick .lab {text-anchor: start; transform: rotate(90deg) translate(8px)}&quot;</span>
+    <span class="s2">&quot;.y-axis .grid {stroke: #DDDDDD}&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;.tree :not(.leaf).node &gt; .lab  {transform: translate(0,0); text-anchor:middle; fill: white}&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;.tree :not(.leaf).node &gt; .sym {transform: scale(3.5)}&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.tree .n</span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: hsl(</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">n</span><span class="o">.</span><span class="n">time</span><span class="o">/</span><span class="n">ts</span><span class="o">.</span><span class="n">max_root_time</span><span class="p">)</span><span class="o">*</span><span class="mi">260</span><span class="p">)</span><span class="si">}</span><span class="s2">, 50%, 50%)</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+<span class="p">))</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_45_0.svg" src="_images/viz_45_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="highlighted-mutations">
+<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Permalink to this headline">¶</a></h4>
+<p>Specific mutations can be given a different colour. Moreover, the descendant lineages of
+specific mutations can be coloured and the branch colours overlay each other as expected.
+Note that in this example, internal node labels and symbols have been hidden for clarity.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.ts&quot;</span><span class="p">)</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;.edge {stroke: grey}&quot;</span>
+    <span class="s2">&quot;.mut .sym{stroke:pink} .mut text{fill:pink}&quot;</span>
+    <span class="s2">&quot;.mut.m2 .sym, .m2&gt;line, .m2&gt;.node .edge{stroke:blue} .mut.m2 .lab{fill:blue}&quot;</span>
+    <span class="s2">&quot;.mut.m3 .sym, .m3&gt;line, .m3&gt;.node .edge{stroke:cyan} .mut.m3 .lab{fill:cyan}&quot;</span>
+    <span class="s2">&quot;.mut.m4 .sym, .m4&gt;line, .m4&gt;.node .edge{stroke:red} .mut.m4 .lab{fill:red}&quot;</span>
+    <span class="c1"># Hide internal node labels &amp; symbols</span>
+    <span class="s2">&quot;.node:not(.leaf) &gt; .sym, .node:not(.leaf) &gt; .lab {visibility: hidden}&quot;</span>
+<span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_47_0.svg" src="_images/viz_47_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="leaf-sample-isolated-nodes">
+<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Permalink to this headline">¶</a></h4>
+<p>By default, sample nodes are square and non-sample nodes circular. However, neither need
+to be at time 0. Moreover, leaves need not be samples, and samples need not be leaves.
+Here we change the previous tree sequence to make some leaves non-samples and some samples
+internal nodes. To highlight the change, we have plotted sample nodes in green, and
+leaf nodes (if not samples) in blue.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.ts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+<span class="n">css_string</span><span class="o">=</span><span class="s2">&quot;.leaf .sym {fill: blue} .sample &gt; .sym {fill: green}&quot;</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_49_0.svg" src="_images/viz_49_0.svg" /></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By definition, if a node is a sample, it must be present in every tree. This
+means that there can be sample nodes which are “isolated” in a tree. These are drawn
+unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).</p>
+</div>
+</div>
+<div class="section" id="animation">
+<h4>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">¶</a></h4>
+<p>The classes attached to the SVG also allow elements to be animated. Here’s a
+<a class="reference external" href="https://d3js.org">d3.js</a>-based animation of sucessive subtree-prune-and-regraft (SPR)
+operations, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">ARG representation</span></a> of a
+tree sequence to allow identification of pruned edges.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;.node:not(.sample) &gt; .lab, .node:not(.sample) &gt; .sym {visibility: hidden}&quot;</span>
+<span class="n">html_string</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;div id=&quot;animated_svg_canvas&quot;&gt;</span><span class="si">%s</span><span class="s2">&lt;/div&gt;</span>
+<span class="s2">&lt;script type=&quot;text/javascript&quot; src=&quot;https://d3js.org/d3.v4.min.js&quot;&gt;&lt;/script&gt;</span>
+<span class="s2">&lt;script type=&quot;text/javascript&quot;&gt;</span>
+<span class="s2">function diff(A) {return A.slice(1).map((n, i) =&gt; { return n - A[i]; });};</span>
+<span class="s2">function mean(A) {return A.reduce((sum, a) =&gt; { return 0 + sum + a },0)/(A.length||1);};</span>
+<span class="s2">function getRelativeXY(canvas, element, x, y) {</span>
+<span class="s2">  var p = canvas._groups[0][0].createSVGPoint();</span>
+<span class="s2">  var ctm = element.getCTM();</span>
+<span class="s2">  p.x = x || 0;</span>
+<span class="s2">  p.y = y || 0;</span>
+<span class="s2">  return p.matrixTransform(ctm);</span>
+<span class="s2">};</span>
+
+<span class="s2">function animate_SPR(canvas, num_trees) {</span>
+<span class="s2">  d3.selectAll(&quot;.tree&quot;).attr(&quot;opacity&quot;, 0);</span>
+<span class="s2">  for(var i=0; i&lt;num_trees - 1; i++) </span>
+<span class="s2">  {</span>
+<span class="s2">    var source_tree = &quot;.tree.t&quot; + i;</span>
+<span class="s2">    var target_tree = &quot;.tree.t&quot; + (i+1);</span>
+<span class="s2">    var dur = 2000;</span>
+<span class="s2">    var delay = i * dur;</span>
+<span class="s2">    d3.select(source_tree)</span>
+<span class="s2">      .datum(function() { return d3.select(this).attr(&quot;transform&quot;)}) // store the original value</span>
+<span class="s2">      .transition()</span>
+<span class="s2">      .on(&quot;start&quot;, function() {d3.select(this).attr(&quot;opacity&quot;, &quot;1&quot;);}) </span>
+<span class="s2">      .delay(delay)</span>
+<span class="s2">      .duration(dur)</span>
+<span class="s2">      .attr(</span>
+<span class="s2">        &quot;transform&quot;, d3.select(target_tree).attr(&quot;transform&quot;))</span>
+<span class="s2">      .on(&quot;end&quot;, function() {</span>
+<span class="s2">        d3.select(this).attr(&quot;opacity&quot;, &quot;0&quot;);</span>
+<span class="s2">        d3.select(this).attr(&quot;transform&quot;, d3.select(this).datum()); // reset</span>
+<span class="s2">      });</span>
+<span class="s2">    transform_tree(canvas, source_tree, target_tree, dur, delay);</span>
+<span class="s2">  }</span>
+<span class="s2">};</span>
+
+<span class="s2">// NB - this is buggy and doesn&#39;t correctly reset the transformations on the elements</span>
+<span class="s2">// because it is hard to put the subtree back into the correct place in the hierarchy</span>
+
+<span class="s2">function transform_tree(canvas, src_tree, target_tree, dur, delay) {</span>
+<span class="s2">  canvas.selectAll(src_tree + &quot; .node&quot;).each(function() {</span>
+<span class="s2">    var n_ids = d3.select(this).attr(&quot;class&quot;).split(/\s+/g).filter(x=&gt;x.match(/^n\d/));</span>
+<span class="s2">    if (n_ids.length != 1) {alert(&quot;Bad node classes in SVG tree&quot;)};</span>
+<span class="s2">    var node_id = n_ids[0].replace(/^n/, &quot;&quot;)</span>
+<span class="s2">    var src = src_tree + &quot; .node.n&quot; + node_id;</span>
+<span class="s2">    var target = target_tree + &quot; .node.n&quot; + node_id;</span>
+
+<span class="s2">    if (d3.select(src).nodes()[0] &amp;&amp; d3.select(target).nodes()[0]) {</span>
+<span class="s2">      // The same source and target edges exist, so we can simply move them</span>
+<span class="s2">      d3.select(src).transition()</span>
+<span class="s2">        .delay(delay)</span>
+<span class="s2">        .duration(dur)</span>
+<span class="s2">        .attr(&quot;transform&quot;, d3.select(target).attr(&quot;transform&quot;))</span>
+<span class="s2">      var selection = d3.select(src + &quot; &gt; .edge&quot;);</span>
+<span class="s2">      if (!selection.empty()) { // the root may not have an edge</span>
+<span class="s2">        selection.transition()</span>
+<span class="s2">          .delay(delay)</span>
+<span class="s2">          .duration(dur)</span>
+<span class="s2">          .attr(&quot;d&quot;, d3.select(target +&quot; &gt; .edge&quot;).attr(&quot;d&quot;))</span>
+<span class="s2">      }</span>
+<span class="s2">    } else {</span>
+<span class="s2">      // No matching node: this could be a recombination</span>
+<span class="s2">      // Hack: the equivalent recombination node is the next one labelled</span>
+<span class="s2">      var target = target_tree + &quot; .node.n&quot; + (1+parseInt(node_id));</span>
+<span class="s2">      // Extract the edge</span>
+<span class="s2">      src_tree_pos = getRelativeXY(canvas, d3.select(src_tree).node());</span>
+<span class="s2">      target_tree_pos = getRelativeXY(canvas, d3.select(target_tree).node());</span>
+<span class="s2">      src_xy = getRelativeXY(canvas, d3.select(src).node());</span>
+<span class="s2">      target_xy = getRelativeXY(canvas, d3.select(target).node());</span>
+<span class="s2">      // Move the subtree out of the hierarchy and into the local tree space,</span>
+<span class="s2">      // so that movements of the containing hierarchy do not affect position</span>
+<span class="s2">      d3.select(src_tree).append(</span>
+<span class="s2">        () =&gt; d3.select(src)</span>
+<span class="s2">          .attr(</span>
+<span class="s2">            &quot;transform&quot;,</span>
+<span class="s2">            &quot;translate(&quot; + (src_xy.x - src_tree_pos.x) + &quot; &quot; + (src_xy.y - src_tree_pos.y) + &quot;)&quot;</span>
+<span class="s2">          )</span>
+<span class="s2">          .remove()</span>
+<span class="s2">          .node()</span>
+<span class="s2">      );</span>
+<span class="s2">      d3.select(src).transition()</span>
+<span class="s2">        .delay(delay)</span>
+<span class="s2">        .duration(dur)</span>
+<span class="s2">        .attr(</span>
+<span class="s2">          &quot;transform&quot;,</span>
+<span class="s2">          &quot;translate(&quot; + (target_xy.x-target_tree_pos.x) + &quot; &quot; + (target_xy.y-target_tree_pos.y) + &quot;)&quot;)</span>
+<span class="s2">      selection = d3.select(src + &quot; &gt; .edge&quot;);</span>
+<span class="s2">      if (!selection.empty()) {</span>
+<span class="s2">        selection.transition()</span>
+<span class="s2">          .delay(delay)</span>
+<span class="s2">          .duration(dur)</span>
+<span class="s2">          .attr(&quot;d&quot;, d3.select(target +&quot; &gt; .edge&quot;).attr(&quot;d&quot;))</span>
+<span class="s2">      }</span>
+<span class="s2">    }</span>
+<span class="s2">  })</span>
+<span class="s2">};</span>
+
+<span class="s2">var svg_text = document.getElementById(&quot;animated_svg_canvas&quot;).innerHTML;</span>
+
+<span class="s2">&lt;/script&gt;</span>
+
+<span class="s2">&lt;button onclick=&#39;animate_SPR(d3.select(&quot;#animated_svg_canvas svg&quot;), </span><span class="si">%s</span><span class="s2">);&#39;&gt;Animate&lt;/button&gt;</span>
+<span class="s2">&lt;button onclick=&#39;document.getElementById(&quot;animated_svg_canvas&quot;).innerHTML = svg_text;&#39;&gt;Reset&lt;/button&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="mi">5</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">sequence_length</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.00005</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">6787</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;smc_prime&quot;</span><span class="p">,</span> <span class="n">record_full_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                
+<span class="c1"># record_full_arg needed to track recombination nodes (branch positions)</span>
+<span class="c1"># random_seed chosen to produce a ts whose leaves are plotted in the same order</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">html_string</span> <span class="o">%</span> <span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">),</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="animated_svg_canvas"><svg baseProfile="full" height="200" version="1.1" width="800" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[.background path {fill: #808080; fill-opacity:0}.background path:nth-child(odd) {fill-opacity:.1}.axes {font-size: 14px}.x-axis .tick .lab {font-weight: bold}.axes, .tree {font-size: 14px; text-anchor:middle}.y-axis line.grid {stroke: #FAFAFA}.y-axis > .lab text {transform: translateX(0.8em) rotate(-90deg)}.x-axis .tick g {transform: translateY(0.9em)}.x-axis > .lab text {transform: translateY(-0.8em)}.axes line, .edge {stroke:black; fill:none}.node > .sym {fill: black; stroke: none}.site > .sym {stroke: black}.mut text {fill: red; font-style: italic}.mut.extra text {fill: hotpink}.mut line {fill: none; stroke: none}.mut .sym {fill: none; stroke: red}.mut.extra .sym {stroke: hotpink}.node .mut .sym {stroke-width: 1.5px}.tree text, .tree-sequence text {dominant-baseline: central}.plotbox .lab.lft {text-anchor: end}.plotbox .lab.rgt {text-anchor: start}.node:not(.sample) > .lab, .node:not(.sample) > .sym {visibility: hidden}]]></style></defs><g class="tree-sequence"><g class="background"><path d="M20,0 l190,0 l0,138.2 l-133.684,25 l0,5 l-56.316,0 l0,-5 l0,-25 l0,-138.2z" /><path d="M210,0 l190,0 l0,138.2 l-275.044,25 l0,5 l-48.64,0 l0,-5 l133.684,-25 l0,-138.2z" /><path d="M400,0 l190,0 l0,138.2 l-321.1,25 l0,5 l-143.944,0 l0,-5 l275.044,-25 l0,-138.2z" /><path d="M590,0 l190,0 l0,138.2 l0,25 l0,5 l-511.1,0 l0,-5 l321.1,-25 l0,-138.2z" /></g><g class="axes"><g class="x-axis"><g class="lab" transform="translate(400,200)"><text text-anchor="middle">Genome position</text></g><line x1="20" x2="780" y1="163.2" y2="163.2" /><g class="tick" transform="translate(20 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g class="lab" transform="translate(0,5)"><text>0</text></g></g><g class="tick" transform="translate(76.316 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g class="lab" transform="translate(0,5)"><text>741</text></g></g><g class="tick" transform="translate(124.956 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g class="lab" transform="translate(0,5)"><text>1381</text></g></g><g class="tick" transform="translate(268.9 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g class="lab" transform="translate(0,5)"><text>3275</text></g></g><g class="tick" transform="translate(780 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g class="lab" transform="translate(0,5)"><text>10000</text></g></g></g></g><g class="plotbox trees"><g class="tree t0" transform="translate(20 0)"><g class="plotbox"><g class="node n17 p0 root" transform="translate(63.125 26.8)"><g class="a17 node n14 p0" transform="translate(-28.125 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 28.125" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 node n16 p0" transform="translate(28.125 13.7141)"><g class="a16 node n11 p0" transform="translate(-26.25 52.4955)"><g class="a11 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(0.0 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -52.4955 H 26.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">11</text></g><g class="a16 node n15 p0" transform="translate(26.25 41.8551)"><g class="a15 node n6 p0" transform="translate(-22.5 31.2782)"><g class="a6 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -31.2782 H 22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">6</text></g><g class="a15 node n13 p0" transform="translate(22.5 10.5342)"><g class="a13 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H -22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H -26.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -28.125" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t1" transform="translate(210 0)"><g class="plotbox"><g class="node n17 p0 root" transform="translate(72.5 26.8)"><g class="a17 node n14 p0" transform="translate(-37.5 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 node n16 p0" transform="translate(37.5 13.7141)"><g class="a16 node n11 p0" transform="translate(-30 52.4955)"><g class="a11 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -52.4955 H 30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">11</text></g><g class="a16 node n15 p0" transform="translate(30 41.8551)"><g class="a15 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H -30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t2" transform="translate(400 0)"><g class="plotbox"><g class="node n17 p0 root" transform="translate(98.75 26.8)"><g class="a17 node n14 p0" transform="translate(-41.25 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(-22.5 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 22.5" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><g class="a14 node n12 p0" transform="translate(22.5 10.1609)"><g class="a12 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -10.1609 H -22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">12</text></g><path class="edge" d="M 0 0 V -56.0486 H 41.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 node n16 p0" transform="translate(41.25 13.7141)"><g class="a16 node n15 p0" transform="translate(0.0 41.8551)"><g class="a15 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -41.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t3" transform="translate(590 0)"><g class="plotbox"><g class="node n17 p0 root" transform="translate(72.5 26.8)"><g class="a17 node n14 p0" transform="translate(-37.5 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 node n16 p0" transform="translate(37.5 13.7141)"><g class="a16 node n15 p0" transform="translate(0.0 41.8551)"><g class="a15 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 node n5 p0" transform="translate(30 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H -30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">5</text></g><g class="a13 node n10 p0" transform="translate(-30 12.353)"><g class="a10 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.353 H 30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">10</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g></g></g></svg></div>
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+function diff(A) {return A.slice(1).map((n, i) => { return n - A[i]; });};
+function mean(A) {return A.reduce((sum, a) => { return 0 + sum + a },0)/(A.length||1);};
+function getRelativeXY(canvas, element, x, y) {
+  var p = canvas._groups[0][0].createSVGPoint();
+  var ctm = element.getCTM();
+  p.x = x || 0;
+  p.y = y || 0;
+  return p.matrixTransform(ctm);
+};
+
+function animate_SPR(canvas, num_trees) {
+  d3.selectAll(".tree").attr("opacity", 0);
+  for(var i=0; i<num_trees - 1; i++) 
+  {
+    var source_tree = ".tree.t" + i;
+    var target_tree = ".tree.t" + (i+1);
+    var dur = 2000;
+    var delay = i * dur;
+    d3.select(source_tree)
+      .datum(function() { return d3.select(this).attr("transform")}) // store the original value
+      .transition()
+      .on("start", function() {d3.select(this).attr("opacity", "1");}) 
+      .delay(delay)
+      .duration(dur)
+      .attr(
+        "transform", d3.select(target_tree).attr("transform"))
+      .on("end", function() {
+        d3.select(this).attr("opacity", "0");
+        d3.select(this).attr("transform", d3.select(this).datum()); // reset
+      });
+    transform_tree(canvas, source_tree, target_tree, dur, delay);
+  }
+};
+
+// NB - this is buggy and doesn't correctly reset the transformations on the elements
+// because it is hard to put the subtree back into the correct place in the hierarchy
+
+function transform_tree(canvas, src_tree, target_tree, dur, delay) {
+  canvas.selectAll(src_tree + " .node").each(function() {
+    var n_ids = d3.select(this).attr("class").split(/\s+/g).filter(x=>x.match(/^n\d/));
+    if (n_ids.length != 1) {alert("Bad node classes in SVG tree")};
+    var node_id = n_ids[0].replace(/^n/, "")
+    var src = src_tree + " .node.n" + node_id;
+    var target = target_tree + " .node.n" + node_id;
+
+    if (d3.select(src).nodes()[0] && d3.select(target).nodes()[0]) {
+      // The same source and target edges exist, so we can simply move them
+      d3.select(src).transition()
+        .delay(delay)
+        .duration(dur)
+        .attr("transform", d3.select(target).attr("transform"))
+      var selection = d3.select(src + " > .edge");
+      if (!selection.empty()) { // the root may not have an edge
+        selection.transition()
+          .delay(delay)
+          .duration(dur)
+          .attr("d", d3.select(target +" > .edge").attr("d"))
+      }
+    } else {
+      // No matching node: this could be a recombination
+      // Hack: the equivalent recombination node is the next one labelled
+      var target = target_tree + " .node.n" + (1+parseInt(node_id));
+      // Extract the edge
+      src_tree_pos = getRelativeXY(canvas, d3.select(src_tree).node());
+      target_tree_pos = getRelativeXY(canvas, d3.select(target_tree).node());
+      src_xy = getRelativeXY(canvas, d3.select(src).node());
+      target_xy = getRelativeXY(canvas, d3.select(target).node());
+      // Move the subtree out of the hierarchy and into the local tree space,
+      // so that movements of the containing hierarchy do not affect position
+      d3.select(src_tree).append(
+        () => d3.select(src)
+          .attr(
+            "transform",
+            "translate(" + (src_xy.x - src_tree_pos.x) + " " + (src_xy.y - src_tree_pos.y) + ")"
+          )
+          .remove()
+          .node()
+      );
+      d3.select(src).transition()
+        .delay(delay)
+        .duration(dur)
+        .attr(
+          "transform",
+          "translate(" + (target_xy.x-target_tree_pos.x) + " " + (target_xy.y-target_tree_pos.y) + ")")
+      selection = d3.select(src + " > .edge");
+      if (!selection.empty()) {
+        selection.transition()
+          .delay(delay)
+          .duration(dur)
+          .attr("d", d3.select(target +" > .edge").attr("d"))
+      }
+    }
+  })
+};
+
+var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
+
+</script>
+
+<button onclick='animate_SPR(d3.select("#animated_svg_canvas svg"), 4);'>Animate</button>
+<button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="other-visualizations">
+<span id="sec-tskit-viz-other-visualizations"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Permalink to this headline">¶</a></h2>
+<p>As well as visualizing a tree sequence as, well, a sequence of local trees, or by plotting
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">statistical summaries</span></a>, other visualizations are possible, some
+of which are outlined below.</p>
+<div class="section" id="graph-representations">
+<h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this headline">¶</a></h3>
+<p>A tree sequence can be treated as a specific form of (directed)
+<a class="reference external" href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> consisting
+of nodes connected by edges. Standard graph visualization software, such as
+<a class="reference external" href="https://graphviz.org">graphviz</a> can therefore be used to represent tree sequence
+topologies. This is a relatively common approach to visualizing the full
+“Ancestral Recombination Graph” or ARG (a structure in which some nodes are
+“recombination nodes”, and which is possible to
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">represent as a tree sequence</span></a>).</p>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>Link to the ARG tutorial,
+<a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/43">once it is created</a>, and show a
+picture like this:</p>
+<p><img alt="A tree sequence (ARG) as a graph" src="https://user-images.githubusercontent.com/36134434/109398193-2ec6b700-7933-11eb-9cbf-99fdfab46df0.png" />
+(from <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/43#issuecomment-787124425">here</a>)</p>
+</div>
+</div>
+<div class="section" id="demographic-processes">
+<h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this headline">¶</a></h3>
+<p>If you are generating a tree sequence via a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/demography.html#sec-demography-importing" title="(in Python)"><span class="xref std std-ref">Demes</span></a>
+model, then you can visualize a schematic of the demography itself (rather than the
+resulting tree sequence) using the <a class="reference external" href="https://grahamgower.github.io/demesdraw/">demesdraw</a>
+software.</p>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>Add a nice example e.g.</p>
+<p><img alt="Demesdraw example" src="https://grahamgower.github.io/demesdraw/_images/quickstart_6_0.svg" /></p>
+</div>
+</div>
+<div class="section" id="geography">
+<h3>Geography<a class="headerlink" href="#geography" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="id5">
+<p class="admonition-title">Todo</p>
+<p>How to get lat/long information out of a tree sequence and plot ancestors (or a tree)
+on a geographical landscape.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -390,7 +1678,7 @@ for the first version.</p></li>
         
           By Tskit Developers<br/>
         
-            &copy; Copyright 2020.<br/>
+            &copy; Copyright 2021.<br/>
       </p>
     </div>
   </footer>
