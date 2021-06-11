@@ -304,3 +304,21 @@ the statistic based on branch-lengths gives a much less noisy signal.
 Saving in VCF or ms format.
 :::
 
+## Key points covered above
+
+* A tree sequence has a number of basic attributes such as ``.num_trees``, ``.num_sites``, ``.num_samples``, ``sequence_length``, etc.
+* Each sample node corresponds to a sampled genome; diploid individuals in a tree sequence contain 2 sample nodes
+* ``ts.breakpoints()`` returns the genomic positions marking transitions between trees
+* ``ts.at()`` returns a tree at a particular genomic position
+* ``.draw_svg()`` plots trees or tree sequences
+* ``ts.trees()`` iterates over all the trees
+* ``ts.sites()`` iterates over all the sites
+* ``ts.variants()`` iterates over all the sites with their genotypes and alleles
+* ``ts.node(X)`` returns the node X, with attributes such as ``.time``
+* ``ts.samples()`` returns the list of nodes that are marked as samples
+* ``ts.simplify()`` reduces the number of sample nodes in the tree sequence to a specified subset
+* ``ts.keep_intervals()`` (or its complement, ``ts.delete_intervals()``) deletes extraneous parts of the genome
+* Various population genetic statistics can be calculated using methods on a tree sequence, for example
+    ``ts.allele_frequency_spectrum``, ``ts.diversity``, ``ts.Fst``, and these can also be
+    calculated in windows along the genome.
+
