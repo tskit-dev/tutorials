@@ -151,8 +151,8 @@ where the selective sweep occurred
 
 
 For many purposes it may be better to focus on the genealogy of your samples, rather than
-the {ref}`sites <tskit:sec_data_model_definitions_site>` and
-{ref}`mutations <tskit:sec_data_model_definitions_mutation>` that
+the sites and
+mutations that
 {ref}`define <sec_what_is_dna_data>` the genome sequence itself. This is discussed in the
 tutorial entitled "{ref}`sec_tskit_no_mutations`". Nevertheless, {program}`tskit` also
 provides efficient ways to return {class}`site objects<tskit.Site>` and
