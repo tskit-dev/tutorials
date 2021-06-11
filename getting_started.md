@@ -62,37 +62,86 @@ contains 40 *sample nodes*, one for each genome.
 
 ## Processing trees
 
-We can obtain a {class}`Tree <tskit.Tree>` at a particular genomic location along the
-tree sequence using the {meth}`TreeSequence.at()<tskit.TreeSequence.at>` method. We can
-perform various calculations on such a tree, or simply draw it using
-{meth}`Tree.draw_svg()<tskit.Tree.draw_svg>`.
+A common idiom is to iterate over all the {class}`tree objects<tskit.Tree>` in a tree
+sequence. This process underlies many tree sequence algorithms, including those we'll
+encounter later in this tutorial for calculating 
+{ref}`population genetic statistics<tskit:sec_stats>`.
+To iterate over your own tree sequence you can use
+{meth}`TreeSequence.trees()<tskit.TreeSequence.trees>`. Here, for example, is
+how to check whether all trees in the tree sequence have fully coalesced (which is to be
+expected in reverse-time, coalescent simulations, but not always for tree sequences
+produced by {ref}`forward simulation <sec_tskit_forward_simulations>`).
+
+```{code-cell} ipython3
+for tree in ts.trees():
+    if tree.has_multiple_roots:
+        print("Tree {tree.index} has not coalesced")
+        break
+else:
+    print("All trees in the tree sequence have coalesced")
+```
+
+Since all the trees *have* coalesced, at each position in the genome this tree sequence
+must have only one most recent common ancestor (MRCA) of the 40 sample nodes. Below, we
+iterate over the trees again, finding the IDs of the root (MRCA) node for each tree. The
+time of this root node can be found via the {meth}`tskit.TreeSequence.node` method, which
+returns a {class}`node object<tskit.Node>` with attributes including the node time:
+
+```{code-cell} ipython3
+import matplotlib.pyplot as plt
+
+kb = [0]  # Starting genomic position
+mrca_time = []
+for tree in ts.trees():
+    kb.append(tree.interval.left/1000)  # convert to kb
+    mrca = ts.node(tree.root)  # For msprime tree sequences, the root node is the MRCA
+    mrca_time.append(mrca.time)
+plt.stairs(mrca_time, kb, baseline=None)
+plt.xlabel("Genome position (kb)")
+plt.ylabel("Time of root (or MRCA) in generations")
+plt.yscale("log")
+plt.show()
+```
+
+It's obvious that there's something unusual about the trees in the middle of this
+chromosome, where the selective sweep occurred. It's not particularly efficient to pull
+out a tree from the middle of a tree sequence, but it *can* be done, via the
+{meth}`TreeSequence.at()<tskit.TreeSequence.at>` method. Here's the tree at the location
+of the sweep, drawn using the  {meth}`Tree.draw_svg()<tskit.Tree.draw_svg>` method
+(see the {ref}`visualization tutorial <sec_tskit_viz>` for more visualization
+possibilities):
 
 ```{code-cell} ipython3
 from IPython.display import SVG
 
-tree_at_2Mb = ts.at(2_000_000)  # or you can get e.g. the first tree using ts.first()
-intvl = tree_at_2Mb.interval
-print(f"Tree number {tree_at_2Mb.index}, which runs from position {intvl.left} to {intvl.right}:")
+swept_tree = ts.at(5_000_000)  # or you can get e.g. the first tree using ts.first()
+intvl = swept_tree.interval
+print(f"Tree number {swept_tree.index}, which runs from position {intvl.left} to {intvl.right}:")
 # Draw it at a wide size, to make room for all 40 tips
-SVG(tree_at_2Mb.draw_svg(size=(1000, 200)))
+SVG(swept_tree.draw_svg(size=(1000, 200)))
 ```
+
+This tree shows the classic signature of a recent expansion or selection event, with many
+long terminal branches, resulting in an excess of singleton mutations.
 
 It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
-{meth}`TreeSequence.simplify()<tskit.TreeSequence.simplify>` method. Below we use it
+{meth}`TreeSequence.simplify()<tskit.TreeSequence.simplify>` method. Here we will use it
 to reduce the number of tips in the trees we are plotting, but it has
 {ref}`many other uses<pyslim:sec_left_in_tree_sequence>`.
 
-Tree sequences can be plotted via
-{meth}`TreeSequence.draw_svg()<tskit.TreeSequence.draw_svg>`. Here we use the ``x_lim``
-parameter to restrict plotting to a particular region of the genome (see the
-{ref}`visualization tutorial <sec_tskit_viz>` for more options):
+The {meth}`TreeSequence.draw_svg()<tskit.TreeSequence.draw_svg>` method allows us to draw
+more than one tree: either the entire tree sequence, or
+(by using the ``x_lim`` parameter) a smaller region of the genome:
 
 ```{code-cell} ipython3
 reduced_ts = ts.simplify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])  # simplify to the first 10 samples
-print("Genealogy of the first 10 samples, for 1.5kb of the genome from position 2Mb onwards")
-display(SVG(reduced_ts.draw_svg(x_lim=(2_000_000, 2_001_500))))
+print("Genealogy of the first 10 samples, the first 1.5kb of the genome")
+display(SVG(reduced_ts.draw_svg(x_lim=(0, 5000))))
 ```
+
+These are much more standard-looking coalescent trees, with far longer branches higher
+up in the tree, and therefore many more mutations at higher-frequencies.
 
 :::{note}
 In this tutorial we refer to objects, such as sample nodes, by their numerical IDs. These
@@ -106,46 +155,6 @@ described in the {ref}`data structures tutorial<sec_data_structures>`.
 :::
 
 
-A common idiom is to iterate over all the trees in a tree sequence. This underlies
-many tree sequence algorithms, including those used to calculate statistics. Iteration is
-done using {meth}`TreeSequence.trees()<tskit.TreeSequence.trees>`. Here, for example, is
-how to check whether all trees in your tree sequence have fully coalesced (to be
-expected in reverse-time, coalescent simulations, but not always for tree sequences
-produced by {ref}`forward simulation <sec_tskit_forward_simulations>`).
-
-```{code-cell} ipython3
-for tree in ts.trees():
-    if tree.has_multiple_roots:
-        print("Tree {tree.index} has not coalesced")
-        break
-else:
-    print("All trees in the tree sequence have coalesced")
-```
-
-Since all the trees have coalesced, at each position in the genome this tree sequence
-must have only one most recent common ancestor (MRCA) of the 40 sample nodes. Below, we
-iterate over the trees again, finding the IDs of the root (MRCA) node for each tree. The
-time of this root node can be found via the {meth}`tskit.TreeSequence.node` method, which
-returns a {class}`node object<tskit.Node>` with attributes including the node time:
-
-```{code-cell} ipython3
-import matplotlib.pyplot as plt
-
-kb = [0]
-mrca_time = []
-for tree in ts.trees():
-    kb.append(tree.interval.left/1000)  # convert to kb
-    mrca = ts.node(tree.root)  # For msprime tree sequences, the root node is the MRCA
-    mrca_time.append(mrca.time)
-plt.stairs(mrca_time, kb, baseline=None)
-plt.xlabel("genome position (kb)")
-plt.ylabel("Time of root (or MRCA) in generations")
-plt.yscale("log")
-plt.show()
-```
-
-It's obvious that there's something unusual about the trees in the middle of this chromosome,
-where the selective sweep occurred
 
 ## Processing sites and mutations
 
@@ -196,9 +205,11 @@ for v in ts.variants():
 ```
 
 :::{note}
-Tree sequences are optimised to iterate over sites in a genome, for all samples. It is
-much less efficient to iterate over samples, getting the entire genome for each sample
-in turn. Nevertheless, all the alleles for a single sample can be obtained via the
+Tree sequences are optimised to look at all samples at one site, then all samples at an
+adjacent site, and so on along the genome. It is much less efficient look at all the
+sites for a single sample, then all the sites for the next sample, etc. In other words,
+you should generally iterate over sites, not samples. Nevertheless, all the alleles for
+a single sample can be obtained via the
 {meth}`TreeSequence.haplotypes()<tskit.TreeSequence.haplotypes>` method.
 :::
 
@@ -270,32 +281,38 @@ plt.show()
 On the left is the frequency spectrum averaged over the entire genome, and on the right
 is the spectrum for a section of the tree sequence between 5 and 5.5Mb, which we've
 created by deleting the regions outside that interval using
-{meth}`TreeSequence.keep_intervals()<tskit.TreeSequence.keep_intervals>`. Unsurprisingly
-the spectrum looks quite different in the region of the sweep.
+{meth}`TreeSequence.keep_intervals()<tskit.TreeSequence.keep_intervals>`. Unsurprisingly,
+as we noted when looking at the trees, there's a far higher proportion of singletons in
+the region of the sweep.
 
 It is often useful to see how statistics vary in different genomic regions. This is done
 by calculating them in {ref}`tskit:sec_stats_windows` along the genome. For this,
 let's look at a single statistic, the genetic diversity (π). As a site statistic this
 measures the average number of genetic differences between two randomly chosen samples,
 whereas as a branch length statistic it measures the average branch length between them.
-We'll plot how the value of π changes in the region between 4 and 6 Mb by calculating it
-for each tree (i.e. each tree is treated as a "window"):
+We'll plot how the value of π changes using 10kb windows, plotting the resulting
+diversity between positions 4 and 6 Mb:
 
 ```{code-cell} ipython3
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12, 3))
-
-breaks = ts.breakpoints(as_array=True)
-ax1.stairs(ts.diversity(windows="trees"), breaks, baseline=None)  # Default is mode="site"
-ax2.stairs(ts.diversity(windows="trees", mode="branch"), breaks, baseline=None)
-ax1.set_xlim(4e6, 6e6)
-ax2.set_xlim(4e6, 6e6)
+L = int(ts.sequence_length)
+windows = np.linspace(0, L, num=L//10_000)
+ax1.stairs(ts.diversity(windows=windows), windows/1_000, baseline=None)  # Default is mode="site"
+ax1.set_ylabel("Diversity")
+ax1.set_xlabel("Genome position (kb)")
+ax1.set_title("Site-based calculation")
+ax1.set_xlim(4e3, 6e3)
 ax1.set_yscale("log")
+ax2.stairs(ts.diversity(windows=windows, mode="branch"), windows/1_000, baseline=None)
+ax2.set_xlabel("Genome position (kb)")
+ax2.set_title("Branch-length-based calculation")
+ax2.set_xlim(4e3, 6e3)
 ax2.set_yscale("log")
 plt.show()
 ```
 
 There's a clear drop in diversity in the region of the selective sweep. And as expected,
-the statistic based on branch-lengths gives a much less noisy signal.
+the statistic based on branch-lengths gives a less noisy signal.
 
 
 ## Exporting data
@@ -306,18 +323,23 @@ Saving in VCF or ms format.
 
 ## Key points covered above
 
-* A tree sequence has a number of basic attributes such as ``.num_trees``, ``.num_sites``, ``.num_samples``, ``sequence_length``, etc.
-* Each sample node corresponds to a sampled genome; diploid individuals in a tree sequence contain 2 sample nodes
-* ``ts.breakpoints()`` returns the genomic positions marking transitions between trees
-* ``ts.at()`` returns a tree at a particular genomic position
-* ``.draw_svg()`` plots trees or tree sequences
+Some simple methods and take-home messages from this tutorial, in rough order of importance:
+
+* In python, a tree sequence object has a number of basic attributes such as
+    ``.num_trees``, ``.num_sites``, ``.num_samples``, ``.sequence_length``. Similarly
+    a tree object has e.g. an ``.interval`` attribute, a site object has a ``.mutations``
+    attribute, a node object has a ``.time`` attribute, and so on.
+* Each sample node corresponds to a sampled genome; diploid individuals in a tree sequence
+    contain 2 sample nodes
+* ``ts.samples()`` returns an array of node IDs specifying the nodes that are marked as samples
+* ``ts.node(X)`` returns the node object for node ID X
 * ``ts.trees()`` iterates over all the trees
 * ``ts.sites()`` iterates over all the sites
 * ``ts.variants()`` iterates over all the sites with their genotypes and alleles
-* ``ts.node(X)`` returns the node X, with attributes such as ``.time``
-* ``ts.samples()`` returns the list of nodes that are marked as samples
 * ``ts.simplify()`` reduces the number of sample nodes in the tree sequence to a specified subset
-* ``ts.keep_intervals()`` (or its complement, ``ts.delete_intervals()``) deletes extraneous parts of the genome
+* ``ts.keep_intervals()`` (or its complement, ``ts.delete_intervals()``) deletes unwanted parts of the genome
+* ``.draw_svg()`` plots trees or tree sequences
+* ``ts.at()`` returns a tree at a particular genomic position (but using ``ts.trees()`` is usually preferable)
 * Various population genetic statistics can be calculated using methods on a tree sequence, for example
     ``ts.allele_frequency_spectrum``, ``ts.diversity``, ``ts.Fst``, and these can also be
     calculated in windows along the genome.
