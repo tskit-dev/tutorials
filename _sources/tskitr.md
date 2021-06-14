@@ -12,6 +12,8 @@ kernelspec:
   name: ir
 ---
 
+(sec_tskit_r)=
+
 # Tskit and R
 
 To interface with `tskit` in R, we can use the [reticulate](https://rstudio.github.io/reticulate/) R package, which lets you call Python functions within an R session. In this short tutorial, we'll go through a couple of examples to show you how to get started. If you haven't done so already, you'll need to install `reticulate` in your R session via `install.packages("reticulate")`. 

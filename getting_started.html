@@ -107,7 +107,10 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Getting started with tskit
+   Getting started with
+   <strong class="program">
+    tskit
+   </strong>
   </a>
  </li>
  <li class="toctree-l1">
@@ -294,8 +297,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#processing-mutations">
-   Processing mutations
+  <a class="reference internal nav-link" href="#processing-sites-and-mutations">
+   Processing sites and mutations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-genotypes">
+   Processing genotypes
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -306,6 +314,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#exporting-data">
    Exporting data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-points-covered-above">
+   Key points covered above
   </a>
  </li>
 </ul>
@@ -320,22 +333,44 @@
               <div>
                 
   <div class="section" id="getting-started-with-tskit">
-<span id="sec-tskit-getting-started"></span><h1>Getting started with tskit<a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">¶</a></h1>
+<span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">¶</a></h1>
 <p>You’ve run some simulations or inference methods, and you now have a
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tskit.TreeSequence</span></code></a> object; what now? This tutorial is aimed
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed
 users who are new to <strong class="program">tskit</strong> and would like to get some
-basic tasks completed. We’ll look at four fundamental things you might
+basic tasks completed. We’ll look at five fundamental things you might
 need to do, and provide some pointers to where you can learn more.</p>
-<p>First, let’s simulate an example tree sequence using <a class="reference external" href="https://tskit.dev/msprime">msprime</a>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The examples in this
+tutorial are all written in Python, but it’s also possible to <a class="reference internal" href="tskitr.html#sec-tskit-r"><span class="std std-ref">use R</span></a>,
+or access the API in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/c-api.html">other</a>
+<a class="reference external" href="https://github.com/tskit-dev/tskit-rust">languages</a>.</p>
+</div>
+<p>First, let’s simulate an example tree sequence of a 10Mb chromosome in
+20 diploid individuals using <a class="reference external" href="https://tskit.dev/msprime"><strong class="program">msprime</strong></a>. To make it
+a bit more interesting, we’ll simulate the effects of a
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-models-selective-sweeps" title="(in Python)"><span class="xref std std-ref">selective sweep</span></a> in the middle of
+the chromosome, then throw some neutral mutations onto the resulting tree sequence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
- 
+
+<span class="n">pop_size</span><span class="o">=</span><span class="mi">10_000</span>
+<span class="n">seq_length</span><span class="o">=</span><span class="mi">10_000_000</span>
+
+<span class="n">sweep_model</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">SweepGenicSelection</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="n">seq_length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">start_frequency</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">end_frequency</span><span class="o">=</span><span class="mf">0.9999</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
     <span class="mi">20</span><span class="p">,</span>
-    <span class="n">population_size</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
-    <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">,</span>
-    <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>   
+    <span class="n">model</span><span class="o">=</span><span class="p">[</span><span class="n">sweep_model</span><span class="p">,</span> <span class="n">msprime</span><span class="o">.</span><span class="n">StandardCoalescent</span><span class="p">()],</span>
+    <span class="n">population_size</span><span class="o">=</span><span class="n">pop_size</span><span class="p">,</span>
+    <span class="n">sequence_length</span><span class="o">=</span><span class="n">seq_length</span><span class="p">,</span>
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>  <span class="c1"># only needed for repeatabilty</span>
+    <span class="p">)</span>
+<span class="c1"># Optionally add finite-site mutations to the ts using the Jukes &amp; Cantor model, creating SNPs</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">4321</span><span class="p">)</span>
 <span class="n">ts</span>
 </pre></div>
 </div>
@@ -365,10 +400,10 @@ need to do, and provide some pointers to where you can learn more.</p>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Trees</td><td>1357</td></tr>
-          <tr><td>Sequence Length</td><td>1000000.0</td></tr>
+          <tr><td>Trees</td><td>11167</td></tr>
+          <tr><td>Sequence Length</td><td>10000000.0</td></tr>
           <tr><td>Sample Nodes</td><td>40</td></tr>
-          <tr><td>Total Size</td><td>192.2 KiB</td></tr>
+          <tr><td>Total Size</td><td>2.0 MiB</td></tr>
           <tr>
             <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
         </tbody>
@@ -388,8 +423,8 @@ need to do, and provide some pointers to where you can learn more.</p>
 
       <tr>
         <td>Edges</td>
-          <td>4747</td>
-          <td>129.8 KiB</td>
+          <td>36372</td>
+          <td>994.6 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -415,8 +450,8 @@ need to do, and provide some pointers to where you can learn more.</p>
 
       <tr>
         <td>Mutations</td>
-          <td>0</td>
-          <td>8 Bytes</td>
+          <td>13568</td>
+          <td>384.3 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -424,8 +459,8 @@ need to do, and provide some pointers to where you can learn more.</p>
 
       <tr>
         <td>Nodes</td>
-          <td>1016</td>
-          <td>23.8 KiB</td>
+          <td>7342</td>
+          <td>172.1 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -442,8 +477,8 @@ need to do, and provide some pointers to where you can learn more.</p>
 
       <tr>
         <td>Provenances</td>
-          <td>1</td>
-          <td>970 Bytes</td>
+          <td>2</td>
+          <td>1.9 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -451,8 +486,8 @@ need to do, and provide some pointers to where you can learn more.</p>
 
       <tr>
         <td>Sites</td>
-          <td>0</td>
-          <td>8 Bytes</td>
+          <td>13554</td>
+          <td>225.0 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -465,17 +500,369 @@ need to do, and provide some pointers to where you can learn more.</p>
 </div>
 </div></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since we simulated the ancestry of 20 <em>diploid</em> individuals, our tree sequence
+contains 40 <em>sample nodes</em>, one for each genome.</p>
+</div>
 <div class="section" id="processing-trees">
 <h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">¶</a></h2>
+<p>A common idiom is to iterate over all the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree</span> <span class="pre">objects</span></code></a> in a tree
+sequence. This process underlies many tree sequence algorithms, including those we’ll
+encounter later in this tutorial for calculating
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">population genetic statistics</span></a>.
+To iterate over your own tree sequence you can use
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a>. Here, for example, is
+how to check whether all trees in the tree sequence have fully coalesced (which is to be
+expected in reverse-time, coalescent simulations, but not always for tree sequences
+produced by <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">has_multiple_roots</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree </span><span class="si">{tree.index}</span><span class="s2"> has not coalesced&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All trees in the tree sequence have coalesced&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="processing-mutations">
-<h2>Processing mutations<a class="headerlink" href="#processing-mutations" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All trees in the tree sequence have coalesced
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since all the trees <em>have</em> coalesced, at each position in the genome this tree sequence
+must have only one most recent common ancestor (MRCA) of the 40 sample nodes. Below, we
+iterate over the trees again, finding the IDs of the root (MRCA) node for each tree. The
+time of this root node can be found via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.node" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tskit.TreeSequence.node()</span></code></a> method, which
+returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">node</span> <span class="pre">object</span></code></a> with attributes including the node time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">kb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Starting genomic position</span>
+<span class="n">mrca_time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+    <span class="n">kb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="o">.</span><span class="n">left</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># convert to kb</span>
+    <span class="n">mrca</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>  <span class="c1"># For msprime tree sequences, the root node is the MRCA</span>
+    <span class="n">mrca_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mrca</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">mrca_time</span><span class="p">,</span> <span class="n">kb</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Time of root (or MRCA) in generations&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/getting_started_5_0.png" src="_images/getting_started_5_0.png" />
+</div>
+</div>
+<p>It’s obvious that there’s something unusual about the trees in the middle of this
+chromosome, where the selective sweep occurred. It’s not particularly efficient to pull
+out a tree from the middle of a tree sequence, but it <em>can</em> be done, via the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s the tree at the location
+of the sweep, drawn using the  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method
+(see the <a class="reference internal" href="viz.html#sec-tskit-viz"><span class="std std-ref">visualization tutorial</span></a> for more visualization
+possibilities):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
+
+<span class="n">swept_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">)</span>  <span class="c1"># or you can get e.g. the first tree using ts.first()</span>
+<span class="n">intvl</span> <span class="o">=</span> <span class="n">swept_tree</span><span class="o">.</span><span class="n">interval</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree number </span><span class="si">{</span><span class="n">swept_tree</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">, which runs from position </span><span class="si">{</span><span class="n">intvl</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">intvl</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<span class="c1"># Draw it at a wide size, to make room for all 40 tips</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">swept_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree number 5382, which runs from position 4998293.0 to 5033047.0:
+</pre></div>
+</div>
+<img alt="_images/getting_started_7_1.svg" src="_images/getting_started_7_1.svg" /></div>
+</div>
+<p>This tree shows the classic signature of a recent expansion or selection event, with many
+long terminal branches, resulting in an excess of singleton mutations.</p>
+<p>It can often be helpful to slim down a tree sequence so that it represents the genealogy
+of a smaller subset of the original samples. This can be done using the powerful
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> method. Here we will use it
+to reduce the number of tips in the trees we are plotting, but it has
+<a class="reference external" href="https://pyslim.readthedocs.io/en/stable/introduction.html#sec-left-in-tree-sequence" title="(in pyslim v0.600)"><span class="xref std std-ref">many other uses</span></a>.</p>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg()</span></code></a> method allows us to draw
+more than one tree: either the entire tree sequence, or
+(by using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter) a smaller region of the genome:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>  <span class="c1"># simplify to the first 10 samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genealogy of the first 10 samples, the first 1.5kb of the genome&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">reduced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genealogy of the first 10 samples, the first 1.5kb of the genome
+</pre></div>
+</div>
+<img alt="_images/getting_started_9_1.svg" src="_images/getting_started_9_1.svg" /></div>
+</div>
+<p>These are much more standard-looking coalescent trees, with far longer branches higher
+up in the tree, and therefore many more mutations at higher-frequencies.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this tutorial we refer to objects, such as sample nodes, by their numerical IDs. These
+can change after simplification, and it is often more meaningful to look at
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in tskit v0.3)"><span>Metadata</span></a>, such as sample and population names, which can be permanently
+attached to objects in the tree sequence. Often metadata is incorporated automatically by
+the tools generating the tree sequence. Note that if you wish to edit the tree sequence,
+for example to add information such as this, it cannot be done directly, as tree
+sequences are immutable. Instead you need to edit a copy of the underlying tables, as
+described in the <a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">data structures tutorial</span></a>.</p>
+</div>
+</div>
+<div class="section" id="processing-sites-and-mutations">
+<h2>Processing sites and mutations<a class="headerlink" href="#processing-sites-and-mutations" title="Permalink to this headline">¶</a></h2>
+<p>For many purposes it may be better to focus on the genealogy of your samples, rather than
+the sites and
+mutations that
+<a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">define</span></a> the genome sequence itself. This is discussed in the
+tutorial entitled “<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">Do you really need mutations?</span></a>”. Nevertheless, <strong class="program">tskit</strong> also
+provides efficient ways to return <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">site</span> <span class="pre">objects</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mutation</span> <span class="pre">objects</span></code></a> from a tree sequence.
+For instance, under the finite sites model of mutation that we used above, multiple mutations
+can occur at some sites, and we can identify them by iterating over the sites using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sites" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.sites()</span></code></a> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">num_muts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">sites</span><span class="p">():</span>
+    <span class="n">num_muts</span><span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">)</span>  <span class="c1"># site.mutations is a list of mutations at the site</span>
+
+<span class="c1"># Print out some info about mutations per site</span>
+<span class="k">for</span> <span class="n">nmuts</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">num_muts</span><span class="p">)):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> sites&quot;</span>
+    <span class="k">if</span> <span class="n">nmuts</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, with IDs </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">num_muts</span><span class="o">==</span><span class="n">nmuts</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">,&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;have </span><span class="si">{</span><span class="n">nmuts</span><span class="si">}</span><span class="s2"> mutation&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot;s&quot;</span> <span class="k">if</span> <span class="n">nmuts</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 sites have 0 mutations
+13540 sites have 1 mutation
+14 sites, with IDs [ 2275  2287  2658  3789  4043  9694 11023 11780 11853 11890 11999 12023
+ 12096 12310], have 2 mutations
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="processing-genotypes">
+<h2>Processing genotypes<a class="headerlink" href="#processing-genotypes" title="Permalink to this headline">¶</a></h2>
+<p>At each site, the sample nodes will have a particular allelic state (or be flagged as
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-missing-data" title="(in tskit v0.3)"><span>Missing data</span></a>). The
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.variants()</span></code></a> method gives access to the
+full variation data. For efficiency, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.genotypes" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">genotypes</span></code></a>
+at a site are returned as a <a class="reference external" href="https://numpy.org">numpy</a> array of integers:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>  <span class="c1"># print genotypes on a single line</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genotypes&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">genotypes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># only print up to site ID 4</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genotypes
+Site 0: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
+Site 1: [1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 0 1 0 1 1 1 1 1 0 1 0 1 0 0 1 1]
+Site 2: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
+Site 3: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+Site 4: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
+...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tree sequences are optimised to look at all samples at one site, then all samples at an
+adjacent site, and so on along the genome. It is much less efficient look at all the
+sites for a single sample, then all the sites for the next sample, etc. In other words,
+you should generally iterate over sites, not samples. Nevertheless, all the alleles for
+a single sample can be obtained via the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.haplotypes()</span></code></a> method.</p>
+</div>
+<p>To find the actual allelic states at a site, you can refer to the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.alleles" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alleles</span></code></a> provided for each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">variant</span></code></a>:
+the genotype value is an index into this list. Here’s one way to print them out; for
+clarity this example also prints out the IDs of both the sample nodes (i.e. the genomes)
+and the diploid <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-nodes-or-individuals" title="(in tskit v0.3)"><span class="xref std std-ref">individuals</span></a> in which each sample
+node resides.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samp_ids</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ID of diploid individual: &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">individual</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samp_ids</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;       ID of (sample) node: &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samp_ids</span><span class="p">]))</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span>
+    <span class="n">alleles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> (ancestral state &#39;</span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">,</span>  <span class="n">alleles</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">genotypes</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># only print up to site ID 4</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ID of diploid individual:    0   0   1   1   2   2   3   3   4   4   5   5   6   6   7   7   8   8   9   9  10  10  11  11  12  12  13  13  14  14  15  15  16  16  17  17  18  18  19  19
+       ID of (sample) node:    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39
+Site 0 (ancestral state &#39;G&#39;) [&#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39;]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site 1 (ancestral state &#39;T&#39;) [&#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39;]
+Site 2 (ancestral state &#39;T&#39;) [&#39;T&#39; &#39;T&#39; &#39;C&#39; &#39;C&#39; &#39;T&#39; &#39;T&#39; &#39;C&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;C&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;C&#39; &#39;T&#39; &#39;T&#39; &#39;C&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;C&#39; &#39;T&#39; &#39;C&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39;]
+Site 3 (ancestral state &#39;T&#39;) [&#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39;]
+Site 4 (ancestral state &#39;T&#39;) [&#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;A&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39; &#39;T&#39;]
+...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since we have used the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.JC69" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.JC69</span></code></a> model of mutations, the alleles are all
+either ‘A’, ‘T’, ‘G’, or ‘C’. However, more complex mutation models can involve mutations
+such as indels, leading to allelic states which need not be one of these 4 letters, nor
+even be a single letter.</p>
+</div>
 </div>
 <div class="section" id="compute-statistics">
 <h2>Compute statistics<a class="headerlink" href="#compute-statistics" title="Permalink to this headline">¶</a></h2>
+<p>There are a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">large number of statistics</span></a> and related calculations
+built in to <strong class="program">tskit</strong>. Indeed, many basic population genetic statistics are based
+on the allele (or site) frequency spectrum (AFS), which can be obtained from a tree sequence
+using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.allele_frequency_spectrum</span></code></a>
+method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">afs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Unpolarised allele frequency spectrum&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/getting_started_17_0.png" src="_images/getting_started_17_0.png" />
+</div>
+</div>
+<p>By default this method returns the “folded” or unpolarized AFS that doesn’t
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-polarisation" title="(in tskit v0.3)"><span class="xref std std-ref">take account of the ancestral state</span></a>.
+However, since the tree sequence provides the ancestral state, we can plot the polarized
+version; additionally we can base our calculations on branch lengths rather than alleles,
+which provides an estimate that is not influenced by random mutational “noise”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">afs1</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">afs1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Genome-wide branch-length AFS&quot;</span><span class="p">)</span>
+
+<span class="n">restricted_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">keep_intervals</span><span class="p">([[</span><span class="mf">5e6</span><span class="p">,</span> <span class="mf">5.5e6</span><span class="p">]])</span>
+<span class="n">afs2</span> <span class="o">=</span> <span class="n">restricted_ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">restricted_ts</span><span class="o">.</span><span class="n">num_samples</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">afs2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch-length AFS between 5 and 5.5Mb&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/getting_started_19_0.png" src="_images/getting_started_19_0.png" />
+</div>
+</div>
+<p>On the left is the frequency spectrum averaged over the entire genome, and on the right
+is the spectrum for a section of the tree sequence between 5 and 5.5Mb, which we’ve
+created by deleting the regions outside that interval using
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.keep_intervals()</span></code></a>. Unsurprisingly,
+as we noted when looking at the trees, there’s a far higher proportion of singletons in
+the region of the sweep.</p>
+<p>It is often useful to see how statistics vary in different genomic regions. This is done
+by calculating them in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in tskit v0.3)"><span>Windows</span></a> along the genome. For this,
+let’s look at a single statistic, the genetic diversity (π). As a site statistic this
+measures the average number of genetic differences between two randomly chosen samples,
+whereas as a branch length statistic it measures the average branch length between them.
+We’ll plot how the value of π changes using 10kb windows, plotting the resulting
+diversity between positions 4 and 6 Mb:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">L</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">)</span>
+<span class="n">windows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">L</span><span class="o">//</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">),</span> <span class="n">windows</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># Default is mode=&quot;site&quot;</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Diversity&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Site-based calculation&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">4e3</span><span class="p">,</span> <span class="mf">6e3</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">),</span> <span class="n">windows</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch-length-based calculation&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">4e3</span><span class="p">,</span> <span class="mf">6e3</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/getting_started_21_0.png" src="_images/getting_started_21_0.png" />
+</div>
+</div>
+<p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,
+the statistic based on branch-lengths gives a less noisy signal.</p>
 </div>
 <div class="section" id="exporting-data">
 <h2>Exporting data<a class="headerlink" href="#exporting-data" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Saving in VCF or ms format.</p>
+</div>
+</div>
+<div class="section" id="key-points-covered-above">
+<h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Permalink to this headline">¶</a></h2>
+<p>Some simple methods and take-home messages from this tutorial, in rough order of importance:</p>
+<ul class="simple">
+<li><p>In python, a tree sequence object has a number of basic attributes such as
+<code class="docutils literal notranslate"><span class="pre">.num_trees</span></code>, <code class="docutils literal notranslate"><span class="pre">.num_sites</span></code>, <code class="docutils literal notranslate"><span class="pre">.num_samples</span></code>, <code class="docutils literal notranslate"><span class="pre">.sequence_length</span></code>. Similarly
+a tree object has e.g. an <code class="docutils literal notranslate"><span class="pre">.interval</span></code> attribute, a site object has a <code class="docutils literal notranslate"><span class="pre">.mutations</span></code>
+attribute, a node object has a <code class="docutils literal notranslate"><span class="pre">.time</span></code> attribute, and so on.</p></li>
+<li><p>Each sample node corresponds to a sampled genome; diploid individuals in a tree sequence
+contain 2 sample nodes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.samples()</span></code> returns an array of node IDs specifying the nodes that are marked as samples</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.node(X)</span></code> returns the node object for node ID X</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.trees()</span></code> iterates over all the trees</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.sites()</span></code> iterates over all the sites</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.variants()</span></code> iterates over all the sites with their genotypes and alleles</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.simplify()</span></code> reduces the number of sample nodes in the tree sequence to a specified subset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.keep_intervals()</span></code> (or its complement, <code class="docutils literal notranslate"><span class="pre">ts.delete_intervals()</span></code>) deletes unwanted parts of the genome</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.draw_svg()</span></code> plots trees or tree sequences</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ts.at()</span></code> returns a tree at a particular genomic position (but using <code class="docutils literal notranslate"><span class="pre">ts.trees()</span></code> is usually preferable)</p></li>
+<li><p>Various population genetic statistics can be calculated using methods on a tree sequence, for example
+<code class="docutils literal notranslate"><span class="pre">ts.allele_frequency_spectrum</span></code>, <code class="docutils literal notranslate"><span class="pre">ts.diversity</span></code>, <code class="docutils literal notranslate"><span class="pre">ts.Fst</span></code>, and these can also be
+calculated in windows along the genome.</p></li>
+</ul>
 </div>
 </div>
 
