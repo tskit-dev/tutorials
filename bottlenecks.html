@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bottlenecks &#8212; Tskit Tutorials</title>
+    <title>Instantaneous Bottlenecks &#8212; Tskit Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -149,7 +149,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Bottlenecks
+   Instantaneous Bottlenecks
   </a>
  </li>
  <li class="toctree-l1">
@@ -294,21 +294,34 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#comparison-with-analytic-predictions">
-   Comparison with analytic predictions
+  <a class="reference internal nav-link" href="#checking-the-sfs-against-analytic-expectation">
+   Checking the SFS against analytic expectation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-distribution-of-nton-branches">
-   The distribution of nton branches
+  <a class="reference internal nav-link" href="#expected-coalescence-times">
+   Expected coalescence times
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#to-do">
-     To Do
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-distribution-of-pairwise-coalescence-times">
+   The distribution of pairwise coalescence times
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#approximating-the-site-frequency-spectrum">
+   Approximating the site frequency spectrum
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-marginal-distribution-of-n-ton-branch-lengths">
+   The marginal distribution of n-ton branch lengths
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-populations">
+   Multiple populations
+  </a>
  </li>
 </ul>
 
@@ -321,235 +334,301 @@
         
               <div>
                 
-  <div class="section" id="bottlenecks">
-<h1>Bottlenecks<a class="headerlink" href="#bottlenecks" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="instantaneous-bottlenecks">
+<h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this headline">¶</a></h1>
 <p><strong>Konrad Lohse and Jerome Kelleher</strong></p>
-<p>The site frequency spectrum (SFS) summarises variants by their frequency in a sample and is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). First, the SFS is a lossless summary of unlinked variants, so any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, F_st, Tajima’s D and D) are summaries of the SFS.</p>
-<p>The SFS is convenient analytically, because it only depends on the mean length and frequency of genealogical branches. For many demographic models of interest the means can be derived analytically either using coalescent theory (cite Huang, TPB) or diffusion equations (cite dadi). A number of composite likelihood approaches have been developed based on either analytic results for the SFS (cite dadi Excoffier, Jaada). However, analytic expectations for the SFS break down for large samples and/or complex demographic models.</p>
-<p>In the following section we show how the SFS can be approximated using coalescence simulations and compare such approximations to analytic results. We will assume a simple toy history of a single panmictic population that is affected by an instaneous bottleneck at time T with strenght s (cite Galtier et al). The effect of this bottleneck is to induce sudden burst of coalescence, which simultaneous multiple merges. We measure bottleneck strength as the probability that a pair of lineages coalesces during the bottleneck (we could could of course convert s into on (imaginary) time period that would give the same probability of coalescence <span class="math notranslate nohighlight">\(s=1-e^{-T}\)</span>).</p>
-<p>We assume a sample of 10 haploid genomes and use msprime to simulate 10,000 replicate genealogies. For each genealogy the function approx_SFS records the unfolded SFS as the mean length of branches with n leafnodes (normalized by the total length of the genealogy) by iterating through all nodes in the tree.sequence. Note that we are simulating genealogies only, i.e. we do not need to simulate mutations.</p>
-<p>We use a for loop to record the SFS for a range of bottleneck strengths parameters in a dictionary:</p>
+<p>A common approach to modelling the effect of demographic history on genealogies is to assume that effective population size (<span class="math notranslate nohighlight">\(N_e\)</span>) changes in discrete steps which define a series of epochs (Griffiths, 1994; Marth et al., 2004; Keightley &amp; Eyre-Walker, 2007; Li &amp; Durbin 2011). In this setting of piece-wise constant <span class="math notranslate nohighlight">\(N_e\)</span>, capturing a population bottleneck requires three epochs: <span class="math notranslate nohighlight">\(N_e\)</span> is reduced by some fraction <span class="math notranslate nohighlight">\(b\)</span> at the start of the bottleneck, <span class="math notranslate nohighlight">\(T_{start}\)</span>, and recovers to its initial value at time <span class="math notranslate nohighlight">\(T_{end}\)</span> (Marth et al., 2004). If bottlenecks are short both on the timescale of coalescence and mutations, one may expect little information about the duration of a bottleneck
+in sequence data. Thus a simpler, alternative model is to assume that bottlenecks are instantaneous (<span class="math notranslate nohighlight">\(T_{end}-T_{start} \rightarrow 0\)</span>) and generate a sudden burst of coalescence events (a multiple merger event) in the genealogy. The strength of the bottleneck B can be thought of as an (imaginary) time period during which coalescence events are collapsed, i.e. there is no growth in genealogical branches during B and the probability that a single pair of lineages entering the bottleneck coalesce during the bottleneck is <span class="math notranslate nohighlight">\(1-e^{-B}\)</span>. Although this simple two parameter model of bottlenecks is attractive and both analytic results and empirical inference (Griffiths, 1994; Galtier et al., 2000; Bunnefeld et al., 2015) have been developed under this model, it has not been straightforward to simulate data under instantaneous bottleneck histories with ms. Instantaneous bottlenecks are implemented as a demographic event in msprime. Instanteous bottlenecks are similar to coalescent approximations for selective sweeps in that they generate multiple merger events. However, unlike sweeps the whole genome is effected equally. Instantanous bottlenecks differ from approximate models of sweeps (Durret &amp; Scheinsberg, 2004) in that they do not affect the exchangeability of lineages. A consequence of this is that all topologies are equally likely (before collapsing, the imaginary bottleneck time).</p>
+<p>Here we simulate a single sample of n=12 from a population that underwent an instantaneous bottleneck 0.4 * 2N generations ago. Note that since msprime is assuming a diploid population we set the initial population size to 1/2 to obtain coalescence times scaled in units of <span class="math notranslate nohighlight">\(2N_e\)</span> generations:</p>
+<div class="cell tag_remove_input docutils container">
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
-<span class="kn">import</span> <span class="nn">msprime</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
 <span class="kn">import</span> <span class="nn">tskit</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_bott_sims</span><span class="p">(</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>    
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
+
+<span class="k">def</span> <span class="nf">run_bott_sims</span><span class="p">(</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">strength</span><span class="p">,</span> <span class="n">num_rep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">):</span>    
     <span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-    <span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="n">Ne</span><span class="p">)</span>
-    <span class="n">demography</span><span class="o">.</span><span class="n">add_instantaneous_bottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-        <span class="n">samples</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">reps</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">demography</span><span class="o">.</span><span class="n">add_instantaneous_bottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">strength</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+        <span class="n">samples</span><span class="o">=</span><span class="p">[</span><span class="n">msprime</span><span class="o">.</span><span class="n">SampleSet</span><span class="p">(</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>  <span class="c1"># Sample num_samp haploid genomes</span>
+        <span class="n">ploidy</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span>
+        <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">,</span>
+        <span class="n">random_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">approx_SFS</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">==</span> <span class="mi">1</span>
-        <span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
-            <span class="n">nleaves</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
-                <span class="n">B</span><span class="p">[</span><span class="n">rep_index</span><span class="p">,</span> <span class="n">nleaves</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>    
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">data</span>
+<span class="n">bottT</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">bottB</span> <span class="o">=</span> <span class="mi">2</span>
 
-<span class="n">num_rep</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">num_samp</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">Ne</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Use coalescent time units</span>
-<span class="n">T</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">taulist</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">datalist</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">taulist</span><span class="p">:</span>
-    <span class="n">datalist</span><span class="p">[</span><span class="n">tau</span><span class="p">]</span><span class="o">=</span> <span class="n">approx_SFS</span><span class="p">(</span><span class="n">run_bott_sims</span><span class="p">(</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">tau</span><span class="p">))</span>
-    
-<span class="c1"># My guess/assumption is that currently bottleneck strength in msprime is scaled as an (imaginary) time tau (in units of 4N_e) generations. </span>
-<span class="c1"># It makes a lot more sense to express the bottleneck strength as the probability of pairwise coalescence</span>
-<span class="c1"># during the bottelenck s=1-np.exp(-tau/2)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">run_bott_sims</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">bottT</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">bottB</span><span class="p">)</span>
+
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bottlenecks_2_0.svg" src="_images/bottlenecks_2_0.svg" /></div>
+</div>
+<p>The genealogy shows several simultaneous coalescence events at the time of the bottleneck
+(T=0.4)</p>
+<div class="section" id="checking-the-sfs-against-analytic-expectation">
+<h2>Checking the SFS against analytic expectation<a class="headerlink" href="#checking-the-sfs-against-analytic-expectation" title="Permalink to this headline">¶</a></h2>
+<p>Bunnefeld et al (2016) derive the total length of n-ton branches under an instantaneous bottleneck using a recursion for the generating function of genealogies. Assuming a sample size of <span class="math notranslate nohighlight">\(n=4\)</span>, <span class="math notranslate nohighlight">\(B=4\)</span> and <span class="math notranslate nohighlight">\(T=0.4\)</span>, the SFS is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="n">bottT</span>
+<span class="n">B</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">B</span><span class="p">)</span>
+<span class="n">p</span><span class="o">=</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">expsfsBottlN</span><span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">/</span><span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">15</span> <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span> <span class="o">-</span> 
+    <span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">p</span><span class="p">)),</span>
+    <span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="n">p</span><span class="p">),</span>
+    <span class="mi">2</span><span class="o">/</span><span class="mi">15</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">9</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span> <span class="n">p</span><span class="p">)]</span>
+
+<span class="n">expsfsBottlN</span><span class="o">/=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">expsfsBottlN</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">expsfsBottlN</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.7722266  0.17689752 0.05087588]
 </pre></div>
 </div>
 </div>
 </div>
-<p>With increasing bottleneck strength the SFS becomes increasingly skewed (the leftmost blue bars show the SFS for a population of constant size). However, bottlenecks have a complex effect on the different frequency classes of the SFS: while the relative frequency of singletons increases, other frequency classes (e.g. doubletons) have a non-monotonic relationship with bottleneck strength:</p>
+<p>Checking against msprime (10,000 replicates) shows a close fit to this analytic expectation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bar_width</span><span class="o">=</span><span class="mf">0.2</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_samp</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nrep</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="n">nsamp</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sims</span> <span class="o">=</span> <span class="n">run_bott_sims</span><span class="p">(</span><span class="n">nsamp</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">num_rep</span><span class="o">=</span><span class="n">nrep</span><span class="p">)</span>
+<span class="n">Blist</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrep</span><span class="p">,</span> <span class="n">nsamp</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sims</span><span class="p">):</span>
+    <span class="n">afs</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">span_normalise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">Blist</span><span class="p">[</span><span class="n">rep_index</span><span class="p">]</span><span class="o">+=</span> <span class="n">afs</span>
+
+<span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Blist</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span><span class="o">/=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">bar_width</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.9</span>
+
+<span class="n">expsfs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span><span class="o">+</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">expsfsBottlN</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exp&#39;</span><span class="p">)</span>
+<span class="n">simsfs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span><span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">bar_width</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bottlenecks_6_0.png" src="_images/bottlenecks_6_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="expected-coalescence-times">
+<h2>Expected coalescence times<a class="headerlink" href="#expected-coalescence-times" title="Permalink to this headline">¶</a></h2>
+<p>The expected pairwise coalescence time is <span class="math notranslate nohighlight">\(E[t]= 1 + e^{-(B+T)} - e^{-T}\)</span>. Both the expected
+coalescence time and the probability that a pair of lineages survives the bottleneck fit
+the analytic expectation closely:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pairCoalBott</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">strength</span><span class="p">,</span> <span class="n">num_rep</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simulates replicate 2-tip tree sequences under an instantaneous bottleneck returning the TMRCA</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reps</span><span class="o">=</span><span class="n">run_bott_sims</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">strength</span><span class="p">,</span> <span class="n">num_rep</span><span class="o">=</span><span class="n">num_rep</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_rep</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">())</span>
+        <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">nrep</span><span class="o">=</span><span class="mi">1000</span>
+
+<span class="c1">#Recording the mean pairwise coalescence times and the fraction of replicates with t&gt;T for a grid of bottleneck strengths:</span>
+<span class="n">bottBlist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">))</span>
+<span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">)):</span>
+    <span class="n">mrcas</span> <span class="o">=</span> <span class="n">pairCoalBott</span><span class="p">(</span><span class="n">bottT</span><span class="p">,</span> <span class="n">bottBlist</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nrep</span><span class="p">)</span>
+    <span class="n">dat</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mrcas</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">prob</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">mrcas</span><span class="p">[</span><span class="n">mrcas</span><span class="o">&gt;</span><span class="n">bottT</span><span class="p">])</span><span class="o">/</span><span class="n">nrep</span>
+
+<span class="n">bottT2</span> <span class="o">=</span> <span class="n">bottT</span> <span class="o">*</span> <span class="mi">2</span>  <span class="c1"># 0.8</span>
+<span class="n">dat2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">))</span>
+<span class="n">prob2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">)):</span>
+    <span class="n">mrcas</span> <span class="o">=</span> <span class="n">pairCoalBott</span><span class="p">(</span><span class="n">bottT2</span><span class="p">,</span> <span class="n">bottBlist</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nrep</span><span class="p">)</span>
+    <span class="n">dat2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mrcas</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">prob2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">mrcas</span><span class="p">[</span><span class="n">mrcas</span><span class="o">&gt;</span><span class="n">bottT2</span><span class="p">])</span><span class="o">/</span><span class="n">nrep</span>
+
+<span class="n">expProb</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">bottT</span><span class="o">+</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bottBlist</span><span class="p">]</span>
+<span class="n">expProb2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">bottT2</span><span class="o">+</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bottBlist</span><span class="p">]</span>
+
+<span class="n">expMean</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">bottT</span><span class="o">+</span><span class="n">i</span><span class="p">))</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">bottT</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bottBlist</span><span class="p">]</span>
+<span class="n">expMean2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">bottT2</span><span class="o">+</span><span class="n">i</span><span class="p">))</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">bottT2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bottBlist</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">expProb</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT</span><span class="si">}</span><span class="s2">, theoretical&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT</span><span class="si">}</span><span class="s2">, sim&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">expProb2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT2</span><span class="si">}</span><span class="s2">, theoretical&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">prob2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT2</span><span class="si">}</span><span class="s2">, simulated&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Bottleneck Strength B&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;p(t&gt;T)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">expMean</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT</span><span class="si">}</span><span class="s2">, theoretical&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">dat</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT</span><span class="si">}</span><span class="s2">, simulated&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">expMean2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT2</span><span class="si">}</span><span class="s2">, theoretical&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bottBlist</span><span class="p">,</span> <span class="n">dat2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">bottT2</span><span class="si">}</span><span class="s2">, simulated&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Bottleneck Strength B&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;E[t]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bottlenecks_9_0.png" src="_images/bottlenecks_9_0.png" />
+<img alt="_images/bottlenecks_9_1.png" src="_images/bottlenecks_9_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="the-distribution-of-pairwise-coalescence-times">
+<h2>The distribution of pairwise coalescence times<a class="headerlink" href="#the-distribution-of-pairwise-coalescence-times" title="Permalink to this headline">¶</a></h2>
+<p>The distribution of pairwise coalescence times has two maxima at <span class="math notranslate nohighlight">\(t=0\)</span> and the bottleneck time <span class="math notranslate nohighlight">\(t=T\)</span> (we have assumed <span class="math notranslate nohighlight">\(T=0.8\)</span> below) as expected. The simulated distribution of pairwise coalescence times fits the analytic expectation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">bottBlist</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">sprob</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)</span>
+
+<span class="n">coaldis</span> <span class="o">=</span> <span class="n">pairCoalBott</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">bottT2</span><span class="p">,</span> <span class="mi">10000</span><span class="p">);</span>
+<span class="n">coaldisFilt</span> <span class="o">=</span> <span class="n">coaldis</span><span class="p">[(</span><span class="n">coaldis</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)];</span>
+
+<span class="n">probtest</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coaldis</span><span class="p">[</span><span class="n">coaldis</span><span class="o">&gt;</span><span class="n">bottT2</span><span class="p">])</span><span class="o">/</span><span class="mi">10000</span>
+<span class="n">expprob2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">bottT2</span><span class="o">+</span><span class="n">s</span><span class="p">))</span>
+
+<span class="n">tlist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.25</span><span class="p">);</span>
+<span class="n">coalEpx1</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tlist</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]];</span>
+<span class="n">coalEpx2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">sprob</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tlist</span><span class="p">[</span><span class="mi">3</span><span class="p">:]];</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tlist</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">coalEpx1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tlist</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span> <span class="n">coalEpx2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">coaldisFilt</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;f(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bottlenecks_11_0.png" src="_images/bottlenecks_11_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="approximating-the-site-frequency-spectrum">
+<h2>Approximating the site frequency spectrum<a class="headerlink" href="#approximating-the-site-frequency-spectrum" title="Permalink to this headline">¶</a></h2>
+<p>Bottlenecks can have a substantial effect on the site frequency spectrum (SFS). The SFS is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). in the absence of linkage information the SFS is a lossless summary, i.e. any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, <span class="math notranslate nohighlight">\(F_{st}\)</span>, Tajima’s D etc) are summaries of the SFS (Achaz 2009). The SFS is convenient analytically, since it depends only on the mean length and frequency of genealogical branches. For many demographic models of interest the mean length of n-ton branches can be derived either using coalescent theory (Chen 2011) or diffusion equations (Gutenkunst 2009). A number of composite likelihood approaches have been developed based on either analytic results for the SFS or approximate obtained from coalescent simulations (Gutenkunst 2009, Excoffier 2002). We can use msprime to obtain the SFS for a sample of <span class="math notranslate nohighlight">\(n=20\)</span> for a range of bottleneck strengths:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bottSFS</span><span class="p">(</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">strength</span><span class="p">,</span> <span class="n">num_rep</span><span class="p">):</span>
+    <span class="n">reps</span> <span class="o">=</span> <span class="n">run_bott_sims</span><span class="p">(</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">strength</span><span class="p">,</span> <span class="n">num_rep</span><span class="o">=</span><span class="n">num_rep</span><span class="p">)</span>
+    <span class="n">Blist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
+        <span class="n">afs</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">span_normalise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">Blist</span><span class="p">[</span><span class="n">rep_index</span><span class="p">]</span><span class="o">+=</span> <span class="n">afs</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Blist</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">/=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_samp</span><span class="p">]</span>
+
+<span class="n">nrep</span> <span class="o">=</span> <span class="mi">5_000</span>
+<span class="n">nsamp</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">bottT</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<span class="n">bottBlist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">datalist</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">bottBlist</span><span class="p">:</span>
+    <span class="n">datalist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">=</span> <span class="n">bottSFS</span><span class="p">(</span><span class="n">nsamp</span><span class="p">,</span> <span class="n">bottT</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">nrep</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With increasing bottleneck strength the SFS becomes increasingly skewed (the leftmost blue bars show the SFS for a population of constant size). However, bottlenecks have a complex effect on the different frequency classes of the SFS: while the relative frequency of singletons increases, other frequency classes (e.g. doubletons) have a non-monotonic relationship with B:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bar_width</span><span class="o">=</span><span class="mf">0.18</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nsamp</span><span class="p">)</span>
 <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">datalist</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ss</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">datalist</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">j</span> <span class="o">*</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ss</span><span class="p">))</span>
     <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_4_0.svg" src="_images/bottlenecks_4_0.svg" /></div>
+<img alt="_images/bottlenecks_15_0.png" src="_images/bottlenecks_15_0.png" />
 </div>
-<div class="section" id="comparison-with-analytic-predictions">
-<h2>Comparison with analytic predictions<a class="headerlink" href="#comparison-with-analytic-predictions" title="Permalink to this headline">¶</a></h2>
-<p>How does the approximate SFS compare to analytic expectations? For a population of constant size, the SFS is simply given by Watterson’s correction factor, that is the total length branches with i leafnodes is given is 1/i. Reassuringly, in the limit of s=0 (no bottleneck), our SFS approximation based on simulated genealogies agrees with this prediction:</p>
+</div>
+</div>
+<div class="section" id="the-marginal-distribution-of-n-ton-branch-lengths">
+<h2>The marginal distribution of n-ton branch lengths<a class="headerlink" href="#the-marginal-distribution-of-n-ton-branch-lengths" title="Permalink to this headline">¶</a></h2>
+<p>We may be interested in the marginal distributions (pdf) of branch lengths immediately
+above a node with n tips, which determines the expected distribution of n-ton mutations in a
+nonrecombining block of sequence (Bunnefeld et al., 2016). Like the distribution of
+pairwise coalescence times, we expect the pdf of n-ton branches to be discontinuous.
+Assuming n=4, B=0.75 and T=0.8 (as above):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expsfs</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="o">/</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
-<span class="n">expsfs</span><span class="o">/=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">expsfs</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">bar_width</span> <span class="o">=</span> <span class="mf">0.4</span>
-<span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.9</span>
-
-<span class="n">simsfs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">datalist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sim&#39;</span><span class="p">)</span>
-<span class="n">expextsfs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span><span class="o">+</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">expsfs</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exp&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/bottlenecks_7_0.svg" src="_images/bottlenecks_7_0.svg" /></div>
-</div>
-<p>The analytic prediction for the SFS under a bottleneck model is more complicated (Bunnefeld et al. 2015, Appendix). For a sample of n=4 lineages the SFS is:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#We are assuming a bottleneck of strength tau = 4 N_e generations </span>
-<span class="c1">#and a bottleneck time of T=1 (2 in units of 4 Ne)</span>
-<span class="c1">#I am pretty sure the analytic prediction for the SFS is correct: the limit mfor s-&gt;0 is correct and</span>
-<span class="c1">#itr matches the automatically generated expression in the Mathematica .nb...</span>
-
-<span class="n">T</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">slist</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tau</span><span class="p">)</span> <span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">taulist</span><span class="p">]</span>
-
-<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slist</span><span class="p">:</span>
-    <span class="n">p</span><span class="o">=</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-    <span class="n">expsfsBottlN</span><span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">/</span><span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">15</span> <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">9</span> <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span> <span class="o">-</span> 
-                                   <span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">p</span><span class="p">)),</span>
-               <span class="mi">1</span><span class="o">/</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span> <span class="o">-</span> <span class="n">p</span><span class="p">),</span>
-               <span class="mi">2</span><span class="o">/</span><span class="mi">15</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mi">9</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">s</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">p</span><span class="p">)]</span>
-
-    <span class="n">expsfsBottlN</span><span class="o">/=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">expsfsBottlN</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">expsfsBottlN</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.54545455 0.27272727 0.18181818]
-[0.5644372  0.26717043 0.16839237]
-[0.57248098 0.26486068 0.16265835]
-[0.57559102 0.26396986 0.16043912]
-</pre></div>
-</div>
-</div>
-</div>
-<p>The fit between the SFS simulated with msprime and the analytic prediction is not very convincing
-(given the 100,000 replicates):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_samp</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">num_rep</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">data4</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">T</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">taulist</span><span class="p">:</span>
-    <span class="n">data4</span><span class="p">[</span><span class="n">tau</span><span class="p">]</span><span class="o">=</span> <span class="n">approx_SFS</span><span class="p">(</span><span class="n">run_bott_sims</span><span class="p">(</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">tau</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">bar_width</span> <span class="o">=</span> <span class="mf">0.4</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data4</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data4</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data4</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data4</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
-
-<span class="n">simsfs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">data4</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sim&#39;</span><span class="p">)</span>
-<span class="n">expextsfs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">index</span><span class="o">+</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">expsfsBottlN</span><span class="p">,</span> <span class="n">bar_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exp&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.54932878 0.26359057 0.18708065]
-[0.58418191 0.24861489 0.1672032 ]
-[0.60273437 0.24565344 0.15161219]
-[0.62433925 0.24124591 0.13441485]
-</pre></div>
-</div>
-<img alt="_images/bottlenecks_12_1.svg" src="_images/bottlenecks_12_1.svg" /></div>
-</div>
-</div>
-<div class="section" id="the-distribution-of-nton-branches">
-<h2>The distribution of nton branches<a class="headerlink" href="#the-distribution-of-nton-branches" title="Permalink to this headline">¶</a></h2>
-<p>Given that the SFS only depends on mean branch lengths, it is interesting to inspect the probability density distribution of the underlying genealogical branches. Given the discrete event, the pfd of nton branches are discontinuous.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="n">Ne</span><span class="p">)</span>
-<span class="n">demography</span><span class="o">.</span><span class="n">add_instantaneous_bottleneck</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">reps</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-    <span class="n">samples</span><span class="o">=</span><span class="n">num_samp</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">)</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_rep</span><span class="p">,</span> <span class="n">num_samp</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reps</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bottB</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">bottT</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">numrep</span> <span class="o">=</span> <span class="mi">20_000</span>
+<span class="n">nsamp</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sims</span> <span class="o">=</span> <span class="n">run_bott_sims</span><span class="p">(</span><span class="n">nsamp</span><span class="p">,</span> <span class="n">bottT</span><span class="p">,</span> <span class="n">bottB</span><span class="p">,</span> <span class="n">num_rep</span><span class="o">=</span><span class="n">numrep</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">numrep</span><span class="p">,</span> <span class="n">nsamp</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sims</span><span class="p">):</span>
     <span class="n">tree</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
         <span class="n">nleaves</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
-            <span class="n">B</span><span class="p">[</span><span class="n">rep_index</span><span class="p">,</span> <span class="n">nleaves</span><span class="p">]</span><span class="o">+=</span><span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">rep_index</span><span class="p">,</span> <span class="n">nleaves</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>  <span class="c1"># Branch length above this node</span>
+            
+<span class="n">Btrans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Btrans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">axlabel</span><span class="o">=</span><span class="s2">&quot;f(t)&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">axlabel</span><span class="o">=</span><span class="s2">&quot;f(t)&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">axlabel</span><span class="o">=</span><span class="s2">&quot;f(t)&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;doubletons&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Btrans</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tripletons&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Probability&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Branch length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-  warnings.warn(msg, FutureWarning)
-/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-  warnings.warn(msg, FutureWarning)
-/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/seaborn/distributions.py:2557: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-  warnings.warn(msg, FutureWarning)
-</pre></div>
+<img alt="_images/bottlenecks_18_0.png" src="_images/bottlenecks_18_0.png" />
 </div>
-<img alt="_images/bottlenecks_16_1.svg" src="_images/bottlenecks_16_1.svg" /></div>
 </div>
-<div class="section" id="to-do">
-<h3>To Do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>Fix the scaling of the strength in msprime</p></li>
-<li><p>Fix the pdf plot above:</p>
-<ul class="simple">
-<li><p>Label axes on the pdf plot above: y-&gt; f(t), x -&gt; t</p></li>
-<li><p>Restrict X range to 15</p></li>
-</ul>
-</li>
-<li><p>Fix the x axes on all the barplots so that these correspond to classes in the SFS</p></li>
-</ol>
+<p>Again, this gives a good fit to the analytic expectation (see Bunnefeld at al 2016).</p>
 </div>
+<div class="section" id="multiple-populations">
+<h2>Multiple populations<a class="headerlink" href="#multiple-populations" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">InstantaneousBottleneck</span></code> model does not work without specifying any populations. Measuring bottleneck strength in generations (i.e. an imaginary time of coalescence) has a subtle but important consequence when we consider samples from multiple populations: the effect of the bottleneck on lineages present in each population at time T depends on the size of each population: genealogies in small populations are more strongly affected.</p>
 </div>
 </div>
 
