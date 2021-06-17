@@ -10,6 +10,7 @@ parts:
   - file: viz
   - file: data_structures
   - file: no_mutations
+  - file: metadata
   - file: tskitr
 - caption: Backward time simulations
   # TODO this will be broken down more finely as we add more content
