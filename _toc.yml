@@ -4,6 +4,7 @@ parts:
 - caption: Introduction
   chapters:
   - file: what_is
+  - file: basics
 - caption: Using tskit
   chapters:
   - file: getting_started
