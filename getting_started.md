@@ -56,6 +56,8 @@ ts = msprime.sim_mutations(ts, rate=1e-8, random_seed=4321)
 ts
 ```
 
+You can see that there are many thousands of trees in this tree sequence.
+
 :::{note}
 Since we simulated the ancestry of 20 *diploid* individuals, our tree sequence
 contains 40 *sample nodes*, one for each genome.
@@ -68,25 +70,61 @@ sequence. This process underlies many tree sequence algorithms, including those 
 encounter later in this tutorial for calculating 
 {ref}`population genetic statistics<tskit:sec_stats>`.
 To iterate over your own tree sequence you can use
-{meth}`TreeSequence.trees()<tskit.TreeSequence.trees>`. Here, for example, is
-how to check whether all trees in the tree sequence have fully coalesced (which is to be
-expected in reverse-time, coalescent simulations, but not always for tree sequences
-produced by {ref}`forward simulation <sec_tskit_forward_simulations>`).
+{meth}`TreeSequence.trees()<tskit.TreeSequence.trees>`.
 
 ```{code-cell} ipython3
+print(f"== Tree sequence has {ts.num_trees} trees ==")
+for tree in ts.trees():
+    print(f"Tree {tree.index} covers {tree.interval}")
+    if tree.index >= 4:
+        print("...")
+        break
+print(f"Tree {ts.last().index} covers {ts.last().interval}")
+```
+
+Here we've also used {meth}`TreeSequence.last()<tskit.TreeSequence.last>` to access
+the last tree directly; it may not surprise you that there's a corresponding
+{meth}`TreeSequence.first()<tskit.TreeSequence.first>` method to return the first tree.
+
+:::{warning}
+The code above doesn't store the tree anywhere, but merely performs a calculation on
+each tree within the ``for`` loop.  That's because, for efficiency, the
+{meth}`trees()<tskit.TreeSequence.trees>` method repeatedly returns the same tree object,
+updated internally to reflect the (usually small) changes from tree to tree along the
+sequence. For that reason, this won't work:
+
+```
+list(ts.trees())  # Don't do this! Every tree in the list will be an identical "null" tree
+```
+
+If you really do want separate instances of each tree (inefficient, and for large tree
+sequences risks using up all your computer memory), you can use the
+{meth}`TreeSequence.aslist()<tskit.TreeSequence.aslist>` method.
+:::
+
+Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
+forwards through trees in a tree sequence (or indeed backwards using the standard Python
+``reversed`` function) is efficient. That means it's quick, for example to check if all
+the trees in a tree sequence have fully coalesced (which is to be expected in
+reverse-time, coalescent simulations, but not always for tree sequences produced by
+{ref}`forward simulation <sec_tskit_forward_simulations>`).
+
+```{code-cell} ipython3
+import time
+start = time.time()
 for tree in ts.trees():
     if tree.has_multiple_roots:
         print("Tree {tree.index} has not coalesced")
         break
 else:
-    print("All trees in the tree sequence have coalesced")
+    print(f"All {ts.num_trees} trees have coalesced. Checked in {time.time()-start} seconds")
 ```
 
-Since all the trees *have* coalesced, at each position in the genome this tree sequence
-must have only one most recent common ancestor (MRCA) of the 40 sample nodes. Below, we
-iterate over the trees again, finding the IDs of the root (MRCA) node for each tree. The
+Now that we know all trees have coalesced, we know that at each position in the genome
+all the 40 sample nodes must have one most recent common ancestor (MRCA). Below, we
+iterate over the trees, finding the IDs of the root (MRCA) node for each tree. The
 time of this root node can be found via the {meth}`tskit.TreeSequence.node` method, which
-returns a {class}`node object<tskit.Node>` with attributes including the node time:
+returns a {class}`node object<tskit.Node>` whose attributes include the node time:
 
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
@@ -105,17 +143,19 @@ plt.show()
 ```
 
 It's obvious that there's something unusual about the trees in the middle of this
-chromosome, where the selective sweep occurred. It's not particularly efficient to pull
-out a tree from the middle of a tree sequence, but it *can* be done, via the
-{meth}`TreeSequence.at()<tskit.TreeSequence.at>` method. Here's the tree at the location
-of the sweep, drawn using the  {meth}`Tree.draw_svg()<tskit.Tree.draw_svg>` method
-(see the {ref}`visualization tutorial <sec_tskit_viz>` for more visualization
-possibilities):
+chromosome, where the selective sweep occurred. 
+
+Currently, it's not particularly efficient to pull out individual trees from the middle
+of a tree sequence, but it *can* be done, via the
+{meth}`TreeSequence.at()<tskit.TreeSequence.at>` method. Here's the tree at location
+$5\ 000\ 000$ (the position of the sweep) drawn using the 
+{meth}`Tree.draw_svg()<tskit.Tree.draw_svg>` method (see the
+{ref}`visualization tutorial <sec_tskit_viz>` for more visualization possibilities):
 
 ```{code-cell} ipython3
 from IPython.display import SVG
 
-swept_tree = ts.at(5_000_000)  # or you can get e.g. the first tree using ts.first()
+swept_tree = ts.at(5_000_000)  # or you can get e.g. the nth tree using ts.at_index(n)
 intvl = swept_tree.interval
 print(f"Tree number {swept_tree.index}, which runs from position {intvl.left} to {intvl.right}:")
 # Draw it at a wide size, to make room for all 40 tips
