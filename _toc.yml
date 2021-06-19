@@ -13,6 +13,10 @@ parts:
   - file: simplification
   - file: metadata
   - file: tskitr
+- caption: Analysis
+  chapters:
+  - file: analysing_tree_sequences
+  - file: analysing_trees
 - caption: Backward time simulations
   # TODO this will be broken down more finely as we add more content
   chapters:
