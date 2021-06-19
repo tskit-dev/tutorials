@@ -17,7 +17,8 @@ You've run some simulations or inference methods, and you now have a
 {class}`TreeSequence<tskit.TreeSequence>` object; what now? This tutorial is aimed 
 users who are new to {program}`tskit` and would like to get some
 basic tasks completed. We'll look at five fundamental things you might
-need to do, and provide some pointers to where you can learn more.
+need to do: process trees, sites & mutations, and genotypes, compute statistics, and
+export data. Throughout, we'll also provide pointers to where you can learn more.
 
 :::{note}
 The examples in this
@@ -26,8 +27,8 @@ or access the API in [other](https://tskit.dev/tskit/docs/stable/c-api.html)
 [languages](https://github.com/tskit-dev/tskit-rust).
 :::
 
-First, let's simulate an example tree sequence of a 10Mb chromosome in
-20 diploid individuals using [{program}`msprime`](https://tskit.dev/msprime). To make it
+First, let's simulate an example tree sequence of a 10Mb chromosome in twenty
+diploid individuals using [{program}`msprime`](https://tskit.dev/msprime). To make it
 a bit more interesting, we'll simulate the effects of a
 {ref}`selective sweep<msprime:sec_ancestry_models_selective_sweeps>` in the middle of
 the chromosome, then throw some neutral mutations onto the resulting tree sequence.
@@ -145,10 +146,11 @@ up in the tree, and therefore many more mutations at higher-frequencies.
 
 :::{note}
 In this tutorial we refer to objects, such as sample nodes, by their numerical IDs. These
-can change after simplification, and it is often more meaningful to look at
-{ref}`tskit:sec_metadata`, such as sample and population names, which can be permanently
-attached to objects in the tree sequence. Often metadata is incorporated automatically by
-the tools generating the tree sequence. Note that if you wish to edit the tree sequence,
+can change after simplification, and it is often more meaningful to 
+{ref}`work with metadata<sec_tutorial_metadata>`, such as sample and population names,
+which can be permanently attached to objects in the tree sequence. Often metadata is
+incorporated automatically by the tools generating the tree sequence. Note that if you
+wish to edit the tree sequence,
 for example to add information such as this, it cannot be done directly, as tree
 sequences are immutable. Instead you need to edit a copy of the underlying tables, as
 described in the {ref}`data structures tutorial<sec_data_structures>`.
