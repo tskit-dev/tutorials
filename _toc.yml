@@ -13,6 +13,7 @@ parts:
   - file: analysing_tree_sequences
   - file: analysing_trees
   - file: counting_topologies
+  - file: parallelization
 - caption: Further tskit tutorials
   chapters:
   - file: tables_and_editing
