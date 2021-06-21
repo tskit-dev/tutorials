@@ -3,4 +3,5 @@ matplotlib
 seaborn
 pandas
 numpy
+networkx
 msprime>=1.0
