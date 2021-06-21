@@ -11,19 +11,42 @@ kernelspec:
   name: python3
 ---
 
+```{code-cell} ipython3
+:tags: [remove-cell]
+import msprime
+
+def whatis_example():
+    seed = 3096  # chosen to create a nice example simulation
+    ts = msprime.sim_ancestry(5, population_size=1e1, sequence_length=1000,
+        recombination_rate=1e-5, random_seed=seed)
+    # Mutate
+    seed = 244  # a simpler example uses 214
+    mutated_ts = msprime.sim_mutations(ts, rate=5e-5, random_seed=seed)
+    
+    mutated_ts.dump("data/whatis_example.ts")
+    
+
+def create_notebook_data():
+    whatis_example()
+
+# create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
+```
+
 (sec_what_is)=
 
 # What is a tree sequence?
 
-A *succinct tree sequence*, or "tree sequence" for short, represents the relationships
-between a set of DNA sequences. Tree sequences are based on fundamental biological
-principles of inheritance, DNA duplication, and recombination; they can be created by
-[simulation](https://tskit.dev/software/#simulate) or by
+A *succinct tree sequence*, or "tree sequence" for short, represents the evolutionary
+relationships between a set of DNA sequences. Tree sequences are based on fundamental
+biological principles of inheritance, DNA duplication, and recombination; they can be
+created by [simulation](https://tskit.dev/software/#simulate) or by
 [inferring relationships from empirical DNA data](https://tskit.dev/software/#infer).
 
-Tree sequences provide an efficient way of storing genetic data, and can power
-analyses of millions of whole genomes. Plots (a) and (b) summarize results presented
-[further](plot_storing_everyone) [down](plot_incremental_calculation) in this tutorial.
+Tree sequences provide an efficient way of storing
+[genetic variation](https://en.wikipedia.org/wiki/Genetic_variation) data, and can
+power analyses of millions of whole [genomes](https://en.wikipedia.org/wiki/Genome).
+Plots (a) and (b) summarize results presented
+[further](plot_storing_everyone) [down](plot_incremental_calculation) this tutorial.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -70,18 +93,18 @@ plt.show()
 
 As the name suggests, the simplest way to think
 about a tree sequence is as a sequence of "local trees" --- i.e. trees located at
-different points along the chromosome. Here's a tiny example based on ten genomes,
-$\mathrm{a}$ to $\mathrm{j}$, spanning a short 1kb chromosome.
+different points along the [chromosome](https://en.wikipedia.org/wiki/Chromosome).
+Here's a tiny example based on ten genomes, $\mathrm{a}$ to $\mathrm{j}$, spanning
+a short 1000 letter chromosome.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 import string
-import msprime
+import tskit
 from IPython.display import SVG
 
-seed = 3096  # chosen to create a nice example simulation
-ts = msprime.sim_ancestry(5, population_size=1e4, sequence_length=1000,
-    recombination_rate=1e-8, random_seed=seed)
+mutated_ts = tskit.load("data/whatis_example.ts")
+ts = mutated_ts.delete_sites(list(range(mutated_ts.num_sites)))
 # Extra code to label and order the tips alphabetically rather than numerically
 labels = {i: string.ascii_lowercase[i] for i in range(ts.num_nodes)}
 genome_order = [n for n in ts.first().nodes(order="minlex_postorder") if ts.node(n).is_sample()]
@@ -91,17 +114,20 @@ style1 = (
     ".mut {font-size: 12px}")
 sz = (800, 250)  # size of the plot, slightly larger than the default
 
-SVG(ts.draw_svg(size=sz, node_labels=labels, style=style1))
+SVG(ts.draw_svg(
+    size=sz, node_labels=labels, style=style1, time_scale="log_time", y_label="Time ago",
+    y_axis=True, y_ticks=[0, 2, 5, 10, 20, 50, 100]))
 ```
 
 The tickmarks on the X axis and background shading indicates the genomic positions covered
 by the trees. For almost three quarters of the chromosome, from the
 start until position 715, the relationships between the ten genomes are shown by
 the first tree. The second tree shows the relationships between positions 715 and 932,
-and the third from position 932 to the end. We can say that the first tree spans 715bp,
-the second 217bp, and the third 68bp.
+and the third from position 932 to the end. We can say that the first tree spans 715 base
+pairs, the second 217, and the third 68.
 
-Multiple trees are needed because of genetic recombination, which causes
+Multiple trees are needed because of
+[genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination), which causes
 different regions of the chromosome to have different histories. Together, the sequence
 of trees describe the full genetic ancestry, or *genetic genealogy*, of our 10 genomes.
 
@@ -115,8 +141,6 @@ might look in our simple example:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-seed = 244  # a simpler example uses 214
-mutated_ts = msprime.sim_mutations(ts, rate=5e-8, random_seed=seed)
 
 mut_labels = {}  # An array of labels for the mutations, listing position & allele change
 l = "{:g} ({}→{})"
@@ -127,7 +151,7 @@ for mut in mutated_ts.mutations():  # This entire loop is just to make pretty la
     mut_labels[mut.id] = l.format(site.position, prev, mut.derived_state)
 
 SVG(mutated_ts.draw_svg(
-    size=sz, style=style1,
+    size=sz, style=style1, time_scale="log_time",
     node_labels=labels, mutation_labels=mut_labels))
 ```
 
@@ -144,8 +168,9 @@ variation. Here's the resulting "variant matrix":
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 haplotypes = ["   ".join(h) for h in mutated_ts.haplotypes()]
-print("Position  " + " ".join(str(int(s.position)) for s in mutated_ts.sites()))
-print("\n".join(sorted([f"Genome {labels[i]}:  {h}" for i, h in enumerate(haplotypes)])))
+print("Position: " + " ".join(str(int(s.position)) for s in mutated_ts.sites()))
+print("\n".join(sorted(
+    [f"Genome {labels[i]}:  {h}" for i, h in zip(mutated_ts.samples(), haplotypes)])))
 ```
 
 This approach scales effectively to millions of genomes, and to chromosomes of
@@ -165,7 +190,8 @@ style3 = (
     + style1)
 sz = (500, 250)
 SVG(ts.draw_svg(
-    size=sz, x_lim=(0, 900), root_svg_attributes={'id':'svg1'}, node_labels=labels, style=style3))
+    size=sz, x_lim=(0, 900), root_svg_attributes={'id':'svg1'}, time_scale="log_time", y_axis=True,
+    y_label="Time ago", y_ticks=[0, 2, 5, 10, 20, 50, 100], node_labels=labels, style=style3))
 ```
 
 % Another way to think about shared structure is to notice that the second tree can be
@@ -177,7 +203,7 @@ SVG(ts.draw_svg(
 % change along chromosomes, in both simulated and real datasets.
 %%% possible link here to a tutorial which talks about SPRs
 
-A branch can be shared by many adjacent trees, but is stored just once in the tree
+A branch can be shared by many adjacent trees, but is stored as a single edge in the tree
 sequence. For large datasets this is a great saving, because typically each tree-change
 affects only a few branches at a time, regardless of the tree size.
 Here's the take-home message:
@@ -226,10 +252,11 @@ plt.show()
 Often, we're not interested so much in the DNA sequence data as the genetic ancestry
 itself (as discussed in [this summary](https://www.nature.com/articles/s41588-019-0492-x)).
 In other words, the main consideration is the actual trees in a tree sequence, rather
-than the distributions of mutations placed upon them (indeed in simulations, it may not
-be necessary to incorporate neutral mutations at all). The trees can be used, for example,
-to determine the origin and age of alleles under selection, to capture the spatial structure of
-populations, or to uncover the effects of hybridization and admixture in the past.
+than the distributions of mutations placed upon them (indeed in genetic simulations, it
+{ref}`may not be necessary<sec_tskit_no_mutations>` to incorporate neutral mutations at all).
+The trees can be used, for example, to determine the origin and age of alleles under
+selection, to capture the spatial structure of populations, or to uncover the effects
+of hybridization and admixture in the past.
 
 ```{todo}
 Insert illustration of the above, e.g. use of branch length calculations rather than
@@ -243,23 +270,44 @@ tree sequence and the underlying biological processes that produced the genetic 
 in the first place. For example, each branch point (or "internal node") in one of the
 trees above can be imagined as a genome which existed at a specific time in the past, and
 which is a "most recent common ancestor" (MRCA) of the descendant genomes at that
-position on the chromosome.
-
-```{todo}
-The tree sequence format gives us access to those ancestral genomes: insert diagram of
-reconstructed (partial) ancestral haplotypes
-```
-
-We can mark these extra "ancestral genomes" on our picture,
-although is helpful to distinguish them from the *sampled* genomes
-($\mathrm{a}$ to $\mathrm{j}$) we have been talking about up to this point. Here we'll
-plot the MRCA genomes as circular nodes, rather than the squares we have used previously. 
+position on the chromosome. We'll mark these extra "ancestral genomes" on our picture,
+distinguishing them from the *sampled* genomes ($\mathrm{a}$ to $\mathrm{j}$) by using
+circular symbols: 
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 style2 = "#svg2 .node > .sym {visibility: visible;}"  # force-show all nodes: not normally needed
-SVG(ts.draw_svg(size=sz, root_svg_attributes={'id':'svg2'}, node_labels=labels, style=style2))
+SVG(mutated_ts.draw_svg(
+    size=sz, root_svg_attributes={'id':'svg2'}, y_label="Time ago",
+    time_scale="log_time", y_axis=True, y_ticks=[0, 2, 5, 10, 20, 50, 100],
+    node_labels=labels, mutation_labels={}, style=style2))
 ```
+
+Knowing the tree sequence means that we can easily deduce the ancestral genomes
+$\mathrm{k}$ to $\mathrm{u}$, by looking at which mutations they have inherited.
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+tables = mutated_ts.dump_tables()
+# Flip sample and nonsample flags, making the haplotypes() method print out nonsample nodes
+s_flags = tables.nodes.flags[ts.samples()[0]]
+no_flags = s_flags-s_flags
+tables.nodes.flags = np.where(tables.nodes.flags & tskit.NODE_IS_SAMPLE, no_flags, s_flags)
+ts_flipped = tables.tree_sequence()
+haplotypes = ["   ".join(h) for h in ts_flipped.haplotypes(missing_data_character=" ")]
+print(" " * ts_flipped.num_sites, " " * (ts_flipped.num_sites-4), "")
+print(
+    "||ANCESTRAL GENOMES||    Position:",
+    " ".join(str(int(s.position)) for s in ts_flipped.sites()))
+print(
+    "\n".join(reversed(sorted([
+        f"Genome {labels[i]} (time {ts.node(i).time:5.2f} in the past):  {h}"
+        for i, h in zip(ts_flipped.samples(), haplotypes)]))))
+```
+You can see that some ancestors (particularly the older ones) are missing genomic regions,
+because those parts of their genome have not been inherited by any of the sampled
+genomes (i.e. that ancestral node is not part of the tree at that position in the sequence)
+
 ```{note}
 For clarity in these examples, we have been using letters to label nodes, but normally
 the nodes are referred to by number.
@@ -294,9 +342,10 @@ branches: see [this summary](https://www.genetics.org/content/genetics/215/3/779
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation *de novo* on each tree.
-When perfoming calculations on large datasets, this can result in speed-ups of many
-orders of magnitude, as in this example of calculating Tajima's D (from
-[this source](https://www.genetics.org/content/215/3/779#F9))
+Using {program}`tskit`, the tree sequence toolkit, can result in speed-ups of many
+orders of magnitude when perfoming calculations on large datasets, as in this example of
+calculating [Tajima's D](https://en.wikipedia.org/wiki/Tajima%27s_D)
+(from [here](https://www.genetics.org/content/215/3/779#F9)):
 
 (plot_incremental_calculation)=
 ```{code-cell} ipython3
@@ -309,7 +358,7 @@ ax1.spines["top"].set_visible(False)
 ax1.spines["right"].set_visible(False)
 ax1.loglog(ska_time[:,0], ska_time[:,1], c="C3", linewidth=2, label="scikit-allel library")
 ax1.loglog(libseq_time[:,0], libseq_time[:,1], c="C1", linewidth=2, label="libseq library")
-ax1.loglog(ts_time[:,0], ts_time[:,1], c="C0", linewidth=2, label="tree sequence method")
+ax1.loglog(ts_time[:,0], ts_time[:,1], c="C0", linewidth=2, label="tskit library")
 ax1.set_ylabel("Time to calculate Tajima's D (secs/site)", fontsize=12)
 ax1.set_xlabel("Number of sampled genomes", fontsize=12)
 plt.legend()
@@ -330,5 +379,7 @@ Genetic calculations involve iterating over trees, which is highly efficient in 
 ## Further reading
 
 * How is a tree sequence stored: details in the
+  [data structures](sec_data_structures) tutorial
+* The offical {program}`tskit` [documentation](https://tskit.dev/tskit/docs)
   [data structures](sec_data_structures) tutorial
 * The tree sequence philosophy. biological underpinnings and SPRs (to do)
