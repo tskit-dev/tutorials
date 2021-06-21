@@ -23,7 +23,7 @@ def whatis_example():
     seed = 244  # a simpler example uses 214
     mutated_ts = msprime.sim_mutations(ts, rate=5e-5, random_seed=seed)
     
-    mutated_ts.dump("data/whatis_example.ts")
+    mutated_ts.dump("data/whatis_example.trees")
     
 
 def create_notebook_data():
@@ -103,7 +103,7 @@ import string
 import tskit
 from IPython.display import SVG
 
-mutated_ts = tskit.load("data/whatis_example.ts")
+mutated_ts = tskit.load("data/whatis_example.trees")
 ts = mutated_ts.delete_sites(list(range(mutated_ts.num_sites)))
 # Extra code to label and order the tips alphabetically rather than numerically
 labels = {i: string.ascii_lowercase[i] for i in range(ts.num_nodes)}
