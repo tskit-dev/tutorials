@@ -336,14 +336,16 @@
                 
   <div class="section" id="what-is-a-tree-sequence">
 <span id="sec-what-is"></span><h1>What is a tree sequence?<a class="headerlink" href="#what-is-a-tree-sequence" title="Permalink to this headline">¶</a></h1>
-<p>A <em>succinct tree sequence</em>, or “tree sequence” for short, represents the relationships
-between a set of DNA sequences. Tree sequences are based on fundamental biological
-principles of inheritance, DNA duplication, and recombination; they can be created by
-<a class="reference external" href="https://tskit.dev/software/#simulate">simulation</a> or by
+<p>A <em>succinct tree sequence</em>, or “tree sequence” for short, represents the evolutionary
+relationships between a set of DNA sequences. Tree sequences are based on fundamental
+biological principles of inheritance, DNA duplication, and recombination; they can be
+created by <a class="reference external" href="https://tskit.dev/software/#simulate">simulation</a> or by
 <a class="reference external" href="https://tskit.dev/software/#infer">inferring relationships from empirical DNA data</a>.</p>
-<p>Tree sequences provide an efficient way of storing genetic data, and can power
-analyses of millions of whole genomes. Plots (a) and (b) summarize results presented
-<a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> in this tutorial.</p>
+<p>Tree sequences provide an efficient way of storing
+<a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_variation">genetic variation</a> data, and can
+power analyses of millions of whole <a class="reference external" href="https://en.wikipedia.org/wiki/Genome">genomes</a>.
+Plots (a) and (b) summarize results presented
+<a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
@@ -389,21 +391,21 @@ analyses of millions of whole genomes. Plots (a) and (b) summarize results prese
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_1_0.svg" src="_images/what_is_1_0.svg" /></div>
+<img alt="_images/what_is_2_0.svg" src="_images/what_is_2_0.svg" /></div>
 </div>
 <p>As the name suggests, the simplest way to think
 about a tree sequence is as a sequence of “local trees” — i.e. trees located at
-different points along the chromosome. Here’s a tiny example based on ten genomes,
-<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>, spanning a short 1kb chromosome.</p>
+different points along the <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.
+Here’s a tiny example based on ten genomes, <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>, spanning
+a short 1000 letter chromosome.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
-<span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">tskit</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
 
-<span class="n">seed</span> <span class="o">=</span> <span class="mi">3096</span>  <span class="c1"># chosen to create a nice example simulation</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">mutated_ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/whatis_example.ts&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">delete_sites</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">)))</span>
 <span class="c1"># Extra code to label and order the tips alphabetically rather than numerically</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)}</span>
 <span class="n">genome_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;minlex_postorder&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">is_sample</span><span class="p">()]</span>
@@ -413,20 +415,23 @@ different points along the chromosome. Here’s a tiny example based on ten geno
     <span class="s2">&quot;.mut {font-size: 12px}&quot;</span><span class="p">)</span>
 <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>  <span class="c1"># size of the plot, slightly larger than the default</span>
 
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">))</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_3_0.svg" src="_images/what_is_3_0.svg" /></div>
+<img alt="_images/what_is_4_0.svg" src="_images/what_is_4_0.svg" /></div>
 </div>
 <p>The tickmarks on the X axis and background shading indicates the genomic positions covered
 by the trees. For almost three quarters of the chromosome, from the
 start until position 715, the relationships between the ten genomes are shown by
 the first tree. The second tree shows the relationships between positions 715 and 932,
-and the third from position 932 to the end. We can say that the first tree spans 715bp,
-the second 217bp, and the third 68bp.</p>
-<p>Multiple trees are needed because of genetic recombination, which causes
+and the third from position 932 to the end. We can say that the first tree spans 715 base
+pairs, the second 217, and the third 68.</p>
+<p>Multiple trees are needed because of
+<a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a>, which causes
 different regions of the chromosome to have different histories. Together, the sequence
 of trees describe the full genetic ancestry, or <em>genetic genealogy</em>, of our 10 genomes.</p>
 <div class="section" id="an-efficient-encoding-of-dna-data">
@@ -436,10 +441,7 @@ trees with a knowledge of where <em>mutations</em> occur on their branches. Here
 might look in our simple example:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">244</span>  <span class="c1"># a simpler example uses 214</span>
-<span class="n">mutated_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">5e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
-
-<span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations, listing position &amp; allele change</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations, listing position &amp; allele change</span>
 <span class="n">l</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:g}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">→</span><span class="si">{}</span><span class="s2">)&quot;</span>
 <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">mutations</span><span class="p">():</span>  <span class="c1"># This entire loop is just to make pretty labels</span>
     <span class="n">site</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">site</span><span class="p">)</span>
@@ -448,13 +450,13 @@ might look in our simple example:</p>
     <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">)</span>
 
 <span class="n">SVG</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_5_0.svg" src="_images/what_is_5_0.svg" /></div>
+<img alt="_images/what_is_6_0.svg" src="_images/what_is_6_0.svg" /></div>
 </div>
 <p>There are now ten single nucleotide mutations in the tree sequence. They are shown on the
 branches of the trees, and the positions of the ten variable sites associated with the
@@ -467,13 +469,14 @@ variation. Here’s the resulting “variant matrix”:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">()]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position  &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">haplotypes</span><span class="p">)])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position: &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
+    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">haplotypes</span><span class="p">)])))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position  200 417 428 467 588 667 800 869 875 986
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position: 200 417 428 467 588 667 800 869 875 986
 Genome a:  G   A   T   A   G   C   A   A   T   G
 Genome b:  G   A   T   A   G   C   A   A   T   G
 Genome c:  G   T   T   A   G   C   A   A   T   G
@@ -504,14 +507,15 @@ unchanged between the first and the second tree.</p>
     <span class="o">+</span> <span class="n">style1</span><span class="p">)</span>
 <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">))</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_9_0.svg" src="_images/what_is_9_0.svg" /></div>
+<img alt="_images/what_is_10_0.svg" src="_images/what_is_10_0.svg" /></div>
 </div>
-<p>A branch can be shared by many adjacent trees, but is stored just once in the tree
+<p>A branch can be shared by many adjacent trees, but is stored as a single edge in the tree
 sequence. For large datasets this is a great saving, because typically each tree-change
 affects only a few branches at a time, regardless of the tree size.
 Here’s the take-home message:</p>
@@ -550,7 +554,7 @@ several orders of magnitude faster to process than other storage formats.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_11_0.svg" src="_images/what_is_11_0.svg" /></div>
+<img alt="_images/what_is_12_0.svg" src="_images/what_is_12_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="a-record-of-genetic-ancestry">
@@ -558,10 +562,11 @@ several orders of magnitude faster to process than other storage formats.</p>
 <p>Often, we’re not interested so much in the DNA sequence data as the genetic ancestry
 itself (as discussed in <a class="reference external" href="https://www.nature.com/articles/s41588-019-0492-x">this summary</a>).
 In other words, the main consideration is the actual trees in a tree sequence, rather
-than the distributions of mutations placed upon them (indeed in simulations, it may not
-be necessary to incorporate neutral mutations at all). The trees can be used, for example,
-to determine the origin and age of alleles under selection, to capture the spatial structure of
-populations, or to uncover the effects of hybridization and admixture in the past.</p>
+than the distributions of mutations placed upon them (indeed in genetic simulations, it
+<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">may not be necessary</span></a> to incorporate neutral mutations at all).
+The trees can be used, for example, to determine the origin and age of alleles under
+selection, to capture the spatial structure of populations, or to uncover the effects
+of hybridization and admixture in the past.</p>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Insert illustration of the above, e.g. use of branch length calculations rather than
@@ -573,39 +578,78 @@ tree sequence and the underlying biological processes that produced the genetic 
 in the first place. For example, each branch point (or “internal node”) in one of the
 trees above can be imagined as a genome which existed at a specific time in the past, and
 which is a “most recent common ancestor” (MRCA) of the descendant genomes at that
-position on the chromosome.</p>
-<div class="admonition-todo admonition" id="id2">
-<p class="admonition-title">Todo</p>
-<p>The tree sequence format gives us access to those ancestral genomes: insert diagram of
-reconstructed (partial) ancestral haplotypes</p>
-</div>
-<p>We can mark these extra “ancestral genomes” on our picture,
-although is helpful to distinguish them from the <em>sampled</em> genomes
-(<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>) we have been talking about up to this point. Here we’ll
-plot the MRCA genomes as circular nodes, rather than the squares we have used previously.</p>
+position on the chromosome. We’ll mark these extra “ancestral genomes” on our picture,
+distinguishing them from the <em>sampled</em> genomes (<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>) by using
+circular symbols:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">style2</span> <span class="o">=</span> <span class="s2">&quot;#svg2 .node &gt; .sym {visibility: visible;}&quot;</span>  <span class="c1"># force-show all nodes: not normally needed</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg2&#39;</span><span class="p">},</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">))</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg2&#39;</span><span class="p">},</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_13_0.svg" src="_images/what_is_13_0.svg" /></div>
+<img alt="_images/what_is_14_0.svg" src="_images/what_is_14_0.svg" /></div>
 </div>
+<p>Knowing the tree sequence means that we can easily deduce the ancestral genomes
+<span class="math notranslate nohighlight">\(\mathrm{k}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{u}\)</span>, by looking at which mutations they have inherited.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="c1"># Flip sample and nonsample flags, making the haplotypes() method print out nonsample nodes</span>
+<span class="n">s_flags</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">no_flags</span> <span class="o">=</span> <span class="n">s_flags</span><span class="o">-</span><span class="n">s_flags</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NODE_IS_SAMPLE</span><span class="p">,</span> <span class="n">no_flags</span><span class="p">,</span> <span class="n">s_flags</span><span class="p">)</span>
+<span class="n">ts_flipped</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+<span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">missing_data_character</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">num_sites</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;||ANCESTRAL GENOMES||    Position:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span>
+        <span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> (time </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> in the past):  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">haplotypes</span><span class="p">)]))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  
+||ANCESTRAL GENOMES||    Position: 200 417 428 467 588 667 800 869 875 986
+Genome u (time 65.07 in the past):  T   T   T   A   G   C   A   T   T   C
+Genome t (time 17.93 in the past):                                      G
+Genome s (time 14.85 in the past):  T   T   G   T   G   C                
+Genome r (time 13.70 in the past):                          A   A   T   G
+Genome q (time 10.03 in the past):  G   T   T   A   G   C   A   A   T   G
+Genome p (time  9.12 in the past):  T   T   G   T   G   C   A   A   T   G
+Genome o (time  6.39 in the past):  T   T   G   T   G   C   C   T   C    
+Genome n (time  3.03 in the past):  T   T   G   T   G   C   A   A   T   G
+Genome m (time  1.55 in the past):  G   A   T   A   G   C   A   A   T   G
+Genome l (time  1.53 in the past):  T   T   G   T   G   T   A   A   T   G
+Genome k (time  1.34 in the past):  T   T   G   T   G   C   A   A   T   G
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can see that some ancestors (particularly the older ones) are missing genomic regions,
+because those parts of their genome have not been inherited by any of the sampled
+genomes (i.e. that ancestral node is not part of the tree at that position in the sequence)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For clarity in these examples, we have been using letters to label nodes, but normally
 the nodes are referred to by number.</p>
 </div>
-<div class="admonition-todo admonition" id="id3">
+<div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>Mention ARGs in passing and link out to the ARG tutorial.</p>
 </div>
 </div>
 <div class="section" id="a-framework-for-efficient-computation">
 <span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="id4">
+<div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">Todo</p>
 <p>Introduction: algorithms on trees are known to be efficient (phylogenetics). We
 extend these to multiple correlated trees. Mention “dynamic programming” in passing.</p>
@@ -616,9 +660,10 @@ branches: see <a class="reference external" href="https://www.genetics.org/conte
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation <em>de novo</em> on each tree.
-When perfoming calculations on large datasets, this can result in speed-ups of many
-orders of magnitude, as in this example of calculating Tajima’s D (from
-<a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">this source</a>)</p>
+Using <strong class="program">tskit</strong>, the tree sequence toolkit, can result in speed-ups of many
+orders of magnitude when perfoming calculations on large datasets, as in this example of
+calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Tajima%27s_D">Tajima’s D</a>
+(from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_hide-input docutils container" id="plot-incremental-calculation">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">data2</span><span class="p">[[</span><span class="s1">&#39;toolkit&#39;</span><span class="p">,</span><span class="s1">&#39;nsam&#39;</span><span class="p">,</span><span class="s1">&#39;seconds&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;tskit&#39;</span><span class="p">])</span>
@@ -629,7 +674,7 @@ orders of magnitude, as in this example of calculating Tajima’s D (from
 <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">ska_time</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ska_time</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;scikit-allel library&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">libseq_time</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">libseq_time</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;libseq library&quot;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">ts_time</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ts_time</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tree sequence method&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">ts_time</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ts_time</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tskit library&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Time to calculate Tajima&#39;s D (secs/site)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of sampled genomes&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -638,9 +683,9 @@ orders of magnitude, as in this example of calculating Tajima’s D (from
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_15_0.svg" src="_images/what_is_15_0.svg" /></div>
+<img alt="_images/what_is_18_0.svg" src="_images/what_is_18_0.svg" /></div>
 </div>
-<div class="admonition-todo admonition" id="id5">
+<div class="admonition-todo admonition" id="id4">
 <p class="admonition-title">Todo</p>
 <p>Very brief discussion of efficient counting of topologies, i.e. the combinatorics module</p>
 </div>
@@ -653,6 +698,8 @@ orders of magnitude, as in this example of calculating Tajima’s D (from
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>How is a tree sequence stored: details in the
+<a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">data structures</span></a> tutorial</p></li>
+<li><p>The offical <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs">documentation</a>
 <a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">data structures</span></a> tutorial</p></li>
 <li><p>The tree sequence philosophy. biological underpinnings and SPRs (to do)</p></li>
 </ul>
