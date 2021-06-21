@@ -29,7 +29,6 @@ existing tree sequence which contains some demonstration metadata:
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
-import dataclasses
 import msprime
 import tskit
 
@@ -56,7 +55,7 @@ def create_notebook_data():
     copy = table.copy()
     table.clear()
     for m, row in zip(md, copy):
-        table.append(dataclasses.replace(row, metadata=m))
+        table.append(row.replace(metadata=m))
     ts = tables.tree_sequence()
     ts.dump("data/metadata.ts")
 
