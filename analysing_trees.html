@@ -1,0 +1,914 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysing trees &#8212; Tskit Tutorials</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Do you really need mutations?" href="no_mutations.html" />
+    <link rel="prev" title="Analysing tree sequences" href="analysing_tree_sequences.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Tskit Tutorials</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Tskit tutorials
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="what_is.html">
+   What is a tree sequence?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="basics.html">
+   Tree sequence basics
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Using tskit
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started with
+   <strong class="program">
+    tskit
+   </strong>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
+   Data structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   Simplification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="metadata.html">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Analysis
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_tree_sequences.html">
+   Analysing tree sequences
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Analysing trees
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Backward time simulations
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="no_mutations.html">
+   Do you really need mutations?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="demography.html">
+   Demography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bottlenecks.html">
+   Instantaneous Bottlenecks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="introgression.html">
+   Introgression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing-forward-sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Forward time simulations
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="forward_sims.html">
+   Forward simulations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Development
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="development.html">
+   Development
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="_sources/analysing_trees.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/analysing_trees.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/tskit-dev/tutorials"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fanalysing_trees.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/tskit-dev/tutorials/main?urlpath=tree/analysing_trees.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tree-traversals">
+   Tree traversals
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#traversing-upwards">
+     Traversing upwards
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#traversals-with-information">
+     Traversals with information
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#networkx">
+   Networkx
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#traversing-upwards-in-networkx">
+     Traversing upwards in networkx
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calculating-distances-to-the-root">
+     Calculating distances to the root
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-nearest-neighbors">
+     Finding nearest neighbors
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parsimony">
+   Parsimony
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-tables">
+     Building tables
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parsimony-and-missing-data">
+     Parsimony and missing data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fast-tree-based-algorithms-using-numba">
+   Fast tree-based algorithms using numba
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="analysing-trees">
+<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Permalink to this headline">¶</a></h1>
+<p>There are a number of different ways we might want to analyse a single  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>.
+Most involve some sort of traversal over the nodes, mutations, or branches in the tree.
+<strong class="program">tskit</strong> provides various way of traversing through a tree, and also some
+built in phylogenetic algorithms such as <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> which efficently
+places mutations (“characters” in phylogenetic terminology) on a given tree.</p>
+<div class="section" id="tree-traversals">
+<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Permalink to this headline">¶</a></h2>
+<p>There are various a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>, traversals in various orders are possible using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nodes()</span></code></a> iterator. For example, in the following tree we can visit the
+nodes in different orders:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tree_traversals.trees&quot;</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()))</span>
+
+<span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;preorder&quot;</span><span class="p">,</span> <span class="s2">&quot;inorder&quot;</span><span class="p">,</span> <span class="s2">&quot;postorder&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_trees_3_0.svg" src="_images/analysing_trees_3_0.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>preorder:	 [7, 5, 0, 1, 2, 6, 3, 4]
+inorder:	 [0, 5, 1, 2, 7, 3, 6, 4]
+postorder:	 [0, 1, 2, 5, 3, 4, 6, 7]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Much of the time, the specific ordering of the nodes is not important
+and we can leave it out (defaulting to preorder traversal). For example,
+here we compute the total branch length of a tree:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_branch_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total branch length: </span><span class="si">{</span><span class="n">total_branch_length</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total branch length: 10.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that this is also available as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.total_branch_length" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.total_branch_length</span></code></a> attribute.</p>
+<div class="section" id="traversing-upwards">
+<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Permalink to this headline">¶</a></h3>
+<p>For many applications it is useful to be able to traverse upwards from the
+leaves. We can do this using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.parent" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.parent()</span></code></a> method, which
+returns the parent of a node. For example, we can traverse upwards from
+each of the samples in the tree:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">():</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="k">while</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 -&gt; [0, 5, 7]
+1 -&gt; [1, 5, 7]
+2 -&gt; [2, 5, 7]
+3 -&gt; [3, 6, 7]
+4 -&gt; [4, 6, 7]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="traversals-with-information">
+<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes we will need to traverse down the tree while maintaining
+some information about the nodes that are above it. While this
+can be done using recursive algorithms, it is often more convenient
+and efficient to use an iterative approach. Here, for example,
+we define an iterator that yields all nodes in preorder along with
+their path length to root:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preorder_dist</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">roots</span><span class="p">:</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">u</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">yield</span> <span class="n">u</span><span class="p">,</span> <span class="n">distance</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">distance</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">preorder_dist</span><span class="p">(</span><span class="n">tree</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(7, 0), (6, 1), (4, 2), (3, 2), (5, 1), (2, 2), (1, 2), (0, 2)]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="networkx">
+<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h2>
+<p>Traversals and other network analysis can also be performed using the sizeable
+<a class="reference external" href="https://networkx.github.io/documentation/stable/index.html">networkx</a>
+library. This can be achieved by calling <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_dict_of_dicts" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.as_dict_of_dicts()</span></code></a> to
+convert a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a> instance to a format that can be imported by networkx to
+create a graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">as_dict_of_dicts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(5, 0), (5, 1), (5, 2), (6, 3), (6, 4), (7, 5), (7, 6)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="traversing-upwards-in-networkx">
+<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Permalink to this headline">¶</a></h3>
+<p>We can revisit the above examples and traverse upwards with
+networkx using a depth-first search algorithm:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">as_dict_of_dicts</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">():</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">parent</span> <span class="k">for</span> <span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span>
+                  <span class="n">nx</span><span class="o">.</span><span class="n">edge_dfs</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-&gt; [0, 5, 7]
+1 -&gt; [1, 5, 7]
+2 -&gt; [2, 5, 7]
+3 -&gt; [3, 6, 7]
+4 -&gt; [4, 6, 7]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="calculating-distances-to-the-root">
+<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Permalink to this headline">¶</a></h3>
+<p>Similarly, we can yield the nodes of a tree along with their distance to the
+root in pre-order in networkx as well. Running this on the example above gives us
+the same result as before:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">as_dict_of_dicts</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">roots</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">shortest_path_length</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0, 2), (1, 2), (2, 2), (3, 2), (4, 2), (5, 1), (6, 1), (7, 0)]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="finding-nearest-neighbors">
+<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Permalink to this headline">¶</a></h3>
+<p>If some samples in a tree are not at time 0, then finding the nearest neighbor
+of a sample is a bit more involved. Instead of writing our own traversal code
+we can again draw on a networkx algorithm.
+Let us start with an example tree with three samples that were sampled at
+different time points:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/different_time_samples.trees&quot;</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_trees_17_0.svg" src="_images/analysing_trees_17_0.svg" /></div>
+</div>
+<p>The generation times for these nodes are as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">: time </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 4: time 20.00539877826333
+Node 2: time 20.0
+Node 3: time 17.833492457579652
+Node 0: time 0.0
+Node 1: time 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that samples 0 and 1 are about 35 generations apart from each other even though
+they were sampled at almost the same time. This is why samples 0 and 1 are
+closer to sample 2 than to each other.</p>
+<p>For this nearest neighbor search we will be traversing up and down the tree,
+so it is easier to treat the tree as an undirected graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">as_dict_of_dicts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When converting the tree to a networkx graph the edges are annotated with their
+branch length:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4, 2, {&#39;branch_length&#39;: 0.0053987782633306836})
+(4, 3, {&#39;branch_length&#39;: 2.1719063206836786})
+(3, 0, {&#39;branch_length&#39;: 17.833492457579652})
+(3, 1, {&#39;branch_length&#39;: 16.833492457579652})
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now use the “branch_length” field as a weight for a weighted shortest path
+search:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="c1"># a dictionary of dictionaries to represent our distance matrix</span>
+<span class="n">dist_dod</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">dist_dod</span><span class="p">[</span><span class="n">source</span><span class="p">][</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path_length</span><span class="p">(</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;branch_length&quot;</span>
+    <span class="p">)</span>
+    <span class="n">dist_dod</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_dod</span><span class="p">[</span><span class="n">source</span><span class="p">][</span><span class="n">target</span><span class="p">]</span>
+
+<span class="c1"># extract the nearest neighbor of nodes 0, 1, and 2</span>
+<span class="n">nearest_neighbor_of</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">dist_dod</span><span class="p">[</span><span class="n">u</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="n">dist_dod</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">nearest_neighbor_of</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 2, 1: 2, 2: 1}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="parsimony">
+<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method finds a parsimonious explanation for a
+set of discrete character observations on the samples in a tree using classical
+phylogenetic algorithms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/parsimony_simple.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">]</span>
+<span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))))</span>
+
+<span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ancestral state = &quot;</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_trees_27_0.svg" src="_images/analysing_trees_27_0.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ancestral state =  red
+Mutation: node = 4 derived_state = blue
+Mutation: node = 5 derived_state = green
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, the algorithm has concluded, quite reasonably, that the most parsimonious
+description of this state is that the ancestral state is red and there was
+a mutation to blue and green over nodes 4 and 5.</p>
+<div class="section" id="building-tables">
+<h3>Building tables<a class="headerlink" href="#building-tables" title="Permalink to this headline">¶</a></h3>
+<p>One of the main uses of <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> is to position mutations on a tree
+to encode observed data. In the following example we show how a set
+of tables can be updated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in tskit v0.3)"><span class="xref std std-ref">Tables API</span></a>; here we
+infer the location of mutations in an simulated tree sequence of one tree,
+given a set of site positions with their genotypes and allelic states:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/parsimony_map.trees&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/parsimony_map.pickle&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># Load saved variant data from a file</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variant data: pos, genotypes &amp; alleles as described by the ts.variants() iterator:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> (pos </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">): alleles: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;alleles&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, genotypes: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;genotypes&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>  <span class="c1"># there&#39;s only one tree anyway</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="c1"># Infer the sites and mutations from the variants.</span>
+<span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">variant</span><span class="p">[</span><span class="s2">&quot;genotypes&quot;</span><span class="p">],</span> <span class="n">variant</span><span class="p">[</span><span class="s1">&#39;alleles&#39;</span><span class="p">])</span>
+    <span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">variant</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">],</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="n">ancestral_state</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">site_id</span><span class="si">}</span><span class="s2">: parsimony sets ancestral state to </span><span class="si">{</span><span class="n">ancestral_state</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">parent_offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">if</span> <span class="n">parent</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
+            <span class="n">parent</span> <span class="o">+=</span> <span class="n">parent_offset</span>
+        <span class="n">mut_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+            <span class="n">site_id</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">derived_state</span><span class="o">=</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, and places mutation </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2"> above node </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+<span class="n">new_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_trees_29_0.svg" src="_images/analysing_trees_29_0.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variant data: pos, genotypes &amp; alleles as described by the ts.variants() iterator:
+Site 0 (pos  8.3726): alleles: (&#39;G&#39;, &#39;A&#39;), genotypes: [1 1 0 0 0 0]
+Site 1 (pos 24.4759): alleles: (&#39;T&#39;, &#39;C&#39;), genotypes: [0 0 0 0 1 1]
+Site 2 (pos 34.3178): alleles: (&#39;G&#39;, &#39;T&#39;), genotypes: [0 0 1 1 0 0]
+Site 3 (pos 39.2118): alleles: (&#39;G&#39;, &#39;C&#39;), genotypes: [0 0 1 1 0 0]
+Site 4 (pos 44.0257): alleles: (&#39;G&#39;, &#39;C&#39;), genotypes: [1 1 0 0 0 0]
+Site 5 (pos 48.0932): alleles: (&#39;C&#39;, &#39;G&#39;), genotypes: [0 0 1 1 0 0]
+Site 6 (pos 68.4830): alleles: (&#39;C&#39;, &#39;G&#39;), genotypes: [0 0 1 1 0 0]
+Site 7 (pos 69.4755): alleles: (&#39;A&#39;, &#39;C&#39;), genotypes: [0 0 0 0 1 1]
+Site 8 (pos 71.2330): alleles: (&#39;C&#39;, &#39;T&#39;), genotypes: [1 1 0 0 0 0]
+Site 9 (pos 71.9150): alleles: (&#39;G&#39;, &#39;T&#39;), genotypes: [0 0 0 0 0 1]
+
+Site 0: parsimony sets ancestral state to G, and places mutation -1 to A above node 6
+Site 1: parsimony sets ancestral state to T, and places mutation -1 to C above node 8
+Site 2: parsimony sets ancestral state to G, and places mutation -1 to T above node 7
+Site 3: parsimony sets ancestral state to G, and places mutation -1 to C above node 7
+Site 4: parsimony sets ancestral state to G, and places mutation -1 to C above node 6
+Site 5: parsimony sets ancestral state to C, and places mutation -1 to G above node 7
+Site 6: parsimony sets ancestral state to C, and places mutation -1 to G above node 7
+Site 7: parsimony sets ancestral state to A, and places mutation -1 to C above node 8
+Site 8: parsimony sets ancestral state to C, and places mutation -1 to T above node 6
+Site 9: parsimony sets ancestral state to G, and places mutation -1 to T above node 5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations</span>
+<span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">new_ts</span><span class="o">.</span><span class="n">mutations</span><span class="p">():</span>  <span class="c1"># Make pretty labels showing the change in state</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">new_ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">site</span><span class="p">)</span>
+    <span class="n">older_mut</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1"># is there an older mutation at the same position?</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">new_ts</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
+    <span class="n">mut_labels</span><span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">→</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">new_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_trees_30_0.svg" src="_images/analysing_trees_30_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="parsimony-and-missing-data">
+<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Permalink to this headline">¶</a></h3>
+<p>The Hartigan parsimony algorithm in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> can also take missing data
+into account when finding a set of parsimonious state transitions. We do this by
+specifying the special value <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MISSING_DATA" title="(in tskit v0.3)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.MISSING_DATA</span></code></a> (-1) as the state, which is
+treated by the algorithm as “could be anything”.</p>
+<p>For example, here we state that sample 0 is missing, and use the colour white to indicate
+this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/parsimony_simple.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">]</span>
+<span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">tskit</span><span class="o">.</span><span class="n">MISSING_DATA</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))))</span>
+
+<span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ancestral state = &quot;</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_trees_32_0.svg" src="_images/analysing_trees_32_0.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ancestral state =  red
+Mutation: node = 4 derived_state = blue
+Mutation: node = 5 derived_state = green
+</pre></div>
+</div>
+</div>
+</div>
+<p>The algorithm decided, again, quite reasonably, that the most parsimonious explanation
+for the input data is the same as before. Thus, if we used this information to fill
+out mutation table as above, we would impute the missing value for 0 as red.</p>
+<p>The output of the algorithm can be a little surprising at times. Consider this example::</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">]</span>
+<span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">node_colours</span> <span class="o">=</span> <span class="p">{</span><span class="n">j</span><span class="p">:</span> <span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)}</span>
+<span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ancestral state = &quot;</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">node_colours</span><span class="o">=</span><span class="n">node_colours</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ancestral state =  red
+Mutation: node = 6 derived_state = blue
+</pre></div>
+</div>
+<img alt="_images/analysing_trees_34_1.svg" src="_images/analysing_trees_34_1.svg" /></div>
+</div>
+<p>Note that this is putting a mutation to blue over node 6, <strong>not</strong> node 0 as
+we might expect. Thus, we impute here that node 1 is blue. It is important
+to remember that the algorithm is minimising the number of state transitions;
+this may not correspond always to what we might consider the most parsimonious
+explanation.</p>
+</div>
+</div>
+<div class="section" id="fast-tree-based-algorithms-using-numba">
+<h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Add a few examples here of how to use numba to speed up tree based dynamic programming
+algorithms. There are a good number of worked-up examples with timings in
+<a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/63">issue #63</a></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="analysing_tree_sequences.html" title="previous page">Analysing tree sequences</a>
+    <a class='right-next' id="next-link" href="no_mutations.html" title="next page">Do you really need mutations?</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Tskit Developers<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -49,10 +49,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Visualization" href="viz.html" />
-    <link rel="prev" title="What is a tree sequence?" href="what_is.html" />
+    <link rel="prev" title="Tree sequence basics" href="basics.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -98,6 +100,11 @@
    What is a tree sequence?
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="basics.html">
+   Tree sequence basics
+  </a>
+ </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
@@ -136,6 +143,23 @@
  <li class="toctree-l1">
   <a class="reference internal" href="tskitr.html">
    Tskit and R
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_tree_sequences.html">
+   Analysing tree sequences
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_trees.html">
+   Analysing trees
   </a>
  </li>
 </ul>
@@ -511,6 +535,7 @@ the chromosome, then throw some neutral mutations onto the resulting tree sequen
 </div>
 </div></div>
 </div>
+<p>You can see that there are many thousands of trees in this tree sequence.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Since we simulated the ancestry of 20 <em>diploid</em> individuals, our tree sequence
@@ -523,32 +548,79 @@ sequence. This process underlies many tree sequence algorithms, including those 
 encounter later in this tutorial for calculating
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">population genetic statistics</span></a>.
 To iterate over your own tree sequence you can use
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a>. Here, for example, is
-how to check whether all trees in the tree sequence have fully coalesced (which is to be
-expected in reverse-time, coalescent simulations, but not always for tree sequences
-produced by <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">has_multiple_roots</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree </span><span class="si">{tree.index}</span><span class="s2"> has not coalesced&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;== Tree sequence has </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees ==&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2"> covers </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
         <span class="k">break</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All trees in the tree sequence have coalesced&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2"> covers </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All trees in the tree sequence have coalesced
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>== Tree sequence has 11167 trees ==
+Tree 0 covers Interval(left=0.0, right=661.0)
+Tree 1 covers Interval(left=661.0, right=3116.0)
+Tree 2 covers Interval(left=3116.0, right=4451.0)
+Tree 3 covers Interval(left=4451.0, right=4673.0)
+Tree 4 covers Interval(left=4673.0, right=5020.0)
+...
+Tree 11166 covers Interval(left=9999635.0, right=10000000.0)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Since all the trees <em>have</em> coalesced, at each position in the genome this tree sequence
-must have only one most recent common ancestor (MRCA) of the 40 sample nodes. Below, we
-iterate over the trees again, finding the IDs of the root (MRCA) node for each tree. The
+<p>Here we’ve also used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.last" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.last()</span></code></a> to access
+the last tree directly; it may not surprise you that there’s a corresponding
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The code above doesn’t store the tree anywhere, but merely performs a calculation on
+each tree within the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.  That’s because, for efficiency, the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> method repeatedly returns the same tree object,
+updated internally to reflect the (usually small) changes from tree to tree along the
+sequence. For that reason, this won’t work:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">())</span>  <span class="c1"># Don&#39;t do this! Every tree in the list will be an identical &quot;null&quot; tree</span>
+</pre></div>
+</div>
+<p>If you really do want separate instances of each tree (inefficient, and for large tree
+sequences risks using up all your computer memory), you can use the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.aslist" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.aslist()</span></code></a> method.</p>
+</div>
+<p>Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
+forwards through trees in a tree sequence (or indeed backwards using the standard Python
+<code class="docutils literal notranslate"><span class="pre">reversed</span></code> function) is efficient. That means it’s quick, for example to check if all
+the trees in a tree sequence have fully coalesced (which is to be expected in
+reverse-time, coalescent simulations, but not always for tree sequences produced by
+<a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">has_multiple_roots</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree </span><span class="si">{tree.index}</span><span class="s2"> has not coalesced&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees have coalesced. Checked in </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees have coalesced. Checked in 0.01457524299621582 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we know all trees have coalesced, we know that at each position in the genome
+all the 40 sample nodes must have one most recent common ancestor (MRCA). Below, we
+iterate over the trees, finding the IDs of the root (MRCA) node for each tree. The
 time of this root node can be found via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.node" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tskit.TreeSequence.node()</span></code></a> method, which
-returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">node</span> <span class="pre">object</span></code></a> with attributes including the node time:</p>
+returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">node</span> <span class="pre">object</span></code></a> whose attributes include the node time:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -568,21 +640,24 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_5_0.png" src="_images/getting_started_5_0.png" />
+<img alt="_images/getting_started_7_0.png" src="_images/getting_started_7_0.png" />
 </div>
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
-chromosome, where the selective sweep occurred. It’s not particularly efficient to pull
-out a tree from the middle of a tree sequence, but it <em>can</em> be done, via the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s the tree at the location
-of the sweep, drawn using the  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method
-(see the <a class="reference internal" href="viz.html#sec-tskit-viz"><span class="std std-ref">visualization tutorial</span></a> for more visualization
-possibilities):</p>
+chromosome, where the selective sweep occurred.</p>
+<p>Currently, it’s not particularly efficient to pull out individual trees from the middle
+of a tree sequence
+(please comment on <a class="reference external" href="https://github.com/tskit-dev/tskit/issues/684">this issue</a> if you
+have a need for this to be efficient) but it <em>can</em> be done, via the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s the tree at location
+<span class="math notranslate nohighlight">\(5\ 000\ 000\)</span> — the position of the sweep — drawn using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method (see the
+<a class="reference internal" href="viz.html#sec-tskit-viz"><span class="std std-ref">visualization tutorial</span></a> for more visualization possibilities):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
 
-<span class="n">swept_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">)</span>  <span class="c1"># or you can get e.g. the first tree using ts.first()</span>
+<span class="n">swept_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">)</span>  <span class="c1"># or you can get e.g. the nth tree using ts.at_index(n)</span>
 <span class="n">intvl</span> <span class="o">=</span> <span class="n">swept_tree</span><span class="o">.</span><span class="n">interval</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree number </span><span class="si">{</span><span class="n">swept_tree</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">, which runs from position </span><span class="si">{</span><span class="n">intvl</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">intvl</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
 <span class="c1"># Draw it at a wide size, to make room for all 40 tips</span>
@@ -594,7 +669,7 @@ possibilities):</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree number 5382, which runs from position 4998293.0 to 5033047.0:
 </pre></div>
 </div>
-<img alt="_images/getting_started_7_1.svg" src="_images/getting_started_7_1.svg" /></div>
+<img alt="_images/getting_started_9_1.svg" src="_images/getting_started_9_1.svg" /></div>
 </div>
 <p>This tree shows the classic signature of a recent expansion or selection event, with many
 long terminal branches, resulting in an excess of singleton mutations.</p>
@@ -618,7 +693,7 @@ more than one tree: either the entire tree sequence, or
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genealogy of the first 10 samples, the first 1.5kb of the genome
 </pre></div>
 </div>
-<img alt="_images/getting_started_9_1.svg" src="_images/getting_started_9_1.svg" /></div>
+<img alt="_images/getting_started_11_1.svg" src="_images/getting_started_11_1.svg" /></div>
 </div>
 <p>These are much more standard-looking coalescent trees, with far longer branches higher
 up in the tree, and therefore many more mutations at higher-frequencies.</p>
@@ -774,7 +849,7 @@ method:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_17_0.png" src="_images/getting_started_17_0.png" />
+<img alt="_images/getting_started_19_0.png" src="_images/getting_started_19_0.png" />
 </div>
 </div>
 <p>By default this method returns the “folded” or unpolarized AFS that doesn’t
@@ -800,7 +875,7 @@ which provides an estimate that is not influenced by random mutational “noise�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_19_0.png" src="_images/getting_started_19_0.png" />
+<img alt="_images/getting_started_21_0.png" src="_images/getting_started_21_0.png" />
 </div>
 </div>
 <p>On the left is the frequency spectrum averaged over the entire genome, and on the right
@@ -837,7 +912,7 @@ diversity between positions 4 and 6 Mb:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_21_0.png" src="_images/getting_started_21_0.png" />
+<img alt="_images/getting_started_23_0.png" src="_images/getting_started_23_0.png" />
 </div>
 </div>
 <p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,
@@ -901,7 +976,7 @@ calculated in windows along the genome.</p></li>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="what_is.html" title="previous page">What is a tree sequence?</a>
+    <a class='left-prev' id="prev-link" href="basics.html" title="previous page">Tree sequence basics</a>
     <a class='right-next' id="next-link" href="viz.html" title="next page">Visualization</a>
 
         </div>
