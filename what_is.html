@@ -426,7 +426,7 @@ a short 1000 letter chromosome.</p>
 <span class="kn">import</span> <span class="nn">tskit</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
 
-<span class="n">mutated_ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/whatis_example.ts&quot;</span><span class="p">)</span>
+<span class="n">mutated_ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/whatis_example.trees&quot;</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">delete_sites</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">)))</span>
 <span class="c1"># Extra code to label and order the tips alphabetically rather than numerically</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)}</span>

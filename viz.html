@@ -507,21 +507,11 @@ This tutorial illustrates various examples, based on a few 50kb tree sequences g
 contemporary populations (labelled <em>A</em>, <em>B</em>, and <em>C</em>).</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">tskit</span>
-
-<span class="n">ts_full</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_full.ts&quot;</span><span class="p">)</span>
-<span class="c1">### NB: ts_full was made with the following msprime 1.0 commands:</span>
-<span class="c1"># dem = msprime.Demography.from_species_tree(&quot;((A:900,B:900)ab:100,C:1000)abc;&quot;, initial_size=1e3)</span>
-<span class="c1"># samples = {&quot;A&quot;: 20, &quot;B&quot;: 20, &quot;C&quot;:20}  # take 20 diploids from terminal populations A, B, C</span>
-<span class="c1"># ts_full = msprime.sim_ancestry(</span>
-<span class="c1">#    samples, demography=dem, sequence_length=5e4, recombination_rate=1e-8, random_seed=1234</span>
-<span class="c1"># )</span>
-<span class="n">first_4_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># ids of the first 4 sample nodes (here, 2 individuals from A)</span>
-<span class="n">eight_nodes</span> <span class="o">=</span> <span class="n">first_4_nodes</span> <span class="o">+</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">81</span><span class="p">]</span>  <span class="c1"># Add nodes from individuals in B &amp; C</span>
-<span class="n">ts_tiny</span> <span class="o">=</span> <span class="n">ts_full</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">first_4_nodes</span><span class="p">)</span>  <span class="c1"># a tiny 4-tip TS</span>
-<span class="n">ts_small</span> <span class="o">=</span> <span class="n">ts_full</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">eight_nodes</span><span class="p">)</span>   <span class="c1"># a small 8-tip TS</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
+<span class="c1"># See the notebook code if you want to know how these tree sequences were produced</span>
+<span class="n">ts_tiny</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_tiny.trees&quot;</span><span class="p">)</span>
+<span class="n">ts_small</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_small.trees&quot;</span><span class="p">)</span>
+<span class="n">ts_full</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_full.trees&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -616,7 +606,7 @@ Jupyter notebook using the IPython <code class="docutils literal notranslate"><s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_5_0.svg" src="_images/viz_5_0.svg" /></div>
+<img alt="_images/viz_7_0.svg" src="_images/viz_7_0.svg" /></div>
 </div>
 <p>By default, sample nodes are drawn as black squares, and non-sample nodes are drawn as
 black circles (but see below for ways to e.g. hide or colour these node symbols - NB.
@@ -637,7 +627,7 @@ causing labels to overlap:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_7_0.svg" src="_images/viz_7_0.svg" /></div>
+<img alt="_images/viz_9_0.svg" src="_images/viz_9_0.svg" /></div>
 </div>
 <p>One way to avoid overlapping labels on the Y axis is to use the <code class="docutils literal notranslate"><span class="pre">y_ticks</span></code> parameter,
 which will be used in most subsequent examples in this tutorial.</p>
@@ -668,10 +658,10 @@ with 8 samples, but where we’ve restricted the amount of the tree sequence we 
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tree sequence between positions 5000 and 15000 ...
 </pre></div>
 </div>
-<img alt="_images/viz_9_1.svg" src="_images/viz_9_1.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... or just look at (say) the third tree
+<img alt="_images/viz_11_1.svg" src="_images/viz_11_1.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... or just look at (say) the third tree
 </pre></div>
 </div>
-<img alt="_images/viz_9_3.svg" src="_images/viz_9_3.svg" /></div>
+<img alt="_images/viz_11_3.svg" src="_images/viz_11_3.svg" /></div>
 </div>
 <p>As the number of sample nodes increases, internal nodes often bunch up at recent time
 points, obscuring relationships. Setting <code class="docutils literal notranslate"><span class="pre">time_scale=&quot;rank&quot;</span></code>, as in the first SVG plot,
@@ -706,7 +696,7 @@ styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A larger tree, on a log timescale
 </pre></div>
 </div>
-<img alt="_images/viz_11_1.svg" src="_images/viz_11_1.svg" /></div>
+<img alt="_images/viz_13_1.svg" src="_images/viz_13_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="plotting-mutations">
@@ -729,7 +719,7 @@ as a red downwards-pointing chevron.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_13_0.svg" src="_images/viz_13_0.svg" /></div>
+<img alt="_images/viz_15_0.svg" src="_images/viz_15_0.svg" /></div>
 </div>
 <p>Note that, unusually, the rightmost site on the axis has more than one stacked chevron,
 indicating that multiple mutations in the tree occur at the same site. These could be
@@ -737,7 +727,8 @@ mutations to different allelic states, or recurrent/back mutations. In this case
 mutations, 14 and 15 (above nodes 1 and 6) are recurrent mutations from T to G.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site_descr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mutated</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_small_mutated.trees&quot;</span><span class="p">)</span>
+<span class="n">site_descr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">site_descr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;[</span><span class="se">\n</span><span class="s2">  &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;),&quot;</span><span class="p">,</span> <span class="s2">&quot;),</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;],&quot;</span><span class="p">,</span> <span class="s2">&quot;],</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -769,7 +760,7 @@ plot region, or simply plotting the tree itself:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The third tree in the mutated tree sequence, which covers Interval(left=13901.0, right=21285.0)
 </pre></div>
 </div>
-<img alt="_images/viz_17_1.svg" src="_images/viz_17_1.svg" /></div>
+<img alt="_images/viz_19_1.svg" src="_images/viz_19_1.svg" /></div>
 </div>
 <p id="sec-tskit-viz-extra-mutations">However, when plotting a single tree it may not be evident that identical branches
 may exist in several adjacent trees, indicating an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in tskit v0.3)"><span class="xref std std-ref">edge</span></a>
@@ -787,7 +778,7 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_19_0.svg" src="_images/viz_19_0.svg" /></div>
+<img alt="_images/viz_21_0.svg" src="_images/viz_21_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -821,7 +812,7 @@ to set more meaningful labels (for example from the tree sequence <a class="refe
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_21_0.svg" src="_images/viz_21_0.svg" /></div>
+<img alt="_images/viz_23_0.svg" src="_images/viz_23_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="styling">
@@ -860,7 +851,7 @@ CSS string applied:
     &quot;.node.p0 &gt; .sym {fill: red} .node.p1 &gt; .sym {fill: green} .node.p2 &gt; .sym {fill: blue}&quot;
 </pre></div>
 </div>
-<img alt="_images/viz_23_1.svg" src="_images/viz_23_1.svg" /></div>
+<img alt="_images/viz_25_1.svg" src="_images/viz_25_1.svg" /></div>
 </div>
 <p>Colouring nodes by population makes it immediately clear that, while the tree structure
 does not exactly reflect the population divisions, there’s still considerable
@@ -928,7 +919,7 @@ have the same parent and child):</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_25_0.svg" src="_images/viz_25_0.svg" /></div>
+<img alt="_images/viz_27_0.svg" src="_images/viz_27_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -970,7 +961,7 @@ of symbols, which can create rather different formatting styles:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_27_0.svg" src="_images/viz_27_0.svg" /></div>
+<img alt="_images/viz_29_0.svg" src="_images/viz_29_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1046,7 +1037,7 @@ thicker blue line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_29_0.svg" src="_images/viz_29_0.svg" /></div>
+<img alt="_images/viz_31_0.svg" src="_images/viz_31_0.svg" /></div>
 </div>
 <p>This might not be quite what you expected: the branch leading from node 13 to its parent
 (node 17) has also been coloured. That’s because the SVG node group deliberately contains
@@ -1064,7 +1055,7 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_31_0.svg" src="_images/viz_31_0.svg" /></div>
+<img alt="_images/viz_33_0.svg" src="_images/viz_33_0.svg" /></div>
 </div>
 <p>If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
@@ -1088,7 +1079,7 @@ this normally-hidden line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_33_0.svg" src="_images/viz_33_0.svg" /></div>
+<img alt="_images/viz_35_0.svg" src="_images/viz_35_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="restricting-styling">
@@ -1110,7 +1101,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_35_0.svg" src="_images/viz_35_0.svg" /></div>
+<img alt="_images/viz_37_0.svg" src="_images/viz_37_0.svg" /></div>
 </div>
 <p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
 to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
@@ -1126,7 +1117,7 @@ targetting of the leaf symbols only:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_37_0.svg" src="_images/viz_37_0.svg" /></div>
+<img alt="_images/viz_39_0.svg" src="_images/viz_39_0.svg" /></div>
 </div>
 <p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
 so the following style specification should produce the same effect:</p>
@@ -1152,7 +1143,7 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_39_0.svg" src="_images/viz_39_0.svg" /></div>
+<img alt="_images/viz_41_0.svg" src="_images/viz_41_0.svg" /></div>
 </div>
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
@@ -1294,13 +1285,13 @@ place them, so each tree in this SVG has a nominal “root branch” at the top.
 root branches are not drawn, unless the <code class="docutils literal notranslate"><span class="pre">force_root_branch</span></code> parameter is specified.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.ts&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.trees&quot;</span><span class="p">)</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_43_0.svg" src="_images/viz_43_0.svg" /></div>
+<img alt="_images/viz_45_0.svg" src="_images/viz_45_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="a-fancy-formatted-plot">
@@ -1332,7 +1323,7 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_45_0.svg" src="_images/viz_45_0.svg" /></div>
+<img alt="_images/viz_47_0.svg" src="_images/viz_47_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="highlighted-mutations">
@@ -1342,7 +1333,7 @@ specific mutations can be coloured and the branch colours overlay each other as 
 Note that in this example, internal node labels and symbols have been hidden for clarity.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.ts&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.trees&quot;</span><span class="p">)</span>
 <span class="n">css_string</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;.edge {stroke: grey}&quot;</span>
     <span class="s2">&quot;.mut .sym{stroke:pink} .mut text{fill:pink}&quot;</span>
@@ -1357,7 +1348,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_47_0.svg" src="_images/viz_47_0.svg" /></div>
+<img alt="_images/viz_49_0.svg" src="_images/viz_49_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="leaf-sample-isolated-nodes">
@@ -1369,7 +1360,7 @@ internal nodes. To highlight the change, we have plotted sample nodes in green, 
 leaf nodes (if not samples) in blue.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.ts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
@@ -1380,7 +1371,7 @@ leaf nodes (if not samples) in blue.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_49_0.svg" src="_images/viz_49_0.svg" /></div>
+<img alt="_images/viz_51_0.svg" src="_images/viz_51_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1505,13 +1496,8 @@ tree sequence to allow identification of pruned edges.</p>
 <span class="s2">&lt;button onclick=&#39;document.getElementById(&quot;animated_svg_canvas&quot;).innerHTML = svg_text;&#39;&gt;Reset&lt;/button&gt;</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-    <span class="mi">5</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">sequence_length</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
-    <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.00005</span><span class="p">,</span>
-    <span class="n">random_seed</span><span class="o">=</span><span class="mi">6787</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;smc_prime&quot;</span><span class="p">,</span> <span class="n">record_full_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                
-<span class="c1"># record_full_arg needed to track recombination nodes (branch positions)</span>
-<span class="c1"># random_seed chosen to produce a ts whose leaves are plotted in the same order</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_spr_animation.trees&quot;</span><span class="p">)</span>
+<span class="c1"># created with record_full_arg needed to track recombination nodes (branch positions)</span>
 
 <span class="n">HTML</span><span class="p">(</span><span class="n">html_string</span> <span class="o">%</span> <span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">),</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">))</span>
 </pre></div>
