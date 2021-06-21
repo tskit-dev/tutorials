@@ -460,7 +460,6 @@ the modified tables. In the following example, we use this
 approach to remove all singleton sites from a given tree sequence.
 
 ```{code-cell} ipython3
-import dataclasses
 def strip_singletons(ts):
     tables = ts.dump_tables()
     tables.sites.clear()
@@ -471,7 +470,7 @@ def strip_singletons(ts):
             mut = site.mutations[0]
             if tree.num_samples(mut.node) > 1:
                 site_id = tables.sites.append(site)
-                mut = dataclasses.replace(mut, site=site_id)  # set the new site id
+                mut = mut.replace(site=site_id)  # set the new site id
                 tables.mutations.append(mut)
     return tables.tree_sequence()
 ```
