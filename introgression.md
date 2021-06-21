@@ -15,19 +15,17 @@ kernelspec:
 
 **Jerome Kelleher and Konrad Lohse**
 
-There has been great interest in understanding the contributions past populations have made to the genetic diversity of current populations via admixture. In particular, the availability of whole genome sequence data from archaic hominins (Green et al 2010) has allowed geneticists to identify admixture tracks (Sankararaman 2016). In the simplest case, admixture tracts can be defined heuristically as regions of the genome that show excessive similarity between a putative source and a recipient population (usually quantified relative to some non-admixted reference population, ref Durand et al 2010). Because recombination breaks down admixture tracts, their length distribution gives a clock for calibrating admixture and this information been used to date the admixure contributions Neanderthals and other archaic hominins have made to non-African humans (Sankararaman 2016) and to recontruct the admixture history between different modern human populations (ref).
+There has been great interest in understanding the contributions past populations have made to the genetic diversity of current populations via [admixture](https://en.wikipedia.org/wiki/Genetic_admixture). In particular, the availability of whole genome sequence data from archaic hominins ([Green et al., 2010](http://doi.org/10.1126/science.1188021)) has allowed geneticists to identify admixture tracks ([Sankararaman, 2016](http://doi.org/10.1016/j.cub.2016.03.037)). In the simplest case, admixture tracts can be defined heuristically as regions of the genome that show excessive similarity between a putative source and a recipient population (usually quantified relative to some non-admixed reference population, see [Durand et al., 2011](http://doi.org/10.1093/molbev/msr048)). Because recombination breaks down admixture tracts, their length distribution gives a clock for calibrating admixture and this information has been used to date the admixure contributions Neanderthals and other archaic hominins have made to non-African modern human populations ([Sankararamanm 2016](http://doi.org/10.1016/j.cub.2016.03.037))
 
-Crucially, the power to identify admixture depends on the relative time bewteen the admixture event and the earlier divergence between source and the recipient population: the shorter this interval, the harder it becomes to detect admixture. This is because ancestral material is increasingly likely to trace its ancestry back to the common ancestral population regardless of whether it has been involved in any recent admixture or not. In other words, it becomes increasingly difficult to distinguish between admixtjure from Incomplete lineage sorting (ILS).
+Crucially, the power to identify admixture depends on the relative time between the admixture event and the earlier divergence between source and recipient population: the shorter this interval, the harder it is to detect admixture. This is because samples from the source and recipient poulations are increasingly likely to share local ancestry regardless of recent admixture. In other words, it becomes increasingly difficult to distinguish admixture from [incomplete lineage sorting](https://en.wikipedia.org/wiki/Incomplete_lineage_sorting) (ILS).
 
-In the following section we use msprime simulations to ask what fraction of admixture tracts are identifyable as such. 
+In the following section we use {program}`msprime` simulations to ask what fraction of admixture tracts are identifiable as such.
 
-To illustrate this, we simulate ancestral recombination graphs (ARGs) under a simple toy history of divergence and admixture which is loosely motivated by the demographic history of modern humans and Neandertals. As in previous sections, we will first examine properties of the ARG directly rather than use it to simulate mutations. We assume a minimal sample of a single (haploid) genome from a modern human population in African and Eurasia as well as an ancient Neandertal sample.
+To illustrate this, we simulate genetic ancestry under a very simple toy history of divergence and admixture which is loosely motivated by the demographic history of modern humans and Neanderthals. As suggested in {ref}`other tutorial material<sec_tskit_no_mutations>`, we will first examine properties of the resulting tree sequence directly, rather than use it to simulate mutations. We assume a minimal sample of a single (haploid) genome from a modern human population in Africa and Eurasia as well as an ancient Neanderthal sample.
 
-Considering a rooted ARG, we want to distinguish three categories of segments: i) tracts actually involved in Neandertal admixture, ii) the subset of those tracts that coalesces in the Neandertal population and iii) segments at which Eurasians are more closely related to Neandertals than either are to Africans. This latter category must include all of ii) but also an additional set of short tracts that are due to incomplete lineage sorting (ILS). The last category is interesting because it is the only one that can be unambiguously detected in data (via derived mutations that are shared by Neandertals and Eurasians).
+In the resulting tree sequence we want to distinguish three categories of segments: i) tracts actually involved in Neanderthal admixture, ii) the subset of those tracts in which the Eurasian and Neanderthal lineages we have sampled coalesce within the Neanderthal population and iii) segments at which the Eurasian and Neanderthal lineages are more closely related to each other than either are to the African lineage. The last category is interesting because it is the only one that can be unambiguously detected in data (via derived mutations that are shared by Neanderthals and Eurasians). However, while it must include all of ii), it also contains an additional set of short tracts that are due to ILS.
 
-+++
-
-First we set up a highly simplified demographic history of human neandertal demography and simulate a single chromosome of 20Mb length:
+First we set up a highly simplified demographic history of human+Neanderthal demography and simulate a single chromosome of 20Mb in length:
 
 ```{code-cell} ipython3
 import random
@@ -36,35 +34,30 @@ import msprime
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-
 from IPython.display import SVG
-```
 
-```{code-cell} ipython3
-    
-def run_simulation(random_seed=None):
+def run_simulation(sequence_length, random_seed=None):
     time_units = 1000 / 25  # Conversion factor for kya to generations
-
     demography = msprime.Demography()
     # The same size for all populations; highly unrealistic!
-    demography.add_population(name="Africa", initial_size=10**4)
-    demography.add_population(name="Eurasia", initial_size=10**4)
-    demography.add_population(name="Neanderthal", initial_size=10**4)
+    Ne = 10**4
+    demography.add_population(name="Africa", initial_size=Ne)
+    demography.add_population(name="Eurasia", initial_size=Ne)
+    demography.add_population(name="Neanderthal", initial_size=Ne)
 
     # 2% introgression 50 kya
     demography.add_mass_migration(
         time=50 * time_units, source='Eurasia', dest='Neanderthal', proportion=0.02)
-    # Eurasian & Africa populations 'merge' backwards in time, 70 kya
+    # Eurasian 'merges' backwards in time into Africa population, 70 kya
     demography.add_mass_migration(
         time=70 * time_units, source='Eurasia', dest='Africa', proportion=1)
-    # Neanderthal and African populations 'merge' backwards in time, 300 kya
+    # Neanderthal 'merges' backwards in time into African population, 300 kya
     demography.add_mass_migration(
         time=300 * time_units, source='Neanderthal', dest='Africa', proportion=1)
 
     ts = msprime.sim_ancestry(
-        
         recombination_rate=1e-8,
-        sequence_length=20 * 10**6,  
+        sequence_length=sequence_length,  
         samples=[
             msprime.SampleSet(1, ploidy=1, population='Africa'),
             msprime.SampleSet(1, ploidy=1, population='Eurasia'),
@@ -75,12 +68,19 @@ def run_simulation(random_seed=None):
         record_migrations=True,  # Needed for tracking segments.
         random_seed=random_seed,
     )
+    print(f"Simulation of {sequence_length/10**6}Mb run, using record_migrations=True")
+    print(
+        "NB: time diff from Neanderthal split to admixture event is",
+        f"{300 * time_units - 50 * time_units:.0f} gens",
+        f"({(300 * time_units - 50 * time_units) / 2 / Ne} coalescence units)"
+    )
     return ts
 
-ts = run_simulation(1)
+ts = run_simulation(20 * 10**6, 1)
+
 ```
 
-Here we've run our simulation in the usual way, but included the ``record_migrations`` option. This allows us to track segments of ancestral material that migrate from the European population into the Neanderthal population (backwards in time). We can then examine the length distributions of these segments and compare them with the length of the segments that also go on to coalesce within the Neanderthal population.
+The ``record_migrations`` option allows us to track segments of ancestral material that migrate from the Eurasian population into the Neanderthal population (backwards in time). We can then examine the length distributions of these segments and compare them with the length of the segments that also go on to coalesce within the Neanderthal population.
 
 ```{code-cell} ipython3
 def get_migrating_tracts(ts):
@@ -121,7 +121,7 @@ def get_eur_nea_tracts(ts):
         if mrca != tree.root and tract_left is None:
             # Start a new tract
             tract_left = left      
-        elif mrca != tree.root and tract_left is not None:
+        elif mrca == tree.root and tract_left is not None:
             # End the last tract
             tracts.append((tract_left, left))
             tract_left = None
@@ -135,71 +135,91 @@ within_nea = get_coalescing_tracts(ts)
 eur_nea = get_eur_nea_tracts(ts)
 ```
 
-We build three different lists. The first is the set of tracts that have migrated from the Eurasian population into the Neanderthal population, and is done simply by finding all migration records in which the destination population name is 'Neanderthal'. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments that migrated to the Neanderthal population and segments that did not migrate and did not coalesce until after the Neanderthal-Human population split 300kya.
+We build three different lists. The first is the set of tracts that exist in the Eurasian genome because they have come from Neanderthals via admixture at time $T_{ad}$ (be careful here: in {ref}`reverse time terminology<msprime:sec_demography_direction_of_time>`, we denote the "source" population as Eurasian and the "destination" population as Neanderthals). This is done simply by finding all migration records in which the "destination" population name is ``Neanderthal``. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments of Neanderthal origin and segments that did not migrate but coalesce further back in time than the Neanderthal-Human population split at $T_{split}$.
 
 ```{code-cell} ipython3
-nea_total = np.sum(eur_nea[:,1] - eur_nea[:,0])
-migrating_total = np.sum(migrating[:,1] - migrating[:,0])
+migrating_l = migrating[:,1] - migrating[:,0]
+print(f"There are {len(migrating_l)} migrating tracts of total length {np.sum(migrating_l)}")
+migrating_total = np.sum(migrating_l)
 within_nea_total = np.sum(within_nea[:,1] - within_nea[:,0])
-print([nea_total, migrating_total, within_nea_total])
+nea_eur_closest = np.sum(eur_nea[:,1] - eur_nea[:,0])
+totals = np.array([migrating_total, within_nea_total, nea_eur_closest])
+print("Total lengths:", totals)
+print("Proportions:", totals/ts.sequence_length)
 ```
 
-Although $f=0.02$ the total length of admixted segments is 5% of the chromosome. Presumably this excess is just due to coalescence variance? We expect a proportion $1-e^{-(T_{split}-T_{ad})}$ of admixted lineages to coalesce. Given our time parameters $T_{split}-T_{ad})= 1/2$ (in units of $2 N_e$ generations), so we expect $1 -(e^-\frac{1}{2})=0.39$ of admixted sequence to have a coalesce in the neandertal population. Why is the observed fraction just 0.029? 
+The total length of admixed segments is about 1.9% of the chromosome, which accords with our migration fraction of $f=0.02$ (although since this is only made up of 5 tracts, we might expect considerable random variation in this percentage). We expect a proportion $1-e^{-(T_{split}-T_{ad})}$ of admixed lineages to coalesce, where $T_{split}$ and $T_{ad}$ are measured in coalescence units of $2 N_e$ generations. We have assumed a split time of 300kya, an admixture time of 50kya and a generation time of 25 years. Given these time parameters and $N_e =10000$, $T_{split}-T_{ad} = 1/2$, so we expect $1 -(e^{-1/2})=0.39$ of admixed sequence to coalesce in the Neanderthal population. The actual observed proportion is 165617/373730 = 0.44, which isn't far off. However, the fraction of the genome which shows the Eurasian and the Neanderthal as each others closest relatives is much higher (over 20%): most of this must therefore be ILS.
+
+How about the *lengths* of the tracts? We can plot these out in histogram form. 
 
 ```{code-cell} ipython3
 kb = 1 / 1000
 plt.hist([
-    (eur_nea[:,1] - eur_nea[:,0]) * kb,
-    (migrating[:,1] - migrating[:,0]) * kb,   
-    (within_nea[:,1] - within_nea[:,0]) * kb,],    
-    label=["Migrating", "EUR-NEA", "Within NEA"]
+    migrating_l * kb,   
+    (within_nea[:,1] - within_nea[:,0]) * kb,    
+    (eur_nea[:,1] - eur_nea[:,0]) * kb,],
+    label=["Migrating", "Within NEA", "EUR-NEA closest"]
 )
 plt.yscale('log')
 plt.legend()
 plt.xlabel("Tract length (KB)");
 ```
 
-Plotting these tract lengths for a single replicate shows that, as expected, admixture tracts are large initially (blue). We can also see that there is extensive ILS which has two effects: First, only a subset  of the admixted material has ancestry in the Neandertal population, it would to check whether this fits the total lengths}). Second there many more tracts at which Neandertals and non-African humans are more closely related to each other due to incomplete lineage sorting (ILS) than there are admixture tracts. Finally ILS tracts because they are old by definition  are substantially shorter than admixture tracts.
+Note that this is just a single replicate: we would need more replicates (or a larger chromosome) to draw firm conclusions from the patterns. Nevertheless, a few things stand out. Firstly, confirming our assessment of the relative proportions of the three types, the green bars (tracts at which Neanderthals and non-African humans are most closely related to each other) far outweigh the blue (admixed tracts). In other words, ILS accounts for the vast majority of the tracts plotted in green. Secondly, although there are relatively few admixure tracts they are are on average much longer. By definition ILS tracts must be old and are therefore likely to be short; indeed most of the green tracts are very short indeed (note that the Y axis is on a log scale). Finally, although the orange tracts are a strict subset of the blue, there are places where there are orange bars without blue equivalents. That suggests that the long blue admixture tracts may contain some regions that coalesce within Neanderthals and some that don't. We can look at (say) the longest of the blue tracts to see how it intersects with the other tracts we've calculated:
 
-+++
+```{code-cell} ipython3
+longest_tract = np.argmax(migrating_l)
+lower, upper = migrating[longest_tract,:]
+within_long = np.where(
+    np.logical_or(
+        np.logical_and(lower <= within_nea[:, 0], within_nea[:, 0] <= upper),
+        np.logical_and(lower <= within_nea[:, 1], within_nea[:, 1] <= upper)))[0]
+
+eur_nea_long = np.where(
+    np.logical_or(
+        np.logical_and(lower <= eur_nea[:, 0], eur_nea[:, 0] <= upper),
+        np.logical_and(lower <= eur_nea[:, 1], eur_nea[:, 1] <= upper)))[0]
+
+plt.hlines(
+    [1], lower, upper,
+    color="C0", lw=10, label="Migrating")
+plt.hlines(
+    [2] * len(within_long), within_nea[within_long, 0], within_nea[within_long, 1],
+    color="C1", lw=10, label="Within NEA")
+plt.hlines(
+    [3] * len(eur_nea_long), eur_nea[eur_nea_long, 0], eur_nea[eur_nea_long, 1],
+    color="C2", lw=10, label="EUR-NEA closest")
+plt.title(f"Ancestry breakdown within the longest ({(upper-lower)/1_000:.0f}kb) admixture tract")
+plt.ylim(0, 5)
+plt.xlabel("Genomic position")
+plt.yticks([])
+plt.legend()
+plt.show()
+```
+
+As we go back in time, the single 178kb admixture tract (in blue) breaks down, with some regions
+coalescing in the Neanderthal population (orange) and some not. Although quite a lot of the tract supports
+grouping Eurasians with Neanderthals (green), substantial chunks of the admixed (blue)
+tract do not map onto the green tracts, and therefore must support one of the two
+other topologies (African+Neanderthal or African+Eurasian). These must be due to ILS.
+
+The green signal, which is a measure of the local tree topology and which is the primary
+signal that can be extracted from mutational data, is therefore not a very reliable guide to
+which regions of the genome have passed through the admixed route. In other words,
+admixed tracts are likely to be hard to detect simply from the distribution of mutations.
 
 ## Locating mutations
 
-We are interested in finding the population in which mutations arose. Because mutations are just associated with a specific tree node in msprime, we must simulate some extra information in order to make this question answerable. This is quite straightforward to do, since we can generate a time for each mutation uniformly along a branch and therefore unambiguously locate it time (and, therefore, space).
-
-```{todo}
-We don't need to simulate times any more
-```
+We might be interested in finding the population in which mutations arose. For this, we first need to impose some mutations on the tree sequence using {func}`msprime.sim_mutations`.
 
 ```{code-cell} ipython3
-def simulate_mutation_times(ts, random_seed=None):
-    rng = random.Random(random_seed)
-    mutation_time = np.zeros(ts.num_mutations)
-    for tree in ts.trees():
-        for mutation in tree.mutations():
-            a = tree.time(mutation.node)
-            b = tree.time(tree.parent(mutation.node))
-            mutation_time[mutation.id] = rng.uniform(a, b)
-    return mutation_time
-
-pop_configs = [
-    msprime.PopulationConfiguration(sample_size=3),
-    msprime.PopulationConfiguration(sample_size=1),
-    msprime.PopulationConfiguration(sample_size=1)]
-M = [
-    [0, 1, 1],
-    [1, 0, 1],
-    [1, 1, 0]]
-ts  = msprime.simulate(
-    population_configurations=pop_configs, migration_matrix=M,
-    record_migrations=True, mutation_rate=0.5, random_seed=25)
-mutation_time = simulate_mutation_times(ts, random_seed=25)
+ts = msprime.sim_mutations(ts, rate=1e-8, random_seed=25)  # rate in /bp/gen
 ```
 
-Once we have run our simulation and assigned times to each mutation, we can then assign populations to each of these mutations. The following function takes a simple approach, but first gathering the migrations for each node into a list. Then, for every mutation, we sequentially examine each migration that affects the mutation's node and intersects with the site position. Because we know that the migration records are sorted in increasing time order, we can simply apply the effects of each migration while the migration record's time is less than the time of the mutation. At the end of this process, we then return the computed mapping of mutation IDs to the populations in which they arose.
+Now we work out which population the mutation occurred in, from the times of the mutation and the migration events. The following function takes a simple approach, first gathering the migrations for each node into a list then sequentially examining each migration that affects the mutation's node and intersects with the site position. Because we know that the migration records are sorted in increasing time order, we can simply apply the effects of each migration while the migration record's time is less than the time of the mutation. At the end of this process, we then return the computed mapping of mutation IDs to the populations in which they arose.
 
 ```{code-cell} ipython3
-def get_mutation_population(ts, mutation_time):
+def get_mutation_population(ts):
     node_migrations = collections.defaultdict(list)
     for migration in ts.migrations():
         node_migrations[migration.node].append(migration)
@@ -216,21 +236,72 @@ def get_mutation_population(ts, mutation_time):
                     if mig.left <= site.position < mig.right:
                         # Note that we assume that we see the migration records in 
                         # increasing order of time!
-                        if mig.time < mutation_time[mutation.id]:
+                        if mig.time < mutation.time:
                             assert mutation_population[mutation.id] == mig.source
                             mutation_population[mutation.id] = mig.dest
     return mutation_population
 
-mutation_population = get_mutation_population(ts, mutation_time)
+mutation_population = get_mutation_population(ts)
 ```
+
+We can plot a fraction of the tree sequence (say the first 25kb) using {ref}`styling<sec_tskit_viz_styling>` to colour both mutations and nodes by their population:
 
 ```{code-cell} ipython3
-tree = ts.first()
-colour_map = {0:"red", 1:"blue", 2: "green"}
-node_colours = {u: colour_map[tree.population(u)] for u in tree.nodes()}
-mutation_colours = {mut.id: colour_map[mutation_population[mut.id]] for mut in tree.mutations()}
-SVG(tree.draw(node_colours=node_colours, mutation_colours=mutation_colours))
-    
+time_units = 1000 / 25  # Conversion factor for kya to generations
+
+colour_map = {0: "red", 1: "blue", 2: "green"}
+css = ".y-axis .tick .grid {stroke: #CCCCCC} .y-axis .tick .lab {font-size: 90%}"
+css += "".join([f".node.p{k} > .sym {{fill: {col}}}" for k, col in colour_map.items()])
+css += "".join([
+    f".mut.m{k} .sym {{stroke: {colour_map[v]}}} "
+    f".mut.m{k} .lab {{fill: {colour_map[v]}}} "
+    for k, v in enumerate(mutation_population)])
+y_ticks = {0: "0", 30: "30", 50: "Eur origin", 70: "Introgress", 300: "Nea origin", 1000: "1000"}
+y_ticks = {y * time_units: lab for y, lab in y_ticks.items()}
+SVG(ts.draw_svg(
+    size=(1200, 500),
+    x_lim=(0, 25_000),
+    time_scale="log_time",
+    node_labels = {0: "Af", 1: "Eu", 2: "Ne"},
+    y_axis=True,
+    y_label="Time (kya)",
+    x_label="Genomic position (bp)",
+    y_ticks=y_ticks,
+    y_gridlines=True,
+    style=css))
 ```
 
-This example shows the locations in which the mutations along the tree branches. We show a single tree here for simplicity, but the method also works when we have recombination.
+The depth of the trees indicates that most coalescences occur well before the origin of
+Neanderthals, and are thus instances of ILS. Moreover, most mutations on the trees are
+red, indicating they occurred in the African population, although a few are blue
+(Eurasian origin) or green (Neanderthal origin). A more comprehensive approach might
+simply count the number of (say) mutations originating in Neanderthals:
+
+```{code-cell} ipython3
+import dataclasses
+print(
+    f"% of muts from Neanderthals: {np.sum(mutation_population==2)/ts.num_mutations*100:.2f}%")
+```
+
+This seems high because it includes all the mutations that original in Neanderthals that are
+*only* found in the Neanderthal genome (and not e.g. in the Eurasian sample). In real datasets
+these are usually removed, to leave only those mutations that have been introgressed from Neanderthals
+into modern humans. The percentage of introgressed Neanderthal mutations seen in modern
+humans is much smaller:
+
+```{code-cell} ipython3
+#  NOTE: we shouldn't need to mess with metadata to save mutation information once we can
+#  simplify a tree sequence with migrations, see https://github.com/tskit-dev/tskit/issues/20
+import tskit
+tables = ts.dump_tables()
+tables.mutations.clear()
+tables.mutations.metadata_schema = tskit.MetadataSchema({"codec":"json"})
+for p, row in zip(mutation_population, ts.tables.mutations):
+    tables.mutations.append(dataclasses.replace(row, metadata={"pop":int(p)}))   
+tables.migrations.clear()
+tables.simplify([0, 1])
+extant_ts = tables.tree_sequence()
+num_introgressed_muts = np.sum([1 for m in extant_ts.mutations() if m.metadata['pop']==2])
+print(
+    f"% Neanderthal muts in moderns: {num_introgressed_muts/extant_ts.num_mutations*100:.2f}%")
+```
