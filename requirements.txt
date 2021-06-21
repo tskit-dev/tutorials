@@ -1,4 +1,5 @@
 jupyter-book>=0.10.0
+tqdm
 matplotlib
 seaborn
 pandas
