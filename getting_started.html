@@ -348,7 +348,8 @@
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed
 users who are new to <strong class="program">tskit</strong> and would like to get some
 basic tasks completed. We’ll look at five fundamental things you might
-need to do, and provide some pointers to where you can learn more.</p>
+need to do: process trees, sites &amp; mutations, and genotypes, compute statistics, and
+export data. Throughout, we’ll also provide pointers to where you can learn more.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The examples in this
@@ -356,8 +357,8 @@ tutorial are all written in Python, but it’s also possible to <a class="refere
 or access the API in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/c-api.html">other</a>
 <a class="reference external" href="https://github.com/tskit-dev/tskit-rust">languages</a>.</p>
 </div>
-<p>First, let’s simulate an example tree sequence of a 10Mb chromosome in
-20 diploid individuals using <a class="reference external" href="https://tskit.dev/msprime"><strong class="program">msprime</strong></a>. To make it
+<p>First, let’s simulate an example tree sequence of a 10Mb chromosome in twenty
+diploid individuals using <a class="reference external" href="https://tskit.dev/msprime"><strong class="program">msprime</strong></a>. To make it
 a bit more interesting, we’ll simulate the effects of a
 <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-models-selective-sweeps" title="(in Python)"><span class="xref std std-ref">selective sweep</span></a> in the middle of
 the chromosome, then throw some neutral mutations onto the resulting tree sequence.</p>
@@ -624,10 +625,11 @@ up in the tree, and therefore many more mutations at higher-frequencies.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this tutorial we refer to objects, such as sample nodes, by their numerical IDs. These
-can change after simplification, and it is often more meaningful to look at
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in tskit v0.3)"><span>Metadata</span></a>, such as sample and population names, which can be permanently
-attached to objects in the tree sequence. Often metadata is incorporated automatically by
-the tools generating the tree sequence. Note that if you wish to edit the tree sequence,
+can change after simplification, and it is often more meaningful to
+<a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">work with metadata</span></a>, such as sample and population names,
+which can be permanently attached to objects in the tree sequence. Often metadata is
+incorporated automatically by the tools generating the tree sequence. Note that if you
+wish to edit the tree sequence,
 for example to add information such as this, it cannot be done directly, as tree
 sequences are immutable. Instead you need to edit a copy of the underlying tables, as
 described in the <a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">data structures tutorial</span></a>.</p>
@@ -694,7 +696,9 @@ at a site are returned as a <a class="reference external" href="https://numpy.or
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genotypes
-Site 0: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site 0: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
 Site 1: [1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 0 1 0 1 1 1 1 1 0 1 0 1 0 0 1 1]
 Site 2: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
 Site 3: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
