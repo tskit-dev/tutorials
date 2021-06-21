@@ -146,9 +146,11 @@ It's obvious that there's something unusual about the trees in the middle of thi
 chromosome, where the selective sweep occurred. 
 
 Currently, it's not particularly efficient to pull out individual trees from the middle
-of a tree sequence, but it *can* be done, via the
+of a tree sequence
+(please comment on [this issue](https://github.com/tskit-dev/tskit/issues/684) if you
+have a need for this to be efficient) but it *can* be done, via the
 {meth}`TreeSequence.at()<tskit.TreeSequence.at>` method. Here's the tree at location
-$5\ 000\ 000$ (the position of the sweep) drawn using the 
+$5\ 000\ 000$ --- the position of the sweep --- drawn using the 
 {meth}`Tree.draw_svg()<tskit.Tree.draw_svg>` method (see the
 {ref}`visualization tutorial <sec_tskit_viz>` for more visualization possibilities):
 
