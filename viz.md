@@ -13,6 +13,115 @@ kernelspec:
 
 (sec_tskit_viz)=
 
+```{code-cell} ipython3
+:tags: [remove-cell]
+import msprime
+import io
+import tskit
+
+def viz_ts():
+    dem = msprime.Demography.from_species_tree("((A:900,B:900)ab:100,C:1000)abc;", initial_size=1e3)
+    samples = {"A": 20, "B": 20, "C":20}  # take 20 diploids from terminal populations A, B, C
+    ts_full = msprime.sim_ancestry(
+        samples, demography=dem, sequence_length=5e4, recombination_rate=1e-8, random_seed=1234
+    )
+    ts_full.dump("data/viz_ts_full.trees")
+
+    first_4_nodes = [0, 1, 2, 3]  # ids of the first 4 sample nodes (here, 2 individuals from A)
+    ts_tiny = ts_full.simplify(first_4_nodes)  # a tiny 4-tip TS
+    ts_tiny.dump("data/viz_ts_tiny.trees")
+
+    eight_nodes = first_4_nodes + [40, 41, 80, 81]  # Add nodes from individuals in B & C
+    ts_small = ts_full.simplify(eight_nodes)   # a small 8-tip TS
+    ts_small.dump("data/viz_ts_small.trees")
+
+    ts_small_mutated = msprime.sim_mutations(ts_small, rate=1e-7, random_seed=342)
+    ts_small_mutated.dump("data/viz_ts_small_mutated.trees")
+
+
+def viz_root_mut():
+    """
+    Taken from the drawing unit tests
+    """
+    nodes = io.StringIO(
+        """\
+    id      is_sample   population      individual      time    metadata
+    0       1       0       -1      0
+    1       1       0       -1      0
+    2       1       0       -1      0
+    3       1       0       -1      0
+    4       0       0       -1      0.1145014598813
+    5       0       0       -1      1.11067965364865
+    6       0       0       -1      1.75005250750382
+    7       0       0       -1      5.31067154311640
+    8       0       0       -1      6.57331354884652
+    9       0       0       -1      9.08308317451295
+    """
+    )
+    edges = io.StringIO(
+        """\
+    id      left   right   parent  child
+    0       0      100     4       0
+    1       0      100     4       1
+    2       0      100     5       2
+    3       0      100     5       3
+    4       80     85      6       4
+    5       80     85      6       5
+    6       6      80      7       4
+    7       85     91      7       4
+    8       6      80      7       5
+    9       85     91      7       5
+    10      91     100     8       4
+    11      91     100     8       5
+    12      0      6       9       4
+    13      0      6       9       5
+    """
+    )
+    sites = io.StringIO(
+        """\
+    position    ancestral_state
+    4           A
+    6           0
+    30          Empty
+    50          XXX
+    91          T
+    """
+    )
+    muts = io.StringIO(
+        """\
+    site   node    derived_state    parent    time
+    0      9       T                -1        15
+    0      9       G                0         9.1
+    0      5       1                1         9
+    1      4       C                -1        1.6
+    1      4       G                3         1.5
+    2      7       G                -1        10
+    2      3       C                5         1
+    4      3       G                -1        1
+    """
+    )
+    ts = tskit.load_text(nodes, edges, sites=sites, mutations=muts, strict=False)
+    ts.dump("data/viz_root_mut.trees")
+
+def viz_spr_animation():
+    # created with record_full_arg needed to track recombination nodes (branch positions)
+    # random_seed chosen to produce a ts whose leaves are plotted in the same order
+    ts = msprime.sim_ancestry(
+        5, ploidy=1,
+        sequence_length=10000,
+        recombination_rate=0.00005,
+        random_seed=6787, model="smc_prime", record_full_arg=True)                
+    ts.dump("data/viz_spr_animation.trees")
+
+def create_notebook_data():
+    viz_ts()
+    viz_root_mut()
+    viz_spr_animation()
+
+# create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
+
+```
+
 # Visualization
 
 **Yan Wong**
@@ -28,21 +137,11 @@ contemporary populations (labelled _A_, _B_, and _C_).
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-import msprime
-import numpy as np
 import tskit
-
-ts_full = tskit.load("data/viz_ts_full.ts")
-### NB: ts_full was made with the following msprime 1.0 commands:
-# dem = msprime.Demography.from_species_tree("((A:900,B:900)ab:100,C:1000)abc;", initial_size=1e3)
-# samples = {"A": 20, "B": 20, "C":20}  # take 20 diploids from terminal populations A, B, C
-# ts_full = msprime.sim_ancestry(
-#    samples, demography=dem, sequence_length=5e4, recombination_rate=1e-8, random_seed=1234
-# )
-first_4_nodes = [0, 1, 2, 3]  # ids of the first 4 sample nodes (here, 2 individuals from A)
-eight_nodes = first_4_nodes + [40, 41, 80, 81]  # Add nodes from individuals in B & C
-ts_tiny = ts_full.simplify(first_4_nodes)  # a tiny 4-tip TS
-ts_small = ts_full.simplify(eight_nodes)   # a small 8-tip TS
+# See the notebook code if you want to know how these tree sequences were produced
+ts_tiny = tskit.load("data/viz_ts_tiny.trees")
+ts_small = tskit.load("data/viz_ts_small.trees")
+ts_full = tskit.load("data/viz_ts_full.trees")
 ```
 
 If you just want a quick look at visualization possibilities, you might want to skip to
@@ -197,6 +296,7 @@ mutations, 14 and 15 (above nodes 1 and 6) are recurrent mutations from T to G.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
+ts_mutated = tskit.load("data/viz_ts_small_mutated.trees")
 site_descr = str(next(ts_mutated.at_index(2).sites()))
 print(site_descr.replace("[", "[\n  ").replace("),", "),\n ").replace("],", "],\n"))
 ```
@@ -635,7 +735,7 @@ place them, so each tree in this SVG has a nominal "root branch" at the top. Nor
 root branches are not drawn, unless the `force_root_branch` parameter is specified.
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-ts = tskit.load("data/viz_root_mut.ts")
+ts = tskit.load("data/viz_root_mut.trees")
 SVG(ts.draw_svg())
 ```
 
@@ -675,7 +775,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-ts = tskit.load("data/viz_root_mut.ts")
+ts = tskit.load("data/viz_root_mut.trees")
 css_string = (
     ".edge {stroke: grey}"
     ".mut .sym{stroke:pink} .mut text{fill:pink}"
@@ -697,7 +797,7 @@ leaf nodes (if not samples) in blue.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-tables = tskit.load("data/viz_root_mut.ts").dump_tables()
+tables = tskit.load("data/viz_root_mut.trees").dump_tables()
 tables.mutations.clear()
 tables.sites.clear()
 tables.nodes.flags = np.array([0, 0, 1, 1, 0, 0, 0, 1, 1, 0], dtype=tables.nodes.flags.dtype)
@@ -829,13 +929,8 @@ var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
 <button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
 """
 
-ts = msprime.sim_ancestry(
-    5, ploidy=1,
-    sequence_length=10000,
-    recombination_rate=0.00005,
-    random_seed=6787, model="smc_prime", record_full_arg=True)                
-# record_full_arg needed to track recombination nodes (branch positions)
-# random_seed chosen to produce a ts whose leaves are plotted in the same order
+ts = tskit.load("data/viz_spr_animation.trees")
+# created with record_full_arg needed to track recombination nodes (branch positions)
 
 HTML(html_string % (ts.draw_svg(style=css_string), ts.num_trees))
 ```

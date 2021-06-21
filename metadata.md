@@ -32,7 +32,7 @@ existing tree sequence which contains some demonstration metadata:
 import msprime
 import tskit
 
-def create_notebook_data():
+def metadata():
     tables = msprime.sim_ancestry(4).dump_tables()
     tables.individuals.metadata_schema = tskit.MetadataSchema(
     {'additionalProperties': False,
@@ -57,7 +57,10 @@ def create_notebook_data():
     for m, row in zip(md, copy):
         table.append(row.replace(metadata=m))
     ts = tables.tree_sequence()
-    ts.dump("data/metadata.ts")
+    ts.dump("data/metadata.trees")
+
+def create_notebook_data():
+    metadata()
 
 # create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
 ```
@@ -67,7 +70,7 @@ def create_notebook_data():
 import tskit
 import json
 
-ts = tskit.load("data/metadata.ts")
+ts = tskit.load("data/metadata.trees")
 ```
 
 ## Reading metadata and schemas
