@@ -611,7 +611,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees have coalesced. Checked in 0.01457524299621582 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees have coalesced. Checked in 0.018343448638916016 seconds
 </pre></div>
 </div>
 </div>
@@ -676,8 +676,8 @@ long terminal branches, resulting in an excess of singleton mutations.</p>
 <p>It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> method. Here we will use it
-to reduce the number of tips in the trees we are plotting, but it has
-<a class="reference external" href="https://pyslim.readthedocs.io/en/stable/introduction.html#sec-left-in-tree-sequence" title="(in pyslim v0.600)"><span class="xref std std-ref">many other uses</span></a>.</p>
+to reduce the number of tips in the trees we are plotting, but the
+<a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">Simplification tutorial</span></a> details many other uses.</p>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg()</span></code></a> method allows us to draw
 more than one tree: either the entire tree sequence, or
 (by using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter) a smaller region of the genome:</p>

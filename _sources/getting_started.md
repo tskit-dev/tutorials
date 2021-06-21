@@ -170,8 +170,8 @@ long terminal branches, resulting in an excess of singleton mutations.
 It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
 {meth}`TreeSequence.simplify()<tskit.TreeSequence.simplify>` method. Here we will use it
-to reduce the number of tips in the trees we are plotting, but it has
-{ref}`many other uses<pyslim:sec_left_in_tree_sequence>`.
+to reduce the number of tips in the trees we are plotting, but the
+{ref}`Simplification tutorial<sec_simplification>` details many other uses.
 
 The {meth}`TreeSequence.draw_svg()<tskit.TreeSequence.draw_svg>` method allows us to draw
 more than one tree: either the entire tree sequence, or
