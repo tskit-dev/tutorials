@@ -10,11 +10,15 @@ kernelspec:
   language: python
   name: python3
 ---
+
+```{currentmodule} tskit
+```
+
 (sec_tskit_getting_started)=
 # Getting started with {program}`tskit`
 
 You've run some simulations or inference methods, and you now have a 
-{class}`TreeSequence<tskit.TreeSequence>` object; what now? This tutorial is aimed 
+{class}`TreeSequence` object; what now? This tutorial is aimed 
 users who are new to {program}`tskit` and would like to get some
 basic tasks completed. We'll look at five fundamental things you might
 need to do: process trees, sites & mutations, and genotypes, compute statistics, and
@@ -63,17 +67,18 @@ Since we simulated the ancestry of 20 *diploid* individuals, our tree sequence
 contains 40 *sample nodes*, one for each genome.
 :::
 
+(sec_processing_trees)=
+
 ## Processing trees
 
-A common idiom is to iterate over all the {class}`tree objects<tskit.Tree>` in a tree
+A common idiom is to iterate over all the {class}`tree objects<Tree>` in a tree
 sequence. This process underlies many tree sequence algorithms, including those we'll
 encounter later in this tutorial for calculating 
 {ref}`population genetic statistics<tskit:sec_stats>`.
 To iterate over your own tree sequence you can use
-{meth}`TreeSequence.trees()<tskit.TreeSequence.trees>`.
+{meth}`TreeSequence.trees`.
 
 ```{code-cell} ipython3
-print(f"== Tree sequence has {ts.num_trees} trees ==")
 for tree in ts.trees():
     print(f"Tree {tree.index} covers {tree.interval}")
     if tree.index >= 4:
@@ -81,26 +86,27 @@ for tree in ts.trees():
         break
 print(f"Tree {ts.last().index} covers {ts.last().interval}")
 ```
-
-Here we've also used {meth}`TreeSequence.last()<tskit.TreeSequence.last>` to access
-the last tree directly; it may not surprise you that there's a corresponding
-{meth}`TreeSequence.first()<tskit.TreeSequence.first>` method to return the first tree.
-
+::::{margin}
 :::{warning}
-The code above doesn't store the tree anywhere, but merely performs a calculation on
-each tree within the ``for`` loop.  That's because, for efficiency, the
-{meth}`trees()<tskit.TreeSequence.trees>` method repeatedly returns the same tree object,
-updated internally to reflect the (usually small) changes from tree to tree along the
-sequence. For that reason, this won't work:
+For efficiency, {meth}`~TreeSequence.trees` repeatedly returns the
+same tree object, updating it internally to reflect the (usually small) changes
+between adjacent trees. So take care to treat each tree within the ``for``
+loop separately, avoiding e.g. references outside the loop. The following
+produces a list of identical "null" trees:
 
 ```
-list(ts.trees())  # Don't do this! Every tree in the list will be an identical "null" tree
+# Don't do this!
+list(ts.trees())
 ```
 
-If you really do want separate instances of each tree (inefficient, and for large tree
-sequences risks using up all your computer memory), you can use the
-{meth}`TreeSequence.aslist()<tskit.TreeSequence.aslist>` method.
+If you need separate instances of each tree (inefficient, and will
+eat up your computer memory), use {meth}`~TreeSequence.aslist`.
 :::
+::::
+
+In this code snippet, as well as the {meth}`~TreeSequence.trees` iterator, we've also
+used {meth}`TreeSequence.last` to access the last tree directly; it may not surprise you
+that there's a corresponding {meth}`TreeSequence.first` method to return the first tree.
 
 Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
@@ -111,20 +117,22 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 
 ```{code-cell} ipython3
 import time
-start = time.time()
+elapsed = time.time()
 for tree in ts.trees():
     if tree.has_multiple_roots:
         print("Tree {tree.index} has not coalesced")
         break
 else:
-    print(f"All {ts.num_trees} trees have coalesced. Checked in {time.time()-start} seconds")
+    elapsed = time.time() - elapsed
+    print(f"All {ts.num_trees} trees coalesced")
+    print(f"Checked in {elapsed:.6g} secs")
 ```
 
 Now that we know all trees have coalesced, we know that at each position in the genome
 all the 40 sample nodes must have one most recent common ancestor (MRCA). Below, we
 iterate over the trees, finding the IDs of the root (MRCA) node for each tree. The
 time of this root node can be found via the {meth}`tskit.TreeSequence.node` method, which
-returns a {class}`node object<tskit.Node>` whose attributes include the node time:
+returns a {class}`node object<Node>` whose attributes include the node time:
 
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
@@ -145,13 +153,17 @@ plt.show()
 It's obvious that there's something unusual about the trees in the middle of this
 chromosome, where the selective sweep occurred. 
 
+:::{margin} Comments needed
+If you have a need for efficient random access to trees like this, please comment on
+[this GitHub issue](https://github.com/tskit-dev/tskit/issues/684) to help us implement
+a solution.
+:::
+
 Currently, it's not particularly efficient to pull out individual trees from the middle
-of a tree sequence
-(please comment on [this issue](https://github.com/tskit-dev/tskit/issues/684) if you
-have a need for this to be efficient) but it *can* be done, via the
-{meth}`TreeSequence.at()<tskit.TreeSequence.at>` method. Here's the tree at location
+of a tree sequence, but it *can* be done, via the
+{meth}`TreeSequence.at` method. Here's the tree at location
 $5\ 000\ 000$ --- the position of the sweep --- drawn using the 
-{meth}`Tree.draw_svg()<tskit.Tree.draw_svg>` method (see the
+{meth}`Tree.draw_svg` method (see the
 {ref}`visualization tutorial <sec_tskit_viz>` for more visualization possibilities):
 
 ```{code-cell} ipython3
@@ -169,11 +181,11 @@ long terminal branches, resulting in an excess of singleton mutations.
 
 It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
-{meth}`TreeSequence.simplify()<tskit.TreeSequence.simplify>` method. Here we will use it
+{meth}`TreeSequence.simplify` method. Here we will use it
 to reduce the number of tips in the trees we are plotting, but the
 {ref}`Simplification tutorial<sec_simplification>` details many other uses.
 
-The {meth}`TreeSequence.draw_svg()<tskit.TreeSequence.draw_svg>` method allows us to draw
+The {meth}`TreeSequence.draw_svg` method allows us to draw
 more than one tree: either the entire tree sequence, or
 (by using the ``x_lim`` parameter) a smaller region of the genome:
 
@@ -208,11 +220,11 @@ the sites and
 mutations that
 {ref}`define <sec_what_is_dna_data>` the genome sequence itself. This is discussed in the
 tutorial entitled "{ref}`sec_tskit_no_mutations`". Nevertheless, {program}`tskit` also
-provides efficient ways to return {class}`site objects<tskit.Site>` and
-{class}`mutation objects<tskit.Mutation>` from a tree sequence.
+provides efficient ways to return {class}`site objects<Site>` and
+{class}`mutation objects<Mutation>` from a tree sequence.
 For instance, under the finite sites model of mutation that we used above, multiple mutations
 can occur at some sites, and we can identify them by iterating over the sites using the
-{meth}`TreeSequence.sites()<tskit.TreeSequence.sites>` method:
+{meth}`TreeSequence.sites` method:
 
 ```{code-cell} ipython3
 import numpy as np
@@ -232,8 +244,8 @@ for nmuts, count in enumerate(np.bincount(num_muts)):
 
 At each site, the sample nodes will have a particular allelic state (or be flagged as
 {ref}`tskit:sec_data_model_missing_data`). The
-{meth}`TreeSequence.variants()<tskit.TreeSequence.variants>` method gives access to the
-full variation data. For efficiency, the {attr}`genotypes <tskit.Variant.genotypes>`
+{meth}`TreeSequence.variants` method gives access to the
+full variation data. For efficiency, the {attr}`~Variant.genotypes`
 at a site are returned as a [numpy](https://numpy.org) array of integers:
 
 ```{code-cell} ipython3
@@ -254,18 +266,20 @@ adjacent site, and so on along the genome. It is much less efficient look at all
 sites for a single sample, then all the sites for the next sample, etc. In other words,
 you should generally iterate over sites, not samples. Nevertheless, all the alleles for
 a single sample can be obtained via the
-{meth}`TreeSequence.haplotypes()<tskit.TreeSequence.haplotypes>` method.
+{meth}`TreeSequence.haplotypes` method.
 :::
 
 
 To find the actual allelic states at a site, you can refer to the
-{attr}`alleles <tskit.Variant.alleles>` provided for each {class}`variant<tskit.Variant>`:
+{attr}`~Variant.alleles` provided for each {class}`Variant`:
 the genotype value is an index into this list. Here's one way to print them out; for
 clarity this example also prints out the IDs of both the sample nodes (i.e. the genomes)
 and the diploid {ref}`individuals <sec_nodes_or_individuals>` in which each sample
 node resides.
 
-```{code-cell} ipython3
+
+
+````{code-cell} ipython3
 samp_ids = ts.samples()
 print("  ID of diploid individual: ", " ".join([f"{ts.node(s).individual:3}" for s in samp_ids]))
 print("       ID of (sample) node: ", " ".join([f"{s:3}" for s in samp_ids]))
@@ -276,7 +290,7 @@ for v in ts.variants():
     if site.id >= 4:  # only print up to site ID 4
         print("...")
         break
-```
+````
 
 :::{note}
 Since we have used the {class}`msprime.JC69` model of mutations, the alleles are all
@@ -291,7 +305,7 @@ even be a single letter.
 There are a {ref}`large number of statistics<tskit:sec_stats>` and related calculations
 built in to {program}`tskit`. Indeed, many basic population genetic statistics are based
 on the allele (or site) frequency spectrum (AFS), which can be obtained from a tree sequence
-using the {meth}`TreeSequence.allele_frequency_spectrum<tskit.TreeSequence.allele_frequency_spectrum>`
+using the {meth}`TreeSequence.allele_frequency_spectrum`
 method:
 
 ```{code-cell} ipython3
@@ -325,7 +339,7 @@ plt.show()
 On the left is the frequency spectrum averaged over the entire genome, and on the right
 is the spectrum for a section of the tree sequence between 5 and 5.5Mb, which we've
 created by deleting the regions outside that interval using
-{meth}`TreeSequence.keep_intervals()<tskit.TreeSequence.keep_intervals>`. Unsurprisingly,
+{meth}`TreeSequence.keep_intervals`. Unsurprisingly,
 as we noted when looking at the trees, there's a far higher proportion of singletons in
 the region of the sweep.
 

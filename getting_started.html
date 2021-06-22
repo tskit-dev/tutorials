@@ -547,7 +547,7 @@ the chromosome, then throw some neutral mutations onto the resulting tree sequen
 contains 40 <em>sample nodes</em>, one for each genome.</p>
 </div>
 <div class="section" id="processing-trees">
-<h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">¶</a></h2>
+<span id="sec-processing-trees"></span><h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">¶</a></h2>
 <p>A common idiom is to iterate over all the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree</span> <span class="pre">objects</span></code></a> in a tree
 sequence. This process underlies many tree sequence algorithms, including those we’ll
 encounter later in this tutorial for calculating
@@ -556,8 +556,7 @@ To iterate over your own tree sequence you can use
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;== Tree sequence has </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees ==&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2"> covers </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
@@ -567,8 +566,7 @@ To iterate over your own tree sequence you can use
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>== Tree sequence has 11167 trees ==
-Tree 0 covers Interval(left=0.0, right=661.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree 0 covers Interval(left=0.0, right=661.0)
 Tree 1 covers Interval(left=661.0, right=3116.0)
 Tree 2 covers Interval(left=3116.0, right=4451.0)
 Tree 3 covers Interval(left=4451.0, right=4673.0)
@@ -579,23 +577,26 @@ Tree 11166 covers Interval(left=9999635.0, right=10000000.0)
 </div>
 </div>
 </div>
-<p>Here we’ve also used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.last" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.last()</span></code></a> to access
-the last tree directly; it may not surprise you that there’s a corresponding
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The code above doesn’t store the tree anywhere, but merely performs a calculation on
-each tree within the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.  That’s because, for efficiency, the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> method repeatedly returns the same tree object,
-updated internally to reflect the (usually small) changes from tree to tree along the
-sequence. For that reason, this won’t work:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">())</span>  <span class="c1"># Don&#39;t do this! Every tree in the list will be an identical &quot;null&quot; tree</span>
+<p>For efficiency, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> repeatedly returns the
+same tree object, updating it internally to reflect the (usually small) changes
+between adjacent trees. So take care to treat each tree within the <code class="docutils literal notranslate"><span class="pre">for</span></code>
+loop separately, avoiding e.g. references outside the loop. The following
+produces a list of identical “null” trees:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Don&#39;t do this!</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>If you really do want separate instances of each tree (inefficient, and for large tree
-sequences risks using up all your computer memory), you can use the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.aslist" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.aslist()</span></code></a> method.</p>
+<p>If you need separate instances of each tree (inefficient, and will
+eat up your computer memory), use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.aslist" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aslist()</span></code></a>.</p>
 </div>
+</div>
+<p>In this code snippet, as well as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> iterator, we’ve also
+used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.last" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.last()</span></code></a> to access the last tree directly; it may not surprise you
+that there’s a corresponding <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
 <p>Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
 <code class="docutils literal notranslate"><span class="pre">reversed</span></code> function) is efficient. That means it’s quick, for example to check if all
@@ -605,18 +606,21 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">has_multiple_roots</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree </span><span class="si">{tree.index}</span><span class="s2"> has not coalesced&quot;</span><span class="p">)</span>
         <span class="k">break</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees have coalesced. Checked in </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+    <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">elapsed</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees coalesced&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checked in </span><span class="si">{</span><span class="n">elapsed</span><span class="si">:</span><span class="s2">.6g</span><span class="si">}</span><span class="s2"> secs&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees have coalesced. Checked in 0.016828298568725586 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
+Checked in 0.0152161 secs
 </pre></div>
 </div>
 </div>
@@ -650,10 +654,14 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
 chromosome, where the selective sweep occurred.</p>
+<div class="margin sidebar">
+<p class="sidebar-title">Comments needed</p>
+<p>If you have a need for efficient random access to trees like this, please comment on
+<a class="reference external" href="https://github.com/tskit-dev/tskit/issues/684">this GitHub issue</a> to help us implement
+a solution.</p>
+</div>
 <p>Currently, it’s not particularly efficient to pull out individual trees from the middle
-of a tree sequence
-(please comment on <a class="reference external" href="https://github.com/tskit-dev/tskit/issues/684">this issue</a> if you
-have a need for this to be efficient) but it <em>can</em> be done, via the
+of a tree sequence, but it <em>can</em> be done, via the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s the tree at location
 <span class="math notranslate nohighlight">\(5\ 000\ 000\)</span> — the position of the sweep — drawn using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method (see the
@@ -776,9 +784,7 @@ at a site are returned as a <a class="reference external" href="https://numpy.or
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genotypes
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site 0: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
+Site 0: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
 Site 1: [1 1 0 0 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 0 1 0 1 1 1 1 1 0 1 0 1 0 0 1 1]
 Site 2: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0]
 Site 3: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
@@ -798,7 +804,7 @@ a single sample can be obtained via the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.haplotypes()</span></code></a> method.</p>
 </div>
 <p>To find the actual allelic states at a site, you can refer to the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.alleles" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alleles</span></code></a> provided for each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">variant</span></code></a>:
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.alleles" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alleles</span></code></a> provided for each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variant</span></code></a>:
 the genotype value is an index into this list. Here’s one way to print them out; for
 clarity this example also prints out the IDs of both the sample nodes (i.e. the genomes)
 and the diploid <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-nodes-or-individuals" title="(in tskit v0.3)"><span class="xref std std-ref">individuals</span></a> in which each sample
@@ -844,7 +850,7 @@ even be a single letter.</p>
 <p>There are a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">large number of statistics</span></a> and related calculations
 built in to <strong class="program">tskit</strong>. Indeed, many basic population genetic statistics are based
 on the allele (or site) frequency spectrum (AFS), which can be obtained from a tree sequence
-using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.allele_frequency_spectrum</span></code></a>
+using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.allele_frequency_spectrum()</span></code></a>
 method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
