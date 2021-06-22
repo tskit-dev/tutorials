@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Analysing tree sequences &#8212; Tskit Tutorials</title>
+    <title>Counting topologoes &#8212; Tskit Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analysing trees" href="analysing_trees.html" />
-    <link rel="prev" title="Tskit and R" href="tskitr.html" />
+    <link rel="next" title="Do you really need mutations?" href="no_mutations.html" />
+    <link rel="prev" title="Analysing trees" href="analysing_trees.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -155,8 +155,8 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_tree_sequences.html">
    Analysing tree sequences
   </a>
  </li>
@@ -165,8 +165,8 @@
    Analysing trees
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="counting_topologies.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Counting topologoes
   </a>
  </li>
@@ -266,11 +266,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="_sources/analysing_tree_sequences.ipynb"><button type="button"
+            href="_sources/counting_topologies.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/analysing_tree_sequences.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/counting_topologies.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -290,7 +290,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fanalysing_tree_sequences.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fcounting_topologies.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -311,7 +311,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/tskit-dev/tutorials/main?urlpath=tree/analysing_tree_sequences.md"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/tskit-dev/tutorials/main?urlpath=tree/counting_topologies.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -336,12 +336,13 @@
         
               <div>
                 
-  <div class="section" id="analysing-tree-sequences">
-<span id="sec-analysing-tree-sequences"></span><h1>Analysing tree sequences<a class="headerlink" href="#analysing-tree-sequences" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="counting-topologoes">
+<span id="sec-counting-topologies"></span><h1>Counting topologoes<a class="headerlink" href="#counting-topologoes" title="Permalink to this headline">¶</a></h1>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
-<p>Add all stats material from https://tskit.dev/tskit/docs/stable/tutorial.html</p>
-<p>Should we rename this “calculating statistics”, or something else with the word “statistics” in the name?</p>
+<p>Add examples of using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> and introduce <a class="reference external" href="https://tskit.dev/tskit/docs/stable/combinatorics.html#sec-combinatorics" title="(in tskit v0.3)"><span>Combinatorics</span></a>
+in a gentle way.</p>
+<p>See https://github.com/tskit-dev/tutorials/issues/93</p>
 </div>
 </div>
 
@@ -370,8 +371,8 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="tskitr.html" title="previous page">Tskit and R</a>
-    <a class='right-next' id="next-link" href="analysing_trees.html" title="next page">Analysing trees</a>
+    <a class='left-prev' id="prev-link" href="analysing_trees.html" title="previous page">Analysing trees</a>
+    <a class='right-next' id="next-link" href="no_mutations.html" title="next page">Do you really need mutations?</a>
 
         </div>
         
