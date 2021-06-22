@@ -14,7 +14,7 @@ parts:
   - file: metadata
   - file: args
   - file: tskitr
-- caption: Analysis
+- caption: Statistics and Analysis
   chapters:
   - file: analysing_tree_sequences
   - file: analysing_trees
