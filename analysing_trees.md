@@ -102,7 +102,7 @@ places mutations ("characters" in phylogenetic terminology) on a given tree.
 
 ## Tree traversals
 
-There are various a single {class}`Tree`, traversals in various orders are possible using the
+Given a single {class}`Tree`, traversals in various orders are possible using the
 {meth}`~Tree.nodes` iterator. For example, in the following tree we can visit the
 nodes in different orders:
 
