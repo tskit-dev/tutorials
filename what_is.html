@@ -400,12 +400,12 @@ a short 1000 letter chromosome.</p>
 <span class="n">labels</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">n</span><span class="p">:</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genome_order</span><span class="p">)})</span>
 <span class="n">style1</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;.node:not(.sample) &gt; .sym, .node:not(.sample) &gt; .lab {visibility: hidden;}&quot;</span>
-    <span class="s2">&quot;.mut {font-size: 12px}&quot;</span><span class="p">)</span>
+    <span class="s2">&quot;.mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}&quot;</span><span class="p">)</span>
 <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>  <span class="c1"># size of the plot, slightly larger than the default</span>
-
+<span class="n">ticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">]</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
-    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">]))</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -420,12 +420,12 @@ a short 1000 letter chromosome.</p>
 the nodes are referred to by <a class="reference internal" href="basics.html#sec-basics-terminology-nodes"><span class="std std-ref">numerical ID</span></a>.</p>
 </div>
 </div>
-<p>The tickmarks on the X axis and background shading indicates the genomic positions covered
-by the trees. For almost three quarters of the chromosome, from the
-start until position 715, the relationships between the ten genomes are shown by
-the first tree. The second tree shows the relationships between positions 715 and 932,
-and the third from position 932 to the end. We can say that the first tree spans 715 base
-pairs, the second 217, and the third 68.</p>
+<p>The tickmarks on the X axis and background shading indicate the genomic positions covered
+by the trees. For just over half the chromosome, from the
+start until position 580, the relationships between the ten genomes are shown by
+the first tree. The second tree shows the relationships between positions 580 and 833,
+and the third from position 833 to the end. We can say that the first tree spans 580 base
+pairs, the second 253, and the third 167.</p>
 <p>Multiple trees are needed because of
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a>, which causes
 different regions of the chromosome to have different histories. Together, the sequence
@@ -446,8 +446,7 @@ might look in our simple example:</p>
     <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">)</span>
 
 <span class="n">SVG</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
-    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">))</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -461,9 +460,9 @@ mutations are shown along the X axis.</p>
 <p class="sidebar-title">Key point</p>
 <p>Mutation on trees are the source of genetic variation</p>
 </div>
-<p>The trees inform us that, for example, the final mutation (at position 986) is inherited
-by genomes <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{i}\)</span>. These genomes must have a <em>G</em> at that position,
-compared to the original value of <em>C</em>. In other words, once we know the ancestry, placing
+<p>The trees inform us that, for example, the final mutation (at position 995) is inherited
+by genomes <span class="math notranslate nohighlight">\(\mathrm{b}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{i}\)</span>. These genomes must have an <em>A</em> at that position,
+compared to the original value of <em>G</em>. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here’s the resulting “variant matrix”:</p>
 <div class="cell tag_hide-input docutils container">
@@ -476,17 +475,17 @@ variation. Here’s the resulting “variant matrix”:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position: 200 417 428 467 588 667 800 869 875 986
-Genome a:  G   A   T   A   G   C   A   A   T   G
-Genome b:  G   A   T   A   G   C   A   A   T   G
-Genome c:  G   T   T   A   G   C   A   A   T   G
-Genome d:  T   T   G   T   G   C   A   A   T   G
-Genome e:  T   T   G   T   G   T   A   A   T   G
-Genome f:  T   T   G   T   G   T   A   A   T   G
-Genome g:  T   T   G   T   G   C   A   A   T   G
-Genome h:  T   T   G   T   G   C   A   A   T   G
-Genome i:  T   T   G   T   G   C   C   T   C   G
-Genome j:  T   T   G   T   A   C   C   T   C   C
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position: 267 283 301 334 393 654 699 721 809 995
+Genome a:  A   C   G   T   T   G   G   A   A   G
+Genome b:  A   C   G   T   T   G   G   C   T   A
+Genome c:  A   C   G   T   T   G   G   C   T   A
+Genome d:  A   C   G   T   T   G   G   C   T   A
+Genome e:  A   C   G   C   T   G   G   C   T   A
+Genome f:  A   C   G   C   T   G   G   C   T   A
+Genome g:  A   C   G   T   T   G   G   C   T   A
+Genome h:  G   G   T   T   C   G   G   C   T   A
+Genome i:  G   G   T   T   C   A   G   C   T   A
+Genome j:  G   G   G   T   C   G   T   C   A   G
 </pre></div>
 </div>
 </div>
@@ -505,10 +504,9 @@ unchanged between the first and the second tree.</p>
     <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;#svg1 .tree:not(.t2) .node.a</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">.n</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">child</span><span class="si">}</span><span class="s2"> &gt; .edge&quot;</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">kept_edges</span><span class="p">)</span>
     <span class="o">+</span> <span class="s2">&quot;{stroke:#00DD00; stroke-width: 2px}&quot;</span>
     <span class="o">+</span> <span class="n">style1</span><span class="p">)</span>
-<span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">))</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span>  <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -576,34 +574,45 @@ than the distributions of mutations placed upon them — indeed in genetic simul
 The trees reflect, for example, the origin and age of alleles under
 selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.</p>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Insert illustration of the above, perhaps a demesdraw plot, linking to the tree sequence
-in the next code box.</p>
+<p>The tree sequence in the tutorial was actually generated using a model of population
+splits and expansions as shown in the following schematic, plotted using the
+<a class="reference external" href="https://pypi.org/project/demesdraw/">DemesDraw</a> package. Our 10 genomes were sampled
+from modern day populations A (a constant-size population) and B (a recently expanding
+one).</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/what_is_14_0.svg" src="_images/what_is_14_0.svg" /></div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
-tree sequence and the underlying biological processes that produced the genetic sequences
-in the first place. For example, each branch point (or “internal node”) in one of the
-trees above can be imagined as a genome which existed at a specific time in the past, and
+tree sequence and the underlying biological processes that produced the genetic
+sequences in the first place, such as those pictured in the demography above. For
+example, each branch point (or “internal node”) in one of our trees can be
+imagined as a genome which existed at a specific time in the past, and
 which is a “most recent common ancestor” (MRCA) of the descendant genomes at that
-position on the chromosome. We’ll mark these extra “ancestral genomes” on our picture,
-distinguishing them from the <em>sampled</em> genomes (<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>) by using
-circular symbols:</p>
+position on the chromosome. We can mark these extra “ancestral genomes” on our tree
+diagrams, distinguishing them from the <em>sampled</em> genomes (<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>)
+by using circular symbols. We can even colour the nodes by the population that we know
+(or infer) them to belong to at the time:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">style2</span> <span class="o">=</span> <span class="s2">&quot;#svg2 .node &gt; .sym {visibility: visible;}&quot;</span>  <span class="c1"># force-show all nodes: not normally needed</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colours</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;#1f77b4&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;#ff7f0e&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;#2ca02c&quot;</span><span class="p">}</span>
+<span class="n">style2</span> <span class="o">=</span> <span class="s2">&quot;.y-axis .tick .lab {font-size: 85%}&quot;</span>
+<span class="n">style2</span> <span class="o">+=</span> <span class="s2">&quot;#svg2 .node &gt; .sym {visibility: visible;}&quot;</span>  <span class="c1"># force-show all nodes: not normally needed</span>
+<span class="n">style2</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;.p</span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()])</span>
+
 <span class="n">SVG</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg2&#39;</span><span class="p">},</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
-    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
-    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">))</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg2&#39;</span><span class="p">},</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago (generations)&quot;</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_14_0.svg" src="_images/what_is_14_0.svg" /></div>
+<img alt="_images/what_is_16_0.svg" src="_images/what_is_16_0.svg" /></div>
 </div>
-<p>Knowing the tree sequence means that we can easily deduce the ancestral genomes
-<span class="math notranslate nohighlight">\(\mathrm{k}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{u}\)</span>, by looking at which mutations they have inherited.</p>
+<p>It’s clear in this case the ancestral genomes mostly exist much deeper in time than the
+population split, 1000 generations ago, and they the must have resided in the ancestral
+(blue) population. The tree sequence also allows us to easily deduce the ancestral genomes
+<span class="math notranslate nohighlight">\(\mathrm{k}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{u}\)</span>, simply by looking at which mutations they have inherited:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
@@ -615,36 +624,36 @@ circular symbols:</p>
 <span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">missing_data_character</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">num_sites</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;||ANCESTRAL GENOMES||    Position:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;||ANCESTRAL GENOMES||      Position:&quot;</span><span class="p">,</span>
     <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span>
-        <span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> (time </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> in the past):  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> (time </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">7.1f</span><span class="si">}</span><span class="s2"> in the past):  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">haplotypes</span><span class="p">)]))))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  
-||ANCESTRAL GENOMES||    Position: 200 417 428 467 588 667 800 869 875 986
-Genome u (time 65.07 in the past):  T   T   T   A   G   C   A   T   T   C
-Genome t (time 17.93 in the past):                                      G
-Genome s (time 14.85 in the past):  T   T   G   T   G   C                
-Genome r (time 13.70 in the past):                          A   A   T   G
-Genome q (time 10.03 in the past):  G   T   T   A   G   C   A   A   T   G
-Genome p (time  9.12 in the past):  T   T   G   T   G   C   A   A   T   G
-Genome o (time  6.39 in the past):  T   T   G   T   G   C   C   T   C    
-Genome n (time  3.03 in the past):  T   T   G   T   G   C   A   A   T   G
-Genome m (time  1.55 in the past):  G   A   T   A   G   C   A   A   T   G
-Genome l (time  1.53 in the past):  T   T   G   T   G   T   A   A   T   G
-Genome k (time  1.34 in the past):  T   T   G   T   G   C   A   A   T   G
+||ANCESTRAL GENOMES||      Position: 267 283 301 334 393 654 699 721 809 995
+Genome u (time 14237.0 in the past):  G   C   G   T   C   G   G   C   A   G
+Genome t (time 13183.7 in the past):  G   G   G   T   C   G   G   C   A   G
+Genome s (time  6169.6 in the past):                      G   G   C   T   A
+Genome r (time  6036.2 in the past):  A   C   G   T   T                    
+Genome q (time  3887.8 in the past):  A   C   G   T   T   G   G   C   T   A
+Genome p (time  3311.5 in the past):  A   C   G   T   T   G   G   C   T   A
+Genome o (time  3218.8 in the past):                                      A
+Genome n (time  3213.6 in the past):  G   G   T   T   C   G   G   C   T    
+Genome m (time  3131.7 in the past):  A   C   G   T   T   G   G   C   T   A
+Genome l (time   705.4 in the past):  A   C   G   T   T   G   G   C   T   A
+Genome k (time   318.8 in the past):  A   C   G   C   T   G   G   C   T   A
 </pre></div>
 </div>
 </div>
 </div>
-<p>You can see that some ancestors (particularly the older ones) are missing genomic regions,
-because those parts of their genome have not been inherited by any of the sampled
-genomes (i.e. that ancestral node is not part of the tree at that position in the sequence)</p>
+<p>You can see that some ancestors are missing genomic regions, because those parts of
+their genome have not been inherited by any of the sampled genomes. In other words, that
+ancestral node is not present in the tree at that location in the genome.</p>
 </div>
 <div class="section" id="a-framework-for-efficient-computation">
 <span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this headline">¶</a></h2>
@@ -658,11 +667,11 @@ to be extended to the particular form of
 multiple correlated trees along a genome.</p>
 <div class="margin sidebar">
 <p class="sidebar-title">Key point</p>
-<p>Genetic calculations involve iterating over trees, which is highly efficient in tskit</p>
+<p>Most genetic calculations involve iterating over trees, which is highly efficient in tskit</p>
 </div>
-<p>Statistical measures of genetic variation can be thought of as a calculation combining
-the local trees with the mutations on each branch (or, often preferably, the length of the
-branches: see <a class="reference external" href="https://www.genetics.org/content/genetics/215/3/779">this summary</a>).
+<p>For example, statistical measures of genetic variation can be thought of as a calculation
+combining the local trees with the mutations on each branch (or, often preferably, the
+length of the branches: see <a class="reference external" href="https://www.genetics.org/content/genetics/215/3/779">this summary</a>).
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation <em>de novo</em> on each tree.
@@ -689,9 +698,9 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/what_is_18_0.svg" src="_images/what_is_18_0.svg" /></div>
+<img alt="_images/what_is_20_0.svg" src="_images/what_is_20_0.svg" /></div>
 </div>
-<div class="admonition-todo admonition" id="id2">
+<div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Very brief discussion of efficient counting of topologies, i.e. the combinatorics module</p>
 </div>
