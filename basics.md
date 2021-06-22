@@ -56,6 +56,8 @@ If you have read "{ref}`sec_what_is`" we hope to have piqued your interest in tr
 sequences. This tutorial serves as an introdution to the terminology and some of the
 concepts behind {program}`tskit`, the tree sequence toolkit.
 
+(sec_basics_terminology)=
+
 ## Terminology
 
 A tree sequence is a data structure which describes a set of
@@ -102,6 +104,8 @@ which allow a genome composed of multiple chromosomes to be represented as a tre
 sequence, but these are not covered here.
 
 
+(sec_basics_terminology_nodes)=
+
 ### Nodes
 
 Trees in a tree sequence are represented in a slightly unusual way.
@@ -120,6 +124,9 @@ and also 6 non-sample nodes, labelled $6..11$, in the tree sequence above:
 ```{code-cell} ipython3
 print("There are", ts.num_nodes, "nodes, of which", ts.num_samples, "are sample nodes")
 ```
+
+
+(sec_basics_terminology_edges)=
 
 ### Edges
 
@@ -268,6 +275,7 @@ used in further analysis.
 What is provenance
 :::
 
+(sec_basics_concepts)=
 
 ## Concepts
 
@@ -280,6 +288,7 @@ from IPython.display import SVG
 SVG(ts.draw_svg(y_axis=True, y_gridlines=True, time_scale="rank", style=".mut {display: none}"))
 ```
 
+(sec_basics_concepts_sprs)=
 
 ### Tree changes, ancestral recombinations, and SPRs
 
@@ -303,6 +312,8 @@ can occur at the same physical position (e.g. if the genome is treated as a set 
 integer positions, as in the simulation that created this tree sequence) then moving from 
 ne tree to the next in a tree sequence might require multiple SPRs, because there are
 multiple, overlaid ancestral recombination events.
+
+(sec_basics_concepts_args)=
 
 ### Tree sequences and ARGs
 
