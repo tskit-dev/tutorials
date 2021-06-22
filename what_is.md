@@ -332,8 +332,9 @@ genomes (i.e. that ancestral node is not part of the tree at that position in th
 
 Using tree structures is a common way to implement efficient computer algorithms, and
 many [phylogenetic](https://en.wikipedia.org/wiki/Phylogenetics) methods use the
-structure provided by the evolutionary tree to implement efficient so-called
-"dynamic programming" algorithms. The tree sequence structure allows these approaches
+structure provided by the evolutionary tree to implement efficient 
+[dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming)
+algorithms. The tree sequence structure allows these approaches
 to be extended to the particular form of
 [phylogenetic network](https://en.wikipedia.org/wiki/Phylogenetic_network) defined by
 multiple correlated trees along a genome.
