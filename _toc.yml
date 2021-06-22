@@ -14,10 +14,11 @@ parts:
   - file: metadata
   - file: args
   - file: tskitr
-- caption: Analysis
+- caption: Statistics and Analysis
   chapters:
   - file: analysing_tree_sequences
   - file: analysing_trees
+  - file: counting_topologies
 - caption: Backward time simulations
   # TODO this will be broken down more finely as we add more content
   chapters:
