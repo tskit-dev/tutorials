@@ -78,28 +78,7 @@ encounter later in this tutorial for calculating
 To iterate over your own tree sequence you can use
 {meth}`TreeSequence.trees`.
 
-::::{margin}
-:::{warning}
-The code shown here performs a calculation on each tree within the ``for`` loop, but
-takes care not to reference the tree outside the loop.  There's a good reason for this:
-for efficiency, the {meth}`~TreeSequence.trees` method repeatedly returns the
-same tree object, updated internally to reflect the (usually small) changes from tree to
-tree along the sequence. For that reason, the following code will simply produce a list
-of identical "null" trees:
-
-```
-# Don't do this!
-list(ts.trees())
-```
-
-If you really do want separate instances of each tree (inefficient, and for large tree
-sequences risks using up all your computer memory), you can use the
-{meth}`~TreeSequence.aslist` method.
-:::
-::::
-
 ```{code-cell} ipython3
-print(f"== Tree sequence has {ts.num_trees} trees ==")
 for tree in ts.trees():
     print(f"Tree {tree.index} covers {tree.interval}")
     if tree.index >= 4:
@@ -107,11 +86,27 @@ for tree in ts.trees():
         break
 print(f"Tree {ts.last().index} covers {ts.last().interval}")
 ```
+::::{margin}
+:::{warning}
+For efficiency, {meth}`~TreeSequence.trees` repeatedly returns the
+same tree object, updating it internally to reflect the (usually small) changes
+between adjacent trees. So take care to treat each tree within the ``for``
+loop separately, avoiding e.g. references outside the loop. The following
+produces a list of identical "null" trees:
 
-Here we've also used {meth}`TreeSequence.last` to access
-the last tree directly; it may not surprise you that there's a corresponding
-{meth}`TreeSequence.first` method to return the first tree.
+```
+# Don't do this!
+list(ts.trees())
+```
 
+If you need separate instances of each tree (inefficient, and will
+eat up your computer memory), use {meth}`~TreeSequence.aslist`.
+:::
+::::
+
+In this code snippet, as well as the {meth}`~TreeSequence.trees` iterator, we've also
+used {meth}`TreeSequence.last` to access the last tree directly; it may not surprise you
+that there's a corresponding {meth}`TreeSequence.first` method to return the first tree.
 
 Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
@@ -122,13 +117,15 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 
 ```{code-cell} ipython3
 import time
-start = time.time()
+elapsed = time.time()
 for tree in ts.trees():
     if tree.has_multiple_roots:
         print("Tree {tree.index} has not coalesced")
         break
 else:
-    print(f"All {ts.num_trees} trees have coalesced. Checked in {time.time()-start} seconds")
+    elapsed = time.time() - elapsed
+    print(f"All {ts.num_trees} trees coalesced")
+    print(f"Checked in {elapsed:.6g} secs")
 ```
 
 Now that we know all trees have coalesced, we know that at each position in the genome
