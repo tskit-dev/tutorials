@@ -42,6 +42,10 @@ biological principles of inheritance, DNA duplication, and recombination; they c
 created by [simulation](https://tskit.dev/software/#simulate) or by
 [inferring relationships from empirical DNA data](https://tskit.dev/software/#infer).
 
+:::{margin} Key point
+Tree sequences are used to encode and analyse large genetic datasets
+:::
+
 Tree sequences provide an efficient way of storing
 [genetic variation](https://en.wikipedia.org/wiki/Genetic_variation) data, and can
 power analyses of millions of whole [genomes](https://en.wikipedia.org/wiki/Genome).
@@ -49,7 +53,9 @@ Plots (a) and (b) summarize results presented
 [further](plot_storing_everyone) [down](plot_incremental_calculation) this tutorial.
 
 ```{code-cell} ipython3
-:"tags": ["hide-input"]
+:"tags": ["remove-input"]
+# This cell deliberately removed (not just hidden via a toggle) as it's not helpful
+# for understanding tskit code (it's merely plotting code)
 from IPython.display import SVG
 import matplotlib_inline
 import matplotlib.pyplot as plt
@@ -119,6 +125,13 @@ SVG(ts.draw_svg(
     y_axis=True, y_ticks=[0, 2, 5, 10, 20, 50, 100]))
 ```
 
+::::{margin}
+:::{note}
+For clarity in these examples, we are using letters to label nodes. Normally, however,
+the nodes are referred to by {ref}`numerical ID<sec_basics_terminology_nodes>`.
+:::
+::::
+
 The tickmarks on the X axis and background shading indicates the genomic positions covered
 by the trees. For almost three quarters of the chromosome, from the
 start until position 715, the relationships between the ten genomes are shown by
@@ -159,6 +172,10 @@ There are now ten single nucleotide mutations in the tree sequence. They are sho
 branches of the trees, and the positions of the ten variable sites associated with the
 mutations are shown along the X axis.
 
+:::{margin} Key point
+Mutation on trees are the source of genetic variation
+:::
+
 The trees inform us that, for example, the final mutation (at position 986) is inherited
 by genomes $\mathrm{a}$ to $\mathrm{i}$. These genomes must have a *G* at that position,
 compared to the original value of *C*. In other words, once we know the ancestry, placing
@@ -194,23 +211,13 @@ SVG(ts.draw_svg(
     y_label="Time ago", y_ticks=[0, 2, 5, 10, 20, 50, 100], node_labels=labels, style=style3))
 ```
 
-% Another way to think about shared structure is to notice that the second tree can be
-% formed by a simple rearrangement of the first tree. This can be done by simply switching
-% the centre group of five genomes, labelled $\mathrm{d}$ to $\mathrm{h}$, next to
-% $\mathrm{a}+\mathrm{b}+\mathrm{c}$. Similarly, the third tree just involves a single
-% adjustment: the movement of genome $\mathrm{i}$ away from being the closest relative of
-% $\mathrm{j}$. These sort of small rearrangements are typical of how genetic relationships
-% change along chromosomes, in both simulated and real datasets.
-%%% possible link here to a tutorial which talks about SPRs
+:::{margin} Key point
+Tree sequences are efficient because they don't store each tree separately
+:::
 
 A branch can be shared by many adjacent trees, but is stored as a single edge in the tree
 sequence. For large datasets this is a great saving, because typically each tree-change
 affects only a few branches at a time, regardless of the tree size.
-Here's the take-home message:
-
-```{epigraph}
-Tree sequences are efficient because they don't store each tree separately
-```
 
 Below is an extension of the plot at the top of this page, showing predicted
 file sizes when storing not just millions, but billions of human-like genomes:
@@ -249,19 +256,26 @@ plt.show()
 
 ## A record of genetic ancestry
 
+::::{margin}
+:::{note}
+The genetic genealogy is sometimes referred to as an ancestral recombination graph,
+or ARG, and there are {ref}`close similarities<sec_basics_concepts_args>` between ARGs
+and tree sequences (see the {ref}`ARG tutorial<sec_args>`)
+:::
+::::
+
 Often, we're not interested so much in the DNA sequence data as the genetic ancestry
-itself (as discussed in [this summary](https://www.nature.com/articles/s41588-019-0492-x)).
+itself (discussed e.g. [here](https://www.nature.com/articles/s41588-019-0492-x)).
 In other words, the main consideration is the actual trees in a tree sequence, rather
-than the distributions of mutations placed upon them (indeed in genetic simulations, it
-{ref}`may not be necessary<sec_tskit_no_mutations>` to incorporate neutral mutations at all).
-The trees can be used, for example, to determine the origin and age of alleles under
-selection, to capture the spatial structure of populations, or to uncover the effects
+than the distributions of mutations placed upon them --- indeed in genetic simulations, it
+{ref}`may not be necessary<sec_tskit_no_mutations>` to incorporate neutral mutations at all.
+The trees reflect, for example, the origin and age of alleles under
+selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.
 
 ```{todo}
-Insert illustration of the above, e.g. use of branch length calculations rather than
-variants using colours for different branch lengths, or possibly a simple view of a
-tree sequence over geographical space.
+Insert illustration of the above, perhaps a demesdraw plot, linking to the tree sequence
+in the next code box.
 ```
 
 
@@ -304,27 +318,12 @@ print(
         f"Genome {labels[i]} (time {ts.node(i).time:5.2f} in the past):  {h}"
         for i, h in zip(ts_flipped.samples(), haplotypes)]))))
 ```
+
 You can see that some ancestors (particularly the older ones) are missing genomic regions,
 because those parts of their genome have not been inherited by any of the sampled
 genomes (i.e. that ancestral node is not part of the tree at that position in the sequence)
 
-```{note}
-For clarity in these examples, we have been using letters to label nodes, but normally
-the nodes are referred to by number.
-```
 
-```{todo}
-Mention ARGs in passing and link out to the ARG tutorial.
-% Somewhere we should explain *why* trees change along the genome, and it
-% would be good to mention ARGs in passing somewhere. We previously had too much
-% detail, though:
-%
-% The change from one tree to another is also biologically meaningful. It indicates that
-% one or more recombination events occured at this genomic location in the past. Note,
-% however, that for efficiency reasons and more, neither the recombination event itself
-% nor the branches on which it occurred are usually present in a tree sequence, although
-% it is possible to incorporate them via simulation (see the ARG tutorial).
-```
 
 (sec_what_is_analysis)=
 
@@ -334,6 +333,10 @@ Mention ARGs in passing and link out to the ARG tutorial.
 ```{todo}
 Introduction: algorithms on trees are known to be efficient (phylogenetics). We
 extend these to multiple correlated trees. Mention "dynamic programming" in passing.
+```
+
+```{margin} Key point
+Genetic calculations involve iterating over trees, which is highly efficient in tskit 
 ```
 
 Statistical measures of genetic variation can be thought of as a calculation combining
@@ -369,17 +372,10 @@ plt.show()
 Very brief discussion of efficient counting of topologies, i.e. the combinatorics module
 ```
 
-Summary of this subsection:
-
-```{epigraph}
-Genetic calculations involve iterating over trees, which is highly efficient in tskit 
-```
 
 
 ## Further reading
 
-* How is a tree sequence stored: details in the
-  [data structures](sec_data_structures) tutorial
+* Basic concepts: details in the {ref}`sec_basics` tutorial
+* How is a tree sequence stored: details in the {ref}`sec_data_structures` tutorial
 * The offical {program}`tskit` [documentation](https://tskit.dev/tskit/docs)
-  [data structures](sec_data_structures) tutorial
-* The tree sequence philosophy. biological underpinnings and SPRs (to do)

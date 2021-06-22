@@ -411,7 +411,7 @@
 sequences. This tutorial serves as an introdution to the terminology and some of the
 concepts behind <strong class="program">tskit</strong>, the tree sequence toolkit.</p>
 <div class="section" id="terminology">
-<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
+<span id="sec-basics-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
 <p>A tree sequence is a data structure which describes a set of
 evolutionary trees, together with some associated data that specifies, for example,
 the location of mutations in the tree sequence. Here’s how to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in tskit v0.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> one
@@ -464,7 +464,7 @@ current population (since this pattern is seen in all trees, this must have happ
 for all the DNA along the entire 1000 base pair genome).</p>
 </div>
 <div class="section" id="nodes">
-<h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
 <p>Trees in a tree sequence are represented in a slightly unusual way.
 In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
@@ -491,7 +491,7 @@ and also 6 non-sample nodes, labelled <span class="math notranslate nohighlight"
 </div>
 </div>
 <div class="section" id="edges">
-<h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">¶</a></h3>
 <p>In an evolutionary tree, the connections between nodes are conventionally referred to as
 “branches”. In a tree sequence, we instead refer to directional connections between nodes
 as <em>edges</em>, emphasizing that they usually persist across multiple trees. Each edge is
@@ -691,7 +691,7 @@ used in further analysis.</p>
 </div>
 </div>
 <div class="section" id="concepts">
-<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<span id="sec-basics-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <p>There are some basic population genetic concepts which can be helpful with thinking about
 tree sequences. For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
@@ -705,7 +705,7 @@ tree sequences. For reference, here is the tree sequence topology that we have b
 <img alt="_images/basics_25_0.svg" src="_images/basics_25_0.svg" /></div>
 </div>
 <div class="section" id="tree-changes-ancestral-recombinations-and-sprs">
-<h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">¶</a></h3>
 <p>Note that adjacent trees in this tree sequence differ by a single “tree edit” or SPR
 (subtree-prune-and-regraft) operation: the subtree defined by node 8 in the first
 tree has been pruned and regrafted onto the branch from 10 to 3, to create the
@@ -726,7 +726,7 @@ ne tree to the next in a tree sequence might require multiple SPRs, because ther
 multiple, overlaid ancestral recombination events.</p>
 </div>
 <div class="section" id="tree-sequences-and-args">
-<h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">¶</a></h3>
 <p>Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
 recombination events are explictly stored. Although a tree sequence can represent an ARG,

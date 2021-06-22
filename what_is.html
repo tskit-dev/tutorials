@@ -368,55 +368,16 @@ relationships between a set of DNA sequences. Tree sequences are based on fundam
 biological principles of inheritance, DNA duplication, and recombination; they can be
 created by <a class="reference external" href="https://tskit.dev/software/#simulate">simulation</a> or by
 <a class="reference external" href="https://tskit.dev/software/#infer">inferring relationships from empirical DNA data</a>.</p>
+<div class="margin sidebar">
+<p class="sidebar-title">Key point</p>
+<p>Tree sequences are used to encode and analyse large genetic datasets</p>
+</div>
 <p>Tree sequences provide an efficient way of storing
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_variation">genetic variation</a> data, and can
 power analyses of millions of whole <a class="reference external" href="https://en.wikipedia.org/wiki/Genome">genomes</a>.
 Plots (a) and (b) summarize results presented
 <a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-<span class="kn">import</span> <span class="nn">matplotlib_inline</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-
-<span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;data/storing_everyone.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;data/benchmarks_without_copy_longer_genome.txt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">keep</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="s1">&#39;sample_size&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">1e6</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="s1">&#39;sample_size&#39;</span><span class="p">][</span><span class="n">keep</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="s1">&#39;tsk_fit&#39;</span><span class="p">][</span><span class="n">keep</span><span class="p">]</span><span class="o">/</span><span class="n">data1</span><span class="p">[</span><span class="s1">&#39;vcf_fit&#39;</span><span class="p">][</span><span class="n">keep</span><span class="p">]</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;# of 100Mb genomes&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Size of tree sequence</span><span class="se">\n</span><span class="s1">file (relative to VCF) &#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-
-<span class="n">txt</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="s2">&quot;(a) Storing a million genomes as a tree sequence takes thousands of times less disk space&quot;</span><span class="p">,</span>
-    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax1</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
-<span class="n">txt</span><span class="o">.</span><span class="n">_get_wrap_line_width</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">600</span>
-
-<span class="n">ts_time</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">data2</span><span class="p">[[</span><span class="s1">&#39;toolkit&#39;</span><span class="p">,</span><span class="s1">&#39;nsam&#39;</span><span class="p">,</span><span class="s1">&#39;seconds&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;tskit&#39;</span><span class="p">}</span>
-<span class="n">libseq_time</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">data2</span><span class="p">[[</span><span class="s1">&#39;toolkit&#39;</span><span class="p">,</span><span class="s1">&#39;nsam&#39;</span><span class="p">,</span><span class="s1">&#39;seconds&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;libseq&#39;</span><span class="p">}</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ts_time</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">libseq_time</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">libseq_time</span><span class="p">[</span><span class="n">time</span><span class="p">]</span><span class="o">/</span><span class="n">ts_time</span><span class="p">[</span><span class="n">time</span><span class="p">]</span> <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;# of genomes&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tajima&#39;s D calculations per</span><span class="se">\n</span><span class="s2">unit time (relative to libseq)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">txt</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="s2">&quot;(b) Genetic calculations on millions of genomes can be sped up by many orders of magnitude&quot;</span><span class="p">,</span>
-    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax2</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span>
-<span class="p">)</span>    
-<span class="n">txt</span><span class="o">.</span><span class="n">_get_wrap_line_width</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">600</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/what_is_2_0.svg" src="_images/what_is_2_0.svg" /></div>
 </div>
@@ -450,6 +411,14 @@ a short 1000 letter chromosome.</p>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/what_is_4_0.svg" src="_images/what_is_4_0.svg" /></div>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For clarity in these examples, we are using letters to label nodes. Normally, however,
+the nodes are referred to by <a class="reference internal" href="basics.html#sec-basics-terminology-nodes"><span class="std std-ref">numerical ID</span></a>.</p>
+</div>
 </div>
 <p>The tickmarks on the X axis and background shading indicates the genomic positions covered
 by the trees. For almost three quarters of the chromosome, from the
@@ -488,6 +457,10 @@ might look in our simple example:</p>
 <p>There are now ten single nucleotide mutations in the tree sequence. They are shown on the
 branches of the trees, and the positions of the ten variable sites associated with the
 mutations are shown along the X axis.</p>
+<div class="margin sidebar">
+<p class="sidebar-title">Key point</p>
+<p>Mutation on trees are the source of genetic variation</p>
+</div>
 <p>The trees inform us that, for example, the final mutation (at position 986) is inherited
 by genomes <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{i}\)</span>. These genomes must have a <em>G</em> at that position,
 compared to the original value of <em>C</em>. In other words, once we know the ancestry, placing
@@ -542,13 +515,13 @@ unchanged between the first and the second tree.</p>
 <div class="cell_output docutils container">
 <img alt="_images/what_is_10_0.svg" src="_images/what_is_10_0.svg" /></div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title">Key point</p>
+<p>Tree sequences are efficient because they don’t store each tree separately</p>
+</div>
 <p>A branch can be shared by many adjacent trees, but is stored as a single edge in the tree
 sequence. For large datasets this is a great saving, because typically each tree-change
-affects only a few branches at a time, regardless of the tree size.
-Here’s the take-home message:</p>
-<blockquote class="epigraph">
-<div><p>Tree sequences are efficient because they don’t store each tree separately</p>
-</div></blockquote>
+affects only a few branches at a time, regardless of the tree size.</p>
 <p>Below is an extension of the plot at the top of this page, showing predicted
 file sizes when storing not just millions, but billions of human-like genomes:
 enough to encompass every human on the planet. This demonstrates that the tree sequence
@@ -586,19 +559,27 @@ several orders of magnitude faster to process than other storage formats.</p>
 </div>
 <div class="section" id="a-record-of-genetic-ancestry">
 <span id="sec-what-is-ancestry"></span><h2>A record of genetic ancestry<a class="headerlink" href="#a-record-of-genetic-ancestry" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The genetic genealogy is sometimes referred to as an ancestral recombination graph,
+or ARG, and there are <a class="reference internal" href="basics.html#sec-basics-concepts-args"><span class="std std-ref">close similarities</span></a> between ARGs
+and tree sequences (see the <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARG tutorial</span></a>)</p>
+</div>
+</div>
 <p>Often, we’re not interested so much in the DNA sequence data as the genetic ancestry
-itself (as discussed in <a class="reference external" href="https://www.nature.com/articles/s41588-019-0492-x">this summary</a>).
+itself (discussed e.g. <a class="reference external" href="https://www.nature.com/articles/s41588-019-0492-x">here</a>).
 In other words, the main consideration is the actual trees in a tree sequence, rather
-than the distributions of mutations placed upon them (indeed in genetic simulations, it
-<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">may not be necessary</span></a> to incorporate neutral mutations at all).
-The trees can be used, for example, to determine the origin and age of alleles under
-selection, to capture the spatial structure of populations, or to uncover the effects
+than the distributions of mutations placed upon them — indeed in genetic simulations, it
+<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">may not be necessary</span></a> to incorporate neutral mutations at all.
+The trees reflect, for example, the origin and age of alleles under
+selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.</p>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
-<p>Insert illustration of the above, e.g. use of branch length calculations rather than
-variants using colours for different branch lengths, or possibly a simple view of a
-tree sequence over geographical space.</p>
+<p>Insert illustration of the above, perhaps a demesdraw plot, linking to the tree sequence
+in the next code box.</p>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
 tree sequence and the underlying biological processes that produced the genetic sequences
@@ -664,22 +645,17 @@ Genome k (time  1.34 in the past):  T   T   G   T   G   C   A   A   T   G
 <p>You can see that some ancestors (particularly the older ones) are missing genomic regions,
 because those parts of their genome have not been inherited by any of the sampled
 genomes (i.e. that ancestral node is not part of the tree at that position in the sequence)</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For clarity in these examples, we have been using letters to label nodes, but normally
-the nodes are referred to by number.</p>
-</div>
-<div class="admonition-todo admonition" id="id2">
-<p class="admonition-title">Todo</p>
-<p>Mention ARGs in passing and link out to the ARG tutorial.</p>
-</div>
 </div>
 <div class="section" id="a-framework-for-efficient-computation">
 <span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="id3">
+<div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>Introduction: algorithms on trees are known to be efficient (phylogenetics). We
 extend these to multiple correlated trees. Mention “dynamic programming” in passing.</p>
+</div>
+<div class="margin sidebar">
+<p class="sidebar-title">Key point</p>
+<p>Genetic calculations involve iterating over trees, which is highly efficient in tskit</p>
 </div>
 <p>Statistical measures of genetic variation can be thought of as a calculation combining
 the local trees with the mutations on each branch (or, often preferably, the length of the
@@ -712,23 +688,17 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 <div class="cell_output docutils container">
 <img alt="_images/what_is_18_0.svg" src="_images/what_is_18_0.svg" /></div>
 </div>
-<div class="admonition-todo admonition" id="id4">
+<div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">Todo</p>
 <p>Very brief discussion of efficient counting of topologies, i.e. the combinatorics module</p>
 </div>
-<p>Summary of this subsection:</p>
-<blockquote class="epigraph">
-<div><p>Genetic calculations involve iterating over trees, which is highly efficient in tskit</p>
-</div></blockquote>
 </div>
 <div class="section" id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>How is a tree sequence stored: details in the
-<a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">data structures</span></a> tutorial</p></li>
-<li><p>The offical <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs">documentation</a>
-<a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">data structures</span></a> tutorial</p></li>
-<li><p>The tree sequence philosophy. biological underpinnings and SPRs (to do)</p></li>
+<li><p>Basic concepts: details in the <a class="reference internal" href="basics.html#sec-basics"><span class="std std-ref">Tree sequence basics</span></a> tutorial</p></li>
+<li><p>How is a tree sequence stored: details in the <a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">Data structures</span></a> tutorial</p></li>
+<li><p>The offical <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs">documentation</a></p></li>
 </ul>
 </div>
 </div>
