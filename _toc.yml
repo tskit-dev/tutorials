@@ -12,6 +12,7 @@ parts:
   - file: data_structures
   - file: simplification
   - file: metadata
+  - file: args
   - file: tskitr
 - caption: Analysis
   chapters:
