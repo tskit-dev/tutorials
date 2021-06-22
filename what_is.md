@@ -14,17 +14,52 @@ kernelspec:
 ```{code-cell} ipython3
 :tags: [remove-cell]
 import msprime
+import demes
+
 
 def whatis_example():
-    seed = 3096  # chosen to create a nice example simulation
-    ts = msprime.sim_ancestry(5, population_size=1e1, sequence_length=1000,
-        recombination_rate=1e-5, random_seed=seed)
+    demes_yml = """\
+        description:
+          Asymmetric migration between two extant demes.
+        time_units: generations
+        defaults:
+          epoch:
+            start_size: 5000
+        demes:
+          - name: Ancestral_population
+            epochs:
+              - end_time: 1000
+          - name: A
+            ancestors: [Ancestral_population]
+          - name: B
+            ancestors: [Ancestral_population]
+            epochs:
+              - start_size: 2000
+                end_time: 500
+              - start_size: 400
+                end_size: 10000
+        migrations:
+          - source: A
+            dest: B
+            rate: 1e-4
+        """
+    with open("data/whatis_example.yml", "wt") as f:
+        f.write(demes_yml)
+    graph = demes.loads(demes_yml)
+    demography = msprime.Demography.from_demes(graph)
+    # Choose seed so num_trees=3, tips are in same order, and all trees have the same root
+    seed = 1320
+    ts = msprime.sim_ancestry(
+        samples={"A": 2, "B": 3},
+        demography=demography,
+        recombination_rate=1e-8,
+        sequence_length=1000,
+        random_seed=seed)
     # Mutate
-    seed = 244  # a simpler example uses 214
-    mutated_ts = msprime.sim_mutations(ts, rate=5e-5, random_seed=seed)
-    
-    mutated_ts.dump("data/whatis_example.trees")
-    
+    # Choose seed to give 10 muts, 1 in last tree above node 18, none above 0 in first tree
+    seed = 5535
+    ts = msprime.sim_mutations(ts, rate=1e-7, random_seed=seed)
+    ts.dump("data/whatis_example.trees")
 
 def create_notebook_data():
     whatis_example()
@@ -117,12 +152,12 @@ genome_order = [n for n in ts.first().nodes(order="minlex_postorder") if ts.node
 labels.update({n: labels[i] for i, n in enumerate(genome_order)})
 style1 = (
     ".node:not(.sample) > .sym, .node:not(.sample) > .lab {visibility: hidden;}"
-    ".mut {font-size: 12px}")
+    ".mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}")
 sz = (800, 250)  # size of the plot, slightly larger than the default
-
+ticks = [0, 5000, 10000, 15000, 20000]
 SVG(ts.draw_svg(
-    size=sz, node_labels=labels, style=style1, time_scale="log_time", y_label="Time ago",
-    y_axis=True, y_ticks=[0, 2, 5, 10, 20, 50, 100]))
+    size=sz, node_labels=labels, style=style1, y_label="Time ago",
+    y_axis=True, y_ticks=ticks))
 ```
 
 ::::{margin}
@@ -132,12 +167,12 @@ the nodes are referred to by {ref}`numerical ID<sec_basics_terminology_nodes>`.
 :::
 ::::
 
-The tickmarks on the X axis and background shading indicates the genomic positions covered
-by the trees. For almost three quarters of the chromosome, from the
-start until position 715, the relationships between the ten genomes are shown by
-the first tree. The second tree shows the relationships between positions 715 and 932,
-and the third from position 932 to the end. We can say that the first tree spans 715 base
-pairs, the second 217, and the third 68.
+The tickmarks on the X axis and background shading indicate the genomic positions covered
+by the trees. For just over half the chromosome, from the
+start until position 580, the relationships between the ten genomes are shown by
+the first tree. The second tree shows the relationships between positions 580 and 833,
+and the third from position 833 to the end. We can say that the first tree spans 580 base
+pairs, the second 253, and the third 167.
 
 Multiple trees are needed because of
 [genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination), which causes
@@ -164,8 +199,7 @@ for mut in mutated_ts.mutations():  # This entire loop is just to make pretty la
     mut_labels[mut.id] = l.format(site.position, prev, mut.derived_state)
 
 SVG(mutated_ts.draw_svg(
-    size=sz, style=style1, time_scale="log_time",
-    node_labels=labels, mutation_labels=mut_labels))
+    size=sz, style=style1, node_labels=labels, mutation_labels=mut_labels))
 ```
 
 There are now ten single nucleotide mutations in the tree sequence. They are shown on the
@@ -176,9 +210,9 @@ mutations are shown along the X axis.
 Mutation on trees are the source of genetic variation
 :::
 
-The trees inform us that, for example, the final mutation (at position 986) is inherited
-by genomes $\mathrm{a}$ to $\mathrm{i}$. These genomes must have a *G* at that position,
-compared to the original value of *C*. In other words, once we know the ancestry, placing
+The trees inform us that, for example, the final mutation (at position 995) is inherited
+by genomes $\mathrm{b}$ to $\mathrm{i}$. These genomes must have an *A* at that position,
+compared to the original value of *G*. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here's the resulting "variant matrix":
 
@@ -205,10 +239,9 @@ style3 = (
     ",".join(f"#svg1 .tree:not(.t2) .node.a{e.parent}.n{e.child} > .edge" for e in kept_edges)
     + "{stroke:#00DD00; stroke-width: 2px}"
     + style1)
-sz = (500, 250)
 SVG(ts.draw_svg(
-    size=sz, x_lim=(0, 900), root_svg_attributes={'id':'svg1'}, time_scale="log_time", y_axis=True,
-    y_label="Time ago", y_ticks=[0, 2, 5, 10, 20, 50, 100], node_labels=labels, style=style3))
+    size=(500, 250), x_lim=(0, 800), root_svg_attributes={'id':'svg1'},  y_ticks=ticks,
+    node_labels=labels, style=style3))
 ```
 
 :::{margin} Key point
@@ -273,32 +306,61 @@ The trees reflect, for example, the origin and age of alleles under
 selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.
 
-```{todo}
-Insert illustration of the above, perhaps a demesdraw plot, linking to the tree sequence
-in the next code box.
+The tree sequence in the tutorial was actually generated using a model of population
+splits and expansions as shown in the following schematic, plotted using the
+[DemesDraw](https://pypi.org/project/demesdraw/) package. Our 10 genomes were sampled
+from modern day populations A (a constant-size population) and B (a recently expanding
+one). 
+
+```{code-cell} ipython3
+:"tags": ["remove-input"]
+# This cell deliberately removed (not just hidden via a toggle) as it's not helpful
+# for understanding tskit code (it's merely plotting code taken from the demesdraw docs)
+import demes
+import demesdraw
+
+def size_max(graph):
+    return max(
+        max(epoch.start_size, epoch.end_size)
+        for deme in graph.demes
+        for epoch in deme.epochs
+    )
+
+graph = demes.load("data/whatis_example.yml")
+w = 1.5 * size_max(graph)
+positions = dict(Ancestral_population=0, A=-w, B=w)
+fig, ax = plt.subplots(1, figsize=(5, 3))
+ax = demesdraw.tubes(graph, ax=ax, positions=positions, seed=1)
+plt.show(ax.figure)
 ```
 
-
 A major benefit of "tree sequence thinking" is the close relationship between the
-tree sequence and the underlying biological processes that produced the genetic sequences
-in the first place. For example, each branch point (or "internal node") in one of the
-trees above can be imagined as a genome which existed at a specific time in the past, and
+tree sequence and the underlying biological processes that produced the genetic
+sequences in the first place, such as those pictured in the demography above. For
+example, each branch point (or "internal node") in one of our trees can be
+imagined as a genome which existed at a specific time in the past, and
 which is a "most recent common ancestor" (MRCA) of the descendant genomes at that
-position on the chromosome. We'll mark these extra "ancestral genomes" on our picture,
-distinguishing them from the *sampled* genomes ($\mathrm{a}$ to $\mathrm{j}$) by using
-circular symbols: 
+position on the chromosome. We can mark these extra "ancestral genomes" on our tree
+diagrams, distinguishing them from the *sampled* genomes ($\mathrm{a}$ to $\mathrm{j}$)
+by using circular symbols. We can even colour the nodes by the population that we know
+(or infer) them to belong to at the time:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-style2 = "#svg2 .node > .sym {visibility: visible;}"  # force-show all nodes: not normally needed
+colours = {0: "#1f77b4", 1: "#ff7f0e", 2: "#2ca02c"}
+style2 = ".y-axis .tick .lab {font-size: 85%}"
+style2 += "#svg2 .node > .sym {visibility: visible;}"  # force-show all nodes: not normally needed
+style2 += "".join([f".p{n.population} > .sym {{fill: {colours[n.population]}}}" for n in ts.nodes()])
+
 SVG(mutated_ts.draw_svg(
-    size=sz, root_svg_attributes={'id':'svg2'}, y_label="Time ago",
-    time_scale="log_time", y_axis=True, y_ticks=[0, 2, 5, 10, 20, 50, 100],
-    node_labels=labels, mutation_labels={}, style=style2))
+    size=sz, root_svg_attributes={'id':'svg2'}, y_label="Time ago (generations)",
+    y_axis=True, y_ticks=ticks, node_labels=labels, mutation_labels={}, style=style2))
 ```
 
-Knowing the tree sequence means that we can easily deduce the ancestral genomes
-$\mathrm{k}$ to $\mathrm{u}$, by looking at which mutations they have inherited.
+It's clear in this case the ancestral genomes mostly exist much deeper in time than the
+population split, 1000 generations ago, and they the must have resided in the ancestral
+(blue) population. The tree sequence also allows us to easily deduce the ancestral genomes
+$\mathrm{k}$ to $\mathrm{u}$, simply by looking at which mutations they have inherited:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -311,18 +373,17 @@ ts_flipped = tables.tree_sequence()
 haplotypes = ["   ".join(h) for h in ts_flipped.haplotypes(missing_data_character=" ")]
 print(" " * ts_flipped.num_sites, " " * (ts_flipped.num_sites-4), "")
 print(
-    "||ANCESTRAL GENOMES||    Position:",
+    "||ANCESTRAL GENOMES||      Position:",
     " ".join(str(int(s.position)) for s in ts_flipped.sites()))
 print(
     "\n".join(reversed(sorted([
-        f"Genome {labels[i]} (time {ts.node(i).time:5.2f} in the past):  {h}"
+        f"Genome {labels[i]} (time {ts.node(i).time:7.1f} in the past):  {h}"
         for i, h in zip(ts_flipped.samples(), haplotypes)]))))
 ```
 
-You can see that some ancestors (particularly the older ones) are missing genomic regions,
-because those parts of their genome have not been inherited by any of the sampled
-genomes (i.e. that ancestral node is not part of the tree at that position in the sequence)
-
+You can see that some ancestors are missing genomic regions, because those parts of
+their genome have not been inherited by any of the sampled genomes. In other words, that
+ancestral node is not present in the tree at that location in the genome.
 
 
 (sec_what_is_analysis)=
@@ -336,12 +397,12 @@ extend these to multiple correlated trees. Mention "dynamic programming" in pass
 ```
 
 ```{margin} Key point
-Genetic calculations involve iterating over trees, which is highly efficient in tskit 
+Most genetic calculations involve iterating over trees, which is highly efficient in tskit 
 ```
 
-Statistical measures of genetic variation can be thought of as a calculation combining
-the local trees with the mutations on each branch (or, often preferably, the length of the
-branches: see [this summary](https://www.genetics.org/content/genetics/215/3/779)).
+For example, statistical measures of genetic variation can be thought of as a calculation
+combining the local trees with the mutations on each branch (or, often preferably, the
+length of the branches: see [this summary](https://www.genetics.org/content/genetics/215/3/779)).
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation *de novo* on each tree.
