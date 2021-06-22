@@ -648,11 +648,14 @@ genomes (i.e. that ancestral node is not part of the tree at that position in th
 </div>
 <div class="section" id="a-framework-for-efficient-computation">
 <span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="id2">
-<p class="admonition-title">Todo</p>
-<p>Introduction: algorithms on trees are known to be efficient (phylogenetics). We
-extend these to multiple correlated trees. Mention “dynamic programming” in passing.</p>
-</div>
+<p>Using tree structures is a common way to implement efficient computer algorithms, and
+many <a class="reference external" href="https://en.wikipedia.org/wiki/Phylogenetics">phylogenetic</a> methods use the
+structure provided by the evolutionary tree to implement efficient
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dynamic_programming">dynamic programming</a>
+algorithms. The tree sequence structure allows these approaches
+to be extended to the particular form of
+<a class="reference external" href="https://en.wikipedia.org/wiki/Phylogenetic_network">phylogenetic network</a> defined by
+multiple correlated trees along a genome.</p>
 <div class="margin sidebar">
 <p class="sidebar-title">Key point</p>
 <p>Genetic calculations involve iterating over trees, which is highly efficient in tskit</p>
@@ -688,7 +691,7 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 <div class="cell_output docutils container">
 <img alt="_images/what_is_18_0.svg" src="_images/what_is_18_0.svg" /></div>
 </div>
-<div class="admonition-todo admonition" id="id3">
+<div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>Very brief discussion of efficient counting of topologies, i.e. the combinatorics module</p>
 </div>
