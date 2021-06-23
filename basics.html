@@ -413,14 +413,24 @@
   <div class="section" id="tree-sequence-basics">
 <span id="sec-basics"></span><h1>Tree sequence basics<a class="headerlink" href="#tree-sequence-basics" title="Permalink to this headline">¶</a></h1>
 <p>If you have read “<a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>” we hope to have piqued your interest in tree
-sequences. This tutorial serves as an introdution to the terminology and some of the
+sequences. This tutorial serves as an introduction to the terminology and some of the
 concepts behind <strong class="program">tskit</strong>, the tree sequence toolkit.</p>
 <div class="section" id="terminology">
 <span id="sec-basics-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Many of the terms below are also <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions" title="(in tskit v0.3)"><span class="xref std std-ref">covered</span></a>
+in the official <strong class="program">tskit</strong> docs</p>
+</div>
+</div>
 <p>A tree sequence is a data structure which describes a set of
 evolutionary trees, together with some associated data that specifies, for example,
-the location of mutations in the tree sequence. Here’s how to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in tskit v0.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> one
-from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in tskit v0.3)"><span>Python API</span></a>:</p>
+the location of mutations in the tree sequence.</p>
+<p>Below are the most important terms and concepts that you’ll encounter in these tutorials,
+but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in tskit v0.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in tskit v0.3)"><span>Python API</span></a> (which will be used in the rest of this tutorial):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
@@ -432,15 +442,25 @@ from a <code class="docutils literal notranslate"><span class="pre">.trees</span
 </div>
 <div class="section" id="genomes">
 <h3>Genomes<a class="headerlink" href="#genomes" title="Permalink to this headline">¶</a></h3>
-<p>A tree sequence covers a contiguous section of a single chromosome<a class="footnote-reference brackets" href="#multiple-chr-foot" id="id1">1</a>.
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-multiple-chromosomes" title="(in Python)"><span class="xref std std-ref">Workarounds</span></a> exist
+to represent a multi-chromosome genome as a tree
+sequence, but are not covered here</p>
+</div>
+</div>
+<p>A tree sequence covers a contiguous section of a single chromosome.
 For clarity of explanation, we use the word “genome” to refer to the section spanned by
 the whole tree sequence (if you find it easier, imagine our examples describe an
-organism with a single, short chromosome). In the tree sequence we have just loaded,
+organism with a single, short chromosome).</p>
+<p>In the tree sequence we have just loaded,
 the genome is of length 1000, conventionally interpreted as the number of base
 pairs. This is accessible using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sequence_length" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sequence_length</span></code></a> attribute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span>  <span class="c1"># a floating point number: positions are not constrained to be integers</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span>  <span class="c1"># a floating point number: positions need not be integers</span>
 </pre></div>
 </div>
 </div>
@@ -464,7 +484,7 @@ pairs. This is accessible using the <a class="reference external" href="https://
 <p>Each tree records the lines of descent along which a piece of DNA has been
 inherited (ignore for the moment the red symbols, which represent a mutation).
 For example, the first tree tells us that DNA from ancestral genome 7 duplicated
-to produce two lineages, which ended up in sample genome 0 and sample genome 1 in the
+to produce two lineages, which ended up in sample genome 1 and sample genome 4 in the
 current population (since this pattern is seen in all trees, this must have happened
 for all the DNA along the entire 1000 base pair genome).</p>
 </div>
@@ -515,11 +535,12 @@ one of them:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 15 edges, one of which is:
-  Edge(left=282.0, right=560.0, parent=10, child=9, metadata=b&#39;&#39;, id=10)
+  Edge(left=307.0, right=567.0, parent=10, child=9, metadata=b&#39;&#39;, id=10)
 </pre></div>
 </div>
 </div>
 </div>
+<p>(the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> value is discussed below)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <em>number of edges</em> largely determines the entire size of a tree sequence file. Edges
@@ -533,41 +554,33 @@ disk space, and it takes of the order of a few seconds to iterate over all the t
 </div>
 </div>
 <div class="section" id="trees-and-tree-sequences">
-<h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">¶</a></h3>
 <p>The combination of nodes and edges results in a tree sequence. Note that the
 sample nodes (<span class="math notranslate nohighlight">\(0..5\)</span>) are present in all trees since we have their full genomes.
 Additionally, internal nodes are commonly present in several, although not all,
 trees in the tree sequence.</p>
 <p>In tree sequence terminology, we don’t explictly keep track of where nodes
 start and end. Only edges (not nodes) possess a genomic span. So for example, this tree
-sequence is defined using edges like <span class="math notranslate nohighlight">\((0\rightarrow7)\)</span> which spans the entire genome,
-edges like <span class="math notranslate nohighlight">\((10\rightarrow3)\)</span> which only span the leftmost section of the genome, and
-edges like <span class="math notranslate nohighlight">\((11\rightarrow9)\)</span> which span the rightmost part of the genome. Every time an
+sequence is defined using edges like <span class="math notranslate nohighlight">\((7\rightarrow1)\)</span> which spans the entire genome,
+edges like <span class="math notranslate nohighlight">\((11\rightarrow10)\)</span> which only span the leftmost section of the genome, and
+edges like <span class="math notranslate nohighlight">\((11\rightarrow8)\)</span> which span the rightmost part of the genome. Every time an
 edge changes it creates a new tree; the location of the change is known as a <em>breakpoint</em>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">&quot;trees, with breakpoints&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">(</span><span class="n">as_array</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakpoints</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">(</span><span class="n">as_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">&quot;trees, associated with breakpoints&quot;</span><span class="p">,</span> <span class="n">breakpoints</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 3 trees, with breakpoints [   0.  282.  560. 1000.]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 3 trees, associated with breakpoints [   0.  307.  567. 1000.]
 </pre></div>
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The tree sequence we have used here involves a tree with strictly bifurcating splits, but
-this does not need to be the case for tree sequences in general. In particular, where
-tree sequences have been created by the multiple-merger coalecent process, or in tree
-sequences that have been inferred from real data, it is possible to have a parent node
-with 3 or more children in a particular tree. Such multifucations are known as
-<em>polytomies</em>.</p>
-</div>
 </div>
 <div class="section" id="individuals-and-populations">
-<h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes we know that one or more nodes belong to a particular <em>individual</em>. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
 obtain two copies of each autosomal chromosome. The tree with six sample nodes above
@@ -634,7 +647,7 @@ be associated with a larger <em>population</em>. In this example, there is only 
 </div>
 </div>
 <div class="section" id="mutations-and-sites">
-<h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">¶</a></h3>
+<span id="sec-basics-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">¶</a></h3>
 <p>In <strong class="program">tskit</strong>, <em>mutations</em> occur at specific, defined <em>sites</em>. A mutation is
 positioned above a particular node (specified by the node ID), occurs at a particular
 site (specified by a site ID), and involves a change of allelic state to a defined
@@ -662,21 +675,21 @@ Instead, that is a property of the <em>site</em> to which the mutation refers, i
 site ID 0 (which happens to be at position 257):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># For convenience, the Python API returns the mutations at this site too</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># For convenience, the Python API also returns the mutations at the site</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site(id=0, position=257.0, ancestral_state=&#39;T&#39;, mutations=[Mutation(id=0, site=0, node=8, derived_state=&#39;G&#39;, parent=-1, metadata=b&#39;&#39;, time=nan)], metadata=b&#39;&#39;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site(id=0, position=751.0, ancestral_state=&#39;T&#39;, mutations=[Mutation(id=0, site=0, node=8, derived_state=&#39;G&#39;, parent=-1, metadata=b&#39;&#39;, time=nan)], metadata=b&#39;&#39;)
 </pre></div>
 </div>
 </div>
 </div>
-<p>In the plot above, since the the only mutation is above node 8 and has a
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
+<p>In the plot above, since the the only mutation is above node 8 in the last tree, and has
+a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
 8 in the first tree (sample genomes 2, 4, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 257,
 while the others have the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a> of “T”. This means that Ada is
-homozygous for “T”, Bob is heterozygous “T|G”, and Cat is homozygous for “G”.
+homozygous for “T”, Bob is homozygous for “G”, and Cat is heterozygous “T|G”.
 In other words the ancestral state and the details of any mutations at that site,
 when coupled with the tree topology at the site <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> is sufficient to
 define the allelic state possessed by each sample.</p>
@@ -688,11 +701,15 @@ that genomic location). It is perfectly possible to have a site with no mutation
 used in further analysis.</p>
 </div>
 <div class="section" id="provenance">
-<h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="id2">
-<p class="admonition-title">Todo</p>
-<p>What is provenance</p>
-</div>
+<span id="sec-basics-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">¶</a></h3>
+<p>The history of the tree sequence is recorded in a set of provenance entries. That
+includes what produced it, and what operations have been done to it and when. For
+instance, if it was produced by <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplifying</span></a> a tree
+sequence produced by the msprime simulator, the first provenance entry would record the
+call to msprime that produced it, and the second the call to
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> that was done on the result. Ideally, the list of
+provenance entries are sufficient to exactly recreate the tree sequence, but this
+is not always possible.</p>
 </div>
 </div>
 <div class="section" id="concepts">
@@ -709,16 +726,21 @@ tree sequences. For reference, here is the tree sequence topology that we have b
 <div class="cell_output docutils container">
 <img alt="_images/basics_25_0.svg" src="_images/basics_25_0.svg" /></div>
 </div>
+<p>Note that all these trees show strictly bifurcating splits, but this does not need to be
+the case for tree sequences in general. In particular, where tree sequences have been
+created by the multiple-merger coalecent process, or in tree
+sequences that have been inferred from real data, it is possible to have a parent node
+with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
 <div class="section" id="tree-changes-ancestral-recombinations-and-sprs">
 <span id="sec-basics-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">¶</a></h3>
 <p>Note that adjacent trees in this tree sequence differ by a single “tree edit” or SPR
-(subtree-prune-and-regraft) operation: the subtree defined by node 8 in the first
-tree has been pruned and regrafted onto the branch from 10 to 3, to create the
+(subtree-prune-and-regraft) operation: the subtree defined by node 7 in the first
+tree has been pruned and regrafted onto the branch from 0 to 10, to create the
 second tree.</p>
 <p>The second and third trees have the same topology, but differ because their
-ultimate coalesence happened in a different ancestor (this is easy to see in a simulation,
+ultimate coalesence happened in a different ancestor (easy to spot in a simulation,
 but hard to detect in real data). The SPR that created the third tree must involve pruning
-either the subtree below node 7 or the subtree below node 9 and grafted it higher up on
+either the subtree below node 8 or the subtree below node 9 and grafted it higher up on
 the same lineage. In this case it turns out to be impossible to tell just from the tree
 sequence which of those two SPRs actually happened in the simulation.</p>
 <p>In general, each detectable recombination occurring in ancestral history results in a
@@ -727,16 +749,16 @@ positions (an “infinite sites” model of breakpoints), then the number of tre
 sequence equals the number of ancestral recombination events plus one. If recombinations
 can occur at the same physical position (e.g. if the genome is treated as a set of discrete
 integer positions, as in the simulation that created this tree sequence) then moving from
-ne tree to the next in a tree sequence might require multiple SPRs, because there are
+one tree to the next in a tree sequence might require multiple SPRs, because there are
 multiple, overlaid ancestral recombination events.</p>
 </div>
 <div class="section" id="tree-sequences-and-args">
 <span id="sec-basics-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">¶</a></h3>
 <p>Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
-recombination events are explictly stored. Although a tree sequence can represent an ARG,
-by incorporating nodes that represent recombination events, this is not normally done for
-two reasons:</p>
+recombination events are explictly stored. Although a tree sequence <em>can</em> represent an
+ARG, by incorporating nodes that represent recombination events (see the
+<a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARGs as tree sequences</span></a> tutorial), this is not normally done for two reasons:</p>
 <ol class="simple">
 <li><p>Many recombination events are undetectable from sequence data, and even if they are
 detectable, they can be logically impossible to place in the genealogy (as in the
@@ -746,38 +768,157 @@ number of nodes in the total tree sequence, without actually contributing to the
 realised sequences in the samples. In other words, recombination nodes are redundant
 to the storing of genome data.</p></li>
 </ol>
-<p>In other words, compared to an ARG, a standard tree sequence simply stores the trees
-created by recombination events, rather than attempting to record the recombination
-events themselves. Many (but as we have seen, not all) details of the actual
-recombination events can be inferred from the changes in edges along a tree sequence.
-In other words</p>
+<p>Therefore, compared to an ARG, you can think of a standard tree sequence as simply
+storing the trees <em>created by</em> recombination events, rather than attempting to record the
+recombination events themselves. The actual recombination events can be sometimes be
+inferred from these trees but, as we have seen, it’s not always possible. Here’s another
+way to put it:</p>
 <blockquote>
 <div><p>“an ARG encodes the events that occurred in the history of a sample,
 whereas a tree sequence encodes the outcome of those events”
 (<a class="reference external" href="https://doi.org/10.1534/genetics.120.303253">Kelleher <em>et al.</em>, 2019</a>)</p>
 </div></blockquote>
-<div class="admonition-todo admonition" id="id3">
-<p class="admonition-title">Todo</p>
-<p>Link to the ARG tutorial: https://github.com/tskit-dev/tutorials/issues/43</p>
-</div>
 </div>
 <div class="section" id="tables">
 <h3>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="id4">
-<p class="admonition-title">Todo</p>
-<p>The underlying data in a tree sequence is stored of as a set of tables. The API
-for dealing with a tree sequence as a collection of tables is sometimes useful,
-especially if you want to edit an existing tree sequence: more details in the
-<a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">Data structures</span></a> tutorial.</p>
+<p>The underlying data in a tree sequence are stored in a collection of tables. Details of
+these tables, as well as some basic properties of the tree sequence which they encode,
+are shown when printing a tree sequence to the screen:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span>  <span class="c1"># or use `print(ts)` for the plain text representation</span>
+</pre></div>
 </div>
-<hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="multiple-chr-foot"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-multiple-chromosomes" title="(in Python)"><span class="xref std std-ref">Workarounds</span></a> exist
-which allow a genome composed of multiple chromosomes to be represented as a tree
-sequence, but these are not covered here.</p>
-</dd>
-</dl>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+  <style>
+    .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td:first-of-type {text-align: left;}
+    .tskit-details-label {vertical-align: top; padding-right:5px;}
+    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+    .tskit-table-set-table {margin: 12px 0 0 12px;}
+    details {display: inline-block;}
+    summary {cursor: pointer; outline: 0; display: list-item;}
+  </style>
+  <div class="tskit-table-set">
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="padding:0;line-height:21px;">
+              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+              <a target="_blank" href="https://tskit.readthedocs.io/en/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Trees</td><td>3</td></tr>
+          <tr><td>Sequence Length</td><td>1000.0</td></tr>
+          <tr><td>Sample Nodes</td><td>6</td></tr>
+          <tr><td>Total Size</td><td>3.5 KiB</td></tr>
+          <tr>
+            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="line-height:21px;">Table</th>
+            <th>Rows</th>
+            <th>Size</th>
+            <th>Has Metadata</th>
+          </tr>
+        </thead>
+        <tbody>
+
+      <tr>
+        <td>Edges</td>
+          <td>15</td>
+          <td>424 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Individuals</td>
+          <td>3</td>
+          <td>118 Bytes</td>
+          <td style="text-align: center;">
+            ✅
+          </td>
+        </tr>
+
+      <tr>
+        <td>Migrations</td>
+          <td>0</td>
+          <td>4 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Mutations</td>
+          <td>1</td>
+          <td>37 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Nodes</td>
+          <td>12</td>
+          <td>292 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Populations</td>
+          <td>1</td>
+          <td>247 Bytes</td>
+          <td style="text-align: center;">
+            ✅
+          </td>
+        </tr>
+
+      <tr>
+        <td>Provenances</td>
+          <td>3</td>
+          <td>2.3 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Sites</td>
+          <td>1</td>
+          <td>25 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+<p>There is a separate API for dealing with a tree sequence as a collection of tables,
+which can be useful for dealing with large datasets, and is needed if you want to
+<a class="reference internal" href="data_structures.html#sec-data-structures-editing"><span class="std std-ref">edit</span></a> an existing tree sequence. This is covered in
+the <a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">Data structures</span></a> tutorial.</p>
 </div>
 </div>
 </div>
