@@ -309,7 +309,8 @@ selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.
 
 The tree sequence in the tutorial was actually generated using a model of population
-splits and expansions as shown in the following schematic, plotted using the
+splits and expansions as shown in the following schematic,
+{ref}`plotted<sec_tskit_viz_other_demographic>` using the
 [DemesDraw](https://pypi.org/project/demesdraw/) package. Our 10 genomes were sampled
 from modern day populations A (a constant-size population) and B (a recently expanding
 one). 
