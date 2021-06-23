@@ -169,7 +169,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="counting_topologies.html">
-   Counting topologoes
+   Counting topologies
   </a>
  </li>
 </ul>
@@ -613,13 +613,13 @@ admixed tracts are likely to be hard to detect simply from the distribution of m
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_units</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">25</span>  <span class="c1"># Conversion factor for kya to generations</span>
 
 <span class="n">colour_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">}</span>
-<span class="n">css</span> <span class="o">=</span> <span class="s2">&quot;.y-axis .tick .grid {stroke: #CCCCCC} .y-axis .tick .lab {font-size: 90%}&quot;</span>
+<span class="n">css</span> <span class="o">=</span> <span class="s2">&quot;.y-axis .tick .grid {stroke: #CCCCCC} .y-axis .tick .lab {font-size: 85%}&quot;</span>
 <span class="n">css</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;.node.p</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colour_map</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
 <span class="n">css</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
     <span class="sa">f</span><span class="s2">&quot;.mut.m</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> .sym </span><span class="se">{{</span><span class="s2">stroke: </span><span class="si">{</span><span class="n">colour_map</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2"> &quot;</span>
     <span class="sa">f</span><span class="s2">&quot;.mut.m</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> .lab </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colour_map</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2"> &quot;</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mutation_population</span><span class="p">)])</span>
-<span class="n">y_ticks</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">:</span> <span class="s2">&quot;30&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span> <span class="s2">&quot;Eur origin&quot;</span><span class="p">,</span> <span class="mi">70</span><span class="p">:</span> <span class="s2">&quot;Introgress&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">:</span> <span class="s2">&quot;Nea origin&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">}</span>
+<span class="n">y_ticks</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">:</span> <span class="s2">&quot;30&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span> <span class="s2">&quot;Introgress&quot;</span><span class="p">,</span> <span class="mi">70</span><span class="p">:</span> <span class="s2">&quot;Eur origin&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">:</span> <span class="s2">&quot;Nea origin&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">}</span>
 <span class="n">y_ticks</span> <span class="o">=</span> <span class="p">{</span><span class="n">y</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">:</span> <span class="n">lab</span> <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">y_ticks</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
@@ -687,6 +687,9 @@ humans is much smaller:</p>
 </div>
 </div>
 </div>
+<p>So in this model, of the mutations in the ~2% of the Neanderthal genome contained in extant
+Eurasians, the vast majority happened in the ancestral African population.
+Only about 1 in 7 actually mutated in Neanderthals themselves.</p>
 </div>
 </div>
 

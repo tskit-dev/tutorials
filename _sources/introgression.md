@@ -250,13 +250,13 @@ We can plot a fraction of the tree sequence (say the first 25kb) using {ref}`sty
 time_units = 1000 / 25  # Conversion factor for kya to generations
 
 colour_map = {0: "red", 1: "blue", 2: "green"}
-css = ".y-axis .tick .grid {stroke: #CCCCCC} .y-axis .tick .lab {font-size: 90%}"
+css = ".y-axis .tick .grid {stroke: #CCCCCC} .y-axis .tick .lab {font-size: 85%}"
 css += "".join([f".node.p{k} > .sym {{fill: {col}}}" for k, col in colour_map.items()])
 css += "".join([
     f".mut.m{k} .sym {{stroke: {colour_map[v]}}} "
     f".mut.m{k} .lab {{fill: {colour_map[v]}}} "
     for k, v in enumerate(mutation_population)])
-y_ticks = {0: "0", 30: "30", 50: "Eur origin", 70: "Introgress", 300: "Nea origin", 1000: "1000"}
+y_ticks = {0: "0", 30: "30", 50: "Introgress", 70: "Eur origin", 300: "Nea origin", 1000: "1000"}
 y_ticks = {y * time_units: lab for y, lab in y_ticks.items()}
 SVG(ts.draw_svg(
     size=(1200, 500),
@@ -305,3 +305,7 @@ num_introgressed_muts = np.sum([1 for m in extant_ts.mutations() if m.metadata['
 print(
     f"% Neanderthal muts in moderns: {num_introgressed_muts/extant_ts.num_mutations*100:.2f}%")
 ```
+
+So in this model, of the mutations in the ~2% of the Neanderthal genome contained in extant
+Eurasians, the vast majority happened in the ancestral African population.
+Only about 1 in 7 actually mutated in Neanderthals themselves.

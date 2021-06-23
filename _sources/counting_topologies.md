@@ -16,7 +16,7 @@ kernelspec:
 
 (sec_counting_topologies)=
 
-# Counting topologoes
+# Counting topologies
 
 :::{todo}
 Add examples of using {meth}`TreeSequence.count_topologies` and introduce {ref}`sec_combinatorics`
