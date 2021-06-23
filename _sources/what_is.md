@@ -357,10 +357,10 @@ SVG(mutated_ts.draw_svg(
     y_axis=True, y_ticks=ticks, node_labels=labels, mutation_labels={}, style=style2))
 ```
 
-It's clear in this case the ancestral genomes mostly exist much deeper in time than the
-population split, 1000 generations ago, and they the must have resided in the ancestral
-(blue) population. The tree sequence also allows us to easily deduce the ancestral genomes
-$\mathrm{k}$ to $\mathrm{u}$, simply by looking at which mutations they have inherited:
+The diagram shows that most of the ancestral genomes $\mathrm{k}$ to $\mathrm{u}$
+lived much longer ago than the population split, 1000 generations back, and
+resided in the ancestral (blue) population. The tree sequence also allows us to easily
+deduce these MRCA genomes, simply by looking at which mutations they have inherited:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -383,7 +383,7 @@ print(
 
 You can see that some ancestors are missing genomic regions, because those parts of
 their genome have not been inherited by any of the sampled genomes. In other words, that
-ancestral node is not present in the tree at that location in the genome.
+ancestral node is not present in the corresponding local tree.
 
 
 (sec_what_is_analysis)=
@@ -402,7 +402,8 @@ multiple correlated trees along a genome.
 
 
 ```{margin} Key point
-Most genetic calculations involve iterating over trees, which is highly efficient in tskit 
+Most genetic calculations involve iterating over trees, which is highly efficient in
+{program}`tskit`
 ```
 
 For example, statistical measures of genetic variation can be thought of as a calculation
@@ -411,7 +412,7 @@ length of the branches: see [this summary](https://www.genetics.org/content/gene
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation *de novo* on each tree.
-Using {program}`tskit`, the tree sequence toolkit, can result in speed-ups of many
+Using tree sequences can result in speed-ups of many
 orders of magnitude when perfoming calculations on large datasets, as in this example of
 calculating [Tajima's D](https://en.wikipedia.org/wiki/Tajima%27s_D)
 (from [here](https://www.genetics.org/content/215/3/779#F9)):
@@ -434,10 +435,17 @@ plt.legend()
 plt.show()
 ```
 
-```{todo}
-Very brief discussion of efficient counting of topologies, i.e. the combinatorics module
-```
+The {program}`tskit` library has {ref}`extensive support<sec_analysing_tree_sequences>`
+for these sorts of population genetic calculations. It provides efficient methods for
+traversing through large {ref}`trees<sec_analysing_trees_traversals>` and
+{ref}`tree sequences<sec_processing_trees>`, as well as providing other
+phylogenetically relevant methods such as
+{ref}`parsimonious placement of mutations<sec_analysing_trees_parsimony>`,
+and the {ref}`counting of topologies<sec_counting_topologies>` embedded within
+larger trees.
 
+If you are new to tree sequences, and want to start finding out about {program}`tskit`,
+you might now want to continue to the next tutorial: {ref}`sec_basics`.
 
 
 ## Further reading

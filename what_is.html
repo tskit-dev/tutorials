@@ -614,10 +614,10 @@ by using circular symbols. We can even colour the nodes by the population that w
 <div class="cell_output docutils container">
 <img alt="_images/what_is_16_0.svg" src="_images/what_is_16_0.svg" /></div>
 </div>
-<p>It’s clear in this case the ancestral genomes mostly exist much deeper in time than the
-population split, 1000 generations ago, and they the must have resided in the ancestral
-(blue) population. The tree sequence also allows us to easily deduce the ancestral genomes
-<span class="math notranslate nohighlight">\(\mathrm{k}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{u}\)</span>, simply by looking at which mutations they have inherited:</p>
+<p>The diagram shows that most of the ancestral genomes <span class="math notranslate nohighlight">\(\mathrm{k}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{u}\)</span>
+lived much longer ago than the population split, 1000 generations back, and
+resided in the ancestral (blue) population. The tree sequence also allows us to easily
+deduce these MRCA genomes, simply by looking at which mutations they have inherited:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
@@ -658,7 +658,7 @@ Genome k (time   318.8 in the past):  A   C   G   C   T   G   G   C   T   A
 </div>
 <p>You can see that some ancestors are missing genomic regions, because those parts of
 their genome have not been inherited by any of the sampled genomes. In other words, that
-ancestral node is not present in the tree at that location in the genome.</p>
+ancestral node is not present in the corresponding local tree.</p>
 </div>
 <div class="section" id="a-framework-for-efficient-computation">
 <span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this headline">¶</a></h2>
@@ -672,7 +672,8 @@ to be extended to the particular form of
 multiple correlated trees along a genome.</p>
 <div class="margin sidebar">
 <p class="sidebar-title">Key point</p>
-<p>Most genetic calculations involve iterating over trees, which is highly efficient in tskit</p>
+<p>Most genetic calculations involve iterating over trees, which is highly efficient in
+<strong class="program">tskit</strong></p>
 </div>
 <p>For example, statistical measures of genetic variation can be thought of as a calculation
 combining the local trees with the mutations on each branch (or, often preferably, the
@@ -680,7 +681,7 @@ length of the branches: see <a class="reference external" href="https://www.gene
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation <em>de novo</em> on each tree.
-Using <strong class="program">tskit</strong>, the tree sequence toolkit, can result in speed-ups of many
+Using tree sequences can result in speed-ups of many
 orders of magnitude when perfoming calculations on large datasets, as in this example of
 calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Tajima%27s_D">Tajima’s D</a>
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
@@ -705,10 +706,16 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 <div class="cell_output docutils container">
 <img alt="_images/what_is_20_0.svg" src="_images/what_is_20_0.svg" /></div>
 </div>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Very brief discussion of efficient counting of topologies, i.e. the combinatorics module</p>
-</div>
+<p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>
+for these sorts of population genetic calculations. It provides efficient methods for
+traversing through large <a class="reference internal" href="analysing_trees.html#sec-analysing-trees-traversals"><span class="std std-ref">trees</span></a> and
+<a class="reference internal" href="getting_started.html#sec-processing-trees"><span class="std std-ref">tree sequences</span></a>, as well as providing other
+phylogenetically relevant methods such as
+<a class="reference internal" href="analysing_trees.html#sec-analysing-trees-parsimony"><span class="std std-ref">parsimonious placement of mutations</span></a>,
+and the <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">counting of topologies</span></a> embedded within
+larger trees.</p>
+<p>If you are new to tree sequences, and want to start finding out about <strong class="program">tskit</strong>,
+you might now want to continue to the next tutorial: <a class="reference internal" href="basics.html#sec-basics"><span class="std std-ref">Tree sequence basics</span></a>.</p>
 </div>
 <div class="section" id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
