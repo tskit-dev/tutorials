@@ -264,7 +264,9 @@ several orders of magnitude faster to process than other storage formats.
 (plot_storing_everyone)=
 
 ```{code-cell} ipython3
-:"tags": ["hide-input"]
+:"tags": ["remove-input"]
+# This cell deliberately removed (not just hidden via a toggle) as it's not helpful
+# for understanding tskit code (it's merely plotting code)
 x = data1['sample_size']
 fig, ax1 = plt.subplots(1, figsize=(10, 4))
 ax1.spines["top"].set_visible(False)
@@ -307,7 +309,8 @@ selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.
 
 The tree sequence in the tutorial was actually generated using a model of population
-splits and expansions as shown in the following schematic, plotted using the
+splits and expansions as shown in the following schematic,
+{ref}`plotted<sec_tskit_viz_other_demographic>` using the
 [DemesDraw](https://pypi.org/project/demesdraw/) package. Our 10 genomes were sampled
 from modern day populations A (a constant-size population) and B (a recently expanding
 one). 
@@ -419,7 +422,9 @@ calculating [Tajima's D](https://en.wikipedia.org/wiki/Tajima%27s_D)
 
 (plot_incremental_calculation)=
 ```{code-cell} ipython3
-:"tags": ["hide-input"]
+:"tags": ["remove-input"]
+# This cell deliberately removed (not just hidden via a toggle) as it's not helpful
+# for understanding tskit code (it's merely plotting code)
 ts_time = np.array([[n,t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'tskit'])
 ska_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'allel'])
 libseq_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'libseq'])

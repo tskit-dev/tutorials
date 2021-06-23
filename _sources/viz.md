@@ -149,7 +149,7 @@ the {ref}`sec_tskit_viz_examples`.
 
 :::{note}
 This tutorial is primarily focussed on showing a tree sequence as a set of marginal
-trees along a genome. The section titled {ref}`sec_tskit_viz_other_visualizations`
+trees along a genome. The section titled {ref}`sec_tskit_viz_other`
 provides examples of other representations of tree sequences, or the processes that
 can create them. 
 :::
@@ -936,12 +936,14 @@ HTML(html_string % (ts.draw_svg(style=css_string), ts.num_trees))
 ```
   
 
-(sec_tskit_viz_other_visualizations)=
+(sec_tskit_viz_other)=
 ## Other visualizations
 
 As well as visualizing a tree sequence as, well, a sequence of local trees, or by plotting
 {ref}`statistical summaries <tskit:sec_stats>`, other visualizations are possible, some
 of which are outlined below.
+
+(sec_tskit_viz_other_graph)=
 
 ### Graph representations
 
@@ -964,18 +966,40 @@ picture like this:
 (from [here](https://github.com/tskit-dev/tutorials/issues/43#issuecomment-787124425))
 :::
 
+(sec_tskit_viz_other_demographic)=
+
 ### Demographic processes
 
 If you are generating a tree sequence via a {ref}`Demes <msprime:sec_demography_importing>`
 model, then you can visualize a schematic of the demography itself (rather than the
-resulting tree sequence) using the [demesdraw](https://grahamgower.github.io/demesdraw/)
-software.
+resulting tree sequence) using the [DemesDraw](https://grahamgower.github.io/demesdraw/)
+software. For example, here's the plotting code to generate the
+{ref}`demography plot<sec_what_is_ancestry>` from the "{ref}`sec_what_is`" tutorial:
 
-:::{todo}
-Add a nice example e.g. 
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+import matplotlib_inline
+import matplotlib.pyplot as plt
+%matplotlib inline
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 
-![Demesdraw example](https://grahamgower.github.io/demesdraw/_images/quickstart_6_0.svg)
-:::
+import demes
+import demesdraw
+
+def size_max(graph):
+    return max(
+        max(epoch.start_size, epoch.end_size)
+        for deme in graph.demes
+        for epoch in deme.epochs
+    )
+
+# See https://popsim-consortium.github.io/demes-docs/ for the yml spec for the file below
+graph = demes.load("data/whatis_example.yml")
+w = 1.5 * size_max(graph)
+positions = dict(Ancestral_population=0, A=-w, B=w)
+ax = demesdraw.tubes(graph, positions=positions, seed=1)
+plt.show(ax.figure)
+```
 
 ### Geography
 
