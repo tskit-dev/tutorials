@@ -264,7 +264,9 @@ several orders of magnitude faster to process than other storage formats.
 (plot_storing_everyone)=
 
 ```{code-cell} ipython3
-:"tags": ["hide-input"]
+:"tags": ["remove-input"]
+# This cell deliberately removed (not just hidden via a toggle) as it's not helpful
+# for understanding tskit code (it's merely plotting code)
 x = data1['sample_size']
 fig, ax1 = plt.subplots(1, figsize=(10, 4))
 ax1.spines["top"].set_visible(False)
@@ -419,7 +421,9 @@ calculating [Tajima's D](https://en.wikipedia.org/wiki/Tajima%27s_D)
 
 (plot_incremental_calculation)=
 ```{code-cell} ipython3
-:"tags": ["hide-input"]
+:"tags": ["remove-input"]
+# This cell deliberately removed (not just hidden via a toggle) as it's not helpful
+# for understanding tskit code (it's merely plotting code)
 ts_time = np.array([[n,t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'tskit'])
 ska_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'allel'])
 libseq_time = np.array([[n, t] for s, n, t in data2[['toolkit','nsam','seconds']] if s == 'libseq'])
