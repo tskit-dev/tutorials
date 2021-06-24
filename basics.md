@@ -157,7 +157,7 @@ associated with a parent node ID and a child node ID. The time of the parent nod
 strictly greater than the time of the child node, and the difference in these times is
 sometimes referred to as the "length" of the edge. Since trees in a tree sequence are
 usually taken to represent marginal trees along a genome, as well as the time dimension
-each edge also has a genomic _span_, defined by the edge's *left* and a *right* position
+each edge also has a genomic _span_, defined by a *left* and a *right* position
 along the genome. There are 15 edges in the tree sequence above. Here's an example of
 one of them:
 
@@ -278,9 +278,9 @@ In the plot above, since the the only mutation is above node 8 in the last tree,
 a {attr}`~Mutation.derived_state` of "G", we know that the samples descending from node
 8 in the first tree (sample genomes 2, 4, and 5) have a "G" at {attr}`~Site.position` 257,
 while the others have the {attr}`~Site.ancestral_state` of "T". This means that Ada is
-homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T|G".
+homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T/G".
 In other words the ancestral state and the details of any mutations at that site,
-when coupled with the tree topology at the site {attr}`~Site.position` is sufficient to
+when coupled with the tree topology at the site {attr}`~Site.position`, is sufficient to
 define the allelic state possessed by each sample.
 
 Note that even though the genome is 1000 base pairs long, the tree sequence only contains
