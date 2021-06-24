@@ -26,9 +26,9 @@ We aim to be a friendly, welcoming open source community.
 Questions and discussion about using {program}`tskit`, the tree sequence toolkit
 should be directed to the
 [GitHub discussion forum](https://github.com/tskit-dev/tskit/discussions), and there are
-[similar](https://github.com/tskit-dev/msprime/discussions)
-[forums](https://github.com/tskit-dev/tsinfer/discussions) for other software in the
-tree sequence [development community](https://github.com/tskit-dev).
+similar forums for other software in the tree sequence [development community](https://github.com/tskit-dev),
+such as for [msprime](https://github.com/tskit-dev/msprime/discussions) and
+[tsinfer](https://github.com/tskit-dev/tsinfer/discussions).
 
 :::{note}
 Tutorials are under constant development. Those that are still a work in progress and
