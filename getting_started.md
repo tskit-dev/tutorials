@@ -110,7 +110,7 @@ that there's a corresponding {meth}`TreeSequence.first` method to return the fir
 
 Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
-``reversed`` function) is efficient. That means it's quick, for example to check if all
+{func}`~py:reversed` function) is efficient. That means it's quick, for example to check if all
 the trees in a tree sequence have fully coalesced (which is to be expected in
 reverse-time, coalescent simulations, but not always for tree sequences produced by
 {ref}`forward simulation <sec_tskit_forward_simulations>`).
