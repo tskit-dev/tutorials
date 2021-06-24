@@ -87,7 +87,7 @@ for tree in ts.trees():
 print(f"Tree {ts.last().index} covers {ts.last().interval}")
 ```
 ::::{margin}
-:::{warning}
+:::{caution}
 For efficiency, {meth}`~TreeSequence.trees` repeatedly returns the
 same tree object, updating it internally to reflect the (usually small) changes
 between adjacent trees. So take care to treat each tree within the ``for``
