@@ -13,7 +13,9 @@ kernelspec:
 
 (sec_tskit_no_mutations)=
 
-# Do you really need mutations?
+# _Do you really need mutations?_
+% remove underscores in title when tutorial is complete or near-complete
+
 
 Maybe not! This tutorial takes you through a number of common tasks 
 and shows how to do things by working directly with the underlying 

@@ -16,7 +16,9 @@ kernelspec:
 
 (sec_args)=
 
-# ARGs as tree sequences
+# _ARGs as tree sequences_
+% remove underscores in title when tutorial is complete or near-complete
+
 
 :::{todo}
 We can simulate some ARGs in msprime, explain how we can losslessly represent ARGs and get all the information you could want.
