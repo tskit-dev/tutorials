@@ -194,20 +194,36 @@
    </em>
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="demography.html">
-   Demography
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="msprime.html">
+   Advanced
+   <strong class="program">
+    msprime
+   </strong>
+   topics
   </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Instantaneous Bottlenecks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="introgression.html">
-   Introgression
-  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="demography.html">
+     Demography
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Instantaneous Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="introgression.html">
+     Introgression
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="completing-forward-sims.html">
@@ -391,7 +407,7 @@
               <div>
                 
   <div class="section" id="instantaneous-bottlenecks">
-<h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this headline">¶</a></h1>
+<span id="sec-msprime-bottlenecks"></span><h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this headline">¶</a></h1>
 <p><strong>Konrad Lohse and Jerome Kelleher</strong></p>
 <p>A common approach to modelling the effect of demographic history on genealogies is to assume that effective population size (<span class="math notranslate nohighlight">\(N_e\)</span>) changes in discrete steps which define a series of epochs (Griffiths, 1994; Marth et al., 2004; Keightley &amp; Eyre-Walker, 2007; Li &amp; Durbin 2011). In this setting of piece-wise constant <span class="math notranslate nohighlight">\(N_e\)</span>, capturing a population bottleneck requires three epochs: <span class="math notranslate nohighlight">\(N_e\)</span> is reduced by some fraction <span class="math notranslate nohighlight">\(b\)</span> at the start of the bottleneck, <span class="math notranslate nohighlight">\(T_{start}\)</span>, and recovers to its initial value at time <span class="math notranslate nohighlight">\(T_{end}\)</span> (Marth et al., 2004). If bottlenecks are short both on the timescale of coalescence and mutations, one may expect little information about the duration of a bottleneck
 in sequence data. Thus a simpler, alternative model is to assume that bottlenecks are instantaneous (<span class="math notranslate nohighlight">\(T_{end}-T_{start} \rightarrow 0\)</span>) and generate a sudden burst of coalescence events (a multiple merger event) in the genealogy. The strength of the bottleneck B can be thought of as an (imaginary) time period during which coalescence events are collapsed, i.e. there is no growth in genealogical branches during B and the probability that a single pair of lineages entering the bottleneck coalesce during the bottleneck is <span class="math notranslate nohighlight">\(1-e^{-B}\)</span>. Although this simple two parameter model of bottlenecks is attractive and both analytic results and empirical inference (Griffiths, 1994; Galtier et al., 2000; Bunnefeld et al., 2015) have been developed under this model, it has not been straightforward to simulate data under instantaneous bottleneck histories with ms. Instantaneous bottlenecks are implemented as a demographic event in msprime. Instanteous bottlenecks are similar to coalescent approximations for selective sweeps in that they generate multiple merger events. However, unlike sweeps the whole genome is effected equally. Instantanous bottlenecks differ from approximate models of sweeps (Durret &amp; Scheinsberg, 2004) in that they do not affect the exchangeability of lineages. A consequence of this is that all topologies are equally likely (before collapsing, the imaginary bottleneck time).</p>

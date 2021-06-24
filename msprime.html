@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forward simulations &#8212; Tskit Tutorials</title>
+    <title>Advanced msprime topics &#8212; Tskit Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Development" href="development.html" />
-    <link rel="prev" title="Completing forwards simulations" href="completing-forward-sims.html" />
+    <link rel="next" title="Demography" href="demography.html" />
+    <link rel="prev" title="Do you really need mutations?" href="no_mutations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -184,7 +184,7 @@
   Backward time simulations
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    <em>
@@ -192,15 +192,15 @@
    </em>
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    Advanced
    <strong class="program">
     msprime
    </strong>
    topics
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
@@ -234,9 +234,9 @@
   Forward time simulations
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="forward_sims.html">
    <em>
     Forward simulations
    </em>
@@ -296,11 +296,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="_sources/forward_sims.ipynb"><button type="button"
+            href="_sources/msprime.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/forward_sims.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/msprime.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -320,7 +320,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fforward_sims.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fmsprime.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -341,7 +341,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/tskit-dev/tutorials/main?urlpath=tree/forward_sims.md"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/tskit-dev/tutorials/main?urlpath=tree/msprime.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -366,11 +366,17 @@
         
               <div>
                 
-  <div class="section" id="forward-simulations">
-<span id="sec-tskit-forward-simulations"></span><h1><em>Forward simulations</em><a class="headerlink" href="#forward-simulations" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Add forward simulations.</p>
+  <div class="section" id="advanced-msprime-topics">
+<span id="sec-msprime"></span><h1>Advanced <strong class="program">msprime</strong> topics<a class="headerlink" href="#advanced-msprime-topics" title="Permalink to this headline">¶</a></h1>
+<p>These are advanced topics in <a class="reference external" href="https://tskit.dev/msprime">msprime</a> or examples of how to
+do some particular things with it. This chapter is broken down into the following
+sections:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="demography.html">Demography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introgression.html">Introgression</a></li>
+</ul>
 </div>
 </div>
 
@@ -399,8 +405,8 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="completing-forward-sims.html" title="previous page">Completing forwards simulations</a>
-    <a class='right-next' id="next-link" href="development.html" title="next page"><em>Development</em></a>
+    <a class='left-prev' id="prev-link" href="no_mutations.html" title="previous page"><em>Do you really need mutations?</em></a>
+    <a class='right-next' id="next-link" href="demography.html" title="next page">Demography</a>
 
         </div>
         

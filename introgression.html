@@ -194,20 +194,36 @@
    </em>
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="demography.html">
-   Demography
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="msprime.html">
+   Advanced
+   <strong class="program">
+    msprime
+   </strong>
+   topics
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="bottlenecks.html">
-   Instantaneous Bottlenecks
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Introgression
-  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="demography.html">
+     Demography
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="bottlenecks.html">
+     Instantaneous Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Introgression
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="completing-forward-sims.html">
@@ -366,7 +382,7 @@
               <div>
                 
   <div class="section" id="introgression">
-<h1>Introgression<a class="headerlink" href="#introgression" title="Permalink to this headline">¶</a></h1>
+<span id="sec-msprime-introgression"></span><h1>Introgression<a class="headerlink" href="#introgression" title="Permalink to this headline">¶</a></h1>
 <p><strong>Jerome Kelleher and Konrad Lohse</strong></p>
 <p>There has been great interest in understanding the contributions past populations have made to the genetic diversity of current populations via <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_admixture">admixture</a>. In particular, the availability of whole genome sequence data from archaic hominins (<a class="reference external" href="http://doi.org/10.1126/science.1188021">Green et al., 2010</a>) has allowed geneticists to identify admixture tracks (<a class="reference external" href="http://doi.org/10.1016/j.cub.2016.03.037">Sankararaman, 2016</a>). In the simplest case, admixture tracts can be defined heuristically as regions of the genome that show excessive similarity between a putative source and a recipient population (usually quantified relative to some non-admixed reference population, see <a class="reference external" href="http://doi.org/10.1093/molbev/msr048">Durand et al., 2011</a>). Because recombination breaks down admixture tracts, their length distribution gives a clock for calibrating admixture and this information has been used to date the admixure contributions Neanderthals and other archaic hominins have made to non-African modern human populations (<a class="reference external" href="http://doi.org/10.1016/j.cub.2016.03.037">Sankararamanm 2016</a>)</p>
 <p>Crucially, the power to identify admixture depends on the relative time between the admixture event and the earlier divergence between source and recipient population: the shorter this interval, the harder it is to detect admixture. This is because samples from the source and recipient poulations are increasingly likely to share local ancestry regardless of recent admixture. In other words, it becomes increasingly difficult to distinguish admixture from <a class="reference external" href="https://en.wikipedia.org/wiki/Incomplete_lineage_sorting">incomplete lineage sorting</a> (ILS).</p>

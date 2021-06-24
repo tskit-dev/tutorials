@@ -192,20 +192,36 @@
    </em>
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="demography.html">
-   Demography
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="msprime.html">
+   Advanced
+   <strong class="program">
+    msprime
+   </strong>
+   topics
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="bottlenecks.html">
-   Instantaneous Bottlenecks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="introgression.html">
-   Introgression
-  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="demography.html">
+     Demography
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="bottlenecks.html">
+     Instantaneous Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="introgression.html">
+     Introgression
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="completing-forward-sims.html">
@@ -594,6 +610,9 @@ the same result as before:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0, 2), (1, 2), (2, 2), (3, 2), (4, 2), (5, 1), (6, 1), (7, 0)]
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -856,14 +875,11 @@ out mutation table as above, we would impute the missing value for 0 as red.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ancestral state =  
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>red
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ancestral state =  red
 Mutation: node = 6 derived_state = blue
 </pre></div>
 </div>
-<img alt="_images/analysing_trees_34_2.svg" src="_images/analysing_trees_34_2.svg" /></div>
+<img alt="_images/analysing_trees_34_1.svg" src="_images/analysing_trees_34_1.svg" /></div>
 </div>
 <p>Note that this is putting a mutation to blue over node 6, <strong>not</strong> node 0 as
 we might expect. Thus, we impute here that node 1 is blue. It is important
