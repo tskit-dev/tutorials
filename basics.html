@@ -85,7 +85,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Tskit tutorials
+   Tree sequence tutorials
   </a>
  </li>
 </ul>
@@ -132,7 +132,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="simplification.html">
-   Simplification
+   <em>
+    Simplification
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -142,7 +144,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="args.html">
-   ARGs as tree sequences
+   <em>
+    ARGs as tree sequences
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -159,7 +163,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="analysing_tree_sequences.html">
-   Analysing tree sequences
+   <em>
+    Analysing tree sequences
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -169,7 +175,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="counting_topologies.html">
-   Counting topologies
+   <em>
+    Counting topologies
+   </em>
   </a>
  </li>
 </ul>
@@ -181,7 +189,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
-   Do you really need mutations?
+   <em>
+    Do you really need mutations?
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -213,7 +223,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
-   Forward simulations
+   <em>
+    Forward simulations
+   </em>
   </a>
  </li>
 </ul>
@@ -225,7 +237,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="development.html">
-   Development
+   <em>
+    Development
+   </em>
   </a>
  </li>
 </ul>
@@ -524,7 +538,7 @@ associated with a parent node ID and a child node ID. The time of the parent nod
 strictly greater than the time of the child node, and the difference in these times is
 sometimes referred to as the “length” of the edge. Since trees in a tree sequence are
 usually taken to represent marginal trees along a genome, as well as the time dimension
-each edge also has a genomic <em>span</em>, defined by the edge’s <em>left</em> and a <em>right</em> position
+each edge also has a genomic <em>span</em>, defined by a <em>left</em> and a <em>right</em> position
 along the genome. There are 15 edges in the tree sequence above. Here’s an example of
 one of them:</p>
 <div class="cell docutils container">
@@ -689,9 +703,9 @@ site ID 0 (which happens to be at position 257):</p>
 a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
 8 in the first tree (sample genomes 2, 4, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 257,
 while the others have the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a> of “T”. This means that Ada is
-homozygous for “T”, Bob is homozygous for “G”, and Cat is heterozygous “T|G”.
+homozygous for “T”, Bob is homozygous for “G”, and Cat is heterozygous “T/G”.
 In other words the ancestral state and the details of any mutations at that site,
-when coupled with the tree topology at the site <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> is sufficient to
+when coupled with the tree topology at the site <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a>, is sufficient to
 define the allelic state possessed by each sample.</p>
 <p>Note that even though the genome is 1000 base pairs long, the tree sequence only contains
 a single site, because we usually only bother defining <em>variable</em> sites in a tree

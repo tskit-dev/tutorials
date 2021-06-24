@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tskit tutorials &#8212; Tskit Tutorials</title>
+    <title>Tree sequence tutorials &#8212; Tskit Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -82,7 +82,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1 current">
   <a class="reference internal" href="#">
-   Tskit tutorials
+   Tree sequence tutorials
   </a>
  </li>
 </ul>
@@ -129,7 +129,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="simplification.html">
-   Simplification
+   <em>
+    Simplification
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -139,7 +141,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="args.html">
-   ARGs as tree sequences
+   <em>
+    ARGs as tree sequences
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -156,7 +160,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="analysing_tree_sequences.html">
-   Analysing tree sequences
+   <em>
+    Analysing tree sequences
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -166,7 +172,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="counting_topologies.html">
-   Counting topologies
+   <em>
+    Counting topologies
+   </em>
   </a>
  </li>
 </ul>
@@ -178,7 +186,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
-   Do you really need mutations?
+   <em>
+    Do you really need mutations?
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -210,7 +220,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
-   Forward simulations
+   <em>
+    Forward simulations
+   </em>
   </a>
  </li>
 </ul>
@@ -222,7 +234,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="development.html">
-   Development
+   <em>
+    Development
+   </em>
   </a>
  </li>
 </ul>
@@ -264,7 +278,10 @@
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        
+        <a class="dropdown-buttons"
+            href="_sources/intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
@@ -302,6 +319,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/tskit-dev/tutorials/main?urlpath=tree/intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -315,12 +349,28 @@
         
               <div>
                 
-  <div class="section" id="tskit-tutorials">
-<h1>Tskit tutorials<a class="headerlink" href="#tskit-tutorials" title="Permalink to this headline">¶</a></h1>
-<p>This is the home of tskit tutorials.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This site is under heavy development.</p>
+  <div class="section" id="tree-sequence-tutorials">
+<h1>Tree sequence tutorials<a class="headerlink" href="#tree-sequence-tutorials" title="Permalink to this headline">¶</a></h1>
+<p><strong>Welcome!</strong></p>
+<p>This site contains a number of tutorials to develop your understanding of
+<a class="reference external" href="https://tskit.dev/learn.html#what">tree sequences</a> and software programs,
+such as <a class="reference external" href="https://tskit.dev/msprime">msprime</a>, that use them.</p>
+<p>If you are new to the world of tree sequences, we suggest you start with the
+first tutorial: <a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a></p>
+<p>We aim to be a friendly, welcoming open source community.
+Questions and discussion about using <strong class="program">tskit</strong>, the tree sequence toolkit
+should be directed to the
+<a class="reference external" href="https://github.com/tskit-dev/tskit/discussions">GitHub discussion forum</a>, and there are
+similar forums for other software in the tree sequence <a class="reference external" href="https://github.com/tskit-dev">development community</a>,
+such as for <a class="reference external" href="https://github.com/tskit-dev/msprime/discussions">msprime</a> and
+<a class="reference external" href="https://github.com/tskit-dev/tsinfer/discussions">tsinfer</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tutorials are under constant development. Those that are still a work in progress and
+not yet ready for use are shown in <em>italics</em> in the list of tutorials.</p>
+<p>We very much welcome help developing existing tutorials or writing new ones. Please open
+or contribute to a <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues">GitHub issue</a> if you
+would like to help out.</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>

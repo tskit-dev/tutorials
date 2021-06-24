@@ -85,7 +85,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Tskit tutorials
+   Tree sequence tutorials
   </a>
  </li>
 </ul>
@@ -132,7 +132,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="simplification.html">
-   Simplification
+   <em>
+    Simplification
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -142,7 +144,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="args.html">
-   ARGs as tree sequences
+   <em>
+    ARGs as tree sequences
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -159,7 +163,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="analysing_tree_sequences.html">
-   Analysing tree sequences
+   <em>
+    Analysing tree sequences
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -169,7 +175,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="counting_topologies.html">
-   Counting topologies
+   <em>
+    Counting topologies
+   </em>
   </a>
  </li>
 </ul>
@@ -181,7 +189,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
-   Do you really need mutations?
+   <em>
+    Do you really need mutations?
+   </em>
   </a>
  </li>
  <li class="toctree-l1">
@@ -213,7 +223,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
-   Forward simulations
+   <em>
+    Forward simulations
+   </em>
   </a>
  </li>
 </ul>
@@ -225,7 +237,9 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="development.html">
-   Development
+   <em>
+    Development
+   </em>
   </a>
  </li>
 </ul>
@@ -584,8 +598,8 @@ Tree 11166 covers Interval(left=9999635.0, right=10000000.0)
 </div>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
 <p>For efficiency, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> repeatedly returns the
 same tree object, updating it internally to reflect the (usually small) changes
 between adjacent trees. So take care to treat each tree within the <code class="docutils literal notranslate"><span class="pre">for</span></code>
@@ -604,7 +618,7 @@ used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pyt
 that there’s a corresponding <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
 <p>Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
-<code class="docutils literal notranslate"><span class="pre">reversed</span></code> function) is efficient. That means it’s quick, for example to check if all
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
 the trees in a tree sequence have fully coalesced (which is to be expected in
 reverse-time, coalescent simulations, but not always for tree sequences produced by
 <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
@@ -625,7 +639,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0189233 secs
+Checked in 0.020324 secs
 </pre></div>
 </div>
 </div>

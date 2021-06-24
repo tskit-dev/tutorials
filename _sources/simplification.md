@@ -22,10 +22,10 @@ def create_notebook_data():
 # create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
 ```
 
-
 (sec_simplification)=
 
-# Simplification
+# _Simplification_
+% remove underscores in title when tutorial is complete or near-complete
 
 :::{todo}
 Create content. See https://github.com/tskit-dev/tutorials/issues/52
