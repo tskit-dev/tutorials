@@ -23,9 +23,11 @@ parts:
   # TODO this will be broken down more finely as we add more content
   chapters:
   - file: no_mutations
-  - file: demography
-  - file: bottlenecks
-  - file: introgression
+  - file: msprime
+    sections:
+    - file: demography
+    - file: bottlenecks
+    - file: introgression
   - file: completing-forward-sims
 - caption: Forward time simulations
   # TODO port/add forward simulation contents
