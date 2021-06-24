@@ -11,6 +11,8 @@ kernelspec:
   name: python3
 ---
 
+(sec_msprime_demography)=
+
 # Demography
 
 **Georgia Tsambos**
