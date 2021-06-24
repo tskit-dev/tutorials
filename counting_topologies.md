@@ -16,7 +16,9 @@ kernelspec:
 
 (sec_counting_topologies)=
 
-# Counting topologies
+# _Counting topologies_
+% remove underscores in title when tutorial is complete or near-complete
+
 
 :::{todo}
 Add examples of using {meth}`TreeSequence.count_topologies` and introduce {ref}`sec_combinatorics`

@@ -30,6 +30,7 @@ sphinx:
     config:
       todo_include_todos: true
       intersphinx_mapping:
+        py: ["https://docs.python.org/3", null]
         tskit: ["https://tskit.dev/tskit/docs/stable", null]
         msprime: ["https://tskit.dev/msprime/docs/stable", null]
         pyslim: ["https://pyslim.readthedocs.io/en/stable", null]

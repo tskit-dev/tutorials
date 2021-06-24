@@ -11,15 +11,12 @@ kernelspec:
 
 # Completing forwards simulations
 
-:::{note}
-Link to other tutorial sections on forward sims
-:::
-
 The ``msprime`` simulator generates tree sequences using the backwards in
 time coalescent model. But it is also possible to output tree sequences
 from [forwards-time](https://doi.org/10.1371/journal.pcbi.1006581)
 simulators such as [SLiM](https://messerlab.org/slim)
-and [fwdpy11](https://fwdpy11.readthedocs.io/).
+and [fwdpy11](https://fwdpy11.readthedocs.io/) (see the
+{ref}`sec_tskit_forward_simulations` tutorial).
 There are many advantages to using forward-time simulators, but they
 are usually quite slow compared to similar coalescent simulations. In this
 section we show how to combine the best of both approaches by simulating

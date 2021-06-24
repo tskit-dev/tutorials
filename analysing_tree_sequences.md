@@ -16,7 +16,8 @@ kernelspec:
 
 (sec_analysing_tree_sequences)=
 
-# Analysing tree sequences
+# _Analysing tree sequences_
+% remove underscores in title when tutorial is complete or near-complete
 
 :::{todo}
 Add all stats material from https://tskit.dev/tskit/docs/stable/tutorial.html
