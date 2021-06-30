@@ -36,8 +36,13 @@ def viz_ts():
     ts_small.dump("data/viz_ts_small.trees")
 
     ts_small_mutated = msprime.sim_mutations(ts_small, rate=1e-7, random_seed=342)
+    # 3rd tree should have first site with 2 muts
+    first_site_tree_2 = next(ts_small_mutated.at_index(2).sites())
+    assert len(first_site_tree_2.mutations) == 2
+    # mutation 8 should be above node 16 in the 1st tree
+    assert ts_small_mutated.site(8).mutations[0].id == 8
+    assert ts_small_mutated.site(8).mutations[0].node == 16
     ts_small_mutated.dump("data/viz_ts_small_mutated.trees")
-
 
 def viz_root_mut():
     """
