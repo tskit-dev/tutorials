@@ -531,7 +531,7 @@ one key feature of genomic data: adjacent trees along a chromosome are highly co
 that is, they <em>share structure</em>. In our example this becomes evident
 if we highlight the branches (“edges” in tree sequence terminology) that remain
 unchanged between the first and the second tree.</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell tag_hide-input docutils container" id="fig-what-is-edge-diffs">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Highlight certain edges in certain trees. Other visualization possibilities in tutorials/viz.html</span>
 <span class="n">kept_edges</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">edges</span><span class="p">()</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">left</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">right</span><span class="o">&gt;</span><span class="n">ts</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">(</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
