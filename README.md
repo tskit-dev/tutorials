@@ -1,7 +1,8 @@
 # tutorials
 
 A set of tutorials for the tskit ecosystem build using
-[Jupyter Book](https://jupyterbook.org/)
+[Jupyter Book](https://jupyterbook.org/), served up at
+[https://tskit.dev/tutorials/](https://tskit.dev/tutorials/)
 
 
 **Under construction**
