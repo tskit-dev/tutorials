@@ -231,6 +231,8 @@ that is, they *share structure*. In our example this becomes evident
 if we highlight the branches ("edges" in tree sequence terminology) that remain
 unchanged between the first and the second tree.
 
+(fig_what_is_edge_diffs)=
+
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 # Highlight certain edges in certain trees. Other visualization possibilities in tutorials/viz.html
