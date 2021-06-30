@@ -329,26 +329,30 @@ with 3 or more children in a particular tree (these are known as *polytomies*).
 
 ### Tree changes, ancestral recombinations, and SPRs
 
-Note that adjacent trees in this tree sequence differ by a single "tree edit" or SPR
-(subtree-prune-and-regraft) operation: the subtree defined by node 7 in the first
-tree has been pruned and regrafted onto the branch from 0 to 10, to create the
-second tree.
+The reason that tree sequences are efficient is that very few edges
+{ref}`change from tree to tree<fig_what_is_edge_diffs>`. More specifically, recombination
+results in adjacent trees that differ by only a few "tree edit" or SPR
+(subtree-prune-and-regraft) operations. This is seen in the example tree sequence above.
 
-The second and third trees have the same topology, but differ because their
-ultimate coalesence happened in a different ancestor (easy to spot in a simulation,
-but hard to detect in real data). The SPR that created the third tree must involve pruning
-either the subtree below node 8 or the subtree below node 9 and grafted it higher up on
-the same lineage. In this case it turns out to be impossible to tell just from the tree
-sequence which of those two SPRs actually happened in the simulation.
+In this (simulated) tree sequence, each tree differs from the next by a single SPR.
+The subtree defined by node 7 in the first tree has been pruned and regrafted onto the
+branch between 0 and 10, to create the second tree. The second and third trees have the
+same topology, but differ because their ultimate coalesence happened in a different
+ancestor (easy to spot in a simulation, but hard to detect in real data). This is also
+caused by a single SPR: looking at the second tree, either the subtree below node 8 or
+the subtree below node 9 must have been pruned and regrafted higher up on the same
+lineage to create the third tree. In other words, one of two possible SPRs occurred
+historically to create the third tree, but it is impossible to tell just from the
+tree sequence the exact history of recombination.
 
 In general, each detectable recombination occurring in ancestral history results in a
 single SPR in the tree sequence. If recombination breakpoints occurs at unique
 positions (an "infinite sites" model of breakpoints), then the number of trees in a tree
 sequence equals the number of ancestral recombination events plus one. If recombinations
-can occur at the same physical position (e.g. if the genome is treated as a set of discrete
-integer positions, as in the simulation that created this tree sequence) then moving from 
-one tree to the next in a tree sequence might require multiple SPRs, because there are
-multiple, overlaid ancestral recombination events.
+can occur at the same physical position (e.g. if the genome is treated as a set of
+discrete integer positions, as in the simulation that created this tree sequence) then
+moving from  one tree to the next in a tree sequence might require multiple SPRs,
+because there are multiple, overlaid ancestral recombination events.
 
 (sec_basics_concepts_args)=
 
