@@ -4,6 +4,7 @@ demesdraw
 matplotlib
 seaborn
 pandas
+scikit-allel
 numpy
 networkx
 msprime>=1.0
