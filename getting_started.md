@@ -21,14 +21,19 @@ You've run some simulations or inference methods, and you now have a
 {class}`TreeSequence` object; what now? This tutorial is aimed 
 users who are new to {program}`tskit` and would like to get some
 basic tasks completed. We'll look at five fundamental things you might
-need to do: process trees, sites & mutations, and genotypes, compute statistics, and
-export data. Throughout, we'll also provide pointers to where you can learn more.
+need to do:
+{ref}`process trees<sec_processing_trees>`,
+{ref}`sites & mutations<sec_processing_sites_and_mutations>`, and
+{ref}`genotypes<sec_processing_genotypes>`,
+{ref}`compute statistics<sec_tskit_getting_started_compute_statistics>`, and
+{ref}`saving or export data<sec_tskit_getting_started_exporting_data>`.
+Throughout, we'll also provide pointers to where you can learn more.
 
 :::{note}
 The examples in this
-tutorial are all written in Python, but it's also possible to {ref}`use R <sec_tskit_r>`,
-or access the API in [other](https://tskit.dev/tskit/docs/stable/c-api.html)
-[languages](https://github.com/tskit-dev/tskit-rust).
+tutorial are all written using the {ref}`sec_python_api`, but it's also possible to
+{ref}`use R <sec_tskit_r>`, or access the API in other languages, notably
+{ref}`C<sec_c_api>` and [Rust](https://github.com/tskit-dev/tskit-rust).
 :::
 
 First, let's simulate an example tree sequence of a 10Mb chromosome in twenty
@@ -163,8 +168,7 @@ Currently, it's not particularly efficient to pull out individual trees from the
 of a tree sequence, but it *can* be done, via the
 {meth}`TreeSequence.at` method. Here's the tree at location
 $5\ 000\ 000$ --- the position of the sweep --- drawn using the 
-{meth}`Tree.draw_svg` method (see the
-{ref}`visualization tutorial <sec_tskit_viz>` for more visualization possibilities):
+{meth}`Tree.draw_svg` method.
 
 ```{code-cell} ipython3
 from IPython.display import SVG
@@ -175,15 +179,22 @@ print(f"Tree number {swept_tree.index}, which runs from position {intvl.left} to
 # Draw it at a wide size, to make room for all 40 tips
 SVG(swept_tree.draw_svg(size=(1000, 200)))
 ```
+:::{margin}
+The {ref}`visualization tutorial <sec_tskit_viz>` gives more drawing possibilities
+:::
 
 This tree shows the classic signature of a recent expansion or selection event, with many
 long terminal branches, resulting in an excess of singleton mutations.
 
+:::{margin}
+The {ref}`Simplification tutorial<sec_simplification>` details many other uses
+for {meth}`~TreeSequence.simplify`.
+:::
+
 It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
-{meth}`TreeSequence.simplify` method. Here we will use it
-to reduce the number of tips in the trees we are plotting, but the
-{ref}`Simplification tutorial<sec_simplification>` details many other uses.
+{meth}`TreeSequence.simplify` method.
+.
 
 The {meth}`TreeSequence.draw_svg` method allows us to draw
 more than one tree: either the entire tree sequence, or
@@ -198,29 +209,34 @@ display(SVG(reduced_ts.draw_svg(x_lim=(0, 5000))))
 These are much more standard-looking coalescent trees, with far longer branches higher
 up in the tree, and therefore many more mutations at higher-frequencies.
 
+:::{margin}
+You cannot directly edit a tree sequence; to add e.g. metadata you must edit a
+copy of the underlying tables. This is described in the
+{ref}`data structures tutorial<sec_data_structures>`.
+:::
+
 :::{note}
 In this tutorial we refer to objects, such as sample nodes, by their numerical IDs. These
 can change after simplification, and it is often more meaningful to 
 {ref}`work with metadata<sec_tutorial_metadata>`, such as sample and population names,
-which can be permanently attached to objects in the tree sequence. Often metadata is
-incorporated automatically by the tools generating the tree sequence. Note that if you
-wish to edit the tree sequence,
-for example to add information such as this, it cannot be done directly, as tree
-sequences are immutable. Instead you need to edit a copy of the underlying tables, as
-described in the {ref}`data structures tutorial<sec_data_structures>`.
+which can be permanently attached to objects in the tree sequence. Such metadata is
+often incorporated automatically by the tools generating the tree sequence. 
 :::
 
-
+(sec_processing_sites_and_mutations)=
 
 ## Processing sites and mutations
 
+:::{margin}
+See the tutorial entitled "{ref}`sec_tskit_no_mutations`" for why you may not need
+sites or mutations in your analyses.
+:::
 
 For many purposes it may be better to focus on the genealogy of your samples, rather than
 the sites and
 mutations that
-{ref}`define <sec_what_is_dna_data>` the genome sequence itself. This is discussed in the
-tutorial entitled "{ref}`sec_tskit_no_mutations`". Nevertheless, {program}`tskit` also
-provides efficient ways to return {class}`site objects<Site>` and
+{ref}`define <sec_what_is_dna_data>` the genome sequence itself. Nevertheless,
+{program}`tskit` also provides efficient ways to return {class}`site objects<Site>` and
 {class}`mutation objects<Mutation>` from a tree sequence.
 For instance, under the finite sites model of mutation that we used above, multiple mutations
 can occur at some sites, and we can identify them by iterating over the sites using the
@@ -239,6 +255,8 @@ for nmuts, count in enumerate(np.bincount(num_muts)):
         info += f", with IDs {np.where(num_muts==nmuts)[0]},"
     print(info, f"have {nmuts} mutation" + ("s" if nmuts != 1 else ""))
 ```
+
+(sec_processing_genotypes)=
 
 ## Processing genotypes
 
@@ -300,6 +318,8 @@ even be a single letter.
 :::
 
 
+(sec_tskit_getting_started_compute_statistics)=
+
 ## Compute statistics
 
 There are a {ref}`large number of statistics<tskit:sec_stats>` and related calculations
@@ -343,13 +363,17 @@ created by deleting the regions outside that interval using
 as we noted when looking at the trees, there's a far higher proportion of singletons in
 the region of the sweep.
 
+(sec_tskit_getting_started_compute_statistics_windowing)=
+
+### Windowing
+
 It is often useful to see how statistics vary in different genomic regions. This is done
 by calculating them in {ref}`tskit:sec_stats_windows` along the genome. For this,
-let's look at a single statistic, the genetic diversity (π). As a site statistic this
-measures the average number of genetic differences between two randomly chosen samples,
-whereas as a branch length statistic it measures the average branch length between them.
-We'll plot how the value of π changes using 10kb windows, plotting the resulting
-diversity between positions 4 and 6 Mb:
+let's look at a single statistic, the genetic {meth}`~TreeSequence.diversity` (π). As a
+site statistic this measures the average number of genetic differences between two
+randomly chosen samples, whereas as a branch length statistic it measures the average
+branch length between them. We'll plot how the value of π changes using 10kb windows,
+plotting the resulting diversity between positions 4 and 6 Mb:
 
 ```{code-cell} ipython3
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12, 3))
@@ -373,32 +397,128 @@ There's a clear drop in diversity in the region of the selective sweep. And as e
 the statistic based on branch-lengths gives a less noisy signal.
 
 
-## Exporting data
+(sec_tskit_getting_started_exporting_data)=
 
-:::{todo}
-Saving in VCF or ms format.
-:::
+## Saving and exporting data
+
+Tree sequences can be efficiently saved to file using {meth}`TreeSequence.dump`, and
+loaded back again using {func}`tskit.load`. By convention, we use the suffix ``.trees``
+for such files:
+
+```{code-cell} ipython3
+import tskit
+
+ts.dump("data/my_tree_sequence.trees")
+new_ts = tskit.load("data/my_tree_sequence.trees")
+```
+
+It's also possible to export tree sequences to different formats. Note, however, that
+not only are these usually much larger files, but that analysis is usually much faster
+when performed by built-in tskit functions than by exporting and using alternative
+software. If you have a large tree sequence, you should *try to avoid exporting
+to other formats*.
+
+### Newick and Nexus format
+
+The most common format for interchanging tree data is Newick. 
+We can export to a newick format string quite easily. This can be useful for
+interoperating with existing tree processing libraries but is very inefficient for
+large trees. There is also no support for including sites and mutations in the trees.
+
+```{code-cell} ipython3
+small_ts = reduced_ts.keep_intervals([[0, 10000]])
+tree = small_ts.first()
+print(tree.newick(precision=3))
+```
+
+For an entire set of trees, you can use the Nexus file format, which acts as a container
+for a list of Newick format trees, one per line:
+
+```{code-cell} ipython3
+small_ts = small_ts.trim()  # Must trim off the blank region at the end of cut-down ts
+print(small_ts.to_nexus(precision=3))
+```
+
+### VCF
+
+The standard way of interchanging genetic variation data is the Variant Call Format, 
+for which tskit has basic support:
+
+```{code-cell} ipython3
+import sys
+small_ts.write_vcf(sys.stdout)
+```
+
+The write_vcf method takes a file object as a parameter; to get it to write out to the
+notebook here we ask it to write to stdout.
+
+### Scikit-allel
+
+Because tskit integrates very closely with numpy, we can interoperate very efficiently
+with downstream Python libraries for working with genetic
+sequence data, such as [scikit-allel](https://scikit-allel.readthedocs.io/en/stable/).
+We can interoperate with {program}`scikit-allel` by exporting the genotype matrix as a
+numpy array, which {program}`scikit-allel` can then process in various ways.
+
+```{code-cell} ipython3
+import allel
+# Export the genotype data to allel. Unfortunately there's a slight mismatch in the 
+# terminology here where genotypes and haplotypes mean different things in the two
+# libraries.
+h = allel.HaplotypeArray(small_ts.genotype_matrix())
+print(h.n_variants, h.n_haplotypes)
+h
+```
+
+Sckit.allel has a wide-ranging and efficient suite of tools for working with genotype
+data, so should provide anything that's needed. For example, it gives us an
+another way to compute the pairwise diversity statistic (that we calculated
+{ref}`above<sec_tskit_getting_started_compute_statistics_windowing>`
+using the native {meth}`TreeSequence.diversity` method):
+
+```{code-cell} ipython3
+ac = h.count_alleles()
+allel.mean_pairwise_difference(ac)
+```
+
+
+(sec_tskit_getting_started_key_points)=
 
 ## Key points covered above
 
-Some simple methods and take-home messages from this tutorial, in rough order of importance:
+Some simple methods and take-home messages from this introduction to the
+{program}`tskit` {ref}`sec_python_api`,
+in rough order of importance:
 
-* In python, a tree sequence object has a number of basic attributes such as
-    ``.num_trees``, ``.num_sites``, ``.num_samples``, ``.sequence_length``. Similarly
-    a tree object has e.g. an ``.interval`` attribute, a site object has a ``.mutations``
-    attribute, a node object has a ``.time`` attribute, and so on.
-* Each sample node corresponds to a sampled genome; diploid individuals in a tree sequence
-    contain 2 sample nodes
-* ``ts.samples()`` returns an array of node IDs specifying the nodes that are marked as samples
-* ``ts.node(X)`` returns the node object for node ID X
-* ``ts.trees()`` iterates over all the trees
-* ``ts.sites()`` iterates over all the sites
-* ``ts.variants()`` iterates over all the sites with their genotypes and alleles
-* ``ts.simplify()`` reduces the number of sample nodes in the tree sequence to a specified subset
-* ``ts.keep_intervals()`` (or its complement, ``ts.delete_intervals()``) deletes unwanted parts of the genome
-* ``.draw_svg()`` plots trees or tree sequences
-* ``ts.at()`` returns a tree at a particular genomic position (but using ``ts.trees()`` is usually preferable)
-* Various population genetic statistics can be calculated using methods on a tree sequence, for example
-    ``ts.allele_frequency_spectrum``, ``ts.diversity``, ``ts.Fst``, and these can also be
-    calculated in windows along the genome.
+* Objects and their attributes
+    * In Python, a {class}`TreeSequence` object has a number of basic attributes such as
+        {attr}`~TreeSequence.num_trees`, {attr}`~TreeSequence.num_sites`,
+        {attr}`~TreeSequence.num_samples`, {attr}`~TreeSequence.sequence_length`, etc.
+        Similarly a {class}`Tree` object has e.g. an {attr}`~Tree.interval` attribute, a
+        {class}`Site` object has a {attr}`~Site.mutations` attribute, a {class}`Node`
+        object has a {attr}`~Node.time` attribute, and so on.
+    * {ref}`sec_basics_terminology_nodes` (i.e. genomes) can belong to
+        {ref}`individuals<sec_basics_terminology_individuals_and_populations>`. For example,
+        sampling a diploid individual results in an {class}`Individual` object which
+        possesses two distinct {ref}`sample nodes<sec_basics_terminology_nodes_samples>`.
+* Key tree sequence methods
+    * {meth}`~TreeSequence.samples()` returns an array of node IDs specifying the
+        nodes that are marked as samples
+    * {meth}`~TreeSequence.node` returns the node object for a given integer node ID
+    * {meth}`~TreeSequence.trees` iterates over all the trees
+    * {meth}`~TreeSequence.sites` iterates over all the sites
+    * {meth}`~TreeSequence.variants` iterates over all the sites with their genotypes
+        and alleles
+    * {meth}`~TreeSequence.simplify()` reduces the number of sample nodes in the tree
+        sequence to a specified subset
+    * {meth}`~TreeSequence.keep_intervals()` (or its complement,
+        {meth}`~TreeSequence.delete_intervals()`) deletes unwanted parts of the genome
+    * {meth}`~TreeSequence.draw_svg()` plots tree sequences (and {meth}`Tree.draw_svg()`
+        plots trees)
+    * {meth}`~TreeSequence.at()` returns a tree at a particular genomic position
+        (but using {meth}`~TreeSequence.trees` is usually preferable)
+    * Various population genetic statistics can be calculated using methods on a tree
+        sequence, for example {meth}`~TreeSequence.allele_frequency_spectrum`,
+        {meth}`~TreeSequence.diversity`, and {meth}`~TreeSequence.Fst`; these can
+        also be calculated in windows along the genome.
 
