@@ -133,12 +133,20 @@ In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
 objects. In tree sequences, however, all nodes, both internal and terminal,
 are represented by an integer ID, unique over the entire tree sequence, and which exists
-at a specific point in time. The tips (leaves) of the tree, are usually marked as
-*sample nodes*, represented by square symbols in the visualization. In most cases
-sample nodes will be on the tips of a tree: they represent genomes with a fully known
-genetic sequence. Internal nodes (circles) represent ancestors in which a single DNA
+at a specific point in time. A branch point in any of the trees is associated with
+an _internal node_, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
-coalesced (in backwards-time terminology). There are 6 sample nodes, labelled $0..5$,
+coalesced (in backwards-time terminology). 
+
+
+(sec_basics_terminology_nodes_samples)=
+
+#### Sample nodes
+
+The tip (leaf) nodes of the tree are usually marked as *sample nodes*, represented by
+square symbols in the visualization. Sample nodes are the focal nodes in a tree
+sequence, represent genomes that we have obtained data from (i.e. "sampled"), and which
+therefore have a fully known genetic sequence. There are 6 sample nodes, labelled $0..5$,
 and also 6 non-sample nodes, labelled $6..11$, in the tree sequence above:
 
 ```{code-cell} ipython3

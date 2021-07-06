@@ -379,6 +379,13 @@
     <a class="reference internal nav-link" href="#nodes">
      Nodes
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sample-nodes">
+       Sample nodes
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#edges">
@@ -525,12 +532,16 @@ In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
 objects. In tree sequences, however, all nodes, both internal and terminal,
 are represented by an integer ID, unique over the entire tree sequence, and which exists
-at a specific point in time. The tips (leaves) of the tree, are usually marked as
-<em>sample nodes</em>, represented by square symbols in the visualization. In most cases
-sample nodes will be on the tips of a tree: they represent genomes with a fully known
-genetic sequence. Internal nodes (circles) represent ancestors in which a single DNA
+at a specific point in time. A branch point in any of the trees is associated with
+an <em>internal node</em>, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
-coalesced (in backwards-time terminology). There are 6 sample nodes, labelled <span class="math notranslate nohighlight">\(0..5\)</span>,
+coalesced (in backwards-time terminology).</p>
+<div class="section" id="sample-nodes">
+<span id="sec-basics-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">¶</a></h4>
+<p>The tip (leaf) nodes of the tree are usually marked as <em>sample nodes</em>, represented by
+square symbols in the visualization. Sample nodes are the focal nodes in a tree
+sequence, represent genomes that we have obtained data from (i.e. “sampled”), and which
+therefore have a fully known genetic sequence. There are 6 sample nodes, labelled <span class="math notranslate nohighlight">\(0..5\)</span>,
 and also 6 non-sample nodes, labelled <span class="math notranslate nohighlight">\(6..11\)</span>, in the tree sequence above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -541,6 +552,7 @@ and also 6 non-sample nodes, labelled <span class="math notranslate nohighlight"
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 12 nodes, of which 6 are sample nodes
 </pre></div>
+</div>
 </div>
 </div>
 </div>

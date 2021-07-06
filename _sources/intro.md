@@ -11,6 +11,8 @@ kernelspec:
   name: python3
 ---
 
+(sec_intro)=
+
 # Tree sequence tutorials
 
 **Welcome!**
