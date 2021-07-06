@@ -143,11 +143,11 @@ coalesced (in backwards-time terminology).
 
 #### Sample nodes
 
-The tip (leaf) nodes of the tree are usually marked as *sample nodes*, represented by
-square symbols in the visualization. Sample nodes are the focal nodes in a tree
-sequence, represent genomes that we have obtained data from (i.e. "sampled"), and which
-therefore have a fully known genetic sequence. There are 6 sample nodes, labelled $0..5$,
-and also 6 non-sample nodes, labelled $6..11$, in the tree sequence above:
+The tip (leaf) nodes of the tree are usually marked as *sample nodes*, plotted as square
+symbols in the visualization. Sample nodes are the focal nodes in a tree sequence; they
+normally represent genomes from which we have obtained data (i.e. which we have "sampled"),
+and which therefore have a fully known genetic sequence. There are 6 sample nodes,
+labelled $0..5$, and also 6 non-sample nodes, labelled $6..11$, in the tree sequence above:
 
 ```{code-cell} ipython3
 print("There are", ts.num_nodes, "nodes, of which", ts.num_samples, "are sample nodes")
