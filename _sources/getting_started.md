@@ -76,7 +76,7 @@ contains 40 *sample nodes*, one for each genome.
 
 ## Processing trees
 
-A common idiom is to iterate over all the {class}`tree objects<Tree>` in a tree
+A common idiom is to iterate over all the {class}`Tree` objects in a tree
 sequence. This process underlies many tree sequence algorithms, including those we'll
 encounter later in this tutorial for calculating 
 {ref}`population genetic statistics<tskit:sec_stats>`.
@@ -137,7 +137,7 @@ Now that we know all trees have coalesced, we know that at each position in the 
 all the 40 sample nodes must have one most recent common ancestor (MRCA). Below, we
 iterate over the trees, finding the IDs of the root (MRCA) node for each tree. The
 time of this root node can be found via the {meth}`tskit.TreeSequence.node` method, which
-returns a {class}`node object<Node>` whose attributes include the node time:
+returns a {class}`Node` object whose attributes include the node time:
 
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
@@ -194,7 +194,6 @@ for {meth}`~TreeSequence.simplify`.
 It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
 {meth}`TreeSequence.simplify` method.
-.
 
 The {meth}`TreeSequence.draw_svg` method allows us to draw
 more than one tree: either the entire tree sequence, or
@@ -233,11 +232,11 @@ sites or mutations in your analyses.
 :::
 
 For many purposes it may be better to focus on the genealogy of your samples, rather than
-the sites and
-mutations that
+the {ref}`sites<sec_data_model_definitions_site>` and
+{ref}`mutations<sec_data_model_definitions_mutation>` that
 {ref}`define <sec_what_is_dna_data>` the genome sequence itself. Nevertheless,
-{program}`tskit` also provides efficient ways to return {class}`site objects<Site>` and
-{class}`mutation objects<Mutation>` from a tree sequence.
+{program}`tskit` also provides efficient ways to return {class}`Site` object and
+{class}`Mutation` objects from a tree sequence.
 For instance, under the finite sites model of mutation that we used above, multiple mutations
 can occur at some sites, and we can identify them by iterating over the sites using the
 {meth}`TreeSequence.sites` method:
@@ -512,7 +511,8 @@ in rough order of importance:
     * {meth}`~TreeSequence.simplify()` reduces the number of sample nodes in the tree
         sequence to a specified subset
     * {meth}`~TreeSequence.keep_intervals()` (or its complement,
-        {meth}`~TreeSequence.delete_intervals()`) deletes unwanted parts of the genome
+        {meth}`~TreeSequence.delete_intervals()`) removes genetic information from
+        specific regions of the genome
     * {meth}`~TreeSequence.draw_svg()` plots tree sequences (and {meth}`Tree.draw_svg()`
         plots trees)
     * {meth}`~TreeSequence.at()` returns a tree at a particular genomic position

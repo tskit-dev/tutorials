@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Working with Metadata &#8212; Tskit Tutorials</title>
+    <title>Working with Metadata &#8212; Tree Sequence Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -71,8 +71,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
-      <h1 class="site-logo" id="site-title">Tskit Tutorials</h1>
+      
+      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -83,7 +85,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Tree sequence tutorials
+   Welcome!
   </a>
  </li>
 </ul>
@@ -564,9 +566,9 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValidationError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
-<span class="g g-Whitespace">    </span><span class="mi">656</span>         <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">657</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span>         <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/jsonschema/validators.py</span> in <span class="ni">validate</span><span class="nt">(self, *args, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">352</span>             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -586,22 +588,22 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4727</span><span class="o">/</span><span class="mf">4092786825.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5100</span><span class="o">/</span><span class="mf">4092786825.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
-<span class="g g-Whitespace">    </span><span class="mi">651</span>         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">652</span>             <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
-<span class="ne">--&gt; </span><span class="mi">653</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">654</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">655</span>             <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">652</span>         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">653</span>             <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
+<span class="ne">--&gt; </span><span class="mi">654</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">655</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span>             <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
-<span class="g g-Whitespace">    </span><span class="mi">657</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">659</span>             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">ve</span>
-<span class="g g-Whitespace">    </span><span class="mi">660</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">661</span> 
+<span class="g g-Whitespace">    </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">660</span>             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">ve</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span> 
 
 <span class="ne">MetadataValidationError</span>: &#39;false&#39; is not of type &#39;boolean&#39;
 
@@ -628,9 +630,9 @@ also raised if we attempt to add new fields:</p>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValidationError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
-<span class="g g-Whitespace">    </span><span class="mi">656</span>         <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">657</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span>         <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/jsonschema/validators.py</span> in <span class="ni">validate</span><span class="nt">(self, *args, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">352</span>             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -662,22 +664,22 @@ also raised if we attempt to add new fields:</p>
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4727</span><span class="o">/</span><span class="mf">2608489950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5100</span><span class="o">/</span><span class="mf">2608489950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
-<span class="g g-Whitespace">    </span><span class="mi">651</span>         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">652</span>             <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
-<span class="ne">--&gt; </span><span class="mi">653</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">654</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">655</span>             <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">652</span>         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">653</span>             <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
+<span class="ne">--&gt; </span><span class="mi">654</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">655</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span>             <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
-<span class="g g-Whitespace">    </span><span class="mi">657</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">659</span>             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">ve</span>
-<span class="g g-Whitespace">    </span><span class="mi">660</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">661</span> 
+<span class="g g-Whitespace">    </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">660</span>             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">ve</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span> 
 
 <span class="ne">MetadataValidationError</span>: Additional properties are not allowed (&#39;newKey&#39; was unexpected)
 

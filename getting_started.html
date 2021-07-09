@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Getting started with tskit &#8212; Tskit Tutorials</title>
+    <title>Getting started with tskit &#8212; Tree Sequence Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -73,8 +73,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
-      <h1 class="site-logo" id="site-title">Tskit Tutorials</h1>
+      
+      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -85,7 +87,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Tree sequence tutorials
+   Welcome!
   </a>
  </li>
 </ul>
@@ -612,7 +614,7 @@ contains 40 <em>sample nodes</em>, one for each genome.</p>
 </div>
 <div class="section" id="processing-trees">
 <span id="sec-processing-trees"></span><h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">¶</a></h2>
-<p>A common idiom is to iterate over all the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree</span> <span class="pre">objects</span></code></a> in a tree
+<p>A common idiom is to iterate over all the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a> objects in a tree
 sequence. This process underlies many tree sequence algorithms, including those we’ll
 encounter later in this tutorial for calculating
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">population genetic statistics</span></a>.
@@ -684,7 +686,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0190942 secs
+Checked in 0.0180674 secs
 </pre></div>
 </div>
 </div>
@@ -693,7 +695,7 @@ Checked in 0.0190942 secs
 all the 40 sample nodes must have one most recent common ancestor (MRCA). Below, we
 iterate over the trees, finding the IDs of the root (MRCA) node for each tree. The
 time of this root node can be found via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.node" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tskit.TreeSequence.node()</span></code></a> method, which
-returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">node</span> <span class="pre">object</span></code></a> whose attributes include the node time:</p>
+returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a> object whose attributes include the node time:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -760,8 +762,7 @@ for <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pyth
 </div>
 <p>It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> method.
-.</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> method.</p>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg()</span></code></a> method allows us to draw
 more than one tree: either the entire tree sequence, or
 (by using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter) a smaller region of the genome:</p>
@@ -804,11 +805,11 @@ often incorporated automatically by the tools generating the tree sequence.</p>
 sites or mutations in your analyses.</p>
 </div>
 <p>For many purposes it may be better to focus on the genealogy of your samples, rather than
-the sites and
-mutations that
+the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions-site" title="(in tskit v0.3)"><span class="xref std std-ref">sites</span></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions-mutation" title="(in tskit v0.3)"><span class="xref std std-ref">mutations</span></a> that
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">define</span></a> the genome sequence itself. Nevertheless,
-<strong class="program">tskit</strong> also provides efficient ways to return <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">site</span> <span class="pre">objects</span></code></a> and
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mutation</span> <span class="pre">objects</span></code></a> from a tree sequence.
+<strong class="program">tskit</strong> also provides efficient ways to return <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Site</span></code></a> object and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mutation</span></code></a> objects from a tree sequence.
 For instance, under the finite sites model of mutation that we used above, multiple mutations
 can occur at some sites, and we can identify them by iterating over the sites using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sites" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.sites()</span></code></a> method:</p>
@@ -1094,7 +1095,7 @@ for which tskit has basic support:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>##fileformat=VCFv4.2
-##source=tskit 0.3.6
+##source=tskit 0.3.7
 ##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
 ##contig=&lt;ID=1,length=10000&gt;
 ##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;
@@ -1195,7 +1196,8 @@ and alleles</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> reduces the number of sample nodes in the tree
 sequence to a specified subset</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">keep_intervals()</span></code></a> (or its complement,
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_intervals" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_intervals()</span></code></a>) deletes unwanted parts of the genome</p></li>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_intervals" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_intervals()</span></code></a>) removes genetic information from
+specific regions of the genome</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">draw_svg()</span></code></a> plots tree sequences (and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a>
 plots trees)</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">at()</span></code></a> returns a tree at a particular genomic position

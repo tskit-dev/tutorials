@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tree sequence basics &#8212; Tskit Tutorials</title>
+    <title>Tree sequence basics &#8212; Tree Sequence Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -73,8 +73,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
-      <h1 class="site-logo" id="site-title">Tskit Tutorials</h1>
+      
+      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -85,7 +87,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Tree sequence tutorials
+   Welcome!
   </a>
  </li>
 </ul>
@@ -521,9 +523,9 @@ pairs. This is accessible using the <a class="reference external" href="https://
 <p>Each tree records the lines of descent along which a piece of DNA has been
 inherited (ignore for the moment the red symbols, which represent a mutation).
 For example, the first tree tells us that DNA from ancestral genome 7 duplicated
-to produce two lineages, which ended up in sample genome 1 and sample genome 4 in the
-current population (since this pattern is seen in all trees, this must have happened
-for all the DNA along the entire 1000 base pair genome).</p>
+to produce two lineages, which ended up in genomes 1 and 4, both of which exist in the
+current population. In fact, since this pattern is seen in all trees, these particular
+lines of inheritance were taken by all the DNA in this 1000 base pair genome.</p>
 </div>
 <div class="section" id="nodes">
 <span id="sec-basics-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
@@ -712,9 +714,9 @@ this:</p>
 </div>
 <p>The mutation can have a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.time" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time</span></code></a> or if, as in this case, the times of
 mutations in the tree sequence are unknown, all mutations can have the special NaN value
-<code class="docutils literal notranslate"><span class="pre">tskit.UNKNOWN_TIME</span></code>. Notice that the genomic position of the mutation is not included.
-Instead, that is a property of the <em>site</em> to which the mutation refers, in this case,
-site ID 0 (which happens to be at position 257):</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.UNKNOWN_TIME" title="(in tskit v0.3)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.UNKNOWN_TIME</span></code></a>. Notice that the genomic position of the mutation is not
+included. Instead, that is a property of the <em>site</em> to which the mutation refers, in
+this case, site ID 0 (which happens to be at position 751):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># For convenience, the Python API also returns the mutations at the site</span>
@@ -729,7 +731,7 @@ site ID 0 (which happens to be at position 257):</p>
 </div>
 <p>In the plot above, since the the only mutation is above node 8 in the last tree, and has
 a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
-8 in the first tree (sample genomes 2, 4, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 257,
+8 in the first tree (sample genomes 2, 3, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 751,
 while the others have the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a> of “T”. This means that Ada is
 homozygous for “T”, Bob is homozygous for “G”, and Cat is heterozygous “T/G”.
 In other words the ancestral state and the details of any mutations at that site,

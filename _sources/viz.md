@@ -36,8 +36,13 @@ def viz_ts():
     ts_small.dump("data/viz_ts_small.trees")
 
     ts_small_mutated = msprime.sim_mutations(ts_small, rate=1e-7, random_seed=342)
+    # 3rd tree should have first site with 2 muts
+    first_site_tree_2 = next(ts_small_mutated.at_index(2).sites())
+    assert len(first_site_tree_2.mutations) == 2
+    # mutation 8 should be above node 16 in the 1st tree
+    assert ts_small_mutated.site(8).mutations[0].id == 8
+    assert ts_small_mutated.site(8).mutations[0].node == 16
     ts_small_mutated.dump("data/viz_ts_small_mutated.trees")
-
 
 def viz_root_mut():
     """
@@ -758,7 +763,8 @@ y_ticks = np.delete(y_ticks, np.argwhere(np.ediff1d(y_ticks) <= 0.01))
 
 svg = ts.draw_svg(size=(1000, 350), y_axis=True, y_gridlines=True, y_ticks=y_ticks, style=(
     ".tree .lab {font-family: sans-serif}"
-    ".x-axis .tick .lab {text-anchor: start; transform: rotate(90deg) translate(8px)}"
+    # Normal X axis tick labels have dominant baseline: hanging, but it needs centring when rotated
+    ".x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}"
     ".y-axis .grid {stroke: #DDDDDD}"
     + ".tree :not(.leaf).node > .lab  {transform: translate(0,0); text-anchor:middle; fill: white}"
     + ".tree :not(.leaf).node > .sym {transform: scale(3.5)}"
@@ -789,11 +795,12 @@ SVG(ts.draw_svg(style=css_string, time_scale="rank", x_lim=[0, 30]))
 ```
 
 #### Leaf, sample & isolated nodes
-By default, sample nodes are square and non-sample nodes circular. However, neither need
-to be at time 0. Moreover, leaves need not be samples, and samples need not be leaves.
-Here we change the previous tree sequence to make some leaves non-samples and some samples
-internal nodes. To highlight the change, we have plotted sample nodes in green, and
-leaf nodes (if not samples) in blue.
+By default, sample nodes are square and non-sample nodes circular (at the moment this
+can't easily be changed). However, neither need to be at specific times: sample nodes can
+be at times other than 0, and nonsample nodes can be at time 0. Moreover, leaves need not
+be samples, and samples need not be leaves. Here we change the previous tree sequence to
+make some leaves non-samples and some samples internal nodes. To highlight the change,
+we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -811,6 +818,80 @@ By definition, if a node is a sample, it must be present in every tree. This
 means that there can be sample nodes which are "isolated" in a tree. These are drawn
 unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).
 :::
+
+#### Tick labels and gridlines
+
+Y tick labels can be specified explicitly, which allows time scales to be plotted
+e.g. in years even if the tree sequence ticks in generations. The grid lines associated
+with each y tick can also be changed or even hidden individually using the CSS
+[nth-child pseudo-selector](https://www.w3.org/TR/2018/REC-selectors-3-20181106/#nth-child-pseudo),
+where tickmarks are indexed from the bottom. This is used in
+the {ref}`sec_msprime_introgression` tutorial to show lines behind the trees at specific,
+important times. Below we show a slightly simpler example than in that tutorial,
+keeping node and mutation symbols in black, but colouring gridlines instead:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+# Function from the introgression tutorial - see there for justification
+import msprime
+time_units = 1000 / 25  # Conversion factor for kya to generations
+
+def run_simulation(sequence_length, random_seed=None):
+    demography = msprime.Demography()
+    # The same size for all populations; highly unrealistic!
+    Ne = 10**4
+    demography.add_population(name="Africa", initial_size=Ne)
+    demography.add_population(name="Eurasia", initial_size=Ne)
+    demography.add_population(name="Neanderthal", initial_size=Ne)
+
+    # 2% introgression 50 kya
+    demography.add_mass_migration(
+        time=50 * time_units, source='Eurasia', dest='Neanderthal', proportion=0.02)
+    # Eurasian 'merges' backwards in time into Africa population, 70 kya
+    demography.add_mass_migration(
+        time=70 * time_units, source='Eurasia', dest='Africa', proportion=1)
+    # Neanderthal 'merges' backwards in time into African population, 300 kya
+    demography.add_mass_migration(
+        time=300 * time_units, source='Neanderthal', dest='Africa', proportion=1)
+
+    ts = msprime.sim_ancestry(
+        recombination_rate=1e-8,
+        sequence_length=sequence_length,  
+        samples=[
+            msprime.SampleSet(1, ploidy=1, population='Africa'),
+            msprime.SampleSet(1, ploidy=1, population='Eurasia'),
+            # Neanderthal sample taken 30 kya
+            msprime.SampleSet(1, ploidy=1, time=30 * time_units, population='Neanderthal'),
+        ],
+        demography = demography,
+        record_migrations=True,  # Needed for tracking segments.
+        random_seed=random_seed,
+    )
+    return ts
+
+ts = run_simulation(20 * 10**6, 1)
+
+css = ".y-axis .tick .lab {font-size: 85%}"  # Multi-line labels unimplemented: use smaller font 
+css += ".y-axis .tick .grid {stroke: lightgrey}"  # Default gridline type
+css += ".y-axis .ticks .tick:nth-child(3) .grid {stroke-dasharray: 4}"  # 3rd line from bottom
+css += ".y-axis .ticks .tick:nth-child(3) .grid {stroke: magenta}"  # also 3rd line from bottom
+css += ".y-axis .ticks .tick:nth-child(4) .grid {stroke: blue}"  # 4th line from bottom
+css += ".y-axis .ticks .tick:nth-child(5) .grid {stroke: darkgrey}"  # 5th line from bottom
+y_ticks = {0: "0", 30: "30", 50: "Introgress", 70: "Eur origin", 300: "Nea origin", 1000: "1000"}
+y_ticks = {y * time_units: lab for y, lab in y_ticks.items()}
+SVG(ts.draw_svg(
+    size=(1200, 500),
+    x_lim=(0, 25_000),
+    time_scale="log_time",
+    node_labels = {0: "Afr", 1: "Eur", 2: "Neand"},
+    y_axis=True,
+    y_label="Time (kya)",
+    x_label="Genomic position (bp)",
+    y_ticks=y_ticks,
+    y_gridlines=True,
+    style=css))
+```
+
 
 #### Animation
 

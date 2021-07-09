@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data structures &#8212; Tskit Tutorials</title>
+    <title>Data structures &#8212; Tree Sequence Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -73,8 +73,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
-      <h1 class="site-logo" id="site-title">Tskit Tutorials</h1>
+      
+      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -85,7 +87,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Tree sequence tutorials
+   Welcome!
   </a>
  </li>
 </ul>
@@ -908,7 +910,7 @@ expected length:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4991</span><span class="o">/</span><span class="mf">1022932079.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5120</span><span class="o">/</span><span class="mf">1022932079.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
@@ -919,11 +921,11 @@ expected length:</p>
 <span class="g g-Whitespace">    </span><span class="mi">335</span>             <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.10/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
-<span class="g g-Whitespace">    </span><span class="mi">948</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">949</span><span class="s2">         self._check_required_args(flags=flags, time=time)</span>
-<span class="ne">--&gt; </span><span class="mi">950</span><span class="s2">         self.ll_table.set_columns(</span>
-<span class="g g-Whitespace">    </span><span class="mi">951</span><span class="s2">             dict(</span>
-<span class="g g-Whitespace">    </span><span class="mi">952</span><span class="s2">                 flags=flags,</span>
+<span class="g g-Whitespace">    </span><span class="mi">949</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">950</span><span class="s2">         self._check_required_args(flags=flags, time=time)</span>
+<span class="ne">--&gt; </span><span class="mi">951</span><span class="s2">         self.ll_table.set_columns(</span>
+<span class="g g-Whitespace">    </span><span class="mi">952</span><span class="s2">             dict(</span>
+<span class="g g-Whitespace">    </span><span class="mi">953</span><span class="s2">                 flags=flags,</span>
 
 <span class="ne">ValueError</span>: Input array dimensions must be equal.
 </pre></div>
