@@ -274,9 +274,9 @@ for mutation in ts.mutations():
 
 The mutation can have a {attr}`~Mutation.time` or if, as in this case, the times of
 mutations in the tree sequence are unknown, all mutations can have the special NaN value
-``tskit.UNKNOWN_TIME``. Notice that the genomic position of the mutation is not included.
-Instead, that is a property of the _site_ to which the mutation refers, in this case,
-site ID 0 (which happens to be at position 257):
+{data}`tskit.UNKNOWN_TIME`. Notice that the genomic position of the mutation is not
+included. Instead, that is a property of the _site_ to which the mutation refers, in
+this case, site ID 0 (which happens to be at position 257):
 
 ```{code-cell} ipython3
 print(ts.site(0))  # For convenience, the Python API also returns the mutations at the site
