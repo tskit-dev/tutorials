@@ -119,9 +119,9 @@ SVG(ts.draw_svg(y_axis=True, y_gridlines=True, time_scale="rank"))
 Each tree records the lines of descent along which a piece of DNA has been
 inherited (ignore for the moment the red symbols, which represent a mutation).
 For example, the first tree tells us that DNA from ancestral genome 7 duplicated
-to produce two lineages, which ended up in sample genome 1 and sample genome 4 in the
-current population (since this pattern is seen in all trees, this must have happened
-for all the DNA along the entire 1000 base pair genome).
+to produce two lineages, which ended up in genomes 1 and 4, both of which exist in the
+current population. In fact, since this pattern is seen in all trees, these particular
+lines of inheritance were taken by all the DNA in this 1000 base pair genome.
 
 
 (sec_basics_terminology_nodes)=
