@@ -276,7 +276,7 @@ The mutation can have a {attr}`~Mutation.time` or if, as in this case, the times
 mutations in the tree sequence are unknown, all mutations can have the special NaN value
 {data}`tskit.UNKNOWN_TIME`. Notice that the genomic position of the mutation is not
 included. Instead, that is a property of the _site_ to which the mutation refers, in
-this case, site ID 0 (which happens to be at position 257):
+this case, site ID 0 (which happens to be at position 751):
 
 ```{code-cell} ipython3
 print(ts.site(0))  # For convenience, the Python API also returns the mutations at the site
@@ -284,7 +284,7 @@ print(ts.site(0))  # For convenience, the Python API also returns the mutations 
 
 In the plot above, since the the only mutation is above node 8 in the last tree, and has
 a {attr}`~Mutation.derived_state` of "G", we know that the samples descending from node
-8 in the first tree (sample genomes 2, 4, and 5) have a "G" at {attr}`~Site.position` 257,
+8 in the first tree (sample genomes 2, 3, and 5) have a "G" at {attr}`~Site.position` 751,
 while the others have the {attr}`~Site.ancestral_state` of "T". This means that Ada is
 homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T/G".
 In other words the ancestral state and the details of any mutations at that site,
