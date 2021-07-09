@@ -1,9 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Tskit Tutorials
+title: Tree Sequence Tutorials
 author: Tskit Developers
-# logo: logo.png
+logo: _static/tskit_logo.svg
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
