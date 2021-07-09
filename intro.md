@@ -13,9 +13,7 @@ kernelspec:
 
 (sec_intro)=
 
-# Tree sequence tutorials
-
-**Welcome!**
+# Welcome!
 
 This site contains a number of tutorials to develop your understanding of
 [tree sequences](https://tskit.dev/learn.html#what) and software programs,

@@ -119,9 +119,9 @@ SVG(ts.draw_svg(y_axis=True, y_gridlines=True, time_scale="rank"))
 Each tree records the lines of descent along which a piece of DNA has been
 inherited (ignore for the moment the red symbols, which represent a mutation).
 For example, the first tree tells us that DNA from ancestral genome 7 duplicated
-to produce two lineages, which ended up in sample genome 1 and sample genome 4 in the
-current population (since this pattern is seen in all trees, this must have happened
-for all the DNA along the entire 1000 base pair genome).
+to produce two lineages, which ended up in genomes 1 and 4, both of which exist in the
+current population. In fact, since this pattern is seen in all trees, these particular
+lines of inheritance were taken by all the DNA in this 1000 base pair genome.
 
 
 (sec_basics_terminology_nodes)=
@@ -274,9 +274,9 @@ for mutation in ts.mutations():
 
 The mutation can have a {attr}`~Mutation.time` or if, as in this case, the times of
 mutations in the tree sequence are unknown, all mutations can have the special NaN value
-``tskit.UNKNOWN_TIME``. Notice that the genomic position of the mutation is not included.
-Instead, that is a property of the _site_ to which the mutation refers, in this case,
-site ID 0 (which happens to be at position 257):
+{data}`tskit.UNKNOWN_TIME`. Notice that the genomic position of the mutation is not
+included. Instead, that is a property of the _site_ to which the mutation refers, in
+this case, site ID 0 (which happens to be at position 751):
 
 ```{code-cell} ipython3
 print(ts.site(0))  # For convenience, the Python API also returns the mutations at the site
@@ -284,7 +284,7 @@ print(ts.site(0))  # For convenience, the Python API also returns the mutations 
 
 In the plot above, since the the only mutation is above node 8 in the last tree, and has
 a {attr}`~Mutation.derived_state` of "G", we know that the samples descending from node
-8 in the first tree (sample genomes 2, 4, and 5) have a "G" at {attr}`~Site.position` 257,
+8 in the first tree (sample genomes 2, 3, and 5) have a "G" at {attr}`~Site.position` 751,
 while the others have the {attr}`~Site.ancestral_state` of "T". This means that Ada is
 homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T/G".
 In other words the ancestral state and the details of any mutations at that site,
