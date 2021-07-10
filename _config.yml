@@ -15,6 +15,9 @@ repository:
   url: https://github.com/tskit-dev/tutorials
   branch: main
 
+launch_buttons:
+  binderhub_url: ""
+
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
