@@ -23,18 +23,9 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 Here we simulate a single sample of n=12 from a population that underwent an instantaneous bottleneck 0.4 * 2N generations ago. Note that since msprime is assuming a diploid population we set the initial population size to 1/2 to obtain coalescence times scaled in units of $2N_e$ generations:
 
 ```{code-cell} ipython3
-:"tags": ["remove_input"]
-# REMOVE WHEN TSKIT 0.3.7 RELEASED
-import tskit
-import functools
-tskit.metadata.parse_metadata_schema = functools.lru_cache(tskit.metadata.parse_metadata_schema)
-```
-
-```{code-cell} ipython3
 import msprime
 import tskit
 import numpy as np
-import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import SVG
 

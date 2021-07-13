@@ -32,10 +32,10 @@ First we set up a highly simplified demographic history of human+Neanderthal dem
 ```{code-cell} ipython3
 import random
 import collections
+
+import matplotlib.pyplot as plt
 import msprime
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
 from IPython.display import SVG
 
 def run_simulation(sequence_length, random_seed=None):
