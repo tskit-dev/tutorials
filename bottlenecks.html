@@ -397,14 +397,11 @@
 <p>A common approach to modelling the effect of demographic history on genealogies is to assume that effective population size (<span class="math notranslate nohighlight">\(N_e\)</span>) changes in discrete steps which define a series of epochs (Griffiths, 1994; Marth et al., 2004; Keightley &amp; Eyre-Walker, 2007; Li &amp; Durbin 2011). In this setting of piece-wise constant <span class="math notranslate nohighlight">\(N_e\)</span>, capturing a population bottleneck requires three epochs: <span class="math notranslate nohighlight">\(N_e\)</span> is reduced by some fraction <span class="math notranslate nohighlight">\(b\)</span> at the start of the bottleneck, <span class="math notranslate nohighlight">\(T_{start}\)</span>, and recovers to its initial value at time <span class="math notranslate nohighlight">\(T_{end}\)</span> (Marth et al., 2004). If bottlenecks are short both on the timescale of coalescence and mutations, one may expect little information about the duration of a bottleneck
 in sequence data. Thus a simpler, alternative model is to assume that bottlenecks are instantaneous (<span class="math notranslate nohighlight">\(T_{end}-T_{start} \rightarrow 0\)</span>) and generate a sudden burst of coalescence events (a multiple merger event) in the genealogy. The strength of the bottleneck B can be thought of as an (imaginary) time period during which coalescence events are collapsed, i.e. there is no growth in genealogical branches during B and the probability that a single pair of lineages entering the bottleneck coalesce during the bottleneck is <span class="math notranslate nohighlight">\(1-e^{-B}\)</span>. Although this simple two parameter model of bottlenecks is attractive and both analytic results and empirical inference (Griffiths, 1994; Galtier et al., 2000; Bunnefeld et al., 2015) have been developed under this model, it has not been straightforward to simulate data under instantaneous bottleneck histories with ms. Instantaneous bottlenecks are implemented as a demographic event in msprime. Instanteous bottlenecks are similar to coalescent approximations for selective sweeps in that they generate multiple merger events. However, unlike sweeps the whole genome is effected equally. Instantanous bottlenecks differ from approximate models of sweeps (Durret &amp; Scheinsberg, 2004) in that they do not affect the exchangeability of lineages. A consequence of this is that all topologies are equally likely (before collapsing, the imaginary bottleneck time).</p>
 <p>Here we simulate a single sample of n=12 from a population that underwent an instantaneous bottleneck 0.4 * 2N generations ago. Note that since msprime is assuming a diploid population we set the initial population size to 1/2 to obtain coalescence times scaled in units of <span class="math notranslate nohighlight">\(2N_e\)</span> generations:</p>
-<div class="cell tag_remove_input docutils container">
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
 <span class="kn">import</span> <span class="nn">tskit</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
 
@@ -429,7 +426,7 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_2_0.svg" src="_images/bottlenecks_2_0.svg" /></div>
+<img alt="_images/bottlenecks_1_0.svg" src="_images/bottlenecks_1_0.svg" /></div>
 </div>
 <p>The genealogy shows several simultaneous coalescence events at the time of the bottleneck
 (T=0.4)</p>
@@ -484,7 +481,7 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_6_0.png" src="_images/bottlenecks_6_0.png" />
+<img alt="_images/bottlenecks_5_0.png" src="_images/bottlenecks_5_0.png" />
 </div>
 </div>
 </div>
@@ -557,8 +554,8 @@ the analytic expectation closely:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_9_0.png" src="_images/bottlenecks_9_0.png" />
-<img alt="_images/bottlenecks_9_1.png" src="_images/bottlenecks_9_1.png" />
+<img alt="_images/bottlenecks_8_0.png" src="_images/bottlenecks_8_0.png" />
+<img alt="_images/bottlenecks_8_1.png" src="_images/bottlenecks_8_1.png" />
 </div>
 </div>
 </div>
@@ -590,7 +587,7 @@ the analytic expectation closely:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_11_0.png" src="_images/bottlenecks_11_0.png" />
+<img alt="_images/bottlenecks_10_0.png" src="_images/bottlenecks_10_0.png" />
 </div>
 </div>
 </div>
@@ -634,7 +631,7 @@ the analytic expectation closely:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_15_0.png" src="_images/bottlenecks_15_0.png" />
+<img alt="_images/bottlenecks_14_0.png" src="_images/bottlenecks_14_0.png" />
 </div>
 </div>
 </div>
@@ -678,7 +675,7 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bottlenecks_18_0.png" src="_images/bottlenecks_18_0.png" />
+<img alt="_images/bottlenecks_17_0.png" src="_images/bottlenecks_17_0.png" />
 </div>
 </div>
 <p>Again, this gives a good fit to the analytic expectation (see Bunnefeld at al 2016).</p>
