@@ -2,9 +2,8 @@ jupyter-book>=0.10.0
 demes
 demesdraw
 matplotlib
-seaborn
-pandas
 scikit-allel
 numpy
 networkx
+tskit>=0.3.7
 msprime>=1.0
