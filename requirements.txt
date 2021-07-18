@@ -1,7 +1,7 @@
 jupyter-book>=0.10.0
 demes
 demesdraw
-matplotlib
+matplotlib>=3.4.0
 scikit-allel
 numpy
 networkx
