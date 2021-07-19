@@ -46,6 +46,7 @@ jobs:
       run: |
         cp ./requirements.txt ./_build/html/.
         cp -r data ./_build/html/examples
+        ls data > ./_build/html/examples/files.txt
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
