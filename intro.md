@@ -85,7 +85,7 @@ then you can simply load this code into a new cell by using the
 Just run the following in a Jupyter code cell:
 
 ```
-%load https://tskit-dev/tutorials/examples/download.py
+%load https://tskit.dev/tutorials/examples/download.py
 ```
 
 Running the resulting Python code should download the data files, then print out
