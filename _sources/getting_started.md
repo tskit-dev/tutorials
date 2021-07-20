@@ -26,7 +26,7 @@ need to do:
 {ref}`sites & mutations<sec_processing_sites_and_mutations>`, and
 {ref}`genotypes<sec_processing_genotypes>`,
 {ref}`compute statistics<sec_tskit_getting_started_compute_statistics>`, and
-{ref}`saving or export data<sec_tskit_getting_started_exporting_data>`.
+{ref}`save or export data<sec_tskit_getting_started_exporting_data>`.
 Throughout, we'll also provide pointers to where you can learn more.
 
 :::{note}
