@@ -369,6 +369,7 @@ deduce these MRCA genomes, simply by looking at which mutations they have inheri
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
+import numpy as np
 tables = mutated_ts.dump_tables()
 # Flip sample and nonsample flags, making the haplotypes() method print out nonsample nodes
 s_flags = tables.nodes.flags[ts.samples()[0]]

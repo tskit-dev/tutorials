@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -614,7 +614,8 @@ resided in the ancestral (blue) population. The tree sequence also allows us to 
 deduce these MRCA genomes, simply by looking at which mutations they have inherited:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
 <span class="c1"># Flip sample and nonsample flags, making the haplotypes() method print out nonsample nodes</span>
 <span class="n">s_flags</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
 <span class="n">no_flags</span> <span class="o">=</span> <span class="n">s_flags</span><span class="o">-</span><span class="n">s_flags</span>

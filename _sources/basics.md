@@ -65,9 +65,8 @@ concepts behind {program}`tskit`, the tree sequence toolkit.
 ## Terminology
 
 ::::{margin}
-:::{seealso}
-Many of the terms below are also {ref}`covered <tskit:sec_data_model_definitions>`
-in the official {program}`tskit` docs
+:::{note}
+See {ref}`sec_intro_downloading_datafiles` to run this tutorial on your own computer
 :::
 ::::
 
@@ -75,8 +74,9 @@ A tree sequence is a data structure which describes a set of
 evolutionary trees, together with some associated data that specifies, for example,
 the location of mutations in the tree sequence.
 
-Below are the most important terms and concepts that you'll encounter in these tutorials, 
-but first we'll {func}`~tskit.load` a tree sequence from a `.trees` file using the
+Below are the most important {ref}`terms and concepts <tskit:sec_data_model_definitions>`
+that you'll encounter in these tutorials,  but first we'll {func}`~tskit.load` a tree
+sequence from a `.trees` file using the
 {ref}`tskit:sec_python_api` (which will be used in the rest of this tutorial):
 
 ```{code-cell} ipython3

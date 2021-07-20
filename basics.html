@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -441,17 +441,17 @@ concepts behind <strong class="program">tskit</strong>, the tree sequence toolki
 <span id="sec-basics-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Many of the terms below are also <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions" title="(in tskit v0.3)"><span class="xref std std-ref">covered</span></a>
-in the official <strong class="program">tskit</strong> docs</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a class="reference internal" href="intro.html#sec-intro-downloading-datafiles"><span class="std std-ref">Downloading tutorial datafiles</span></a> to run this tutorial on your own computer</p>
 </div>
 </div>
 <p>A tree sequence is a data structure which describes a set of
 evolutionary trees, together with some associated data that specifies, for example,
 the location of mutations in the tree sequence.</p>
-<p>Below are the most important terms and concepts that you’ll encounter in these tutorials,
-but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in tskit v0.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the
+<p>Below are the most important <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions" title="(in tskit v0.3)"><span class="xref std std-ref">terms and concepts</span></a>
+that you’ll encounter in these tutorials,  but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in tskit v0.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree
+sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in tskit v0.3)"><span>Python API</span></a> (which will be used in the rest of this tutorial):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

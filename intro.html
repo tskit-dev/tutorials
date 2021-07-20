@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -342,6 +342,31 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#other-sources-of-help">
+   Other sources of help
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-tutorial-code">
+   Running tutorial code
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#downloading-tutorial-datafiles">
+     Downloading tutorial datafiles
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -357,13 +382,6 @@
 such as <a class="reference external" href="https://tskit.dev/msprime">msprime</a>, that use them.</p>
 <p>If you are new to the world of tree sequences, we suggest you start with the
 first tutorial: <a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a></p>
-<p>We aim to be a friendly, welcoming open source community.
-Questions and discussion about using <strong class="program">tskit</strong>, the tree sequence toolkit
-should be directed to the
-<a class="reference external" href="https://github.com/tskit-dev/tskit/discussions">GitHub discussion forum</a>, and there are
-similar forums for other software in the tree sequence <a class="reference external" href="https://github.com/tskit-dev">development community</a>,
-such as for <a class="reference external" href="https://github.com/tskit-dev/msprime/discussions">msprime</a> and
-<a class="reference external" href="https://github.com/tskit-dev/tsinfer/discussions">tsinfer</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tutorials are under constant development. Those that are still a work in progress and
@@ -371,6 +389,70 @@ not yet ready for use are shown in <em>italics</em> in the list of tutorials.</p
 <p>We very much welcome help developing existing tutorials or writing new ones. Please open
 or contribute to a <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues">GitHub issue</a> if you
 would like to help out.</p>
+</div>
+<div class="section" id="other-sources-of-help">
+<h2>Other sources of help<a class="headerlink" href="#other-sources-of-help" title="Permalink to this headline">¶</a></h2>
+<p>In addition to these tutorials, our <a class="reference external" href="https://tskit.dev/learn.html">Learn page</a> lists
+selected videos and publications to help you learn about tree sequences.</p>
+<p>We aim to be a friendly, welcoming open source community.
+Questions and discussion about using <strong class="program">tskit</strong>, the tree sequence toolkit
+should be directed to the
+<a class="reference external" href="https://github.com/tskit-dev/tskit/discussions">GitHub discussion forum</a>, and there are
+similar forums for other software in the tree sequence <a class="reference external" href="https://github.com/tskit-dev">development community</a>,
+such as for <a class="reference external" href="https://github.com/tskit-dev/msprime/discussions">msprime</a> and
+<a class="reference external" href="https://github.com/tskit-dev/tsinfer/discussions">tsinfer</a>.</p>
+</div>
+<div class="section" id="running-tutorial-code">
+<span id="sec-intro-running"></span><h2>Running tutorial code<a class="headerlink" href="#running-tutorial-code" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to run the tutorial code on your own computer, if you wish.
+This will allow you to experiment with the examples provided.
+The recommended way to do this is from within a
+<a class="reference external" href="https://jupyter.org">Jupyter notebook</a>. As well as installing Jupyter, you will also
+need to install the various Python libraries, most importantly
+<code class="docutils literal notranslate"><span class="pre">tskit</span></code>, <code class="docutils literal notranslate"><span class="pre">msprime</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. These and other packages are
+listed  in the <a class="reference external" href="https://tskit.dev/tutorials/requirements.txt">requirements.txt</a>
+file; a shortcut to installing the necessary software is therefore:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tskit</span><span class="o">.</span><span class="n">dev</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>In addition, to run the <a class="reference internal" href="tskitr.html#sec-tskit-r"><span class="std std-ref">R tutorial</span></a> you will need to install the R
+<a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> library, and if running in a Jupyter,
+the <a class="reference external" href="https://irkernel.github.io">IRkernel</a> library. This can be done by running the
+following command within R:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="s2">&quot;reticulate&quot;</span><span class="p">,</span> <span class="s2">&quot;IRkernel&quot;</span><span class="p">));</span> <span class="n">IRkernel</span><span class="p">::</span><span class="n">installspec</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="downloading-tutorial-datafiles">
+<span id="sec-intro-downloading-datafiles"></span><h3>Downloading tutorial datafiles<a class="headerlink" href="#downloading-tutorial-datafiles" title="Permalink to this headline">¶</a></h3>
+<p>Many of the tutorials use pre-existing tree sequences stored in the
+<a class="reference external" href="https://github.com/tskit-dev/tutorials/tree/main/data"><code class="docutils literal notranslate"><span class="pre">data</span></code></a> directory.
+These can be downloaded from the internet by running the script stored in
+<a class="reference external" href="https://tskit.dev/tutorials/examples/download.py">https://tskit.dev/tutorials/examples/download.py</a>.
+If you are running the code in the tutorials from within a Jupyter notebook
+then you can simply load this code into a new cell by using the
+<a class="reference external" href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-load">%load cell magic</a>.
+Just run the following in a Jupyter code cell:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tskit</span><span class="o">-</span><span class="n">dev</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">download</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Running the resulting Python code should download the data files, then print out
+<code class="docutils literal notranslate"><span class="pre">finished</span> <span class="pre">downloading</span></code> when all files are downloaded. You should then be able
+to successfully run code such as the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/basics.trees&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The file &#39;data/basics.trees&#39; exists, and contains </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The file &#39;data/basics.trees&#39; exists, and contains 3 trees
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="toctree-wrapper compound">
 </div>

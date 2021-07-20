@@ -2,6 +2,7 @@ basics.trees
 benchmarks_without_copy_longer_genome.txt
 construction_example.trees
 different_time_samples.trees
+download.py
 metadata.trees
 my_tree_sequence.trees
 parsimony_map.pickle
