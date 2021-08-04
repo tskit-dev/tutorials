@@ -195,13 +195,13 @@ disk space, and it takes of the order of a few seconds to iterate over all the t
 ### Trees and tree sequences
 
 The combination of nodes and edges results in a tree sequence. Note that the
-sample nodes ($0..5$) are present in all trees since we have their full genomes.
-Additionally, internal nodes are commonly present in several, although not all,
-trees in the tree sequence.
+sample nodes, $0..5$ in our example, are present in all the trees (since we have their
+full genomes), but the other nodes, such as node $9$, need not be: indeed in larger
+tree sequences they are rarely so.
 
 In tree sequence terminology, we don't explictly keep track of where nodes
 start and end. Only edges (not nodes) possess a genomic span. So for example, this tree
-sequence is defined using edges like $(7\rightarrow1)$ which spans the entire genome,
+sequence is defined using edges like $(7\rightarrow1)$ which span the entire genome,
 edges like $(11\rightarrow10)$ which only span the leftmost section of the genome, and
 edges like $(11\rightarrow8)$ which span the rightmost part of the genome. Every time an
 edge changes it creates a new tree; the location of the change is known as a _breakpoint_:
@@ -363,8 +363,8 @@ positions (an "infinite sites" model of breakpoints), then the number of trees i
 sequence equals the number of ancestral recombination events plus one. If recombinations
 can occur at the same physical position (e.g. if the genome is treated as a set of
 discrete integer positions, as in the simulation that created this tree sequence) then
-moving from  one tree to the next in a tree sequence might require multiple SPRs,
-because there are multiple, overlaid ancestral recombination events.
+moving from  one tree to the next in a tree sequence might require multiple SPRs if
+there are multiple, overlaid ancestral recombination events.
 
 (sec_basics_concepts_args)=
 
@@ -372,8 +372,8 @@ because there are multiple, overlaid ancestral recombination events.
 
 Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
-recombination events are explictly stored. Although a tree sequence *can* represent an
-ARG, by incorporating nodes that represent recombination events (see the
+recombination events are explictly stored. Although a tree sequence *can* represent such
+an ARG, by incorporating nodes that represent recombination events (see the
 {ref}`sec_args` tutorial), this is not normally done for two reasons:
 
 1. Many recombination events are undetectable from sequence data, and even if they are
