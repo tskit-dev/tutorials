@@ -160,8 +160,12 @@ print("There are", ts.num_nodes, "nodes, of which", ts.num_samples, "are sample 
 
 In an evolutionary tree, the connections between nodes are conventionally referred to as
 "branches". In a tree sequence, we instead refer to directional connections between nodes
-as _edges_, emphasizing that they usually persist across multiple trees. Each edge is
-associated with a parent node ID and a child node ID. The time of the parent node must be
+as _edges_, emphasizing that they usually persist across multiple trees. Thus each of the
+three trees in the example above has a branch from node 7 to node 1, but those three
+branches represent just a single edge.
+
+Each edge is associated with a parent node ID and a child node ID. The time of the parent
+node must be
 strictly greater than the time of the child node, and the difference in these times is
 sometimes referred to as the "length" of the edge. Since trees in a tree sequence are
 usually taken to represent marginal trees along a genome, as well as the time dimension
