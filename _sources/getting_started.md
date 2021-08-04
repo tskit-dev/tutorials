@@ -36,11 +36,12 @@ tutorial are all written using the {ref}`sec_python_api`, but it's also possible
 {ref}`C<sec_c_api>` and [Rust](https://github.com/tskit-dev/tskit-rust).
 :::
 
-First, let's simulate an example tree sequence of a 10Mb chromosome in twenty
-diploid individuals using [{program}`msprime`](https://tskit.dev/msprime). To make it
-a bit more interesting, we'll simulate the effects of a
-{ref}`selective sweep<msprime:sec_ancestry_models_selective_sweeps>` in the middle of
-the chromosome, then throw some neutral mutations onto the resulting tree sequence.
+A number of different software programs can generate tree sequences. For the purposes
+of this tutorial we'll use [{program}`msprime`](https://tskit.dev/msprime) to create
+an example tree sequence representing the genetic genealogy of a 10Mb chromosome in
+twenty diploid individuals. To make it a bit more interesting, we'll simulate the effects
+of a {ref}`selective sweep<msprime:sec_ancestry_models_selective_sweeps>` in the middle
+of the chromosome, then throw some neutral mutations onto the resulting tree sequence.
 
 
 ```{code-cell} ipython3
@@ -80,7 +81,7 @@ A common idiom is to iterate over all the {class}`Tree` objects in a tree
 sequence. This process underlies many tree sequence algorithms, including those we'll
 encounter later in this tutorial for calculating 
 {ref}`population genetic statistics<tskit:sec_stats>`.
-To iterate over your own tree sequence you can use
+To iterate over a tree sequence you can use
 {meth}`TreeSequence.trees`.
 
 ```{code-cell} ipython3
@@ -201,7 +202,7 @@ more than one tree: either the entire tree sequence, or
 
 ```{code-cell} ipython3
 reduced_ts = ts.simplify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])  # simplify to the first 10 samples
-print("Genealogy of the first 10 samples, the first 1.5kb of the genome")
+print("Genealogy of the first 10 samples for the first 1.5kb of the genome")
 display(SVG(reduced_ts.draw_svg(x_lim=(0, 5000))))
 ```
 

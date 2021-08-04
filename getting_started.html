@@ -435,11 +435,12 @@ tutorial are all written using the <a class="reference external" href="https://t
 <a class="reference internal" href="tskitr.html#sec-tskit-r"><span class="std std-ref">use R</span></a>, or access the API in other languages, notably
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/c-api.html#sec-c-api" title="(in tskit v0.3)"><span class="xref std std-ref">C</span></a> and <a class="reference external" href="https://github.com/tskit-dev/tskit-rust">Rust</a>.</p>
 </div>
-<p>First, let’s simulate an example tree sequence of a 10Mb chromosome in twenty
-diploid individuals using <a class="reference external" href="https://tskit.dev/msprime"><strong class="program">msprime</strong></a>. To make it
-a bit more interesting, we’ll simulate the effects of a
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-models-selective-sweeps" title="(in Python)"><span class="xref std std-ref">selective sweep</span></a> in the middle of
-the chromosome, then throw some neutral mutations onto the resulting tree sequence.</p>
+<p>A number of different software programs can generate tree sequences. For the purposes
+of this tutorial we’ll use <a class="reference external" href="https://tskit.dev/msprime"><strong class="program">msprime</strong></a> to create
+an example tree sequence representing the genetic genealogy of a 10Mb chromosome in
+twenty diploid individuals. To make it a bit more interesting, we’ll simulate the effects
+of a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-models-selective-sweeps" title="(in Python)"><span class="xref std std-ref">selective sweep</span></a> in the middle
+of the chromosome, then throw some neutral mutations onto the resulting tree sequence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
@@ -601,7 +602,7 @@ contains 40 <em>sample nodes</em>, one for each genome.</p>
 sequence. This process underlies many tree sequence algorithms, including those we’ll
 encounter later in this tutorial for calculating
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">population genetic statistics</span></a>.
-To iterate over your own tree sequence you can use
+To iterate over a tree sequence you can use
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -669,7 +670,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.020108 secs
+Checked in 0.0153699 secs
 </pre></div>
 </div>
 </div>
@@ -752,13 +753,13 @@ more than one tree: either the entire tree sequence, or
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>  <span class="c1"># simplify to the first 10 samples</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genealogy of the first 10 samples, the first 1.5kb of the genome&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genealogy of the first 10 samples for the first 1.5kb of the genome&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">reduced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genealogy of the first 10 samples, the first 1.5kb of the genome
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genealogy of the first 10 samples for the first 1.5kb of the genome
 </pre></div>
 </div>
 <img alt="_images/getting_started_11_1.svg" src="_images/getting_started_11_1.svg" /></div>
