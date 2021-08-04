@@ -80,7 +80,7 @@ A common idiom is to iterate over all the {class}`Tree` objects in a tree
 sequence. This process underlies many tree sequence algorithms, including those we'll
 encounter later in this tutorial for calculating 
 {ref}`population genetic statistics<tskit:sec_stats>`.
-To iterate over your own tree sequence you can use
+To iterate over a tree sequence you can use
 {meth}`TreeSequence.trees`.
 
 ```{code-cell} ipython3
@@ -201,7 +201,7 @@ more than one tree: either the entire tree sequence, or
 
 ```{code-cell} ipython3
 reduced_ts = ts.simplify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])  # simplify to the first 10 samples
-print("Genealogy of the first 10 samples, the first 1.5kb of the genome")
+print("Genealogy of the first 10 samples for the first 1.5kb of the genome")
 display(SVG(reduced_ts.draw_svg(x_lim=(0, 5000))))
 ```
 
