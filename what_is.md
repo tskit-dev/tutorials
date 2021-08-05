@@ -163,7 +163,7 @@ SVG(ts.draw_svg(
 ::::{margin}
 :::{note}
 For clarity in these examples, we are using letters to label nodes. Normally, however,
-the nodes are referred to by {ref}`numerical ID<sec_basics_terminology_nodes>`.
+the nodes are referred to by {ref}`numerical ID<sec_terminology_nodes>`.
 :::
 ::::
 
@@ -296,7 +296,7 @@ plt.show()
 ::::{margin}
 :::{note}
 The genetic genealogy is sometimes referred to as an ancestral recombination graph,
-or ARG, and there are {ref}`close similarities<sec_basics_concepts_args>` between ARGs
+or ARG, and there are {ref}`close similarities<sec_concepts_args>` between ARGs
 and tree sequences (see the {ref}`ARG tutorial<sec_args>`)
 :::
 ::::
@@ -453,11 +453,11 @@ and the {ref}`counting of topologies<sec_counting_topologies>` embedded within
 larger trees.
 
 If you are new to tree sequences, and want to start finding out about {program}`tskit`,
-you might now want to continue to the next tutorial: {ref}`sec_basics`.
+you might now want to continue to the next tutorial: {ref}`sec_terminology_and_concepts`.
 
 
 ## Further reading
 
-* Basic concepts: details in the {ref}`sec_basics` tutorial
+* Basic concepts: details in the {ref}`sec_terminology_and_concepts` tutorial
 * How is a tree sequence stored: details in the {ref}`sec_data_structures` tutorial
 * The offical {program}`tskit` [documentation](https://tskit.dev/tskit/docs)
