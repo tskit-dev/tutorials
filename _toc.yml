@@ -1,24 +1,25 @@
 format: jb-book
 root: intro
 parts:
-- caption: Introduction
+- caption:
   chapters:
   - file: what_is
-  - file: basics
-- caption: Using tskit
+- caption: Tree sequence basics
   chapters:
+  - file: terminology_and_concepts
   - file: getting_started
-  - file: viz
-  - file: data_structures
-  - file: simplification
-  - file: metadata
-  - file: args
-  - file: tskitr
 - caption: Statistics and Analysis
   chapters:
   - file: analysing_tree_sequences
   - file: analysing_trees
   - file: counting_topologies
+- caption: Further tskit tutorials
+  chapters:
+  - file: data_structures
+  - file: simplification
+  - file: viz
+  - file: metadata
+  - file: args
 - caption: Backward time simulations
   # TODO this will be broken down more finely as we add more content
   chapters:
@@ -34,8 +35,12 @@ parts:
   # What can we put in here?
   chapters:
   - file: forward_sims
+- caption: Other languages
+  # TODO: add basic C and maybe Rust tutes
+  chapters:
+  - file: tskitr
 - caption: Development
   # TODO This would be a great place to put the general tskit development
   # guidelines.
   chapters:
-  - file: development
+  - file: tutorial_development

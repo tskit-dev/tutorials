@@ -52,15 +52,15 @@ def create_notebook_data():
 # create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
 ```
 
-(sec_basics)=
+(sec_terminology_and_concepts)=
 
-# Tree sequence basics
+# Terminology & concepts
 
 If you have read "{ref}`sec_what_is`" we hope to have piqued your interest in tree
 sequences. This tutorial serves as an introduction to the terminology and some of the
 concepts behind {program}`tskit`, the tree sequence toolkit.
 
-(sec_basics_terminology)=
+(sec_terminology)=
 
 ## Terminology
 
@@ -124,7 +124,7 @@ current population. In fact, since this pattern is seen in all trees, these part
 lines of inheritance were taken by all the DNA in this 1000 base pair genome.
 
 
-(sec_basics_terminology_nodes)=
+(sec_terminology_nodes)=
 
 ### Nodes
 
@@ -132,14 +132,14 @@ Trees in a tree sequence are represented in a slightly unusual way.
 In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
 objects. In tree sequences, however, all nodes, both internal and terminal,
-are represented by an integer ID, unique over the entire tree sequence, and which exists
+are represented by an **integer ID**, unique over the entire tree sequence, and which exists
 at a specific point in time. A branch point in any of the trees is associated with
-an _internal node_, representing an ancestor in which a single DNA
+an *internal node*, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
 coalesced (in backwards-time terminology). 
 
 
-(sec_basics_terminology_nodes_samples)=
+(sec_terminology_nodes_samples)=
 
 #### Sample nodes
 
@@ -154,7 +154,7 @@ print("There are", ts.num_nodes, "nodes, of which", ts.num_samples, "are sample 
 ```
 
 
-(sec_basics_terminology_edges)=
+(sec_terminology_edges)=
 
 ### Edges
 
@@ -190,12 +190,13 @@ which define 16 thousand trees; the uncompressed tree sequence takes 2.1 gigabyt
 disk space, and it takes of the order of a few seconds to iterate over all the trees.
 :::
 
-(sec_basics_terminology_trees_and_tree_sequences)=
+(sec_terminology_trees_and_tree_sequences)=
 
 ### Trees and tree sequences
 
-The combination of nodes and edges results in a tree sequence. Note that the
-sample nodes, $0..5$ in our example, are present in all the trees (since we have their
+The combination of nodes and edges results in a tree sequence. This can be visualized,
+as in the drawing above, as a set of correlated trees. The
+sample nodes, $0..5$ in the drawing, are present in all the trees (since we have their
 full genomes), but the other nodes, such as node $9$, need not be: indeed in larger
 tree sequences they are rarely so.
 
@@ -211,8 +212,28 @@ breakpoints = ts.breakpoints(as_array=True)
 print("There are", ts.num_trees, "trees, associated with breakpoints", breakpoints)
 ```
 
+::::{margin}
+More details about these and related methods are given in the {ref}`sec_analysing_trees`
+and {ref}`Getting started<sec_tskit_getting_started>` tutorials.
+::::
 
-(sec_basics_terminology_individuals_and_populations)=
+Note that in keeping with the reliance on node numbers (rather than objects), information
+about the relationships between nodes in a tree is obtained using their **integer IDs**.
+In the Python API, for instance, the {meth}`TreeSequence.first`
+method will return the first tree, which then provides basic methods to obtain
+information about (say) node $7$, including the IDs of its parent and child nodes:
+
+```{code-cell} ipython3
+first_tree = ts.first()
+parent_of_7 = first_tree.parent(7)
+children_of_7 = first_tree.children(7)
+print("Node 7's parent is", parent_of_7, "and childen are", children_of_7, "in the first tree")
+```
+
+
+
+
+(sec_terminology_individuals_and_populations)=
 
 ### Individuals and populations
 
@@ -260,7 +281,7 @@ for population in ts.populations():
 ```
 
 
-(sec_basics_terminology_mutations_and_sites)=
+(sec_terminology_mutations_and_sites)=
 
 ### Mutations and sites
 
@@ -303,7 +324,7 @@ that genomic location). It is perfectly possible to have a site with no mutation
 used in further analysis.
 
 
-(sec_basics_terminology_provenance)=
+(sec_terminology_provenance)=
 
 ### Provenance
 
@@ -317,7 +338,7 @@ provenance entries are sufficient to exactly recreate the tree sequence, but thi
 is not always possible.
 
 
-(sec_basics_concepts)=
+(sec_concepts)=
 
 ## Concepts
 
@@ -337,7 +358,7 @@ sequences that have been inferred from real data, it is possible to have a paren
 with 3 or more children in a particular tree (these are known as *polytomies*).
 
 
-(sec_basics_concepts_sprs)=
+(sec_concepts_sprs)=
 
 ### Tree changes, ancestral recombinations, and SPRs
 
@@ -366,7 +387,7 @@ discrete integer positions, as in the simulation that created this tree sequence
 moving from  one tree to the next in a tree sequence might require multiple SPRs if
 there are multiple, overlaid ancestral recombination events.
 
-(sec_basics_concepts_args)=
+(sec_concepts_args)=
 
 ### Tree sequences and ARGs
 

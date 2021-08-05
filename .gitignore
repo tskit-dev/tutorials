@@ -1,3 +1,5 @@
 *.pyc
 _build
 .DS_Store
+# ignore files created by the user during a tut
+data/my_tree_sequence.trees
