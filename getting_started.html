@@ -53,8 +53,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Visualization" href="viz.html" />
-    <link rel="prev" title="Tree sequence basics" href="basics.html" />
+    <link rel="next" title="Analysing tree sequences" href="analysing_tree_sequences.html" />
+    <link rel="prev" title="Terminology &amp; concepts" href="terminology_and_concepts.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -91,69 +91,30 @@
   </a>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="basics.html">
-   Tree sequence basics
-  </a>
- </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Using tskit
+  Tree sequence basics
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="terminology_and_concepts.html">
+   Terminology &amp; concepts
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Getting started with
    <strong class="program">
     tskit
    </strong>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="data_structures.html">
-   Data structures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="metadata.html">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
   </a>
  </li>
 </ul>
@@ -179,6 +140,42 @@
   <a class="reference internal" href="counting_topologies.html">
    <em>
     Counting topologies
+   </em>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Further tskit tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
+   Data structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   <em>
+    Simplification
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="metadata.html">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="args.html">
+   <em>
+    ARGs as tree sequences
    </em>
   </a>
  </li>
@@ -249,14 +246,26 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  Other languages
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   Development
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="development.html">
+  <a class="reference internal" href="tutorial_development.html">
    <em>
-    Development
+    Developing new tutorials
    </em>
   </a>
  </li>
@@ -670,7 +679,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0213211 secs
+Checked in 0.0195487 secs
 </pre></div>
 </div>
 </div>
@@ -1162,10 +1171,10 @@ in rough order of importance:</p>
 Similarly a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a> object has e.g. an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.interval" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">interval</span></code></a> attribute, a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Site</span></code></a> object has a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.mutations" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mutations</span></code></a> attribute, a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>
 object has a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node.time" title="(in tskit v0.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time</span></code></a> attribute, and so on.</p></li>
-<li><p><a class="reference internal" href="basics.html#sec-basics-terminology-nodes"><span class="std std-ref">Nodes</span></a> (i.e. genomes) can belong to
-<a class="reference internal" href="basics.html#sec-basics-terminology-individuals-and-populations"><span class="std std-ref">individuals</span></a>. For example,
+<li><p><a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes"><span class="std std-ref">Nodes</span></a> (i.e. genomes) can belong to
+<a class="reference internal" href="terminology_and_concepts.html#sec-terminology-individuals-and-populations"><span class="std std-ref">individuals</span></a>. For example,
 sampling a diploid individual results in an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Individual" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Individual</span></code></a> object which
-possesses two distinct <a class="reference internal" href="basics.html#sec-basics-terminology-nodes-samples"><span class="std std-ref">sample nodes</span></a>.</p></li>
+possesses two distinct <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes-samples"><span class="std std-ref">sample nodes</span></a>.</p></li>
 </ul>
 </li>
 <li><p>Key tree sequence methods</p>
@@ -1221,8 +1230,8 @@ also be calculated in windows along the genome.</p></li>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="basics.html" title="previous page">Tree sequence basics</a>
-    <a class='right-next' id="next-link" href="viz.html" title="next page">Visualization</a>
+    <a class='left-prev' id="prev-link" href="terminology_and_concepts.html" title="previous page">Terminology &amp; concepts</a>
+    <a class='right-next' id="next-link" href="analysing_tree_sequences.html" title="next page"><em>Analysing tree sequences</em></a>
 
         </div>
         

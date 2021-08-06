@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tree sequence basics &#8212; Tree Sequence Tutorials</title>
+    <title>Terminology &amp; concepts &#8212; Tree Sequence Tutorials</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -91,69 +91,30 @@
   </a>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Tree sequence basics
-  </a>
- </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Using tskit
+  Tree sequence basics
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Terminology &amp; concepts
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="getting_started.html">
    Getting started with
    <strong class="program">
     tskit
    </strong>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="data_structures.html">
-   Data structures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="metadata.html">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
   </a>
  </li>
 </ul>
@@ -179,6 +140,42 @@
   <a class="reference internal" href="counting_topologies.html">
    <em>
     Counting topologies
+   </em>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Further tskit tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
+   Data structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   <em>
+    Simplification
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="metadata.html">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="args.html">
+   <em>
+    ARGs as tree sequences
    </em>
   </a>
  </li>
@@ -249,14 +246,26 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  Other languages
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   Development
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="development.html">
+  <a class="reference internal" href="tutorial_development.html">
    <em>
-    Development
+    Developing new tutorials
    </em>
   </a>
  </li>
@@ -300,11 +309,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="_sources/basics.ipynb"><button type="button"
+            href="_sources/terminology_and_concepts.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/basics.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/terminology_and_concepts.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -324,7 +333,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fbasics.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fterminology_and_concepts.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -432,13 +441,13 @@
         
               <div>
                 
-  <div class="section" id="tree-sequence-basics">
-<span id="sec-basics"></span><h1>Tree sequence basics<a class="headerlink" href="#tree-sequence-basics" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="terminology-concepts">
+<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Permalink to this headline">¶</a></h1>
 <p>If you have read “<a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>” we hope to have piqued your interest in tree
 sequences. This tutorial serves as an introduction to the terminology and some of the
 concepts behind <strong class="program">tskit</strong>, the tree sequence toolkit.</p>
 <div class="section" id="terminology">
-<span id="sec-basics-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
+<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -501,7 +510,7 @@ pairs. This is accessible using the <a class="reference external" href="https://
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/basics_7_0.svg" src="_images/basics_7_0.svg" /></div>
+<img alt="_images/terminology_and_concepts_7_0.svg" src="_images/terminology_and_concepts_7_0.svg" /></div>
 </div>
 <p>Each tree records the lines of descent along which a piece of DNA has been
 inherited (ignore for the moment the red symbols, which represent a mutation).
@@ -511,18 +520,18 @@ current population. In fact, since this pattern is seen in all trees, these part
 lines of inheritance were taken by all the DNA in this 1000 base pair genome.</p>
 </div>
 <div class="section" id="nodes">
-<span id="sec-basics-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
+<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
 <p>Trees in a tree sequence are represented in a slightly unusual way.
 In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
 objects. In tree sequences, however, all nodes, both internal and terminal,
-are represented by an integer ID, unique over the entire tree sequence, and which exists
+are represented by an <strong>integer ID</strong>, unique over the entire tree sequence, and which exists
 at a specific point in time. A branch point in any of the trees is associated with
 an <em>internal node</em>, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
 coalesced (in backwards-time terminology).</p>
 <div class="section" id="sample-nodes">
-<span id="sec-basics-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">¶</a></h4>
+<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">¶</a></h4>
 <p>The tip (leaf) nodes of the tree are usually marked as <em>sample nodes</em>, plotted as square
 symbols in the visualization. Sample nodes are the focal nodes in a tree sequence; they
 normally represent genomes from which we have obtained data (i.e. which we have “sampled”),
@@ -543,7 +552,7 @@ labelled <span class="math notranslate nohighlight">\(0..5\)</span>, and also 6 
 </div>
 </div>
 <div class="section" id="edges">
-<span id="sec-basics-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">¶</a></h3>
+<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">¶</a></h3>
 <p>In an evolutionary tree, the connections between nodes are conventionally referred to as
 “branches”. In a tree sequence, we instead refer to directional connections between nodes
 as <em>edges</em>, emphasizing that they usually persist across multiple trees. Thus each of the
@@ -584,9 +593,10 @@ disk space, and it takes of the order of a few seconds to iterate over all the t
 </div>
 </div>
 <div class="section" id="trees-and-tree-sequences">
-<span id="sec-basics-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">¶</a></h3>
-<p>The combination of nodes and edges results in a tree sequence. Note that the
-sample nodes, <span class="math notranslate nohighlight">\(0..5\)</span> in our example, are present in all the trees (since we have their
+<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">¶</a></h3>
+<p>The combination of nodes and edges results in a tree sequence. This can be visualized,
+as in the drawing above, as a set of correlated trees. The
+sample nodes, <span class="math notranslate nohighlight">\(0..5\)</span> in the drawing, are present in all the trees (since we have their
 full genomes), but the other nodes, such as node <span class="math notranslate nohighlight">\(9\)</span>, need not be: indeed in larger
 tree sequences they are rarely so.</p>
 <p>In tree sequence terminology, we don’t explictly keep track of where nodes
@@ -608,9 +618,34 @@ edge changes it creates a new tree; the location of the change is known as a <em
 </div>
 </div>
 </div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>More details about these and related methods are given in the <a class="reference internal" href="analysing_trees.html#sec-analysing-trees"><span class="std std-ref">Analysing trees</span></a>
+and <a class="reference internal" href="getting_started.html#sec-tskit-getting-started"><span class="std std-ref">Getting started</span></a> tutorials.</p>
+</div>
+<p>Note that in keeping with the reliance on node numbers (rather than objects), information
+about the relationships between nodes in a tree is obtained using their <strong>integer IDs</strong>.
+In the Python API, for instance, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a>
+method will return the first tree, which then provides basic methods to obtain
+information about (say) node <span class="math notranslate nohighlight">\(7\)</span>, including the IDs of its parent and child nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">parent_of_7</span> <span class="o">=</span> <span class="n">first_tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">children_of_7</span> <span class="o">=</span> <span class="n">first_tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node 7&#39;s parent is&quot;</span><span class="p">,</span> <span class="n">parent_of_7</span><span class="p">,</span> <span class="s2">&quot;and childen are&quot;</span><span class="p">,</span> <span class="n">children_of_7</span><span class="p">,</span> <span class="s2">&quot;in the first tree&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 7&#39;s parent is 11 and childen are (1, 4) in the first tree
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="individuals-and-populations">
-<span id="sec-basics-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">¶</a></h3>
+<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes we know that one or more nodes belong to a particular <em>individual</em>. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
 obtain two copies of each autosomal chromosome. The tree with six sample nodes above
@@ -655,7 +690,7 @@ together in the trees, as the original simulation was of a randomly mating popul
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/basics_17_0.svg" src="_images/basics_17_0.svg" /></div>
+<img alt="_images/terminology_and_concepts_19_0.svg" src="_images/terminology_and_concepts_19_0.svg" /></div>
 </div>
 <p>In the same way that nodes can be associated with a specific individual, nodes can also
 be associated with a larger <em>population</em>. In this example, there is only one population
@@ -677,7 +712,7 @@ be associated with a larger <em>population</em>. In this example, there is only 
 </div>
 </div>
 <div class="section" id="mutations-and-sites">
-<span id="sec-basics-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">¶</a></h3>
+<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">¶</a></h3>
 <p>In <strong class="program">tskit</strong>, <em>mutations</em> occur at specific, defined <em>sites</em>. A mutation is
 positioned above a particular node (specified by the node ID), occurs at a particular
 site (specified by a site ID), and involves a change of allelic state to a defined
@@ -731,7 +766,7 @@ that genomic location). It is perfectly possible to have a site with no mutation
 used in further analysis.</p>
 </div>
 <div class="section" id="provenance">
-<span id="sec-basics-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">¶</a></h3>
+<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">¶</a></h3>
 <p>The history of the tree sequence is recorded in a set of provenance entries. That
 includes what produced it, and what operations have been done to it and when. For
 instance, if it was produced by <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplifying</span></a> a tree
@@ -743,7 +778,7 @@ is not always possible.</p>
 </div>
 </div>
 <div class="section" id="concepts">
-<span id="sec-basics-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <p>There are some basic population genetic concepts which can be helpful with thinking about
 tree sequences. For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
@@ -754,7 +789,7 @@ tree sequences. For reference, here is the tree sequence topology that we have b
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/basics_25_0.svg" src="_images/basics_25_0.svg" /></div>
+<img alt="_images/terminology_and_concepts_27_0.svg" src="_images/terminology_and_concepts_27_0.svg" /></div>
 </div>
 <p>Note that all these trees show strictly bifurcating splits, but this does not need to be
 the case for tree sequences in general. In particular, where tree sequences have been
@@ -762,7 +797,7 @@ created by the multiple-merger coalecent process, or in tree
 sequences that have been inferred from real data, it is possible to have a parent node
 with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
 <div class="section" id="tree-changes-ancestral-recombinations-and-sprs">
-<span id="sec-basics-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">¶</a></h3>
+<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">¶</a></h3>
 <p>The reason that tree sequences are efficient is that very few edges
 <a class="reference internal" href="what_is.html#fig-what-is-edge-diffs"><span class="std std-ref">change from tree to tree</span></a>. More specifically, recombination
 results in adjacent trees that differ by only a few “tree edit” or SPR
@@ -787,7 +822,7 @@ moving from  one tree to the next in a tree sequence might require multiple SPRs
 there are multiple, overlaid ancestral recombination events.</p>
 </div>
 <div class="section" id="tree-sequences-and-args">
-<span id="sec-basics-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">¶</a></h3>
+<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">¶</a></h3>
 <p>Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
 recombination events are explictly stored. Although a tree sequence <em>can</em> represent such

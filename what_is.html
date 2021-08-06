@@ -53,7 +53,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tree sequence basics" href="basics.html" />
+    <link rel="next" title="Terminology &amp; concepts" href="terminology_and_concepts.html" />
     <link rel="prev" title="Welcome!" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -91,69 +91,30 @@
   </a>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    What is a tree sequence?
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="basics.html">
-   Tree sequence basics
-  </a>
- </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Using tskit
+  Tree sequence basics
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="terminology_and_concepts.html">
+   Terminology &amp; concepts
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="getting_started.html">
    Getting started with
    <strong class="program">
     tskit
    </strong>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="data_structures.html">
-   Data structures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="metadata.html">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
   </a>
  </li>
 </ul>
@@ -179,6 +140,42 @@
   <a class="reference internal" href="counting_topologies.html">
    <em>
     Counting topologies
+   </em>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Further tskit tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
+   Data structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   <em>
+    Simplification
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="metadata.html">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="args.html">
+   <em>
+    ARGs as tree sequences
    </em>
   </a>
  </li>
@@ -249,14 +246,26 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  Other languages
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   Development
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="development.html">
+  <a class="reference internal" href="tutorial_development.html">
    <em>
-    Development
+    Developing new tutorials
    </em>
   </a>
  </li>
@@ -437,7 +446,7 @@ a short 1000 letter chromosome.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For clarity in these examples, we are using letters to label nodes. Normally, however,
-the nodes are referred to by <a class="reference internal" href="basics.html#sec-basics-terminology-nodes"><span class="std std-ref">numerical ID</span></a>.</p>
+the nodes are referred to by <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes"><span class="std std-ref">numerical ID</span></a>.</p>
 </div>
 </div>
 <p>The tickmarks on the X axis and background shading indicate the genomic positions covered
@@ -560,7 +569,7 @@ several orders of magnitude faster to process than other storage formats.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The genetic genealogy is sometimes referred to as an ancestral recombination graph,
-or ARG, and there are <a class="reference internal" href="basics.html#sec-basics-concepts-args"><span class="std std-ref">close similarities</span></a> between ARGs
+or ARG, and there are <a class="reference internal" href="terminology_and_concepts.html#sec-concepts-args"><span class="std std-ref">close similarities</span></a> between ARGs
 and tree sequences (see the <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARG tutorial</span></a>)</p>
 </div>
 </div>
@@ -693,12 +702,12 @@ phylogenetically relevant methods such as
 and the <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">counting of topologies</span></a> embedded within
 larger trees.</p>
 <p>If you are new to tree sequences, and want to start finding out about <strong class="program">tskit</strong>,
-you might now want to continue to the next tutorial: <a class="reference internal" href="basics.html#sec-basics"><span class="std std-ref">Tree sequence basics</span></a>.</p>
+you might now want to continue to the next tutorial: <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-and-concepts"><span class="std std-ref">Terminology &amp; concepts</span></a>.</p>
 </div>
 <div class="section" id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Basic concepts: details in the <a class="reference internal" href="basics.html#sec-basics"><span class="std std-ref">Tree sequence basics</span></a> tutorial</p></li>
+<li><p>Basic concepts: details in the <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-and-concepts"><span class="std std-ref">Terminology &amp; concepts</span></a> tutorial</p></li>
 <li><p>How is a tree sequence stored: details in the <a class="reference internal" href="data_structures.html#sec-data-structures"><span class="std std-ref">Data structures</span></a> tutorial</p></li>
 <li><p>The offical <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs">documentation</a></p></li>
 </ul>
@@ -731,7 +740,7 @@ you might now want to continue to the next tutorial: <a class="reference interna
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Welcome!</a>
-    <a class='right-next' id="next-link" href="basics.html" title="next page">Tree sequence basics</a>
+    <a class='right-next' id="next-link" href="terminology_and_concepts.html" title="next page">Terminology &amp; concepts</a>
 
         </div>
         

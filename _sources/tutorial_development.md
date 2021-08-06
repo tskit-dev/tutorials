@@ -13,7 +13,7 @@ kernelspec:
 
 (sec_development)=
 
-# _Development_
+# _Developing new tutorials_
 % remove underscores in title when tutorial is complete or near-complete
 
 :::{note}

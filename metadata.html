@@ -52,7 +52,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ARGs as tree sequences" href="args.html" />
-    <link rel="prev" title="Simplification" href="simplification.html" />
+    <link rel="prev" title="Visualization" href="viz.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -89,69 +89,30 @@
   </a>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="basics.html">
-   Tree sequence basics
-  </a>
- </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Using tskit
+  Tree sequence basics
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="terminology_and_concepts.html">
+   Terminology &amp; concepts
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="getting_started.html">
    Getting started with
    <strong class="program">
     tskit
    </strong>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="data_structures.html">
-   Data structures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
   </a>
  </li>
 </ul>
@@ -177,6 +138,42 @@
   <a class="reference internal" href="counting_topologies.html">
    <em>
     Counting topologies
+   </em>
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Further tskit tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_structures.html">
+   Data structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   <em>
+    Simplification
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="args.html">
+   <em>
+    ARGs as tree sequences
    </em>
   </a>
  </li>
@@ -247,14 +244,26 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  Other languages
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   Development
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="development.html">
+  <a class="reference internal" href="tutorial_development.html">
    <em>
-    Development
+    Developing new tutorials
    </em>
   </a>
  </li>
@@ -571,7 +580,7 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5411</span><span class="o">/</span><span class="mf">4092786825.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5046</span><span class="o">/</span><span class="mf">4092786825.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
@@ -647,7 +656,7 @@ also raised if we attempt to add new fields:</p>
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5411</span><span class="o">/</span><span class="mf">2608489950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5046</span><span class="o">/</span><span class="mf">2608489950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
@@ -863,7 +872,7 @@ for these methods:</p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="simplification.html" title="previous page"><em>Simplification</em></a>
+    <a class='left-prev' id="prev-link" href="viz.html" title="previous page">Visualization</a>
     <a class='right-next' id="next-link" href="args.html" title="next page"><em>ARGs as tree sequences</em></a>
 
         </div>

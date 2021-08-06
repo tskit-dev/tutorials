@@ -497,10 +497,10 @@ in rough order of importance:
         Similarly a {class}`Tree` object has e.g. an {attr}`~Tree.interval` attribute, a
         {class}`Site` object has a {attr}`~Site.mutations` attribute, a {class}`Node`
         object has a {attr}`~Node.time` attribute, and so on.
-    * {ref}`sec_basics_terminology_nodes` (i.e. genomes) can belong to
-        {ref}`individuals<sec_basics_terminology_individuals_and_populations>`. For example,
+    * {ref}`sec_terminology_nodes` (i.e. genomes) can belong to
+        {ref}`individuals<sec_terminology_individuals_and_populations>`. For example,
         sampling a diploid individual results in an {class}`Individual` object which
-        possesses two distinct {ref}`sample nodes<sec_basics_terminology_nodes_samples>`.
+        possesses two distinct {ref}`sample nodes<sec_terminology_nodes_samples>`.
 * Key tree sequence methods
     * {meth}`~TreeSequence.samples()` returns an array of node IDs specifying the
         nodes that are marked as samples
