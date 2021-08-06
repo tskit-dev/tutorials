@@ -459,5 +459,5 @@ you might now want to continue to the next tutorial: {ref}`sec_terminology_and_c
 ## Further reading
 
 * Basic concepts: details in the {ref}`sec_terminology_and_concepts` tutorial
-* How is a tree sequence stored: details in the {ref}`sec_data_structures` tutorial
+* How is a tree sequence stored: details in the {ref}`sec_tables` tutorial
 * The offical {program}`tskit` [documentation](https://tskit.dev/tskit/docs)

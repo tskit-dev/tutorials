@@ -428,7 +428,7 @@ ts  # or use `print(ts)` for the plain text representation
 
 There is a separate API for dealing with a tree sequence as a collection of tables,
 which can be useful for dealing with large datasets, and is needed if you want to
-{ref}`edit<sec_data_structures_editing>` an existing tree sequence. This is covered in
-the {ref}`sec_data_structures` tutorial.
+{ref}`edit<sec_tables_editing>` an existing tree sequence. This is covered in
+the {ref}`sec_tables` tutorial.
 
 

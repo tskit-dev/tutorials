@@ -116,17 +116,13 @@ def create_notebook_data():
 ```
 
 
-(sec_data_structures)=
+(sec_tables)=
 
-# Data structures
-
-(sec_data_structures_tables)=
-
-## Tables
+# Tables and editing
 
 Internally, a tree sequence can be thought of as a set of tables, and {program}`tskit`
 provides an interface for dealing with these tables directly. This is particularly
-relevant when you wish to {ref}`edit or otherwise modify<sec_data_structures_editing>`
+relevant when you wish to {ref}`edit or otherwise modify<sec_tables_editing>`
 a tree sequence, although tables are also useful for bulk access to data contained in
 the tree sequence, such as the times of all nodes.
 
@@ -137,7 +133,9 @@ The tables are defined in the official {program}`tskit` documentation for
 {ref}`Tables API <tskit:sec_tables_api>` section in the docs describes how to work with
 them. In this tutorial we give some pointers about what you can and cannot do with them.
 
-### Correspondance between tables and trees
+(sec_tables_correspondence)=
+
+## Correspondence between tables and trees
 
 Consider the following sequence of trees:
 
@@ -151,7 +149,9 @@ Ancestral recombination events have produced three different trees
 that relate the three sampled genomes ``0``, ``1``, and ``2`` to each other
 along the chromosome of length 100.
 
-#### Node and edge tables
+(sec_tables_correspondence_nodes_and_edges)=
+
+### Node and edge tables
 
 Each node in each of the above trees represents a particular ancestral genome
 (a *haploid* genome; diploid individuals would be represented by two nodes).
@@ -161,6 +161,15 @@ Details about each node, including the time it lived, are stored in a
 ```{code-cell} ipython3
 ts.tables.nodes
 ```
+
+::::{margin}
+:::{note}
+The `b''` values in the metadata column represent empty
+{ref}`(byte) strings<py:typebytes>`, and hence
+no metadata is associated with any of the nodes (or indeed any other tables) in
+this tree sequence.
+:::
+::::
 
 Importantly, the first column, ``id``, is not actually recorded, and is
 only shown when printing out node tables (as here) for convenience.
@@ -190,8 +199,9 @@ specifying the common ancestor of 0 and 4 on the remaining intervals (parents 6
 and 5 respectively) allow us to construct all trees across the entire interval.
 
 
+(sec_tables_correspondence_sites_and_mutations)=
 
-#### Sites and mutations tables
+### Sites and mutations tables
 
 Most tree sequences have DNA variation data associated with them,
 {ref}`stored as mutations overlaid on the trees<sec_what_is_dna_data>`:
@@ -243,15 +253,19 @@ for sample, h in enumerate(ts.haplotypes()):
     print(f"Sample {sample}: {h}")
 ```
 
-#### Other tables
+(sec_tables_correspondence_other)=
+
+### Other tables
 
 The other tables in a {class}`TableCollection` are the {class}`IndividualTable` (which
-records which {ref}`individual organism<sec_nodes_or_individuals>` a node is contained
-in), the {class}`PopulationTable` and the {class}`MigrationTable`, and the
+records which {ref}`individual organism<tskit:sec_nodes_or_individuals>` a node is
+contained in), the {class}`PopulationTable` and the {class}`MigrationTable`, and the
 {class}`ProvenanceTable` which records the {ref}`tskit:sec_provenance` of the data in
 a tree sequence. These won't be covered in this tutorial.
 
-#### Metadata
+(sec_tables_correspondence_metadata)=
+
+### Metadata
 
 You may have noticed ``metadata`` columns in all the tables above. All tables can have
 (optional) metadata attached to their rows, as described in the {ref}`sec_metadata`
@@ -260,7 +274,9 @@ The {ref}`metadata tutorial<sec_tutorial_metadata>` provides more information ab
 to set and use these metadata columns in tree sequence tables.
 
 
-### Accessing table data
+(sec_tables_accessing)=
+
+## Accessing table data
 
 To look at a the contents of a table, you can simply `print` it:
 
@@ -270,7 +286,9 @@ print(ts.tables.mutations)
 
 But {program}`tskit` also provides access to the rows and columns of each table.
 
-#### Row access
+(sec_tables_accessing_rows)=
+
+### Row access
 
 Rows can be accessed using square braces, which will return an object containing the
 raw values:
@@ -313,10 +331,11 @@ new_tables.sites
 
 Note that one of the requirements of a tree sequence is that the sites are listed in
 order of position, so this new table will require sorting (see
-{ref}`sec_data_structures_tables_creating`)
+{ref}`sec_tables_creating`)
 
+(sec_tables_accessing_columns)=
 
-#### Column access
+### Column access
 
 An entire column in a table can be extracted as a {program}`numpy` array from the table
 object. For instance, if ``n`` is a {class}`NodeTable`, then ``n.time``
@@ -344,34 +363,54 @@ expected length:
 node_table.time = times[2:]
 ```
 
-(sec_data_structures_tables_creating)=
+(sec_tables_to_tree_sequence)=
 
-### Turning tables into a tree sequence
+## Turning tables into a tree sequence
 
 The {meth}`TableCollection.tree_sequence` method will attempt to turn a table collection
 into a tree sequence. This is not guaranteed to work: it's possible you have created a
 nonsensical tree sequence where, for example, a child node has multiple parents at
-a given position. The {ref}`tskit:sec_valid_tree_sequence_requirements` section of the
-official tskit docs lists the requirements; these include the correct order for rows in
-a number of tables. For instance, the sites table is
-{ref}`required<tskit:sec_site_requirements>` to be sorted in order of position. Since
-this is not true of the sites table in the ``new_tables`` collection we have just
-created, we need to {meth}`~TableCollection.sort` the table collection before turning
-it into a tree sequence
+a given position, or where edges reference non-existant nodes. The
+{ref}`tskit:sec_valid_tree_sequence_requirements` section of the official tskit docs
+lists the requirements for a {class}`TableCollection` to represent a valid
+{class}`TreeSequence`.
+
+(sec_tables_to_tree_sequence_sorting)=
+
+### Sorting
+
+Even if the tables represent a valid tree sequence, for efficiency reasons tree
+sequences also require several of their constituent tables to be sorted in a specific
+order. For instance, edges are {ref}`required<tskit:sec_edge_requirements>` to be sorted
+in nondecreasing order of parent time, and sites are
+{ref}`required<tskit:sec_site_requirements>` to be sorted in order of position.
+We can ensure that a set of tables are correctly sorted by calling the
+{meth}`TableCollection.sort` method.
+
+For instance, the ``new_tables`` collection we created above no longer has its sites in
+the correct order, so we need to call ``new_tables.sort()`` before turning
+it into a tree sequence:
 
 ```{code-cell} ipython3
 # new_ts = new_tables.tree_sequence()  # This won't work
 new_tables.sort()
 new_ts = new_tables.tree_sequence()  # Now it will
+```
+
+We can now plot the resulting tree sequence:
+
+```{code-cell} ipython3
 # Plot without mutation labels, for clarity 
 SVG(new_ts.draw_svg(y_axis=True, y_gridlines=True, mutation_labels={}))
 ```
 
-Here you can see that a new empty site has been added at position 10 (represented by a
-tickmark above the X axis with no mutations on it), and all the nodes except node 0
-have had their times increased by 0.25.
+You can see that the new tree sequence has been modified as expected: there is a new
+empty site at position 10 (represented by a tickmark above the X axis with no mutations
+on it), and all the nodes except node 0 have had their times increased by 0.25.
 
-### Constructing a tree sequence
+(sec_tables_creating)=
+
+## Constructing a tree sequence
 
 With the tools above in mind, we can now see how to construct a tree sequence by hand.
 It's unlikely that you would ever need to do this from scratch, but it's helpful to
@@ -433,17 +472,18 @@ order returned by {meth}`~TreeSequence.simplify`, but the example above shows th
 sample nodes need not necessarily be those with the IDs $0..n$.
 :::
 
-(sec_data_structures_editing)=
+(sec_tables_editing)=
 
 ## Editing tree sequences
 
-Sometimes we wish to make some minor modifications to a tree sequence that has
+Sometimes you may wish to make modifications to a tree sequence that has
 been generated by a simulation. However, tree sequence objects are **immutable**
-and so we cannot edit them in place.
+and so cannot be edited in-place.
 
-
-Several {program}`tskit` methods will return a new tree sequence that has been
-modified in some way. For example:
+Before describing how to edit a tree sequence by hand, it's worth noting that
+{program}`tskit` may provide a built-in method to achieve what you want to do. In
+particular, several methods will return a new tree sequence that has been modified in
+some way. For example:
 - {meth}`TreeSequence.delete_sites` returns a tree sequence with certain sites
   deleted
 - {meth}`TreeSequence.delete_intervals` and {meth}`TreeSequence.keep_intervals` 
@@ -475,6 +515,16 @@ def strip_singletons(ts):
     return tables.tree_sequence()
 ```
 
+::::{margin}
+:::{note}
+This code only considers simple infinite sites mutations.
+Accounting for back or recurrent mutations would require a slightly
+more involved approach where we keep a map of mutation IDs so that
+mutation ``parent`` values could be computed.
+:::
+::::
+
+
 This function takes a tree sequence containing some infinite sites mutations as
 input, and returns a copy in which all singleton sites have been removed.
 The approach is very simple: we get a copy of the underlying
@@ -486,13 +536,6 @@ output tables using {meth}`SiteTable.append` and {meth}`MutationTable.append`. T
 functions act exactly like {meth}`SiteTable.add_row` and {meth}`MutationTable.add_row`
 but they take an existing site or mutation and add all its details as a new row.
 
-
-:::{note}
-In this code we consider only simple infinite sites mutations,
-where we cannot have back or recurrent mutations. These would require a slightly
-more involved approach where we keep a map of mutation IDs so that
-mutation ``parent`` values could be computed.
-:::
 
 After considering each site, we then create a new tree sequence using
 the {meth}`TableCollection.tree_sequence` method on our updated tables.
@@ -515,25 +558,4 @@ print(ts_new.num_sites, "sites after removing singletons")
 Add another example here where we use the array oriented API to edit
 the nodes and edges of a tree sequence. Perhaps recapitating would be a
 good example?
-:::
-
-(sec_data_structures_trees)=
-
-## Trees
-
-A {class}`Tree` represents a single tree in a {class}`TreeSequence`.
-The {program}`tskit` Tree implementation differs from most tree libraries by
-using **integer IDs** to refer to nodes rather than objects. Thus, when we wish to
-find the parent of the node with ID '0', we use ``tree.parent(0)``, which
-returns another integer. If '0' does not have a parent in the current tree
-(e.g., if it is a root), then the special value {data}`tskit.NULL`
-({math}`-1`) is returned. The children of a node are found using the
-{meth}`Tree.children` method. To obtain information about a particular node,
-one may either use ``tree.tree_sequence.node(u)`` to which returns the
-corresponding {class}`Node` instance, or use the {attr}`Tree.time` or
-{attr}`Tree.population` shorthands.
-
-:::{todo}
-Add an example of using the tree structure. Note that traversing through the
-structure is covered in a different tutorial.
 :::
