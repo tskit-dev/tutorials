@@ -15,7 +15,7 @@ parts:
   - file: counting_topologies
 - caption: Further tskit tutorials
   chapters:
-  - file: data_structures
+  - file: tables_and_editing
   - file: simplification
   - file: viz
   - file: metadata
