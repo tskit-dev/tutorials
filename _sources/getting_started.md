@@ -212,7 +212,7 @@ up in the tree, and therefore many more mutations at higher-frequencies.
 :::{margin}
 You cannot directly edit a tree sequence; to add e.g. metadata you must edit a
 copy of the underlying tables. This is described in the
-{ref}`data structures tutorial<sec_data_structures>`.
+{ref}`Tables and editing tutorial<sec_tables_editing>`.
 :::
 
 :::{note}
