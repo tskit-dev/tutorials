@@ -688,15 +688,16 @@ produce reasonable output, although librsvg currently misaligns some labels due 
 (sec_tskit_viz_converting_note)=
 
 :::{note}
-A few styling properties, such as the ``transform`` property, are SVG2 features,
-and have not yet been implemented in Inkscape or librsvg.
-These properties will therefore not be applied to elements when converted with these
-tools. A workaround is to convert the SVG to PDF first, using e.g. the
-programmable chromium engine: 
+A few stylesheet specifications, such as the ``transform`` property, are SVG2
+features, and have not yet been implemented in Inkscape or librsvg.
+Therefore if you use these in your own custom SVG stylesheet (such as the example
+above where we rotated leaf labels), they will not be applied properly
+when converted with those tools. For custom stylesheets like this, a workaround is
+to convert the SVG to PDF first, using e.g. the programmable chromium engine: 
 ```
 chromium --headless --print-to-pdf=out.pdf in.svg
 ```
-The resulting PDF file can be converted by Inkscape, retaining the correct
+The resulting PDF file can then be converted by Inkscape, retaining the correct
 transformations.
 :::
 
