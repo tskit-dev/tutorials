@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -1203,15 +1203,16 @@ produce reasonable output, although librsvg currently misaligns some labels due 
 <a class="reference external" href="https://gitlab.gnome.org/GNOME/librsvg/-/issues/414">ignoring certain SVG properties</a>.</p>
 <div class="admonition note" id="sec-tskit-viz-converting-note">
 <p class="admonition-title">Note</p>
-<p>A few styling properties, such as the <code class="docutils literal notranslate"><span class="pre">transform</span></code> property, are SVG2 features,
-and have not yet been implemented in Inkscape or librsvg.
-These properties will therefore not be applied to elements when converted with these
-tools. A workaround is to convert the SVG to PDF first, using e.g. the
-programmable chromium engine:</p>
+<p>A few stylesheet specifications, such as the <code class="docutils literal notranslate"><span class="pre">transform</span></code> property, are SVG2
+features, and have not yet been implemented in Inkscape or librsvg.
+Therefore if you use these in your own custom SVG stylesheet (such as the example
+above where we rotated leaf labels), they will not be applied properly
+when converted with those tools. For custom stylesheets like this, a workaround is
+to convert the SVG to PDF first, using e.g. the programmable chromium engine:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chromium</span> <span class="o">--</span><span class="n">headless</span> <span class="o">--</span><span class="nb">print</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">pdf</span><span class="o">=</span><span class="n">out</span><span class="o">.</span><span class="n">pdf</span> <span class="ow">in</span><span class="o">.</span><span class="n">svg</span>
 </pre></div>
 </div>
-<p>The resulting PDF file can be converted by Inkscape, retaining the correct
+<p>The resulting PDF file can then be converted by Inkscape, retaining the correct
 transformations.</p>
 </div>
 </div>
