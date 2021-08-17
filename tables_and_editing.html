@@ -309,11 +309,11 @@
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
-            href="_sources/data_structures.ipynb"><button type="button"
+            href="_sources/tables_and_editing.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/data_structures.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/tables_and_editing.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -333,7 +333,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fdata_structures.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Ftables_and_editing.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -370,15 +370,17 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sites-and-mutations-tables">
-     Sites and mutations tables
+    <a class="reference internal nav-link" href="#site-and-mutation-tables">
+     Site and mutation tables
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-tables">
-     Other tables
-    </a>
-   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tables-overview">
+   Tables overview
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#metadata">
      Metadata
@@ -461,7 +463,7 @@ them. In this tutorial we give some pointers about what you can and cannot do wi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/data_structures_3_0.svg" src="_images/data_structures_3_0.svg" /></div>
+<img alt="_images/tables_and_editing_3_0.svg" src="_images/tables_and_editing_3_0.svg" /></div>
 </div>
 <p>Ancestral recombination events have produced three different trees
 that relate the three sampled genomes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">2</span></code> to each other
@@ -512,7 +514,7 @@ Details about each node, including the time it lived, are stored in a
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">b''</span></code> values in the metadata column represent empty
-<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typebytes" title="(in Python v3.9)"><span class="xref std std-ref">(byte) strings</span></a>, and hence
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typebytes" title="(in Python v3.9)"><span class="xref std std-ref">(byte) strings</span></a>, and hence indicates that
 no metadata is associated with any of the nodes (or indeed any other tables) in
 this tree sequence.</p>
 </div>
@@ -576,8 +578,8 @@ point, we know the full tree on the middle interval.  Finally, edges
 specifying the common ancestor of 0 and 4 on the remaining intervals (parents 6
 and 5 respectively) allow us to construct all trees across the entire interval.</p>
 </div>
-<div class="section" id="sites-and-mutations-tables">
-<span id="sec-tables-correspondence-sites-and-mutations"></span><h3>Sites and mutations tables<a class="headerlink" href="#sites-and-mutations-tables" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="site-and-mutation-tables">
+<span id="sec-tables-correspondence-sites-and-mutations"></span><h3>Site and mutation tables<a class="headerlink" href="#site-and-mutation-tables" title="Permalink to this headline">¶</a></h3>
 <p>Most tree sequences have DNA variation data associated with them,
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">stored as mutations overlaid on the trees</span></a>:</p>
 <div class="cell docutils container">
@@ -595,7 +597,7 @@ and 5 respectively) allow us to construct all trees across the entire interval.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/data_structures_9_0.svg" src="_images/data_structures_9_0.svg" /></div>
+<img alt="_images/tables_and_editing_9_0.svg" src="_images/tables_and_editing_9_0.svg" /></div>
 </div>
 <p>There are four mutations in the depiction above,
 marked by red crosses: one above node <code class="docutils literal notranslate"><span class="pre">4</span></code> on the first tree which records an A to G
@@ -693,21 +695,34 @@ Sample 2: GGC
 </div>
 </div>
 </div>
-<div class="section" id="other-tables">
-<span id="sec-tables-correspondence-other"></span><h3>Other tables<a class="headerlink" href="#other-tables" title="Permalink to this headline">¶</a></h3>
-<p>The other tables in a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> are the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> (which
-records which <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-nodes-or-individuals" title="(in tskit v0.3)"><span class="xref std std-ref">individual organism</span></a> a node is
-contained in), the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a> and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MigrationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MigrationTable</span></code></a>, and the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.ProvenanceTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProvenanceTable</span></code></a> which records the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/provenance.html#sec-provenance" title="(in tskit v0.3)"><span>Provenance</span></a> of the data in
-a tree sequence. These won’t be covered in this tutorial.</p>
+</div>
+<div class="section" id="tables-overview">
+<span id="sec-tables-correspondence-other"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this headline">¶</a></h2>
+<p>Now that we’ve introduced the most important tables that make up a tree sequence, it’s
+worth seeing how they come together to form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.
+The following visualization shows how they relate to one another, as well as introducing
+two additional tables: the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a>
+(which record which
+<a class="reference internal" href="terminology_and_concepts.html#sec-terminology-individuals-and-populations"><span class="std std-ref">individuals and populations</span></a> a node
+is contained in).</p>
+<p><img alt="The tables in a tree sequence, and their interdependencies" src="_images/tables_uml.svg" /></p>
+<p>The lines in this diagram below show where one table refers to the IDs
+of another table, that is, they indicate dependencies between tables.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For simplicity, this diagram omits 2 extra tables which form part of a
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>: the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MigrationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MigrationTable</span></code></a>
+(recording details of migrations between populations), and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.ProvenanceTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProvenanceTable</span></code></a>
+(recording the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/provenance.html#sec-provenance" title="(in tskit v0.3)"><span class="xref std std-ref">provenance</span></a> of the data in a tree sequence)</p>
 </div>
 <div class="section" id="metadata">
 <span id="sec-tables-correspondence-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h3>
 <p>You may have noticed <code class="docutils literal notranslate"><span class="pre">metadata</span></code> columns in all the tables above. All tables can have
 (optional) metadata attached to their rows, as described in the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in tskit v0.3)"><span>Metadata</span></a>
-section of the official <strong class="program">tskit</strong> documentation.
-The <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">metadata tutorial</span></a> provides more information about how
-to set and use these metadata columns in tree sequence tables.</p>
+section of the official <strong class="program">tskit</strong> documentation. In addition, you can assign
+top-level metadata, associated with the entire <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.
+The <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">Working with Metadata</span></a> tutorial provides more information about how
+to set and use these various forms of metadata.</p>
 </div>
 </div>
 <div class="section" id="accessing-table-data">
@@ -905,7 +920,7 @@ expected length:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5281</span><span class="o">/</span><span class="mf">1022932079.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4696</span><span class="o">/</span><span class="mf">1022932079.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
@@ -968,7 +983,7 @@ it into a tree sequence:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/data_structures_31_0.svg" src="_images/data_structures_31_0.svg" /></div>
+<img alt="_images/tables_and_editing_31_0.svg" src="_images/tables_and_editing_31_0.svg" /></div>
 </div>
 <p>You can see that the new tree sequence has been modified as expected: there is a new
 empty site at position 10 (represented by a tickmark above the X axis with no mutations
@@ -988,7 +1003,7 @@ tree that looks like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/data_structures_33_0.svg" src="_images/data_structures_33_0.svg" /></div>
+<img alt="_images/tables_and_editing_33_0.svg" src="_images/tables_and_editing_33_0.svg" /></div>
 </div>
 <p>Starting with an empty set of tables, we can fill, say, the node information by using
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.add_row" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeTable.add_row()</span></code></a> as follows:</p>
@@ -1092,7 +1107,7 @@ ATGC.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A hand-built tree sequence!
 </pre></div>
 </div>
-<img alt="_images/data_structures_39_1.svg" src="_images/data_structures_39_1.svg" /></div>
+<img alt="_images/tables_and_editing_39_1.svg" src="_images/tables_and_editing_39_1.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1109,10 +1124,10 @@ sample nodes need not necessarily be those with the IDs <span class="math notran
 <p>Sometimes you may wish to make modifications to a tree sequence that has
 been generated by a simulation. However, tree sequence objects are <strong>immutable</strong>
 and so cannot be edited in-place.</p>
-<p>Before describing how to edit a tree sequence by hand, it’s worth noting that
-<strong class="program">tskit</strong> may provide a built-in method to achieve what you want to do. In
-particular, several methods will return a new tree sequence that has been modified in
-some way. For example:</p>
+<p>Before describing how to edit a tree sequence, it’s worth noting that <strong class="program">tskit</strong>
+may provide a built-in method to achieve what you want to do, without worring about
+fiddling with the underlying tables by hand. In particular, several methods will
+return a new tree sequence that has been modified in some way. For example:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_sites" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.delete_sites()</span></code></a> returns a tree sequence with certain sites
 deleted</p></li>
