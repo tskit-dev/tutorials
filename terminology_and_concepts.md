@@ -237,7 +237,8 @@ print("Node 7's parent is", parent_of_7, "and childen are", children_of_7, "in t
 
 ### Individuals and populations
 
-Sometimes we know that one or more nodes belong to a particular _individual_. For example,
+Sometimes we know that one or more nodes belong to a particular
+*{ref}`individual<tskit:sec_nodes_or_individuals>`*. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
 obtain two copies of each autosomal chromosome. The tree with six sample nodes above
 could therefore represent the result of sampling three diploid individuals from a larger
