@@ -310,7 +310,7 @@ The trees reflect, for example, the origin and age of alleles under
 selection, the spatial structure of populations, and the effects
 of hybridization and admixture in the past.
 
-The tree sequence in the tutorial was actually generated using a model of population
+The tree sequence in this tutorial was actually generated using a model of population
 splits and expansions as shown in the following schematic,
 {ref}`plotted<sec_tskit_viz_other_demographic>` using the
 [DemesDraw](https://pypi.org/project/demesdraw/) package. Our 10 genomes were sampled
