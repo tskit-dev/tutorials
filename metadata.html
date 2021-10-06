@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,7 +42,7 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
@@ -71,6 +71,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
       <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
@@ -80,7 +84,7 @@
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -355,7 +359,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reading-metadata-and-schemas">
@@ -557,15 +561,15 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValidationError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">657</span>         <span class="k">try</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/jsonschema/validators.py</span> in <span class="ni">validate</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">352</span>             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">353</span>                 <span class="k">raise</span> <span class="n">error</span>
-<span class="g g-Whitespace">    </span><span class="mi">354</span> 
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/jsonschema/validators.py</span> in <span class="ni">validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">249</span>                 <span class="k">raise</span> <span class="n">error</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span> 
 
 <span class="ne">ValidationError</span>: &#39;false&#39; is not of type &#39;boolean&#39;
 
@@ -580,17 +584,17 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4910</span><span class="o">/</span><span class="mf">4092786825.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5755</span><span class="o">/</span><span class="mf">4092786825.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
 <span class="g g-Whitespace">    </span><span class="mi">652</span>         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">653</span>             <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
 <span class="ne">--&gt; </span><span class="mi">654</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">655</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">656</span>             <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">660</span>             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">ve</span>
@@ -621,15 +625,15 @@ also raised if we attempt to add new fields:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValidationError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">657</span>         <span class="k">try</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/jsonschema/validators.py</span> in <span class="ni">validate</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">352</span>             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">353</span>                 <span class="k">raise</span> <span class="n">error</span>
-<span class="g g-Whitespace">    </span><span class="mi">354</span> 
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/jsonschema/validators.py</span> in <span class="ni">validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">249</span>                 <span class="k">raise</span> <span class="n">error</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span> 
 
 <span class="ne">ValidationError</span>: Additional properties are not allowed (&#39;newKey&#39; was unexpected)
 
@@ -656,17 +660,17 @@ also raised if we attempt to add new fields:</p>
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4910</span><span class="o">/</span><span class="mf">2608489950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_5755</span><span class="o">/</span><span class="mf">2608489950.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
 <span class="g g-Whitespace">    </span><span class="mi">652</span>         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">653</span>             <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
 <span class="ne">--&gt; </span><span class="mi">654</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">655</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">656</span>             <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
 
-<span class="nn">/opt/hostedtoolcache/Python/3.8.11/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/metadata.py</span> in <span class="ni">validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">658</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">659</span>         <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">660</span>             <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">ve</span>
@@ -870,16 +874,36 @@ for these methods:</p>
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="viz.html" title="previous page">Visualization</a>
-    <a class='right-next' id="next-link" href="args.html" title="next page"><em>ARGs as tree sequences</em></a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="viz.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Visualization</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="args.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><em>ARGs as tree sequences</em></p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

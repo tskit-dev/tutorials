@@ -221,7 +221,7 @@ SVG(ts.draw_svg(y_axis=True, mutation_labels=mut_labels))
 There are four mutations in the depiction above,
 marked by red crosses: one above node ``4`` on the first tree which records an A to G
 transition at position 15, another above node ``1`` in the second tree which records a G
-to A transition at position 45, and the final two above nodes ``2`` and ``0`` recording
+to A transition at position 42, and the final two above nodes ``2`` and ``0`` recording
 transitions, both at position 60, on the second tree. The positions are recorded in the
 {class}`SiteTable` (details {ref}`here<tskit:sec_site_table_definition>`):
 
