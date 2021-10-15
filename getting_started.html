@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -33,19 +33,21 @@
     
   <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -102,7 +104,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Tree sequence basics
  </span>
@@ -122,7 +124,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Statistics and Analysis
  </span>
@@ -147,8 +149,15 @@
    </em>
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="parallelization.html">
+   <em>
+    Parallelized analysis
+   </em>
+  </a>
+ </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Further tskit tutorials
  </span>
@@ -184,7 +193,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Backward time simulations
  </span>
@@ -234,7 +243,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Forward time simulations
  </span>
@@ -248,7 +257,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Other languages
  </span>
@@ -260,7 +269,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Development
  </span>
@@ -428,7 +437,7 @@
         
               <div>
                 
-  <div class="section" id="getting-started-with-tskit">
+  <div class="tex2jax_ignore mathjax_ignore section" id="getting-started-with-tskit">
 <span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">¶</a></h1>
 <p>You’ve run some simulations or inference methods, and you now have a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed
@@ -662,7 +671,7 @@ used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pyt
 that there’s a corresponding <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
 <p>Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
-<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
 the trees in a tree sequence have fully coalesced (which is to be expected in
 reverse-time, coalescent simulations, but not always for tree sequences produced by
 <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
@@ -683,7 +692,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0193365 secs
+Checked in 0.0176237 secs
 </pre></div>
 </div>
 </div>
@@ -900,7 +909,10 @@ node resides.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ID of diploid individual:    0   0   1   1   2   2   3   3   4   4   5   5   6   6   7   7   8   8   9   9  10  10  11  11  12  12  13  13  14  14  15  15  16  16  17  17  18  18  19  19
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ID of diploid individual:  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0   0   1   1   2   2   3   3   4   4   5   5   6   6   7   7   8   8   9   9  10  10  11  11  12  12  13  13  14  14  15  15  16  16  17  17  18  18  19  19
        ID of (sample) node:    0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39
 Site 0 (ancestral state &#39;G&#39;) [&#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39;]
 Site 1 (ancestral state &#39;T&#39;) [&#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;G&#39; &#39;T&#39; &#39;T&#39; &#39;G&#39; &#39;G&#39;]

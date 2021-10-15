@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -33,17 +33,21 @@
     
   <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -100,7 +104,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Tree sequence basics
  </span>
@@ -120,7 +124,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Statistics and Analysis
  </span>
@@ -145,8 +149,15 @@
    </em>
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="parallelization.html">
+   <em>
+    Parallelized analysis
+   </em>
+  </a>
+ </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Further tskit tutorials
  </span>
@@ -182,7 +193,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Backward time simulations
  </span>
@@ -232,7 +243,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Forward time simulations
  </span>
@@ -246,7 +257,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Other languages
  </span>
@@ -258,7 +269,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Development
  </span>
@@ -356,6 +367,53 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computing-statistics">
+   Computing statistics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#one-way-statistics">
+     One-way statistics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multi-way-statistics">
+     Multi-way statistics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#allele-frequency-spectra">
+   Allele frequency spectra
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#joint-spectra">
+     Joint spectra
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#branch-length-spectra">
+     Branch length spectra
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#zeroth-and-final-entries-in-the-afs">
+     Zeroth and final entries in the AFS
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -364,12 +422,564 @@
         
               <div>
                 
-  <div class="section" id="analysing-tree-sequences">
+  <div class="tex2jax_ignore mathjax_ignore section" id="analysing-tree-sequences">
 <span id="sec-analysing-tree-sequences"></span><h1><em>Analysing tree sequences</em><a class="headerlink" href="#analysing-tree-sequences" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Add all stats material from https://tskit.dev/tskit/docs/stable/tutorial.html</p>
-<p>Should we rename this “calculating statistics”, or something else with the word “statistics” in the name?</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial is a work in progress.</p>
+</div>
+<div class="section" id="computing-statistics">
+<span id="sec-tutorial-stats"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">¶</a></h2>
+<p>Tskit provides an extensive and flexible interface for computing population
+genetic statistics, which is documented in detail in the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in tskit v0.3)"><span class="xref std std-ref">general statistics</span></a> section of the offical documentation.
+This tutorial aims to give a quick overview of how the APIs work and how to use
+them effectively.</p>
+<p>First, let’s load a tree sequence to work with which has roughly human
+parameters for 10 thousand samples and 10Mb chromosomes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/computing_statistics.trees&quot;</span><span class="p">)</span>
+<span class="n">ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+  <style>
+    .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td:first-of-type {text-align: left;}
+    .tskit-details-label {vertical-align: top; padding-right:5px;}
+    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+    .tskit-table-set-table {margin: 12px 0 0 12px;}
+    details {display: inline-block;}
+    summary {cursor: pointer; outline: 0; display: list-item;}
+  </style>
+  <div class="tskit-table-set">
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="padding:0;line-height:21px;">
+              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+              <a target="_blank" href="https://tskit.readthedocs.io/en/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Trees</td><td>36599</td></tr>
+          <tr><td>Sequence Length</td><td>10000000.0</td></tr>
+          <tr><td>Sample Nodes</td><td>10000</td></tr>
+          <tr><td>Total Size</td><td>8.1 MiB</td></tr>
+          <tr>
+            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="line-height:21px;">Table</th>
+            <th>Rows</th>
+            <th>Size</th>
+            <th>Has Metadata</th>
+          </tr>
+        </thead>
+        <tbody>
+
+      <tr>
+        <td>Edges</td>
+          <td>157894</td>
+          <td>4.2 MiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Individuals</td>
+          <td>0</td>
+          <td>12 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Migrations</td>
+          <td>0</td>
+          <td>4 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Mutations</td>
+          <td>38778</td>
+          <td>1.1 MiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Nodes</td>
+          <td>44864</td>
+          <td>1.0 MiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Populations</td>
+          <td>1</td>
+          <td>8 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Provenances</td>
+          <td>1</td>
+          <td>1.0 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Sites</td>
+          <td>38778</td>
+          <td>643.8 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+<p>This tree sequence has ~36.6 thousand trees &amp; ~39 thousand segregating sites.
+We’d now like to compute some statistics on this dataset.</p>
+<div class="section" id="one-way-statistics">
+<h3>One-way statistics<a class="headerlink" href="#one-way-statistics" title="Permalink to this headline">¶</a></h3>
+<p>We refer to statistics that are defined with respect to a single set of
+samples as “one-way”. An example of such a statistic is diversity, which
+is computed using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.diversity()</span></code></a> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average diversity per unit sequence length = </span><span class="si">{d:.3G}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average diversity per unit sequence length = {d:.3G}
+</pre></div>
+</div>
+</div>
+</div>
+<p>This tells the average diversity across the whole sequence and returns a single
+number. We’ll usually want to compute statistics in
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in tskit v0.3)"><span class="xref std std-ref">windows</span></a> along the genome and we
+use the <code class="docutils literal notranslate"><span class="pre">windows</span></code> argument to do this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">windows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">windows</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[       0.  2500000.  5000000.  7500000. 10000000.]
+[0.00040717 0.00040891 0.00041644 0.00039899]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">windows</span></code> argument takes a numpy array specifying the breakpoints
+along the genome. Here, we use numpy to create four equally spaced windows
+of size 2.5 megabases (the windows array contains k + 1 elements to define
+k windows). Because we have asked for values in windows, tskit now returns
+a numpy array rather than a single value. (See
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-output-dimensions" title="(in tskit v0.3)"><span>Output dimensions</span></a> for a full description of how the output
+dimensions of statistics are determined by the <code class="docutils literal notranslate"><span class="pre">windows</span></code> argument.)</p>
+<p>Suppose we wanted to compute diversity within a specific subset of samples.
+We can do this using the <code class="docutils literal notranslate"><span class="pre">sample_sets</span></code> argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">sample_sets</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00041007806060604034
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we’ve computed the average diversity within the first hundred samples across
+the whole genome. As we’ve not specified any windows, this is again a single value.</p>
+<p>We can also compute diversity in <em>multiple</em> sample sets at the same time by providing
+a list of sample sets as an argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[</span><span class="mi">100</span><span class="p">:</span><span class="mi">200</span><span class="p">]</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[</span><span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">sample_sets</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00041008 0.00040893 0.00040853]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because we’ve computed multiple statistics concurrently, tskit returns a numpy array
+of these statistics. We have asked for diversity within three different sample sets,
+and tskit therefore returns an array with three values. (In general, the
+dimensions of the input determines the dimensions of the output: see
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-output-dimensions" title="(in tskit v0.3)"><span>Output dimensions</span></a> for a detailed description of the rules.)</p>
+<p>We can also compute multiple statistics in multiple windows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">sample_sets</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;shape = &quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shape =  (4, 3) 
+ [[0.00041199 0.00040542 0.00040588]
+ [0.00040889 0.00041216 0.00041419]
+ [0.00041636 0.00041463 0.0004128 ]
+ [0.00040307 0.0004035  0.00040126]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have computed diversity within three different sample sets across four
+genomic windows, and our output is therefore a 2D numpy array with four
+rows and three columns: each row contains the diversity values within
+A, B and C for a particular window.</p>
+</div>
+<div class="section" id="multi-way-statistics">
+<h3>Multi-way statistics<a class="headerlink" href="#multi-way-statistics" title="Permalink to this headline">¶</a></h3>
+<p>Many population genetic statistics compare multiple sets of samples to
+each other. For example, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a> method computes
+the divergence between two subsets of samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">divergence</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0004059772800000012
+</pre></div>
+</div>
+</div>
+</div>
+<p>The divergence between two sets of samples A and B is a single number,
+and we we again return a single floating point value as the result. We can also
+compute this in windows along the genome, as before:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">divergence</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">],</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00040787 0.00040481 0.00041219 0.00039904]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, as we have defined four genomic windows along the sequence, the result is
+numpy array with four values.</p>
+<p>A powerful feature of tskit’s stats API is that we can compute the divergences
+between multiple sets of samples simultaneously using the <code class="docutils literal notranslate"><span class="pre">indexes</span></code> argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">divergence</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">indexes</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00040598 0.00040943]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we’ve specified three sample sets A, B and C and we’ve computed the
+divergences between A and B,  and between A and C. The <code class="docutils literal notranslate"><span class="pre">indexes</span></code> argument is used
+to specify which pairs of sets we are interested in. In this example
+we’ve computed two different divergence values and the output is therefore
+a numpy array of length 2.</p>
+<p>As before, we can combine computing multiple statistics in multiple windows
+to return a 2D numpy array:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">windows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">divergence</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">indexes</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.00040787 0.00040834]
+ [0.00040481 0.00041207]
+ [0.00041219 0.00041464]
+ [0.00039904 0.00040267]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each row again corresponds to a window, which contains the average divergence
+values between the chosen sets.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">indexes</span></code> parameter is 1D array, we interpret this as specifying
+a single statistic and remove the empty outer dimension:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">divergence</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">indexes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0004059772800000012
+</pre></div>
+</div>
+</div>
+</div>
+<p>It’s important to note that we don’t <strong>have</strong> to remove empty dimensions: tskit
+will only do this if you explicitly ask it to. Here, for example, we can keep the
+output as an array with one value if we wish:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">divergence</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">indexes</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Please see <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-sample-sets" title="(in tskit v0.3)"><span>Sample sets and indexes</span></a> for a
+full description of the <code class="docutils literal notranslate"><span class="pre">sample_sets</span></code> and <code class="docutils literal notranslate"><span class="pre">indexes</span></code> arguments.</p>
+</div>
+</div>
+<div class="section" id="allele-frequency-spectra">
+<span id="sec-tutorial-afs"></span><h2>Allele frequency spectra<a class="headerlink" href="#allele-frequency-spectra" title="Permalink to this headline">¶</a></h2>
+<p>The allele frequency spectrum is a fundamental tool in population genetics, and
+tskit provides a flexible and powerful approach to computing such spectra.
+Suppose we have simulated the following tree sequence:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">SVG</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/afs.trees&quot;</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()))</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">sites</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_tree_sequences_25_0.svg" src="_images/analysing_tree_sequences_25_0.svg" /><div class="output text_html">
+            <div>
+                <style scoped="">
+                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                    .tskit-table tbody tr th {vertical-align: top;}
+                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                    .tskit-table tbody th {padding: 0.5em 0.5em;}
+                </style>
+                <table border="1" class="tskit-table">
+                    <thead>
+                        <tr>
+                            <th>id</th><th>position</th><th>ancestral_state</th><th>metadata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>0.30043643</td><td>0</td><td>b''</td></tr>
+<tr><td>1</td><td>0.32220794</td><td>0</td><td>b''</td></tr>
+<tr><td>2</td><td>0.36507027</td><td>0</td><td>b''</td></tr>
+<tr><td>3</td><td>0.50940255</td><td>0</td><td>b''</td></tr>
+<tr><td>4</td><td>0.51327137</td><td>0</td><td>b''</td></tr>
+<tr><td>5</td><td>0.51400861</td><td>0</td><td>b''</td></tr>
+<tr><td>6</td><td>0.54796110</td><td>0</td><td>b''</td></tr>
+<tr><td>7</td><td>0.75929404</td><td>0</td><td>b''</td></tr>
+<tr><td>8</td><td>0.80591800</td><td>0</td><td>b''</td></tr>
+<tr><td>9</td><td>0.92324208</td><td>0</td><td>b''</td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+</div></div>
+</div>
+<p>Computing the allele frequency spectrum is then easy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">span_normalise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">afs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0. 2. 6. 1. 1. 0. 0.]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This tells us that we have two singletons, six doubletons and one 3-ton and
+one 4-ton. Note that the first element of the returned AFS array does <em>not</em> correspond
+to the singletons (see below for why). Because we have simulated these mutations,
+we know the ancestral and derived states we have set <code class="docutils literal notranslate"><span class="pre">polarised</span></code> to True. We
+can get the “folded” AFS by setting polarised to False. Because we want simple
+counts here and not averaged values, we set <code class="docutils literal notranslate"><span class="pre">span_normalise=False</span></code>: by
+default, windowed statistics are divided by the sequence length, so they are
+comparable between windows.</p>
+<p>The returned value here is actually a 2D array, and this is because we can
+also perform these computations in windows along the genome:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">span_normalise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">afs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0. 1. 1. 1. 0. 0. 0.]
+ [0. 1. 5. 0. 1. 0. 0.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time, we’ve asked for the number of sites at each frequency in two
+equal windows. Now we can see that in the first half of the sequence we
+have three sites (compare with the site table above): one singleton,
+one doubleton and one tripleton.</p>
+<div class="section" id="joint-spectra">
+<h3>Joint spectra<a class="headerlink" href="#joint-spectra" title="Permalink to this headline">¶</a></h3>
+<p>We can also compute allele frequencies within multiple sets of samples,
+the <em>joint allele frequency spectra</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_colours</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">}</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">node_colours</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/analysing_tree_sequences_31_0.svg" src="_images/analysing_tree_sequences_31_0.svg" /></div>
+</div>
+<p>Here we’ve marked the samples as either blue or green (we can imagine
+these belonging to different populations, for example). We can then compute
+the joint AFS based on these two sets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span> <span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">afs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0. 2. 0. 0.]
+ [0. 6. 0. 0.]
+ [0. 1. 1. 0.]
+ [0. 0. 0. 0.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, each window in our AFS is a 2D numpy array, where each dimension
+corresponds to frequencies within the different sets. So, we see for example
+that there are six sites that are singletons in both sets, 1 site
+that is a doubleton in both sets, and 2 sites that singletons in <span class="math notranslate nohighlight">\([1, 4, 5]\)</span>
+and not present in the other sample set.</p>
+</div>
+<div class="section" id="branch-length-spectra">
+<h3>Branch length spectra<a class="headerlink" href="#branch-length-spectra" title="Permalink to this headline">¶</a></h3>
+<p>Up to now we’ve used the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">allele_frequency_spectrum()</span></code></a> method
+to summarise the number of sites that occur at different frequencies. We can also
+use this approach to compute the total branch lengths subtending a given
+number of samples by setting <code class="docutils literal notranslate"><span class="pre">mode=&quot;branch&quot;</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">span_normalise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">afs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.         4.86089166 5.39638988 2.55239269 2.07444286 0.
+ 0.        ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Thus, the total branch length over example one sample is 4.86, over two is
+5.39, and so on.</p>
+</div>
+<div class="section" id="zeroth-and-final-entries-in-the-afs">
+<span id="sec-tutorial-afs-zeroth-entry"></span><h3>Zeroth and final entries in the AFS<a class="headerlink" href="#zeroth-and-final-entries-in-the-afs" title="Permalink to this headline">¶</a></h3>
+<p>The zeroth element of the AFS is significant when we are working with
+sample sets that are a subset of all samples in the tree sequence.
+For example, in the following we compute the AFS within the sample set
+[0, 1, 2]:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">afs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[4.33184862 5.30022646 5.252042   0.        ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Thus, the total branch length over 0, 1 and 2 is 5.3, and over pairs from this set
+is 5.25. What does the zeroth value of 4.33 signify? This is the total branch length
+over all samples that are <strong>not</strong> in this sample set. By including this value, we
+maintain the property that for each tree, the sum of the AFS for any sample set
+is always equal to the total branch length. For example, here we compute:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sum afs          = &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">afs</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total branch len = &quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">total_branch_length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sum afs          =  14.884117086717392
+total branch len =  14.884117086717396
+</pre></div>
+</div>
+</div>
+</div>
+<p>The final entry of the AFS is similar: it counts alleles (for mode=”site”) or
+branches (for mode=”branch”) that are ancestral to all of the given sample set,
+but are still polymorphic in the entire set of samples of the tree sequence.
+Note, however, that alleles fixed among all the samples, e.g., ones above
+the root of the tree, will not be included.</p>
+</div>
 </div>
 </div>
 
