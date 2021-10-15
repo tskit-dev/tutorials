@@ -3,6 +3,7 @@ demes
 demesdraw
 matplotlib>=3.4.0
 scikit-allel
+tqdm
 numpy
 networkx
 tskit>=0.3.7
