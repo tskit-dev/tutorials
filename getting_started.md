@@ -77,9 +77,9 @@ contains 40 *sample nodes*, one for each genome.
 
 ## Processing trees
 
-A common idiom is to iterate over all the {class}`Tree` objects in a tree
-sequence. This process underlies many tree sequence algorithms, including those we'll
-encounter later in this tutorial for calculating 
+Moving along a tree sequence usually involves iterating over all of its {class}`Tree`
+objects. This common idiom underlies many tree sequence algorithms, including those
+we'll encounter later in this tutorial for calculating 
 {ref}`population genetic statistics<tskit:sec_stats>`.
 To iterate over a tree sequence you can use
 {meth}`TreeSequence.trees`.
