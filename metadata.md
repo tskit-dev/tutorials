@@ -21,7 +21,7 @@ kernelspec:
 Metadata is information associated with entities that {program}`tskit` doesn't use or
 interpret, but which is useful to pass on to downstream analysis such as sample ids,
 dates etc. (see {ref}`sec_metadata` for a full discussion). Each
-{ref}`table<sec_tables_api_tables>` has a {class}`MetadataSchema` which details the
+{ref}`table<sec_tables_api_table>` has a {class}`MetadataSchema` which details the
 contents and encoding of the metadata for each row. A metadata schema is a JSON document
 that conforms to [JSON Schema](https://json-schema.org/understanding-json-schema/)
 (The full schema for tskit is at {ref}`sec_metadata_schema_schema`). Here we use an
@@ -99,7 +99,7 @@ print(json.dumps(schema.asdict(), indent=4))  # Print with indentations
 ```
 
 The top-level metadata and schemas for the entire tree sequence are similarly
-accessed with {meth}`TreeSequence.metadata` and {meth}`TreeSequence.metadata_schema`.
+accessed with {attr}`TreeSequence.metadata` and {attr}`TreeSequence.metadata_schema`.
 
 :::{note}
 If there is no schema (i.e. it is equal to ``MetadataSchema(None)``) for a table
@@ -109,13 +109,11 @@ or top-level metadata, then no decoding is performed and ``bytes`` will be retur
 ## Modifying metadata and schemas
 
 If you are creating or modifying a tree sequence by changing the underlying tables,
-you may want to record or add to the
-metadata. When doing so the schema must be modified first, as it is then used to
-validate and encode the metadata. 
-
-:::{todo}
-link to a tutorial section on editing the tree sequence via the tables interface
-:::
+you may want to record or add to the metadata. If the change fits into the same schema,
+this is relatively simple, you can follow the
+{ref}`description of minor table edits<sec_tables_editing_minor>` in the
+{ref}`sec_tables` tutorial. However if it requires a change to the schema, this must be
+done first, as it is then used to validate and encode the metadata. 
 
 Schemas in tskit are held in a {class}`MetadataSchema`.
 A Python dict representation of the schema is passed to its constructor, which
