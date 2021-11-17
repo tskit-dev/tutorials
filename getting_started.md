@@ -436,7 +436,7 @@ for a list of Newick format trees, one per line:
 
 ```{code-cell} ipython3
 small_ts = small_ts.trim()  # Must trim off the blank region at the end of cut-down ts
-print(small_ts.to_nexus(precision=3))
+print(small_ts.as_nexus(precision=3, include_alignments=False))
 ```
 
 ### VCF
