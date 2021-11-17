@@ -458,6 +458,7 @@ you might now want to continue to the next tutorial: {ref}`sec_terminology_and_c
 
 ## Further reading
 
-* Basic concepts: details in the {ref}`sec_terminology_and_concepts` tutorial
+* Jump straight in: if you already have a tree sequence you wish to deal with, the
+  {ref}`sec_tskit_getting_started` tutorial show you how to do a number of common tasks.
 * How is a tree sequence stored: details in the {ref}`sec_tables` tutorial
 * The offical {program}`tskit` [documentation](https://tskit.dev/tskit/docs)
