@@ -25,7 +25,8 @@ dates etc. (see {ref}`sec_metadata` for a full discussion). Each
 contents and encoding of the metadata for each row. A metadata schema is a JSON document
 that conforms to [JSON Schema](https://json-schema.org/understanding-json-schema/)
 (The full schema for tskit is at {ref}`sec_metadata_schema_schema`). Here we use an
-existing tree sequence which contains some demonstration metadata:
+{ref}`example tree sequence<sec_intro_downloading_datafiles>`
+which contains some demonstration metadata:
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
