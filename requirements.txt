@@ -3,8 +3,9 @@ demes
 demesdraw
 matplotlib>=3.4.0
 scikit-allel
+pyslim
 tqdm
 numpy
 networkx
-tskit>=0.3.7
+tskit==0.4.0b1
 msprime>=1.0

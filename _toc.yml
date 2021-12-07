@@ -36,6 +36,9 @@ parts:
   # What can we put in here?
   chapters:
   - file: forward_sims
+  - file: basic_slim
+    sections:
+    - file: recapitation
 - caption: Other languages
   # TODO: add basic C and maybe Rust tutes
   chapters:
