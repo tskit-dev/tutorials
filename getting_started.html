@@ -510,15 +510,16 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
           <tr>
             <th style="padding:0;line-height:21px;">
               <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-              <a target="_blank" href="https://tskit.readthedocs.io/en/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+              <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr><td>Trees</td><td>11167</td></tr>
           <tr><td>Sequence Length</td><td>10000000.0</td></tr>
+          <tr><td>Time Units</td><td>unknown</td></tr>
           <tr><td>Sample Nodes</td><td>40</td></tr>
-          <tr><td>Total Size</td><td>2.0 MiB</td></tr>
+          <tr><td>Total Size</td><td>2.4 MiB</td></tr>
           <tr>
             <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
         </tbody>
@@ -539,7 +540,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Edges</td>
           <td>36372</td>
-          <td>994.6 KiB</td>
+          <td>1.1 MiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -548,7 +549,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Individuals</td>
           <td>20</td>
-          <td>332 Bytes</td>
+          <td>584 Bytes</td>
           <td style="text-align: center;">
 
           </td>
@@ -557,7 +558,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Migrations</td>
           <td>0</td>
-          <td>4 Bytes</td>
+          <td>8 Bytes</td>
           <td style="text-align: center;">
 
           </td>
@@ -566,7 +567,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Mutations</td>
           <td>13568</td>
-          <td>384.3 KiB</td>
+          <td>490.3 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -575,7 +576,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Nodes</td>
           <td>7342</td>
-          <td>172.1 KiB</td>
+          <td>200.8 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -584,7 +585,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Populations</td>
           <td>1</td>
-          <td>216 Bytes</td>
+          <td>224 Bytes</td>
           <td style="text-align: center;">
             ✅
           </td>
@@ -593,7 +594,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Provenances</td>
           <td>2</td>
-          <td>1.8 KiB</td>
+          <td>1.9 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -602,7 +603,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Sites</td>
           <td>13554</td>
-          <td>225.0 KiB</td>
+          <td>330.9 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -695,7 +696,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.017256 secs
+Checked in 0.0203059 secs
 </pre></div>
 </div>
 </div>
@@ -1066,25 +1067,26 @@ for a list of Newick format trees, one per line:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">small_ts</span> <span class="o">=</span> <span class="n">small_ts</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>  <span class="c1"># Must trim off the blank region at the end of cut-down ts</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">small_ts</span><span class="o">.</span><span class="n">to_nexus</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">small_ts</span><span class="o">.</span><span class="n">as_nexus</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">include_alignments</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>#NEXUS
 BEGIN TAXA;
-TAXLABELS tsk_0_1,tsk_1_1,tsk_2_1,tsk_3_1,tsk_4_1,tsk_5_1,tsk_6_1,tsk_7_1,tsk_8_1,tsk_9_1,tsk_10_0,tsk_11_0,tsk_12_0,tsk_13_0,tsk_14_0,tsk_15_0,tsk_16_0,tsk_17_0,tsk_18_0,tsk_19_0,tsk_20_0,tsk_21_0,tsk_22_0,tsk_23_0,tsk_24_0,tsk_25_0;
+  DIMENSIONS NTAX=10;
+  TAXLABELS n0 n1 n2 n3 n4 n5 n6 n7 n8 n9;
 END;
 BEGIN TREES;
-	TREE tree0.000_661.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:61457.489,(tsk_6_1:8362.020,(tsk_2_1:1757.640,tsk_3_1:1757.640)tsk_13_0:6604.380)tsk_18_0:58845.274)tsk_25_0;
-	TREE tree661.000_3116.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:50834.692,(tsk_6_1:8362.020,(tsk_2_1:1757.640,tsk_3_1:1757.640)tsk_13_0:6604.380)tsk_18_0:48222.477)tsk_23_0;
-	TREE tree3116.000_4451.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:20242.950,(tsk_6_1:8362.020,(tsk_2_1:1757.640,tsk_3_1:1757.640)tsk_13_0:6604.380)tsk_18_0:17630.736)tsk_21_0;
-	TREE tree4451.000_5076.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:55250.945,(tsk_6_1:8362.020,(tsk_2_1:1757.640,tsk_3_1:1757.640)tsk_13_0:6604.380)tsk_18_0:52638.730)tsk_24_0;
-	TREE tree5076.000_7049.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:21090.493,(tsk_6_1:8362.020,(tsk_2_1:1757.640,tsk_3_1:1757.640)tsk_13_0:6604.380)tsk_18_0:18478.278)tsk_22_0;
-	TREE tree7049.000_7995.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:8736.110,(tsk_6_1:8362.020,(tsk_2_1:1757.640,tsk_3_1:1757.640)tsk_13_0:6604.380)tsk_18_0:6123.895)tsk_20_0;
-	TREE tree7995.000_8742.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:8736.110,(tsk_2_1:8362.020,(tsk_3_1:5358.852,tsk_6_1:5358.852)tsk_16_0:3003.168)tsk_18_0:6123.895)tsk_20_0;
-	TREE tree8742.000_9279.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:6741.465,(tsk_2_1:8362.020,(tsk_3_1:5358.852,tsk_6_1:5358.852)tsk_16_0:3003.168)tsk_18_0:4129.250)tsk_19_0;
-	TREE tree9279.000_10000.000 = (((tsk_4_1:135.000,tsk_9_1:135.000)tsk_10_0:5614.805,(tsk_1_1:3587.236,(tsk_0_1:2945.281,(tsk_8_1:290.004,(tsk_5_1:150.836,tsk_7_1:150.836)tsk_11_0:139.168)tsk_12_0:2655.277)tsk_14_0:641.955)tsk_15_0:2162.570)tsk_17_0:21090.493,(tsk_2_1:8362.020,(tsk_3_1:5358.852,tsk_6_1:5358.852)tsk_16_0:3003.168)tsk_18_0:18478.278)tsk_22_0;
+  TREE t0.000^661.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):61457.489,(n6:8362.020,(n2:1757.640,n3:1757.640):6604.380):58845.274);
+  TREE t661.000^3116.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):50834.692,(n6:8362.020,(n2:1757.640,n3:1757.640):6604.380):48222.477);
+  TREE t3116.000^4451.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):20242.950,(n6:8362.020,(n2:1757.640,n3:1757.640):6604.380):17630.736);
+  TREE t4451.000^5076.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):55250.945,(n6:8362.020,(n2:1757.640,n3:1757.640):6604.380):52638.730);
+  TREE t5076.000^7049.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):21090.493,(n6:8362.020,(n2:1757.640,n3:1757.640):6604.380):18478.278);
+  TREE t7049.000^7995.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):8736.110,(n6:8362.020,(n2:1757.640,n3:1757.640):6604.380):6123.895);
+  TREE t7995.000^8742.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):8736.110,(n2:8362.020,(n3:5358.852,n6:5358.852):3003.168):6123.895);
+  TREE t8742.000^9279.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):6741.465,(n2:8362.020,(n3:5358.852,n6:5358.852):3003.168):4129.250);
+  TREE t9279.000^10000.000 = [&amp;R] (((n4:135.000,n9:135.000):5614.805,(n1:3587.236,(n0:2945.281,(n8:290.004,(n5:150.836,n7:150.836):139.168):2655.277):641.955):2162.570):21090.493,(n2:8362.020,(n3:5358.852,n6:5358.852):3003.168):18478.278);
 END;
 </pre></div>
 </div>
@@ -1104,7 +1106,7 @@ for which tskit has basic support:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>##fileformat=VCFv4.2
-##source=tskit 0.3.7
+##source=tskit 0.4.0b1
 ##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
 ##contig=&lt;ID=1,length=10000&gt;
 ##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;
