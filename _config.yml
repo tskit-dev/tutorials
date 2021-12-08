@@ -9,6 +9,7 @@ logo: _static/tskit_logo.svg
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: cache
+  timeout: 300
 
 # Information about where the book exists on the web
 repository:
