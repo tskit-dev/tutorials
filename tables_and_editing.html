@@ -396,6 +396,11 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#individual-and-population-tables">
+     Individual and population tables
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#metadata">
      Metadata
     </a>
@@ -408,13 +413,13 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#row-access">
-     Row access
+    <a class="reference internal nav-link" href="#column-access">
+     Column access
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#column-access">
-     Column access
+    <a class="reference internal nav-link" href="#row-access">
+     Row access
     </a>
    </li>
   </ul>
@@ -440,6 +445,18 @@
   <a class="reference internal nav-link" href="#editing-tree-sequences">
    Editing tree sequences
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#minor-edits">
+     Minor edits
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#major-edits">
+     Major edits
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -460,24 +477,30 @@ relevant when you wish to <a class="reference internal" href="#sec-tables-editin
 a tree sequence, although tables are also useful for bulk access to data contained in
 the tree sequence, such as the times of all nodes.</p>
 <p>There are eight tables that together define a tree sequence, although some may be empty,
-and together they form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.
+and together they form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.
 The tables are defined in the official <strong class="program">tskit</strong> documentation for
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-table-definitions" title="(in tskit v0.3)"><span class="xref std std-ref">Table Definitions</span></a>, and the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in tskit v0.3)"><span class="xref std std-ref">Tables API</span></a> section in the docs describes how to work with
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-table-definitions" title="(in Python)"><span class="xref std std-ref">Table Definitions</span></a>, and the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a> section in the docs describes how to work with
 them. In this tutorial we give some pointers about what you can and cannot do with them.</p>
 <div class="section" id="correspondence-between-tables-and-trees">
 <span id="sec-tables-correspondence"></span><h2>Correspondence between tables and trees<a class="headerlink" href="#correspondence-between-tables-and-trees" title="Permalink to this headline">¶</a></h2>
 <p>Consider the following sequence of trees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tables_example.trees&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tables_example.trees&quot;</span><span class="p">)</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_3_0.svg" src="_images/tables_and_editing_3_0.svg" /></div>
+<img alt="_images/tables_and_editing_4_0.svg" src="_images/tables_and_editing_4_0.svg" /></div>
 </div>
 <p>Ancestral recombination events have produced three different trees
 that relate the three sampled genomes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">2</span></code> to each other
@@ -487,7 +510,7 @@ along the chromosome of length 100.</p>
 <p>Each node in each of the above trees represents a particular ancestral genome
 (a <em>haploid</em> genome; diploid individuals would be represented by two nodes).
 Details about each node, including the time it lived, are stored in a
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-mutation-table-definition" title="(in tskit v0.3)"><span class="xref std std-ref">here</span></a>)</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-mutation-table-definition" title="(in Python)"><span class="xref std std-ref">here</span></a>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span>
@@ -510,10 +533,10 @@ Details about each node, including the time it lived, are stored in a
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>1</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>2</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>3</td><td>0</td><td>-1</td><td>-1</td><td>0.15000000</td><td>b''</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td>b''</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td>b''</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0.00000000</td><td>b''</td></tr>
+<tr><td>3</td><td>0</td><td>0</td><td>2</td><td>0.15000000</td><td>b''</td></tr>
 <tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>0.60000000</td><td>b''</td></tr>
 <tr><td>5</td><td>0</td><td>-1</td><td>-1</td><td>0.80000000</td><td>b''</td></tr>
 <tr><td>6</td><td>0</td><td>-1</td><td>-1</td><td>1.00000000</td><td>b''</td></tr>
@@ -528,19 +551,23 @@ Details about each node, including the time it lived, are stored in a
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">b''</span></code> values in the metadata column represent empty
-<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typebytes" title="(in Python v3.10)"><span class="xref std std-ref">(byte) strings</span></a>, and hence indicates that
-no metadata is associated with any of the nodes (or indeed any other tables) in
-this tree sequence.</p>
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typebytes" title="(in Python v3.10)"><span class="xref std std-ref">(byte) strings</span></a>, and hence indicates that no
+<a class="reference internal" href="#sec-tables-overview-metadata"><span class="std std-ref">Metadata</span></a> is associated with any of the nodes
+in this tree sequence.</p>
 </div>
 </div>
 <p>Importantly, the first column, <code class="docutils literal notranslate"><span class="pre">id</span></code>, is not actually recorded, and is
 only shown when printing out node tables (as here) for convenience.
-The second column, <code class="docutils literal notranslate"><span class="pre">flags</span></code> records a <code class="docutils literal notranslate"><span class="pre">1</span></code> for the individuals that are <em>samples</em>,
+The second column, <code class="docutils literal notranslate"><span class="pre">flags</span></code> records a <code class="docutils literal notranslate"><span class="pre">1</span></code> for the nodes that are <em>samples</em>,
 i.e., whose entire genealogical history is recorded by these trees.
-(Note that the trees above record that node 3 inherited from node 4
-on the middle portion of the genome, but not on the ends.)</p>
+You can see that the sample nodes are present in all the trees, but other nodes need
+not be: for example node 3 is only seen in the middle tree. The <code class="docutils literal notranslate"><span class="pre">individual</span></code> and
+<code class="docutils literal notranslate"><span class="pre">population</span></code> columns store an index into the rows of the
+<a class="reference internal" href="#sec-tables-overview-individuals-and-populations"><span class="std std-ref">Individual and population tables</span></a>, or <code class="docutils literal notranslate"><span class="pre">tskit.NULL</span></code> (<code class="docutils literal notranslate"><span class="pre">-1</span></code>)
+if the node is not associated with an individual or population. The <code class="docutils literal notranslate"><span class="pre">time</span></code> column
+records the historical age of the node, with contemporary nodes having a <code class="docutils literal notranslate"><span class="pre">time</span></code> of 0.</p>
 <p>The way the nodes are related to each other (i.e. the tree topology) is stored
-in an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.EdgeTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">EdgeTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in tskit v0.3)"><span class="xref std std-ref">here</span></a>).
+in an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.EdgeTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">EdgeTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Python)"><span class="xref std std-ref">here</span></a>).
 Since some edges are present in more than one tree (e.g., node 1 inherits from node 4
 across the entire sequence), each edge contains not only the IDs of a parent and a child
 node, but also the left and right positions which define the genomic region for which it
@@ -599,26 +626,31 @@ and 5 respectively) allow us to construct all trees across the entire interval.<
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tables_example_muts.trees&quot;</span><span class="p">)</span>
-<span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations, listing position &amp; allele change</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations, listing position &amp; allele change</span>
 <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">mutations</span><span class="p">():</span>  <span class="c1"># This entire loop is just to make pretty labels</span>
     <span class="n">site</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">site</span><span class="p">)</span>
     <span class="n">older_mut</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1"># is there an older mutation at the same position?</span>
     <span class="n">prev</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
     <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">→</span><span class="si">{}</span><span class="s2"> @</span><span class="si">{:g}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">,</span> <span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
-
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_9_0.svg" src="_images/tables_and_editing_9_0.svg" /></div>
+<img alt="_images/tables_and_editing_11_0.svg" src="_images/tables_and_editing_11_0.svg" /></div>
 </div>
 <p>There are four mutations in the depiction above,
 marked by red crosses: one above node <code class="docutils literal notranslate"><span class="pre">4</span></code> on the first tree which records an A to G
 transition at position 15, another above node <code class="docutils literal notranslate"><span class="pre">1</span></code> in the second tree which records a G
-to A transition at position 42, and the final two above nodes <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">0</span></code> recording
+to A transition at position 42, and the final two above nodes <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">3</span></code> recording
 transitions, both at position 60, on the second tree. The positions are recorded in the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.SiteTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SiteTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-site-table-definition" title="(in tskit v0.3)"><span class="xref std std-ref">here</span></a>):</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.SiteTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SiteTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-site-table-definition" title="(in Python)"><span class="xref std std-ref">here</span></a>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">sites</span>
@@ -652,7 +684,7 @@ transitions, both at position 60, on the second tree. The positions are recorded
 </div>
 <p>As with node tables, the <code class="docutils literal notranslate"><span class="pre">id</span></code> column is <strong>not</strong> actually recorded, but is
 implied by the position in the table.  The mutations themselves are recorded in the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MutationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutationTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-mutation-table-definition" title="(in tskit v0.3)"><span class="xref std std-ref">here</span></a>).
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MutationTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MutationTable</span></code></a> (details <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-mutation-table-definition" title="(in Python)"><span class="xref std std-ref">here</span></a>).
 This associates each mutation with a site ID, the ID of the node above which the
 mutation occurs, the derived state to which the allele has mutated, and (optionally) a
 time at which the mutation occured.</p>
@@ -711,175 +743,230 @@ Sample 2: GGC
 </div>
 </div>
 <div class="section" id="tables-overview">
-<span id="sec-tables-correspondence-other"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this headline">¶</a></h2>
+<span id="sec-tables-overview"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this headline">¶</a></h2>
 <p>Now that we’ve introduced the most important tables that make up a tree sequence, it’s
-worth seeing how they come together to form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.
-The following visualization shows how they relate to one another, as well as introducing
-two additional tables: the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a>
+worth seeing how they come together to form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For simplicity, this diagram omits 2 extra tables which form part of a
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>: the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MigrationTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MigrationTable</span></code></a>
+(recording details of migrations between populations), and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.ProvenanceTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProvenanceTable</span></code></a>
+(recording the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/provenance.html#sec-provenance" title="(in Python)"><span class="xref std std-ref">provenance</span></a> of the data in a tree sequence)</p>
+</div>
+</div>
+<p>The following visualization shows how they relate to one another, as well as introducing
+two additional tables: the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a>
 (which record which
 <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-individuals-and-populations"><span class="std std-ref">individuals and populations</span></a> a node
 is contained in).</p>
 <p><img alt="The tables in a tree sequence, and their interdependencies" src="_images/tables_uml.svg" /></p>
 <p>The lines in this diagram below show where one table refers to the IDs
 of another table, that is, they indicate dependencies between tables.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For simplicity, this diagram omits 2 extra tables which form part of a
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>: the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MigrationTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MigrationTable</span></code></a>
-(recording details of migrations between populations), and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.ProvenanceTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProvenanceTable</span></code></a>
-(recording the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/provenance.html#sec-provenance" title="(in tskit v0.3)"><span class="xref std std-ref">provenance</span></a> of the data in a tree sequence)</p>
+<div class="section" id="individual-and-population-tables">
+<span id="sec-tables-overview-individuals-and-populations"></span><h3>Individual and population tables<a class="headerlink" href="#individual-and-population-tables" title="Permalink to this headline">¶</a></h3>
+<p>Previously we noted that a row in the node table could contain an index into the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a>. In fact, in our example
+tree sequence, the <a class="reference internal" href="#sec-tables-correspondence-nodes-and-edges"><span class="std std-ref">node table above</span></a>
+indicates that nodes 0 to 3 belong to the population with ID 0 in the population table.
+Here’s what that table looks like in this tree sequence:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">populations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+    <style scoped="">
+        .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+        .tskit-table tbody tr th {vertical-align: top;}
+        .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+        .tskit-table tbody th {padding: 0.5em 0.5em;}
+    </style>
+    <table border="1" class="tskit-table">
+        <thead>
+            <tr>
+                <th>id</th><th>metadata</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>0</td><td>{'name': 'GBR', 'description': 'British in England and Scotland'}</td></tr>
+
+        </tbody>
+    </table>
+</div>
+</div></div>
+</div>
+<p>The data in this table, and indeed in the individual table, is not visible in the
+default tree sequence visualization, but can be very useful for keeping track of
+information about the identity and location of nodes in the tree sequence. In
+particular, you can see that the populations in this tree sequence have associated
+<em>metadata</em>, a topic we will discuss in the
+<a class="reference internal" href="#sec-tables-overview-metadata"><span class="std std-ref">next section</span></a>.</p>
+<p>The node table also indicated that two nodes (node 0 and 1) point to the individual with
+ID 0, one node (node 2) points to individual 1, and another node points to individual 2.
+Here’s the relevant individual table:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+                <style scoped="">
+                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                    .tskit-table tbody tr th {vertical-align: top;}
+                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                    .tskit-table tbody th {padding: 0.5em 0.5em;}
+                </style>
+                <table border="1" class="tskit-table">
+                    <thead>
+                        <tr>
+                            <th>id</th><th>flags</th><th>location</th><th>parents</th><th>metadata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>0</td><td></td><td>2, -1</td><td>{'name': 'Alice'}</td></tr>
+<tr><td>1</td><td>0</td><td></td><td>2, -1</td><td>{'name': 'Bob'}</td></tr>
+<tr><td>2</td><td>0</td><td></td><td>-1, -1</td><td>{'name': 'Carol'}</td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+</div></div>
+</div>
+<p>Since individual 0 (Alice) is referenced by two nodes (genomes), and assuming that this
+is a diploid species, this indicates that we have sampled both maternal and paternal
+genomes for this individual. The other two indivividuals, Bob and Carol, are referenced
+by only one node, so either we only managed to sample one of their two genomes,
+or alternatively they could represent haploid individuals.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">location</span></code> column of the individual table is intended for geographical location,
+if relevant. The <code class="docutils literal notranslate"><span class="pre">parents</span></code> column, if filled out, allows us to construct
+parts of the <em>pedigree</em> (the genealogical family tree) connecting the individuals
+in question. It contains a list of individual IDs (or <code class="docutils literal notranslate"><span class="pre">tskit.NULL</span></code>/<code class="docutils literal notranslate"><span class="pre">-1</span></code> if a
+parent is unknown). In this case, the <code class="docutils literal notranslate"><span class="pre">parents</span></code> column indicates that Alice and Bob
+share the same parent, individual 2 (i.e. Carol). That means Alice and Bob must be
+either siblings or half siblings.</p>
 </div>
 <div class="section" id="metadata">
-<span id="sec-tables-correspondence-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h3>
-<p>You may have noticed <code class="docutils literal notranslate"><span class="pre">metadata</span></code> columns in all the tables above. All tables can have
-(optional) metadata attached to their rows, as described in the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in tskit v0.3)"><span>Metadata</span></a>
-section of the official <strong class="program">tskit</strong> documentation. In addition, you can assign
-top-level metadata, associated with the entire <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.
-The <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">Working with Metadata</span></a> tutorial provides more information about how
-to set and use these various forms of metadata.</p>
+<span id="sec-tables-overview-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h3>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information on schemas, see the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a> section of the
+official <strong class="program">tskit</strong> documentation</p>
+</div>
+</div>
+<p>As can be seen above, each table row, as well as the entire table collection, can be
+associated with (optional) metadata, which can be stored in various formats. The format
+is determined by the <em>schema</em> of the metadata. In this example, for clarity, the
+metadata of the population and individual tables is stored as
+<a class="reference external" href="https://www.json.org/">JSON</a> (while as we noted previously, the other tables happen
+to be storing metadata as raw byte strings).</p>
+<p>Because we have chosen to use JSON for the metadata of the individuals table, it is
+easy to access the metadata values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Information from the tree sequence&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">individuals</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Individual </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> is named </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Equivalent information from the associated tables&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Individual name: </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Information from the tree sequence
+Individual 0 is named Alice
+Individual 1 is named Bob
+Individual 2 is named Carol
+
+Equivalent information from the associated tables
+Individual name: Alice
+Individual name: Bob
+Individual name: Carol
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference internal" href="#sec-tables-editing-minor"><span class="std std-ref">Later in this tutorial</span></a> there are some basic
+examples of editing the metadata fields; there is also an extensive
+<a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">Working with Metadata</span></a> tutorial which provides much more
+detail about how to construct and use <code class="docutils literal notranslate"><span class="pre">tskit</span></code> metadata.</p>
 </div>
 </div>
 <div class="section" id="accessing-table-data">
 <span id="sec-tables-accessing"></span><h2>Accessing table data<a class="headerlink" href="#accessing-table-data" title="Permalink to this headline">¶</a></h2>
-<p>To look at a the contents of a table, you can simply <code class="docutils literal notranslate"><span class="pre">print</span></code> it:</p>
+<p>A simple way to see the contents of a table is to <code class="docutils literal notranslate"><span class="pre">print</span></code> it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>╔══╤════╤════╤══════════╤═════════════╤══════╤════════╗
-║id│site│node│time      │derived_state│parent│metadata║
-╠══╪════╪════╪══════════╪═════════════╪══════╪════════╣
-║0 │   0│   4│0.90000000│            G│    -1│     b&#39;&#39;║
-║1 │   1│   1│0.40000000│            A│    -1│     b&#39;&#39;║
-║2 │   2│   3│0.55000000│            C│    -1│     b&#39;&#39;║
-║3 │   2│   0│0.10000000│            T│     2│     b&#39;&#39;║
-╚══╧════╧════╧══════════╧═════════════╧══════╧════════╝
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>╔══╤═════╤══════════╤══════════╤══════════╤════════╗
+║id│flags│population│individual│time      │metadata║
+╠══╪═════╪══════════╪══════════╪══════════╪════════╣
+║0 │    1│         0│         0│0.00000000│     b&#39;&#39;║
+║1 │    1│         0│         0│0.00000000│     b&#39;&#39;║
+║2 │    1│         0│         1│0.00000000│     b&#39;&#39;║
+║3 │    0│         0│         2│0.15000000│     b&#39;&#39;║
+║4 │    0│        -1│        -1│0.60000000│     b&#39;&#39;║
+║5 │    0│        -1│        -1│0.80000000│     b&#39;&#39;║
+║6 │    0│        -1│        -1│1.00000000│     b&#39;&#39;║
+╚══╧═════╧══════════╧══════════╧══════════╧════════╝
 </pre></div>
 </div>
 </div>
 </div>
-<p>But <strong class="program">tskit</strong> also provides access to the rows and columns of each table.</p>
-<div class="section" id="row-access">
-<span id="sec-tables-accessing-rows"></span><h3>Row access<a class="headerlink" href="#row-access" title="Permalink to this headline">¶</a></h3>
-<p>Rows can be accessed using square braces, which will return an object containing the
-raw values:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A mutation at site </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">site</span><span class="si">}</span><span class="s2"> exists at time </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A mutation at site 1 exists at time 0.4
-MutationTableRow(site=1, node=1, derived_state=&#39;A&#39;, parent=-1, metadata=b&#39;&#39;, time=0.4)
-</pre></div>
-</div>
-</div>
-</div>
-<p>Additionally, many rows can be extracted into a new table using slices or
-<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.21)"><span class="xref std std-ref">numpy indexing</span></a></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-            <div>
-                <style scoped="">
-                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
-                    .tskit-table tbody tr th {vertical-align: top;}
-                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
-                    .tskit-table tbody th {padding: 0.5em 0.5em;}
-                </style>
-                <table border="1" class="tskit-table">
-                    <thead>
-                        <tr>
-                            <th>id</th><th>site</th><th>node</th><th>time</th><th>derived_state</th><th>parent</th><th>metadata</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>0</td><td>2</td><td>3</td><td>0.55000000</td><td>C</td><td>-1</td><td>b''</td></tr>
-<tr><td>1</td><td>2</td><td>0</td><td>0.10000000</td><td>T</td><td>2</td><td>b''</td></tr>
-
-                    </tbody>
-                </table>
-            </div>
-</div></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When manipulating table data, it is quite possible to create a table collection that
-does not correspond to a valid tree sequence. For instance, if we replaced the mutations
-table in our original tree sequence with the table above, the parent column
-would refer to an invalid mutation ID (ID 2, when in the new tables we only have
-mutations with IDs 0 and 1). In this particular case there is a method,
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.compute_mutation_parents" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.compute_mutation_parents()</span></code></a>, which will recalculate the parent IDs
-from the trees, but there is no general way to ensure that a manipulated table will
-remain valid.</p>
-</div>
-<p>Rows can also be <em>added</em> to a table using <code class="docutils literal notranslate"><span class="pre">.add_row()</span></code>. However, when modifying tables
-from a tree sequence, you should always modify a <em>copy</em> of the original data,
-using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.dump_tables" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.dump_tables()</span></code></a> method:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
-<span class="n">new_pos</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">new_site_id</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;G&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New empty site allocated at position </span><span class="si">{new_pos}</span><span class="s2"> with ID </span><span class="si">{new_site_id}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>New empty site allocated at position {new_pos} with ID {new_site_id}
-</pre></div>
-</div>
-<div class="output text_html">
-            <div>
-                <style scoped="">
-                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
-                    .tskit-table tbody tr th {vertical-align: top;}
-                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
-                    .tskit-table tbody th {padding: 0.5em 0.5em;}
-                </style>
-                <table border="1" class="tskit-table">
-                    <thead>
-                        <tr>
-                            <th>id</th><th>position</th><th>ancestral_state</th><th>metadata</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>0</td><td>15.00000000</td><td>A</td><td>b''</td></tr>
-<tr><td>1</td><td>42.00000000</td><td>G</td><td>b''</td></tr>
-<tr><td>2</td><td>60.00000000</td><td>T</td><td>b''</td></tr>
-<tr><td>3</td><td>10.00000000</td><td>G</td><td>b''</td></tr>
-
-                    </tbody>
-                </table>
-            </div>
-</div></div>
-</div>
-<p>Note that one of the requirements of a tree sequence is that the sites are listed in
-order of position, so this new table will require sorting (see
-<a class="reference internal" href="#sec-tables-creating"><span class="std std-ref">Constructing a tree sequence</span></a>)</p>
-</div>
+<p>But <strong class="program">tskit</strong> also provides access to columns and rows separately.</p>
 <div class="section" id="column-access">
 <span id="sec-tables-accessing-columns"></span><h3>Column access<a class="headerlink" href="#column-access" title="Permalink to this headline">¶</a></h3>
 <p>An entire column in a table can be extracted as a <strong class="program">numpy</strong> array from the table
-object. For instance, if <code class="docutils literal notranslate"><span class="pre">n</span></code> is a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTable</span></code></a>, then <code class="docutils literal notranslate"><span class="pre">n.time</span></code>
+object. For instance, if <code class="docutils literal notranslate"><span class="pre">n</span></code> is a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTable</span></code></a>, then <code class="docutils literal notranslate"><span class="pre">n.time</span></code>
 will return an array containing the birth times of the individuals whose genomes
-are represented by the nodes in the table. <em>However</em>, it is important to note that this
-is a copy of the data, and modifying individual elements of <code class="docutils literal notranslate"><span class="pre">n.time</span></code> will <em>not</em> change
-the node table <code class="docutils literal notranslate"><span class="pre">n</span></code>. To change the column data, you need to take a copy, modify it,
-and assign it back in. For example, here we add 0.25 to every <code class="docutils literal notranslate"><span class="pre">time</span></code> except the first
-in the node table from our current example:</p>
+are represented by the nodes in the table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.  , 0.  , 0.  , 0.15, 0.6 , 0.8 , 1.  ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also <em>modify</em> entire columns, but when doing this to tables from a tree
+sequence, you should always modify a <em>copy</em> of the original data, using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.dump_tables" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.dump_tables()</span></code></a> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>  <span class="c1"># make a copy of the tree sequence tables, for editing</span>
+<span class="n">new_tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.  , 0.  , 0.  , 0.15, 0.6 , 0.8 , 1.  ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Moreover, it is important to note that this numpy array itself is copy of the data
+stored in <code class="docutils literal notranslate"><span class="pre">new_tables</span></code>. In other words, modifying individual elements of <code class="docutils literal notranslate"><span class="pre">n.time</span></code> will
+<em>not</em> change the node table <code class="docutils literal notranslate"><span class="pre">n</span></code>. To change the column data, you need to take a copy
+of the array, modify it, and assign it back in. For example, here we add 0.25 to
+every <code class="docutils literal notranslate"><span class="pre">time</span></code> except the first in the node table:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_table</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">nodes</span>
@@ -910,10 +997,10 @@ in the node table from our current example:</p>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>1</td><td>1</td><td>-1</td><td>-1</td><td>0.25000000</td><td>b''</td></tr>
-<tr><td>2</td><td>1</td><td>-1</td><td>-1</td><td>0.25000000</td><td>b''</td></tr>
-<tr><td>3</td><td>0</td><td>-1</td><td>-1</td><td>0.40000000</td><td>b''</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td>b''</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0.25000000</td><td>b''</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0.25000000</td><td>b''</td></tr>
+<tr><td>3</td><td>0</td><td>0</td><td>2</td><td>0.40000000</td><td>b''</td></tr>
 <tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>0.85000000</td><td>b''</td></tr>
 <tr><td>5</td><td>0</td><td>-1</td><td>-1</td><td>1.05000000</td><td>b''</td></tr>
 <tr><td>6</td><td>0</td><td>-1</td><td>-1</td><td>1.25000000</td><td>b''</td></tr>
@@ -934,7 +1021,7 @@ expected length:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4993</span><span class="o">/</span><span class="mf">1022932079.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4872</span><span class="o">/</span><span class="mf">1022932079.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
 <span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
@@ -957,47 +1044,205 @@ expected length:</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="turning-tables-into-a-tree-sequence">
-<span id="sec-tables-to-tree-sequence"></span><h2>Turning tables into a tree sequence<a class="headerlink" href="#turning-tables-into-a-tree-sequence" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.tree_sequence" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.tree_sequence()</span></code></a> method will attempt to turn a table collection
-into a tree sequence. This is not guaranteed to work: it’s possible you have created a
-nonsensical tree sequence where, for example, a child node has multiple parents at
-a given position, or where edges reference non-existant nodes. The
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-valid-tree-sequence-requirements" title="(in tskit v0.3)"><span>Valid tree sequence requirements</span></a> section of the official tskit docs
-lists the requirements for a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> to represent a valid
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>.</p>
-<div class="section" id="sorting">
-<span id="sec-tables-to-tree-sequence-sorting"></span><h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h3>
-<p>Even if the tables represent a valid tree sequence, for efficiency reasons tree
-sequences also require several of their constituent tables to be sorted in a specific
-order. For instance, edges are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-requirements" title="(in tskit v0.3)"><span class="xref std std-ref">required</span></a> to be sorted
-in nondecreasing order of parent time, and sites are
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-site-requirements" title="(in tskit v0.3)"><span class="xref std std-ref">required</span></a> to be sorted in order of position.
-We can ensure that a set of tables are correctly sorted by calling the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.sort" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.sort()</span></code></a> method.</p>
-<p>For instance, the <code class="docutils literal notranslate"><span class="pre">new_tables</span></code> collection we created above no longer has its sites in
-the correct order, so we need to call <code class="docutils literal notranslate"><span class="pre">new_tables.sort()</span></code> before turning
-it into a tree sequence:</p>
+<div class="section" id="row-access">
+<span id="sec-tables-accessing-rows"></span><h3>Row access<a class="headerlink" href="#row-access" title="Permalink to this headline">¶</a></h3>
+<p>Rows can be accessed using square braces, which will return an object containing the
+raw values, accessible via attributes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># new_ts = new_tables.tree_sequence()  # This won&#39;t work</span>
-<span class="n">new_tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="n">new_ts</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>  <span class="c1"># Now it will</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can now plot the resulting tree sequence:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot without mutation labels, for clarity </span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">new_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{}))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Node 3, belonging to individual&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">individual</span><span class="p">,</span>
+    <span class="s2">&quot;in population&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">population</span><span class="p">,</span>
+    <span class="s2">&quot;exists at time&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_31_0.svg" src="_images/tables_and_editing_31_0.svg" /></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 3, belonging to individual 2 in population 0 exists at time 0.15
+NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b&#39;&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Additionally, many rows can be extracted into a new table using slices or
+<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.21)"><span class="xref std std-ref">numpy indexing</span></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+                <style scoped="">
+                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                    .tskit-table tbody tr th {vertical-align: top;}
+                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                    .tskit-table tbody th {padding: 0.5em 0.5em;}
+                </style>
+                <table border="1" class="tskit-table">
+                    <thead>
+                        <tr>
+                            <th>id</th><th>flags</th><th>population</th><th>individual</th><th>time</th><th>metadata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0.00000000</td><td>b''</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>2</td><td>0.15000000</td><td>b''</td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+</div></div>
+</div>
+<p>As with columns, to change the data in a row of a tree sequence table, you must operate
+on the copy that was produced by <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.dump_tables" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.dump_tables()</span></code></a>. Here we’ll try to
+change the ancestral state value of site 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Check the site&#39;s ancestral state (&quot;A&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SiteTableRow(position=15.0, ancestral_state=&#39;A&#39;, metadata=b&#39;&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since the row object(s) returned by the calls above are themselves copies,
+the attributes enforce read-only access:</p>
+<div class="cell tag_raises-exception docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span> <span class="c1"># This will not work: attributes are read-only</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FrozenInstanceError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_4872</span><span class="o">/</span><span class="mf">3570550814.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span> <span class="c1"># This will not work: attributes are read-only</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
+
+<span class="ne">FrozenInstanceError</span>: cannot assign to field &#39;ancestral_state&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>So to change row data you need to replace the row completely:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">SiteTableRow</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For convenience, each row object has a <code class="docutils literal notranslate"><span class="pre">replace</span></code> method which creates a new table row
+from an old one. This is often an easier way to changing one or two attributes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Another way to change a single entry: create a new row to replace the old one ...</span>
+<span class="n">replacement_row</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="c1"># ... then overwrite the original</span>
+<span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">replacement_row</span>
+
+<span class="c1"># Or equivalently, do both in a single step</span>
+<span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is also easy to add more rows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_pos</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">new_site_id</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;An empty site&quot;</span>
+    <span class="c1"># NB: For this example table we have to feed a raw byte string as metadata</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New empty site allocated at position </span><span class="si">{</span><span class="n">new_pos</span><span class="si">}</span><span class="s2"> with ID </span><span class="si">{</span><span class="n">new_site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>New empty site allocated at position 10 with ID 3
+</pre></div>
+</div>
+<div class="output text_html">
+            <div>
+                <style scoped="">
+                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                    .tskit-table tbody tr th {vertical-align: top;}
+                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                    .tskit-table tbody th {padding: 0.5em 0.5em;}
+                </style>
+                <table border="1" class="tskit-table">
+                    <thead>
+                        <tr>
+                            <th>id</th><th>position</th><th>ancestral_state</th><th>metadata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>15.00000000</td><td>C</td><td>b''</td></tr>
+<tr><td>1</td><td>42.00000000</td><td>G</td><td>b''</td></tr>
+<tr><td>2</td><td>60.00000000</td><td>T</td><td>b''</td></tr>
+<tr><td>3</td><td>10.00000000</td><td>G</td><td>b'An empty site'</td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="turning-tables-into-a-tree-sequence">
+<span id="sec-tables-to-tree-sequence"></span><h2>Turning tables into a tree sequence<a class="headerlink" href="#turning-tables-into-a-tree-sequence" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.tree_sequence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.tree_sequence()</span></code></a> method will attempt to turn a table collection
+into a tree sequence. This is not guaranteed to work: it’s possible you have created a
+nonsensical tree sequence where, for example, a child node has multiple parents at
+a given position, or where edges reference non-existant nodes. The
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-valid-tree-sequence-requirements" title="(in Python)"><span>Valid tree sequence requirements</span></a> section of the official tskit docs
+lists the requirements for a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> to represent a valid
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>.</p>
+<div class="section" id="sorting">
+<span id="sec-tables-to-tree-sequence-sorting"></span><h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h3>
+<p>Even if the tables represent a valid tree sequence, for efficiency reasons tree
+sequences also require several of their constituent tables to be sorted in a specific
+order. For instance, edges are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-requirements" title="(in Python)"><span class="xref std std-ref">required</span></a> to be sorted
+in nondecreasing order of parent time, and sites are
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-site-requirements" title="(in Python)"><span class="xref std std-ref">required</span></a> to be sorted in order of position.
+We can ensure that a set of tables are correctly sorted by calling the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.sort" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.sort()</span></code></a> method.</p>
+<p>In fact the new empty site that we added to the <code class="docutils literal notranslate"><span class="pre">new_tables</span></code> collection in the previous
+section was at the start of the genome, so the table collection no longer has its sites
+in the order required for a tree sequence. That means we need to call
+<code class="docutils literal notranslate"><span class="pre">new_tables.sort()</span></code> before turning the table collection into a tree sequence:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># altered_ts = new_tables.tree_sequence()  # This won&#39;t work</span>
+<span class="n">new_tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">altered_ts</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>  <span class="c1"># Now it will</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that it had been turned into a tree sequence, we can plot it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot without mutation labels, for clarity </span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">altered_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{}))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/tables_and_editing_51_0.svg" src="_images/tables_and_editing_51_0.svg" /></div>
 </div>
 <p>You can see that the new tree sequence has been modified as expected: there is a new
 empty site at position 10 (represented by a tickmark above the X axis with no mutations
@@ -1008,8 +1253,8 @@ on it), and all the nodes except node 0 have had their times increased by 0.25.<
 <span id="sec-tables-creating"></span><h2>Constructing a tree sequence<a class="headerlink" href="#constructing-a-tree-sequence" title="Permalink to this headline">¶</a></h2>
 <p>With the tools above in mind, we can now see how to construct a tree sequence by hand.
 It’s unlikely that you would ever need to do this from scratch, but it’s helpful to
-understand how tables work. We’ll build the simplest possible tree sequence, a single
-tree that looks like this:</p>
+understand how tables work. We’ll build an extremely simple tree sequence, consisting of
+a single tree that looks like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/construction_example.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
@@ -1017,10 +1262,10 @@ tree that looks like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_33_0.svg" src="_images/tables_and_editing_33_0.svg" /></div>
+<img alt="_images/tables_and_editing_53_0.svg" src="_images/tables_and_editing_53_0.svg" /></div>
 </div>
 <p>Starting with an empty set of tables, we can fill, say, the node information by using
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.add_row" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeTable.add_row()</span></code></a> as follows:</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.add_row" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeTable.add_row()</span></code></a> as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">sequence_length</span><span class="o">=</span><span class="mf">1e3</span><span class="p">)</span>
@@ -1121,111 +1366,230 @@ ATGC.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A hand-built tree sequence!
 </pre></div>
 </div>
-<img alt="_images/tables_and_editing_39_1.svg" src="_images/tables_and_editing_39_1.svg" /></div>
+<img alt="_images/tables_and_editing_59_1.svg" src="_images/tables_and_editing_59_1.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The ordering requirements for a valid tree sequence
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-node-requirements" title="(in tskit v0.3)"><span class="xref std std-ref">do not specify</span></a> that rows in the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-node-requirements" title="(in Python)"><span class="xref std std-ref">do not specify</span></a> that rows in the
 node table have to be sorted in any particular order, e.g. by time. By convention,
 sample nodes are often the first ones listed in the node table, and this is the node
-order returned by <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>, but the example above shows that
+order returned by <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>, but the example above shows that
 sample nodes need not necessarily be those with the IDs <span class="math notranslate nohighlight">\(0..n\)</span>.</p>
 </div>
 </div>
 <div class="section" id="editing-tree-sequences">
 <span id="sec-tables-editing"></span><h2>Editing tree sequences<a class="headerlink" href="#editing-tree-sequences" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes you may wish to make modifications to a tree sequence that has
-been generated by a simulation. However, tree sequence objects are <strong>immutable</strong>
-and so cannot be edited in-place.</p>
-<p>Before describing how to edit a tree sequence, it’s worth noting that <strong class="program">tskit</strong>
-may provide a built-in method to achieve what you want to do, without worring about
-fiddling with the underlying tables by hand. In particular, several methods will
-return a new tree sequence that has been modified in some way. For example:</p>
+<p>If you may wish to make modifications to a tree sequence, you will immediately encounter
+a barrier: tree sequence objects are <strong>immutable</strong> and so cannot be edited in-place.
+Therefore, the way to change a tree sequence is to edit its underlying tables.</p>
+<p>Before providing further examples of how to edit tables, it’s worth noting that
+<strong class="program">tskit</strong> may provide a built-in method to achieve what you want to do, without
+you having to think about the underlying tables at all. In particular, several methods
+will return a new tree sequence that has been modified in some way. Here are some key
+ones:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_sites" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.delete_sites()</span></code></a> returns a tree sequence with certain sites
+<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_sites" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.delete_sites()</span></code></a> returns a tree sequence with certain sites
 deleted</p></li>
-<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_intervals" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.delete_intervals()</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.keep_intervals()</span></code></a>
+<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_intervals" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.delete_intervals()</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.keep_intervals()</span></code></a>
 return a tree sequence whose trees cover a smaller fraction of the genome (and which can
-be combined with <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trim" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trim()</span></code></a> to change the coordinate system)</p></li>
-<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> returns a new tree sequence with some sample nodes removed
+be combined with <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trim" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trim()</span></code></a> to change the coordinate system)</p></li>
+<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> returns a new tree sequence with some sample nodes removed
 (see the <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplification tutorial</span></a>).</p></li>
-<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.union" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.union()</span></code></a> returns a new tree sequence formed by merging two other tree
+<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.union" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.union()</span></code></a> returns a new tree sequence formed by merging two other tree
 sequences together.</p></li>
 </ul>
-<p>However, if you want to do something not covered by those built-in methods, you will
-need to edit a copy of the underlying tables and then create a new tree sequence from
-the modified tables. In the following example, we use this
-approach to remove all singleton sites from a given tree sequence.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">strip_singletons</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
-    <span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">sites</span><span class="p">():</span>
-            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># Only supports infinite sites muts.</span>
-            <span class="n">mut</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
-                <span class="n">mut</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site_id</span><span class="p">)</span>  <span class="c1"># set the new site id</span>
-                <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mut</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="margin sidebar">
-<p class="sidebar-title"></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This code only considers simple infinite sites mutations.
-Accounting for back or recurrent mutations would require a slightly
-more involved approach where we keep a map of mutation IDs so that
-mutation <code class="docutils literal notranslate"><span class="pre">parent</span></code> values could be computed.</p>
-</div>
-</div>
-<p>This function takes a tree sequence containing some infinite sites mutations as
-input, and returns a copy in which all singleton sites have been removed.
-The approach is very simple: we get a copy of the underlying
-table data in a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in tskit v0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> object, and first clear the
-site and mutation tables. We then consider each site in turn,
-and if the number of samples with
-the mutation is greater than one, we add the site and mutation to our
-output tables using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.SiteTable.append" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SiteTable.append()</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MutationTable.append" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MutationTable.append()</span></code></a>. These
-functions act exactly like <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.SiteTable.add_row" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SiteTable.add_row()</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MutationTable.add_row" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">MutationTable.add_row()</span></code></a>
-but they take an existing site or mutation and add all its details as a new row.</p>
-<p>After considering each site, we then create a new tree sequence using
-the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.tree_sequence" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.tree_sequence()</span></code></a> method on our updated tables.
-We can test this on a tree sequence that has been mutated using
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_mutations()</span></code></a> with the <code class="docutils literal notranslate"><span class="pre">discrete_genome</span></code>
-parameter set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, which creates infinite sites mutations:</p>
+<p>For example, to strip singleton sites from a tree sequence, we can simply call the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_sites" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.delete_sites()</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">discrete_genome</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot;sites in the simulated tree sequence&quot;</span><span class="p">)</span>
 
-<span class="n">ts_new</span> <span class="o">=</span> <span class="n">strip_singletons</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="c1"># Identify sites with a singleton allele</span>
+<span class="n">sites_with_a_singleton_allele</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
+    <span class="n">non_missing_genotypes</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">genotypes</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">genotypes</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MISSING_DATA</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">non_missing_genotypes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">sites_with_a_singleton_allele</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        
+<span class="c1"># Strip those sites from the tree sequence</span>
+<span class="n">ts_new</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">delete_sites</span><span class="p">(</span><span class="n">sites_with_a_singleton_allele</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ts_new</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot;sites after removing singletons&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>109 sites in the simulated tree sequence
-57 sites after removing singletons
+52 sites after removing singletons
 </pre></div>
 </div>
 </div>
 </div>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Add another example here where we use the array oriented API to edit
-the nodes and edges of a tree sequence. Perhaps recapitating would be a
-good example?</p>
+<p>However, you want to do something not covered by a built-in method, you will
+need to edit a copy of the underlying tables and then create a new tree sequence from
+the modified tables.</p>
+<div class="section" id="minor-edits">
+<span id="sec-tables-editing-minor"></span><h3>Minor edits<a class="headerlink" href="#minor-edits" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="#sec-tables-accessing-rows"><span class="std std-ref">Previously</span></a> we saw how to change specific rows by
+overwriting them. Here, for example, we use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTableRow.replace" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IndividualTableRow.replace()</span></code></a> to change
+the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> associated with an individual in one of our example tree sequences:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">altered_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="c1"># Change the name &quot;Bob&quot; to &quot;Robert&quot;</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Robert&quot;</span><span class="p">})</span>
+<span class="n">edited_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+<span class="n">edited_ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+                <style scoped="">
+                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                    .tskit-table tbody tr th {vertical-align: top;}
+                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                    .tskit-table tbody th {padding: 0.5em 0.5em;}
+                </style>
+                <table border="1" class="tskit-table">
+                    <thead>
+                        <tr>
+                            <th>id</th><th>flags</th><th>location</th><th>parents</th><th>metadata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>0</td><td></td><td>2, -1</td><td>{'name': 'Alice'}</td></tr>
+<tr><td>1</td><td>0</td><td></td><td>2, -1</td><td>{'name': 'Robert'}</td></tr>
+<tr><td>2</td><td>0</td><td></td><td>-1, -1</td><td>{'name': 'Carol'}</td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+</div></div>
+</div>
+<p>If you are overwriting an entire column, especially something like metadata which is a
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-encoding-ragged-columns" title="(in Python)"><span class="xref std std-ref">ragged column</span></a>, looping through each row and changing
+it as above will not be very performant. Instead, you should overwrite the entire column
+(or multiple columns) at once. We <a class="reference internal" href="#sec-tables-accessing-columns"><span class="std std-ref">previously saw</span></a>
+how to overwrite an entire column of numbers, and for most columns that should suffice.
+However, overwriting ragged columns like <code class="docutils literal notranslate"><span class="pre">metadata</span></code> or <code class="docutils literal notranslate"><span class="pre">parents</span></code> is more involved,
+as you cannot set them to a single numpy array. Instead, for these columns, <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
+provides a number of <code class="docutils literal notranslate"><span class="pre">packset_</span></code> routines, which set the appropriate column from a Python
+list of values.</p>
+<p>Here’s an example of changing an entire column of metadata in one pass (in this case,
+note the extra step of validating and encoding before calling
+<code class="docutils literal notranslate"><span class="pre">{meth}</span></code>IndividualTable.packset_metadata``, as
+<a class="reference internal" href="metadata.html#sec-tutorial-metadata-bulk"><span class="std std-ref">described</span></a> in the
+<a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">metadata tutorial</span></a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a surname to all individuals</span>
+<span class="n">new_metadata</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; Smith&quot;</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">]</span>
+<span class="n">validated_metadata</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">new_metadata</span>
+<span class="p">]</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">packset_metadata</span><span class="p">(</span><span class="n">validated_metadata</span><span class="p">)</span>
+<span class="n">edited_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+<span class="n">edited_ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+                <style scoped="">
+                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                    .tskit-table tbody tr th {vertical-align: top;}
+                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                    .tskit-table tbody th {padding: 0.5em 0.5em;}
+                </style>
+                <table border="1" class="tskit-table">
+                    <thead>
+                        <tr>
+                            <th>id</th><th>flags</th><th>location</th><th>parents</th><th>metadata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0</td><td>0</td><td></td><td>2, -1</td><td>{'name': 'Alice Smith'}</td></tr>
+<tr><td>1</td><td>0</td><td></td><td>2, -1</td><td>{'name': 'Robert Smith'}</td></tr>
+<tr><td>2</td><td>0</td><td></td><td>-1, -1</td><td>{'name': 'Carol Smith'}</td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+</div></div>
+</div>
+</div>
+<div class="section" id="major-edits">
+<span id="sec-tables-editing-major"></span><h3>Major edits<a class="headerlink" href="#major-edits" title="Permalink to this headline">¶</a></h3>
+<p>For larger changes, it is often worth clearing the entire table and filling it. Here,
+for example, we clear all mutations from the mutations table, then fill it up again,
+if possible using a more parsimonious placement of mutations (i.e. a placement that
+would better explain the observed variation among samples - see the
+<a class="reference internal" href="analysing_trees.html#sec-analysing-trees-parsimony"><span class="std std-ref">Parsimony</span></a> tutorial section).
+This also involves changing the ancestral state at the site if necessary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a tree sequence with loads of recurrent/back mutations, for testing only</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">456</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original ts has&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="p">,</span> <span class="s2">&quot;mutations on&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">&quot;trees&quot;</span><span class="p">)</span>
+
+<span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>  <span class="c1"># Copy the table collection associated with this tree sequence</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Clear all mutations in the table collection copy</span>
+<span class="n">v_iter</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">()</span>  <span class="c1"># Workaround until https://github.com/tskit-dev/tskit/issues/605 is solved</span>
+<span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">sites</span><span class="p">():</span>
+        <span class="n">variant</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">v_iter</span><span class="p">)</span>
+        <span class="n">anc_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">variant</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutations</span><span class="p">)</span> <span class="o">&lt;</span>  <span class="nb">len</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">):</span>
+            <span class="c1"># Genotypes can be explained with a more parsimonious distribution of mutations</span>
+            <span class="k">if</span> <span class="n">anc_state</span> <span class="o">!=</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span><span class="p">:</span>
+                <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="n">anc_state</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+                <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Add the original mutations back in (note that parent ids may have changed,</span>
+            <span class="c1"># so we will need to call compute_mutation_parents at the end)</span>
+            <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">:</span>
+                <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mut</span><span class="p">)</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">compute_mutation_parents</span><span class="p">()</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">compute_mutation_times</span><span class="p">()</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">parsimonious_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parsimonious ts has&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">-</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="p">,</span> <span class="s2">&quot;fewer muts&quot;</span><span class="p">)</span>
+
+<span class="c1"># Optional checks</span>
+<span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">==</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">num_trees</span>
+<span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span> <span class="o">==</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">num_sites</span>
+<span class="k">for</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">(),</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">variants</span><span class="p">()):</span>
+    <span class="c1"># convert alleles to numpy arrays so we can index into them easily</span>
+    <span class="n">alleles1</span><span class="p">,</span> <span class="n">alleles2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">alleles</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v2</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span>
+    <span class="c1"># Verify the distribution of variation is the same, by comparing the allelic state</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">alleles1</span><span class="p">[</span><span class="n">v1</span><span class="o">.</span><span class="n">genotypes</span><span class="p">]</span> <span class="o">==</span> <span class="n">alleles2</span><span class="p">[</span><span class="n">v2</span><span class="o">.</span><span class="n">genotypes</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original ts has 154 mutations on 71 trees
+Parsimonious ts has 33 fewer muts
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the code above we iterate over the trees in the original tree sequence, but make
+changes to a <em>copy</em> of the tables associated with those trees, modifying the table
+collection as we go. This is a common idiom.</p>
+</div>
 </div>
 </div>
 </div>

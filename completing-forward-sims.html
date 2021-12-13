@@ -547,8 +547,8 @@ samples, and their entire genomes need not be represented (e.g., node <code clas
 only present on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code>). This allows <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> to not simulate
 the entire history of the first generation, but only what is necessary to complete
 any uncoalesced trees. Happily, this is easily done with the <code class="docutils literal notranslate"><span class="pre">keep_input_roots</span></code> argument
-to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>. Note that this argument would need
-to be provided to the periodic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> steps
+to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>. Note that this argument would need
+to be provided to the periodic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> steps
 which are essential in practical simulation, but that we skipped in the toy simulator above.</p>
 <p>In fact, this is precisely how tree sequence recording in <a class="reference external" href="https://messerlab.org/slim">SLiM</a>,
 works, and <a class="reference external" href="https://pyslim.readthedocs.io/en/stable/python_api.html#pyslim.SlimTreeSequence.recapitate" title="(in pyslim v0.600)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyslim.SlimTreeSequence.recapitate()</span></code></a> provides a front-end to
@@ -575,7 +575,7 @@ coalesced in the forwards-time simulation).</p></li>
 </ol>
 <p>For these reasons it may be better to remove this redundancy from your
 computed tree sequence which is easily done using the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in tskit v0.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify</span></code></a> method:</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">final_ts</span> <span class="o">=</span> <span class="n">coalesced_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
