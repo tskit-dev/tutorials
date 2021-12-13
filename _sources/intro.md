@@ -77,7 +77,8 @@ install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()
 
 Many of the tutorials use pre-existing tree sequences stored in the
 [``data``](https://github.com/tskit-dev/tutorials/tree/main/data) directory.
-These can be downloaded from the internet by running the script stored in
+These can be downloaded individually from that link, or you can
+download them all at once by running the script stored in
 [https://tskit.dev/tutorials/examples/download.py](https://tskit.dev/tutorials/examples/download.py).
 If you are running the code in the tutorials from within a Jupyter notebook
 then you can simply load this code into a new cell by using the
