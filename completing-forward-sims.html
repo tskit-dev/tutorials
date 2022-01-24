@@ -41,7 +41,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -330,7 +330,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -364,7 +364,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -389,7 +389,35 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Completing forwards simulations</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-keep-input-roots-i-e-the-initial-generation">
+   Why keep input roots (i.e., the initial generation)?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#topology-gotchas">
+   Topology gotchas
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="completing-forwards-simulations">
@@ -524,7 +552,9 @@ is haploid and msprime uses a diploid time scale by default.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/msprime/demography.py:1176: IncompletePopulationMetadataWarning: No metadata schema present in population table, not recording metadata
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/msprime/ancestry.py:831: TimeUnitsMismatchWarning: The initial_state has time_units=unknown but time is measured in generations in msprime. This may lead to significant discrepancies between the timescales. If you wish to suppress this warning, you can use, e.g., warnings.simplefilter(&#39;ignore&#39;, msprime.TimeUnitsMismatchWarning)
+  warnings.warn(message, TimeUnitsMismatchWarning)
+/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/msprime/demography.py:1176: IncompletePopulationMetadataWarning: No metadata schema present in population table, not recording metadata
   warnings.warn(
 </pre></div>
 </div>
@@ -551,7 +581,7 @@ to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pytho
 to be provided to the periodic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> steps
 which are essential in practical simulation, but that we skipped in the toy simulator above.</p>
 <p>In fact, this is precisely how tree sequence recording in <a class="reference external" href="https://messerlab.org/slim">SLiM</a>,
-works, and <a class="reference external" href="https://pyslim.readthedocs.io/en/stable/python_api.html#pyslim.SlimTreeSequence.recapitate" title="(in pyslim v0.600)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyslim.SlimTreeSequence.recapitate()</span></code></a> provides a front-end to
+works, and <a class="reference external" href="https://tskit.dev/pyslim/docs/stable/python_api.html#pyslim.SlimTreeSequence.recapitate" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyslim.SlimTreeSequence.recapitate()</span></code></a> provides a front-end to
 the method presented here.</p>
 </div>
 <div class="section" id="topology-gotchas">
@@ -616,8 +646,8 @@ mapping between the two sets of IDs.</p>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="introgression.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -634,19 +664,17 @@ mapping between the two sets of IDs.</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Tskit Developers<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Tskit Developers<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 
