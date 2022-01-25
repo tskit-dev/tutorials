@@ -414,7 +414,7 @@ Most genetic calculations involve iterating over trees, which is highly efficien
 
 For example, statistical measures of genetic variation can be thought of as a calculation
 combining the local trees with the mutations on each branch (or, often preferably, the
-length of the branches: see [this summary](https://www.genetics.org/content/genetics/215/3/779)).
+length of the branches: see [this summary](https://academic.oup.com/genetics/article/215/3/779/5930459)).
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation *de novo* on each tree.
