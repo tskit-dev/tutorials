@@ -202,7 +202,7 @@ more than one tree: either the entire tree sequence, or
 
 ```{code-cell} ipython3
 reduced_ts = ts.simplify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])  # simplify to the first 10 samples
-print("Genealogy of the first 10 samples for the first 1.5kb of the genome")
+print("Genealogy of the first 10 samples for the first 5kb of the genome")
 display(SVG(reduced_ts.draw_svg(x_lim=(0, 5000))))
 ```
 
