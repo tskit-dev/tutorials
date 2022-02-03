@@ -320,7 +320,7 @@ even be a single letter.
 
 (sec_tskit_getting_started_compute_statistics)=
 
-## Compute statistics
+## Computing statistics
 
 There are a {ref}`large number of statistics<tskit:sec_stats>` and related calculations
 built in to {program}`tskit`. Indeed, many basic population genetic statistics are based
