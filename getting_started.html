@@ -766,7 +766,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0204475 secs
+Checked in 0.0202005 secs
 </pre></div>
 </div>
 </div>
@@ -849,13 +849,13 @@ more than one tree: either the entire tree sequence, or
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>  <span class="c1"># simplify to the first 10 samples</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genealogy of the first 10 samples for the first 1.5kb of the genome&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genealogy of the first 10 samples for the first 5kb of the genome&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">reduced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genealogy of the first 10 samples for the first 1.5kb of the genome
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genealogy of the first 10 samples for the first 5kb of the genome
 </pre></div>
 </div>
 <img alt="_images/getting_started_11_1.svg" src="_images/getting_started_11_1.svg" /></div>
