@@ -44,6 +44,19 @@ def viz_ts():
     assert ts_small_mutated.site(8).mutations[0].node == 16
     ts_small_mutated.dump("data/viz_ts_small_mutated.trees")
 
+def viz_selection():
+    sequence_length = 5e4
+    sweep_model = msprime.SweepGenicSelection(position=sequence_length/2,
+    s=0.01, start_frequency=0.5e-4, end_frequency=0.99, dt=1e-6)
+    ts_selection = msprime.sim_ancestry(9,
+        model=[sweep_model, msprime.StandardCoalescent()],
+        population_size=1e4,
+        recombination_rate=1e-8,
+        sequence_length=sequence_length,
+        random_seed=9,
+    )
+    ts_selection.dump("data/viz_ts_selection.trees")
+
 def viz_root_mut():
     """
     Taken from the drawing unit tests
@@ -120,6 +133,7 @@ def viz_spr_animation():
 
 def create_notebook_data():
     viz_ts()
+    viz_selection()
     viz_root_mut()
     viz_spr_animation()
 
@@ -455,12 +469,48 @@ the following element:
 <g class="a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample">...</g>
 ```
 
-This makes it easy to e.g. colour branches that are shared between trees (i.e. that
+#### Styling graphical elements 
+
+The classes above make it easy to target specific nodes or edges in one or multiple
+trees. For example, we can colour branches that are shared between trees (i.e. that
 have the same parent and child):
 
 ```{code-cell} ipython3
 css_string = ".a15.n9 > .edge {stroke: cyan; stroke-width: 2px}"  # branches from 15->9
 SVG(ts_small.draw_svg(time_scale="rank", size=wide_fmt, style=css_string))
+```
+
+By generating the css string programatically, you can target all the edges present in a
+particular tree, and see how they gradually disappear from adjacent trees. Here, for
+example the branches in the central tree have been coloured red, as have the identical
+branches in adjacent trees. The central tree represents a location in the genome
+that has seen a selective sweep, and therefore has short branch lengths: adjacent trees
+are not under direct selection and thus the black branches tend to be longer. For
+visual clarity, node symbols and labels have been turned off.
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+# See the notebook code if you want to know how these tree sequences were produced
+ts_selection = tskit.load("data/viz_ts_selection.trees")
+```
+
+```{code-cell} ipython3
+css_edge_targets = []  # collect the css targets of all the edges in the selected tree
+sweep_location = ts_selection.sequence_length / 2  # NB: sweep is in the middle of the ts
+focal_tree = ts_selection.at(sweep_location)
+for node_id in focal_tree.nodes():
+    parent_id = focal_tree.parent(node_id)
+    if parent_id != tskit.NULL:
+        css_edge_targets.append(f".a{parent_id}.n{node_id}>.edge")
+css_string = ",".join(css_edge_targets) + "{stroke: red} .sym {display: none}"
+
+wide_tall_fmt = (1200, 400)
+SVG(ts_selection.draw_svg(
+    style=css_string,
+    size=wide_tall_fmt,
+    x_lim=[1.74e4, 3.25e4],
+    node_labels={},
+))
 ```
 
 :::{note}
