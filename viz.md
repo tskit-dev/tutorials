@@ -472,8 +472,8 @@ the following element:
 #### Styling graphical elements 
 
 The classes above make it easy to target specific nodes or edges in one or multiple
-trees. For example, we can colour branches that are shared between trees (i.e. that
-have the same parent and child):
+trees. For example, we can colour branches that are shared between trees
+(identified here as ones that have the same parent and child):
 
 ```{code-cell} ipython3
 css_string = ".a15.n9 > .edge {stroke: cyan; stroke-width: 2px}"  # branches from 15->9
@@ -485,8 +485,11 @@ particular tree, and see how they gradually disappear from adjacent trees. Here,
 example the branches in the central tree have been coloured red, as have the identical
 branches in adjacent trees. The central tree represents a location in the genome
 that has seen a selective sweep, and therefore has short branch lengths: adjacent trees
-are not under direct selection and thus the black branches tend to be longer. For
-visual clarity, node symbols and labels have been turned off.
+are not under direct selection and thus the black branches tend to be longer.
+These (red) shared branches extending far on either side represent shared haplotypes,
+and this shows how long, shared haplotypes can extend much further away from a sweep
+than the region of reduced diversity (which is the region spanned by the short tree in the middle).
+For visual clarity, node symbols and labels have been turned off.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
