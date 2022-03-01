@@ -37,17 +37,19 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -414,6 +416,11 @@
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#styling-graphical-elements">
+       Styling graphical elements
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#moving-graphical-elements">
        Moving graphical elements
       </a>
@@ -599,6 +606,11 @@
      Styling
     </a>
     <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#styling-graphical-elements">
+       Styling graphical elements
+      </a>
+     </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#moving-graphical-elements">
        Moving graphical elements
@@ -1146,8 +1158,11 @@ the following element:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>This makes it easy to e.g. colour branches that are shared between trees (i.e. that
-have the same parent and child):</p>
+<div class="section" id="styling-graphical-elements">
+<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this headline">¶</a></h4>
+<p>The classes above make it easy to target specific nodes or edges in one or multiple
+trees. For example, we can colour branches that are shared between trees
+(identified here as ones that have the same parent and child):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;.a15.n9 &gt; .edge {stroke: cyan; stroke-width: 2px}&quot;</span>  <span class="c1"># branches from 15-&gt;9</span>
@@ -1158,12 +1173,55 @@ have the same parent and child):</p>
 <div class="cell_output docutils container">
 <img alt="_images/viz_27_0.svg" src="_images/viz_27_0.svg" /></div>
 </div>
+<p>By generating the css string programatically, you can target all the edges present in a
+particular tree, and see how they gradually disappear from adjacent trees. Here, for
+example the branches in the central tree have been coloured red, as have the identical
+branches in adjacent trees. The central tree represents a location in the genome
+that has seen a selective sweep, and therefore has short branch lengths: adjacent trees
+are not under direct selection and thus the black branches tend to be longer.
+These (red) shared branches extending far on either side represent shared haplotypes,
+and this shows how long, shared haplotypes can extend much further away from a sweep
+than the region of reduced diversity (which is the region spanned by the short tree in the middle).
+For visual clarity, node symbols and labels have been turned off.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># See the notebook code if you want to know how these tree sequences were produced</span>
+<span class="n">ts_selection</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_selection.trees&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_edge_targets</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># collect the css targets of all the edges in the selected tree</span>
+<span class="n">sweep_location</span> <span class="o">=</span> <span class="n">ts_selection</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># NB: sweep is in the middle of the ts</span>
+<span class="n">focal_tree</span> <span class="o">=</span> <span class="n">ts_selection</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">sweep_location</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">focal_tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="n">parent_id</span> <span class="o">=</span> <span class="n">focal_tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parent_id</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
+        <span class="n">css_edge_targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.a</span><span class="si">{</span><span class="n">parent_id</span><span class="si">}</span><span class="s2">.n</span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">&gt;.edge&quot;</span><span class="p">)</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">css_edge_targets</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;{stroke: red} .sym {display: none}&quot;</span>
+
+<span class="n">wide_tall_fmt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts_selection</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">wide_tall_fmt</span><span class="p">,</span>
+    <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mf">1.74e4</span><span class="p">,</span> <span class="mf">3.25e4</span><span class="p">],</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_30_0.svg" src="_images/viz_30_0.svg" /></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Branches in multiple trees that have the same parent and child do not always
 correspond to a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">edge</span></a>
 in a tree sequence: for example, edges have the
 additional constraint that they must belong to <em>adjacent</em> trees.</p>
+</div>
 </div>
 <div class="section" id="moving-graphical-elements">
 <h4>Moving graphical elements<a class="headerlink" href="#moving-graphical-elements" title="Permalink to this headline">¶</a></h4>
@@ -1198,7 +1256,7 @@ of symbols, which can create rather different formatting styles:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_29_0.svg" src="_images/viz_29_0.svg" /></div>
+<img alt="_images/viz_32_0.svg" src="_images/viz_32_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1274,7 +1332,7 @@ thicker blue line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_31_0.svg" src="_images/viz_31_0.svg" /></div>
+<img alt="_images/viz_34_0.svg" src="_images/viz_34_0.svg" /></div>
 </div>
 <p>This might not be quite what you expected: the branch leading from node 13 to its parent
 (node 17) has also been coloured. That’s because the SVG node group deliberately contains
@@ -1292,7 +1350,7 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_33_0.svg" src="_images/viz_33_0.svg" /></div>
+<img alt="_images/viz_36_0.svg" src="_images/viz_36_0.svg" /></div>
 </div>
 <p>If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
@@ -1316,7 +1374,7 @@ this normally-hidden line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_35_0.svg" src="_images/viz_35_0.svg" /></div>
+<img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="restricting-styling">
@@ -1338,7 +1396,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_37_0.svg" src="_images/viz_37_0.svg" /></div>
+<img alt="_images/viz_40_0.svg" src="_images/viz_40_0.svg" /></div>
 </div>
 <p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
 to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
@@ -1354,7 +1412,7 @@ targetting of the leaf symbols only:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_39_0.svg" src="_images/viz_39_0.svg" /></div>
+<img alt="_images/viz_42_0.svg" src="_images/viz_42_0.svg" /></div>
 </div>
 <p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
 so the following style specification should produce the same effect:</p>
@@ -1380,7 +1438,7 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_41_0.svg" src="_images/viz_41_0.svg" /></div>
+<img alt="_images/viz_44_0.svg" src="_images/viz_44_0.svg" /></div>
 </div>
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
@@ -1529,7 +1587,7 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_45_0.svg" src="_images/viz_45_0.svg" /></div>
+<img alt="_images/viz_48_0.svg" src="_images/viz_48_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="a-fancy-formatted-plot">
@@ -1562,7 +1620,7 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_47_0.svg" src="_images/viz_47_0.svg" /></div>
+<img alt="_images/viz_50_0.svg" src="_images/viz_50_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="highlighted-mutations">
@@ -1587,7 +1645,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_49_0.svg" src="_images/viz_49_0.svg" /></div>
+<img alt="_images/viz_52_0.svg" src="_images/viz_52_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="leaf-sample-isolated-nodes">
@@ -1611,7 +1669,7 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_51_0.svg" src="_images/viz_51_0.svg" /></div>
+<img alt="_images/viz_54_0.svg" src="_images/viz_54_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1694,7 +1752,7 @@ keeping node and mutation symbols in black, but colouring gridlines instead:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_53_0.svg" src="_images/viz_53_0.svg" /></div>
+<img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="animation">
@@ -1989,7 +2047,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_57_0.svg" src="_images/viz_57_0.svg" /></div>
+<img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="geography">
