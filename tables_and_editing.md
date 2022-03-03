@@ -714,7 +714,7 @@ list of values.
 
 Here's an example of changing an entire column of metadata in one pass (in this case,
 note the extra step of validating and encoding before calling
-`{meth}`IndividualTable.packset_metadata``, as
+{meth}`IndividualTable.packset_metadata`, as
 {ref}`described<sec_tutorial_metadata_bulk>` in the
 {ref}`metadata tutorial<sec_tutorial_metadata>`). 
 
