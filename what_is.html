@@ -504,11 +504,11 @@ the nodes are referred to by <a class="reference internal" href="terminology_and
 </div>
 </div>
 <p>The tickmarks on the X axis and background shading indicate the genomic positions covered
-by the trees. For just over half the chromosome, from the
-start until position 580, the relationships between the ten genomes are shown by
-the first tree. The second tree shows the relationships between positions 580 and 833,
-and the third from position 833 to the end. We can say that the first tree spans 580 base
-pairs, the second 253, and the third 167.</p>
+by the trees. For the first short portion of the chromosome, from the
+start until position 189, the relationships between the ten genomes are shown by
+the first tree. The second tree shows the relationships between positions 189 and 546,
+and the third from position 546 to the end. We can say that the first tree spans 189
+base pairs, the second 357, and the third 454.</p>
 <p>Multiple trees are needed because of
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a>, which causes
 different regions of the chromosome to have different histories. Together, the sequence
@@ -536,39 +536,39 @@ might look in our simple example:</p>
 <div class="cell_output docutils container">
 <img alt="_images/what_is_6_0.svg" src="_images/what_is_6_0.svg" /></div>
 </div>
-<p>There are now ten single nucleotide mutations in the tree sequence. They are shown on the
+<p>There are now twelve single nucleotide mutations in the tree sequence. They are shown on the
 branches of the trees, and the positions of the ten variable sites associated with the
 mutations are shown along the X axis.</p>
 <div class="margin sidebar">
 <p class="sidebar-title">Key point</p>
 <p>Mutation on trees are the source of genetic variation</p>
 </div>
-<p>The trees inform us that, for example, the final mutation (at position 995) is inherited
-by genomes <span class="math notranslate nohighlight">\(\mathrm{b}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{i}\)</span>. These genomes must have an <em>A</em> at that position,
+<p>The trees inform us that, for example, the final mutation (at position 987) is inherited
+by genomes <span class="math notranslate nohighlight">\(\mathrm{h}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>. These genomes must have an <em>T</em> at that position,
 compared to the original value of <em>G</em>. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here’s the resulting “variant matrix”:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">()]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position: &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position: &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
     <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">haplotypes</span><span class="p">)])))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position: 267 283 301 334 393 654 699 721 809 995
-Genome a:  A   C   G   T   T   G   G   A   A   G
-Genome b:  A   C   G   T   T   G   G   C   T   A
-Genome c:  A   C   G   T   T   G   G   C   T   A
-Genome d:  A   C   G   T   T   G   G   C   T   A
-Genome e:  A   C   G   C   T   G   G   C   T   A
-Genome f:  A   C   G   C   T   G   G   C   T   A
-Genome g:  A   C   G   T   T   G   G   C   T   A
-Genome h:  G   G   T   T   C   G   G   C   T   A
-Genome i:  G   G   T   T   C   A   G   C   T   A
-Genome j:  G   G   G   T   C   G   T   C   A   G
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position:  6   51 108 417 496 569 617 731 822 863 907 987
+Genome a:  A   C   A   T   T   C   A   A   G   C   C   G
+Genome b:  A   C   A   A   T   C   A   A   C   C   C   G
+Genome c:  A   C   A   A   T   G   A   A   C   C   C   G
+Genome d:  A   C   A   A   T   C   A   A   C   C   C   G
+Genome e:  A   C   A   A   T   C   A   A   C   C   C   G
+Genome f:  A   C   A   A   T   C   A   A   C   C   C   G
+Genome g:  A   C   C   T   C   C   A   A   C   A   C   G
+Genome h:  C   G   A   T   T   C   T   T   C   A   G   T
+Genome i:  C   G   A   T   T   C   T   T   C   A   G   T
+Genome j:  C   G   A   T   T   C   T   T   C   A   G   T
 </pre></div>
 </div>
 </div>
@@ -588,7 +588,7 @@ unchanged between the first and the second tree.</p>
     <span class="o">+</span> <span class="s2">&quot;{stroke:#00DD00; stroke-width: 2px}&quot;</span>
     <span class="o">+</span> <span class="n">style1</span><span class="p">)</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span>  <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span>  <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -697,19 +697,19 @@ deduce these MRCA genomes, simply by looking at which mutations they have inheri
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  
-||ANCESTRAL GENOMES||      Position: 267 283 301 334 393 654 699 721 809 995
-Genome u (time 14237.0 in the past):  G   C   G   T   C   G   G   C   A   G
-Genome t (time 13183.7 in the past):  G   G   G   T   C   G   G   C   A   G
-Genome s (time  6169.6 in the past):                      G   G   C   T   A
-Genome r (time  6036.2 in the past):  A   C   G   T   T                    
-Genome q (time  3887.8 in the past):  A   C   G   T   T   G   G   C   T   A
-Genome p (time  3311.5 in the past):  A   C   G   T   T   G   G   C   T   A
-Genome o (time  3218.8 in the past):                                      A
-Genome n (time  3213.6 in the past):  G   G   T   T   C   G   G   C   T    
-Genome m (time  3131.7 in the past):  A   C   G   T   T   G   G   C   T   A
-Genome l (time   705.4 in the past):  A   C   G   T   T   G   G   C   T   A
-Genome k (time   318.8 in the past):  A   C   G   C   T   G   G   C   T   A
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      
+||ANCESTRAL GENOMES||      Position: 6 51 108 417 496 569 617 731 822 863 907 987
+Genome u (time 19697.9 in the past):  A   C   A   T   T   C   T   T   C   A   G   G
+Genome t (time 12059.9 in the past):  A   C   A   T   T                            
+Genome s (time 10172.9 in the past):              T   T   C   A   A   C   A   C   G
+Genome r (time  9770.8 in the past):  A   C   A                                    
+Genome q (time  3795.0 in the past):                      C   A   A   C   C   C   G
+Genome p (time  3215.9 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
+Genome o (time  3200.2 in the past):  C   G   A   T   T   C   T   T   C   A   G   T
+Genome n (time  1428.2 in the past):  C   G   A   T   T   C   T   T   C   A   G   T
+Genome m (time  1249.5 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
+Genome l (time   449.6 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
+Genome k (time   377.0 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
 </pre></div>
 </div>
 </div>

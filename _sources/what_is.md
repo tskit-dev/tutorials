@@ -47,8 +47,9 @@ def whatis_example():
         f.write(demes_yml)
     graph = demes.loads(demes_yml)
     demography = msprime.Demography.from_demes(graph)
-    # Choose seed so num_trees=3, tips are in same order, and all trees have the same root
-    seed = 1320
+    # Choose seed so num_trees=3, tips are in same order,
+    # first 2 trees are topologically different, and all trees have the same root
+    seed = 12581
     ts = msprime.sim_ancestry(
         samples={"A": 2, "B": 3},
         demography=demography,
@@ -56,8 +57,8 @@ def whatis_example():
         sequence_length=1000,
         random_seed=seed)
     # Mutate
-    # Choose seed to give 10 muts, 1 in last tree above node 18, none above 0 in first tree
-    seed = 5535
+    # Choose seed to give 12 muts, last one above node 14
+    seed = 1476
     ts = msprime.sim_mutations(ts, rate=1e-7, random_seed=seed)
     ts.dump("data/whatis_example.trees")
 
@@ -168,11 +169,11 @@ the nodes are referred to by {ref}`numerical ID<sec_terminology_nodes>`.
 ::::
 
 The tickmarks on the X axis and background shading indicate the genomic positions covered
-by the trees. For just over half the chromosome, from the
-start until position 580, the relationships between the ten genomes are shown by
-the first tree. The second tree shows the relationships between positions 580 and 833,
-and the third from position 833 to the end. We can say that the first tree spans 580 base
-pairs, the second 253, and the third 167.
+by the trees. For the first short portion of the chromosome, from the
+start until position 189, the relationships between the ten genomes are shown by
+the first tree. The second tree shows the relationships between positions 189 and 546,
+and the third from position 546 to the end. We can say that the first tree spans 189
+base pairs, the second 357, and the third 454.
 
 Multiple trees are needed because of
 [genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination), which causes
@@ -202,7 +203,7 @@ SVG(mutated_ts.draw_svg(
     size=sz, style=style1, node_labels=labels, mutation_labels=mut_labels))
 ```
 
-There are now ten single nucleotide mutations in the tree sequence. They are shown on the
+There are now twelve single nucleotide mutations in the tree sequence. They are shown on the
 branches of the trees, and the positions of the ten variable sites associated with the
 mutations are shown along the X axis.
 
@@ -210,8 +211,8 @@ mutations are shown along the X axis.
 Mutation on trees are the source of genetic variation
 :::
 
-The trees inform us that, for example, the final mutation (at position 995) is inherited
-by genomes $\mathrm{b}$ to $\mathrm{i}$. These genomes must have an *A* at that position,
+The trees inform us that, for example, the final mutation (at position 987) is inherited
+by genomes $\mathrm{h}$ to $\mathrm{j}$. These genomes must have an *T* at that position,
 compared to the original value of *G*. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here's the resulting "variant matrix":
@@ -219,7 +220,7 @@ variation. Here's the resulting "variant matrix":
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 haplotypes = ["   ".join(h) for h in mutated_ts.haplotypes()]
-print("Position: " + " ".join(str(int(s.position)) for s in mutated_ts.sites()))
+print("Position: " + " ".join(str(int(s.position)).center(3) for s in mutated_ts.sites()))
 print("\n".join(sorted(
     [f"Genome {labels[i]}:  {h}" for i, h in zip(mutated_ts.samples(), haplotypes)])))
 ```
@@ -242,7 +243,7 @@ style3 = (
     + "{stroke:#00DD00; stroke-width: 2px}"
     + style1)
 SVG(ts.draw_svg(
-    size=(500, 250), x_lim=(0, 800), root_svg_attributes={'id':'svg1'},  y_ticks=ticks,
+    size=(500, 250), x_lim=(0, 500), root_svg_attributes={'id':'svg1'},  y_ticks=ticks,
     node_labels=labels, style=style3))
 ```
 
