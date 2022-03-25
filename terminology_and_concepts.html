@@ -560,9 +560,10 @@ concepts behind <strong class="program">tskit</strong>, the tree sequence toolki
 <p>See <a class="reference internal" href="intro.html#sec-intro-downloading-datafiles"><span class="std std-ref">Downloading tutorial datafiles</span></a> to run this tutorial on your own computer</p>
 </div>
 </div>
-<p>A tree sequence is a data structure which describes a set of
+<p>A tree sequence is a data structure which describes a set of correlated
 evolutionary trees, together with some associated data that specifies, for example,
-the location of mutations in the tree sequence.</p>
+the location of mutations in the tree sequence. More technically, a tree sequence
+stores a biological structure known as an “Ancestral Recombination Graph”, or ARG.</p>
 <p>Below are the most important <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions" title="(in Python)"><span class="xref std std-ref">terms and concepts</span></a>
 that you’ll encounter in these tutorials,  but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree
 sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the

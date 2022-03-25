@@ -70,9 +70,10 @@ See {ref}`sec_intro_downloading_datafiles` to run this tutorial on your own comp
 :::
 ::::
 
-A tree sequence is a data structure which describes a set of
+A tree sequence is a data structure which describes a set of correlated
 evolutionary trees, together with some associated data that specifies, for example,
-the location of mutations in the tree sequence.
+the location of mutations in the tree sequence. More technically, a tree sequence
+stores a biological structure known as an "Ancestral Recombination Graph", or ARG.
 
 Below are the most important {ref}`terms and concepts <tskit:sec_data_model_definitions>`
 that you'll encounter in these tutorials,  but first we'll {func}`~tskit.load` a tree
