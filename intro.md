@@ -63,9 +63,9 @@ python3 -m pip install -r https://tskit.dev/tutorials/requirements.txt
 ```
 
 In addition, to run the {ref}`R tutorial<sec_tskit_r>` you will need to install the R
-[reticulate](https://rstudio.github.io/reticulate/) library, and if running in a Jupyter,
-the [IRkernel](https://irkernel.github.io) library. This can be done by running the
-following command within R:
+[reticulate](https://rstudio.github.io/reticulate/) library, and if running it in a Jupyter
+notebook, the [IRkernel](https://irkernel.github.io) library. This can be done by
+running the following command within R:
 
 ```
 install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()
