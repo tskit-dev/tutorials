@@ -376,9 +376,10 @@ same topology, but differ because their ultimate coalesence happened in a differ
 ancestor (easy to spot in a simulation, but hard to detect in real data). This is also
 caused by a single SPR: looking at the second tree, either the subtree below node 8 or
 the subtree below node 9 must have been pruned and regrafted higher up on the same
-lineage to create the third tree. In other words, one of two possible SPRs occurred
-historically to create the third tree, but it is impossible to tell just from the
-tree sequence the exact history of recombination.
+lineage to create the third tree. Because this is a fully {ref}`simplified<sec_simplification>`
+tree sequence, it is impossible to tell which of these two possible SPRs occurred. To
+know this, we would need to have a tree sequence with the exact history of recombinations
+recorded (see below).
 
 In general, each detectable recombination occurring in ancestral history results in a
 single SPR in the tree sequence. If recombination breakpoints occurs at unique
