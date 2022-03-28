@@ -311,7 +311,7 @@ print(ts.site(0))  # For convenience, the Python API also returns the mutations 
 
 In the plot above, since the the only mutation is above node 8 in the last tree, and has
 a {attr}`~Mutation.derived_state` of "G", we know that the samples descending from node
-8 in the first tree (sample genomes 2, 3, and 5) have a "G" at {attr}`~Site.position` 751,
+8 in the last tree (sample genomes 2, 3, and 5) have a "G" at {attr}`~Site.position` 751,
 while the others have the {attr}`~Site.ancestral_state` of "T". This means that Ada is
 homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T/G".
 In other words the ancestral state and the details of any mutations at that site,
@@ -376,9 +376,10 @@ same topology, but differ because their ultimate coalesence happened in a differ
 ancestor (easy to spot in a simulation, but hard to detect in real data). This is also
 caused by a single SPR: looking at the second tree, either the subtree below node 8 or
 the subtree below node 9 must have been pruned and regrafted higher up on the same
-lineage to create the third tree. In other words, one of two possible SPRs occurred
-historically to create the third tree, but it is impossible to tell just from the
-tree sequence the exact history of recombination.
+lineage to create the third tree. Because this is a fully {ref}`simplified<sec_simplification>`
+tree sequence, it is impossible to tell which of these two possible SPRs occurred. To
+know this, we would need to have a tree sequence with the exact history of recombinations
+recorded (see below).
 
 In general, each detectable recombination occurring in ancestral history results in a
 single SPR in the tree sequence. If recombination breakpoints occurs at unique
