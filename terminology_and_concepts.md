@@ -311,7 +311,7 @@ print(ts.site(0))  # For convenience, the Python API also returns the mutations 
 
 In the plot above, since the the only mutation is above node 8 in the last tree, and has
 a {attr}`~Mutation.derived_state` of "G", we know that the samples descending from node
-8 in the first tree (sample genomes 2, 3, and 5) have a "G" at {attr}`~Site.position` 751,
+8 in the last tree (sample genomes 2, 3, and 5) have a "G" at {attr}`~Site.position` 751,
 while the others have the {attr}`~Site.ancestral_state` of "T". This means that Ada is
 homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T/G".
 In other words the ancestral state and the details of any mutations at that site,
