@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Terminology &amp; concepts &#8212; Tree Sequence Tutorials</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +107,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
@@ -255,7 +270,7 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
-    Forward simulations
+    Building a forward simulator
    </em>
   </a>
  </li>
@@ -288,93 +303,208 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
             
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="_sources/terminology_and_concepts.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/terminology_and_concepts.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+        </div>
     </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/tskit-dev/tutorials"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fterminology_and_concepts.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
         
     </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
 
-            <!-- Launch buttons -->
+</button>
 
-        </div>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fterminology_and_concepts.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/terminology_and_concepts.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/terminology_and_concepts.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#terminology">
    Terminology
@@ -448,12 +578,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Terminology & concepts</h1>
@@ -543,23 +672,24 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="terminology-concepts">
-<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="terminology-concepts">
+<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Permalink to this headline">#</a></h1>
 <p>If you have read “<a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>” we hope to have piqued your interest in tree
 sequences. This tutorial serves as an introduction to the terminology and some of the
 concepts behind <strong class="program">tskit</strong>, the tree sequence toolkit.</p>
-<div class="section" id="terminology">
-<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+<section id="terminology">
+<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="intro.html#sec-intro-downloading-datafiles"><span class="std std-ref">Downloading tutorial datafiles</span></a> to run this tutorial on your own computer</p>
 </div>
-</div>
+</aside>
 <p>A tree sequence is a data structure which describes a set of correlated
 evolutionary trees, together with some associated data that specifies, for example,
 the location of mutations in the tree sequence. More technically, a tree sequence
@@ -577,9 +707,9 @@ sequence from a <code class="docutils literal notranslate"><span class="pre">.tr
 </div>
 </div>
 </div>
-<div class="section" id="genomes">
-<h3>Genomes<a class="headerlink" href="#genomes" title="Permalink to this headline">¶</a></h3>
-<div class="margin sidebar">
+<section id="genomes">
+<h3>Genomes<a class="headerlink" href="#genomes" title="Permalink to this headline">#</a></h3>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -587,7 +717,7 @@ sequence from a <code class="docutils literal notranslate"><span class="pre">.tr
 to represent a multi-chromosome genome as a tree
 sequence, but are not covered here</p>
 </div>
-</div>
+</aside>
 <p>A tree sequence covers a contiguous section of a single chromosome.
 For clarity of explanation, we use the word “genome” to refer to the section spanned by
 the whole tree sequence (if you find it easier, imagine our examples describe an
@@ -624,9 +754,9 @@ For example, the first tree tells us that DNA from ancestral genome 7 duplicated
 to produce two lineages, which ended up in genomes 1 and 4, both of which exist in the
 current population. In fact, since this pattern is seen in all trees, these particular
 lines of inheritance were taken by all the DNA in this 1000 base pair genome.</p>
-</div>
-<div class="section" id="nodes">
-<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="nodes">
+<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">#</a></h3>
 <p>Trees in a tree sequence are represented in a slightly unusual way.
 In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
@@ -636,8 +766,8 @@ at a specific point in time. A branch point in any of the trees is associated wi
 an <em>internal node</em>, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
 coalesced (in backwards-time terminology).</p>
-<div class="section" id="sample-nodes">
-<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">¶</a></h4>
+<section id="sample-nodes">
+<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">#</a></h4>
 <p>The tip (leaf) nodes of the tree are usually marked as <em>sample nodes</em>, plotted as square
 symbols in the visualization. Sample nodes are the focal nodes in a tree sequence; they
 normally represent genomes from which we have obtained data (i.e. which we have “sampled”),
@@ -655,10 +785,10 @@ labelled <span class="math notranslate nohighlight">\(0..5\)</span>, and also 6 
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="edges">
-<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="edges">
+<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">#</a></h3>
 <p>In an evolutionary tree, the connections between nodes are conventionally referred to as
 “branches”. In a tree sequence, we instead refer to directional connections between nodes
 as <em>edges</em>, emphasizing that they usually persist across multiple trees. Thus each of the
@@ -697,9 +827,9 @@ chromosome 20 in the UK Biobank dataset of a million genomes consists of 62 mill
 which define 16 thousand trees; the uncompressed tree sequence takes 2.1 gigabytes of
 disk space, and it takes of the order of a few seconds to iterate over all the trees.</p>
 </div>
-</div>
-<div class="section" id="trees-and-tree-sequences">
-<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="trees-and-tree-sequences">
+<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">#</a></h3>
 <p>The combination of nodes and edges results in a tree sequence. This can be visualized,
 as in the drawing above, as a set of correlated trees. The
 sample nodes, <span class="math notranslate nohighlight">\(0..5\)</span> in the drawing, are present in all the trees (since we have their
@@ -724,11 +854,11 @@ edge changes it creates a new tree; the location of the change is known as a <em
 </div>
 </div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>More details about these and related methods are given in the <a class="reference internal" href="analysing_trees.html#sec-analysing-trees"><span class="std std-ref">Analysing trees</span></a>
 and <a class="reference internal" href="getting_started.html#sec-tskit-getting-started"><span class="std std-ref">Getting started</span></a> tutorials.</p>
-</div>
+</aside>
 <p>Note that in keeping with the reliance on node numbers (rather than objects), information
 about the relationships between nodes in a tree is obtained using their <strong>integer IDs</strong>.
 In the Python API, for instance, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a>
@@ -749,9 +879,9 @@ information about (say) node <span class="math notranslate nohighlight">\(7\)</s
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="individuals-and-populations">
-<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="individuals-and-populations">
+<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">#</a></h3>
 <p>Sometimes we know that one or more nodes belong to a particular
 <em><a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a></em>. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
@@ -817,9 +947,9 @@ be associated with a larger <em>population</em>. In this example, there is only 
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="mutations-and-sites">
-<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="mutations-and-sites">
+<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">#</a></h3>
 <p>In <strong class="program">tskit</strong>, <em>mutations</em> occur at specific, defined <em>sites</em>. A mutation is
 positioned above a particular node (specified by the node ID), occurs at a particular
 site (specified by a site ID), and involves a change of allelic state to a defined
@@ -871,9 +1001,9 @@ sequence (e.g. positions seen in studies to have samples possessing different al
 that genomic location). It is perfectly possible to have a site with no mutations
 (or silent mutations) — i.e. a “monomorphic” site — but such sites are not normally
 used in further analysis.</p>
-</div>
-<div class="section" id="provenance">
-<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="provenance">
+<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">#</a></h3>
 <p>The history of the tree sequence is recorded in a set of provenance entries. That
 includes what produced it, and what operations have been done to it and when. For
 instance, if it was produced by <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplifying</span></a> a tree
@@ -882,10 +1012,10 @@ call to msprime that produced it, and the second the call to
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> that was done on the result. Ideally, the list of
 provenance entries are sufficient to exactly recreate the tree sequence, but this
 is not always possible.</p>
-</div>
-</div>
-<div class="section" id="concepts">
-<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="concepts">
+<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">#</a></h2>
 <p>There are some basic population genetic concepts which can be helpful with thinking about
 tree sequences. For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
@@ -903,8 +1033,8 @@ the case for tree sequences in general. In particular, where tree sequences have
 created by the multiple-merger coalecent process, or in tree
 sequences that have been inferred from real data, it is possible to have a parent node
 with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
-<div class="section" id="tree-changes-ancestral-recombinations-and-sprs">
-<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">¶</a></h3>
+<section id="tree-changes-ancestral-recombinations-and-sprs">
+<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">#</a></h3>
 <p>The reason that tree sequences are efficient is that very few edges
 <a class="reference internal" href="what_is.html#fig-what-is-edge-diffs"><span class="std std-ref">change from tree to tree</span></a>. More specifically, recombination
 results in adjacent trees that differ by only a few “tree edit” or SPR
@@ -928,9 +1058,9 @@ can occur at the same physical position (e.g. if the genome is treated as a set 
 discrete integer positions, as in the simulation that created this tree sequence) then
 moving from  one tree to the next in a tree sequence might require multiple SPRs if
 there are multiple, overlaid ancestral recombination events.</p>
-</div>
-<div class="section" id="tree-sequences-and-args">
-<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tree-sequences-and-args">
+<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">#</a></h3>
 <p>Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
 recombination events are explictly stored. Although a tree sequence <em>can</em> represent such
@@ -955,9 +1085,9 @@ way to put it:</p>
 whereas a tree sequence encodes the outcome of those events”
 (<a class="reference external" href="https://doi.org/10.1534/genetics.120.303253">Kelleher <em>et al.</em>, 2019</a>)</p>
 </div></blockquote>
-</div>
-<div class="section" id="tables">
-<h3>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tables">
+<h3>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">#</a></h3>
 <p>The underlying data in a tree sequence are stored in a collection of tables. Details of
 these tables, as well as some basic properties of the tree sequence which they encode,
 are shown when printing a tree sequence to the screen:</p>
@@ -1097,9 +1227,9 @@ are shown when printing a tree sequence to the screen:</p>
 which can be useful for dealing with large datasets, and is needed if you want to
 <a class="reference internal" href="tables_and_editing.html#sec-tables-editing"><span class="std std-ref">edit</span></a> an existing tree sequence. This is covered in
 the <a class="reference internal" href="tables_and_editing.html#sec-tables"><span class="std std-ref">Tables and editing</span></a> tutorial.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1123,9 +1253,11 @@ the <a class="reference internal" href="tables_and_editing.html#sec-tables"><spa
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="what_is.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1141,24 +1273,28 @@ the <a class="reference internal" href="tables_and_editing.html#sec-tables"><spa
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tskit Developers<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Tskit Developers<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

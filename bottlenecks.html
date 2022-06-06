@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Instantaneous Bottlenecks &#8212; Tree Sequence Tutorials</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +107,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
@@ -255,7 +270,7 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
-    Forward simulations
+    Building a forward simulator
    </em>
   </a>
  </li>
@@ -288,93 +303,208 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
             
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="_sources/bottlenecks.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/bottlenecks.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+        </div>
     </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/tskit-dev/tutorials"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fbottlenecks.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
         
     </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
 
-            <!-- Launch buttons -->
+</button>
 
-        </div>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fbottlenecks.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/bottlenecks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/bottlenecks.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#checking-the-sfs-against-analytic-expectation">
    Checking the SFS against analytic expectation
@@ -407,12 +537,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Instantaneous Bottlenecks</h1>
@@ -461,11 +590,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="instantaneous-bottlenecks">
-<span id="sec-msprime-bottlenecks"></span><h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="instantaneous-bottlenecks">
+<span id="sec-msprime-bottlenecks"></span><h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this headline">#</a></h1>
 <p><strong>Konrad Lohse and Jerome Kelleher</strong></p>
 <p>A common approach to modelling the effect of demographic history on genealogies is to assume that effective population size (<span class="math notranslate nohighlight">\(N_e\)</span>) changes in discrete steps which define a series of epochs (Griffiths, 1994; Marth et al., 2004; Keightley &amp; Eyre-Walker, 2007; Li &amp; Durbin 2011). In this setting of piece-wise constant <span class="math notranslate nohighlight">\(N_e\)</span>, capturing a population bottleneck requires three epochs: <span class="math notranslate nohighlight">\(N_e\)</span> is reduced by some fraction <span class="math notranslate nohighlight">\(b\)</span> at the start of the bottleneck, <span class="math notranslate nohighlight">\(T_{start}\)</span>, and recovers to its initial value at time <span class="math notranslate nohighlight">\(T_{end}\)</span> (Marth et al., 2004). If bottlenecks are short both on the timescale of coalescence and mutations, one may expect little information about the duration of a bottleneck
 in sequence data. Thus a simpler, alternative model is to assume that bottlenecks are instantaneous (<span class="math notranslate nohighlight">\(T_{end}-T_{start} \rightarrow 0\)</span>) and generate a sudden burst of coalescence events (a multiple merger event) in the genealogy. The strength of the bottleneck B can be thought of as an (imaginary) time period during which coalescence events are collapsed, i.e. there is no growth in genealogical branches during B and the probability that a single pair of lineages entering the bottleneck coalesce during the bottleneck is <span class="math notranslate nohighlight">\(1-e^{-B}\)</span>. Although this simple two parameter model of bottlenecks is attractive and both analytic results and empirical inference (Griffiths, 1994; Galtier et al., 2000; Bunnefeld et al., 2015) have been developed under this model, it has not been straightforward to simulate data under instantaneous bottleneck histories with ms. Instantaneous bottlenecks are implemented as a demographic event in msprime. Instanteous bottlenecks are similar to coalescent approximations for selective sweeps in that they generate multiple merger events. However, unlike sweeps the whole genome is effected equally. Instantanous bottlenecks differ from approximate models of sweeps (Durret &amp; Scheinsberg, 2004) in that they do not affect the exchangeability of lineages. A consequence of this is that all topologies are equally likely (before collapsing, the imaginary bottleneck time).</p>
@@ -503,8 +633,8 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 </div>
 <p>The genealogy shows several simultaneous coalescence events at the time of the bottleneck
 (T=0.4)</p>
-<div class="section" id="checking-the-sfs-against-analytic-expectation">
-<h2>Checking the SFS against analytic expectation<a class="headerlink" href="#checking-the-sfs-against-analytic-expectation" title="Permalink to this headline">¶</a></h2>
+<section id="checking-the-sfs-against-analytic-expectation">
+<h2>Checking the SFS against analytic expectation<a class="headerlink" href="#checking-the-sfs-against-analytic-expectation" title="Permalink to this headline">#</a></h2>
 <p>Bunnefeld et al (2016) derive the total length of n-ton branches under an instantaneous bottleneck using a recursion for the generating function of genealogies. Assuming a sample size of <span class="math notranslate nohighlight">\(n=4\)</span>, <span class="math notranslate nohighlight">\(B=4\)</span> and <span class="math notranslate nohighlight">\(T=0.4\)</span>, the SFS is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -557,9 +687,9 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 <img alt="_images/bottlenecks_5_0.png" src="_images/bottlenecks_5_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="expected-coalescence-times">
-<h2>Expected coalescence times<a class="headerlink" href="#expected-coalescence-times" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="expected-coalescence-times">
+<h2>Expected coalescence times<a class="headerlink" href="#expected-coalescence-times" title="Permalink to this headline">#</a></h2>
 <p>The expected pairwise coalescence time is <span class="math notranslate nohighlight">\(E[t]= 1 + e^{-(B+T)} - e^{-T}\)</span>. Both the expected
 coalescence time and the probability that a pair of lineages survives the bottleneck fit
 the analytic expectation closely:</p>
@@ -631,9 +761,9 @@ the analytic expectation closely:</p>
 <img alt="_images/bottlenecks_8_1.png" src="_images/bottlenecks_8_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="the-distribution-of-pairwise-coalescence-times">
-<h2>The distribution of pairwise coalescence times<a class="headerlink" href="#the-distribution-of-pairwise-coalescence-times" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-distribution-of-pairwise-coalescence-times">
+<h2>The distribution of pairwise coalescence times<a class="headerlink" href="#the-distribution-of-pairwise-coalescence-times" title="Permalink to this headline">#</a></h2>
 <p>The distribution of pairwise coalescence times has two maxima at <span class="math notranslate nohighlight">\(t=0\)</span> and the bottleneck time <span class="math notranslate nohighlight">\(t=T\)</span> (we have assumed <span class="math notranslate nohighlight">\(T=0.8\)</span> below) as expected. The simulated distribution of pairwise coalescence times fits the analytic expectation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -663,9 +793,9 @@ the analytic expectation closely:</p>
 <img alt="_images/bottlenecks_10_0.png" src="_images/bottlenecks_10_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="approximating-the-site-frequency-spectrum">
-<h2>Approximating the site frequency spectrum<a class="headerlink" href="#approximating-the-site-frequency-spectrum" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="approximating-the-site-frequency-spectrum">
+<h2>Approximating the site frequency spectrum<a class="headerlink" href="#approximating-the-site-frequency-spectrum" title="Permalink to this headline">#</a></h2>
 <p>Bottlenecks can have a substantial effect on the site frequency spectrum (SFS). The SFS is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). in the absence of linkage information the SFS is a lossless summary, i.e. any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, <span class="math notranslate nohighlight">\(F_{st}\)</span>, Tajima’s D etc) are summaries of the SFS (Achaz 2009). The SFS is convenient analytically, since it depends only on the mean length and frequency of genealogical branches. For many demographic models of interest the mean length of n-ton branches can be derived either using coalescent theory (Chen 2011) or diffusion equations (Gutenkunst 2009). A number of composite likelihood approaches have been developed based on either analytic results for the SFS or approximate obtained from coalescent simulations (Gutenkunst 2009, Excoffier 2002). We can use msprime to obtain the SFS for a sample of <span class="math notranslate nohighlight">\(n=20\)</span> for a range of bottleneck strengths:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -707,9 +837,9 @@ the analytic expectation closely:</p>
 <img alt="_images/bottlenecks_14_0.png" src="_images/bottlenecks_14_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="the-marginal-distribution-of-n-ton-branch-lengths">
-<h2>The marginal distribution of n-ton branch lengths<a class="headerlink" href="#the-marginal-distribution-of-n-ton-branch-lengths" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-marginal-distribution-of-n-ton-branch-lengths">
+<h2>The marginal distribution of n-ton branch lengths<a class="headerlink" href="#the-marginal-distribution-of-n-ton-branch-lengths" title="Permalink to this headline">#</a></h2>
 <p>We may be interested in the marginal distributions (pdf) of branch lengths immediately
 above a node with n tips, which determines the expected distribution of n-ton mutations in a
 nonrecombining block of sequence (Bunnefeld et al., 2016). Like the distribution of
@@ -752,12 +882,12 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
 </div>
 </div>
 <p>Again, this gives a good fit to the analytic expectation (see Bunnefeld at al 2016).</p>
-</div>
-<div class="section" id="multiple-populations">
-<h2>Multiple populations<a class="headerlink" href="#multiple-populations" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="multiple-populations">
+<h2>Multiple populations<a class="headerlink" href="#multiple-populations" title="Permalink to this headline">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">InstantaneousBottleneck</span></code> model does not work without specifying any populations. Measuring bottleneck strength in generations (i.e. an imaginary time of coalescence) has a subtle but important consequence when we consider samples from multiple populations: the effect of the bottleneck on lineages present in each population at time T depends on the size of each population: genealogies in small populations are more strongly affected.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -781,9 +911,11 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="demography.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -799,24 +931,28 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tskit Developers<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Tskit Developers<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

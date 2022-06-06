@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Visualization &#8212; Tree Sequence Tutorials</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -62,7 +61,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +84,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -91,14 +105,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
@@ -253,7 +268,7 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
-    Forward simulations
+    Building a forward simulator
    </em>
   </a>
  </li>
@@ -286,93 +301,208 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
             
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="_sources/viz.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/viz.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+        </div>
     </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/tskit-dev/tutorials"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fviz.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
         
     </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
 
-            <!-- Launch buttons -->
+</button>
 
-        </div>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fviz.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/viz.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/viz.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#text-format">
    Text format
@@ -546,12 +676,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Visualization</h1>
@@ -741,11 +870,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="visualization">
-<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="visualization">
+<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">#</a></h1>
 <p><strong>Yan Wong</strong></p>
 <p>It is often helpful to visualize a single tree — or multiple trees along a tree
 sequence — together with sites and mutations. <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">Tskit</span></a>
@@ -774,8 +904,8 @@ trees along a genome. The section titled <a class="reference internal" href="#se
 provides examples of other representations of tree sequences, or the processes that
 can create them.</p>
 </div>
-<div class="section" id="text-format">
-<h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this headline">¶</a></h2>
+<section id="text-format">
+<h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this headline">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">TreeSequence.draw_text</span></code> and
 <code class="docutils literal notranslate"><span class="pre">Tree.draw_text</span></code> methods provide
 a quick way to print out a tree sequence, or an individual tree within it. They are
@@ -831,9 +961,9 @@ Alice Bob Chris Dora
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="svg-format">
-<h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="svg-format">
+<h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this headline">#</a></h2>
 <p>Most users will want to use the SVG drawing functions
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg</span></code></a> for visualization.
@@ -861,8 +991,8 @@ Jupyter notebook using the IPython <code class="docutils literal notranslate"><s
 black circles (but see below for ways to e.g. hide or colour these node symbols - NB.
 apologies to US readers: the British spelling of “colour” will be used in the rest of
 this tutorial).</p>
-<div class="section" id="axes-and-scaling">
-<h3>Axes and scaling<a class="headerlink" href="#axes-and-scaling" title="Permalink to this headline">¶</a></h3>
+<section id="axes-and-scaling">
+<h3>Axes and scaling<a class="headerlink" href="#axes-and-scaling" title="Permalink to this headline">#</a></h3>
 <p>For ease of drawing, the text representation and the SVG image above use unconventional
 non-linear X and Y coordinate systems. By default, the SVG output uses a more
 conventional linear scale for both time (Y) and genome position (X), and indicates the
@@ -880,9 +1010,9 @@ causing labels to overlap:</p>
 </div>
 <p>One way to avoid overlapping labels on the Y axis is to use the <code class="docutils literal notranslate"><span class="pre">y_ticks</span></code> parameter,
 which will be used in most subsequent examples in this tutorial.</p>
-</div>
-<div class="section" id="larger-tree-sequences">
-<h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="larger-tree-sequences">
+<h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Permalink to this headline">#</a></h3>
 <p>So far, we have plotted only very small tree sequences. To visualize larger tree
 sequences it is sometimes advisable to focus on a small region of the genome, possibly
 even a single tree. The <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter allows you to plot the part of a tree
@@ -947,9 +1077,9 @@ styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling">
 </div>
 <img alt="_images/viz_13_1.svg" src="_images/viz_13_1.svg" /></div>
 </div>
-</div>
-<div class="section" id="plotting-mutations">
-<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="plotting-mutations">
+<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this headline">#</a></h3>
 <p>The SVG visualization also allows mutations to displayed on the tree or tree sequence.
 Here are the same plots as above but where the tree sequence now contains mutations. Each
 mutation is plotted as a red cross on the branch where it occurs. This mutation symbol is
@@ -991,8 +1121,8 @@ mutations, 14 and 15 (above nodes 1 and 6) are recurrent mutations from T to G.<
 </div>
 </div>
 </div>
-<div class="section" id="which-mutations-are-shown">
-<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Permalink to this headline">¶</a></h4>
+<section id="which-mutations-are-shown">
+<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Permalink to this headline">#</a></h4>
 <p>When using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter, only the mutations in the plotted region are shown.
 For the third tree in the tree sequence visualization above, we thus haven’t plotted
 mutations above position 15000. We can see <em>all</em> the mutations in the tree by changing the
@@ -1029,10 +1159,10 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 <div class="cell_output docutils container">
 <img alt="_images/viz_21_0.svg" src="_images/viz_21_0.svg" /></div>
 </div>
-</div>
-</div>
-<div class="section" id="labelling">
-<h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="labelling">
+<h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this headline">#</a></h3>
 <p>Although the default node and mutation labels show unique identifiers, they are’t
 terribly intuituive. The <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters can be used
 to set more meaningful labels (for example from the tree sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a>).</p>
@@ -1063,9 +1193,9 @@ to set more meaningful labels (for example from the tree sequence <a class="refe
 <div class="cell_output docutils container">
 <img alt="_images/viz_23_0.svg" src="_images/viz_23_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="styling">
-<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="styling">
+<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Permalink to this headline">#</a></h3>
 <p>The SVG output produced by tskit contains a large number of
 <a class="reference external" href="https://www.w3.org/TR/SVG2/styling.html#ClassAttribute">classes</a> which can be used to
 target different elements of the drawing, allowing them to be hidden, styled, or
@@ -1158,8 +1288,8 @@ the following element:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="styling-graphical-elements">
-<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this headline">¶</a></h4>
+<section id="styling-graphical-elements">
+<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this headline">#</a></h4>
 <p>The classes above make it easy to target specific nodes or edges in one or multiple
 trees. For example, we can colour branches that are shared between trees
 (identified here as ones that have the same parent and child):</p>
@@ -1222,9 +1352,9 @@ correspond to a single <a class="reference external" href="https://tskit.dev/tsk
 in a tree sequence: for example, edges have the
 additional constraint that they must belong to <em>adjacent</em> trees.</p>
 </div>
-</div>
-<div class="section" id="moving-graphical-elements">
-<h4>Moving graphical elements<a class="headerlink" href="#moving-graphical-elements" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="moving-graphical-elements">
+<h4>Moving graphical elements<a class="headerlink" href="#moving-graphical-elements" title="Permalink to this headline">#</a></h4>
 <p>We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
 <a class="reference internal" href="#sec-tskit-viz-large-tree-sequence"><span class="std std-ref">earlier in this tutorial</span></a> we used the
@@ -1267,9 +1397,9 @@ and label positions may be incorrect. The <code class="docutils literal notransl
 to simply change the size of all symbols in the plot, but otherwise you may need
 to use the <code class="docutils literal notranslate"><span class="pre">chromium</span></code> workaround documented <a class="reference internal" href="#sec-tskit-viz-converting-note"><span class="std std-ref">here</span></a>.</p>
 </div>
-</div>
-<div class="section" id="styling-and-svg-structure">
-<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="styling-and-svg-structure">
+<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this headline">#</a></h4>
 <p>To take full advantage of the SVG styling capabilities in tskit, it is worth knowing how
 the SVG file is structured. In particular tskit SVGs use a hierarchical grouping
 structure that reflects the tree topology. This allows easy styling and manipulation of
@@ -1317,9 +1447,9 @@ with groups containing the background and axes, if required.</p>
     
 </pre></div>
 </div>
-</div>
-<div class="section" id="styling-subtrees">
-<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="styling-subtrees">
+<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Permalink to this headline">#</a></h4>
 <p>The nested grouping structure makes it easy to target a node and all its descendants.
 For instance, here’s how to draw all the edges of node 13 and its descendants using a
 thicker blue line:</p>
@@ -1376,9 +1506,9 @@ this normally-hidden line:</p>
 <div class="cell_output docutils container">
 <img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="restricting-styling">
-<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="restricting-styling">
+<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Permalink to this headline">#</a></h4>
 <p>Sometimes the hierarchical nesting leads to styles being applied too widely. For example,
 since style selectors include all the descendants of a target, to target just the node
 itself (and not its descendants) a slightly different specification is required,
@@ -1419,9 +1549,9 @@ so the following style specification should produce the same effect:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">style_string</span> <span class="o">=</span> <span class="s2">&quot;.node:not(.leaf) &gt; .sym, .node:not(.leaf) &gt; .lab {visibility: hidden}&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="more-about-styling">
-<h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="more-about-styling">
+<h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this headline">#</a></h4>
 <p>NOTE: if your SVG is embedded directly into an HTML page (a common way for jupyter
 notebooks to render SVGs), then according to the HTML specifications, any styles applied
 to one SVG will apply to all SVGs in the document. To avoid this confusing state of
@@ -1443,12 +1573,12 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
 inspiration.</p>
-</div>
-</div>
-<div class="section" id="converting-and-editing-svg">
-<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="converting">
-<h4>Converting<a class="headerlink" href="#converting" title="Permalink to this headline">¶</a></h4>
+</section>
+</section>
+<section id="converting-and-editing-svg">
+<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Permalink to this headline">#</a></h3>
+<section id="converting">
+<h4>Converting<a class="headerlink" href="#converting" title="Permalink to this headline">#</a></h4>
 <p><a class="reference external" href="https://inkscape.org">Inkscape</a> is an open source SVG editor that can also be scripted
 to output bitmap files.</p>
 <p><a class="reference external" href="https://imagemagick.org/">Imagemagick</a> is a common piece of software used to convert
@@ -1471,9 +1601,9 @@ to convert the SVG to PDF first, using e.g. the programmable chromium engine:</p
 <p>The resulting PDF file can then be converted by Inkscape, retaining the correct
 transformations.</p>
 </div>
-</div>
-<div class="section" id="editing-the-svg">
-<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="editing-the-svg">
+<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Editing can be done in <a class="reference external" href="https://inkscape.org">Inkscape</a> (subject to the note above)</p></li>
 </ul>
@@ -1482,15 +1612,15 @@ transformations.</p>
 <p>Tips on how to cope with the hierarchical grouping when editing (e.g. in Inkscape using
 <code class="docutils literal notranslate"><span class="pre">Extensions</span> <span class="pre">menu</span> <span class="pre">&gt;</span> <span class="pre">Arrange</span> <span class="pre">&gt;</span> <span class="pre">Deep</span> <span class="pre">Ungroup</span></code>, but note that this will mess with the styles!)</p>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="examples">
-<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="text-examples">
-<h3>Text examples<a class="headerlink" href="#text-examples" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="tree-orientation">
-<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Permalink to this headline">¶</a></h4>
+</section>
+</section>
+</section>
+<section id="examples">
+<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
+<section id="text-examples">
+<h3>Text examples<a class="headerlink" href="#text-examples" title="Permalink to this headline">#</a></h3>
+<section id="tree-orientation">
+<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Permalink to this headline">#</a></h4>
 <p>In the text format, trees (but not tree sequences) can be displayed in different orientations</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1567,12 +1697,12 @@ transformations.</p>
 7━━━━┛            
 </pre></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="svg-examples">
-<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="a-standard-ts-plot">
-<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Permalink to this headline">¶</a></h4>
+</section>
+</section>
+<section id="svg-examples">
+<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Permalink to this headline">#</a></h3>
+<section id="a-standard-ts-plot">
+<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Permalink to this headline">#</a></h4>
 <p>Note that this tree sequence also illustrates a few features which are not normally
 produced e.g. by <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulations, in particular a “empty” site (with no
 associated mutations) at position 50, and some mutations that occur above root nodes in
@@ -1589,9 +1719,9 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 <div class="cell_output docutils container">
 <img alt="_images/viz_48_0.svg" src="_images/viz_48_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="a-fancy-formatted-plot">
-<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="a-fancy-formatted-plot">
+<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Permalink to this headline">#</a></h4>
 <p>Here we have activated the Y axis, and changed the node style. In particular, we have
 coloured nodes by time, and increased the internal node symbol size while moving
 the internal node labels into the symbol; node labels have also been plotted in a
@@ -1622,9 +1752,9 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 <div class="cell_output docutils container">
 <img alt="_images/viz_50_0.svg" src="_images/viz_50_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="highlighted-mutations">
-<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="highlighted-mutations">
+<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Permalink to this headline">#</a></h4>
 <p>Specific mutations can be given a different colour. Moreover, the descendant lineages of
 specific mutations can be coloured and the branch colours overlay each other as expected.
 Note that in this example, internal node labels and symbols have been hidden for clarity.</p>
@@ -1647,9 +1777,9 @@ Note that in this example, internal node labels and symbols have been hidden for
 <div class="cell_output docutils container">
 <img alt="_images/viz_52_0.svg" src="_images/viz_52_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="leaf-sample-isolated-nodes">
-<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="leaf-sample-isolated-nodes">
+<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Permalink to this headline">#</a></h4>
 <p>By default, sample nodes are square and non-sample nodes circular (at the moment this
 can’t easily be changed). However, neither need to be at specific times: sample nodes can
 be at times other than 0, and nonsample nodes can be at time 0. Moreover, leaves need not
@@ -1677,9 +1807,9 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 means that there can be sample nodes which are “isolated” in a tree. These are drawn
 unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).</p>
 </div>
-</div>
-<div class="section" id="tick-labels-and-gridlines">
-<h4>Tick labels and gridlines<a class="headerlink" href="#tick-labels-and-gridlines" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="tick-labels-and-gridlines">
+<h4>Tick labels and gridlines<a class="headerlink" href="#tick-labels-and-gridlines" title="Permalink to this headline">#</a></h4>
 <p>Y tick labels can be specified explicitly, which allows time scales to be plotted
 e.g. in years even if the tree sequence ticks in generations. The grid lines associated
 with each y tick can also be changed or even hidden individually using the CSS
@@ -1754,9 +1884,9 @@ keeping node and mutation symbols in black, but colouring gridlines instead:</p>
 <div class="cell_output docutils container">
 <img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="animation">
-<h4>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="animation">
+<h4>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">#</a></h4>
 <p>The classes attached to the SVG also allow elements to be animated. Here’s a
 <a class="reference external" href="https://d3js.org">d3.js</a>-based animation of sucessive subtree-prune-and-regraft (SPR)
 operations, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">ARG representation</span></a> of a
@@ -1986,16 +2116,16 @@ var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
 <button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
 </div></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="other-visualizations">
-<span id="sec-tskit-viz-other"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="other-visualizations">
+<span id="sec-tskit-viz-other"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Permalink to this headline">#</a></h2>
 <p>As well as visualizing a tree sequence as, well, a sequence of local trees, or by plotting
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">statistical summaries</span></a>, other visualizations are possible, some
 of which are outlined below.</p>
-<div class="section" id="graph-representations">
-<span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this headline">¶</a></h3>
+<section id="graph-representations">
+<span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this headline">#</a></h3>
 <p>A tree sequence can be treated as a specific form of (directed)
 <a class="reference external" href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> consisting
 of nodes connected by edges. Standard graph visualization software, such as
@@ -2012,9 +2142,9 @@ picture like this:</p>
 <p><img alt="A tree sequence (ARG) as a graph" src="https://user-images.githubusercontent.com/36134434/109398193-2ec6b700-7933-11eb-9cbf-99fdfab46df0.png" />
 (from <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/43#issuecomment-787124425">here</a>)</p>
 </div>
-</div>
-<div class="section" id="demographic-processes">
-<span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="demographic-processes">
+<span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this headline">#</a></h3>
 <p>If you are generating a tree sequence via a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/demography.html#sec-demography-importing" title="(in Python)"><span class="xref std std-ref">Demes</span></a>
 model, then you can visualize a schematic of the demography itself (rather than the
 resulting tree sequence) using the <a class="reference external" href="https://grahamgower.github.io/demesdraw/">DemesDraw</a>
@@ -2049,17 +2179,17 @@ software. For example, here’s the plotting code to generate the
 <div class="cell_output docutils container">
 <img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="geography">
-<h3>Geography<a class="headerlink" href="#geography" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="geography">
+<h3>Geography<a class="headerlink" href="#geography" title="Permalink to this headline">#</a></h3>
 <div class="admonition-todo admonition" id="id4">
 <p class="admonition-title">Todo</p>
 <p>How to get lat/long information out of a tree sequence and plot ancestors (or a tree)
 on a geographical landscape.</p>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2083,9 +2213,11 @@ on a geographical landscape.</p>
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="simplification.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2101,24 +2233,28 @@ on a geographical landscape.</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tskit Developers<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Tskit Developers<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

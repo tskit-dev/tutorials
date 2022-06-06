@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Getting started with tskit &#8212; Tree Sequence Tutorials</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +107,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is.html">
    What is a tree sequence?
@@ -255,7 +270,7 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
-    Forward simulations
+    Building a forward simulator
    </em>
   </a>
  </li>
@@ -288,93 +303,208 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
             
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="_sources/getting_started.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/getting_started.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+        </div>
     </div>
+    <div id="rtd-footer-container"></div>
 </div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/tskit-dev/tutorials"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fgetting_started.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
         
     </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
 </div>
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
 
-            <!-- Launch buttons -->
+</button>
 
-        </div>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fgetting_started.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/getting_started.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/getting_started.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#processing-trees">
    Processing trees
@@ -431,12 +561,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Getting started with tskit</h1>
@@ -509,11 +638,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="getting-started-with-tskit">
-<span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-tskit">
+<span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">#</a></h1>
 <p>You’ve run some simulations or inference methods, and you now have a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed
 users who are new to <strong class="program">tskit</strong> and would like to get some
@@ -694,8 +824,8 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
 <p>Since we simulated the ancestry of 20 <em>diploid</em> individuals, our tree sequence
 contains 40 <em>sample nodes</em>, one for each genome.</p>
 </div>
-<div class="section" id="processing-trees">
-<span id="sec-processing-trees"></span><h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">¶</a></h2>
+<section id="processing-trees">
+<span id="sec-processing-trees"></span><h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">#</a></h2>
 <p>Moving along a tree sequence usually involves iterating over all of its <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>
 objects. This common idiom underlies many tree sequence algorithms, including those
 we’ll encounter later in this tutorial for calculating
@@ -725,7 +855,7 @@ Tree 11166 covers Interval(left=9999635.0, right=10000000.0)
 </div>
 </div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -741,7 +871,7 @@ produces a list of identical “null” trees:</p>
 <p>If you need separate instances of each tree (inefficient, and will
 eat up your computer memory), use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.aslist" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aslist()</span></code></a>.</p>
 </div>
-</div>
+</aside>
 <p>In this code snippet, as well as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> iterator, we’ve also
 used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.last" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.last()</span></code></a> to access the last tree directly; it may not surprise you
 that there’s a corresponding <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
@@ -768,7 +898,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0523348 secs
+Checked in 0.0239351 secs
 </pre></div>
 </div>
 </div>
@@ -802,12 +932,12 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
 chromosome, where the selective sweep occurred.</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title">Comments needed</p>
 <p>If you have a need for efficient random access to trees like this, please comment on
 <a class="reference external" href="https://github.com/tskit-dev/tskit/issues/684">this GitHub issue</a> to help us implement
 a solution.</p>
-</div>
+</aside>
 <p>Currently, it’s not particularly efficient to pull out individual trees from the middle
 of a tree sequence, but it <em>can</em> be done, via the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s the tree at location
@@ -831,17 +961,17 @@ of a tree sequence, but it <em>can</em> be done, via the
 </div>
 <img alt="_images/getting_started_9_1.svg" src="_images/getting_started_9_1.svg" /></div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>The <a class="reference internal" href="viz.html#sec-tskit-viz"><span class="std std-ref">visualization tutorial</span></a> gives more drawing possibilities</p>
-</div>
+</aside>
 <p>This tree shows the classic signature of a recent expansion or selection event, with many
 long terminal branches, resulting in an excess of singleton mutations.</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>The <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">Simplification tutorial</span></a> details many other uses
 for <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a>.</p>
-</div>
+</aside>
 <p>It can often be helpful to slim down a tree sequence so that it represents the genealogy
 of a smaller subset of the original samples. This can be done using the powerful
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> method.</p>
@@ -864,12 +994,12 @@ more than one tree: either the entire tree sequence, or
 </div>
 <p>These are much more standard-looking coalescent trees, with far longer branches higher
 up in the tree, and therefore many more mutations at higher-frequencies.</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>You cannot directly edit a tree sequence; to add e.g. metadata you must edit a
 copy of the underlying tables. This is described in the
 <a class="reference internal" href="tables_and_editing.html#sec-tables-editing"><span class="std std-ref">Tables and editing tutorial</span></a>.</p>
-</div>
+</aside>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this tutorial we refer to objects, such as sample nodes, by their numerical IDs. These
@@ -878,14 +1008,14 @@ can change after simplification, and it is often more meaningful to
 which can be permanently attached to objects in the tree sequence. Such metadata is
 often incorporated automatically by the tools generating the tree sequence.</p>
 </div>
-</div>
-<div class="section" id="processing-sites-and-mutations">
-<span id="sec-processing-sites-and-mutations"></span><h2>Processing sites and mutations<a class="headerlink" href="#processing-sites-and-mutations" title="Permalink to this headline">¶</a></h2>
-<div class="margin sidebar">
+</section>
+<section id="processing-sites-and-mutations">
+<span id="sec-processing-sites-and-mutations"></span><h2>Processing sites and mutations<a class="headerlink" href="#processing-sites-and-mutations" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>See the tutorial entitled “<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">Do you really need mutations?</span></a>” for why you may not need
 sites or mutations in your analyses.</p>
-</div>
+</aside>
 <p>For many purposes it may be better to focus on the genealogy of your samples, rather than
 the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions-site" title="(in Python)"><span class="xref std std-ref">sites</span></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions-mutation" title="(in Python)"><span class="xref std std-ref">mutations</span></a> that
@@ -912,7 +1042,10 @@ can occur at some sites, and we can identify them by iterating over the sites us
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 sites have 0 mutations
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 sites
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> have 0 mutations
 13540 sites have 1 mutation
 14 sites, with IDs [ 2275  2287  2658  3789  4043  9694 11023 11780 11853 11890 11999 12023
  12096 12310], have 2 mutations
@@ -920,9 +1053,9 @@ can occur at some sites, and we can identify them by iterating over the sites us
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="processing-genotypes">
-<span id="sec-processing-genotypes"></span><h2>Processing genotypes<a class="headerlink" href="#processing-genotypes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="processing-genotypes">
+<span id="sec-processing-genotypes"></span><h2>Processing genotypes<a class="headerlink" href="#processing-genotypes" title="Permalink to this headline">#</a></h2>
 <p>At each site, the sample nodes will have a particular allelic state (or be flagged as
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-missing-data" title="(in Python)"><span>Missing data</span></a>). The
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.variants()</span></code></a> method gives access to the
@@ -1004,9 +1137,9 @@ either ‘A’, ‘T’, ‘G’, or ‘C’. However, more complex mutation mod
 such as indels, leading to allelic states which need not be one of these 4 letters, nor
 even be a single letter.</p>
 </div>
-</div>
-<div class="section" id="computing-statistics">
-<span id="sec-tskit-getting-started-compute-statistics"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="computing-statistics">
+<span id="sec-tskit-getting-started-compute-statistics"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">#</a></h2>
 <p>There are a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">large number of statistics</span></a> and related calculations
 built in to <strong class="program">tskit</strong>. Indeed, many basic population genetic statistics are based
 on the allele (or site) frequency spectrum (AFS), which can be obtained from a tree sequence
@@ -1057,8 +1190,8 @@ created by deleting the regions outside that interval using
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.keep_intervals()</span></code></a>. Unsurprisingly,
 as we noted when looking at the trees, there’s a far higher proportion of singletons in
 the region of the sweep.</p>
-<div class="section" id="windowing">
-<span id="sec-tskit-getting-started-compute-statistics-windowing"></span><h3>Windowing<a class="headerlink" href="#windowing" title="Permalink to this headline">¶</a></h3>
+<section id="windowing">
+<span id="sec-tskit-getting-started-compute-statistics-windowing"></span><h3>Windowing<a class="headerlink" href="#windowing" title="Permalink to this headline">#</a></h3>
 <p>It is often useful to see how statistics vary in different genomic regions. This is done
 by calculating them in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Python)"><span>Windows</span></a> along the genome. For this,
 let’s look at a single statistic, the genetic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">diversity()</span></code></a> (π). As a
@@ -1092,10 +1225,10 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 </div>
 <p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,
 the statistic based on branch-lengths gives a less noisy signal.</p>
-</div>
-</div>
-<div class="section" id="saving-and-exporting-data">
-<span id="sec-tskit-getting-started-exporting-data"></span><h2>Saving and exporting data<a class="headerlink" href="#saving-and-exporting-data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="saving-and-exporting-data">
+<span id="sec-tskit-getting-started-exporting-data"></span><h2>Saving and exporting data<a class="headerlink" href="#saving-and-exporting-data" title="Permalink to this headline">#</a></h2>
 <p>Tree sequences can be efficiently saved to file using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.dump" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.dump()</span></code></a>, and
 loaded back again using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">tskit.load()</span></code></a>. By convention, we use the suffix <code class="docutils literal notranslate"><span class="pre">.trees</span></code>
 for such files:</p>
@@ -1114,8 +1247,8 @@ not only are these usually much larger files, but that analysis is usually much 
 when performed by built-in tskit functions than by exporting and using alternative
 software. If you have a large tree sequence, you should <em>try to avoid exporting
 to other formats</em>.</p>
-<div class="section" id="newick-and-nexus-format">
-<h3>Newick and Nexus format<a class="headerlink" href="#newick-and-nexus-format" title="Permalink to this headline">¶</a></h3>
+<section id="newick-and-nexus-format">
+<h3>Newick and Nexus format<a class="headerlink" href="#newick-and-nexus-format" title="Permalink to this headline">#</a></h3>
 <p>The most common format for interchanging tree data is Newick.
 We can export to a newick format string quite easily. This can be useful for
 interoperating with existing tree processing libraries but is very inefficient for
@@ -1164,9 +1297,9 @@ END;
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="vcf">
-<h3>VCF<a class="headerlink" href="#vcf" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="vcf">
+<h3>VCF<a class="headerlink" href="#vcf" title="Permalink to this headline">#</a></h3>
 <p>The standard way of interchanging genetic variation data is the Variant Call Format,
 for which tskit has basic support:</p>
 <div class="cell docutils container">
@@ -1201,9 +1334,9 @@ for which tskit has basic support:</p>
 </div>
 <p>The write_vcf method takes a file object as a parameter; to get it to write out to the
 notebook here we ask it to write to stdout.</p>
-</div>
-<div class="section" id="scikit-allel">
-<h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="scikit-allel">
+<h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Permalink to this headline">#</a></h3>
 <p>Because tskit integrates very closely with numpy, we can interoperate very efficiently
 with downstream Python libraries for working with genetic
 sequence data, such as <a class="reference external" href="https://scikit-allel.readthedocs.io/en/stable/">scikit-allel</a>.
@@ -1245,10 +1378,10 @@ using the native <a class="reference external" href="https://tskit.dev/tskit/doc
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="key-points-covered-above">
-<span id="sec-tskit-getting-started-key-points"></span><h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="key-points-covered-above">
+<span id="sec-tskit-getting-started-key-points"></span><h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Permalink to this headline">#</a></h2>
 <p>Some simple methods and take-home messages from this introduction to the
 <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Python)"><span>Python API</span></a>,
 in rough order of importance:</p>
@@ -1292,8 +1425,8 @@ also be calculated in windows along the genome.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1317,9 +1450,11 @@ also be calculated in windows along the genome.</p></li>
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="terminology_and_concepts.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1335,24 +1470,28 @@ also be calculated in windows along the genome.</p></li>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tskit Developers<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Tskit Developers<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
