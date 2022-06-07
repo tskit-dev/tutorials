@@ -17,16 +17,20 @@ kernelspec:
 
 % remove underscores in title when tutorial is complete or near-complete
 
-Tree sequences can be output both by forwards-in-time genetic simulators
-(such as SLiM) and forwards-in-time simulation libraries (such as
-fwdpp/fwdpy11). If you are simply trying to obtain a tree sequence which is
-the result of a forwards-in-time simulation, we recommend that you use one of
-these tools, and consult the documentation and tutorials that go with them.
-
-This tutorial *does not* attempt to show you how to use any existing forward
-simulation tools. Instead, it shows the principles of using tskit to
+This tutorial shows how tskit can be used to
 build your own forwards-in-time tree sequence recording simulator from scratch.
 
 :::{note}
-Add details on building a forward simulator (see https://github.com/tskit-dev/tutorials/issues/14)
+If you are simply trying to obtain a tree sequence which is
+the result of a forwards-in-time simulation, this can be done by using one of the
+highly capable forwards-in-time genetic simulators that already exist, such as
+[SLiM](https://messerlab.org/slim/) or [fwdpy11](https://github.com/molpopgen/fwdpy11).
+Documentation and tutorials for these tools exist on their respective websites. This
+tutorial focusses instead on illustrating the general principles that lie behind such
+simulators.
+:::
+
+:::{todo}
+Add details on building a forward simulator (see issue
+[#14](https://github.com/tskit-dev/tutorials/issues/14))
 :::
