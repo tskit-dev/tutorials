@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Advanced msprime topics" href="msprime.html" />
@@ -217,9 +219,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   <em>
-    Do you really need mutations?
-   </em>
+   Do you really need mutations?
   </a>
  </li>
  <li class="toctree-l1 has-children">
@@ -504,13 +504,32 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background">
-   Background
+  <a class="reference internal nav-link" href="#analysis-in-the-absence-of-genetic-variation">
+   Analysis in the absence of genetic variation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#patterns-of-relationship">
+     Patterns of relationship
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#genetic-statistics-and-branch-length-equivalents">
+     Genetic statistics and branch-length equivalents
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#genealogy-based-measures-are-less-noisy">
+       Genealogy-based measures are less noisy
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#computing-statistics">
-   Computing statistics
+  <a class="reference internal nav-link" href="#summary">
+   Summary
   </a>
  </li>
 </ul>
@@ -533,13 +552,32 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background">
-   Background
+  <a class="reference internal nav-link" href="#analysis-in-the-absence-of-genetic-variation">
+   Analysis in the absence of genetic variation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#patterns-of-relationship">
+     Patterns of relationship
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#genetic-statistics-and-branch-length-equivalents">
+     Genetic statistics and branch-length equivalents
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#genealogy-based-measures-are-less-noisy">
+       Genealogy-based measures are less noisy
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#computing-statistics">
-   Computing statistics
+  <a class="reference internal nav-link" href="#summary">
+   Summary
   </a>
  </li>
 </ul>
@@ -553,16 +591,317 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="do-you-really-need-mutations">
-<span id="sec-tskit-no-mutations"></span><h1><em>Do you really need mutations?</em><a class="headerlink" href="#do-you-really-need-mutations" title="Permalink to this headline">#</a></h1>
-<p>Maybe not! This tutorial takes you through a number of common tasks
-and shows how to do things by working directly with the underlying
-topology.</p>
-<section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">#</a></h2>
-<p>Why is it better to avoid using mutations if we don’t have to?</p>
+<span id="sec-tskit-no-mutations"></span><h1>Do you really need mutations?<a class="headerlink" href="#do-you-really-need-mutations" title="Permalink to this headline">#</a></h1>
+<p>In tree sequences, the genetic genealogy exists independently of the mutations that
+generate genetic variation, and often we are primarily interested in genetic variation
+because of what it can tell us about those genealogies. This tutorial aims to illustrate
+when we can leave mutations and genetic variation aside and study the genealogies directly.</p>
+<p>In simulations we know the true genealogies, and so it can be very helpful to work
+with these directly.
+In real data, we might infer the trees and then work with the resulting genealogies.
+(Of course, mutations add additional noise, and would be necessary
+to produce data directly comparable to sequencing data.)
+If you’re wondering whether you need to add mutations at all,
+it’s worth considering the following points:</p>
+<ol class="simple">
+<li><p>Neutral mutations and sites can always be added to a genealogy later</p></li>
+<li><p>Simulating sites and mutations increases memory requirements and tree
+sequence file size somewhat, as well as adding to CPU time (although usually this is
+inconsequential)</p></li>
+<li><p>Quantities of interest can often be inferred equally well (or better!) on tree sequences
+that have no sites or mutations.</p></li>
+</ol>
+<p>To illustrate the first two points, we can use the <a class="reference external" href="https://tskit.dev/msprime">msprime</a>
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_mutations()</span></code></a> function to add neutral sites and mutations onto an
+simulated mutationless tree sequence of 20 diploid individuals:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">1_000_000</span>  <span class="c1"># simulate 1 megabase length (could increase for a larger example)</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">=</span> <span class="mf">1e-8</span>  <span class="c1"># Human-like recombination and mutation parameters</span>
+<span class="n">n_subpops</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">subpop_size</span> <span class="o">=</span> <span class="mf">1e4</span>
+<span class="n">migration_rate</span> <span class="o">=</span> <span class="mf">1e-4</span>
+<span class="c1"># Create a mutationless diploid tree sequence of n_subpops demes</span>
+<span class="n">ts_no_mut</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;pop_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subpops</span><span class="p">)},</span>  <span class="c1"># 10 samples from each subpop</span>
+    <span class="n">demography</span><span class="o">=</span><span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="o">.</span><span class="n">island_model</span><span class="p">([</span><span class="n">subpop_size</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subpops</span><span class="p">,</span> <span class="n">migration_rate</span><span class="p">),</span>
+    <span class="n">ploidy</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span>
+    <span class="n">sequence_length</span><span class="o">=</span><span class="n">L</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Optionally, add neutral mutations later, after simulating. This takes some CPU time</span>
+<span class="c1"># (although it is usually fast compared to simulating the original tree sequence)</span>
+<span class="n">ts_mutated</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts_no_mut</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">456</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Adding mutations has increased the tree sequence file size by &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="n">ts_no_mut</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Adding mutations has increased the tree sequence file size by 151%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Above we have overlaid sites and mutations onto an existing tree sequence by simulation.
+It is also possible to overlay mutations in such a way as to generate a known pattern of
+genetic variation, using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tskit.Tree.map_mutations()</span></code></a>.</p>
+</div>
+<p>Although including mutations has increased the file size a fair bit in this example,
+unless you are running simulations with vast numbers of mutations, tree sequences are
+usually compact enough that the cost of including them shouldn’t be prohibitive.
+Nevertheless, it may not be obvious that it is perfectly possible, indeed sometimes
+preferable, to perform genetic analyses on tree sequences that do not contain mutations
+and variable sites. This is the focus of the remainder of this tutorial.</p>
+<section id="analysis-in-the-absence-of-genetic-variation">
+<h2>Analysis in the absence of genetic variation<a class="headerlink" href="#analysis-in-the-absence-of-genetic-variation" title="Permalink to this headline">#</a></h2>
+<section id="patterns-of-relationship">
+<h3>Patterns of relationship<a class="headerlink" href="#patterns-of-relationship" title="Permalink to this headline">#</a></h3>
+<p>Some genetic analyses are primarily focussed on patterns or degrees of relationship
+between genomes. In this case, the genealogy tells you all you need to know.
+This includes:</p>
+<ul class="simple">
+<li><p>analyses of local ancestry, global ancestry and identity-by-descent</p></li>
+<li><p>identification of most recent common ancestors and their descendants (including e.g.
+genealogical nearest neighbour analysis)</p></li>
+</ul>
+<p>Although these methods are primarily described elsewhere, the code below illustrates
+how a tree sequence without mutations can be used to find the average time to the
+most recent common ancestor (tMRCA) of two sample genomes. The genomes have been
+pcked at random from the two different populations, and the times averaged over
+the entire 1Mb genome.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">sample_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sample_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">av_tMRCA</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts_no_mut</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
+    <span class="c1"># weight the tMRCA by the span of genome covered</span>
+    <span class="n">av_tMRCA</span> <span class="o">+=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tmrca</span><span class="p">(</span><span class="n">sample_a</span><span class="p">,</span> <span class="n">sample_b</span><span class="p">)</span> <span class="o">*</span> <span class="n">tree</span><span class="o">.</span><span class="n">span</span><span class="o">/</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">sequence_length</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average tMRCA between sample </span><span class="si">{</span><span class="n">sample_a</span><span class="si">}</span><span class="s2"> (pop_0) and&quot;</span><span class="p">,</span>
+      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_b</span><span class="si">}</span><span class="s2"> (pop_1) is </span><span class="si">{</span><span class="n">av_tMRCA</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">time_units</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average tMRCA between sample 9 (pop_0) and 24 (pop_1) is 42396.75 generations
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="computing-statistics">
-<h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">#</a></h2>
+<section id="genetic-statistics-and-branch-length-equivalents">
+<h3>Genetic statistics and branch-length equivalents<a class="headerlink" href="#genetic-statistics-and-branch-length-equivalents" title="Permalink to this headline">#</a></h3>
+<p>Although many genetic analyses are based on patterns of genetic variation, for many
+purposes the genetic variation can be thought of as a measure of the relative length of
+branches on the local trees in a tree sequence. So while mutations are necessary to
+generate realistically variable genetic sequences, some statistical analyses do not
+necessarily require them to be present in a tree sequence (see
+<a class="reference external" href="https://doi.org/10.1534/genetics.120.303253">this paper</a> which explains the duality
+between statistics based on genetic variation and their branch length equivalents).
+Such statistics include all those based on the allele frequency spectrum, such as genetic
+diversity and Tajima’s D, and those based on genetic divergence between populations
+such as Fst and Patterson’s f statistics.</p>
+<p>A simple example of a statistic that is normally calculated by looking at variable sites
+is the genetic divergence. This is usually defined as the
+proportion of the genome that differs between two sample genomes. In a tree sequence with
+mutations, it can be calculated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">divergence()</span></code></a> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># By default, estimating average &quot;genetic divergence&quot; requires mutations to be present</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Genetic divergence between samples </span><span class="si">{</span><span class="n">sample_a</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">sample_b</span><span class="si">}</span><span class="s2"> is&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">divergence</span><span class="p">([[</span><span class="n">sample_a</span><span class="p">],</span> <span class="p">[</span><span class="n">sample_b</span><span class="p">]])</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genetic divergence between samples 9 and 24 is 0.000840
+</pre></div>
+</div>
+</div>
+</div>
+<p>If mutation rates are low (i.e. when the “infinite sites” model of mutation is
+a good approximation), each genetic difference between sequences corresponds to a
+mutation on the lineage connecting the two samples. Since the number of mutations is
+expected to be proportional to the length of the lineage, we can use the
+lineage length directly to measure divergence (in this case adding the branch length
+from the first sample to the MRCA and the branch from the MRCA to the second sample).
+The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-mode" title="(in Python)"><span class="xref std std-ref">general statistics framework</span></a>, allows you to switch to
+these “branch length” measures by using the <code class="docutils literal notranslate"><span class="pre">mode=&quot;branch&quot;</span></code> parameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># By default, statistics are calculated base on variable sites (mode=&quot;site&quot;), but</span>
+<span class="c1"># we can switch to the branch-length equivalent using mode = &quot;branch&quot;</span>
+<span class="n">sample_sets</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample_a</span><span class="p">],</span> <span class="p">[</span><span class="n">sample_b</span><span class="p">]</span>
+<span class="n">ab_dist</span> <span class="o">=</span> <span class="n">ts_no_mut</span><span class="o">.</span><span class="n">divergence</span><span class="p">(</span><span class="n">sample_sets</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Av. genealogical distance between samples </span><span class="si">{</span><span class="n">sample_a</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">sample_b</span><span class="si">}</span><span class="s2"> is&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ab_dist</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">time_units</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With both samples at time 0, this is twice the previously calculated av tMRCA:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; av_tMRCA was </span><span class="si">{</span><span class="n">av_tMRCA</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> (2 * </span><span class="si">{</span><span class="n">av_tMRCA</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="mi">2</span> <span class="o">*</span> <span class="n">av_tMRCA</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># To compare it to the standard genetic divergence, simply multiply by the mutation rate</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Estimated genetic divergence from the genealogy is&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">divergence</span><span class="p">(</span><span class="n">sample_sets</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;branch&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mu</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Av. genealogical distance between samples 9 and 24 is 84793.5 generations
+With both samples at time 0, this is twice the previously calculated av tMRCA:
+ av_tMRCA was 42396.8 (2 * 42396.8 = 84793.5)
+Estimated genetic divergence from the genealogy is 0.000848
+</pre></div>
+</div>
+</div>
+</div>
+<section id="genealogy-based-measures-are-less-noisy">
+<h4>Genealogy-based measures are less noisy<a class="headerlink" href="#genealogy-based-measures-are-less-noisy" title="Permalink to this headline">#</a></h4>
+<p>Analyses based on observed genetic variation have a random component due to the
+stochastic nature of the mutational process. This “random mutational noise” is missing
+from analyses that use the genealogy directly: something that is particularly evident
+when the analysis is dependent on a small number of mutations.  Here’s an example
+which contrasts conventional and branch length versions of the well-known <span class="math notranslate nohighlight">\(F_{st}\)</span>
+statistic, across the two populations we previously simulated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib_inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">n_reps</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">ts_reps</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;pop_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_subpops</span><span class="p">)},</span>
+    <span class="n">demography</span><span class="o">=</span><span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="o">.</span><span class="n">island_model</span><span class="p">([</span><span class="n">subpop_size</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_subpops</span><span class="p">,</span> <span class="n">migration_rate</span><span class="p">),</span>
+    <span class="n">ploidy</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span>
+    <span class="n">sequence_length</span><span class="o">=</span><span class="n">L</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
+    <span class="n">num_replicates</span><span class="o">=</span><span class="n">n_reps</span><span class="p">,</span>
+<span class="p">))</span>
+
+<span class="n">ts_mutated_reps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Decrease the mutation rate to exaggerate effect of random mutational noise</span>
+    <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">mu</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ts_reps</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Return sample sets as all samples from each population (uses all pairwise comparisons)</span>
+<span class="k">def</span> <span class="nf">sample_sets</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]</span>
+
+<span class="n">Fst_genealogy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">Fst</span><span class="p">(</span><span class="n">sample_sets</span><span class="p">(</span><span class="n">ts</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">ts_reps</span><span class="p">])</span>
+<span class="n">Fst_genetic_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ts</span><span class="o">.</span><span class="n">Fst</span><span class="p">(</span><span class="n">sample_sets</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span> <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">ts_mutated_reps</span><span class="p">])</span>
+
+<span class="c1"># For the theoretical expectation see e.g. Crow and Aoki (1984) PNAS 81: 6073, eqn 7</span>
+<span class="n">Fst_theory</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">subpop_size</span><span class="o">*</span><span class="n">migration_rate</span><span class="o">*</span><span class="p">(</span><span class="n">n_subpops</span><span class="o">/</span><span class="p">(</span><span class="n">n_subpops</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="s2">&quot;Genetic variation&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Fst_genetic_var</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="s2">&quot;Genealogy&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="n">Fst_genealogy</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Basis of estimate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Fst</span><span class="se">\n</span><span class="s2">(20 replicates)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">Fst_theory</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Fst_theory</span><span class="p">,</span> <span class="s1">&#39;theoretical prediction&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/no_mutations_9_0.png" src="_images/no_mutations_9_0.png" />
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In real data there is additional noise introduced by
+inference of the underlying tree sequence which is not accounted for in these examples</p>
+</div>
+</aside>
+<p>Therefore, if your ultimate goal is to compare or estimate genetic statistics of this
+sort (rather than to examine the genetic sequence itself), then using the
+genealogy-based approach should give you more statistical power.</p>
+<p>As with genetic diversity, there also exist a “branch length” version of the allele
+frequency spectrum (the AFS), which measures the length of branches subtending 1 sample,
+2 samples, 3 samples, etc. This is a slightly less noisy version of the AFS based on
+actual allele frequencies, and it too can be calculated on a tree sequence with no
+mutations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">afs1</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;site&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">num_samples</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">afs1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;AFS using variable sites (ts with mutations)&quot;</span><span class="p">)</span>
+
+<span class="n">afs2</span> <span class="o">=</span> <span class="n">ts_no_mut</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">(</span><span class="n">polarised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">num_samples</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">afs1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch length AFS (ts without mutations)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/no_mutations_11_0.png" src="_images/no_mutations_11_0.png" />
+</div>
+</div>
+<p>In this case, the plots are almost identical because there are thousands of
+mutations over the entire sequence, so the mutational noise has been smoothed out
+(the remaining unevenness in the AFS plots is due to stochasticity in genealogy, rather
+than the mutations).</p>
+<p>However, if we are doing a windowed analysis, and the windows over
+the genome are small, each window will contain relatively few mutations, and statistics
+based on the genetic variation generated by mutations will be be subject to greater
+mutational noise than those based on branch lengths in the genealogy. Here’s an
+example using the basic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">genetic</span> <span class="pre">diversity</span></code></a>
+in 1Kb windows along our simulated genome:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">L</span><span class="o">//</span><span class="mi">1_000</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">w</span><span class="p">),</span> <span class="n">w</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Diversity&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Site-based calculation&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts_no_mut</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mu</span><span class="p">,</span> <span class="n">w</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch-length-based calculation&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/no_mutations_13_0.png" src="_images/no_mutations_13_0.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<p>In summary, if you are analysing tree sequences, especially those produced by simulation,
+think carefully. Do you really need to analyse information about alleles and mutations?
+If not, you may be able to omit sites and mutations from the tree sequence,
+yet still retain the ability to calculate parameters of interest. This genealogical
+approach can provide more accurate descriptors of the quantities of interest
+than those explicitly based on genetic variation.</p>
 </section>
 </section>
 
