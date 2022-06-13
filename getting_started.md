@@ -146,7 +146,7 @@ import matplotlib.pyplot as plt
 kb = [0]  # Starting genomic position
 mrca_time = []
 for tree in ts.trees():
-    kb.append(tree.interval.left/1000)  # convert to kb
+    kb.append(tree.interval.right/1000)  # convert to kb
     mrca = ts.node(tree.root)  # For msprime tree sequences, the root node is the MRCA
     mrca_time.append(mrca.time)
 plt.stairs(mrca_time, kb, baseline=None)
