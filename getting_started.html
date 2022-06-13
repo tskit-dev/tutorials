@@ -896,7 +896,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0198381 secs
+Checked in 0.0210009 secs
 </pre></div>
 </div>
 </div>
@@ -913,7 +913,7 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 <span class="n">kb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Starting genomic position</span>
 <span class="n">mrca_time</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
-    <span class="n">kb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="o">.</span><span class="n">left</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># convert to kb</span>
+    <span class="n">kb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">interval</span><span class="o">.</span><span class="n">right</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># convert to kb</span>
     <span class="n">mrca</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>  <span class="c1"># For msprime tree sequences, the root node is the MRCA</span>
     <span class="n">mrca_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mrca</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">mrca_time</span><span class="p">,</span> <span class="n">kb</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
