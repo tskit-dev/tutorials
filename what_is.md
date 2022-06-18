@@ -316,7 +316,7 @@ splits and expansions as shown in the following schematic,
 {ref}`plotted<sec_tskit_viz_other_demographic>` using the
 [DemesDraw](https://pypi.org/project/demesdraw/) package. Our 10 genomes were sampled
 from modern day populations A (a constant-size population) and B (a recently expanding
-one). 
+one), where limited migration is occuring from A to B.
 
 ```{code-cell} ipython3
 :"tags": ["remove-input"]
