@@ -24,8 +24,13 @@ def basics():
     # Use "record full ARG" so we can get a nice SPR animation if we want it at the end
     # random_seed picked to get 2nd SPR involving 2 edges only (at the root)
     arg = msprime.sim_ancestry(
-        3, random_seed=1440, sequence_length=1000, recombination_rate=1e-4, record_full_arg=True)
-    arg = msprime.sim_mutations(arg, rate=1e-4, random_seed=23)
+        3,
+        population_size=100,
+        random_seed=1440,
+        sequence_length=1000,
+        recombination_rate=1e-6,
+        record_full_arg=True)
+    arg = msprime.sim_mutations(arg, rate=1e-6, random_seed=23)
     ts = arg.simplify()
     tables = ts.dump_tables()
     # populations already has a schema
@@ -114,7 +119,12 @@ It can be helpful to visualize the tree sequence as a set of local trees along t
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 from IPython.display import SVG
-SVG(ts.draw_svg(y_axis=True, y_gridlines=True, time_scale="rank"))
+SVG(ts.draw_svg(
+    y_axis=True,
+    y_gridlines=True,
+    time_scale="log_time",
+    y_ticks=[0, 3, 10, 30, 100, 300,1000],
+))
 ```
 
 Each tree records the lines of descent along which a piece of DNA has been
@@ -269,7 +279,13 @@ styles = (
     ".leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"
 )
 SVG(ts.draw_svg(
-    node_labels=node_labels, style=styles, y_axis=True, y_gridlines=True, time_scale="rank"))
+    node_labels=node_labels,
+    style=styles,
+    y_axis=True,
+    y_gridlines=True,
+    time_scale="log_time",
+    y_ticks=[0, 3, 10, 30, 100, 300,1000],
+))
 ```
 
 In the same way that nodes can be associated with a specific individual, nodes can also
@@ -350,7 +366,13 @@ tree sequences. For reference, here is the tree sequence topology that we have b
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 from IPython.display import SVG
-SVG(ts.draw_svg(y_axis=True, y_gridlines=True, time_scale="rank", style=".mut {display: none}"))
+SVG(ts.draw_svg(
+    y_axis=True,
+    y_gridlines=True,
+    time_scale="log_time",
+    y_ticks=[0, 3, 10, 30, 100, 300,1000],
+    style=".mut, .site {display: none}",
+))
 ```
 
 Note that all these trees show strictly bifurcating splits, but this does not need to be
