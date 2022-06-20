@@ -739,7 +739,12 @@ pairs. This is accessible using the <a class="reference external" href="https://
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">))</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
+<span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -920,7 +925,13 @@ together in the trees, as the original simulation was of a randomly mating popul
     <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span>
 <span class="p">)</span>
 <span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">))</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
+<span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1019,7 +1030,13 @@ tree sequences. For reference, here is the tree sequence topology that we have b
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;.mut {display: none}&quot;</span><span class="p">))</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;.mut, .site {display: none}&quot;</span><span class="p">,</span>
+<span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1122,7 +1139,7 @@ are shown when printing a tree sequence to the screen:</p>
         <tbody>
           <tr><td>Trees</td><td>3</td></tr>
           <tr><td>Sequence Length</td><td>1000.0</td></tr>
-          <tr><td>Time Units</td><td>unknown</td></tr>
+          <tr><td>Time Units</td><td>generations</td></tr>
           <tr><td>Sample Nodes</td><td>6</td></tr>
           <tr><td>Total Size</td><td>3.7 KiB</td></tr>
           <tr>
@@ -1199,7 +1216,7 @@ are shown when printing a tree sequence to the screen:</p>
       <tr>
         <td>Provenances</td>
           <td>3</td>
-          <td>2.3 KiB</td>
+          <td>2.2 KiB</td>
           <td style="text-align: center;">
 
           </td>
