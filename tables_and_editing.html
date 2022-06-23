@@ -766,29 +766,19 @@ Details about each node, including the time it lived, are stored in a
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>3</td><td>0</td><td>0</td><td>2</td><td>0.15000000</td><td>b''</td></tr>
-<tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>0.60000000</td><td>b''</td></tr>
-<tr><td>5</td><td>0</td><td>-1</td><td>-1</td><td>0.80000000</td><td>b''</td></tr>
-<tr><td>6</td><td>0</td><td>-1</td><td>-1</td><td>1.00000000</td><td>b''</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td></td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td></td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0.00000000</td><td></td></tr>
+<tr><td>3</td><td>0</td><td>0</td><td>2</td><td>0.15000000</td><td></td></tr>
+<tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>0.60000000</td><td></td></tr>
+<tr><td>5</td><td>0</td><td>-1</td><td>-1</td><td>0.80000000</td><td></td></tr>
+<tr><td>6</td><td>0</td><td>-1</td><td>-1</td><td>1.00000000</td><td></td></tr>
 
                     </tbody>
                 </table>
             </div>
 </div></div>
 </div>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">b''</span></code> values in the metadata column represent empty
-<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#typebytes" title="(in Python v3.10)"><span class="xref std std-ref">(byte) strings</span></a>, and hence indicates that no
-<a class="reference internal" href="#sec-tables-overview-metadata"><span class="std std-ref">Metadata</span></a> is associated with any of the nodes
-in this tree sequence.</p>
-</div>
-</aside>
 <p>Importantly, the first column, <code class="docutils literal notranslate"><span class="pre">id</span></code>, is not actually recorded, and is
 only shown when printing out node tables (as here) for convenience.
 The second column, <code class="docutils literal notranslate"><span class="pre">flags</span></code> records a <code class="docutils literal notranslate"><span class="pre">1</span></code> for the nodes that are <em>samples</em>,
@@ -827,16 +817,16 @@ appears in the trees:</p>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>20.00000000</td><td>80.00000000</td><td>3</td><td>0</td><td>b''</td></tr>
-<tr><td>1</td><td>20.00000000</td><td>80.00000000</td><td>3</td><td>2</td><td>b''</td></tr>
-<tr><td>2</td><td>0.00000000</td><td>100.00000000</td><td>4</td><td>1</td><td>b''</td></tr>
-<tr><td>3</td><td>0.00000000</td><td>20.00000000</td><td>4</td><td>2</td><td>b''</td></tr>
-<tr><td>4</td><td>80.00000000</td><td>100.00000000</td><td>4</td><td>2</td><td>b''</td></tr>
-<tr><td>5</td><td>20.00000000</td><td>80.00000000</td><td>4</td><td>3</td><td>b''</td></tr>
-<tr><td>6</td><td>80.00000000</td><td>100.00000000</td><td>5</td><td>0</td><td>b''</td></tr>
-<tr><td>7</td><td>80.00000000</td><td>100.00000000</td><td>5</td><td>4</td><td>b''</td></tr>
-<tr><td>8</td><td>0.00000000</td><td>20.00000000</td><td>6</td><td>0</td><td>b''</td></tr>
-<tr><td>9</td><td>0.00000000</td><td>20.00000000</td><td>6</td><td>4</td><td>b''</td></tr>
+                        <tr><td>0</td><td>20</td><td>80</td><td>3</td><td>0</td><td></td></tr>
+<tr><td>1</td><td>20</td><td>80</td><td>3</td><td>2</td><td></td></tr>
+<tr><td>2</td><td>0</td><td>100</td><td>4</td><td>1</td><td></td></tr>
+<tr><td>3</td><td>0</td><td>20</td><td>4</td><td>2</td><td></td></tr>
+<tr><td>4</td><td>80</td><td>100</td><td>4</td><td>2</td><td></td></tr>
+<tr><td>5</td><td>20</td><td>80</td><td>4</td><td>3</td><td></td></tr>
+<tr><td>6</td><td>80</td><td>100</td><td>5</td><td>0</td><td></td></tr>
+<tr><td>7</td><td>80</td><td>100</td><td>5</td><td>4</td><td></td></tr>
+<tr><td>8</td><td>0</td><td>20</td><td>6</td><td>0</td><td></td></tr>
+<tr><td>9</td><td>0</td><td>20</td><td>6</td><td>4</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -906,9 +896,9 @@ transitions, both at position 60, on the second tree. The positions are recorded
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>15.00000000</td><td>A</td><td>b''</td></tr>
-<tr><td>1</td><td>42.00000000</td><td>G</td><td>b''</td></tr>
-<tr><td>2</td><td>60.00000000</td><td>T</td><td>b''</td></tr>
+                        <tr><td>0</td><td>15</td><td>A</td><td></td></tr>
+<tr><td>1</td><td>42</td><td>G</td><td></td></tr>
+<tr><td>2</td><td>60</td><td>T</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -943,10 +933,10 @@ time at which the mutation occured.</p>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>0</td><td>4</td><td>0.90000000</td><td>G</td><td>-1</td><td>b''</td></tr>
-<tr><td>1</td><td>1</td><td>1</td><td>0.40000000</td><td>A</td><td>-1</td><td>b''</td></tr>
-<tr><td>2</td><td>2</td><td>3</td><td>0.55000000</td><td>C</td><td>-1</td><td>b''</td></tr>
-<tr><td>3</td><td>2</td><td>0</td><td>0.10000000</td><td>T</td><td>2</td><td>b''</td></tr>
+                        <tr><td>0</td><td>0</td><td>4</td><td>0.90000000</td><td>G</td><td>-1</td><td></td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0.40000000</td><td>A</td><td>-1</td><td></td></tr>
+<tr><td>2</td><td>2</td><td>3</td><td>0.55000000</td><td>C</td><td>-1</td><td></td></tr>
+<tr><td>3</td><td>2</td><td>0</td><td>0.10000000</td><td>T</td><td>2</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -1100,8 +1090,7 @@ official <strong class="program">tskit</strong> documentation</p>
 associated with (optional) metadata, which can be stored in various formats. The format
 is determined by the <em>schema</em> of the metadata. In this example, for clarity, the
 metadata of the population and individual tables is stored as
-<a class="reference external" href="https://www.json.org/">JSON</a> (while as we noted previously, the other tables happen
-to be storing metadata as raw byte strings).</p>
+<a class="reference external" href="https://www.json.org/">JSON</a>.</p>
 <p>Because we have chosen to use JSON for the metadata of the individuals table, it is
 easy to access the metadata values:</p>
 <div class="cell docutils container">
@@ -1148,13 +1137,13 @@ detail about how to construct and use <code class="docutils literal notranslate"
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>╔══╤═════╤══════════╤══════════╤══════════╤════════╗
 ║id│flags│population│individual│time      │metadata║
 ╠══╪═════╪══════════╪══════════╪══════════╪════════╣
-║0 │    1│         0│         0│0.00000000│     b&#39;&#39;║
-║1 │    1│         0│         0│0.00000000│     b&#39;&#39;║
-║2 │    1│         0│         1│0.00000000│     b&#39;&#39;║
-║3 │    0│         0│         2│0.15000000│     b&#39;&#39;║
-║4 │    0│        -1│        -1│0.60000000│     b&#39;&#39;║
-║5 │    0│        -1│        -1│0.80000000│     b&#39;&#39;║
-║6 │    0│        -1│        -1│1.00000000│     b&#39;&#39;║
+║0 │    1│         0│         0│0.00000000│        ║
+║1 │    1│         0│         0│0.00000000│        ║
+║2 │    1│         0│         1│0.00000000│        ║
+║3 │    0│         0│         2│0.15000000│        ║
+║4 │    0│        -1│        -1│0.60000000│        ║
+║5 │    0│        -1│        -1│0.80000000│        ║
+║6 │    0│        -1│        -1│1.00000000│        ║
 ╚══╧═════╧══════════╧══════════╧══════════╧════════╝
 </pre></div>
 </div>
@@ -1230,13 +1219,13 @@ every <code class="docutils literal notranslate"><span class="pre">time</span></
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0.25000000</td><td>b''</td></tr>
-<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0.25000000</td><td>b''</td></tr>
-<tr><td>3</td><td>0</td><td>0</td><td>2</td><td>0.40000000</td><td>b''</td></tr>
-<tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>0.85000000</td><td>b''</td></tr>
-<tr><td>5</td><td>0</td><td>-1</td><td>-1</td><td>1.05000000</td><td>b''</td></tr>
-<tr><td>6</td><td>0</td><td>-1</td><td>-1</td><td>1.25000000</td><td>b''</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0.00000000</td><td></td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0.25000000</td><td></td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0.25000000</td><td></td></tr>
+<tr><td>3</td><td>0</td><td>0</td><td>2</td><td>0.40000000</td><td></td></tr>
+<tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>0.85000000</td><td></td></tr>
+<tr><td>5</td><td>0</td><td>-1</td><td>-1</td><td>1.05000000</td><td></td></tr>
+<tr><td>6</td><td>0</td><td>-1</td><td>-1</td><td>1.25000000</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -1257,34 +1246,34 @@ expected length:</p>
 <span class="nn">Input In [18],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py:478,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">476</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">477</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="ne">--&gt; </span><span class="mi">478</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">480</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py:483,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">481</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">482</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+<span class="ne">--&gt; </span><span class="mi">483</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">484</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py:1178,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1148</span> <span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1149</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1150</span><span class="sd"> the specified arrays. Overwrites any data currently stored in the table.</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py:1192,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1162</span> <span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1163</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1164</span><span class="sd"> the specified arrays. Overwrites any data currently stored in the table.</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1175</span><span class="sd"> :param metadata_schema: The encoded metadata schema.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1176</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1177</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1178</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1179</span>     <span class="nb">dict</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1180</span>         <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1181</span>         <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1182</span>         <span class="n">population</span><span class="o">=</span><span class="n">population</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1183</span>         <span class="n">individual</span><span class="o">=</span><span class="n">individual</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1184</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1185</span>         <span class="n">metadata_offset</span><span class="o">=</span><span class="n">metadata_offset</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1186</span>         <span class="n">metadata_schema</span><span class="o">=</span><span class="n">metadata_schema</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1187</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1188</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="k">if</span> <span class="n">metadata_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1190</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_metadata_schema_cache_from_ll</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1189</span><span class="sd"> :param metadata_schema: The encoded metadata schema.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1190</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1191</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1192</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1193</span>     <span class="nb">dict</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1194</span>         <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1195</span>         <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1196</span>         <span class="n">population</span><span class="o">=</span><span class="n">population</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1197</span>         <span class="n">individual</span><span class="o">=</span><span class="n">individual</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1198</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1199</span>         <span class="n">metadata_offset</span><span class="o">=</span><span class="n">metadata_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1200</span>         <span class="n">metadata_schema</span><span class="o">=</span><span class="n">metadata_schema</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1201</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1202</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1203</span> <span class="k">if</span> <span class="n">metadata_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1204</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_metadata_schema_cache_from_ll</span><span class="p">()</span>
 
 <span class="ne">ValueError</span>: Input array dimensions must be equal.
 </pre></div>
@@ -1316,7 +1305,7 @@ NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b&#39;&#39
 </div>
 </div>
 <p>Additionally, many rows can be extracted into a new table using slices or
-<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.22)"><span class="xref std std-ref">numpy indexing</span></a></p>
+<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.23)"><span class="xref std std-ref">numpy indexing</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
@@ -1339,8 +1328,8 @@ NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b&#39;&#39
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>1</td><td>0</td><td>0</td><td>2</td><td>0.15000000</td><td>b''</td></tr>
+                        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0.00000000</td><td></td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>2</td><td>0.15000000</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -1438,10 +1427,10 @@ from an old one. This is often an easier way to changing one or two attributes:<
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>15.00000000</td><td>C</td><td>b''</td></tr>
-<tr><td>1</td><td>42.00000000</td><td>G</td><td>b''</td></tr>
-<tr><td>2</td><td>60.00000000</td><td>T</td><td>b''</td></tr>
-<tr><td>3</td><td>10.00000000</td><td>G</td><td>b'An empty site'</td></tr>
+                        <tr><td>0</td><td>15</td><td>C</td><td></td></tr>
+<tr><td>1</td><td>42</td><td>G</td><td></td></tr>
+<tr><td>2</td><td>60</td><td>T</td><td></td></tr>
+<tr><td>3</td><td>10</td><td>G</td><td>b'An empty site'</td></tr>
 
                     </tbody>
                 </table>
@@ -1543,11 +1532,11 @@ a single tree that looks like this:</p>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>1</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>2</td><td>0</td><td>-1</td><td>-1</td><td>10.00000000</td><td>b''</td></tr>
-<tr><td>3</td><td>1</td><td>-1</td><td>-1</td><td>0.00000000</td><td>b''</td></tr>
-<tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>20.00000000</td><td>b''</td></tr>
+                        <tr><td>0</td><td>1</td><td>-1</td><td>-1</td><td>0</td><td></td></tr>
+<tr><td>1</td><td>1</td><td>-1</td><td>-1</td><td>0</td><td></td></tr>
+<tr><td>2</td><td>0</td><td>-1</td><td>-1</td><td>10</td><td></td></tr>
+<tr><td>3</td><td>1</td><td>-1</td><td>-1</td><td>0</td><td></td></tr>
+<tr><td>4</td><td>0</td><td>-1</td><td>-1</td><td>20</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -1588,10 +1577,10 @@ type. We’ll use that for the edges:</p>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>0</td><td>0.00000000</td><td>1000.00000000</td><td>2</td><td>0</td><td>b''</td></tr>
-<tr><td>1</td><td>0.00000000</td><td>1000.00000000</td><td>2</td><td>1</td><td>b''</td></tr>
-<tr><td>2</td><td>0.00000000</td><td>1000.00000000</td><td>4</td><td>2</td><td>b''</td></tr>
-<tr><td>3</td><td>0.00000000</td><td>1000.00000000</td><td>4</td><td>3</td><td>b''</td></tr>
+                        <tr><td>0</td><td>0</td><td>1000</td><td>2</td><td>0</td><td></td></tr>
+<tr><td>1</td><td>0</td><td>1000</td><td>2</td><td>1</td><td></td></tr>
+<tr><td>2</td><td>0</td><td>1000</td><td>4</td><td>2</td><td></td></tr>
+<tr><td>3</td><td>0</td><td>1000</td><td>4</td><td>3</td><td></td></tr>
 
                     </tbody>
                 </table>
@@ -1827,9 +1816,7 @@ This also involves changing the ancestral state at the site if necessary.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original ts has 154 mutations on 71 trees
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parsimonious ts has 33 fewer muts
+Parsimonious ts has 33 fewer muts
 </pre></div>
 </div>
 </div>

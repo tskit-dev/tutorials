@@ -896,7 +896,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0212829 secs
+Checked in 0.0200398 secs
 </pre></div>
 </div>
 </div>
@@ -1040,10 +1040,7 @@ can occur at some sites, and we can identify them by iterating over the sites us
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 sites
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> have 0 mutations
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 sites have 0 mutations
 13540 sites have 1 mutation
 14 sites, with IDs [ 2275  2287  2658  3789  4043  9694 11023 11780 11853 11890 11999 12023
  12096 12310], have 2 mutations
@@ -1309,23 +1306,23 @@ for which tskit has basic support:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>##fileformat=VCFv4.2
-##source=tskit 0.4.1
+##source=tskit 0.5.0
 ##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
 ##contig=&lt;ID=1,length=10000&gt;
 ##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	tsk_0	tsk_1	tsk_2	tsk_3	tsk_4
-1	310	.	G	T	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
-1	890	.	T	G	.	PASS	.	GT	1|1	0|0	1|1	0|1	1|1
-1	1052	.	T	C	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
-1	1375	.	T	A	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
-1	1918	.	A	G	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
-1	4921	.	T	G	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
-1	5050	.	C	A	.	PASS	.	GT	1|1	0|0	1|1	0|1	1|1
-1	5132	.	T	A	.	PASS	.	GT	0|0	0|0	0|1	0|0	0|0
-1	5531	.	T	A	.	PASS	.	GT	0|0	0|0	0|0	1|0	0|0
-1	7204	.	A	T	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
-1	8930	.	A	G	.	PASS	.	GT	0|0	1|0	0|0	0|0	0|0
-1	9800	.	C	G	.	PASS	.	GT	1|1	0|0	1|1	0|1	1|1
+1	310	0	G	T	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
+1	890	1	T	G	.	PASS	.	GT	1|1	0|0	1|1	0|1	1|1
+1	1052	2	T	C	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
+1	1375	3	T	A	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
+1	1918	4	A	G	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
+1	4921	5	T	G	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
+1	5050	6	C	A	.	PASS	.	GT	1|1	0|0	1|1	0|1	1|1
+1	5132	7	T	A	.	PASS	.	GT	0|0	0|0	0|1	0|0	0|0
+1	5531	8	T	A	.	PASS	.	GT	0|0	0|0	0|0	1|0	0|0
+1	7204	9	A	T	.	PASS	.	GT	0|0	1|1	0|0	1|0	0|0
+1	8930	10	A	G	.	PASS	.	GT	0|0	1|0	0|0	0|0	0|0
+1	9800	11	C	G	.	PASS	.	GT	1|1	0|0	1|1	0|1	1|1
 </pre></div>
 </div>
 </div>
@@ -1356,7 +1353,7 @@ numpy array, which <strong class="program">scikit-allel</strong> can then proces
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12 10
 </pre></div>
 </div>
-<div class="output text_html"><div class="allel allel-DisplayAs2D"><span>&lt;HaplotypeArray shape=(12, 10) dtype=int8&gt;</span><table><thead><tr><th></th><th style="text-align: center">0</th><th style="text-align: center">1</th><th style="text-align: center">2</th><th style="text-align: center">3</th><th style="text-align: center">4</th><th style="text-align: center">5</th><th style="text-align: center">6</th><th style="text-align: center">7</th><th style="text-align: center">8</th><th style="text-align: center">9</th></tr></thead><tbody><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">0</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">1</th><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">2</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">...</th><td style="text-align: center" colspan="11">...</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">9</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">10</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">11</th><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td></tr></tbody></table></div></div></div>
+<div class="output text_html"><div class="allel allel-DisplayAs2D"><span>&lt;HaplotypeArray shape=(12, 10) dtype=int32&gt;</span><table><thead><tr><th></th><th style="text-align: center">0</th><th style="text-align: center">1</th><th style="text-align: center">2</th><th style="text-align: center">3</th><th style="text-align: center">4</th><th style="text-align: center">5</th><th style="text-align: center">6</th><th style="text-align: center">7</th><th style="text-align: center">8</th><th style="text-align: center">9</th></tr></thead><tbody><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">0</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">1</th><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">2</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">...</th><td style="text-align: center" colspan="11">...</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">9</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">10</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">11</th><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td></tr></tbody></table></div></div></div>
 </div>
 <p>Sckit.allel has a wide-ranging and efficient suite of tools for working with genotype
 data, so should provide anything that’s needed. For example, it gives us an
