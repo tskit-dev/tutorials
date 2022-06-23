@@ -187,15 +187,6 @@ Details about each node, including the time it lived, are stored in a
 ts.tables.nodes
 ```
 
-::::{margin}
-:::{note}
-The `b''` values in the metadata column represent empty
-{ref}`(byte) strings<py:typebytes>`, and hence indicates that no
-{ref}`sec_tables_overview_metadata` is associated with any of the nodes
-in this tree sequence.
-:::
-::::
-
 Importantly, the first column, `id`, is not actually recorded, and is
 only shown when printing out node tables (as here) for convenience.
 The second column, `flags` records a `1` for the nodes that are *samples*,
@@ -373,8 +364,7 @@ As can be seen above, each table row, as well as the entire table collection, ca
 associated with (optional) metadata, which can be stored in various formats. The format
 is determined by the *schema* of the metadata. In this example, for clarity, the
 metadata of the population and individual tables is stored as
-[JSON](https://www.json.org/) (while as we noted previously, the other tables happen
-to be storing metadata as raw byte strings).
+[JSON](https://www.json.org/).
 
 Because we have chosen to use JSON for the metadata of the individuals table, it is
 easy to access the metadata values:
