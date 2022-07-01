@@ -1246,14 +1246,14 @@ expected length:</p>
 <span class="nn">Input In [18],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py:483,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:483,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">481</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">482</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="ne">--&gt; </span><span class="mi">483</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">484</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">485</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tskit/tables.py:1192,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:1192,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1162</span> <span class="sd">&quot;&quot;&quot;</span>
 <span class="g g-Whitespace">   </span><span class="mi">1163</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
 <span class="g g-Whitespace">   </span><span class="mi">1164</span><span class="sd"> the specified arrays. Overwrites any data currently stored in the table.</span>

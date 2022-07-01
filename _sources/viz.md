@@ -634,7 +634,7 @@ SVG(ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style))
 This might not be quite what you expected: the branch leading from node 13 to its parent 
 (node 17) has also been coloured. That's because the SVG node group deliberately contains
 the branch that leads to the parent (this can be helpful, for example, for hiding the
-entire subtree leading to node 13, using e.g. ``.n13 {visibility: hidden}``). To colour
+entire subtree leading to node 13, using e.g. ``.n13 {display: none}``). To colour
 the branches *descending* from node 13, you therefore need to target the nodes nested
 at least one level deep within the `n13` group. One way to do that is to add an
 extra ``.node`` class to the style, e.g.
@@ -688,17 +688,18 @@ target *all* the node symbols first, then replace the style with a more specific
 targetting of the leaf symbols only:
 
 ```{code-cell} ipython3
-hide_internal_symlabs = ".node > .sym, .node > .lab {visibility: hidden}"
-show_leaf_symlabs = ".node.leaf > .sym, .node.leaf > .lab {visibility: visible}"
+hide_internal_symlabs = ".node > .sym, .node > .lab {display: none}"
+show_leaf_symlabs = ".node.leaf > .sym, .node.leaf > .lab {display: initial}"
 css_string = hide_internal_symlabs + show_leaf_symlabs
 SVG(ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_string))
 ```
 
 Alternatively, the ``:not`` selector can be used to target nodes that are *not* leaves,
-so the following style specification should produce the same effect:
+so the following style specification should produce the same effect in SVG viewers that
+support it (note, however, as of v1.2 Inkscape does not appear to support this selector).
 
 ```
-style_string = ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {visibility: hidden}"
+style_string = ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {display: none}"
 ```
 
 #### More about styling
@@ -843,7 +844,7 @@ css_string = (
     ".mut.m3 .sym, .m3>line, .m3>.node .edge{stroke:cyan} .mut.m3 .lab{fill:cyan}"
     ".mut.m4 .sym, .m4>line, .m4>.node .edge{stroke:red} .mut.m4 .lab{fill:red}"
     # Hide internal node labels & symbols
-    ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {visibility: hidden}"
+    ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {dissplay: none}"
 )
 SVG(ts.draw_svg(style=css_string, time_scale="rank", x_lim=[0, 30]))
 ```
@@ -956,7 +957,7 @@ tree sequence to allow identification of pruned edges.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-css_string = ".node:not(.sample) > .lab, .node:not(.sample) > .sym {visibility: hidden}"
+css_string = ".node:not(.sample) > .lab, .node:not(.sample) > .sym {display: none}"
 html_string = r"""
 <div id="animated_svg_canvas">%s</div>
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
