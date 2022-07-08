@@ -844,7 +844,7 @@ css_string = (
     ".mut.m3 .sym, .m3>line, .m3>.node .edge{stroke:cyan} .mut.m3 .lab{fill:cyan}"
     ".mut.m4 .sym, .m4>line, .m4>.node .edge{stroke:red} .mut.m4 .lab{fill:red}"
     # Hide internal node labels & symbols
-    ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {dissplay: none}"
+    ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {display: none}"
 )
 SVG(ts.draw_svg(style=css_string, time_scale="rank", x_lim=[0, 30]))
 ```
