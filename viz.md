@@ -199,21 +199,21 @@ print(ts_tiny.first().draw_text(
 
 Most users will want to use the SVG drawing functions
 {meth}`TreeSequence.draw_svg <tskit.TreeSequence.draw_svg>` and
-{meth}`Tree.draw_svg <tskit.Tree.draw_svg>` for visualization.
-Being a vectorised format, SVG files are suitable for presentations, publication, and
-{ref}`editing or converting <sec_tskit_viz_converting>` to other graphic formats. Some
-basic forms of animation are also possible. The SVG output can also be displayed in a
-Jupyter notebook using the IPython `display` and `SVG` functions:
+{meth}`Tree.draw_svg <tskit.Tree.draw_svg>` for visualization. Being a vectorised
+format, SVG files are suitable for presentations, publication, and
+{ref}`editing or converting <sec_tskit_viz_converting>` to other graphic formats; some
+basic forms of animation are also possible. Both functions produce an SVG string which is
+automatically drawn if the string is the result of the last call in a Jupyter notebook:
 
 ```{code-cell} ipython3
-from IPython.display import display, SVG
+from IPython.display import display
 svg_size = (800, 250) # Height and width for the SVG: optional but useful for this notebook
 svg_string = ts_tiny.draw_svg(
     size=svg_size,
     y_axis=True, y_label=" ",  # optional: show a time scale on the left
-    time_scale="rank", x_scale="treewise",  # Match the axis coordinate systems to the text view
+    time_scale="rank", x_scale="treewise",  # Force same axis settings as the text view
 )
-display(SVG(svg_string))  # If the last line in a cell, wrapping this in display() is not needed
+display(svg_string)  # If the last line in a cell, wrapping this in display() is not needed
 ```
 
 By default, sample nodes are drawn as black squares, and non-sample nodes are drawn as
@@ -232,7 +232,7 @@ more intuitive, linear scales can obscure some features of the trees, for exampl
 causing labels to overlap:
 
 ```{code-cell} ipython3
-SVG(ts_tiny.draw_svg(size=svg_size, y_axis=True))
+ts_tiny.draw_svg(size=svg_size, y_axis=True)
 ```
 
 One way to avoid overlapping labels on the Y axis is to use the ``y_ticks`` parameter,
@@ -252,11 +252,11 @@ x_limits = [5000, 15000]
 y_tick_pos = [0, 1000, 2000, 3000, 4000]
 
 print("The tree sequence between positions {} and {} ...".format(*x_limits))
-display(SVG(ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits)))
+display(ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits))
 
 third_tree = ts_small.at_index(2)
 print("... or just look at (say) the third tree")
-display(SVG(third_tree.draw_svg()))
+display(third_tree.draw_svg())
 ```
 
 As the number of sample nodes increases, internal nodes often bunch up at recent time
@@ -280,13 +280,14 @@ node_label_style = (
     ".node > .lab {font-size: 80%}"
     ".leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"
 )
-SVG(ts_full.first().draw_svg(
+ts_full.first().draw_svg(
     size=wide_fmt,
     time_scale="log_time",
     y_gridlines=True,
     y_axis=True,
     y_ticks=[1, 10, 100, 1000],
-    style=node_label_style))
+    style=node_label_style,
+)
 ```
 
 ### Plotting mutations
@@ -305,7 +306,7 @@ as a red downwards-pointing chevron.
 
 ```{code-cell} ipython3
 ts_mutated = msprime.sim_mutations(ts_small, rate=1e-7, random_seed=342)
-SVG(ts_mutated.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits))
+ts_mutated.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits)
 ```
 
 Note that, unusually, the rightmost site on the axis has more than one stacked chevron,
@@ -332,7 +333,7 @@ plot region, or simply plotting the tree itself:
 ```{code-cell} ipython3
 third_tree = ts_mutated.at_index(2)
 print(f"The third tree in the mutated tree sequence, which covers {third_tree.interval}")
-SVG(third_tree.draw_svg(size=(200, 300)))
+third_tree.draw_svg(size=(200, 300))
 ```
 
 (sec_tskit_viz_extra_mutations)=
@@ -348,7 +349,7 @@ associated with an edge in the tree but which fall outside the interval of that 
 default these mutations are drawn in a slightly different shade (e.g. mutation 64 below).
 
 ```{code-cell} ipython3
-SVG(third_tree.draw_svg(size=(200, 300), all_edge_mutations=True))
+third_tree.draw_svg(size=(200, 300), all_edge_mutations=True)
 ```
 
 ### Labelling
@@ -372,11 +373,11 @@ for mut in ts_mutated.mutations():  # Make pretty labels showing the change in s
     prev = ts_mutated.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
     mut_labels[mut.id] = f"{prev}→{mut.derived_state}"
 
-SVG(ts_mutated.draw_svg(
+ts_mutated.draw_svg(
     y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits,
     node_labels=nd_labels,
-    mutation_labels=mut_labels
-    ))
+    mutation_labels=mut_labels,
+)
 ```
 
 (sec_tskit_viz_styling)=
@@ -401,11 +402,11 @@ for colour, p in zip(['red', 'green', 'blue'], ts_full.populations()):
 css_string = " ".join(styles)
 print(f'CSS string applied:\n    "{css_string}"')
 
-SVG(ts_full.first().draw_svg(
+ts_full.first().draw_svg(
     size=wide_fmt,
     node_labels={},    # Remove all node labels for a clearer viz
     style=css_string,  # Apply the stylesheet
-))
+)
 ```
 
 Colouring nodes by population makes it immediately clear that, while the tree structure
@@ -477,7 +478,7 @@ trees. For example, we can colour branches that are shared between trees
 
 ```{code-cell} ipython3
 css_string = ".a15.n9 > .edge {stroke: cyan; stroke-width: 2px}"  # branches from 15->9
-SVG(ts_small.draw_svg(time_scale="rank", size=wide_fmt, style=css_string))
+ts_small.draw_svg(time_scale="rank", size=wide_fmt, style=css_string)
 ```
 
 By generating the css string programatically, you can target all the edges present in a
@@ -508,12 +509,12 @@ for node_id in focal_tree.nodes():
 css_string = ",".join(css_edge_targets) + "{stroke: red} .sym {display: none}"
 
 wide_tall_fmt = (1200, 400)
-SVG(ts_selection.draw_svg(
+ts_selection.draw_svg(
     style=css_string,
     size=wide_tall_fmt,
     x_lim=[1.74e4, 3.25e4],
     node_labels={},
-))
+)
 ```
 
 :::{note}
@@ -553,7 +554,7 @@ css_string = (
     # For leaf nodes, override the above positioning using a subsequent CSS style
     ".node.leaf > .lab {transform: translate(0, 12px); font-size: 10pt}"
 )
-SVG(ts_small.first().draw_svg(style=css_string))
+ts_small.first().draw_svg(style=css_string)
 ```
 
 :::{note}
@@ -628,7 +629,7 @@ thicker blue line:
 ```{code-cell} ipython3
 edge_style = ".n13 .edge {stroke: blue; stroke-width: 2px}"
 nd_labs = {n: n for n in [0, 1, 2, 3, 4, 5, 6, 7, 13, 17]}
-SVG(ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style))
+ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style)
 ```
 
 This might not be quite what you expected: the branch leading from node 13 to its parent 
@@ -642,7 +643,7 @@ extra ``.node`` class to the style, e.g.
 ```{code-cell} ipython3
 edge_style = ".n13 .node .edge {stroke: blue; stroke-width: 2px}"
 # NB to target the edges in only (say) the 1st tree you could use ".t0 .n13 .node .edge ..."
-SVG(ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style))
+ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style)
 ```
 
 If you want to colour the branches descending from a particular mutation (say mutation 7)
@@ -662,7 +663,7 @@ m8_mut = (
     ".mut.m8 .lab {fill: red}"  # colour the label "8" in red too
 )
 css_string = default_muts + m8_mut
-SVG(ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=css_string))
+ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=css_string)
 ```
 
 #### Restricting styling
@@ -679,7 +680,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 node_style1 = ".n13 .sym {fill: yellow}"  # All symbols under node 13 
 node_style2 = ".n15 > .sym {fill: cyan}"  # Only symbols that are an immediate child of node 15
 css_string = node_style1 + node_style2
-SVG(ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_string))
+ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_string)
 ```
 
 Another example of modifying the style target is *negation*. This is needed, for example,
@@ -691,7 +692,7 @@ targetting of the leaf symbols only:
 hide_internal_symlabs = ".node > .sym, .node > .lab {display: none}"
 show_leaf_symlabs = ".node.leaf > .sym, .node.leaf > .lab {display: initial}"
 css_string = hide_internal_symlabs + show_leaf_symlabs
-SVG(ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_string))
+ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_string)
 ```
 
 Alternatively, the ``:not`` selector can be used to target nodes that are *not* leaves,
@@ -711,11 +712,11 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 ``root_svg_attributes`` parameter, then prepend this ID to the style string:
 
 ```{code-cell} ipython3
-SVG(ts_small.draw_svg(
+ts_small.draw_svg(
     x_lim=x_limits,
     root_svg_attributes={'id': "myUID"},
     style="#myUID .background * {fill: #00FF00}",  # apply any old style to this specific SVG
-))
+)
 ```
 
 SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
@@ -796,7 +797,7 @@ root branches are not drawn, unless the `force_root_branch` parameter is specifi
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 ts = tskit.load("data/viz_root_mut.trees")
-SVG(ts.draw_svg())
+ts.draw_svg()
 ```
 
 #### A fancy formatted plot
@@ -816,16 +817,16 @@ y_ticks = ts.tables.nodes.time
 # Thin the tick values so we don't get labels within 0.01 of each other
 y_ticks = np.delete(y_ticks, np.argwhere(np.ediff1d(y_ticks) <= 0.01))
 
-svg = ts.draw_svg(size=(1000, 350), y_axis=True, y_gridlines=True, y_ticks=y_ticks, style=(
+css_string = (
     ".tree .lab {font-family: sans-serif}"
     # Normal X axis tick labels have dominant baseline: hanging, but it needs centring when rotated
-    ".x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}"
-    ".y-axis .grid {stroke: #DDDDDD}"
+    + ".x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}"
+    + ".y-axis .grid {stroke: #DDDDDD}"
     + ".tree :not(.leaf).node > .lab  {transform: translate(0,0); text-anchor:middle; fill: white}"
     + ".tree :not(.leaf).node > .sym {transform: scale(3.5)}"
     + "".join(f".tree .n{n.id} > .sym {{fill: hsl({int((1-n.time/ts.max_root_time)*260)}, 50%, 50%)}}" for n in ts.nodes())
-))
-SVG(svg)
+)
+ts.draw_svg(size=(1000, 350), y_axis=True, y_gridlines=True, y_ticks=y_ticks, style=css_string)
 ```
 
 #### Highlighted mutations
@@ -846,7 +847,7 @@ css_string = (
     # Hide internal node labels & symbols
     ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {display: none}"
 )
-SVG(ts.draw_svg(style=css_string, time_scale="rank", x_lim=[0, 30]))
+ts.draw_svg(style=css_string, time_scale="rank", x_lim=[0, 30])
 ```
 
 #### Leaf, sample & isolated nodes
@@ -865,7 +866,7 @@ tables.sites.clear()
 tables.nodes.flags = np.array([0, 0, 1, 1, 0, 0, 0, 1, 1, 0], dtype=tables.nodes.flags.dtype)
 ts = tables.tree_sequence()
 css_string=".leaf .sym {fill: blue} .sample > .sym {fill: green}"
-SVG(ts.draw_svg(style=css_string, x_scale="treewise", time_scale="rank", y_axis=True, y_gridlines=True, x_lim=[0, 10]))
+ts.draw_svg(style=css_string, x_scale="treewise", time_scale="rank", y_axis=True, y_gridlines=True, x_lim=[0, 10])
 ```
 
 :::{note}
@@ -934,7 +935,7 @@ css += ".y-axis .ticks .tick:nth-child(4) .grid {stroke: blue}"  # 4th line from
 css += ".y-axis .ticks .tick:nth-child(5) .grid {stroke: darkgrey}"  # 5th line from bottom
 y_ticks = {0: "0", 30: "30", 50: "Introgress", 70: "Eur origin", 300: "Nea origin", 1000: "1000"}
 y_ticks = {y * time_units: lab for y, lab in y_ticks.items()}
-SVG(ts.draw_svg(
+ts.draw_svg(
     size=(1200, 500),
     x_lim=(0, 25_000),
     time_scale="log_time",
@@ -944,7 +945,8 @@ SVG(ts.draw_svg(
     x_label="Genomic position (bp)",
     y_ticks=y_ticks,
     y_gridlines=True,
-    style=css))
+    style=css,
+)
 ```
 
 

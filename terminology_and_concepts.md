@@ -118,13 +118,12 @@ It can be helpful to visualize the tree sequence as a set of local trees along t
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-from IPython.display import SVG
-SVG(ts.draw_svg(
+ts.draw_svg(
     y_axis=True,
     y_gridlines=True,
     time_scale="log_time",
     y_ticks=[0, 3, 10, 30, 100, 300,1000],
-))
+)
 ```
 
 Each tree records the lines of descent along which a piece of DNA has been
@@ -278,14 +277,14 @@ styles = (
     ".node > .lab {font-size: 70%}"
     ".leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"
 )
-SVG(ts.draw_svg(
+ts.draw_svg(
     node_labels=node_labels,
     style=styles,
     y_axis=True,
     y_gridlines=True,
     time_scale="log_time",
     y_ticks=[0, 3, 10, 30, 100, 300,1000],
-))
+)
 ```
 
 In the same way that nodes can be associated with a specific individual, nodes can also
@@ -365,14 +364,13 @@ tree sequences. For reference, here is the tree sequence topology that we have b
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-from IPython.display import SVG
-SVG(ts.draw_svg(
+ts.draw_svg(
     y_axis=True,
     y_gridlines=True,
     time_scale="log_time",
     y_ticks=[0, 3, 10, 30, 100, 300,1000],
     style=".mut, .site {display: none}",
-))
+)
 ```
 
 Note that all these trees show strictly bifurcating splits, but this does not need to be

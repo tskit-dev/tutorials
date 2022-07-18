@@ -92,7 +92,6 @@ Plots (a) and (b) summarize results presented
 :"tags": ["remove-input"]
 # This cell deliberately removed (not just hidden via a toggle) as it's not helpful
 # for understanding tskit code (it's merely plotting code)
-from IPython.display import SVG
 import matplotlib_inline
 import matplotlib.pyplot as plt
 import numpy as np
@@ -143,7 +142,6 @@ a short 1000 letter chromosome.
 :"tags": ["hide-input"]
 import string
 import tskit
-from IPython.display import SVG
 
 mutated_ts = tskit.load("data/whatis_example.trees")
 ts = mutated_ts.delete_sites(list(range(mutated_ts.num_sites)))
@@ -156,9 +154,9 @@ style1 = (
     ".mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}")
 sz = (800, 250)  # size of the plot, slightly larger than the default
 ticks = [0, 5000, 10000, 15000, 20000]
-SVG(ts.draw_svg(
+ts.draw_svg(
     size=sz, node_labels=labels, style=style1, y_label="Time ago",
-    y_axis=True, y_ticks=ticks))
+    y_axis=True, y_ticks=ticks)
 ```
 
 ::::{margin}
@@ -199,8 +197,8 @@ for mut in mutated_ts.mutations():  # This entire loop is just to make pretty la
     prev = mutated_ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
     mut_labels[mut.id] = l.format(site.position, prev, mut.derived_state)
 
-SVG(mutated_ts.draw_svg(
-    size=sz, style=style1, node_labels=labels, mutation_labels=mut_labels))
+mutated_ts.draw_svg(
+    size=sz, style=style1, node_labels=labels, mutation_labels=mut_labels)
 ```
 
 There are now twelve single nucleotide mutations in the tree sequence. They are shown on the
@@ -242,9 +240,9 @@ style3 = (
     ",".join(f"#svg1 .tree:not(.t2) .node.a{e.parent}.n{e.child} > .edge" for e in kept_edges)
     + "{stroke:#00DD00; stroke-width: 2px}"
     + style1)
-SVG(ts.draw_svg(
+ts.draw_svg(
     size=(500, 250), x_lim=(0, 500), root_svg_attributes={'id':'svg1'},  y_ticks=ticks,
-    node_labels=labels, style=style3))
+    node_labels=labels, style=style3)
 ```
 
 :::{margin} Key point
@@ -358,9 +356,9 @@ style2 = ".y-axis .tick .lab {font-size: 85%}"
 style2 += "#svg2 .node > .sym {visibility: visible;}"  # force-show all nodes: not normally needed
 style2 += "".join([f".p{n.population} > .sym {{fill: {colours[n.population]}}}" for n in ts.nodes()])
 
-SVG(mutated_ts.draw_svg(
+mutated_ts.draw_svg(
     size=sz, root_svg_attributes={'id':'svg2'}, y_label="Time ago (generations)",
-    y_axis=True, y_ticks=ticks, node_labels=labels, mutation_labels={}, style=style2))
+    y_axis=True, y_ticks=ticks, node_labels=labels, mutation_labels={}, style=style2)
 ```
 
 The diagram shows that most of the ancestral genomes $\mathrm{k}$ to $\mathrm{u}$
