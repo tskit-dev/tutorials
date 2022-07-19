@@ -21,20 +21,16 @@ parts:
   - file: viz
   - file: metadata
   - file: args
-- caption: Backward time simulations
-  # TODO this will be broken down more finely as we add more content
+- caption: Simulation
   chapters:
+  - file: simulation_overview
   - file: no_mutations
-  - file: msprime
+  - file: completing_forward_sims
+  - file: advanced_msprime
     sections:
     - file: demography
     - file: bottlenecks
     - file: introgression
-  - file: completing-forward-sims
-- caption: Forward time simulations
-  # TODO port/add forward simulation contents
-  # What can we put in here?
-  chapters:
   - file: forward_sims
 - caption: Other languages
   # TODO: add basic C and maybe Rust tutes

@@ -9,6 +9,8 @@ kernelspec:
   name: python3
 ---
 
+(sec_completing_forwards_simulations)=
+
 # Completing forwards simulations
 
 The ``msprime`` simulator generates tree sequences using the backwards in
