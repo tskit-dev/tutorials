@@ -224,10 +224,10 @@ tskit provides a flexible and powerful approach to computing such spectra.
 Suppose we have simulated the following tree sequence:
 
 ```{code-cell} ipython3
-from IPython.display import display, SVG
+from IPython.display import display
 ts = tskit.load("data/afs.trees")
 tree = ts.first()
-display(SVG(tree.draw_svg()))
+display(tree.draw_svg())
 ts.tables.sites
 ```
 
@@ -268,7 +268,7 @@ the *joint allele frequency spectra*.
 ```{code-cell} ipython3
 node_colours = {0: "blue", 2: "blue", 3: "blue", 1: "green", 4: "green", 5: "green"}
 styles = [f".n{k} > .sym {{fill: {v}}}" for k, v in node_colours.items()]
-SVG(tree.draw_svg(style = "".join(styles)))
+tree.draw_svg(style = "".join(styles))
 ```
 
 Here we've marked the samples as either blue or green (we can imagine

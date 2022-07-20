@@ -45,7 +45,7 @@ bottB = 2
 
 ts = run_bott_sims(12, time=bottT, strength=bottB)
 
-SVG(ts.draw_svg(y_axis=True, size=(400, 400)))
+ts.draw_svg(y_axis=True, size=(400, 400))
 ```
 
 The genealogy shows several simultaneous coalescence events at the time of the bottleneck

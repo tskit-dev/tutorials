@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -213,17 +213,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Backward time simulations
+  Simulation
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    Do you really need mutations?
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+  <a class="reference internal" href="advanced_msprime.html">
    Advanced
    <strong class="program">
     msprime
@@ -253,18 +263,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing-forward-sims.html">
-   Completing forwards simulations
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Forward time simulations
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
@@ -896,7 +894,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0205817 secs
+Checked in 0.0216382 secs
 </pre></div>
 </div>
 </div>
@@ -943,13 +941,11 @@ of a tree sequence, but it <em>can</em> be done, via the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-
-<span class="n">swept_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">)</span>  <span class="c1"># or you can get e.g. the nth tree using ts.at_index(n)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">swept_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">)</span>  <span class="c1"># or you can get e.g. the nth tree using ts.at_index(n)</span>
 <span class="n">intvl</span> <span class="o">=</span> <span class="n">swept_tree</span><span class="o">.</span><span class="n">interval</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree number </span><span class="si">{</span><span class="n">swept_tree</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">, which runs from position </span><span class="si">{</span><span class="n">intvl</span><span class="o">.</span><span class="n">left</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">intvl</span><span class="o">.</span><span class="n">right</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
 <span class="c1"># Draw it at a wide size, to make room for all 40 tips</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">swept_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">)))</span>
+<span class="n">swept_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -980,7 +976,7 @@ more than one tree: either the entire tree sequence, or
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>  <span class="c1"># simplify to the first 10 samples</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Genealogy of the first 10 samples for the first 5kb of the genome&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">reduced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))))</span>
+<span class="n">reduced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1306,7 +1302,7 @@ for which tskit has basic support:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>##fileformat=VCFv4.2
-##source=tskit 0.5.0
+##source=tskit 0.5.1
 ##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
 ##contig=&lt;ID=1,length=10000&gt;
 ##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;
@@ -1409,8 +1405,9 @@ sequence to a specified subset</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">keep_intervals()</span></code></a> (or its complement,
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.delete_intervals" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">delete_intervals()</span></code></a>) removes genetic information from
 specific regions of the genome</p></li>
-<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">draw_svg()</span></code></a> plots tree sequences (and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a>
-plots trees)</p></li>
+<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">draw_svg()</span></code></a> returns an SVG representation of a tree sequence
+(and plots it if in a Jupyter notebook). Similarly, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a>
+plots individual trees.</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">at()</span></code></a> returns a tree at a particular genomic position
 (but using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> is usually preferable)</p></li>
 <li><p>Various population genetic statistics can be calculated using methods on a tree

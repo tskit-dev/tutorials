@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -213,17 +213,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Backward time simulations
+  Simulation
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    Do you really need mutations?
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+  <a class="reference internal" href="advanced_msprime.html">
    Advanced
    <strong class="program">
     msprime
@@ -253,18 +263,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing-forward-sims.html">
-   Completing forwards simulations
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Forward time simulations
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
@@ -601,7 +599,6 @@ a short 1000 letter chromosome.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">tskit</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
 
 <span class="n">mutated_ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/whatis_example.trees&quot;</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">delete_sites</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">)))</span>
@@ -614,9 +611,9 @@ a short 1000 letter chromosome.</p>
     <span class="s2">&quot;.mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}&quot;</span><span class="p">)</span>
 <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>  <span class="c1"># size of the plot, slightly larger than the default</span>
 <span class="n">ticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">]</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
-    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">))</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -656,8 +653,8 @@ might look in our simple example:</p>
     <span class="n">prev</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
     <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">)</span>
 
-<span class="n">SVG</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">))</span>
+<span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -715,9 +712,9 @@ unchanged between the first and the second tree.</p>
     <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;#svg1 .tree:not(.t2) .node.a</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">.n</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">child</span><span class="si">}</span><span class="s2"> &gt; .edge&quot;</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">kept_edges</span><span class="p">)</span>
     <span class="o">+</span> <span class="s2">&quot;{stroke:#00DD00; stroke-width: 2px}&quot;</span>
     <span class="o">+</span> <span class="n">style1</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg1&#39;</span><span class="p">},</span>  <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span>
-    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">))</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -790,9 +787,9 @@ by using circular symbols. We can even colour the nodes by the population that w
 <span class="n">style2</span> <span class="o">+=</span> <span class="s2">&quot;#svg2 .node &gt; .sym {visibility: visible;}&quot;</span>  <span class="c1"># force-show all nodes: not normally needed</span>
 <span class="n">style2</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;.p</span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()])</span>
 
-<span class="n">SVG</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg2&#39;</span><span class="p">},</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago (generations)&quot;</span><span class="p">,</span>
-    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">))</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

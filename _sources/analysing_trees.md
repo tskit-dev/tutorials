@@ -103,18 +103,21 @@ places mutations ("characters" in phylogenetic terminology) on a given tree.
 ## Tree traversals
 
 Given a single {class}`Tree`, traversals in various orders are possible using the
-{meth}`~Tree.nodes` iterator. For example, in the following tree we can visit the
-nodes in different orders:
+{meth}`~Tree.nodes` iterator. Take the following tree:
 
 
 ```{code-cell} ipython3
 import tskit
-from IPython.display import SVG, display
 
 ts = tskit.load("data/tree_traversals.trees")
 tree = ts.first()
-display(SVG(tree.draw_svg()))
+tree.draw_svg()
+```
 
+We can visit the nodes in different orders by providing an `order` parameter to
+the {meth}`Tree.nodes` iterator:
+
+```{code-cell} ipython3
 for order in ["preorder", "inorder", "postorder"]:
     print(f"{order}:\t", list(tree.nodes(order=order)))
 ```
@@ -225,7 +228,7 @@ different time points:
 ```{code-cell} ipython3
 ts = tskit.load("data/different_time_samples.trees")
 tree = ts.first()
-SVG(tree.draw_svg(y_axis=True, time_scale="rank"))
+tree.draw_svg(y_axis=True, time_scale="rank")
 ```
 
 The generation times for these nodes are as follows:
@@ -280,42 +283,55 @@ print(dict(zip(range(3), nearest_neighbor_of)))
 
 ## Parsimony
 
-The {meth}`Tree.map_mutations` method finds a parsimonious explanation for a
-set of discrete character observations on the samples in a tree using classical
-phylogenetic algorithms.
+Take a site on the following tree with three allelic states, where the
+samples are coloured by the allele they possess, but where we don't know
+the position of the mutations that caused this variation:
 
 ```{code-cell} ipython3
 tree = tskit.load("data/parsimony_simple.trees").first()
 alleles = ["red", "blue", "green"]
 genotypes = [0, 0, 0, 0, 1, 2]
 styles = [f".n{j} > .sym {{fill: {alleles[g]}}}" for j, g in enumerate(genotypes)]
-display(SVG(tree.draw_svg(style="".join(styles))))
+tree.draw_svg(style="".join(styles))
+```
 
+The {meth}`Tree.map_mutations` method finds a parsimonious explanation for a
+set of discrete character observations on the samples in a tree using classical
+phylogenetic algorithms:
+
+```{code-cell} ipython3
 ancestral_state, mutations = tree.map_mutations(genotypes, alleles)
 print("Ancestral state = ", ancestral_state)
 for mut in mutations:
     print(f"Mutation: node = {mut.node} derived_state = {mut.derived_state}")
 ```
 
-So, the algorithm has concluded, quite reasonably, that the most parsimonious
+In this case, the algorithm has concluded, quite reasonably, that the most parsimonious
 description of this state is that the ancestral state is red and there was
 a mutation to blue and green over nodes 4 and 5.
 
 ### Building tables
 
-One of the main uses of {meth}`Tree.map_mutations` is to position mutations on a tree
-to encode observed data. In the following example we show how a set
-of tables can be updated using the {ref}`Tables API<tskit:sec_tables_api>`; here we
-infer the location of mutations in an simulated tree sequence of one tree,
-given a set of site positions with their genotypes and allelic states:
+Below we show how a set of tables can be updated using the
+{ref}`Tables API<tskit:sec_tables_api>`, taking advantage of the
+{meth}`Tree.map_mutations` method to identify parsimonious positions
+for mutations on a tree. Here's the tree we'll use:
 
 ```{code-cell} ipython3
 import pickle
 ts = tskit.load("data/parsimony_map.trees")
+ts.draw_svg(size=(500, 300), time_scale="rank")
+```
+
+Now we can modify the tables by adding mutations. To find the location of mutations,
+we infer them from some observed data (some site positions with associated genotypes
+and allelic states, in the conventional {class}`tskit encoding <Variant>`):
+
+
+```{code-cell} ipython3
 with open("data/parsimony_map.pickle", "rb") as file:
     data = pickle.load(file)  # Load saved variant data from a file
-display(SVG(ts.draw_svg(size=(500, 300), time_scale="rank")))
-print("Variant data: pos, genotypes & alleles as described by the ts.variants() iterator:")
+print("Variant data: each site has a position, allele list, and genotypes array:")
 for i, v in enumerate(data):
     print(f"Site {i} (pos {v['pos']:7.4f}): alleles: {v['alleles']}, genotypes: {v['genotypes']}")
 print()
@@ -333,10 +349,12 @@ for variant in data:
             parent += parent_offset
         mut_id = tables.mutations.add_row(
             site_id, node=mut.node, parent=parent, derived_state=mut.derived_state)
-        info += f", and places mutation {mut.id} to {mut.derived_state} above node {mut.node}"
+        info += f", and places mutation {mut_id} to {mut.derived_state} above node {mut.node}"
     print(info)
 new_ts = tables.tree_sequence()
 ```
+
+And here are the parsimoniously positioned mutations on the tree
 
 ```{code-cell} ipython3
 mut_labels = {}  # An array of labels for the mutations
@@ -346,33 +364,36 @@ for mut in new_ts.mutations():  # Make pretty labels showing the change in state
     prev = new_ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
     mut_labels[site.id] = f"{mut.id}: {prev}→{mut.derived_state}"
 
-display(SVG(new_ts.draw_svg(size=(500, 300), mutation_labels=mut_labels, time_scale="rank")))
+new_ts.draw_svg(size=(500, 300), mutation_labels=mut_labels, time_scale="rank")
 ```
 
 
 ### Parsimony and missing data
 
-The Hartigan parsimony algorithm in {meth}`Tree.map_mutations` can also take missing data
+We can also take missing data
 into account when finding a set of parsimonious state transitions. We do this by
 specifying the special value {data}`tskit.MISSING_DATA` (-1) as the state, which is
 treated by the algorithm as "could be anything".
 
-For example, here we state that sample 0 is missing, and use the colour white to indicate
-this:
+For example, here we state that sample 0 is missing, indicated by the colour white:
 
 ```{code-cell} ipython3
 tree = tskit.load("data/parsimony_simple.trees").first()
 alleles = ["red", "blue", "green", "white"]
 genotypes = [tskit.MISSING_DATA, 0, 0, 0, 1, 2]
 styles = [f".n{j} > .sym {{fill: {alleles[g]}}}" for j, g in enumerate(genotypes)]
-display(SVG(tree.draw_svg(style="".join(styles))))
+tree.draw_svg(style="".join(styles))
+```
 
+Now we run the {meth}`Tree.map_mutations` method, which applies the Hartigan parsimony
+algorithm:
+
+```{code-cell} ipython3
 ancestral_state, mutations = tree.map_mutations(genotypes, alleles)
 print("Ancestral state = ", ancestral_state)
 for mut in mutations:
     print(f"Mutation: node = {mut.node} derived_state = {mut.derived_state}")
 ```
-
 
 The algorithm decided, again, quite reasonably, that the most parsimonious explanation
 for the input data is the same as before. Thus, if we used this information to fill
@@ -389,7 +410,7 @@ ancestral_state, mutations = tree.map_mutations(genotypes, alleles)
 print("Ancestral state = ", ancestral_state)
 for mut in mutations:
     print(f"Mutation: node = {mut.node} derived_state = {mut.derived_state}")
-SVG(tree.draw(node_colours=node_colours))
+tree.draw(node_colours=node_colours)
 ```
 
 

@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -211,17 +211,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Backward time simulations
+  Simulation
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    Do you really need mutations?
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+  <a class="reference internal" href="advanced_msprime.html">
    Advanced
    <strong class="program">
     msprime
@@ -251,18 +261,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing-forward-sims.html">
-   Completing forwards simulations
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Forward time simulations
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
@@ -768,13 +766,13 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:897,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
-<span class="g g-Whitespace">    </span><span class="mi">895</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">896</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
-<span class="ne">--&gt; </span><span class="mi">897</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">898</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">899</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
-<span class="g g-Whitespace">    </span><span class="mi">900</span> <span class="p">)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:920,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="g g-Whitespace">    </span><span class="mi">918</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">919</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
+<span class="ne">--&gt; </span><span class="mi">920</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">921</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">922</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span> <span class="p">)</span>
 
 <span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/metadata.py:682,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">680</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -843,13 +841,13 @@ also raised if we attempt to add new fields:</p>
 <span class="nn">Input In [10],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:897,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
-<span class="g g-Whitespace">    </span><span class="mi">895</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">896</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
-<span class="ne">--&gt; </span><span class="mi">897</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">898</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">899</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
-<span class="g g-Whitespace">    </span><span class="mi">900</span> <span class="p">)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:920,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="g g-Whitespace">    </span><span class="mi">918</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">919</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
+<span class="ne">--&gt; </span><span class="mi">920</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">921</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">922</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span> <span class="p">)</span>
 
 <span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/metadata.py:682,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">680</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>

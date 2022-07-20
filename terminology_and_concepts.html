@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -213,17 +213,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Backward time simulations
+  Simulation
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    Do you really need mutations?
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+  <a class="reference internal" href="advanced_msprime.html">
    Advanced
    <strong class="program">
     msprime
@@ -253,18 +263,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing-forward-sims.html">
-   Completing forwards simulations
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Forward time simulations
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
@@ -738,13 +736,12 @@ pairs. This is accessible using the <a class="reference external" href="https://
 <p>It can be helpful to visualize the tree sequence as a set of local trees along the genome:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
-<span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -924,14 +921,14 @@ together in the trees, as the original simulation was of a randomly mating popul
     <span class="s2">&quot;.node &gt; .lab {font-size: 70%}&quot;</span>
     <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span>
 <span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
-<span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1029,14 +1026,13 @@ is not always possible.</p>
 tree sequences. For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
     <span class="n">style</span><span class="o">=</span><span class="s2">&quot;.mut, .site {display: none}&quot;</span><span class="p">,</span>
-<span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>

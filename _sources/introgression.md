@@ -36,7 +36,6 @@ import collections
 import matplotlib.pyplot as plt
 import msprime
 import numpy as np
-from IPython.display import SVG
 
 def run_simulation(sequence_length, random_seed=None):
     time_units = 1000 / 25  # Conversion factor for kya to generations
@@ -260,7 +259,7 @@ css += "".join([
     for k, v in enumerate(mutation_population)])
 y_ticks = {0: "0", 30: "30", 50: "Introgress", 70: "Eur origin", 300: "Nea origin", 1000: "1000"}
 y_ticks = {y * time_units: lab for y, lab in y_ticks.items()}
-SVG(ts.draw_svg(
+ts.draw_svg(
     size=(1200, 500),
     x_lim=(0, 25_000),
     time_scale="log_time",
@@ -270,7 +269,8 @@ SVG(ts.draw_svg(
     x_label="Genomic position (bp)",
     y_ticks=y_ticks,
     y_gridlines=True,
-    style=css))
+    style=css,
+)
 ```
 
 The depth of the trees indicates that most coalescences occur well before the origin of

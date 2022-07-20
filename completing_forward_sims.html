@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Building a forward simulator" href="forward_sims.html" />
-    <link rel="prev" title="Introgression" href="introgression.html" />
+    <link rel="next" title="Advanced msprime topics" href="advanced_msprime.html" />
+    <link rel="prev" title="Do you really need mutations?" href="no_mutations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -211,17 +211,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Backward time simulations
+  Simulation
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    Do you really need mutations?
   </a>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Completing forwards simulations
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+  <a class="reference internal" href="advanced_msprime.html">
    Advanced
    <strong class="program">
     msprime
@@ -251,18 +261,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Completing forwards simulations
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Forward time simulations
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
@@ -397,7 +395,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fcompleting-forward-sims.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fcompleting_forward_sims.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -425,7 +423,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="_sources/completing-forward-sims.ipynb"
+        <a href="_sources/completing_forward_sims.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -442,7 +440,7 @@ title="Download notebook file"
       </li>
       
       <li>
-        <a href="_sources/completing-forward-sims.md"
+        <a href="_sources/completing_forward_sims.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -551,7 +549,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="completing-forwards-simulations">
-<h1>Completing forwards simulations<a class="headerlink" href="#completing-forwards-simulations" title="Permalink to this headline">#</a></h1>
+<span id="sec-completing-forwards-simulations"></span><h1>Completing forwards simulations<a class="headerlink" href="#completing-forwards-simulations" title="Permalink to this headline">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulator generates tree sequences using the backwards in
 time coalescent model. But it is also possible to output tree sequences
 from <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1006581">forwards-time</a>
@@ -574,7 +572,6 @@ for a formal description of these properties):</p>
 <span class="kn">import</span> <span class="nn">msprime</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
 
 
 <span class="k">def</span> <span class="nf">wright_fisher</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -628,12 +625,12 @@ for 5 generations, and print out the resulting trees:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_loci</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">wf_ts</span> <span class="o">=</span> <span class="n">wright_fisher</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="n">num_loci</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">wf_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+<span class="n">wf_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/completing-forward-sims_3_0.svg" src="_images/completing-forward-sims_3_0.svg" /></div>
+<img alt="_images/completing_forward_sims_3_0.svg" src="_images/completing_forward_sims_3_0.svg" /></div>
 </div>
 <p>Because our Wright Fisher simulation ran for only 5 generations, there has not
 been enough time for the trees to fully coalesce. Therefore, instead of having
@@ -677,7 +674,7 @@ is haploid and msprime uses a diploid time scale by default.</p>
     <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">num_loci</span><span class="p">,</span> 
     <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+<span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -688,7 +685,7 @@ is haploid and msprime uses a diploid time scale by default.</p>
   warnings.warn(
 </pre></div>
 </div>
-<img alt="_images/completing-forward-sims_5_1.svg" src="_images/completing-forward-sims_5_1.svg" /></div>
+<img alt="_images/completing_forward_sims_5_1.svg" src="_images/completing_forward_sims_5_1.svg" /></div>
 </div>
 <p>The trees have fully coalesced and we’ve successfully combined a forwards-time
 Wright-Fisher simulation with a coalescent simulation: hooray!</p>
@@ -738,13 +735,13 @@ computed tree sequence which is easily done using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="n">final_ts</span> <span class="o">=</span> <span class="n">coalesced_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
-    <span class="n">SVG</span><span class="p">(</span><span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_ts</span> <span class="o">=</span> <span class="n">coalesced_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/completing-forward-sims_7_0.svg" src="_images/completing-forward-sims_7_0.svg" /></div>
+<img alt="_images/completing_forward_sims_7_0.svg" src="_images/completing_forward_sims_7_0.svg" /></div>
 </div>
 <p>This final tree sequence is topologically identical to the original tree sequence,
 but has the redundant nodes and edges removed. Note also that the node IDs have been
@@ -781,17 +778,17 @@ mapping between the two sets of IDs.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="introgression.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="no_mutations.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Introgression</p>
+            <p class="prev-next-title">Do you really need mutations?</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="forward_sims.html" title="next page">
+    <a class='right-next' id="next-link" href="advanced_msprime.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><em>Building a forward simulator</em></p>
+        <p class="prev-next-title">Advanced <strong class="program">msprime</strong> topics</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

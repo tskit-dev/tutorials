@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -211,17 +211,27 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Backward time simulations
+  Simulation
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="no_mutations.html">
    Do you really need mutations?
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="msprime.html">
+  <a class="reference internal" href="advanced_msprime.html">
    Advanced
    <strong class="program">
     msprime
@@ -251,18 +261,6 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing-forward-sims.html">
-   Completing forwards simulations
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Forward time simulations
- </span>
-</p>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="forward_sims.html">
    <em>
@@ -964,21 +962,21 @@ Alice Bob Chris Dora
 <h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this headline">#</a></h2>
 <p>Most users will want to use the SVG drawing functions
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg</span></code></a> and
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg</span></code></a> for visualization.
-Being a vectorised format, SVG files are suitable for presentations, publication, and
-<a class="reference internal" href="#sec-tskit-viz-converting"><span class="std std-ref">editing or converting</span></a> to other graphic formats. Some
-basic forms of animation are also possible. The SVG output can also be displayed in a
-Jupyter notebook using the IPython <code class="docutils literal notranslate"><span class="pre">display</span></code> and <code class="docutils literal notranslate"><span class="pre">SVG</span></code> functions:</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg</span></code></a> for visualization. Being a vectorised
+format, SVG files are suitable for presentations, publication, and
+<a class="reference internal" href="#sec-tskit-viz-converting"><span class="std std-ref">editing or converting</span></a> to other graphic formats; some
+basic forms of animation are also possible. Both functions produce an SVG string which is
+automatically drawn if the string is the result of the last call in a Jupyter notebook:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">SVG</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
 <span class="n">svg_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span> <span class="c1"># Height and width for the SVG: optional but useful for this notebook</span>
 <span class="n">svg_string</span> <span class="o">=</span> <span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="n">svg_size</span><span class="p">,</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>  <span class="c1"># optional: show a time scale on the left</span>
-    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span>  <span class="c1"># Match the axis coordinate systems to the text view</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span>  <span class="c1"># Force same axis settings as the text view</span>
 <span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">svg_string</span><span class="p">))</span>  <span class="c1"># If the last line in a cell, wrapping this in display() is not needed</span>
+<span class="n">display</span><span class="p">(</span><span class="n">svg_string</span><span class="p">)</span>  <span class="c1"># If the last line in a cell, wrapping this in display() is not needed</span>
 </pre></div>
 </div>
 </div>
@@ -999,7 +997,7 @@ more intuitive, linear scales can obscure some features of the trees, for exampl
 causing labels to overlap:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">svg_size</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">svg_size</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1023,11 +1021,11 @@ with 8 samples, but where we’ve restricted the amount of the tree sequence we 
 <span class="n">y_tick_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The tree sequence between positions </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2"> ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x_limits</span><span class="p">))</span>
-<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">))</span>
 
 <span class="n">third_tree</span> <span class="o">=</span> <span class="n">ts_small</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;... or just look at (say) the third tree&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -1059,13 +1057,14 @@ styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling">
     <span class="s2">&quot;.node &gt; .lab {font-size: 80%}&quot;</span>
     <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span>
 <span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_full</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts_full</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span>
     <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">node_label_style</span><span class="p">))</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">node_label_style</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1091,7 +1090,7 @@ as a red downwards-pointing chevron.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mutated</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts_small</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">342</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">))</span>
+<span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1129,7 +1128,7 @@ plot region, or simply plotting the tree itself:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">third_tree</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The third tree in the mutated tree sequence, which covers </span><span class="si">{</span><span class="n">third_tree</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">)))</span>
+<span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1150,7 +1149,7 @@ associated with an edge in the tree but which fall outside the interval of that 
 default these mutations are drawn in a slightly different shade (e.g. mutation 64 below).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">all_edge_mutations</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">third_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">all_edge_mutations</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1180,11 +1179,11 @@ to set more meaningful labels (for example from the tree sequence <a class="refe
     <span class="n">prev</span> <span class="o">=</span> <span class="n">ts_mutated</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
     <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">→</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span>
 
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labels</span><span class="p">,</span>
-    <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span>
-    <span class="p">))</span>
+    <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1212,11 +1211,11 @@ otherwise manipulated. This is done by passing a
 <span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CSS string applied:</span><span class="se">\n</span><span class="s1">    &quot;</span><span class="si">{</span><span class="n">css_string</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_full</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts_full</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>    <span class="c1"># Remove all node labels for a clearer viz</span>
     <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span>  <span class="c1"># Apply the stylesheet</span>
-<span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1294,7 +1293,7 @@ trees. For example, we can colour branches that are shared between trees
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;.a15.n9 &gt; .edge {stroke: cyan; stroke-width: 2px}&quot;</span>  <span class="c1"># branches from 15-&gt;9</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+<span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">wide_fmt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1331,12 +1330,12 @@ For visual clarity, node symbols and labels have been turned off.</p>
 <span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">css_edge_targets</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;{stroke: red} .sym {display: none}&quot;</span>
 
 <span class="n">wide_tall_fmt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_selection</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts_selection</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="n">wide_tall_fmt</span><span class="p">,</span>
     <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mf">1.74e4</span><span class="p">,</span> <span class="mf">3.25e4</span><span class="p">],</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>
-<span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1379,7 +1378,7 @@ of symbols, which can create rather different formatting styles:</p>
     <span class="c1"># For leaf nodes, override the above positioning using a subsequent CSS style</span>
     <span class="s2">&quot;.node.leaf &gt; .lab {transform: translate(0, 12px); font-size: 10pt}&quot;</span>
 <span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+<span class="n">ts_small</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1455,7 +1454,7 @@ thicker blue line:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_style</span> <span class="o">=</span> <span class="s2">&quot;.n13 .edge {stroke: blue; stroke-width: 2px}&quot;</span>
 <span class="n">nd_labs</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">]}</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_style</span><span class="p">))</span>
+<span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_style</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1473,7 +1472,7 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_style</span> <span class="o">=</span> <span class="s2">&quot;.n13 .node .edge {stroke: blue; stroke-width: 2px}&quot;</span>
 <span class="c1"># NB to target the edges in only (say) the 1st tree you could use &quot;.t0 .n13 .node .edge ...&quot;</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_style</span><span class="p">))</span>
+<span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">edge_style</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1497,7 +1496,7 @@ this normally-hidden line:</p>
     <span class="s2">&quot;.mut.m8 .lab {fill: red}&quot;</span>  <span class="c1"># colour the label &quot;8&quot; in red too</span>
 <span class="p">)</span>
 <span class="n">css_string</span> <span class="o">=</span> <span class="n">default_muts</span> <span class="o">+</span> <span class="n">m8_mut</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+<span class="n">ts_mutated</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">nd_labs</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1519,7 +1518,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_style1</span> <span class="o">=</span> <span class="s2">&quot;.n13 .sym {fill: yellow}&quot;</span>  <span class="c1"># All symbols under node 13 </span>
 <span class="n">node_style2</span> <span class="o">=</span> <span class="s2">&quot;.n15 &gt; .sym {fill: cyan}&quot;</span>  <span class="c1"># Only symbols that are an immediate child of node 15</span>
 <span class="n">css_string</span> <span class="o">=</span> <span class="n">node_style1</span> <span class="o">+</span> <span class="n">node_style2</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+<span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1535,7 +1534,7 @@ targetting of the leaf symbols only:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hide_internal_symlabs</span> <span class="o">=</span> <span class="s2">&quot;.node &gt; .sym, .node &gt; .lab {display: none}&quot;</span>
 <span class="n">show_leaf_symlabs</span> <span class="o">=</span> <span class="s2">&quot;.node.leaf &gt; .sym, .node.leaf &gt; .lab {display: initial}&quot;</span>
 <span class="n">css_string</span> <span class="o">=</span> <span class="n">hide_internal_symlabs</span> <span class="o">+</span> <span class="n">show_leaf_symlabs</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">))</span>
+<span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_tick_pos</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1558,11 +1557,11 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 <code class="docutils literal notranslate"><span class="pre">root_svg_attributes</span></code> parameter, then prepend this ID to the style string:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SVG</span><span class="p">(</span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_small</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">x_lim</span><span class="o">=</span><span class="n">x_limits</span><span class="p">,</span>
     <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s2">&quot;myUID&quot;</span><span class="p">},</span>
     <span class="n">style</span><span class="o">=</span><span class="s2">&quot;#myUID .background * {fill: #00FF00}&quot;</span><span class="p">,</span>  <span class="c1"># apply any old style to this specific SVG</span>
-<span class="p">))</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1711,7 +1710,7 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_root_mut.trees&quot;</span><span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">())</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1735,16 +1734,16 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 <span class="c1"># Thin the tick values so we don&#39;t get labels within 0.01 of each other</span>
 <span class="n">y_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ediff1d</span><span class="p">(</span><span class="n">y_ticks</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.01</span><span class="p">))</span>
 
-<span class="n">svg</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">350</span><span class="p">),</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_ticks</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">(</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;.tree .lab {font-family: sans-serif}&quot;</span>
     <span class="c1"># Normal X axis tick labels have dominant baseline: hanging, but it needs centring when rotated</span>
-    <span class="s2">&quot;.x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}&quot;</span>
-    <span class="s2">&quot;.y-axis .grid {stroke: #DDDDDD}&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;.x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;.y-axis .grid {stroke: #DDDDDD}&quot;</span>
     <span class="o">+</span> <span class="s2">&quot;.tree :not(.leaf).node &gt; .lab  {transform: translate(0,0); text-anchor:middle; fill: white}&quot;</span>
     <span class="o">+</span> <span class="s2">&quot;.tree :not(.leaf).node &gt; .sym {transform: scale(3.5)}&quot;</span>
     <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.tree .n</span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: hsl(</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">n</span><span class="o">.</span><span class="n">time</span><span class="o">/</span><span class="n">ts</span><span class="o">.</span><span class="n">max_root_time</span><span class="p">)</span><span class="o">*</span><span class="mi">260</span><span class="p">)</span><span class="si">}</span><span class="s2">, 50%, 50%)</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
-<span class="p">))</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">350</span><span class="p">),</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_ticks</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1769,7 +1768,7 @@ Note that in this example, internal node labels and symbols have been hidden for
     <span class="c1"># Hide internal node labels &amp; symbols</span>
     <span class="s2">&quot;.node:not(.leaf) &gt; .sym, .node:not(.leaf) &gt; .lab {display: none}&quot;</span>
 <span class="p">)</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">]))</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1793,7 +1792,7 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 <span class="n">css_string</span><span class="o">=</span><span class="s2">&quot;.leaf .sym {fill: blue} .sample &gt; .sym {fill: green}&quot;</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]))</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1866,7 +1865,7 @@ keeping node and mutation symbols in black, but colouring gridlines instead:</p>
 <span class="n">css</span> <span class="o">+=</span> <span class="s2">&quot;.y-axis .ticks .tick:nth-child(5) .grid {stroke: darkgrey}&quot;</span>  <span class="c1"># 5th line from bottom</span>
 <span class="n">y_ticks</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">:</span> <span class="s2">&quot;30&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span> <span class="s2">&quot;Introgress&quot;</span><span class="p">,</span> <span class="mi">70</span><span class="p">:</span> <span class="s2">&quot;Eur origin&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">:</span> <span class="s2">&quot;Nea origin&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">}</span>
 <span class="n">y_ticks</span> <span class="o">=</span> <span class="p">{</span><span class="n">y</span> <span class="o">*</span> <span class="n">time_units</span><span class="p">:</span> <span class="n">lab</span> <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">y_ticks</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-<span class="n">SVG</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
     <span class="n">x_lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25_000</span><span class="p">),</span>
     <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
@@ -1876,7 +1875,8 @@ keeping node and mutation symbols in black, but colouring gridlines instead:</p>
     <span class="n">x_label</span><span class="o">=</span><span class="s2">&quot;Genomic position (bp)&quot;</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="n">y_ticks</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">css</span><span class="p">))</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">css</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
