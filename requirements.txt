@@ -7,5 +7,5 @@ scikit-allel
 tqdm
 numpy
 networkx
-tskit>=0.5
+tskit>=0.5.1
 msprime>=1.0

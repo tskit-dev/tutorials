@@ -25,7 +25,6 @@ models of demography and population history with a simple Python API.
 ```{code-cell}
 import msprime
 import numpy as np
-from IPython.display import SVG
 ```
 
 ## Population structure
@@ -141,11 +140,9 @@ with nodes coloured by population label using SVG:
 
 ```{code-cell} 
 colour_map = {0:"red", 1:"blue"}
-node_colours = {u.id: colour_map[u.population] for u in ts.nodes()}
-for tree in ts.trees():
-    print("Tree on interval:", tree.interval)
-    # The code below will only work in a Jupyter notebook with SVG output enabled.
-    display(SVG(tree.draw(node_colours=node_colours)))
+styles = [f".node.p{p} > .sym {{fill: {col} }}" for p, col in colour_map.items()]
+# The code below will only work in a Jupyter notebook with SVG output enabled.
+ts.draw_svg(style="".join(styles))
 ```
 
 More coalescences are happening in population 1 than population 0.
@@ -394,7 +391,7 @@ The effect of the census is to add nodes onto each branch of the tree sequence a
 ```{code-cell} 
 print("IDs of census nodes:")
 print([u.id for u in ts.nodes() if u.flags==msprime.NODE_IS_CEN_EVENT])
-SVG(ts.draw_svg())
+ts.draw_svg()
 ```
 
 By extracting these node IDs, you can perform further analyses using the ancestral haplotypes.

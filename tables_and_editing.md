@@ -166,8 +166,7 @@ ts = tskit.load("data/tables_example.trees")
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-from IPython.display import SVG
-SVG(ts.draw_svg(y_axis=True))
+ts.draw_svg(y_axis=True)
 ```
 
 Ancestral recombination events have produced three different trees
@@ -238,7 +237,7 @@ for mut in ts.mutations():  # This entire loop is just to make pretty labels
     older_mut = mut.parent >= 0  # is there an older mutation at the same position?
     prev = ts.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
     mut_labels[mut.id] = "{}→{} @{:g}".format(prev, mut.derived_state, site.position)
-SVG(ts.draw_svg(y_axis=True, mutation_labels=mut_labels))
+ts.draw_svg(y_axis=True, mutation_labels=mut_labels)
 ```
 
 There are four mutations in the depiction above,
@@ -553,7 +552,7 @@ Now that it had been turned into a tree sequence, we can plot it:
 
 ```{code-cell} ipython3
 # Plot without mutation labels, for clarity 
-SVG(altered_ts.draw_svg(y_axis=True, y_gridlines=True, mutation_labels={}))
+altered_ts.draw_svg(y_axis=True, y_gridlines=True, mutation_labels={})
 ```
 
 You can see that the new tree sequence has been modified as expected: there is a new
@@ -570,7 +569,7 @@ understand how tables work. We'll build an extremely simple tree sequence, consi
 a single tree that looks like this:
 
 ```{code-cell} ipython3
-SVG(tskit.load("data/construction_example.trees").draw_svg(y_axis=True))
+tskit.load("data/construction_example.trees").draw_svg(y_axis=True)
 ```
 
 Starting with an empty set of tables, we can fill, say, the node information by using
@@ -612,7 +611,7 @@ site_id = tables.sites.add_row(position=500.0, ancestral_state='0')
 tables.mutations.add_row(site=site_id, node=2, derived_state='1')
 ts = tables.tree_sequence()
 print("A hand-built tree sequence!")
-SVG(ts.draw_svg(y_axis=True))
+ts.draw_svg(y_axis=True)
 ```
 
 :::{note}

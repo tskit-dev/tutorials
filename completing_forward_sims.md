@@ -9,6 +9,8 @@ kernelspec:
   name: python3
 ---
 
+(sec_completing_forwards_simulations)=
+
 # Completing forwards simulations
 
 The ``msprime`` simulator generates tree sequences using the backwards in
@@ -34,7 +36,6 @@ import tskit
 import msprime
 import random
 import numpy as np
-from IPython.display import SVG
 
 
 def wright_fisher(N, T, L=100, random_seed=None):
@@ -86,7 +87,7 @@ for 5 generations, and print out the resulting trees:
 num_loci = 2
 N = 10
 wf_ts = wright_fisher(N, 5, L=num_loci, random_seed=3)
-SVG(wf_ts.draw_svg())
+wf_ts.draw_svg()
 ```
 
 Because our Wright Fisher simulation ran for only 5 generations, there has not
@@ -136,7 +137,7 @@ coalesced_ts = msprime.sim_ancestry(
     recombination_rate=1 / num_loci, 
     ploidy=1,
     random_seed=7)
-SVG(coalesced_ts.draw_svg())
+coalesced_ts.draw_svg()
 ```
 
 The trees have fully coalesced and we've successfully combined a forwards-time
@@ -192,9 +193,8 @@ computed tree sequence which is easily done using the
 {meth}`simplify <tskit.TreeSequence.simplify>` method:
 
 ```{code-cell} ipython3
-
-    final_ts = coalesced_ts.simplify()
-    SVG(coalesced_ts.draw_svg())
+final_ts = coalesced_ts.simplify()
+coalesced_ts.draw_svg()
 ```
 
 This final tree sequence is topologically identical to the original tree sequence,
