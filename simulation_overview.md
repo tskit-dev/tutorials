@@ -15,7 +15,7 @@ kernelspec:
 
 # Tree sequences and simulation
 
-**Yan Wong, Georgia Tsambos, and Pater Ralph**
+**Yan Wong, Georgia Tsambos, and Peter Ralph**
 
 Simulations are important in population genetics for many reasons:
 
