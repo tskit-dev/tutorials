@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,6 +42,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -1240,37 +1241,35 @@ expected length:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [18],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:490,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="ne">--&gt; </span><span class="mi">490</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:489,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">488</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+<span class="ne">--&gt; </span><span class="mi">489</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:1222,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1190</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1191</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8/site-packages/tskit/tables.py:1202,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1169</span> <span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1170</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1171</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1219</span><span class="sd"> :type metadata_schema: str</span>
-<span class="g g-Whitespace">   </span><span class="mi">1220</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1221</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1222</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1223</span>     <span class="nb">dict</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1224</span>         <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1225</span>         <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1226</span>         <span class="n">population</span><span class="o">=</span><span class="n">population</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1227</span>         <span class="n">individual</span><span class="o">=</span><span class="n">individual</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1228</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1229</span>         <span class="n">metadata_offset</span><span class="o">=</span><span class="n">metadata_offset</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1230</span>         <span class="n">metadata_schema</span><span class="o">=</span><span class="n">metadata_schema</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1231</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1232</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1233</span> <span class="k">if</span> <span class="n">metadata_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1234</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_metadata_schema_cache_from_ll</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1199</span><span class="sd"> :type metadata_schema: str</span>
+<span class="g g-Whitespace">   </span><span class="mi">1200</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1201</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1202</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1203</span>     <span class="nb">dict</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1204</span>         <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1205</span>         <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1206</span>         <span class="n">population</span><span class="o">=</span><span class="n">population</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1207</span>         <span class="n">individual</span><span class="o">=</span><span class="n">individual</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1208</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1209</span>         <span class="n">metadata_offset</span><span class="o">=</span><span class="n">metadata_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1210</span>         <span class="n">metadata_schema</span><span class="o">=</span><span class="n">metadata_schema</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1211</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1212</span> <span class="p">)</span>
 
 <span class="ne">ValueError</span>: Input array dimensions must be equal.
 </pre></div>
@@ -1359,7 +1358,7 @@ the attributes enforce read-only access:</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">FrozenInstanceError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="nn">Input In [22],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span>
 
 <span class="nn">File &lt;string&gt;:4,</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
@@ -1812,7 +1811,10 @@ This also involves changing the ancestral state at the site if necessary.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original ts has 154 mutations on 71 trees
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original ts has
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 154 mutations on 71 trees
 Parsimonious ts has 33 fewer muts
 </pre></div>
 </div>

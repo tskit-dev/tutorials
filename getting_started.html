@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,6 +42,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -792,7 +793,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
       <tr>
         <td>Provenances</td>
           <td>2</td>
-          <td>1.9 KiB</td>
+          <td>1.8 KiB</td>
           <td style="text-align: center;">
 
           </td>
@@ -894,7 +895,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0200396 secs
+Checked in 0.0201848 secs
 </pre></div>
 </div>
 </div>
@@ -1011,8 +1012,8 @@ often incorporated automatically by the tools generating the tree sequence.</p>
 sites or mutations in your analyses.</p>
 </aside>
 <p>For many purposes it may be better to focus on the genealogy of your samples, rather than
-the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions-site" title="(in Python)"><span class="xref std std-ref">sites</span></a> and
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-definitions-mutation" title="(in Python)"><span class="xref std std-ref">mutations</span></a> that
+the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-site" title="(in Python)"><span class="xref std std-ref">sites</span></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-mutation" title="(in Python)"><span class="xref std std-ref">mutations</span></a> that
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">define</span></a> the genome sequence itself. Nevertheless,
 <strong class="program">tskit</strong> also provides efficient ways to return <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Site</span></code></a> object and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mutation</span></code></a> objects from a tree sequence.
@@ -1091,7 +1092,7 @@ a single sample can be obtained via the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.alleles" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alleles</span></code></a> provided for each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variant</span></code></a>:
 the genotype value is an index into this list. Here’s one way to print them out; for
 clarity this example also prints out the IDs of both the sample nodes (i.e. the genomes)
-and the diploid <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individuals</span></a> in which each sample
+and the diploid <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individuals</span></a> in which each sample
 node resides.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1302,7 +1303,7 @@ for which tskit has basic support:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>##fileformat=VCFv4.2
-##source=tskit 0.5.1
+##source=tskit 0.5.2
 ##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
 ##contig=&lt;ID=1,length=10000&gt;
 ##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;

@@ -21,7 +21,7 @@
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,6 +42,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -708,7 +709,7 @@ to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pytho
 to be provided to the periodic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> steps
 which are essential in practical simulation, but that we skipped in the toy simulator above.</p>
 <p>In fact, this is precisely how tree sequence recording in <a class="reference external" href="https://messerlab.org/slim">SLiM</a>,
-works, and <a class="reference external" href="https://tskit.dev/pyslim/docs/stable/python_api.html#pyslim.SlimTreeSequence.recapitate" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyslim.SlimTreeSequence.recapitate()</span></code></a> provides a front-end to
+works, and <a class="reference external" href="https://tskit.dev/pyslim/docs/stable/python_api.html#pyslim.recapitate" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyslim.recapitate()</span></code></a> provides a front-end to
 the method presented here.</p>
 </section>
 <section id="topology-gotchas">
