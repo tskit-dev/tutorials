@@ -165,7 +165,7 @@ to be provided to the periodic {meth}`~tskit.TableCollection.simplify` steps
 which are essential in practical simulation, but that we skipped in the toy simulator above.
 
 In fact, this is precisely how tree sequence recording in [SLiM](https://messerlab.org/slim),
-works, and {meth}`pyslim.SlimTreeSequence.recapitate` provides a front-end to
+works, and {func}`pyslim.recapitate` provides a front-end to
 the method presented here.
 
 
