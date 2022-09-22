@@ -9,3 +9,4 @@ numpy
 networkx
 tskit>=0.5.1
 msprime>=1.0
+tskit-book-theme==0.3.2

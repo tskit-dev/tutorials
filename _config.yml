@@ -32,6 +32,8 @@ sphinx:
     - sphinx.ext.todo
     - sphinx.ext.intersphinx
     config:
+      html_theme: tskit_book_theme
+      pygments_style: monokai
       todo_include_todos: true
       intersphinx_mapping:
         py: ["https://docs.python.org/3", null]
