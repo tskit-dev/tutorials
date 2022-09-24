@@ -132,8 +132,8 @@ txt._get_wrap_line_width = lambda: 600
 plt.show()
 ```
 
-As the name suggests, the simplest way to think
-about a tree sequence is as a sequence of "local trees" --- i.e. trees located at
+As the name suggests, the simplest way to think about a tree sequence is that it
+describes a sequence of correlated "local trees" --- i.e. trees located at
 different points along the [chromosome](https://en.wikipedia.org/wiki/Chromosome).
 Here's a tiny example based on ten genomes, $\mathrm{a}$ to $\mathrm{j}$, spanning
 a short 1000 letter chromosome.
@@ -173,10 +173,13 @@ the first tree. The second tree shows the relationships between positions 189 an
 and the third from position 546 to the end. We can say that the first tree spans 189
 base pairs, the second 357, and the third 454.
 
-Multiple trees are needed because of
-[genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination), which causes
-different regions of the chromosome to have different histories. Together, the sequence
-of trees describe the full genetic ancestry, or *genetic genealogy*, of our 10 genomes.
+In fact, succinct tree sequences don't store each tree separately, but instead are
+based on an interconnected *genetic genealogy* (sometimes known as an Ancestral
+Recombination Graph or ARG), in which
+[genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination) has led
+to different regions of the chromosome having different histories. Another way of
+thinking about the tree sequence above is that it describes the full genetic ancestry
+of our 10 genomes.
 
 (sec_what_is_dna_data)=
 
