@@ -11,6 +11,9 @@ kernelspec:
   name: python3
 ---
 
+```{currentmodule} tskit
+```
+
 (sec_tskit_viz)=
 
 ```{code-cell} ipython3
@@ -176,8 +179,8 @@ can create them.
 
 ## Text format
 
-The ``TreeSequence.draw_text`` and
-``Tree.draw_text`` methods provide
+The {meth}`TreeSequence.draw_text` and
+{meth}`Tree.draw_text` methods provide
 a quick way to print out a tree sequence, or an individual tree within it. They are
 primarily useful for looking at topologies in small datasets (e.g. fewer than 20 sampled
 genomes), and do not display mutations.
@@ -198,8 +201,8 @@ print(ts_tiny.first().draw_text(
 ## SVG format
 
 Most users will want to use the SVG drawing functions
-{meth}`TreeSequence.draw_svg <tskit.TreeSequence.draw_svg>` and
-{meth}`Tree.draw_svg <tskit.Tree.draw_svg>` for visualization. Being a vectorised
+{meth}`TreeSequence.draw_svg` and
+{meth}`Tree.draw_svg` for visualization. Being a vectorised
 format, SVG files are suitable for presentations, publication, and
 {ref}`editing or converting <sec_tskit_viz_converting>` to other graphic formats; some
 basic forms of animation are also possible. Both functions produce an SVG string which is
@@ -235,14 +238,14 @@ causing labels to overlap:
 ts_tiny.draw_svg(size=svg_size, y_axis=True)
 ```
 
-One way to avoid overlapping labels on the Y axis is to use the ``y_ticks`` parameter,
+One way to avoid overlapping labels on the Y axis is to use the `y_ticks` parameter,
 which will be used in most subsequent examples in this tutorial.
 
 ### Larger tree sequences
 
 So far, we have plotted only very small tree sequences. To visualize larger tree
 sequences it is sometimes advisable to focus on a small region of the genome, possibly
-even a single tree. The ``x_lim`` parameter allows you to plot the part of a tree
+even a single tree. The `x_lim` parameter allows you to plot the part of a tree
 sequence that spans a particular genomic region: here's a slighly larger tree sequence
 with 8 samples, but where we've restricted the amount of the tree sequence we plot:
 
@@ -260,10 +263,10 @@ display(third_tree.draw_svg())
 ```
 
 As the number of sample nodes increases, internal nodes often bunch up at recent time
-points, obscuring relationships. Setting ``time_scale="rank"``, as in the first SVG plot,
+points, obscuring relationships. Setting `time_scale="rank"`, as in the first SVG plot,
 is one way to solve this. Another is to use a log-scale on the time axis, which can be
-done by specifying ``time_scale="log_time"``, as below. To compare node times across the
-plot, this example also uses the ``y_gridlines`` option, which puts a very faint grid
+done by specifying `time_scale="log_time"`, as below. To compare node times across the
+plot, this example also uses the `y_gridlines` option, which puts a very faint grid
 line at each y tick (if you are finding the lines difficult to see, note that the line
 intensity, along with many other plot features, can be modified through
 {ref}`styling <sec_tskit_viz_styling>`, which we also use in this example to avoid
@@ -296,7 +299,7 @@ The SVG visualization also allows mutations to displayed on the tree or tree seq
 Here are the same plots as above but where the tree sequence now contains mutations. Each
 mutation is plotted as a red cross on the branch where it occurs. This mutation symbol is
 placed either at the mutation's known time, or spaced evenly along the branch (if the
-mutation time is unknown or the ``time_scale`` parameter has been set to ``"rank"``).
+mutation time is unknown or the `time_scale` parameter has been set to `"rank"`).
 By default, each mutation is also labelled with its {class}`mutation ID<tskit.Mutation>`.
 
 If the X axis is shown (which it is by default when drawing a tree sequence, but not
@@ -324,7 +327,7 @@ print(site_descr.replace("[", "[\n  ").replace("),", "),\n ").replace("],", "],\
 
 #### Which mutations are shown?
 
-When using the ``x_lim`` parameter, only the mutations in the plotted region are shown.
+When using the `x_lim` parameter, only the mutations in the plotted region are shown.
 For the third tree in the tree sequence visualization above, we thus haven't plotted
 mutations above position 15000. We can see *all* the mutations in the tree by changing the
 plot region, or simply plotting the tree itself:
@@ -344,7 +347,7 @@ that persists across adjacent trees. For instance the rightmost branch in the tr
 from node 10 down to 7, exists in the previous two trees too. Indeed, this edge has a
 mutation on it at position 6295, in the first tree. This mutation is not plotted in the
 tree above, but if you want *all* the mutations on each edge to be plotted, you can set
-the ``all_edge_mutations`` parameter to ``True``. This adds any extra mutations that are
+the `all_edge_mutations` parameter to `True`. This adds any extra mutations that are
 associated with an edge in the tree but which fall outside the interval of that tree; by
 default these mutations are drawn in a slightly different shade (e.g. mutation 64 below).
 
@@ -355,7 +358,7 @@ third_tree.draw_svg(size=(200, 300), all_edge_mutations=True)
 ### Labelling
 
 Although the default node and mutation labels show unique identifiers, they are't
-terribly intuituive. The ``node_labels`` and ``mutation_labels`` parameters can be used
+terribly intuituive. The `node_labels` and `mutation_labels` parameters can be used
 to set more meaningful labels (for example from the tree sequence {ref}`sec_metadata`).
 
 ```{code-cell} ipython3
@@ -389,7 +392,7 @@ The SVG output produced by tskit contains a large number of
 target different elements of the drawing, allowing them to be hidden, styled, or
 otherwise manipulated. This is done by passing a
 [cascading style sheet (CSS)](https://www.w3.org/TR/SVG/styling.html) string to
-``draw_svg``. A common use of styles is to colour nodes by their population:
+`draw_svg`. A common use of styles is to colour nodes by their population:
 
 ```{code-cell} ipython3
 styles = []
@@ -414,7 +417,7 @@ does not exactly reflect the population divisions, there's still considerable
 population substructure present in this larger tree.
 
 :::{todo}
-The (older) ``Tree.draw()`` function also has a ``node_colour`` argument that can be
+The (older) {meth}`Tree.draw` function also has a `node_colour` argument that can be
 used to colour tree nodes, which is used in some of the other tskit tutorials. Under the
 hood, this function simply sets appropriate SVG styles on nodes. We intend to make it
 easier to set colours in a similar way: see https://github.com/tskit-dev/tskit/issues/579.
@@ -422,53 +425,68 @@ easier to set colours in a similar way: see https://github.com/tskit-dev/tskit/i
 
 
 The CSS string used to style the tree above takes advantage of the general classes defined
-in a tskit SVG file: a node symbol always has a class named ``sym``, which is contained
+in a tskit SVG file: a node symbol always has a class named `sym`, which is contained
 within a [grouping element](https://www.w3.org/TR/SVG2/struct.html#Groups) of class
-``node``. Moreover, elements such as ``node`` have *additional* classes, such as ``p1``,
+`node`. Moreover, elements such as `node` have *additional* classes, such as `p1`,
 indicating that the node in this case belongs to the population with ID 1.
 
-Here are the general tskit SVG classes that can be used to style specific elements.
+#### Available css classes
 
-* ``tree``: a grouping element containing each tree
-* ``node``: a grouping element within a tree, containing a node and its descendant
+Here are the css classes in a tskit SVG which can be used to style specific elements.
+
+##### Within the plotting area
+
+* `tree`: a grouping element containing each tree
+* `node`: a grouping element within a tree, containing a node and its descendant
     elements such as a node symbol, an edge, mutations, and other nodes.
-* ``mut``: a grouping element containing a mutation symbol and label
-* ``extra``: an extra class for mutations {ref}`outside the tree <sec_tskit_viz_extra_mutations>`
-* ``lab``: a label element (for a node, mutation, axis, tick number, etc.)
-* ``sym``: a symbol element (e.g. a node, mutation, or site symbol)
-* ``edge``: an edge element (i.e. a branch in a tree)
-* ``root``, ``leaf`` and ``sample``: additional classes applied to a node group if the
+* `mut`: a grouping element containing a mutation symbol and label
+* `extra`: an extra class for mutations {ref}`outside the tree <sec_tskit_viz_extra_mutations>`
+* `lab`: a label element (for a node, mutation, axis, tick number, etc.)
+* `sym`: a symbol element (e.g. a node, mutation, or site symbol)
+* `edge`: an edge element (i.e. a branch in a tree)
+* `root`, `leaf` and `sample`: additional classes applied to a node group if the
     node is a root node, a leaf node or a sample node
-* ``rgt`` and ``lft``: additional classes applied to labels for left- or
+* `unknown_time`: a class added to `mut` groups if the time of the mutation is
+    {data}`tskit.UNKNOWN_TIME`.
+* `rgt` and `lft`: additional classes applied to labels for left- or
     right-justification
 
-A few extra classes may be used to style the plot decorations:
+##### Outside the plotting area
 
-* ``axes``: a grouping element containing the X and Y axes, if either are present
-* ``x-axis``, ``y-axis``: more specific grouping elements contained within ``axes``
-* ``tick``: a single tick on an axis, containing a tickmark line and a label
-* ``site``: a grouping element representing a site (plotted on the X axis), containing a
-    site symbol (a tick line) and zero or more mutation groups, each containing a
+* `axes`: a grouping element containing the X and Y axes, if either are present
+* `x-axis`, `y-axis`: more specific grouping elements contained within `axes`
+* `tick`: a single tick on an axis, containing a tickmark line and a label
+* `site`: a grouping element representing a site (plotted on the X axis), containing a
+    site symbol (a tick line) and zero or more `mut` groups, each containing a
     chevron-shaped mutation symbol
-* ``background``: the shaded background of a tree sequence plot
-* ``grid``: a gridline
+* `background`: the shaded background of a tree sequence plot
+* `grid`: a gridline
 
-The additional classes are primarily based on the IDs of trees, nodes, parent (ancestor)
+##### ID-based classes
+
+Elements have additional classes based on the IDs of trees, nodes, parent (ancestor)
 nodes, individuals, populations, mutations, and sites. These class names start with a
 single letter (respectively `t`, `n`, `a`, `i`, `p`, `m`, and `s`) followed by a
-numerical ID. A comprehensive example is the rightmost leaf (node 7) in the third tree
-in the mutated tree sequence, plotted in the previous section but one. In that tree
-sequence, node 7 is a leaf and also a
-sample node. It belongs to
-an {ref}`individual <sec_nodes_or_individuals>` with ID 3, comes from the population with
-ID 2, and has an immediate ancestor (parent) node with ID 10. It also has mutations with
-IDs 16 and 17 above it, and those mutations are associated with site IDs 15 and 16.
-In the SVG file, the node (containing a symbol and label) is therefore represented by
-the following element:
+numerical ID. For example, here's a typical node in an tskit SVG plot:
 
 ```
 <g class="a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample">...</g>
 ```
+
+This corresponds to node 7, the rightmost leaf in the third tree in the mutated tree
+sequence (plotted in the previous section but one). The classes indicate that it
+has an immediate ancestor (parent) node with ID 10 (`a10`), and that the node
+belongs to an {ref}`individual <sec_nodes_or_individuals>` with ID 3 (`i3`).
+The classes `n7` and `p2` tell us that the node ID is 7 and is is from the
+population with ID 2 (`p2`). Other ID classes on the node tell us about the mutations
+above that node, of which there are two in this case, with
+IDs 16 and 17 (`m16`, `m17`); those mutations are associated with
+site IDs 15 and 16 (`s16`, `s17`).
+
+Other grouping elements apart from nodes can also contain ID-based classes. For example
+the `tree` group contains the ID of the tree (e.g. `t0`), the `site` group on the X axis
+contains the site ID (e.g. `s15`) the `mut` class contains the mutation ID (e.g. `m16`),
+and so on.
 
 #### Styling graphical elements 
 
@@ -558,12 +576,12 @@ ts_small.first().draw_svg(style=css_string)
 ```
 
 :::{note}
-Using ``transform`` in styles is an SVG2 feature, and has not yet been implemented in
+Using `transform` in styles is an SVG2 feature, and has not yet been implemented in
 the software programs Inkscape or librsvg. Therefore if you are
 {ref}`converting or editing <sec_tskit_viz_converting>` the examples above, symbol sizes
-and label positions may be incorrect. The ``symbol_size`` option can be used if you want
+and label positions may be incorrect. The `symbol_size` option can be used if you want
 to simply change the size of all symbols in the plot, but otherwise you may need
-to use the ``chromium`` workaround documented {ref}`here <sec_tskit_viz_converting_note>`.
+to use the `chromium` workaround documented {ref}`here <sec_tskit_viz_converting_note>`.
 :::
 
 
@@ -635,10 +653,10 @@ ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style)
 This might not be quite what you expected: the branch leading from node 13 to its parent 
 (node 17) has also been coloured. That's because the SVG node group deliberately contains
 the branch that leads to the parent (this can be helpful, for example, for hiding the
-entire subtree leading to node 13, using e.g. ``.n13 {display: none}``). To colour
+entire subtree leading to node 13, using e.g. `.n13 {display: none}`). To colour
 the branches *descending* from node 13, you therefore need to target the nodes nested
 at least one level deep within the `n13` group. One way to do that is to add an
-extra ``.node`` class to the style, e.g.
+extra `.node` class to the style, e.g.
 
 ```{code-cell} ipython3
 edge_style = ".n13 .node .edge {stroke: blue; stroke-width: 2px}"
@@ -649,8 +667,8 @@ ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=edge_style)
 If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also *part* of an edge (i.e. the line
 that connects a mutation downwards to its associated node). The tskit SVG format provides
-a special ``<line>`` element to enable this, which is normally made invisible using
-``fill: none stroke: none`` in the default stylesheet. Here's an example of activating
+a special `<line>` element to enable this, which is normally made invisible using
+`fill: none stroke: none` in the default stylesheet. Here's an example of activating
 this normally-hidden line:
 
 ```{code-cell} ipython3
@@ -671,7 +689,7 @@ ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=css_string)
 Sometimes the hierarchical nesting leads to styles being applied too widely. For example,
 since style selectors include all the descendants of a target, to target just the node
 itself (and not its descendants) a slightly different specification is required,
-involving, the "``>``" symbol, or
+involving, the "`>`" symbol, or
 [child combinator](https://www.w3.org/TR/selectors-3/#child-combinators) (we have,
 in fact, used it in several previous examples). The following plot shows the difference
 when all decendant symbols are targetted, versus just the immediate child symbol:
@@ -695,7 +713,7 @@ css_string = hide_internal_symlabs + show_leaf_symlabs
 ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_string)
 ```
 
-Alternatively, the ``:not`` selector can be used to target nodes that are *not* leaves,
+Alternatively, the `:not` selector can be used to target nodes that are *not* leaves,
 so the following style specification should produce the same effect in SVG viewers that
 support it (note, however, as of v1.2 Inkscape does not appear to support this selector).
 
@@ -709,7 +727,7 @@ NOTE: if your SVG is embedded directly into an HTML page (a common way for jupyt
 notebooks to render SVGs), then according to the HTML specifications, any styles applied
 to one SVG will apply to all SVGs in the document. To avoid this confusing state of
 affairs,  we recommend that you tag the SVG with a unique ID using the
-``root_svg_attributes`` parameter, then prepend this ID to the style string:
+`root_svg_attributes` parameter, then prepend this ID to the style string:
 
 ```{code-cell} ipython3
 ts_small.draw_svg(
@@ -743,7 +761,7 @@ produce reasonable output, although librsvg currently misaligns some labels due 
 (sec_tskit_viz_converting_note)=
 
 :::{note}
-A few stylesheet specifications, such as the ``transform`` property, are SVG2
+A few stylesheet specifications, such as the `transform` property, are SVG2
 features, and have not yet been implemented in Inkscape or librsvg.
 Therefore if you use these in your own custom SVG stylesheet (such as the example
 above where we rotated leaf labels), they will not be applied properly
@@ -762,7 +780,7 @@ transformations.
 
 :::{todo}
 Tips on how to cope with the hierarchical grouping when editing (e.g. in Inkscape using
-``Extensions menu > Arrange > Deep Ungroup``, but note that this will mess with the styles!)
+`Extensions menu > Arrange > Deep Ungroup`, but note that this will mess with the styles!)
 :::
 
 
@@ -789,7 +807,7 @@ HTML(("&nbsp;"*10).join(html))
 
 #### A standard ts plot
 Note that this tree sequence also illustrates a few features which are not normally
-produced e.g. by ``msprime`` simulations, in particular a "empty" site (with no
+produced e.g. by `msprime` simulations, in particular a "empty" site (with no
 associated mutations) at position 50, and some mutations that occur above root nodes in
 the trees. Graphically, root mutations necessitate a line above the root node on which to
 place them, so each tree in this SVG has a nominal "root branch" at the top. Normally,
