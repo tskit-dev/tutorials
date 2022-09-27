@@ -543,6 +543,28 @@ title="Print to PDF"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#available-css-classes">
+       Available css classes
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#within-the-plotting-area">
+         Within the plotting area
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#outside-the-plotting-area">
+         Outside the plotting area
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id-based-classes">
+         ID-based classes
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#styling-graphical-elements">
        Styling graphical elements
       </a>
@@ -733,6 +755,28 @@ title="Print to PDF"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#available-css-classes">
+       Available css classes
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#within-the-plotting-area">
+         Within the plotting area
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#outside-the-plotting-area">
+         Outside the plotting area
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id-based-classes">
+         ID-based classes
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#styling-graphical-elements">
        Styling graphical elements
       </a>
@@ -903,8 +947,8 @@ can create them.</p>
 </div>
 <section id="text-format">
 <h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this headline">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">TreeSequence.draw_text</span></code> and
-<code class="docutils literal notranslate"><span class="pre">Tree.draw_text</span></code> methods provide
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_text" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_text()</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_text" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_text()</span></code></a> methods provide
 a quick way to print out a tree sequence, or an individual tree within it. They are
 primarily useful for looking at topologies in small datasets (e.g. fewer than 20 sampled
 genomes), and do not display mutations.</p>
@@ -962,8 +1006,8 @@ Alice Bob Chris Dora
 <section id="svg-format">
 <h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this headline">#</a></h2>
 <p>Most users will want to use the SVG drawing functions
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg</span></code></a> and
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg</span></code></a> for visualization. Being a vectorised
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg()</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> for visualization. Being a vectorised
 format, SVG files are suitable for presentations, publication, and
 <a class="reference internal" href="#sec-tskit-viz-converting"><span class="std std-ref">editing or converting</span></a> to other graphic formats; some
 basic forms of animation are also possible. Both functions produce an SVG string which is
@@ -1235,7 +1279,7 @@ does not exactly reflect the population divisions, there’s still considerable
 population substructure present in this larger tree.</p>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
-<p>The (older) <code class="docutils literal notranslate"><span class="pre">Tree.draw()</span></code> function also has a <code class="docutils literal notranslate"><span class="pre">node_colour</span></code> argument that can be
+<p>The (older) <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw()</span></code></a> function also has a <code class="docutils literal notranslate"><span class="pre">node_colour</span></code> argument that can be
 used to colour tree nodes, which is used in some of the other tskit tutorials. Under the
 hood, this function simply sets appropriate SVG styles on nodes. We intend to make it
 easier to set colours in a similar way: see https://github.com/tskit-dev/tskit/issues/579.</p>
@@ -1245,7 +1289,11 @@ in a tskit SVG file: a node symbol always has a class named <code class="docutil
 within a <a class="reference external" href="https://www.w3.org/TR/SVG2/struct.html#Groups">grouping element</a> of class
 <code class="docutils literal notranslate"><span class="pre">node</span></code>. Moreover, elements such as <code class="docutils literal notranslate"><span class="pre">node</span></code> have <em>additional</em> classes, such as <code class="docutils literal notranslate"><span class="pre">p1</span></code>,
 indicating that the node in this case belongs to the population with ID 1.</p>
-<p>Here are the general tskit SVG classes that can be used to style specific elements.</p>
+<section id="available-css-classes">
+<h4>Available css classes<a class="headerlink" href="#available-css-classes" title="Permalink to this headline">#</a></h4>
+<p>Here are the css classes in a tskit SVG which can be used to style specific elements.</p>
+<section id="within-the-plotting-area">
+<h5>Within the plotting area<a class="headerlink" href="#within-the-plotting-area" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tree</span></code>: a grouping element containing each tree</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: a grouping element within a tree, containing a node and its descendant
@@ -1257,35 +1305,49 @@ elements such as a node symbol, an edge, mutations, and other nodes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">edge</span></code>: an edge element (i.e. a branch in a tree)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">root</span></code>, <code class="docutils literal notranslate"><span class="pre">leaf</span></code> and <code class="docutils literal notranslate"><span class="pre">sample</span></code>: additional classes applied to a node group if the
 node is a root node, a leaf node or a sample node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unknown_time</span></code>: a class added to <code class="docutils literal notranslate"><span class="pre">mut</span></code> groups if the time of the mutation is
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.UNKNOWN_TIME" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.UNKNOWN_TIME</span></code></a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">rgt</span></code> and <code class="docutils literal notranslate"><span class="pre">lft</span></code>: additional classes applied to labels for left- or
 right-justification</p></li>
 </ul>
-<p>A few extra classes may be used to style the plot decorations:</p>
+</section>
+<section id="outside-the-plotting-area">
+<h5>Outside the plotting area<a class="headerlink" href="#outside-the-plotting-area" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">axes</span></code>: a grouping element containing the X and Y axes, if either are present</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">x-axis</span></code>, <code class="docutils literal notranslate"><span class="pre">y-axis</span></code>: more specific grouping elements contained within <code class="docutils literal notranslate"><span class="pre">axes</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tick</span></code>: a single tick on an axis, containing a tickmark line and a label</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">site</span></code>: a grouping element representing a site (plotted on the X axis), containing a
-site symbol (a tick line) and zero or more mutation groups, each containing a
+site symbol (a tick line) and zero or more <code class="docutils literal notranslate"><span class="pre">mut</span></code> groups, each containing a
 chevron-shaped mutation symbol</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">background</span></code>: the shaded background of a tree sequence plot</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">grid</span></code>: a gridline</p></li>
 </ul>
-<p>The additional classes are primarily based on the IDs of trees, nodes, parent (ancestor)
+</section>
+<section id="id-based-classes">
+<h5>ID-based classes<a class="headerlink" href="#id-based-classes" title="Permalink to this headline">#</a></h5>
+<p>Elements have additional classes based on the IDs of trees, nodes, parent (ancestor)
 nodes, individuals, populations, mutations, and sites. These class names start with a
 single letter (respectively <code class="docutils literal notranslate"><span class="pre">t</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, and <code class="docutils literal notranslate"><span class="pre">s</span></code>) followed by a
-numerical ID. A comprehensive example is the rightmost leaf (node 7) in the third tree
-in the mutated tree sequence, plotted in the previous section but one. In that tree
-sequence, node 7 is a leaf and also a
-sample node. It belongs to
-an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a> with ID 3, comes from the population with
-ID 2, and has an immediate ancestor (parent) node with ID 10. It also has mutations with
-IDs 16 and 17 above it, and those mutations are associated with site IDs 15 and 16.
-In the SVG file, the node (containing a symbol and label) is therefore represented by
-the following element:</p>
+numerical ID. For example, here’s a typical node in an tskit SVG plot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">g</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample&quot;</span><span class="o">&gt;...&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
 </pre></div>
 </div>
+<p>This corresponds to node 7, the rightmost leaf in the third tree in the mutated tree
+sequence (plotted in the previous section but one). The classes indicate that it
+has an immediate ancestor (parent) node with ID 10 (<code class="docutils literal notranslate"><span class="pre">a10</span></code>), and that the node
+belongs to an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a> with ID 3 (<code class="docutils literal notranslate"><span class="pre">i3</span></code>).
+The classes <code class="docutils literal notranslate"><span class="pre">n7</span></code> and <code class="docutils literal notranslate"><span class="pre">p2</span></code> tell us that the node ID is 7 and is is from the
+population with ID 2 (<code class="docutils literal notranslate"><span class="pre">p2</span></code>). Other ID classes on the node tell us about the mutations
+above that node, of which there are two in this case, with
+IDs 16 and 17 (<code class="docutils literal notranslate"><span class="pre">m16</span></code>, <code class="docutils literal notranslate"><span class="pre">m17</span></code>); those mutations are associated with
+site IDs 15 and 16 (<code class="docutils literal notranslate"><span class="pre">s16</span></code>, <code class="docutils literal notranslate"><span class="pre">s17</span></code>).</p>
+<p>Other grouping elements apart from nodes can also contain ID-based classes. For example
+the <code class="docutils literal notranslate"><span class="pre">tree</span></code> group contains the ID of the tree (e.g. <code class="docutils literal notranslate"><span class="pre">t0</span></code>), the <code class="docutils literal notranslate"><span class="pre">site</span></code> group on the X axis
+contains the site ID (e.g. <code class="docutils literal notranslate"><span class="pre">s15</span></code>) the <code class="docutils literal notranslate"><span class="pre">mut</span></code> class contains the mutation ID (e.g. <code class="docutils literal notranslate"><span class="pre">m16</span></code>),
+and so on.</p>
+</section>
+</section>
 <section id="styling-graphical-elements">
 <h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this headline">#</a></h4>
 <p>The classes above make it easy to target specific nodes or edges in one or multiple
