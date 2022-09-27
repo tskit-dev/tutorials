@@ -295,11 +295,12 @@ ts_full.first().draw_svg(
 
 ### Plotting mutations
 
-The SVG visualization also allows mutations to displayed on the tree or tree sequence.
-Here are the same plots as above but where the tree sequence now contains mutations. Each
-mutation is plotted as a red cross on the branch where it occurs. This mutation symbol is
-placed either at the mutation's known time, or spaced evenly along the branch (if the
-mutation time is unknown or the `time_scale` parameter has been set to `"rank"`).
+By default the SVG visualization also plots sites and mutations on the tree or
+tree sequence (this can be disabled using the `omit_sites` parameter). For example,
+adding mutations to the 8-sample tree sequence above gives the following plot: each
+mutation is marked by a red cross on the branch where it occurs. Symbols are
+either placed at the mutation's known time, or (if the mutation time is unknown or
+the `time_scale` parameter has been set to `"rank"`) spaced evenly along the branch.
 By default, each mutation is also labelled with its {class}`mutation ID<tskit.Mutation>`.
 
 If the X axis is shown (which it is by default when drawing a tree sequence, but not
