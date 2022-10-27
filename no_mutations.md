@@ -98,7 +98,7 @@ genealogical nearest neighbour analysis)
 Although these methods are primarily described elsewhere, the code below illustrates
 how a tree sequence without mutations can be used to find the average time to the
 most recent common ancestor (tMRCA) of two sample genomes. The genomes have been
-pcked at random from the two different populations, and the times averaged over
+picked at random from the two different populations, and the times averaged over
 the entire 1Mb genome.
 
 ```{code-cell} ipython3
