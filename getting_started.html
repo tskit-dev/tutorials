@@ -874,7 +874,7 @@ used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pyt
 that there’s a corresponding <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
 <p>Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
-<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.10)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.11)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
 the trees in a tree sequence have fully coalesced (which is to be expected in
 reverse-time, coalescent simulations, but not always for tree sequences produced by
 <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
@@ -895,7 +895,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0207262 secs
+Checked in 0.0199585 secs
 </pre></div>
 </div>
 </div>
@@ -1202,6 +1202,7 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Site-based calculation&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">4e3</span><span class="p">,</span> <span class="mf">6e3</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">),</span> <span class="n">windows</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch-length-based calculation&quot;</span><span class="p">)</span>
@@ -1303,7 +1304,7 @@ for which tskit has basic support:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>##fileformat=VCFv4.2
-##source=tskit 0.5.2
+##source=tskit 0.5.3
 ##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
 ##contig=&lt;ID=1,length=10000&gt;
 ##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;
