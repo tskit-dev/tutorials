@@ -1359,7 +1359,7 @@ the attributes enforce read-only access:</p>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">FrozenInstanceError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span> <span class="c1"># This will not work: attributes are read-only</span>
 
 <span class="nn">File &lt;string&gt;:4,</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
 

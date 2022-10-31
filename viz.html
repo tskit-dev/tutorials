@@ -1122,11 +1122,12 @@ styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling">
 </section>
 <section id="plotting-mutations">
 <h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this headline">#</a></h3>
-<p>The SVG visualization also allows mutations to displayed on the tree or tree sequence.
-Here are the same plots as above but where the tree sequence now contains mutations. Each
-mutation is plotted as a red cross on the branch where it occurs. This mutation symbol is
-placed either at the mutation’s known time, or spaced evenly along the branch (if the
-mutation time is unknown or the <code class="docutils literal notranslate"><span class="pre">time_scale</span></code> parameter has been set to <code class="docutils literal notranslate"><span class="pre">&quot;rank&quot;</span></code>).
+<p>By default the SVG visualization also plots sites and mutations on the tree or
+tree sequence (this can be disabled using the <code class="docutils literal notranslate"><span class="pre">omit_sites</span></code> parameter). For example,
+adding mutations to the 8-sample tree sequence above gives the following plot: each
+mutation is marked by a red cross on the branch where it occurs. Symbols are
+either placed at the mutation’s known time, or (if the mutation time is unknown or
+the <code class="docutils literal notranslate"><span class="pre">time_scale</span></code> parameter has been set to <code class="docutils literal notranslate"><span class="pre">&quot;rank&quot;</span></code>) spaced evenly along the branch.
 By default, each mutation is also labelled with its <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mutation</span> <span class="pre">ID</span></code></a>.</p>
 <p>If the X axis is shown (which it is by default when drawing a tree sequence, but not
 when drawing an individual tree) then the sites are plotted using a black tickmark above
