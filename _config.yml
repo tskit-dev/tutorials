@@ -38,6 +38,7 @@ sphinx:
       intersphinx_mapping:
         py: ["https://docs.python.org/3", null]
         tskit: ["https://tskit.dev/tskit/docs/stable", null]
+        tszip: ["https://tszip.readthedocs.io/en/stable/", null]
         msprime: ["https://tskit.dev/msprime/docs/stable", null]
         pyslim: ["https://tskit.dev/pyslim/docs/stable", null]
         numpy: ["https://numpy.org/doc/stable/", null]

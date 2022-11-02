@@ -451,6 +451,9 @@ small_ts.write_vcf(sys.stdout)
 The write_vcf method takes a file object as a parameter; to get it to write out to the
 notebook here we ask it to write to stdout.
 
+
+(sec_tskit_getting_started_exporting_data_allel)=
+
 ### Scikit-allel
 
 Because tskit integrates very closely with numpy, we can interoperate very efficiently
