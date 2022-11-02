@@ -10,3 +10,5 @@ networkx
 tskit>=0.5.1
 msprime>=1.0
 tskit-book-theme==0.3.2
+pandas
+git+https://github.com/tskit-dev/tsconvert  # for newick parsing in phylogen.md

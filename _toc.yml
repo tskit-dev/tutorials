@@ -41,3 +41,6 @@ parts:
   # guidelines.
   chapters:
   - file: tutorial_development
+- caption: Tskit for ...
+  chapters:
+  - file: phylogen.md
