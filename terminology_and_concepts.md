@@ -359,8 +359,8 @@ is not always possible.
 
 ## Concepts
 
-There are some basic population genetic concepts which can be helpful with thinking about
-tree sequences. For reference, here is the tree sequence topology that we have been using:
+There are some basic concepts which can be helpful with thinking about tree sequences.
+For reference, here is the tree sequence topology that we have been using:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -384,10 +384,12 @@ with 3 or more children in a particular tree (these are known as *polytomies*).
 
 ### Tree changes, ancestral recombinations, and SPRs
 
-The reason that tree sequences are efficient is that very few edges
-{ref}`change from tree to tree<fig_what_is_edge_diffs>`. More specifically, recombination
-results in adjacent trees that differ by only a few "tree edit" or SPR
-(subtree-prune-and-regraft) operations. This is seen in the example tree sequence above.
+The process of recombination usually results in trees along a genome where adjacent
+trees differ by only a few "tree edit" or SPR (subtree-prune-and-regraft) operations.
+The result is a tree sequence in which very few edges
+{ref}`change from tree to tree<fig_what_is_edge_diffs>`.
+This is the underlying reason that `tskit` is so
+efficient, and is well illustrated in the example tree sequence above.
 
 In this (simulated) tree sequence, each tree differs from the next by a single SPR.
 The subtree defined by node 7 in the first tree has been pruned and regrafted onto the
