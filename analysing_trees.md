@@ -420,6 +420,8 @@ to remember that the algorithm is minimising the number of state transitions;
 this may not correspond always to what we might consider the most parsimonious
 explanation.
 
+
+(sec_trees_numba)=
 ## Fast tree-based algorithms using numba
 
 :::{todo}

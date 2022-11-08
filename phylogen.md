@@ -49,7 +49,7 @@ Calculations on these huge trees can be very efficient:
 traversed_nodes = 0
 for u in big_tree.nodes(order="postorder"):
     traversed_nodes += 1
-print("Postorder traversal through {traversed_nodes} took:")
+print(f"Postorder traversal through {traversed_nodes} took:")
 ```
 
 ```{code-cell}
@@ -73,30 +73,30 @@ import tsconvert  # used for reading tree sequences from different formats
 
 # example code reading in a large file, timed
 
-# example of reading from a string (smaller tree) into a tree sequence
+# Or read smaller trees from strings (here we create a tree spanning 1000 genomic units)
 # Todo: add sequence length: https://github.com/tskit-dev/tsconvert/issues/40
-ts = tsconvert.from_newick("(A:6,((B:1,C:1):2,(D:2,E:2):1):3);")
+ts = tsconvert.from_newick("(A:6,((B:1,C:1):2,(D:2,E:2):1):3);", span=100)
 ```
 
 The "succinct tree sequence" format used by `tskit` can also store mutations
 (and optionally a reference genome) along with the tree(s). This results in a
 single unified representation of large genomic datasets, storing trees,
 sequence data and metadata in a single efficient structure. Examples are given
-in the  {ref}`end of this page<sec_phylogen_unified_structure>`.
+in the section below entitled {ref}`sec_phylogen_unified_structure`.
 
 As the name suggests, a tree sequence can also store and analyse a sequence of
 trees along a genome (i.e. a "phylogenetic network"). This is necessary to
 account for recombination between lineages, and may be important even when looking at
 species-level phylogenies due to the effects of hybridization and incomplete lineage
-sorting. An overview, and links to further details are given
-{ref}`sec_phylogen_multiple_trees`
+sorting. An overview, and links to further details are given at the
+{ref}`end of this page <sec_phylogen_multiple_trees>`.
 
 ## Hints for phylogeneticists
 
 Unlike other phylogenetic libraries, `tskit` is designed to efficiently store not just 
-single trees, but entire , and focusses primarily on dealing with 
-genetic sequence data. This means that the library has some features not found in
-more standard phylogenetic libraries. Here we focus on the {ref}`sec_python_api`,
+single trees, but sequences of correlated trees along a genome. This means that the
+library has some features not found in more standard phylogenetic libraries.
+Here we focus on the {ref}`sec_python_api`,
 introducing eight `tskit` concepts that may be useful to those with a background in
 phylogenetics (each is linked to a separate section below):
 
@@ -208,8 +208,8 @@ important in tree sequences that contain more than one tree.
 The {class}`Tree` object has {ref}`methods<sec_python_api_trees>` to perform basic operations
 on a tree such as traversing the nodes, identifying parents, children, and common
 ancestors, etc. {ref}`Several methods<sec_python_api_trees_node_measures_array>`
-also return numpy arrays for use in efficient algorithms
-(e.g. using numba - link to tutorial). 
+also return numpy arrays for use in
+{ref}`efficient algorithms using numba<sec_trees_numba>`
 
 ```{code-cell}
 for n_id in tree.nodes(order="postorder"):
@@ -284,28 +284,34 @@ tree.tree_sequence.nodes_time
 (sec_phylogen_node_time)=
 ### Nodes must have times
 
-Perhaps the biggest difference between `tskit` and other phylogenetic libraries is that
-each node *must* have a time associated with it. Node times can be arbitrary (marked
-by setting {attr}`TreeSequence.time_units` to `"uncalibrated"`), but they must
-be present. This means that `tskit` trees are always directional (i.e. they are
-"rooted").
+Perhaps the most noticable different between a `tskit` tree and the encoding of trees
+in other phylogenetic libraries is that `tskit` does not explicitly store branch lengths.
+Instead, each node has a *time* associated with it. Branch lengths can therefore be
+found by calculating the difference between the time of a node and the time of its
+parent node.
 
-The primary reason for this strict requirement is to ensure temporal consistency across
-the trees in the tree sequence. In particular it ensures that
-a node cannot be a parent of a node in one tree, and a child of the same node in another
-tree in the tree sequence, a logically impossibility.
+Since nodes *must* have a time, `tskit` trees aways have these (implicit) branch
+lengths. To represent a tree ("cladogram") in which the branch lengths are not
+meaningful, the {attr}`TreeSequence.time_units` of a tree sequence can be
+specified as `"uncalibrated"` (see below)
 
-The units in which time is measured are stored in the {attr}`TreeSequence.time_units`
-attribute: if not known, this defaults to "unknown":
+Another implication of storing node times rather than branch lengths is that `tskit`
+trees are always directional (i.e. they are "rooted"). The reason that `tskit` stores
+times of nodes (rather than e.g. genetic distances between them) is to ensure temporal 
+consistency. In particular it makes it impossible for a node to be an ancestor of a
+node in one tree, and a descendant of the same node in another tree in the tree sequence.
+This is of critical importance when extending the concept of genetic ancestry to
+{ref}`sec_phylogen_multiple_trees` along a genome.
+
+The {attr}`TreeSequence.time_units` attribute stores the units in which time is
+measured: if not known, this defaults to "unknown":
 
 ```{code-cell}
 print("Time units are", tree.tree_sequence.time_units)
 tree.draw_svg(y_axis=True)
 ```
 
-The fact that nodes have times also means that `tskit` does not explictly store
-branch lengths: a branch length is simply the difference between the time of a
-node and the time of its parent node. For convenience, however, `tskit` provides a
+Although branch lengths are not stored explicitly, for convenience `tskit` provides a
 {meth}`Tree.branch_length` method:
 
 ```{code-cell}
@@ -412,30 +418,87 @@ has not been simulated.
 ## Phylogenetic methods
 
 :::{todo}
-Demo some phylo methods. e.g.
+Demo some phylogenetic methods. e.g.
 1. Total branch length - demo quick calculation across multiple trees - incremental algorithm used extensively in population genetics. ("bringing tree thinking to popgen").
 2. KC distance
 3. Balance metrics
-4. Topology rankings
+4. Topology rankings (see https://github.com/tskit-dev/tutorials/issues/93)
 :::
 
 
 (sec_phylogen_unified_structure)=
 ## Storing and accessing genetic data
 
-:::{todo}
-Add content and link to {ref}`sec_what_is_dna_data`.
-:::
+`Tskit` has been designed to capture both evolutionary tree topologies and the genetic
+sequences that evolve along the branches of these trees. This is achieved by defining
+{ref}`sec_terminology_mutations_and_sites` which are associated with specific positions
+along the genome.
+
+```{code-cell}
+import msprime  # The `msprime` package can throw mutations onto a tree sequence
+mutated_ts = msprime.sim_mutations(ts, rate=3e-3, random_seed=321)
+mutated_tree = mutated_ts.first()
+print("Variable sites with the following IDs generated")
+for site in mutated_tree.sites():
+    print(
+        f"Site ID {site.id} @ genomic position {site.position:g}:",
+        f"{site.ancestral_state} -> {site.mutations[0].derived_state}"
+    )
+mutated_tree.draw_svg()
+```
+
+Mutations occur above nodes in a tree, with all the descendant
+nodes inheriting that specific mutation (unless replaced by a subsequent
+mutation at the same site). This allows genetic variation to be
+{ref}`efficiently represented<sec_what_is_dna_data>` using the tree topology.
+To obtain the genetic variation at each site across the entire genome, you can use the
+{meth}`TreeSequence.sites` method, or (less efficiently), you can use
+{meth}`TreeSequence.alignments` to output the
+entire sequences for each sample node:
+
+```{code-cell}
+for node_id, alignment in zip(
+    mutated_ts.samples(),
+    mutated_ts.alignments(missing_data_character="."),
+):
+    print(f"Node {node_id}: {alignment}")
+```
 
 
 (sec_phylogen_multiple_trees)=
 ## Multiple trees
 
-:::{todo}
-Add content showing how `tskit` allows easy extension of phylogenetics to multiple trees
-along a genome. We could e.g. edit the example tree (assuming we can extend it to
-e.g. 1000 bp sequence length, see https://github.com/tskit-dev/tsconvert/issues/40)
-by shortening instead of removing one of the edges, which
-should create two trees, one with 2 roots, and one with one.
-:::
+Where `tskit` really shines is when the ancestry of your dataset cannot be adequately
+represented by a single tree. This is a pervasive issue in genomes (even from different
+species) that have undergone recombination in the past. The resulting series of
+"local trees" along a genome are highly correlated (see {ref}`sec_concepts`).
+
+Instead of storing each tree along a genome separately, `tskit` records the genomic
+coordinates of each edge, which leads to enormous efficiencies in storage and
+analysis. As a basic demonstration, we can repeat the edge removal example
+{ref}`above <sec_phylogen_multiroot>`, but only remove the ancestral link above node 4
+for the first half of the genome.
+
+```{code-cell}
+tables = ts.dump_tables()
+edge_id_above_node_4 = ts.first().edge(4)
+left_coord_for_edges = tables.edges.left
+left_coord_for_edges[edge_id_above_node_4] = 50
+tables.edges.left = left_coord_for_edges  # reset the right coords
+tables.sort()
+multi_ts = tables.tree_sequence()
+
+multi_ts.draw_svg()
+```
+
+For the left hand side of the genome we lack information about the ancestry of
+node 4, but for the right hand side we know this information. The result is to
+generate 2 trees in the tree sequence, which differ only in the presence of absence of
+a single branch. We do not have to separately store the entire tree on the right: all
+the edges that are shared between trees are stored only once.
+
+The rest of the `tskit` tutorials will lead you through the concepts involved with
+storing and analysing sequences of many correlated trees. For a simple introduction, you
+might want to start with {ref}`sec_what_is`.
+
 
