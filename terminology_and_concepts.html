@@ -298,6 +298,23 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tskit for ...
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="phylogen.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Tskit
+    </span>
+   </code>
+   for phylogenetics
+  </a>
+ </li>
+</ul>
 
     </div>
 </nav></div>
@@ -1023,8 +1040,8 @@ is not always possible.</p>
 </section>
 <section id="concepts">
 <span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">#</a></h2>
-<p>There are some basic population genetic concepts which can be helpful with thinking about
-tree sequences. For reference, here is the tree sequence topology that we have been using:</p>
+<p>There are some basic concepts which can be helpful with thinking about tree sequences.
+For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
@@ -1047,10 +1064,12 @@ sequences that have been inferred from real data, it is possible to have a paren
 with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
 <section id="tree-changes-ancestral-recombinations-and-sprs">
 <span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">#</a></h3>
-<p>The reason that tree sequences are efficient is that very few edges
-<a class="reference internal" href="what_is.html#fig-what-is-edge-diffs"><span class="std std-ref">change from tree to tree</span></a>. More specifically, recombination
-results in adjacent trees that differ by only a few “tree edit” or SPR
-(subtree-prune-and-regraft) operations. This is seen in the example tree sequence above.</p>
+<p>The process of recombination usually results in trees along a genome where adjacent
+trees differ by only a few “tree edit” or SPR (subtree-prune-and-regraft) operations.
+The result is a tree sequence in which very few edges
+<a class="reference internal" href="what_is.html#fig-what-is-edge-diffs"><span class="std std-ref">change from tree to tree</span></a>.
+This is the underlying reason that <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is so
+efficient, and is well illustrated in the example tree sequence above.</p>
 <p>In this (simulated) tree sequence, each tree differs from the next by a single SPR.
 The subtree defined by node 7 in the first tree has been pruned and regrafted onto the
 branch between 0 and 10, to create the second tree. The second and third trees have the

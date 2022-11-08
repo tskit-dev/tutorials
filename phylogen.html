@@ -1,0 +1,1552 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tskit for phylogenetics &#8212; Tree Sequence Tutorials</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Developing new tutorials" href="tutorial_development.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="what_is.html">
+   What is a tree sequence?
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tree sequence basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="terminology_and_concepts.html">
+   Terminology &amp; concepts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started with
+   <strong class="program">
+    tskit
+   </strong>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Statistics and Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_tree_sequences.html">
+   <em>
+    Analysing tree sequences
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_trees.html">
+   Analysing trees
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="counting_topologies.html">
+   <em>
+    Counting topologies
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="parallelization.html">
+   <em>
+    Parallelization
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Further tskit tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tables_and_editing.html">
+   Tables and editing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   <em>
+    Simplification
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="metadata.html">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="args.html">
+   <em>
+    ARGs as tree sequences
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Simulation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="no_mutations.html">
+   Do you really need mutations?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="advanced_msprime.html">
+   Advanced
+   <strong class="program">
+    msprime
+   </strong>
+   topics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="demography.html">
+     Demography
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="bottlenecks.html">
+     Instantaneous Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="introgression.html">
+     Introgression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="forward_sims.html">
+   <em>
+    Building a forward simulator
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Other languages
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Development
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tutorial_development.html">
+   <em>
+    Developing new tutorials
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tskit for ...
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Tskit
+    </span>
+   </code>
+   for phylogenetics
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fphylogen.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/phylogen.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/phylogen.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hints-for-phylogeneticists">
+   Hints for phylogeneticists
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trees-are-always-part-of-a-tree-sequence">
+     Trees are always part of a tree sequence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#integer-node-and-edge-ids">
+     Integer node and edge IDs
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#nodes">
+       Nodes
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#edges">
+       Edges
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-tree-object">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Tree
+      </span>
+     </code>
+     object
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sample-nodes">
+     Sample nodes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes-and-metadata">
+     Attributes and metadata
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nodes-must-have-times">
+     Nodes must have times
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#roots-and-multiroot-trees">
+     Roots and multiroot trees
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#phylogenetic-methods">
+   Phylogenetic methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#storing-and-accessing-genetic-data">
+   Storing and accessing genetic data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-trees">
+   Multiple trees
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Tskit for phylogenetics</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hints-for-phylogeneticists">
+   Hints for phylogeneticists
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trees-are-always-part-of-a-tree-sequence">
+     Trees are always part of a tree sequence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#integer-node-and-edge-ids">
+     Integer node and edge IDs
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#nodes">
+       Nodes
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#edges">
+       Edges
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-tree-object">
+     The
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Tree
+      </span>
+     </code>
+     object
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sample-nodes">
+     Sample nodes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes-and-metadata">
+     Attributes and metadata
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nodes-must-have-times">
+     Nodes must have times
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#roots-and-multiroot-trees">
+     Roots and multiroot trees
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#phylogenetic-methods">
+   Phylogenetic methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#storing-and-accessing-genetic-data">
+   Storing and accessing genetic data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-trees">
+   Multiple trees
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="tskit-for-phylogenetics">
+<span id="sec-phylogen"></span><h1><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics<a class="headerlink" href="#tskit-for-phylogenetics" title="Permalink to this headline">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Tskit</span></code>, the tree sequence toolkit, can be used as an efficient library for very large evolutionary trees. <code class="docutils literal notranslate"><span class="pre">Tskit</span></code> makes it easy to deal with trees with millions of
+tips, as in the example below:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">num_tips</span> <span class="o">=</span> <span class="mi">1_000_000</span>
+<span class="n">big_tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">generate_comb</span><span class="p">(</span><span class="n">num_tips</span><span class="p">);</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree sequence takes up&quot;</span><span class="p">,</span> <span class="n">big_tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Mb&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generating a &#39;comb&#39; (pectinate) tree of </span><span class="si">{</span><span class="n">num_tips</span><span class="si">}</span><span class="s2"> tips took:&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70018196105957 Mb
+Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
+CPU times: user 7.86 s, sys: 236 ms, total: 8.1 s
+Wall time: 8.09 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Display the million tip tree in condensed form, when
+https://github.com/tskit-dev/tskit/issues/2372#issuecomment-1298518380 and
+https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
+</div>
+<p>Calculations on these huge trees can be very efficient:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">traversed_nodes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">big_tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;postorder&quot;</span><span class="p">):</span>
+    <span class="n">traversed_nodes</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Postorder traversal through </span><span class="si">{</span><span class="n">traversed_nodes</span><span class="si">}</span><span class="s2"> took:&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 took:
+CPU times: user 513 ms, sys: 25 µs, total: 513 ms
+Wall time: 515 ms
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">b1_index</span> <span class="o">=</span> <span class="n">big_tree</span><span class="o">.</span><span class="n">b1_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;B1 balance index is </span><span class="si">{</span><span class="n">b1_index</span><span class="si">}</span><span class="s2">. Calculation took:&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
+CPU times: user 17.9 ms, sys: 4.02 ms, total: 21.9 ms
+Wall time: 21.7 ms
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also read trees efficiently, e.g. in Newick format:</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Add example of fast reading of a newick file, once
+https://github.com/tskit-dev/tskit/issues/2187 is solved. E.g. we could say</p>
+<blockquote>
+<div><p>For example, we can read in a newick format tree of XXX tips in XXX secs. In practice,
+this means when reading in a large tree you are mainly limited by disk access speeds</p>
+</div></blockquote>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tsconvert</span>  <span class="c1"># used for reading tree sequences from different formats</span>
+
+<span class="c1"># example code reading in a large file, timed</span>
+
+<span class="c1"># Or read smaller trees from strings (here we create a tree spanning 1000 genomic units)</span>
+<span class="c1"># Todo: add sequence length: https://github.com/tskit-dev/tsconvert/issues/40</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tsconvert</span><span class="o">.</span><span class="n">from_newick</span><span class="p">(</span><span class="s2">&quot;(A:6,((B:1,C:1):2,(D:2,E:2):1):3);&quot;</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The “succinct tree sequence” format used by <code class="docutils literal notranslate"><span class="pre">tskit</span></code> can also store mutations
+(and optionally a reference genome) along with the tree(s). This results in a
+single unified representation of large genomic datasets, storing trees,
+sequence data and metadata in a single efficient structure. Examples are given
+in the section below entitled <a class="reference internal" href="#sec-phylogen-unified-structure"><span class="std std-ref">Storing and accessing genetic data</span></a>.</p>
+<p>As the name suggests, a tree sequence can also store and analyse a sequence of
+trees along a genome (i.e. a “phylogenetic network”). This is necessary to
+account for recombination between lineages, and may be important even when looking at
+species-level phylogenies due to the effects of hybridization and incomplete lineage
+sorting. An overview, and links to further details are given at the
+<a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">end of this page</span></a>.</p>
+<section id="hints-for-phylogeneticists">
+<h2>Hints for phylogeneticists<a class="headerlink" href="#hints-for-phylogeneticists" title="Permalink to this headline">#</a></h2>
+<p>Unlike other phylogenetic libraries, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is designed to efficiently store not just
+single trees, but sequences of correlated trees along a genome. This means that the
+library has some features not found in more standard phylogenetic libraries.
+Here we focus on the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Python)"><span>Python API</span></a>,
+introducing eight <code class="docutils literal notranslate"><span class="pre">tskit</span></code> concepts that may be useful to those with a background in
+phylogenetics (each is linked to a separate section below):</p>
+<ol class="simple">
+<li><p>An evolutionary tree is always contained within a “tree sequence”.
+See <a class="reference internal" href="#sec-phylogen-tree-in-sequence"><span class="std std-ref">Trees are always part of a tree sequence</span></a></p></li>
+<li><p>The basic elements of a tree are <em>nodes</em> and <em>edges</em>, referred to by integer IDs.
+See <a class="reference internal" href="#sec-phylogen-ids"><span class="std std-ref">Integer node and edge IDs</span></a></p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Tree</span></code> object in the Python API provides useful phylogenetic methods.
+See <a class="reference internal" href="#sec-phylogen-tree-object"><span class="std std-ref">The Tree object</span></a></p></li>
+<li><p>Specific nodes in a tree (often the tips) are marked as “samples”, meaning they are
+known from data. See <a class="reference internal" href="#sec-phylogen-samples"><span class="std std-ref">Sample nodes</span></a></p></li>
+<li><p>Nodes and edges have additional attributes, with arbitrary information stored in
+<em>metadata</em>. See <a class="reference internal" href="#sec-phylogen-metadata"><span class="std std-ref">Attributes and metadata</span></a></p></li>
+<li><p>All nodes <em>must</em> have a valid time, meaning trees are always directional
+(i.e. “rooted”). See <a class="reference internal" href="#sec-phylogen-node-time"><span class="std std-ref">Nodes must have times</span></a></p></li>
+<li><p>“Roots” in trees have a specific definition, and a single tree can consist of
+topologically independent clades (a “multiroot” tree).
+See <a class="reference internal" href="#sec-phylogen-multiroot"><span class="std std-ref">Roots and multiroot trees</span></a></p></li>
+</ol>
+<section id="trees-are-always-part-of-a-tree-sequence">
+<span id="sec-phylogen-tree-in-sequence"></span><h3>Trees are always part of a tree sequence<a class="headerlink" href="#trees-are-always-part-of-a-tree-sequence" title="Permalink to this headline">#</a></h3>
+<p>In tskit, all trees are stored as a “tree sequence” of correlated trees. This allows
+easy extension of the library to multiple trees produced e.g. by hybridization.
+In the simplest case, however, the tree sequence can contain just a single tree. This
+can be obtained using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">first()</span></code></a> method.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sensible node labels. It would be nice to roll this into tree.draw()</span>
+<span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">node_object</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">node_object</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">node_object</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">node_object</span><span class="o">.</span><span class="n">metadata</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">)</span>  <span class="c1"># or use draw_svg() for more options</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/phylogen_10_0.svg" src="_images/phylogen_10_0.svg" /></div>
+</div>
+<p>Often you will have the tree sequence stored in a variable, such as the <code class="docutils literal notranslate"><span class="pre">ts</span></code> variable
+used above. However, you can also obtain the tree sequence in which a tree is
+contained using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.tree_sequence" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.tree_sequence</span></code></a> attribute:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span>  <span class="c1"># When output in a notebook, prints a summary of the tree sequence</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+  <style>
+    .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td:first-of-type {text-align: left;}
+    .tskit-details-label {vertical-align: top; padding-right:5px;}
+    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+    .tskit-table-set-table {margin: 12px 0 0 12px;}
+    details {display: inline-block;}
+    summary {cursor: pointer; outline: 0; display: list-item;}
+  </style>
+  <div class="tskit-table-set">
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="padding:0;line-height:21px;">
+              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+              <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Trees</td><td>1</td></tr>
+          <tr><td>Sequence Length</td><td>100.0</td></tr>
+          <tr><td>Time Units</td><td>unknown</td></tr>
+          <tr><td>Sample Nodes</td><td>5</td></tr>
+          <tr><td>Total Size</td><td>942 Bytes</td></tr>
+          <tr>
+            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="line-height:21px;">Table</th>
+            <th>Rows</th>
+            <th>Size</th>
+            <th>Has Metadata</th>
+          </tr>
+        </thead>
+        <tbody>
+
+      <tr>
+        <td>Edges</td>
+          <td>8</td>
+          <td>264 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Individuals</td>
+          <td>0</td>
+          <td>24 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Migrations</td>
+          <td>0</td>
+          <td>8 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Mutations</td>
+          <td>0</td>
+          <td>16 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Nodes</td>
+          <td>9</td>
+          <td>511 Bytes</td>
+          <td style="text-align: center;">
+            ✅
+          </td>
+        </tr>
+
+      <tr>
+        <td>Populations</td>
+          <td>0</td>
+          <td>8 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Provenances</td>
+          <td>0</td>
+          <td>16 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Sites</td>
+          <td>0</td>
+          <td>16 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="integer-node-and-edge-ids">
+<span id="sec-phylogen-ids"></span><h3>Integer node and edge IDs<a class="headerlink" href="#integer-node-and-edge-ids" title="Permalink to this headline">#</a></h3>
+<p>The plot above labels nodes by their name, but internally the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> library relies
+heavily on integer IDs. Here’s the same tree with node IDs plotted instead:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/phylogen_14_0.svg" src="_images/phylogen_14_0.svg" /></div>
+</div>
+<section id="nodes">
+<h4>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">#</a></h4>
+<p>Each <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes"><span class="std std-ref">node</span></a> in a tree sequence is allocated an
+integer ID starting from 0 to <code class="docutils literal notranslate"><span class="pre">ts.num_nodes</span> <span class="pre">-</span> <span class="pre">1</span></code> (IDs can be allocated in any order;
+often the tips are labelled starting from 0 but this is not necessarily so, and
+is not the case in the example above).</p>
+<p>For efficiency reasons, tree traversal routines, as well as many other <code class="docutils literal notranslate"><span class="pre">tskit</span></code> methods,
+tend to return integer IDs. You can use this ID to get specific information about the
+node and its position in the tree, for example</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_id</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">parent_id</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+<span class="n">child_ids</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The parent of&quot;</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="s2">&quot;and its children are&quot;</span><span class="p">,</span> <span class="n">child_ids</span><span class="p">)</span>
+<span class="c1"># or e.g. get all parents them as an array (where -1 means there is no parent)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The parents of nodes 0..</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2"> are&quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The parent of 4 is 2 and its children are (7, 8)
+The parents of nodes 0..8 are [-1  0  0  2  2  3  3  4  4 -1]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Other methods also exist to
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api-trees-node-measures" title="(in Python)"><span class="xref std std-ref">examine nodes in a tree</span></a>, e.g.
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.is_leaf" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.is_leaf()</span></code></a>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.mrca" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.mrca()</span></code></a> for the most recent common ancestor between
+2 or more nodes, etc.</p>
+</section>
+<section id="edges">
+<h4>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">#</a></h4>
+<p>Rather than refer to “branches” of a tree, tskit tends to refer to
+<a class="reference internal" href="terminology_and_concepts.html#sec-terminology-edges"><span class="std std-ref">Edges</span></a> (the term “edge” emphasises that these can span
+<a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">Multiple trees</span></a>, although for tree sequences containing a single
+tree, the terms are interchangeable). Like other entities in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, edges are referred
+to by an integer ID. For instance, here is the edge above the internal node 4</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_id</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">edge_id</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The edge above&quot;</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="s2">&quot;has ID&quot;</span><span class="p">,</span> <span class="n">edge_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">edge_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The edge above 4 has ID 5
+Edge(left=0.0, right=100.0, parent=2, child=4, metadata=b&#39;&#39;, id=5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> attributes of an edge give genomic coordinates, and are
+important in tree sequences that contain more than one tree.</p>
+</section>
+</section>
+<section id="the-tree-object">
+<span id="sec-phylogen-tree-object"></span><h3>The <code class="docutils literal notranslate"><span class="pre">Tree</span></code> object<a class="headerlink" href="#the-tree-object" title="Permalink to this headline">#</a></h3>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a> object has <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api-trees" title="(in Python)"><span class="xref std std-ref">methods</span></a> to perform basic operations
+on a tree such as traversing the nodes, identifying parents, children, and common
+ancestors, etc. <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api-trees-node-measures-array" title="(in Python)"><span class="xref std std-ref">Several methods</span></a>
+also return numpy arrays for use in
+<a class="reference internal" href="analysing_trees.html#sec-trees-numba"><span class="std std-ref">efficient algorithms using numba</span></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n_id</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;postorder&quot;</span><span class="p">):</span>
+    <span class="c1"># you can also use &quot;preorder&quot;, &quot;levelorder&quot;, &quot;timeasc&quot;, etc.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n_id</span><span class="p">)</span>
+<span class="c1"># Or get all of them as arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node IDs in postorder:&quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">postorder</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+5
+6
+3
+7
+8
+4
+2
+0
+Node IDs in postorder: [1 5 6 3 7 8 4 2 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Various phylogenetic statistics are also available on trees, e.g</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The colless imbalance index is </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">colless_index</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The colless imbalance index is 3
+</pre></div>
+</div>
+</div>
+</div>
+<p>See <a class="reference internal" href="#sec-phylogen-methods"><span class="std std-ref">Phylogenetic methods</span></a> for more examples.</p>
+</section>
+<section id="sample-nodes">
+<span id="sec-phylogen-samples"></span><h3>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">#</a></h3>
+<p>Often we are only have detailed information about specific nodes that we have sampled,
+such as genomes A, B, C, D, and E in the example above. These are designated as
+<em>sample nodes</em>, and are plotted as square nodes. The concept of
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-sample" title="(in Python)"><span class="xref std std-ref">sample nodes</span></a> is integral
+to the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> format. They can be identified by using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node.is_sample" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Node.is_sample()</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.is_sample" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.is_sample()</span></code></a> methods, or can be listed using
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.samples" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.samples()</span></code></a> or <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.samples" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.samples()</span></code></a> (internally, the <code class="docutils literal notranslate"><span class="pre">node.flags</span></code>
+field is used to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-node-table-definition" title="(in Python)"><span class="xref std std-ref">flag up</span></a> which nodes are samples):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n_id</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="n">n_is_sample</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">is_sample</span><span class="p">(</span><span class="n">n_id</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">n_id</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;is&#39;</span> <span class="k">if</span> <span class="n">n_is_sample</span> <span class="k">else</span> <span class="s1">&#39;is not&#39;</span><span class="si">}</span><span class="s2"> a sample node&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample nodes are&quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">samples</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0 is not a sample node
+Node 1 is a sample node
+Node 2 is not a sample node
+Node 3 is not a sample node
+Node 5 is a sample node
+Node 6 is a sample node
+Node 4 is not a sample node
+Node 7 is a sample node
+Node 8 is a sample node
+Sample nodes are [1 5 6 7 8]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Often the sample nodes are the leaves of a tree, but this need not be the case. There
+are fast methods for identifying the sample nodes under an internal node in the tree,
+etc.</p>
+</section>
+<section id="attributes-and-metadata">
+<span id="sec-phylogen-metadata"></span><h3>Attributes and metadata<a class="headerlink" href="#attributes-and-metadata" title="Permalink to this headline">#</a></h3>
+<p>Given a node ID, you can access more information about the node from a
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">node</span> <span class="pre">object</span></code></a>.
+Because nodes are shared across all trees in a tree sequence, you access the
+node object via the <code class="docutils literal notranslate"><span class="pre">tree_sequence</span></code> to which this tree belongs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>  <span class="c1"># or simply ts.node(node_id)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=4, flags=0, time=2.0, population=-1, individual=-1, metadata={})
+</pre></div>
+</div>
+</div>
+</div>
+<p>Attributes such as <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">flags</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> are always present. Arbitrary information,
+such a name or e.g. bootstrap values, are stored in <em>metadata</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n_id</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">n_id</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;no name&gt;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0 &lt;no name&gt;
+Node 1 A
+Node 2 &lt;no name&gt;
+Node 3 &lt;no name&gt;
+Node 5 B
+Node 6 C
+Node 4 &lt;no name&gt;
+Node 7 D
+Node 8 E
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, for large datasets, it may be more efficient to access the array of e.g.
+times for all nodes, which provides direct memory access into the
+<a class="reference internal" href="tables_and_editing.html#sec-tables"><span class="std std-ref">tables</span></a> that underlie the tree sequence format:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">nodes_time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6., 0., 3., 1., 2., 0., 0., 0., 0.])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nodes-must-have-times">
+<span id="sec-phylogen-node-time"></span><h3>Nodes must have times<a class="headerlink" href="#nodes-must-have-times" title="Permalink to this headline">#</a></h3>
+<p>Perhaps the most noticable different between a <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tree and the encoding of trees
+in other phylogenetic libraries is that <code class="docutils literal notranslate"><span class="pre">tskit</span></code> does not explicitly store branch lengths.
+Instead, each node has a <em>time</em> associated with it. Branch lengths can therefore be
+found by calculating the difference between the time of a node and the time of its
+parent node.</p>
+<p>Since nodes <em>must</em> have a time, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> trees aways have these (implicit) branch
+lengths. To represent a tree (“cladogram”) in which the branch lengths are not
+meaningful, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.time_units" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TreeSequence.time_units</span></code></a> of a tree sequence can be
+specified as <code class="docutils literal notranslate"><span class="pre">&quot;uncalibrated&quot;</span></code> (see below)</p>
+<p>Another implication of storing node times rather than branch lengths is that <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
+trees are always directional (i.e. they are “rooted”). The reason that <code class="docutils literal notranslate"><span class="pre">tskit</span></code> stores
+times of nodes (rather than e.g. genetic distances between them) is to ensure temporal
+consistency. In particular it makes it impossible for a node to be an ancestor of a
+node in one tree, and a descendant of the same node in another tree in the tree sequence.
+This is of critical importance when extending the concept of genetic ancestry to
+<a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">Multiple trees</span></a> along a genome.</p>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.time_units" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TreeSequence.time_units</span></code></a> attribute stores the units in which time is
+measured: if not known, this defaults to “unknown”:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time units are&quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">time_units</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time units are unknown
+</pre></div>
+</div>
+<img alt="_images/phylogen_32_1.svg" src="_images/phylogen_32_1.svg" /></div>
+</div>
+<p>Although branch lengths are not stored explicitly, for convenience <code class="docutils literal notranslate"><span class="pre">tskit</span></code> provides a
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.branch_length" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.branch_length()</span></code></a> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;The edge (i.e. branch) immediately above node&quot;</span><span class="p">,</span>
+    <span class="n">node_id</span><span class="p">,</span>
+    <span class="s2">&quot;has a &#39;length&#39; of&quot;</span><span class="p">,</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">node_id</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The edge (i.e. branch) immediately above node 4 has a &#39;length&#39; of 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>The branch distance between two samples is also easy to calculate</p>
+<p>NB: Turn the following in to a code cell</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target_node_1</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">target_node_2</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;The branch distance between nodes&quot;</span><span class="p">,</span>
+    <span class="n">target_node_1</span><span class="p">,</span>
+    <span class="s2">&quot;and&quot;</span><span class="p">,</span>
+    <span class="n">target_node_2</span><span class="p">,</span>
+    <span class="s2">&quot;is&quot;</span><span class="p">,</span>
+    <span class="c1"># See https://github.com/tskit-dev/tskit/issues/2627 - what should be call this</span>
+    <span class="c1"># so as not to get mixed up with tree.path_length which counts the number of edges</span>
+    <span class="c1"># tree.branch_distance(target_node_1, target_node_2),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>It is worth noting that this distance is the basis for the “genetic divergence”
+between two samples in a tree. For this reason, an equivalent way to carry out the
+calculation is to use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a>, part of the the standard <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span>Statistics</span></a> framework, setting <code class="docutils literal notranslate"><span class="pre">mode=&quot;branch&quot;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">windows=&quot;trees&quot;</span></code>. This is a more flexible approach, as it allows the distance between
+multiple sets of samples in <a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">Multiple trees</span></a> to be calculated
+efficiently:</p>
+<p>NB: Turn the following in to a code cell</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target_node_1</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">target_node_2</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Branch distance using built-in stats framework:&quot;</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">divergence</span><span class="p">(([</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">]),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="s2">&quot;trees&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="roots-and-multiroot-trees">
+<span id="sec-phylogen-multiroot"></span><h3>Roots and multiroot trees<a class="headerlink" href="#roots-and-multiroot-trees" title="Permalink to this headline">#</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-roots" title="(in Python)"><span>Roots</span></a> of trees are defined with respect to the
+sample nodes. In particular, if we move back in time along the tree branches from a
+sample, the oldest node that we encounter is defined as a root. The ID of a root can be
+obtained using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.root" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.root</span></code></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The root node of the following tree has ID&quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root node of the following tree has ID 0
+</pre></div>
+</div>
+<img alt="_images/phylogen_36_1.svg" src="_images/phylogen_36_1.svg" /></div>
+</div>
+<p>But in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, we can also create a single “tree” consisting of multiple unlinked
+clades. In our example, we can create one of these phylogenetically unusual objects
+if we remove the edge above node 4, by
+<a class="reference internal" href="tables_and_editing.html#sec-tables-editing"><span class="std std-ref">editing the underlying tables</span></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trees &amp; tree seqs are immutable: to change them, modify a copy of the underlying tables</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="n">keep_edge</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">child</span> <span class="o">!=</span> <span class="mi">4</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">replace_with</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">keep_edge</span><span class="p">])</span>
+<span class="n">new_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>  <span class="c1"># Turn the edited tables back into a tree sequence</span>
+<span class="n">new_tree</span> <span class="o">=</span> <span class="n">new_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">new_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/phylogen_38_0.svg" src="_images/phylogen_38_0.svg" /></div>
+</div>
+<p>Although there are two separate topologies in this plot, in <code class="docutils literal notranslate"><span class="pre">tskit</span></code> terminology, it is
+considered a single tree, but with two roots:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first tree has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">),</span> <span class="s2">&quot;roots:&quot;</span><span class="p">,</span> <span class="n">new_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The first tree has 2 roots: [4, 0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This also means that if we have no topology at all, each sample is its own root.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">erased_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+<span class="n">erased_tree</span> <span class="o">=</span> <span class="n">erased_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This erased tree has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">erased_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">),</span> <span class="s2">&quot;roots:&quot;</span><span class="p">,</span> <span class="n">erased_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">)</span>
+<span class="n">erased_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This erased tree has 5 roots: [1, 5, 6, 7, 8]
+</pre></div>
+</div>
+<img alt="_images/phylogen_42_1.svg" src="_images/phylogen_42_1.svg" /></div>
+</div>
+<p>The samples here are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-isolated-nodes" title="(in Python)"><span>Isolated nodes</span></a>. This may seem like a
+strange corner case, but in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, isolated sample nodes are used to represent
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-missing-data" title="(in Python)"><span>Missing data</span></a>. This therefore represents a tree in which
+relationships between the samples are not known. This could apply, for instance,
+in regions of the genome where no genetic data exists, or where genetic ancestry
+has not been simulated.</p>
+</section>
+</section>
+<section id="phylogenetic-methods">
+<span id="sec-phylogen-methods"></span><h2>Phylogenetic methods<a class="headerlink" href="#phylogenetic-methods" title="Permalink to this headline">#</a></h2>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>Demo some phylogenetic methods. e.g.</p>
+<ol class="simple">
+<li><p>Total branch length - demo quick calculation across multiple trees - incremental algorithm used extensively in population genetics. (“bringing tree thinking to popgen”).</p></li>
+<li><p>KC distance</p></li>
+<li><p>Balance metrics</p></li>
+<li><p>Topology rankings (see https://github.com/tskit-dev/tutorials/issues/93)</p></li>
+</ol>
+</div>
+</section>
+<section id="storing-and-accessing-genetic-data">
+<span id="sec-phylogen-unified-structure"></span><h2>Storing and accessing genetic data<a class="headerlink" href="#storing-and-accessing-genetic-data" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> has been designed to capture both evolutionary tree topologies and the genetic
+sequences that evolve along the branches of these trees. This is achieved by defining
+<a class="reference internal" href="terminology_and_concepts.html#sec-terminology-mutations-and-sites"><span class="std std-ref">Mutations and sites</span></a> which are associated with specific positions
+along the genome.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>  <span class="c1"># The `msprime` package can throw mutations onto a tree sequence</span>
+<span class="n">mutated_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">321</span><span class="p">)</span>
+<span class="n">mutated_tree</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variable sites with the following IDs generated&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">mutated_tree</span><span class="o">.</span><span class="n">sites</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Site ID </span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> @ genomic position </span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+<span class="n">mutated_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable sites with the following IDs generated
+Site ID 0 @ genomic position 7: C -&gt; T
+Site ID 1 @ genomic position 8: C -&gt; G
+Site ID 2 @ genomic position 24: T -&gt; C
+Site ID 3 @ genomic position 34: C -&gt; A
+Site ID 4 @ genomic position 49: T -&gt; A
+Site ID 5 @ genomic position 51: G -&gt; T
+Site ID 6 @ genomic position 52: T -&gt; A
+Site ID 7 @ genomic position 54: G -&gt; A
+Site ID 8 @ genomic position 60: G -&gt; A
+</pre></div>
+</div>
+<img alt="_images/phylogen_44_1.svg" src="_images/phylogen_44_1.svg" /></div>
+</div>
+<p>Mutations occur above nodes in a tree, with all the descendant
+nodes inheriting that specific mutation (unless replaced by a subsequent
+mutation at the same site). This allows genetic variation to be
+<a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">efficiently represented</span></a> using the tree topology.
+To obtain the genetic variation at each site across the entire genome, you can use the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sites" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.sites()</span></code></a> method, or (less efficiently), you can use
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.alignments" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.alignments()</span></code></a> to output the
+entire sequences for each sample node:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">alignment</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+    <span class="n">mutated_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span>
+    <span class="n">mutated_ts</span><span class="o">.</span><span class="n">alignments</span><span class="p">(</span><span class="n">missing_data_character</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">alignment</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 1: .......CC...............T.........C..............A.GT.A.....G.......................................
+Node 5: .......TC...............T.........C..............T.GT.G.....A.......................................
+Node 6: .......CC...............C.........C..............T.GT.G.....A.......................................
+Node 7: .......CC...............T.........C..............T.GA.G.....A.......................................
+Node 8: .......CG...............T.........A..............T.TT.G.....A.......................................
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-trees">
+<span id="sec-phylogen-multiple-trees"></span><h2>Multiple trees<a class="headerlink" href="#multiple-trees" title="Permalink to this headline">#</a></h2>
+<p>Where <code class="docutils literal notranslate"><span class="pre">tskit</span></code> really shines is when the ancestry of your dataset cannot be adequately
+represented by a single tree. This is a pervasive issue in genomes (even from different
+species) that have undergone recombination in the past. The resulting series of
+“local trees” along a genome are highly correlated (see <a class="reference internal" href="terminology_and_concepts.html#sec-concepts"><span class="std std-ref">Concepts</span></a>).</p>
+<p>Instead of storing each tree along a genome separately, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> records the genomic
+coordinates of each edge, which leads to enormous efficiencies in storage and
+analysis. As a basic demonstration, we can repeat the edge removal example
+<a class="reference internal" href="#sec-phylogen-multiroot"><span class="std std-ref">above</span></a>, but only remove the ancestral link above node 4
+for the first half of the genome.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="n">edge_id_above_node_4</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">left_coord_for_edges</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">left</span>
+<span class="n">left_coord_for_edges</span><span class="p">[</span><span class="n">edge_id_above_node_4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left_coord_for_edges</span>  <span class="c1"># reset the right coords</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">multi_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+
+<span class="n">multi_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/phylogen_48_0.svg" src="_images/phylogen_48_0.svg" /></div>
+</div>
+<p>For the left hand side of the genome we lack information about the ancestry of
+node 4, but for the right hand side we know this information. The result is to
+generate 2 trees in the tree sequence, which differ only in the presence of absence of
+a single branch. We do not have to separately store the entire tree on the right: all
+the edges that are shared between trees are stored only once.</p>
+<p>The rest of the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tutorials will lead you through the concepts involved with
+storing and analysing sequences of many correlated trees. For a simple introduction, you
+might want to start with <a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="tutorial_development.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><em>Developing new tutorials</em></p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tskit Developers<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
