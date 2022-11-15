@@ -720,8 +720,8 @@ tips, as in the example below:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70018196105957 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 7.86 s, sys: 236 ms, total: 8.1 s
-Wall time: 8.09 s
+CPU times: user 6.4 s, sys: 214 ms, total: 6.61 s
+Wall time: 6.61 s
 </pre></div>
 </div>
 </div>
@@ -746,8 +746,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 took:
-CPU times: user 513 ms, sys: 25 µs, total: 513 ms
-Wall time: 515 ms
+CPU times: user 405 ms, sys: 0 ns, total: 405 ms
+Wall time: 406 ms
 </pre></div>
 </div>
 </div>
@@ -763,8 +763,8 @@ Wall time: 515 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 17.9 ms, sys: 4.02 ms, total: 21.9 ms
-Wall time: 21.7 ms
+CPU times: user 13.8 ms, sys: 79 µs, total: 13.9 ms
+Wall time: 13.7 ms
 </pre></div>
 </div>
 </div>
@@ -1348,19 +1348,20 @@ considered a single tree, but with two roots:</p>
 </div>
 </div>
 </div>
-<p>This also means that if we have no topology at all, each sample is its own root.</p>
+<p>This also means that if we have no topology at all (i.e. an “empty tree”), each
+sample is its own root.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">erased_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
-<span class="n">erased_tree</span> <span class="o">=</span> <span class="n">erased_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This erased tree has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">erased_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">),</span> <span class="s2">&quot;roots:&quot;</span><span class="p">,</span> <span class="n">erased_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">)</span>
-<span class="n">erased_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+<span class="n">empty_tree</span> <span class="o">=</span> <span class="n">erased_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This empty tree has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">),</span> <span class="s2">&quot;roots:&quot;</span><span class="p">,</span> <span class="n">empty_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">)</span>
+<span class="n">empty_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This erased tree has 5 roots: [1, 5, 6, 7, 8]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This empty tree has 5 roots: [1, 5, 6, 7, 8]
 </pre></div>
 </div>
 <img alt="_images/phylogen_42_1.svg" src="_images/phylogen_42_1.svg" /></div>
