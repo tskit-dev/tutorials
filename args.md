@@ -34,7 +34,7 @@ an "ancestral recombination graph" (or ARG).
 
 :::{margin}
 An original, narrower definition, which we do not use here, restricts the term ARG to
-the the neutral coalescent process with crossover-recombination, and the graph structure
+the neutral coalescent process with crossover-recombination, and the graph structure
 defined by that process, see e.g.
 [Griffiths & Marjoram (1997)](https://research.monash.edu/en/publications/an-ancestral-recombination-graph)
 :::
@@ -169,7 +169,7 @@ recombination nodes. There are 2 breakpoints (creating 3 trees) corresponding to
 2 recombination events in the history of the six samples. However, there are 4
 recombination nodes because `msprime` stores *two* recombination
 nodes for each recombination event, one to the left and one to the right of the
-breakpoint, at identical times. You can think of these two nodes as the 2 parental
+breakpoint, at identical times. You can think of these two nodes as the two parental
 genomes that are recombined to create a new gamete. They are highlighed in red below:
 
 ```{code-cell}
@@ -221,7 +221,7 @@ evolution in a large population with unique recombination breakpoints along a co
 genome), we can calculate its likelihood under that model, for a given recombination
 rate and population size, using the {func}`msprime:msprime.log_arg_likelihood` method.
 Note however, that the simulation was run with the default ploidy level of 2, so that
-the {func}`msprime:msprime.sim_ancestry` method took the the `pop_size` variable to be
+the {func}`msprime:msprime.sim_ancestry` method assumed the `pop_size` variable was
 the *diploid* population size. The `log_arg_likelihood` method requires `Ne`, the haploid
 population size, which is twice as large, so the likelihood is calculated as follows:
 
@@ -250,10 +250,10 @@ ts.draw_svg(
 )
 ```
 
-Because of the loss of information, the ARG likelihood cannot be calculated.
-We can still, however, calculate the *mutation likelihood* (i.e. the likelihood
-of the observed pattern of mutations, given the genealogy) because the topology
-and branch lengths of the local trees remain unchanged after simplification:
+Because of the loss of information, the ARG likelihood cannot be calculated from the
+simplified tree sequence. We can still, however, calculate the *mutation likelihood*
+(i.e. the likelihood of the observed pattern of mutations, given the genealogy) because
+the topology and branch lengths of the local trees remain unchanged after simplification:
 
 ```{code-cell}
 print("Log likelihood of mutations given the genealogy:")
@@ -266,7 +266,7 @@ print(" simplified:", msprime.log_mutation_likelihood(ts, mutation_rate=1e-6))
 Many extra nodes are required to store full information about ancestrally relevant
 recombination. In fact, as the sequence length increases, these non-coalescent nodes come
 to dominate the tree sequence (which is one reason they are not included by default).
-We can calculate the percentage of coalescent nodes by comparing the msprime ARG with
+We can calculate the percentage of non-coalescent nodes by comparing the msprime ARG with
 its fully simplified equivalent:
 
 ```{code-cell}
@@ -281,7 +281,7 @@ ts_arg = msprime.sim_ancestry(
 ts = ts_arg.simplify()
 
 print(
-    "Non coalescent nodes take up "
+    "Non-coalescent nodes take up "
     f"{(1-ts.num_nodes/ts_arg.num_nodes) * 100:0.2f}% "
     f"of this {ts.sequence_length/1e6:g} megabase {ts.num_samples}-tip ARG"
 )
