@@ -397,14 +397,15 @@ considered a single tree, but with two roots:
 print("The first tree has", len(new_tree.roots), "roots:", new_tree.roots)
 ```
 
-This also means that if we have no topology at all, each sample is its own root.
+This also means that if we have no topology at all (i.e. an "empty tree"), each
+sample is its own root.
 
 ```{code-cell}
 tables.edges.clear()
 erased_ts = tables.tree_sequence()
-erased_tree = erased_ts.first()
-print("This erased tree has", len(erased_tree.roots), "roots:", erased_tree.roots)
-erased_tree.draw_svg()
+empty_tree = erased_ts.first()
+print("This empty tree has", len(empty_tree.roots), "roots:", empty_tree.roots)
+empty_tree.draw_svg()
 ```
 
 The samples here are {ref}`sec_data_model_tree_isolated_nodes`. This may seem like a
