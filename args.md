@@ -43,33 +43,30 @@ a structure consisting of nodes and edges that describe the genetic genealogy of
 of sampled chromosomes which have evolved via a process of genetic inheritance combined
 with recombination. ARGs may contain not just nodes corresponding to genetic
 coalescence, but also additional nodes that correspond e.g. to recombination events
-(see {ref}`sec_args_arg_nodes`, below). This tutorial aims to show you how
-[tskit](https://tskit.dev) can be used to store and analyse "full ARGs"
-of this sort. As an example, we will generate an ARG with nodes that mark
-recombination events, using {func}`msprime:msprime.sim_ancestry` with the
-`record_full_arg` option, as described {ref}`in the msprime docs<msprime:sec_ancestry_full_arg>`:
+(see {ref}`sec_args_arg_nodes`, below). We call these "full ARGs", and this tutorial aims
+to show you how [tskit](https://tskit.dev) can be used to store and analyse them.
+As an example, we will generate a full ARG using the process 
+{func}`msprime:msprime.sim_ancestry` with the `record_full_arg=True` option, as described
+{ref}`in the msprime docs<msprime:sec_ancestry_full_arg>`:
 
 ```{code-cell}
 import msprime
 
-rho = 1e-7
-pop_size = 1e3
+parameters = {
+    "samples": 3, # Three diploid individuals == six sample genomes
+    "sequence_length": 1e4,
+    "recombination_rate": 1e-7,
+    "population_size": 1e3,
+    "random_seed": 333,
+}
 
-ts_arg = msprime.sim_ancestry(
-    3,
-    population_size=pop_size,
-    sequence_length=1e4,
-    recombination_rate=rho,
-    # The next option results in a tree sequence with additional non-coalescent nodes
-    record_full_arg=True,
-    # Optionally, we can force a continuous genome, to match the strict Hudson model 
-    discrete_genome=False,
-    random_seed=333,
-)
-print("ARG simulated under the Hudson model:")
+ts_arg = msprime.sim_ancestry(**parameters, record_full_arg=True, discrete_genome=False)
+# NB: the strict Hudson ARG needs unique crossover positions (i.e. a continuous genome)
+
+print('"Full ARG" simulated under the Hudson model:')
 print(
-    f" ARG has {ts_arg.num_nodes} nodes and {ts_arg.num_edges} edges "
-    f"forming {ts_arg.num_trees} local trees"
+    f" stored in a tree sequence with {ts_arg.num_nodes} nodes and "
+    f" {ts_arg.num_edges} edges which form {ts_arg.num_trees} local trees"
 )
 ```
 
@@ -78,7 +75,8 @@ variation:
 
 ```{code-cell}
 import numpy as np
-ts_arg = msprime.sim_mutations(ts_arg, rate=1e-7, random_seed=888)
+mu = 1e-7
+ts_arg = msprime.sim_mutations(ts_arg, rate=mu, random_seed=888)
 print("     Sample node:  " + "   ".join(str(u) for u in ts_arg.samples()))
 for v in ts_arg.variants():
     print(f"Variable site {v.site.id}:", np.array(v.alleles)[v.genotypes])
@@ -121,19 +119,19 @@ the neutral coalescent-with-recombination (CwR), for example ancestries incorpor
 gene conversion, or that have evolved under a Wright-Fisher model of inheritance,
 in which parents can have more than two children, and coalescence and recombination
 can occur in the same generation. The focus on genomes rather than events also
-makes it possible to accurately encode ancestry without having to explictly specify all
-ancestrally relevant events (TODO: cite our ARG paper).
+makes it possible to accurately encode ancestry without having to pin down exactly when
+the relevant ancestral events took place (TODO: cite our ARG paper).
 
 (sec_args_arg_nodes)=
 ## ARG nodes
 
-{ref}`Simplified<sec_simplification>` tree sequences, such as the default `msprime`
-output, can be though of as graphs that contain only those nodes that correspond to a
-coalescence somewhere in the genome. That is sufficient to capture the structure of
-local trees and the correlations between them, and is often sufficient for analysis.
-However fully simplified tree sequences do not contain complete information about the
-timings and topological operations associated with recombination events. This extra
-information can be useful for a few specific purposes:
+{ref}`Simplified<sec_simplification>` tree sequences, such those normally produced by
+`msprime`, can be though of as a "simplified ARGs" that contain only nodes that
+correspond to a coalescence somewhere in the genome. They are sufficient to capture the
+structure of local trees and the correlations between them; this is usually all that is
+needed for analysis. However they do not contain complete information about the timings
+and topological operations associated with recombination events. This extra information
+can be useful for a few specific purposes:
 
 1. Assuming each recombination happens at a unique position, precise information about
    which lineages are involved in recombination allows you to work out the exact
@@ -141,7 +139,7 @@ information can be useful for a few specific purposes:
    required to change one local tree into another as you move along the genome.
 
 2. Information about recombination and common ancestor events can be used to calculate
-   the likelihood of an ARG under a specific model of evolution (most commonly, the
+   the likelihood of an full ARG under a specific model of evolution (most commonly, the
    neutral coalescent with recombination, or CwR, as modelled e.g. by
    [Hudson (1983)](https://doi.org/10.1016/0040-5809(83)90013-8))
 
@@ -152,25 +150,22 @@ nodes from genetic variation data with any degree of precision.
 (sec_args_unary_nodes)=
 ### Unary tree nodes
 
-To store additional information about non-coalescent nodes, an ARG stored in tree
+To store additional information about non-coalescent nodes, a full ARG stored in tree
 sequence form contains extra *unary* nodes (i.e. nodes with only one child).
-In particular, tree sequence ARGs
-contain *recombination nodes* which record the timing of recombination events,
-and *non-coalescent-common-ancestor* nodes which record cases where lineages share
-a common ancestor but in which genetic material does not coalesce. 
+In particular, it can contain *recombination nodes* which record the timing of
+recombination events, and *non-coalescent-common-ancestor* nodes which record cases
+where lineages share a common ancestor but in which genetic material does not coalesce. 
 
-Currently, in `msprime`, recombination nodes are identified by the
-{data}`~msprime:msprime.msprime.NODE_IS_RE_EVENT` flag, and
-non-coalescent-common-ancestor nodes with the
-{data}`~msprime:msprime.msprime.NODE_IS_CA_EVENT` flag. 
-
-In our small simulated example, the only extra nodes which are unary everywhere are
-recombination nodes. There are 2 breakpoints (creating 3 trees) corresponding to
-2 recombination events in the history of the six samples. However, there are 4
-recombination nodes because `msprime` stores *two* recombination
-nodes for each recombination event, one to the left and one to the right of the
-breakpoint, at identical times. You can think of these two nodes as the two parental
-genomes that are recombined to create a new gamete. They are highlighed in red below:
+The example we have been using is small, and contains just 2 recombination events
+(associated with 2 breakpoints). In this instance the only extra nodes happen to be
+recombination nodes. `Msprime` only simulates full ARGs in which a recombination event
+results in a single crossover, and it records this by storing the two genomes
+immediately prior to gamete formation (the genomes that come together to form a
+recombinant). In other words, *two* extra nodes are created for each
+recombination: one that captures transmission to the left of the crossover and another,
+at an identical time, to the right. These are identified by the
+{data}`~msprime:msprime.msprime.NODE_IS_RE_EVENT` flag, and are are highlighed in red
+below:
 
 ```{code-cell}
 # Plot the recombination nodes in red, with a horizontal line at the time of occurrence,
@@ -192,11 +187,6 @@ ts_arg.draw_svg(
 )
 ```
 
-:::{todo}
-Explain in plain language why 2 RE nodes are needed to calculate the likelihood under the
-CwR: see e.g. https://github.com/tskit-dev/msprime/issues/1942#issuecomment-1013718650
-:::
-
 The location of the recombination nodes imply that a *recombination event*
 (specifically a crossover) happened ~588 generations ago. This involved node 13
 (to the left of position 2601.01) and node 14 (to the right). As well as narrowing
@@ -214,23 +204,43 @@ ancestor of 1 and 3. In this case, the recombination has led to a change in topo
 such that the closest relative of 5 is node 4 from positions 0 to 6516.94, but 1 and 3
 from positions 6516.94 to 10,000.
 
+:::{note}
+
+
+::::{todo}
+Explain in plain language why 2 RE nodes are needed to calculate the likelihood under the
+Hudson CwR: see e.g. https://github.com/tskit-dev/msprime/issues/1942#issuecomment-1013718650
+
+One suggested way to do this is to show how there is not enough information in a 1-RE-node
+plot to fully recreate the 2-RE-node equivalent. I think this is because we lose
+information about the order of breakpoints when multiple breakpoints occur in
+the same region of hidden material.
+
+Note also that this approach only applies to a model in which a single crossover occurs
+per chromosome.
+::::
+:::
+
 ## Calculating likelihoods
 
 Because the ARG above was generated under the standard Hudson model (e.g. neutral
 evolution in a large population with unique recombination breakpoints along a continuous
 genome), we can calculate its likelihood under that model, for a given recombination
 rate and population size, using the {func}`msprime:msprime.log_arg_likelihood` method.
-Note however, that the simulation was run with the default ploidy level of 2, so that
-the {func}`msprime:msprime.sim_ancestry` method assumed the `pop_size` variable was
+Note however, that the simulation was run with the default ploidy level of 2, so that the
+{func}`msprime:msprime.sim_ancestry` method assumed the `population_size` parameter was
 the *diploid* population size. The `log_arg_likelihood` method requires `Ne`, the haploid
 population size, which is twice as large, so the likelihood is calculated as follows:
 
 
 ```{code-cell}
-Ne = pop_size * 2  # Express population size in number of haploid genomes
 print(
     "Log likelihood of the genealogy under the Hudson model:",
-    msprime.log_arg_likelihood(ts_arg, recombination_rate=rho, Ne=Ne)
+    msprime.log_arg_likelihood(
+        ts_arg,
+        recombination_rate=parameters["recombination_rate"],
+        Ne=parameters["population_size"] * 2  # Number of *haploid* genomes
+    )
 )
 ```
 
@@ -257,8 +267,8 @@ the topology and branch lengths of the local trees remain unchanged after simpli
 
 ```{code-cell}
 print("Log likelihood of mutations given the genealogy:")
-print(' "full" ARG:',  msprime.log_mutation_likelihood(ts_arg, mutation_rate=1e-6))
-print(" simplified:", msprime.log_mutation_likelihood(ts, mutation_rate=1e-6))
+print(' "full" ARG:',  msprime.log_mutation_likelihood(ts_arg, mutation_rate=mu))
+print(" simplified:", msprime.log_mutation_likelihood(ts, mutation_rate=mu))
 ```
 
 ## Recording all nodes is expensive
@@ -266,18 +276,13 @@ print(" simplified:", msprime.log_mutation_likelihood(ts, mutation_rate=1e-6))
 Many extra nodes are required to store full information about ancestrally relevant
 recombination. In fact, as the sequence length increases, these non-coalescent nodes come
 to dominate the tree sequence (which is one reason they are not included by default).
-We can calculate the percentage of non-coalescent nodes by comparing the msprime ARG with
-its fully simplified equivalent:
+We can calculate the percentage of non-coalescent nodes by comparing a full ARG with
+its simplified version:
 
 ```{code-cell}
-ts_arg = msprime.sim_ancestry(
-    3,
-    population_size=1e4,
-    sequence_length=1e7,  # Increase to 10 Mb
-    recombination_rate=1e-8,
-    record_full_arg=True,
-    random_seed=333,
-)
+large_sim_parameters = parameters.copy()
+large_sim_parameters["sequence_length"] *= 1000
+ts_arg = msprime.sim_ancestry(**large_sim_parameters, record_full_arg=True)
 ts = ts_arg.simplify()
 
 print(
