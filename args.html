@@ -535,6 +535,16 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-likelihoods">
+   Calculating likelihoods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recording-all-nodes-is-expensive">
+   Recording all nodes is expensive
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#working-with-the-arg">
    Working with the ARG
   </a>
@@ -579,6 +589,16 @@ title="Print to PDF"
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-likelihoods">
+   Calculating likelihoods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recording-all-nodes-is-expensive">
+   Recording all nodes is expensive
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#working-with-the-arg">
@@ -783,23 +803,27 @@ below:</p>
 <div class="cell_output docutils container">
 <img alt="_images/args_5_0.svg" src="_images/args_5_0.svg" /></div>
 </div>
-<p>The location of the recombination nodes imply that a <em>recombination event</em>
-(specifically a crossover) happened ~588 generations ago. This involved node 13
-(to the left of position 2601.01) and node 14 (to the right). As well as narrowing
-down the recombination event to a specific point in time, the position of these nodes
-tells us that the SPR to convert the first into the second tree
+<p>The location of the recombination nodes imply that the <em>recombination events</em>
+happened ~588 and ~59 generations ago. The older one, at 588 generations, involved node
+13 (to the left of position 2601.01) and node 14 (to the right). As well as narrowing
+down the recombination event to a specific point in time, the position of these two
+nodes tells us that the SPR to convert the first into the second tree
 involves pruning the branch above samples 1, 3, 4, and 5 and regrafting it onto the
 branch above samples 0 and 2, rather than the other way around. Note that this
 particular recombination does not change the <em>topology</em> of the tree, but simply the
 branch lengths.</p>
-<p>The recombination event at position 6516.94 (~59 generations ago) involved nodes 7 and 8.
-The SPR operation which converts the middle tree into the last one involves pruning
-the branch above sample node 5 and regrafting it onto the branch above the common
-ancestor of 1 and 3. In this case, the recombination has led to a change in topology,
-such that the closest relative of 5 is node 4 from positions 0 to 6516.94, but 1 and 3
-from positions 6516.94 to 10,000.</p>
+<p>The recombination event 59 generations ago involved nodes 7 and 8, with the crossover
+ocurring at position 6516.94. The SPR operation which converts the middle tree into the
+last one involves pruning the branch above sample node 5 and regrafting it onto the
+branch above the common ancestor of 1 and 3. In this case, the recombination has led to
+a change in topology, such that the closest relative of 5 is node 4 from positions 0
+to 6516.94, but 1 and 3 from positions 6516.94 to 10,000.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Many ARG representations associate each recombination event with a single node rather
+than two. It is possible to represent this in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, but in such an ARG, the
+edge annotations do not contain enough information to calculate the standard
+likelihood under the Hudson model (see <a class="reference internal" href="#sec-args-likelihoods"><span class="std std-ref">Calculating likelihoods</span></a>).</p>
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>Explain in plain language why 2 RE nodes are needed to calculate the likelihood under the
@@ -812,92 +836,118 @@ the same region of hidden material.</p>
 per chromosome.</p>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-## Calculating likelihoods
-
-Because the ARG above was generated under the standard Hudson model (e.g. neutral
+</section>
+</section>
+<section id="calculating-likelihoods">
+<span id="sec-args-likelihoods"></span><h2>Calculating likelihoods<a class="headerlink" href="#calculating-likelihoods" title="Permalink to this headline">#</a></h2>
+<p>Because the ARG above was generated under the standard Hudson model (e.g. neutral
 evolution in a large population with unique recombination breakpoints along a continuous
 genome), we can calculate its likelihood under that model, for a given recombination
-rate and population size, using the {func}`msprime:msprime.log_arg_likelihood` method.
+rate and population size, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.log_arg_likelihood" title="(in Python)"><code class="docutils literal notranslate"><span class="pre">msprime.log_arg_likelihood()</span></code></a> method.
 Note however, that the simulation was run with the default ploidy level of 2, so that the
-{func}`msprime:msprime.sim_ancestry` method assumed the `population_size` parameter was
-the *diploid* population size. The `log_arg_likelihood` method requires `Ne`, the haploid
-population size, which is twice as large, so the likelihood is calculated as follows:
-
-
-```{code-cell}
-print(
-    &quot;Log likelihood of the genealogy under the Hudson model:&quot;,
-    msprime.log_arg_likelihood(
-        ts_arg,
-        recombination_rate=parameters[&quot;recombination_rate&quot;],
-        Ne=parameters[&quot;population_size&quot;] * 2  # Number of *haploid* genomes
-    )
-)
-```
-
-It is worth noting that we fully simplify the tree above, we remove all the unary nodes
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> method assumed the <code class="docutils literal notranslate"><span class="pre">population_size</span></code> parameter was
+the <em>diploid</em> population size. The <code class="docutils literal notranslate"><span class="pre">log_arg_likelihood</span></code> method requires <code class="docutils literal notranslate"><span class="pre">Ne</span></code>, the haploid
+population size, which is twice as large, so the likelihood is calculated as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Log likelihood of the genealogy under the Hudson model:&quot;</span><span class="p">,</span>
+    <span class="n">msprime</span><span class="o">.</span><span class="n">log_arg_likelihood</span><span class="p">(</span>
+        <span class="n">ts_arg</span><span class="p">,</span>
+        <span class="n">recombination_rate</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;recombination_rate&quot;</span><span class="p">],</span>
+        <span class="n">Ne</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;population_size&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>  <span class="c1"># Number of *haploid* genomes</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Log likelihood of the genealogy under the Hudson model: -93.57791165409245
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is worth noting that we fully simplify the tree above, we remove all the unary nodes
 and therefore lose information about the timings of recombination and non-coalescent
-common ancestry, but we still keep the local trees intact:
-
-```{code-cell}
-ts = ts_arg.simplify()
-ts.draw_svg(
-    size=(600, 300),
-    y_axis=True,
-    node_labels={u: u for u in ts.samples()},
-    mutation_labels={},
-    style=&quot;.mut .sym {stroke: goldenrod}&quot;,
-    y_ticks=[t*500 for t in range(4)]
-)
-```
-
-Because of the loss of information, the ARG likelihood cannot be calculated from the
-simplified tree sequence. We can still, however, calculate the *mutation likelihood*
+common ancestry, but we still keep the local trees intact:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">ts_arg</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()},</span>
+    <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;.mut .sym {stroke: goldenrod}&quot;</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="n">t</span><span class="o">*</span><span class="mi">500</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/args_9_0.svg" src="_images/args_9_0.svg" /></div>
+</div>
+<p>Because of this loss of information, the ARG likelihood cannot be calculated from the
+simplified tree sequence. We can still, however, calculate the <em>mutation likelihood</em>
 (i.e. the likelihood of the observed pattern of mutations, given the genealogy) because
-the topology and branch lengths of the local trees remain unchanged after simplification:
-
-```{code-cell}
-print(&quot;Log likelihood of mutations given the genealogy:&quot;)
-print(&#39; &quot;full&quot; ARG:&#39;,  msprime.log_mutation_likelihood(ts_arg, mutation_rate=mu))
-print(&quot; simplified:&quot;, msprime.log_mutation_likelihood(ts, mutation_rate=mu))
-```
-
-## Recording all nodes is expensive
-
-Many extra nodes are required to store full information about ancestrally relevant
+the topology and branch lengths of the local trees remain unchanged after simplification:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Log likelihood of mutations given the genealogy:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &quot;full&quot; ARG:&#39;</span><span class="p">,</span>  <span class="n">msprime</span><span class="o">.</span><span class="n">log_mutation_likelihood</span><span class="p">(</span><span class="n">ts_arg</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mu</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; simplified:&quot;</span><span class="p">,</span> <span class="n">msprime</span><span class="o">.</span><span class="n">log_mutation_likelihood</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mu</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Log likelihood of mutations given the genealogy:
+ &quot;full&quot; ARG: -33.204860594400216
+ simplified: -33.204860594400216
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recording-all-nodes-is-expensive">
+<h2>Recording all nodes is expensive<a class="headerlink" href="#recording-all-nodes-is-expensive" title="Permalink to this headline">#</a></h2>
+<p>Many extra nodes are required to store full information about ancestrally relevant
 recombination. In fact, as the sequence length increases, these non-coalescent nodes come
 to dominate the tree sequence (which is one reason they are not included by default).
 We can calculate the percentage of non-coalescent nodes by comparing a full ARG with
-its simplified version:
+its simplified version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">large_sim_parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">large_sim_parameters</span><span class="p">[</span><span class="s2">&quot;sequence_length&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1000</span>
+<span class="n">ts_arg</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="o">**</span><span class="n">large_sim_parameters</span><span class="p">,</span> <span class="n">record_full_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">ts_arg</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
 
-```{code-cell}
-large_sim_parameters = parameters.copy()
-large_sim_parameters[&quot;sequence_length&quot;] *= 1000
-ts_arg = msprime.sim_ancestry(**large_sim_parameters, record_full_arg=True)
-ts = ts_arg.simplify()
-
-print(
-    &quot;Non-coalescent nodes take up &quot;
-    f&quot;{(1-ts.num_nodes/ts_arg.num_nodes) * 100:0.2f}% &quot;
-    f&quot;of this {ts.sequence_length/1e6:g} megabase {ts.num_samples}-tip ARG&quot;
-)
-```
-
-This is one of the primary reasons that nodes which are never associated with coalescent
-events are excluded by default in simulation software such as
-[msprime](https://tskit.dev/software/msprime.html) and
-[SLiM](https://tskit.dev/software/SLiM.html).
-
-:::{note}
-As well as ancestrally relevant nodes, the original (mathematical) ARG formulation by
-[Griffiths (1991)](https://www.jstor.org/stable/4355649) includes recombination
-nodes that are not ancestral to the samples. This leads to a graph with an
-vastly larger number of nodes than even the ARGs simulated here, and using such
-structures for simulation or inference is therefore infeasible.
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Non-coalescent nodes take up &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="o">/</span><span class="n">ts_arg</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">% &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;of this </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> megabase </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2">-tip ARG&quot;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-</section>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-coalescent nodes take up 99.32% of this 10 megabase 6-tip ARG
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is one of the primary reasons that nodes which are never associated with coalescent
+events are excluded by default in simulation software such as
+<a class="reference external" href="https://tskit.dev/software/msprime.html">msprime</a> and
+<a class="reference external" href="https://tskit.dev/software/SLiM.html">SLiM</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As well as ancestrally relevant nodes, the original (mathematical) ARG formulation by
+<a class="reference external" href="https://www.jstor.org/stable/4355649">Griffiths (1991)</a> includes recombination
+nodes that are not ancestral to the samples. This leads to a graph with an
+vastly larger number of nodes than even the ARGs simulated here, and using such
+structures for simulation or inference is therefore infeasible.</p>
+</div>
 </section>
 <section id="working-with-the-arg">
 <h2>Working with the ARG<a class="headerlink" href="#working-with-the-arg" title="Permalink to this headline">#</a></h2>
