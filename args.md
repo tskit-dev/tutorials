@@ -187,27 +187,32 @@ ts_arg.draw_svg(
 )
 ```
 
-The location of the recombination nodes imply that a *recombination event*
-(specifically a crossover) happened ~588 generations ago. This involved node 13
-(to the left of position 2601.01) and node 14 (to the right). As well as narrowing
-down the recombination event to a specific point in time, the position of these nodes
-tells us that the SPR to convert the first into the second tree
+The location of the recombination nodes imply that the *recombination events*
+happened ~588 and ~59 generations ago. The older one, at 588 generations, involved node
+13 (to the left of position 2601.01) and node 14 (to the right). As well as narrowing
+down the recombination event to a specific point in time, the position of these two
+nodes tells us that the SPR to convert the first into the second tree
 involves pruning the branch above samples 1, 3, 4, and 5 and regrafting it onto the
 branch above samples 0 and 2, rather than the other way around. Note that this
 particular recombination does not change the *topology* of the tree, but simply the
 branch lengths.
 
-The recombination event at position 6516.94 (~59 generations ago) involved nodes 7 and 8.
-The SPR operation which converts the middle tree into the last one involves pruning
-the branch above sample node 5 and regrafting it onto the branch above the common
-ancestor of 1 and 3. In this case, the recombination has led to a change in topology,
-such that the closest relative of 5 is node 4 from positions 0 to 6516.94, but 1 and 3
-from positions 6516.94 to 10,000.
+The recombination event 59 generations ago involved nodes 7 and 8, with the crossover
+ocurring at position 6516.94. The SPR operation which converts the middle tree into the
+last one involves pruning the branch above sample node 5 and regrafting it onto the
+branch above the common ancestor of 1 and 3. In this case, the recombination has led to
+a change in topology, such that the closest relative of 5 is node 4 from positions 0
+to 6516.94, but 1 and 3 from positions 6516.94 to 10,000.
 
-:::{note}
+::::{note}
 
+Many ARG representations associate each recombination event with a single node rather
+than two. It is possible to represent this in `tskit`, but in such an ARG, the
+edge annotations do not contain enough information to calculate the standard
+likelihood under the Hudson model (see {ref}`sec_args_likelihoods`).
 
-::::{todo}
+:::{todo}
+
 Explain in plain language why 2 RE nodes are needed to calculate the likelihood under the
 Hudson CwR: see e.g. https://github.com/tskit-dev/msprime/issues/1942#issuecomment-1013718650
 
@@ -218,8 +223,12 @@ the same region of hidden material.
 
 Note also that this approach only applies to a model in which a single crossover occurs
 per chromosome.
-::::
+
 :::
+
+::::
+
+(sec_args_likelihoods)=
 
 ## Calculating likelihoods
 
@@ -260,7 +269,7 @@ ts.draw_svg(
 )
 ```
 
-Because of the loss of information, the ARG likelihood cannot be calculated from the
+Because of this loss of information, the ARG likelihood cannot be calculated from the
 simplified tree sequence. We can still, however, calculate the *mutation likelihood*
 (i.e. the likelihood of the observed pattern of mutations, given the genealogy) because
 the topology and branch lengths of the local trees remain unchanged after simplification:
