@@ -16,7 +16,7 @@ kernelspec:
 # Welcome!
 
 This site contains a number of tutorials to develop your understanding of
-[succinct tree sequences](https://tskit.dev/learn.html#what) and software programs,
+[succinct tree sequences](https://tskit.dev/learn/) and software programs,
 such as [msprime](https://tskit.dev/msprime), that use them.
 
 If you are new to the world of tree sequences, we suggest you start with the
@@ -33,7 +33,7 @@ would like to help out.
 
 ## Other sources of help
 
-In addition to these tutorials, our [Learn page](https://tskit.dev/learn.html) lists
+In addition to these tutorials, our [Learn page](https://tskit.dev/learn/) lists
 selected videos and publications to help you learn about tree sequences. 
 
 We aim to be a friendly, welcoming open source community.
