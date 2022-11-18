@@ -472,7 +472,8 @@ for node_id, alignment in zip(
 Where `tskit` really shines is when the ancestry of your dataset cannot be adequately
 represented by a single tree. This is a pervasive issue in genomes (even from different
 species) that have undergone recombination in the past. The resulting series of
-"local trees" along a genome are highly correlated (see {ref}`sec_concepts`).
+{ref}`local trees<sec_what_is_local_trees>` along a genome are highly correlated
+(see {ref}`sec_concepts`).
 
 Instead of storing each tree along a genome separately, `tskit` records the genomic
 coordinates of each edge, which leads to enormous efficiencies in storage and
