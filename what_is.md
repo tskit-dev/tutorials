@@ -132,9 +132,15 @@ txt._get_wrap_line_width = lambda: 600
 plt.show()
 ```
 
+## How to think about tree sequences
+
+(sec_what_is_local_trees)=
+
+### A sequence of trees...
+
 As the name suggests, the simplest way to think about a tree sequence is that it
-describes a sequence of correlated "local trees" --- i.e. trees located at
-different points along the [chromosome](https://en.wikipedia.org/wiki/Chromosome).
+describes a sequence of correlated "local trees" --- i.e. genetic trees located at
+different points along a [chromosome](https://en.wikipedia.org/wiki/Chromosome).
 Here's a tiny example based on ten genomes, $\mathrm{a}$ to $\mathrm{j}$, spanning
 a short 1000 letter chromosome.
 
@@ -173,13 +179,16 @@ the first tree. The second tree shows the relationships between positions 189 an
 and the third from position 546 to the end. We can say that the first tree spans 189
 base pairs, the second 357, and the third 454.
 
+(sec_what_is_genealogical_network)=
+
+### ... created by a genealogical network
+
 In fact, succinct tree sequences don't store each tree separately, but instead are
-based on an interconnected *genetic genealogy* (sometimes known as an Ancestral
-Recombination Graph or ARG), in which
+based on an interconnected *genetic genealogy*, in which
 [genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination) has led
 to different regions of the chromosome having different histories. Another way of
-thinking about the tree sequence above is that it describes the full genetic ancestry
-of our 10 genomes.
+thinking about the tree sequence above is that it describes the full genetic
+*family "tree"* (strictly, "network") of our 10 genomes.
 
 (sec_what_is_dna_data)=
 
@@ -221,7 +230,7 @@ variation. Here's the resulting "variant matrix":
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 haplotypes = ["   ".join(h) for h in mutated_ts.haplotypes()]
-print("Position: " + " ".join(str(int(s.position)).center(3) for s in mutated_ts.sites()))
+print("Position: " + "".join(f"{s.position:^4g}" for s in mutated_ts.sites()))
 print("\n".join(sorted(
     [f"Genome {labels[i]}:  {h}" for i, h in zip(mutated_ts.samples(), haplotypes)])))
 ```
@@ -381,11 +390,11 @@ ts_flipped = tables.tree_sequence()
 haplotypes = ["   ".join(h) for h in ts_flipped.haplotypes(missing_data_character=" ")]
 print(" " * ts_flipped.num_sites, " " * (ts_flipped.num_sites-4), "")
 print(
-    "||ANCESTRAL GENOMES||      Position:",
-    " ".join(str(int(s.position)) for s in ts_flipped.sites()))
+    "||ANCESTRAL GENOMES||     Position:",
+    "".join(f"{s.position:^4g}" for s in ts_flipped.sites()))
 print(
     "\n".join(reversed(sorted([
-        f"Genome {labels[i]} (time {ts.node(i).time:7.1f} in the past):  {h}"
+        f"Genome {labels[i]} ({ts.node(i).time:7.1f} {ts_flipped.time_units} ago):  {h}"
         for i, h in zip(ts_flipped.samples(), haplotypes)]))))
 ```
 
