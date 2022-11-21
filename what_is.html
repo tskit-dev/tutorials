@@ -520,6 +520,23 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-think-about-tree-sequences">
+   How to think about tree sequences
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-sequence-of-trees">
+     A sequence of trees…
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#created-by-a-genealogical-network">
+     … created by a genealogical network
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#an-efficient-encoding-of-dna-data">
    An efficient encoding of DNA data
   </a>
@@ -558,6 +575,23 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-think-about-tree-sequences">
+   How to think about tree sequences
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-sequence-of-trees">
+     A sequence of trees…
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#created-by-a-genealogical-network">
+     … created by a genealogical network
+    </a>
+   </li>
+  </ul>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#an-efficient-encoding-of-dna-data">
    An efficient encoding of DNA data
@@ -608,9 +642,13 @@ Plots (a) and (b) summarize results presented
 <div class="cell_output docutils container">
 <img alt="_images/what_is_2_0.svg" src="_images/what_is_2_0.svg" /></div>
 </div>
+<section id="how-to-think-about-tree-sequences">
+<h2>How to think about tree sequences<a class="headerlink" href="#how-to-think-about-tree-sequences" title="Permalink to this headline">#</a></h2>
+<section id="a-sequence-of-trees">
+<span id="sec-what-is-local-trees"></span><h3>A sequence of trees…<a class="headerlink" href="#a-sequence-of-trees" title="Permalink to this headline">#</a></h3>
 <p>As the name suggests, the simplest way to think about a tree sequence is that it
-describes a sequence of correlated “local trees” — i.e. trees located at
-different points along the <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.
+describes a sequence of correlated “local trees” — i.e. genetic trees located at
+different points along a <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.
 Here’s a tiny example based on ten genomes, <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>, spanning
 a short 1000 letter chromosome.</p>
 <div class="cell tag_hide-input docutils container">
@@ -652,13 +690,17 @@ start until position 189, the relationships between the ten genomes are shown by
 the first tree. The second tree shows the relationships between positions 189 and 546,
 and the third from position 546 to the end. We can say that the first tree spans 189
 base pairs, the second 357, and the third 454.</p>
+</section>
+<section id="created-by-a-genealogical-network">
+<span id="sec-what-is-genealogical-network"></span><h3>… created by a genealogical network<a class="headerlink" href="#created-by-a-genealogical-network" title="Permalink to this headline">#</a></h3>
 <p>In fact, succinct tree sequences don’t store each tree separately, but instead are
-based on an interconnected <em>genetic genealogy</em> (sometimes known as an Ancestral
-Recombination Graph or ARG), in which
+based on an interconnected <em>genetic genealogy</em>, in which
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a> has led
 to different regions of the chromosome having different histories. Another way of
-thinking about the tree sequence above is that it describes the full genetic ancestry
-of our 10 genomes.</p>
+thinking about the tree sequence above is that it describes the full genetic
+<em>family “tree”</em> (strictly, “network”) of our 10 genomes.</p>
+</section>
+</section>
 <section id="an-efficient-encoding-of-dna-data">
 <span id="sec-what-is-dna-data"></span><h2>An efficient encoding of DNA data<a class="headerlink" href="#an-efficient-encoding-of-dna-data" title="Permalink to this headline">#</a></h2>
 <p>A tree sequence can be used to describe patterns of genetic variation by combining the
@@ -697,14 +739,14 @@ variation. Here’s the resulting “variant matrix”:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">()]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position: &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position: &quot;</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="si">:</span><span class="s2">^4g</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
     <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mutated_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">haplotypes</span><span class="p">)])))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position:  6   51 108 417 496 569 617 731 822 863 907 987
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position:  6   51 108 417 496 569 617 731 822 863 907 987 
 Genome a:  A   C   A   T   T   C   A   A   G   C   C   G
 Genome b:  A   C   A   A   T   C   A   A   C   C   C   G
 Genome c:  A   C   A   A   T   G   A   A   C   C   C   G
@@ -833,29 +875,29 @@ deduce these MRCA genomes, simply by looking at which mutations they have inheri
 <span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">missing_data_character</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">num_sites</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;||ANCESTRAL GENOMES||      Position:&quot;</span><span class="p">,</span>
-    <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
+    <span class="s2">&quot;||ANCESTRAL GENOMES||     Position:&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="si">:</span><span class="s2">^4g</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ts_flipped</span><span class="o">.</span><span class="n">sites</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span>
-        <span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> (time </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">7.1f</span><span class="si">}</span><span class="s2"> in the past):  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Genome </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="si">:</span><span class="s2">7.1f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">time_units</span><span class="si">}</span><span class="s2"> ago):  </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts_flipped</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">haplotypes</span><span class="p">)]))))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      
-||ANCESTRAL GENOMES||      Position: 6 51 108 417 496 569 617 731 822 863 907 987
-Genome u (time 19697.9 in the past):  A   C   A   T   T   C   T   T   C   A   G   G
-Genome t (time 12059.9 in the past):  A   C   A   T   T                            
-Genome s (time 10172.9 in the past):              T   T   C   A   A   C   A   C   G
-Genome r (time  9770.8 in the past):  A   C   A                                    
-Genome q (time  3795.0 in the past):                      C   A   A   C   C   C   G
-Genome p (time  3215.9 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
-Genome o (time  3200.2 in the past):  C   G   A   T   T   C   T   T   C   A   G   T
-Genome n (time  1428.2 in the past):  C   G   A   T   T   C   T   T   C   A   G   T
-Genome m (time  1249.5 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
-Genome l (time   449.6 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
-Genome k (time   377.0 in the past):  A   C   A   A   T   C   A   A   C   C   C   G
+||ANCESTRAL GENOMES||     Position:  6   51 108 417 496 569 617 731 822 863 907 987 
+Genome u (19697.9 generations ago):  A   C   A   T   T   C   T   T   C   A   G   G
+Genome t (12059.9 generations ago):  A   C   A   T   T                            
+Genome s (10172.9 generations ago):              T   T   C   A   A   C   A   C   G
+Genome r ( 9770.8 generations ago):  A   C   A                                    
+Genome q ( 3795.0 generations ago):                      C   A   A   C   C   C   G
+Genome p ( 3215.9 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
+Genome o ( 3200.2 generations ago):  C   G   A   T   T   C   T   T   C   A   G   T
+Genome n ( 1428.2 generations ago):  C   G   A   T   T   C   T   T   C   A   G   T
+Genome m ( 1249.5 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
+Genome l (  449.6 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
+Genome k (  377.0 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
 </pre></div>
 </div>
 </div>
