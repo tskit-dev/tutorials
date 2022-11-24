@@ -134,11 +134,27 @@ def viz_spr_animation():
         random_seed=6787, model="smc_prime", record_full_arg=True)                
     ts.dump("data/viz_spr_animation.trees")
 
+def viz_7_trees_of_4_tips():
+    # A nice example where the tips are always 0, 1, 2, 3
+    ts = msprime.sim_ancestry(
+    4, ploidy=1, random_seed=889, sequence_length=1000, recombination_rate=0.001)
+
+    tip_orders = {
+        tuple(u for u in t.nodes(order="minlex_postorder") if t.is_sample(u))
+        for t in ts.trees()
+    }
+    topologies = {tree.rank() for tree in ts.trees()}
+    # Check we have picked a random seed that gives a nice plot of 7 trees
+    assert tip_orders == {(0, 1, 2, 3)} and len(topologies) > 1 and ts.num_trees == 7
+    ts = msprime.sim_mutations(ts, rate=2e-3, random_seed=123)
+    ts.dump("data/viz_7_trees_of_4_tips.trees")
+
 def create_notebook_data():
     viz_ts()
     viz_selection()
     viz_root_mut()
     viz_spr_animation()
+    viz_7_trees_of_4_tips()
 
 # create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
 
@@ -160,7 +176,7 @@ contemporary populations (labelled _A_, _B_, and _C_).
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 import tskit
-# See the notebook code if you want to know how these tree sequences were produced
+# See the hidden code at the notebook start to see how these tree sequences were produced
 ts_tiny = tskit.load("data/viz_ts_tiny.trees")
 ts_small = tskit.load("data/viz_ts_small.trees")
 ts_full = tskit.load("data/viz_ts_full.trees")
@@ -513,7 +529,6 @@ For visual clarity, node symbols and labels have been turned off.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-# See the notebook code if you want to know how these tree sequences were produced
 ts_selection = tskit.load("data/viz_ts_selection.trees")
 ```
 
@@ -543,7 +558,9 @@ in a tree sequence: for example, edges have the
 additional constraint that they must belong to _adjacent_ trees.
 :::
 
-#### Moving graphical elements
+(sec_tskit_viz_styling_moving_and_transforming)=
+
+#### Moving and transforming elements
 
 We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
@@ -574,6 +591,49 @@ css_string = (
     ".node.leaf > .lab {transform: translate(0, 12px); font-size: 10pt}"
 )
 ts_small.first().draw_svg(style=css_string)
+```
+
+With a small amount of trigonometry, we can even use CSS transformations to
+create a tolerably good 3D visualization:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+import math
+ts_nice = tskit.load("data/viz_7_trees_of_4_tips.trees")
+```
+
+```{code-cell} ipython3
+# Set some parameters: these can be adjusted to your liking
+tree_width = 100
+orig_height = 200
+y_step = 40  # Stagger between trees (i.e. 0 for all trees in a horizontal line)
+skew = 0.6  # How skewed the trees are, in radians
+
+orig_width = tree_width * ts_nice.num_trees + 20 + 20  # L & R margins in draw_svg = 20px
+angle = math.atan(y_step/tree_width)
+ax_mv = y_step, (ts_nice.num_trees - 1) * y_step + math.tan(skew) * (tree_width * .9)
+
+# Now use CSS transforms to stagger and skew the trees
+style = f".x-axis {{transform: translate({ax_mv[0]}px, {ax_mv[1]}px) skewY(-{angle}rad)}}"
+for i in range(ts_nice.num_trees):
+    # Stagger each tree on the y axis by y_step: each tree is in a "plotbox" group
+    style += (
+        f".tree.t{i} > .plotbox " + "{transform:" +
+        f"translateY({(ts_nice.num_trees - i - 1) * y_step}px) skewY({skew}rad)" + "}"
+    )
+
+# Plot with the CSS transformations
+svg = ts_nice.draw_svg(size=(orig_width, orig_height), x_scale="treewise", style=style)
+
+# NB: this is a hack to make the canvas size bigger without rescaling the entire picture.
+# It relies on the canvas size being encoded at the start of the svg as e.g. height="200"
+# This should be fixed soon in tskit: see https://github.com/tskit-dev/tskit/issues/2645
+extra_height = ts_nice.num_trees * y_step + math.tan(skew) * tree_width
+svg_changed_canvas = svg.replace(
+    f'height="{orig_height}"', f'height="{orig_height + extra_height}"', 1)
+svg_changed_canvas = svg_changed_canvas.replace(
+    f'width="{orig_width}"', f'width="{orig_width + y_step}"', 1)
+tskit.SVGString(svg_changed_canvas)
 ```
 
 :::{note}
