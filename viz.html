@@ -587,8 +587,8 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#moving-graphical-elements">
-       Moving graphical elements
+      <a class="reference internal nav-link" href="#moving-and-transforming-elements">
+       Moving and transforming elements
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -799,8 +799,8 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#moving-graphical-elements">
-       Moving graphical elements
+      <a class="reference internal nav-link" href="#moving-and-transforming-elements">
+       Moving and transforming elements
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -945,7 +945,7 @@ contemporary populations (labelled <em>A</em>, <em>B</em>, and <em>C</em>).</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
-<span class="c1"># See the notebook code if you want to know how these tree sequences were produced</span>
+<span class="c1"># See the hidden code at the notebook start to see how these tree sequences were produced</span>
 <span class="n">ts_tiny</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_tiny.trees&quot;</span><span class="p">)</span>
 <span class="n">ts_small</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_small.trees&quot;</span><span class="p">)</span>
 <span class="n">ts_full</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_full.trees&quot;</span><span class="p">)</span>
@@ -1393,8 +1393,7 @@ than the region of reduced diversity (which is the region spanned by the short t
 For visual clarity, node symbols and labels have been turned off.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># See the notebook code if you want to know how these tree sequences were produced</span>
-<span class="n">ts_selection</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_selection.trees&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_selection</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_ts_selection.trees&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1431,8 +1430,8 @@ in a tree sequence: for example, edges have the
 additional constraint that they must belong to <em>adjacent</em> trees.</p>
 </div>
 </section>
-<section id="moving-graphical-elements">
-<h4>Moving graphical elements<a class="headerlink" href="#moving-graphical-elements" title="Permalink to this headline">#</a></h4>
+<section id="moving-and-transforming-elements">
+<span id="sec-tskit-viz-styling-moving-and-transforming"></span><h4>Moving and transforming elements<a class="headerlink" href="#moving-and-transforming-elements" title="Permalink to this headline">#</a></h4>
 <p>We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
 <a class="reference internal" href="#sec-tskit-viz-large-tree-sequence"><span class="std std-ref">earlier in this tutorial</span></a> we used the
@@ -1465,6 +1464,55 @@ of symbols, which can create rather different formatting styles:</p>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/viz_32_0.svg" src="_images/viz_32_0.svg" /></div>
+</div>
+<p>With a small amount of trigonometry, we can even use CSS transformations to
+create a tolerably good 3D visualization:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="n">ts_nice</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/viz_7_trees_of_4_tips.trees&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set some parameters: these can be adjusted to your liking</span>
+<span class="n">tree_width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">orig_height</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">y_step</span> <span class="o">=</span> <span class="mi">40</span>  <span class="c1"># Stagger between trees (i.e. 0 for all trees in a horizontal line)</span>
+<span class="n">skew</span> <span class="o">=</span> <span class="mf">0.6</span>  <span class="c1"># How skewed the trees are, in radians</span>
+
+<span class="n">orig_width</span> <span class="o">=</span> <span class="n">tree_width</span> <span class="o">*</span> <span class="n">ts_nice</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">+</span> <span class="mi">20</span>  <span class="c1"># L &amp; R margins in draw_svg = 20px</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">y_step</span><span class="o">/</span><span class="n">tree_width</span><span class="p">)</span>
+<span class="n">ax_mv</span> <span class="o">=</span> <span class="n">y_step</span><span class="p">,</span> <span class="p">(</span><span class="n">ts_nice</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_step</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">skew</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tree_width</span> <span class="o">*</span> <span class="mf">.9</span><span class="p">)</span>
+
+<span class="c1"># Now use CSS transforms to stagger and skew the trees</span>
+<span class="n">style</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;.x-axis </span><span class="se">{{</span><span class="s2">transform: translate(</span><span class="si">{</span><span class="n">ax_mv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">px, </span><span class="si">{</span><span class="n">ax_mv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">px) skewY(-</span><span class="si">{</span><span class="n">angle</span><span class="si">}</span><span class="s2">rad)</span><span class="se">}}</span><span class="s2">&quot;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ts_nice</span><span class="o">.</span><span class="n">num_trees</span><span class="p">):</span>
+    <span class="c1"># Stagger each tree on the y axis by y_step: each tree is in a &quot;plotbox&quot; group</span>
+    <span class="n">style</span> <span class="o">+=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;.tree.t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> &gt; .plotbox &quot;</span> <span class="o">+</span> <span class="s2">&quot;{transform:&quot;</span> <span class="o">+</span>
+        <span class="sa">f</span><span class="s2">&quot;translateY(</span><span class="si">{</span><span class="p">(</span><span class="n">ts_nice</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_step</span><span class="si">}</span><span class="s2">px) skewY(</span><span class="si">{</span><span class="n">skew</span><span class="si">}</span><span class="s2">rad)&quot;</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+    <span class="p">)</span>
+
+<span class="c1"># Plot with the CSS transformations</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">ts_nice</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">orig_width</span><span class="p">,</span> <span class="n">orig_height</span><span class="p">),</span> <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
+
+<span class="c1"># NB: this is a hack to make the canvas size bigger without rescaling the entire picture.</span>
+<span class="c1"># It relies on the canvas size being encoded at the start of the svg as e.g. height=&quot;200&quot;</span>
+<span class="c1"># This should be fixed soon in tskit: see https://github.com/tskit-dev/tskit/issues/2645</span>
+<span class="n">extra_height</span> <span class="o">=</span> <span class="n">ts_nice</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">*</span> <span class="n">y_step</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">skew</span><span class="p">)</span> <span class="o">*</span> <span class="n">tree_width</span>
+<span class="n">svg_changed_canvas</span> <span class="o">=</span> <span class="n">svg</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;height=&quot;</span><span class="si">{</span><span class="n">orig_height</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;height=&quot;</span><span class="si">{</span><span class="n">orig_height</span> <span class="o">+</span> <span class="n">extra_height</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">svg_changed_canvas</span> <span class="o">=</span> <span class="n">svg_changed_canvas</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;width=&quot;</span><span class="si">{</span><span class="n">orig_width</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;width=&quot;</span><span class="si">{</span><span class="n">orig_width</span> <span class="o">+</span> <span class="n">y_step</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">tskit</span><span class="o">.</span><span class="n">SVGString</span><span class="p">(</span><span class="n">svg_changed_canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_35_0.svg" src="_images/viz_35_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1540,7 +1588,7 @@ thicker blue line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_34_0.svg" src="_images/viz_34_0.svg" /></div>
+<img alt="_images/viz_37_0.svg" src="_images/viz_37_0.svg" /></div>
 </div>
 <p>This might not be quite what you expected: the branch leading from node 13 to its parent
 (node 17) has also been coloured. That’s because the SVG node group deliberately contains
@@ -1558,7 +1606,7 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_36_0.svg" src="_images/viz_36_0.svg" /></div>
+<img alt="_images/viz_39_0.svg" src="_images/viz_39_0.svg" /></div>
 </div>
 <p>If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
@@ -1582,7 +1630,7 @@ this normally-hidden line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
+<img alt="_images/viz_41_0.svg" src="_images/viz_41_0.svg" /></div>
 </div>
 </section>
 <section id="restricting-styling">
@@ -1604,7 +1652,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_40_0.svg" src="_images/viz_40_0.svg" /></div>
+<img alt="_images/viz_43_0.svg" src="_images/viz_43_0.svg" /></div>
 </div>
 <p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
 to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
@@ -1620,7 +1668,7 @@ targetting of the leaf symbols only:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_42_0.svg" src="_images/viz_42_0.svg" /></div>
+<img alt="_images/viz_45_0.svg" src="_images/viz_45_0.svg" /></div>
 </div>
 <p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
 so the following style specification should produce the same effect in SVG viewers that
@@ -1647,7 +1695,7 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_44_0.svg" src="_images/viz_44_0.svg" /></div>
+<img alt="_images/viz_47_0.svg" src="_images/viz_47_0.svg" /></div>
 </div>
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
@@ -1796,7 +1844,7 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_48_0.svg" src="_images/viz_48_0.svg" /></div>
+<img alt="_images/viz_51_0.svg" src="_images/viz_51_0.svg" /></div>
 </div>
 </section>
 <section id="a-fancy-formatted-plot">
@@ -1829,7 +1877,7 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_50_0.svg" src="_images/viz_50_0.svg" /></div>
+<img alt="_images/viz_53_0.svg" src="_images/viz_53_0.svg" /></div>
 </div>
 </section>
 <section id="highlighted-mutations">
@@ -1854,7 +1902,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_52_0.svg" src="_images/viz_52_0.svg" /></div>
+<img alt="_images/viz_55_0.svg" src="_images/viz_55_0.svg" /></div>
 </div>
 </section>
 <section id="leaf-sample-isolated-nodes">
@@ -1878,7 +1926,7 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_54_0.svg" src="_images/viz_54_0.svg" /></div>
+<img alt="_images/viz_57_0.svg" src="_images/viz_57_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1962,7 +2010,7 @@ keeping node and mutation symbols in black, but colouring gridlines instead:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
+<img alt="_images/viz_59_0.svg" src="_images/viz_59_0.svg" /></div>
 </div>
 </section>
 <section id="animation">
@@ -2257,7 +2305,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
+<img alt="_images/viz_63_0.svg" src="_images/viz_63_0.svg" /></div>
 </div>
 </section>
 <section id="geography">
