@@ -49,7 +49,7 @@ Calculations on these huge trees can be very efficient:
 traversed_nodes = 0
 for u in big_tree.nodes(order="postorder"):
     traversed_nodes += 1
-print(f"Postorder traversal through {traversed_nodes} took:")
+print(f"Postorder traversal through {traversed_nodes} nodes took:")
 ```
 
 ```{code-cell}
