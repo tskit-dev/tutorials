@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Developing new tutorials" href="tutorial_development.html" />
+    <link rel="prev" title="Tskit for population genetics" href="popgen.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -301,6 +301,16 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="popgen.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Tskit
+    </span>
+   </code>
+   for population genetics
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    <code class="docutils literal notranslate">
@@ -720,8 +730,8 @@ tips, as in the example below:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70017433166504 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 6.78 s, sys: 164 ms, total: 6.94 s
-Wall time: 6.94 s
+CPU times: user 7.24 s, sys: 179 ms, total: 7.42 s
+Wall time: 7.45 s
 </pre></div>
 </div>
 </div>
@@ -746,8 +756,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 nodes took:
-CPU times: user 389 ms, sys: 146 µs, total: 389 ms
-Wall time: 391 ms
+CPU times: user 530 ms, sys: 0 ns, total: 530 ms
+Wall time: 530 ms
 </pre></div>
 </div>
 </div>
@@ -763,8 +773,8 @@ Wall time: 391 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 10.2 ms, sys: 3.93 ms, total: 14.1 ms
-Wall time: 14.2 ms
+CPU times: user 17.5 ms, sys: 0 ns, total: 17.5 ms
+Wall time: 17.4 ms
 </pre></div>
 </div>
 </div>
@@ -808,7 +818,7 @@ sorting. An overview, and links to further details are given at the
 <p>Unlike other phylogenetic libraries, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is designed to efficiently store not just
 single trees, but sequences of correlated trees along a genome. This means that the
 library has some features not found in more standard phylogenetic libraries.
-Here we focus on the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Python)"><span>Python API</span></a>,
+Here we focus on the <a class="reference external" href="https://tszip.readthedocs.io/en/stable/python-api.html#sec-python-api" title="(in tszip v0.2)"><span>Python API</span></a>,
 introducing eight <code class="docutils literal notranslate"><span class="pre">tskit</span></code> concepts that may be useful to those with a background in
 phylogenetics (each is linked to a separate section below):</p>
 <ol class="simple">
@@ -1519,11 +1529,11 @@ might want to start with <a class="reference internal" href="what_is.html#sec-wh
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="tutorial_development.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="popgen.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><em>Developing new tutorials</em></p>
+            <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</p>
         </div>
     </a>
 </div>

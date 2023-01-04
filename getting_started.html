@@ -305,6 +305,16 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="popgen.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Tskit
+    </span>
+   </code>
+   for population genetics
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="phylogen.html">
    <code class="docutils literal notranslate">
     <span class="pre">
@@ -672,7 +682,7 @@ Throughout, we’ll also provide pointers to where you can learn more.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The examples in this
-tutorial are all written using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Python)"><span>Python API</span></a>, but it’s also possible to
+tutorial are all written using the <a class="reference external" href="https://tszip.readthedocs.io/en/stable/python-api.html#sec-python-api" title="(in tszip v0.2)"><span>Python API</span></a>, but it’s also possible to
 <a class="reference internal" href="tskitr.html#sec-tskit-r"><span class="std std-ref">use R</span></a>, or access the API in other languages, notably
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/c-api.html#sec-c-api" title="(in Python)"><span class="xref std std-ref">C</span></a> and <a class="reference external" href="https://github.com/tskit-dev/tskit-rust">Rust</a>.</p>
 </div>
@@ -912,7 +922,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0209482 secs
+Checked in 0.0229104 secs
 </pre></div>
 </div>
 </div>
@@ -1346,7 +1356,7 @@ for which tskit has basic support:</p>
 notebook here we ask it to write to stdout.</p>
 </section>
 <section id="scikit-allel">
-<h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Permalink to this headline">#</a></h3>
+<span id="sec-tskit-getting-started-exporting-data-allel"></span><h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Permalink to this headline">#</a></h3>
 <p>Because tskit integrates very closely with numpy, we can interoperate very efficiently
 with downstream Python libraries for working with genetic
 sequence data, such as <a class="reference external" href="https://scikit-allel.readthedocs.io/en/stable/">scikit-allel</a>.
@@ -1393,7 +1403,7 @@ using the native <a class="reference external" href="https://tskit.dev/tskit/doc
 <section id="key-points-covered-above">
 <span id="sec-tskit-getting-started-key-points"></span><h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Permalink to this headline">#</a></h2>
 <p>Some simple methods and take-home messages from this introduction to the
-<strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Python)"><span>Python API</span></a>,
+<strong class="program">tskit</strong> <a class="reference external" href="https://tszip.readthedocs.io/en/stable/python-api.html#sec-python-api" title="(in tszip v0.2)"><span>Python API</span></a>,
 in rough order of importance:</p>
 <ul class="simple">
 <li><p>Objects and their attributes</p>

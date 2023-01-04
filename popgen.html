@@ -1,0 +1,1120 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tskit for population genetics &#8212; Tree Sequence Tutorials</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tskit for phylogenetics" href="phylogen.html" />
+    <link rel="prev" title="Developing new tutorials" href="tutorial_development.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="what_is.html">
+   What is a tree sequence?
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tree sequence basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="terminology_and_concepts.html">
+   Terminology &amp; concepts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started with
+   <strong class="program">
+    tskit
+   </strong>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Statistics and Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_tree_sequences.html">
+   <em>
+    Analysing tree sequences
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="analysing_trees.html">
+   Analysing trees
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="counting_topologies.html">
+   <em>
+    Counting topologies
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="parallelization.html">
+   <em>
+    Parallelization
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Further tskit tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tables_and_editing.html">
+   Tables and editing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="simplification.html">
+   <em>
+    Simplification
+   </em>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="metadata.html">
+   Working with Metadata
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="args.html">
+   <em>
+    ARGs as tree sequences
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Simulation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="simulation_overview.html">
+   Tree sequences and simulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="no_mutations.html">
+   Do you really need mutations?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="completing_forward_sims.html">
+   Completing forwards simulations
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="advanced_msprime.html">
+   Advanced
+   <strong class="program">
+    msprime
+   </strong>
+   topics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="demography.html">
+     Demography
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="bottlenecks.html">
+     Instantaneous Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="introgression.html">
+     Introgression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="forward_sims.html">
+   <em>
+    Building a forward simulator
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Other languages
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tskitr.html">
+   Tskit and R
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Development
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tutorial_development.html">
+   <em>
+    Developing new tutorials
+   </em>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tskit for ...
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Tskit
+    </span>
+   </code>
+   for population genetics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="phylogen.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Tskit
+    </span>
+   </code>
+   for phylogenetics
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fpopgen.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/popgen.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="_sources/popgen.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#population-genetic-simulation">
+   Population genetic simulation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#population-genetic-inference">
+   Population genetic inference
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-information">
+   Further information
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Tskit for population genetics</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#population-genetic-simulation">
+   Population genetic simulation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#population-genetic-inference">
+   Population genetic inference
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-information">
+   Further information
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="tskit-for-population-genetics">
+<span id="sec-intro-popgen"></span><h1><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics<a class="headerlink" href="#tskit-for-population-genetics" title="Permalink to this headline">#</a></h1>
+<p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">Tskit</span></a>, the tree sequence toolkit, brings the power of
+evolutionary trees to the field of population genetics. The
+<a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">succinct tree sequence</span></a> format
+is designed to store DNA sequences jointly with their ancestral history (the
+“genetic genealogy” or <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARG</span></a>). Storing population genetic data in this
+form enables highly efficient computation and analysis.</p>
+<p>The core <code class="docutils literal notranslate"><span class="pre">tskit</span></code> library provides methods for storing genetic data, a flexible
+analysis framework, and APIs to build your own efficient population genetic algorithms.
+Because of its speed and scalability, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is well-suited to interactive analysis of
+large genomic datasets.</p>
+<section id="population-genetic-simulation">
+<h2>Population genetic simulation<a class="headerlink" href="#population-genetic-simulation" title="Permalink to this headline">#</a></h2>
+<p>Several simulation tools output tree sequences. Below we use the
+standard library for population genetic simulation models
+(<a class="reference external" href="https://popsim-consortium.github.io/">stdpopsim</a>) to generate a model of
+<em>Homo sapiens</em>, in which African, Eurasian,
+and Asian populations combine to generate a mixed American population. We can use the
+<a class="reference external" href="https://pypi.org/project/demesdraw/">demesdraw</a> package to plot a schematic of the
+migrations and population size changes that define this model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stdpopsim</span>
+<span class="kn">import</span> <span class="nn">demesdraw</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">species</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_species</span><span class="p">(</span><span class="s2">&quot;HomSap&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_demographic_model</span><span class="p">(</span><span class="s2">&quot;AmericanAdmixture_4B11&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot a schematic of the model</span>
+<span class="n">demesdraw</span><span class="o">.</span><span class="n">tubes</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">to_demes</span><span class="p">(),</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">log_time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/popgen_3_0.png" src="_images/popgen_3_0.png" />
+</div>
+</div>
+<p>Genomic data in tree sequence format can be generated via the widely-used
+<a class="reference external" href="https://tskit.dev/software/msprime.html">msprime</a> simulator. Here we simulate 20
+kilobases of genome sequence at the start of human chromosome 1 under this model,
+together with its evolutionary history. We generate 16 diploid genomes: 4 from each of
+the populations in the model. The DNA sequences and their ancestry are stored in a
+succinct tree sequence named <code class="docutils literal notranslate"><span class="pre">ts</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">&quot;chr1&quot;</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">20_000</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AFR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;EUR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ASIA&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ADMIX&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span> <span class="c1"># 16 diploid samples</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s2">&quot;msprime&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">contig</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulated a tree sequence of </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> haploid genomes:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="si">}</span><span class="s2"> variable sites over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> base pairs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulated a tree sequence of 32 haploid genomes:
+39 variable sites over 20000.0 base pairs
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now inspect alleles and their frequencies at the variable sites we have simulated
+along the genome:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display a couple of variable sites (those in the first kilobase of sequence)</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mi">1_000</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or we can display the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">haplotypes()</span></code></a> (i.e. the variable sites) for
+each sample</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">sample_id</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">)):</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">sample_id</span><span class="p">)</span><span class="o">.</span><span class="n">population</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample </span><span class="si">{</span><span class="n">sample_id</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">^5</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample 0  ( AFR ): CCCACGCGCGGTACAATCTTTGTGACCGTTAGAGCTTTA
+Sample 1  ( AFR ): CCCAAACGCAGTACAACGTCAGGGACCGTTAGAGCTTGG
+Sample 2  ( AFR ): ACAACGCGCGTTACAATCTTTGTGACCGTTAGAGCTTTG
+Sample 3  ( AFR ): CCCAAACGCAGTACAACCTCAGGGACCGTTAGAGCTTTA
+Sample 4  ( AFR ): CCCAAACCTAGTAAAACCTCATGGCCCGTTAGTGCGCTT
+Sample 5  ( AFR ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTA
+Sample 6  ( AFR ): CCCAAACCTAGTAAAACCTCATGGCCCGTTAGTGCGCTT
+Sample 7  ( AFR ): CCCAAACGCAGTACAACCTCAGGGACCGTTAGAGCTTTA
+Sample 8  ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTG
+Sample 9  ( EUR ): ACAACGCGCGGTACAATCTTTGTAAGCGTTAGAGCTTTG
+Sample 10 ( EUR ): AAAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 11 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTG
+Sample 12 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 13 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 14 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 15 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 16 (ASIA ): ACAACGCGCGGTACAATCTTTGTAAGCGTTAGAGCTTTG
+Sample 17 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 18 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGGTAGAGCTTTG
+Sample 19 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
+Sample 20 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTTAAAGCTTTG
+Sample 21 (ASIA ): ACAACGCGCGGTACAATCTTTGTAAGCGTTAGAGCTTTG
+Sample 22 (ASIA ): ACATCGCGCGGTACAATCTTTGTAACCGTTAAAGCTTTG
+Sample 23 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTG
+Sample 24 (ADMIX): ACAACGCGCGTTACAATCTTTGTGACCGTTAGAGCTTTG
+Sample 25 (ADMIX): ACAACGCGCGGTACAATCTTTGTAACCCTAAGAGTTTTG
+Sample 26 (ADMIX): ACAACGCGCGGTACAATCTTTGTGACGGTTAGAGCTTTG
+Sample 27 (ADMIX): ACAACGCGCGGTCCGATCTTTGTAAGCGTTAGAGCTTTG
+Sample 28 (ADMIX): ACAACGCGCGGCACAATCTTTGTAACCGGTAGAGCTTTG
+Sample 29 (ADMIX): CCCAAACGCAGTACAACCTCAGGGACCGTTTGTGCGCTT
+Sample 30 (ADMIX): ACAACGCGCGGTACACTCTTTGTAACCGTAAGAGCTTTG
+Sample 31 (ADMIX): ACCAAATGCAGTACAACCACAGGGACCGTTAGATCTTTA
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the tree sequence it is easy to obtain the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.allele_frequency_spectrum()</span></code></a> for the entire region (or for
+<a class="reference internal" href="getting_started.html#sec-tskit-getting-started-compute-statistics-windowing"><span class="std std-ref">windowed regions</span></a>)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">afs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Allele frequency spectrum&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/popgen_11_0.png" src="_images/popgen_11_0.png" />
+</div>
+</div>
+<p>Similarly <code class="docutils literal notranslate"><span class="pre">tskit</span></code> allows fast and easy
+<a class="reference internal" href="analysing_tree_sequences.html#sec-tutorial-stats"><span class="std std-ref">calculation of statistics</span></a> along the genome. Here is
+a plot of windowed <span class="math notranslate nohighlight">\(F_{st}\)</span> between Africans and admixed Americans over this short
+region of chromosome:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the samples between which Fst will be calculated</span>
+<span class="n">pop_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()}</span>
+<span class="n">sample_sets</span><span class="o">=</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">&quot;AFR&quot;</span><span class="p">]),</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">&quot;ADMIX&quot;</span><span class="p">])]</span>
+
+<span class="c1"># Do the calculation</span>
+<span class="n">windows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1_000</span><span class="p">))</span>
+<span class="n">F_st</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">Fst</span><span class="p">(</span><span class="n">sample_sets</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">F_st</span><span class="p">,</span> <span class="n">windows</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;AFR-ADMIX Fst&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/popgen_13_0.png" src="_images/popgen_13_0.png" />
+</div>
+</div>
+<p>Extracting the genetic tree at a specific genomic location is easy using <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, which
+also provides methods to <a class="reference internal" href="viz.html#sec-tskit-viz"><span class="std std-ref">plot</span></a> these trees. Here we
+grab the tree at position 10kb, and colour the different populations by
+different colours, as described in the <a class="reference internal" href="viz.html#sec-tskit-viz-styling"><span class="std std-ref">viz tutorial</span></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">10_000</span><span class="p">)</span>
+
+<span class="n">colours</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">AFR</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">EUR</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">ASIA</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">ADMIX</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sa">f</span><span class="s2">&quot;.leaf.p</span><span class="si">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+    <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
+<span class="p">]</span>
+
+<span class="n">styles</span> <span class="o">+=</span> <span class="p">[</span> <span class="c1"># rotate the population labels, etc</span>
+    <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.leaf &gt; .sym {stroke: black}&quot;</span>
+<span class="p">]</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># Label samples by population</span>
+    <span class="n">u</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+    <span class="c1"># canvas_size=(800, 520),  # Make room for labels - only valid in tskit &gt;= 0.5.4</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30_000</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/popgen_15_0.svg" src="_images/popgen_15_0.svg" /></div>
+</div>
+</section>
+<section id="population-genetic-inference">
+<h2>Population genetic inference<a class="headerlink" href="#population-genetic-inference" title="Permalink to this headline">#</a></h2>
+<p>If, instead of simulations, you want to analyse existing genomic data (for example
+stored in a VCF file), you will need to infer a tree sequence from it, using e.g.
+<a class="reference external" href="https://tskit.dev/tsinfer/docs/stable/">tsinfer</a>. Here we load an illustrative portion
+of an <a class="reference external" href="https://zenodo.org/record/5512994">inferred tree sequence</a>
+based on about 7500 public human genomes, including genomes from the
+<a class="reference external" href="https://www.internationalgenome.org/data-portal/data-collection/grch38">Thousand Genomes Project</a> and
+<a class="reference external" href="https://www.internationalgenome.org/data-portal/data-collection/hgdp">Human Genome Diversity Project</a>.
+The genomic region encoded in this tree sequence has been cut down to
+span positions 108Mb-110Mb of human chromosome 2, which spans the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Ectodysplasin_A_receptor">EDAR</a> gene.</p>
+<p>Note that tree sequence files are usually imported using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a>,
+but because this file has been additionally compressed, we load it via
+<a class="reference external" href="https://tszip.readthedocs.io/en/stable/python-api.html#tszip.decompress" title="(in tszip v0.2)"><code class="docutils literal notranslate"><span class="pre">tszip.decompress()</span></code></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tszip</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="s2">&quot;data/unified_genealogy_2q_108Mb-110Mb.tsz&quot;</span><span class="p">)</span>
+
+<span class="c1"># The ts encompasses a region on chr 2 with an interesting SNP (rs3827760) in the EDAR gene</span>
+<span class="n">edar_gene_bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">108_894_471</span><span class="p">,</span> <span class="mi">108_989_220</span><span class="p">]</span>  <span class="c1"># In Mb from the start of chromosome 2</span>
+<span class="n">focal_variant</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;rs3827760&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An interesting SNP within the EDAR gene:&quot;</span><span class="p">)</span>
+<span class="n">focal_variant</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>An interesting SNP within the EDAR gene:
+</pre></div>
+</div>
+<div class="output text_html">
+        <div>
+            <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+            </style>
+            <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                <table class="tskit-table">
+                    <thead>
+                    <tr>
+                        <th style="padding:0;line-height:21px;">
+                        <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                        <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-variant-class"> Variant </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                <tr><td>Site Id</td><td>9378</td></tr>
+                <tr><td>Site Position</td><td>108897145.0</td></tr>
+                <tr><td>Number of Samples</td><td>836</td></tr>
+                <tr><td>Number of Alleles</td><td>2</td></tr>
+            <tr><td>Samples with Allele 'A'</td><td>384 (46%)</td></tr>
+<tr><td>Samples with Allele 'G'</td><td>452 (54%)</td></tr>
+                <tr><td>Has Missing Data</td><td>False</td></tr>
+                <tr><td>Isolated as Missing</td><td>True</td></tr>
+
+                    </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+</div></div>
+</div>
+<p>For simplicity, this tree sequence has been <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplified</span></a> to
+include only those samples from the African and East Asian regions. These belong to a
+number of populations. The population information, as well as information describing the
+variable sites, is stored in tree sequence <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">metadata</span></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_populations</span><span class="p">,</span> <span class="s2">&quot;populations defined in the tree sequence:&quot;</span><span class="p">)</span>
+
+<span class="n">pop_names_regions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
+<span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pop_names_regions</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;population name&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>67 populations defined in the tree sequence:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>population name</th>
+      <th>region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BantuKenya</td>
+      <td>AFRICA</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>BantuSouthAfrica</td>
+      <td>AFRICA</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Biaka</td>
+      <td>AFRICA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Cambodian</td>
+      <td>EAST_ASIA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Dai</td>
+      <td>EAST_ASIA</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>Uygur</td>
+      <td>EastAsia</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>Xibo</td>
+      <td>EastAsia</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>Yi</td>
+      <td>EastAsia</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>Yoruba</td>
+      <td>Africa</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>Denisovan</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+<p>67 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>You can see that there are multiple African and East asian populations, grouped by
+region. Here we collect two lists of IDs for the sample
+<a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes"><span class="std std-ref">nodes</span></a> from the African region and from the East asian
+region:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_lists</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">rgns</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;Africa&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;AFRICA&#39;</span><span class="p">,</span> <span class="s1">&#39;Africa&#39;</span><span class="p">},</span> <span class="s2">&quot;East asia&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;EAST_ASIA&#39;</span><span class="p">,</span> <span class="s1">&#39;EastAsia&#39;</span><span class="p">}}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">pop_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rgns</span><span class="p">]</span>
+    <span class="n">sample_lists</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pop_ids</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With these lists we can calculate different windowed statistics
+(here <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">genetic</span> <span class="pre">diversity</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.Tajimas_D" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tajima's</span> <span class="pre">D</span></code></a>) within each of these regions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edar_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>  <span class="c1"># remove regions with no data (changes the coordinate system)</span>
+<span class="n">windows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">edar_ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Genetic diversity&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">region</span><span class="p">:</span> <span class="n">edar_ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">region</span><span class="p">,</span> <span class="n">samples</span> <span class="ow">in</span> <span class="n">sample_lists</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;Tajima&#39;s D&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">region</span><span class="p">:</span> <span class="n">edar_ts</span><span class="o">.</span><span class="n">Tajimas_D</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">region</span><span class="p">,</span> <span class="n">samples</span> <span class="ow">in</span> <span class="n">sample_lists</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">},</span>  
+<span class="p">}</span>
+
+<span class="c1"># Plot the `data`</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">edges_left</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  <span class="c1"># the empty amount at the start of the tree sequence</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">plot_data</span><span class="p">),</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">plot_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">windows</span><span class="o">+</span><span class="n">start</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;EDAR&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/popgen_23_0.png" src="_images/popgen_23_0.png" />
+</div>
+</div>
+<p>Other population genetic libraries such as
+<a class="reference external" href="https://scikit-allel.readthedocs.io/en/stable/">scikit-allel</a> (which is
+<a class="reference internal" href="getting_started.html#sec-tskit-getting-started-exporting-data-allel"><span class="std std-ref">interoperable</span></a> with <code class="docutils literal notranslate"><span class="pre">tskit</span></code>)
+could also have been used to produce the plot above. In this case, the advantage of
+using tree sequences is simply that they allow these sorts of analysis to
+<a class="reference internal" href="what_is.html#plot-incremental-calculation"><span class="std std-ref">scale</span></a> to datasets of millions of whole genomes.</p>
+<p>However, because this inferred tree sequence stores (an estimate of) the underlying
+genealogy, we can also derive statistics based on genealogical relationships. For
+example, this tree sequence also contains a sample genome based on an ancient
+genome, a <a class="reference external" href="https://en.wikipedia.org/wiki/Denisovan">Denisovan</a> individual. We can
+look at the closeness of relationship between samples from the different geographical
+regions and the Denisovan:</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Show an example of looking at topological relationships between the Denisovan and
+various East Asian groups, using the <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">Counting topologies</span></a> functionality.</p>
+</div>
+</section>
+<section id="further-information">
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">#</a></h2>
+<p>This brief introduction is meant as a simple taster. Many other efficient population
+genetic <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">analyses</span></a> are possible when you have
+genomic data stored as a tree sequence.</p>
+<p>The rest of the <a class="reference internal" href="intro.html#sec-intro"><span class="std std-ref">tutorials</span></a> contain a large number of examples which
+are relevant to population genetic analysis and research. You can also visit the
+<a class="reference external" href="https://tskit.dev/learn/">learning section</a> of the <a class="reference external" href="https://tskit.dev/">tskit website</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="tutorial_development.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><em>Developing new tutorials</em></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="phylogen.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Tskit Developers<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
