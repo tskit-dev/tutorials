@@ -43,4 +43,5 @@ parts:
   - file: tutorial_development
 - caption: Tskit for ...
   chapters:
+  - file: popgen.md
   - file: phylogen.md
