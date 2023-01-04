@@ -525,9 +525,9 @@ title="Print to PDF"
 <p>We’ll begin by simulating a small tree sequence using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span> <span class="o">&lt;-</span> <span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
 
-<span class="n">ts</span> <span class="o">&lt;-</span> <span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="n">sequence_length</span> <span class="o">=</span> <span class="m">100</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
+<span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
 <span class="n">ts</span>
 </pre></div>
 </div>
@@ -561,7 +561,7 @@ title="Print to PDF"
 ╟───────────┼────┼─────────┼────────────╢
 ║Populations│   1│224 Bytes│         Yes║
 ╟───────────┼────┼─────────┼────────────╢
-║Provenances│   1│950 Bytes│          No║
+║Provenances│   1│942 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Sites      │   0│ 16 Bytes│          No║
 ╚═══════════╧════╧═════════╧════════════╝
@@ -572,7 +572,7 @@ title="Print to PDF"
 <p><code class="docutils literal notranslate"><span class="pre">reticulate</span></code> allows us to access a Python object’s attributes or call its methods via the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a variable) the number of samples in the tree sequence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">&lt;-</span> <span class="n">ts</span><span class="o">$</span><span class="n">num_samples</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">num_samples</span>
 <span class="n">n</span>
 </pre></div>
 </div>
@@ -583,7 +583,7 @@ title="Print to PDF"
 <p>We can also use <code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s powerful <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html">Statistics</a> framework to efficiently compute many different summary statistics from a tree sequence. To illustrate this, we’ll first add some mutations to our tree sequence with <code class="docutils literal notranslate"><span class="pre">msprime</span></code>’s <code class="docutils literal notranslate"><span class="pre">sim_mutations</span></code> function, and then compute the genetic diversity for each of the tree sequence’s sample nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span> <span class="o">=</span> <span class="m">1e-2</span><span class="p">,</span> <span class="n">random_seed</span> <span class="o">=</span> <span class="m">42</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1e-2</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">42</span><span class="p">)</span>
 <span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span>
 <span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">()</span>
 </pre></div>
@@ -595,7 +595,7 @@ title="Print to PDF"
 <p>As a final example, we can also use the tree sequence <code class="docutils literal notranslate"><span class="pre">genotype_matrix()</span></code> method to return the genotypes of the the tree sequence as a matrix object in R.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">ts_mut</span><span class="o">$</span><span class="nf">genotype_matrix</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">genotype_matrix</span><span class="p">()</span>
 <span class="n">G</span>
 </pre></div>
 </div>
@@ -624,7 +624,7 @@ title="Print to PDF"
 <p>We can then use R functions directly on the genotype matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">allele_frequency</span> <span class="o">=</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">allele_frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rowMeans</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="n">allele_frequency</span>
 </pre></div>
 </div>

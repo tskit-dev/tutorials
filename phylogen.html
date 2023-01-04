@@ -718,10 +718,10 @@ tips, as in the example below:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70018196105957 Mb
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70017433166504 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 6.4 s, sys: 132 ms, total: 6.53 s
-Wall time: 6.53 s
+CPU times: user 6.7 s, sys: 167 ms, total: 6.87 s
+Wall time: 6.87 s
 </pre></div>
 </div>
 </div>
@@ -746,8 +746,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 took:
-CPU times: user 384 ms, sys: 0 ns, total: 384 ms
-Wall time: 384 ms
+CPU times: user 408 ms, sys: 8 µs, total: 408 ms
+Wall time: 408 ms
 </pre></div>
 </div>
 </div>
@@ -763,8 +763,8 @@ Wall time: 384 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 11.6 ms, sys: 3.99 ms, total: 15.6 ms
-Wall time: 15.5 ms
+CPU times: user 14.5 ms, sys: 0 ns, total: 14.5 ms
+Wall time: 14.4 ms
 </pre></div>
 </div>
 </div>
@@ -1126,7 +1126,7 @@ field is used to <a class="reference external" href="https://tskit.dev/tskit/doc
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n_id</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
     <span class="n">n_is_sample</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">is_sample</span><span class="p">(</span><span class="n">n_id</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">n_id</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;is&#39;</span> <span class="k">if</span> <span class="n">n_is_sample</span> <span class="k">else</span> <span class="s1">&#39;is not&#39;</span><span class="si">}</span><span class="s2"> a sample node&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">n_id</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;is&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n_is_sample</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;is not&#39;</span><span class="si">}</span><span class="s2"> a sample node&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample nodes are&quot;</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">samples</span><span class="p">())</span>
 </pre></div>
