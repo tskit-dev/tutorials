@@ -134,9 +134,10 @@ We can now inspect alleles and their frequencies at the variable sites we have s
 along the genome:
 
 ```{code-cell}
-# Display a couple of variable sites (those in the first kilobase of sequence)
-for v in ts.variants(right=1_000):
+for v in ts.variants():
     display(v)
+    if v.site.id >= 2: #  Only show site 0, 1, and 2, for brevity
+        break
 ```
 
 Or we can display the {meth}`~TreeSequence.haplotypes` (i.e. the variable sites) for
@@ -170,8 +171,8 @@ region of chromosome:
 pop_id = {p.metadata["name"]: p.id for p in ts.populations()}
 sample_sets=[ts.samples(pop_id["AFR"]), ts.samples(pop_id["ADMIX"])]
 
-# Do the calculation
-windows = list(range(0, int(ts.sequence_length + 1), 1_000))
+# Do the windowed calculation, using windows of 2 kilobases
+windows = list(range(0, int(ts.sequence_length + 1), 2_000))
 F_st = ts.Fst(sample_sets, windows=windows)
 
 # Plot
