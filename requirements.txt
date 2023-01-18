@@ -7,7 +7,7 @@ scikit-allel
 tqdm
 numpy
 networkx
-tskit>=0.5.1
+tskit>=0.5.4
 msprime>=1.0
 stdpopsim
 tskit-book-theme==0.3.2
