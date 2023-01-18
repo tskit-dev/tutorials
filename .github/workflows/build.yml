@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.6.0
+      uses: styfle/cancel-workflow-action@0.11.0
       with:
         access_token: ${{ github.token }}
 
@@ -22,12 +22,14 @@ jobs:
 
     # Install dependencies
     - name: Set up Python 3.8
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
 
     - name: Install python dependencies
       run: |
+        # Downgrade pip to allow conflicting deps
+        pip install pip==20.0.2
         pip install -r requirements.txt
 
     - name: Install R support
