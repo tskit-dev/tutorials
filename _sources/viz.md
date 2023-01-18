@@ -30,8 +30,15 @@ def viz_ts():
     )
     ts_full.dump("data/viz_ts_full.trees")
 
-    first_4_nodes = [0, 1, 2, 3]  # ids of the first 4 sample nodes (here, 2 individuals from A)
+    first_4_nodes = (0, 1, 2, 3)  # ids of the first 4 sample nodes (here, 2 individuals from A)
     ts_tiny = ts_full.simplify(first_4_nodes)  # a tiny 4-tip TS
+    tip_orders = {
+        tuple(u for u in t.nodes(order="minlex_postorder") if t.is_sample(u))
+        for t in ts_tiny.trees()
+    }
+    topologies = {tree.rank() for tree in ts_tiny.trees()}
+    # Check we have picked a random seed that gives a nice plot of 7 trees
+    assert tip_orders == {first_4_nodes} and len(topologies) > 1 and ts.num_trees == 8
     ts_tiny.dump("data/viz_ts_tiny.trees")
 
     eight_nodes = first_4_nodes + [40, 41, 80, 81]  # Add nodes from individuals in B & C
@@ -60,101 +67,10 @@ def viz_selection():
     )
     ts_selection.dump("data/viz_ts_selection.trees")
 
-def viz_root_mut():
-    """
-    Taken from the drawing unit tests
-    """
-    nodes = io.StringIO(
-        """\
-    id      is_sample   population      individual      time    metadata
-    0       1       0       -1      0
-    1       1       0       -1      0
-    2       1       0       -1      0
-    3       1       0       -1      0
-    4       0       0       -1      0.1145014598813
-    5       0       0       -1      1.11067965364865
-    6       0       0       -1      1.75005250750382
-    7       0       0       -1      5.31067154311640
-    8       0       0       -1      6.57331354884652
-    9       0       0       -1      9.08308317451295
-    """
-    )
-    edges = io.StringIO(
-        """\
-    id      left   right   parent  child
-    0       0      100     4       0
-    1       0      100     4       1
-    2       0      100     5       2
-    3       0      100     5       3
-    4       80     85      6       4
-    5       80     85      6       5
-    6       6      80      7       4
-    7       85     91      7       4
-    8       6      80      7       5
-    9       85     91      7       5
-    10      91     100     8       4
-    11      91     100     8       5
-    12      0      6       9       4
-    13      0      6       9       5
-    """
-    )
-    sites = io.StringIO(
-        """\
-    position    ancestral_state
-    4           A
-    6           0
-    30          Empty
-    50          XXX
-    91          T
-    """
-    )
-    muts = io.StringIO(
-        """\
-    site   node    derived_state    parent    time
-    0      9       T                -1        15
-    0      9       G                0         9.1
-    0      5       1                1         9
-    1      4       C                -1        1.6
-    1      4       G                3         1.5
-    2      7       G                -1        10
-    2      3       C                5         1
-    4      3       G                -1        1
-    """
-    )
-    ts = tskit.load_text(nodes, edges, sites=sites, mutations=muts, strict=False)
-    ts.dump("data/viz_root_mut.trees")
-
-def viz_spr_animation():
-    # created with record_full_arg needed to track recombination nodes (branch positions)
-    # random_seed chosen to produce a ts whose leaves are plotted in the same order
-    ts = msprime.sim_ancestry(
-        5, ploidy=1,
-        sequence_length=10000,
-        recombination_rate=0.00005,
-        random_seed=6787, model="smc_prime", record_full_arg=True)                
-    ts.dump("data/viz_spr_animation.trees")
-
-def viz_7_trees_of_4_tips():
-    # A nice example where the tips are always 0, 1, 2, 3
-    ts = msprime.sim_ancestry(
-    4, ploidy=1, random_seed=889, sequence_length=1000, recombination_rate=0.001)
-
-    tip_orders = {
-        tuple(u for u in t.nodes(order="minlex_postorder") if t.is_sample(u))
-        for t in ts.trees()
-    }
-    topologies = {tree.rank() for tree in ts.trees()}
-    # Check we have picked a random seed that gives a nice plot of 7 trees
-    assert tip_orders == {(0, 1, 2, 3)} and len(topologies) > 1 and ts.num_trees == 7
-    ts = msprime.sim_mutations(ts, rate=2e-3, random_seed=123)
-    ts.dump("data/viz_7_trees_of_4_tips.trees")
 
 def create_notebook_data():
     viz_ts()
     viz_selection()
-    viz_root_mut()
-    viz_spr_animation()
-    viz_7_trees_of_4_tips()
 
 # create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
 
@@ -166,24 +82,27 @@ def create_notebook_data():
 
 It is often helpful to visualize a single tree --- or multiple trees along a tree
 sequence --- together with sites and mutations. {ref}`Tskit <tskit:sec_introduction>`
-provides functions to do this, outputting either plain ascii or unicode text, or the more
+provides methods to do this, outputting either plain ascii or unicode text, or the more
 flexible [Scalable Vector Graphics](https://www.w3.org/TR/SVG11/) (SVG) format.
-This tutorial illustrates various examples, based on a few 50kb tree sequences generated by
-{ref}`msprime <msprime:sec_intro>`, in which genomes have been sampled from one of 3
-contemporary populations (labelled _A_, _B_, and _C_).
+The first two sections of this tutorial give details of these methods, using a few 50kb
+tree sequences generated by {ref}`msprime <msprime:sec_intro>` as examples: one in which
+selection has occurred, and others which involve subdivision into 3 populations
+(labelled _A_, _B_, and _C_).
 
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 import tskit
-# See the hidden code at the notebook start to see how these tree sequences were produced
+# To see how these tree sequences were made, inspect the removed cell at the top of this
+# notebook, visible in e.g. the `.md` (markdown) version downloadable from the menubar
 ts_tiny = tskit.load("data/viz_ts_tiny.trees")
 ts_small = tskit.load("data/viz_ts_small.trees")
 ts_full = tskit.load("data/viz_ts_full.trees")
 ```
 
-If you just want a quick look at visualization possibilities, you might want to skip to
-the {ref}`sec_tskit_viz_examples`.
+If you just want a quick look at visualization possibilities, you might want to skip
+the explanations and just browse some {ref}`sec_tskit_viz_examples`, which contain fully
+reproduceable code.
 
 :::{note}
 This tutorial is primarily focussed on showing a tree sequence as a set of marginal
@@ -241,7 +160,7 @@ apologies to US readers: the British spelling of "colour" will be used in the re
 this tutorial).
 
 
-### Axes and scaling
+### Axes and scales
 
 For ease of drawing, the text representation and the SVG image above use unconventional
 non-linear X and Y coordinate systems. By default, the SVG output uses a more
@@ -593,56 +512,36 @@ css_string = (
 ts_small.first().draw_svg(style=css_string)
 ```
 
-With a small amount of trigonometry, we can even use CSS transformations to
-create a tolerably good 3D visualization:
+Note that when transforming elements, parts of the drawing may be plotted outsize of
+of the standard canvas. You can use the `canvas_size` parameter to increase the size of
+the canvas (adding more space to the right and bottom of the plot), without rescaling
+the graphics. This is particularly useful when performing more radical CSS
+transformations, for example to create {ref}`sec_tskit_viz_SVG_examples_3D`:
 
 ```{code-cell} ipython3
-:"tags": ["hide-input"]
-import math
-ts_nice = tskit.load("data/viz_7_trees_of_4_tips.trees")
-```
+skew = 0.8  # How skewed the trees are, in radians
 
-```{code-cell} ipython3
-# Set some parameters: these can be adjusted to your liking
-tree_width = 100
-orig_height = 200
-y_step = 40  # Stagger between trees (i.e. 0 for all trees in a horizontal line)
-skew = 0.6  # How skewed the trees are, in radians
+# CSS transforms used to skew the trees
+style = f".tree .plotbox {{transform: skewY({skew}rad)}}"
+# Shift the x axis to make room for the skewed trees
+shift_axis = (10, 50)
+style += f".x-axis {{transform: translate({shift_axis[0]}px, {shift_axis[1]}px)}}"
 
-orig_width = tree_width * ts_nice.num_trees + 20 + 20  # L & R margins in draw_svg = 20px
-angle = math.atan(y_step/tree_width)
-ax_mv = y_step, (ts_nice.num_trees - 1) * y_step + math.tan(skew) * (tree_width * .9)
+# Must define a bigger canvas size so we don't crop the axis off
+size = (800, 200) # width, height of svg
+canvas_size = (size[0] + shift_axis[0], size[1] + shift_axis[1])
 
-# Now use CSS transforms to stagger and skew the trees
-style = f".x-axis {{transform: translate({ax_mv[0]}px, {ax_mv[1]}px) skewY(-{angle}rad)}}"
-for i in range(ts_nice.num_trees):
-    # Stagger each tree on the y axis by y_step: each tree is in a "plotbox" group
-    style += (
-        f".tree.t{i} > .plotbox " + "{transform:" +
-        f"translateY({(ts_nice.num_trees - i - 1) * y_step}px) skewY({skew}rad)" + "}"
-    )
-
-# Plot with the CSS transformations
-svg = ts_nice.draw_svg(size=(orig_width, orig_height), x_scale="treewise", style=style)
-
-# NB: this is a hack to make the canvas size bigger without rescaling the entire picture.
-# It relies on the canvas size being encoded at the start of the svg as e.g. height="200"
-# This should be fixed soon in tskit: see https://github.com/tskit-dev/tskit/issues/2645
-extra_height = ts_nice.num_trees * y_step + math.tan(skew) * tree_width
-svg_changed_canvas = svg.replace(
-    f'height="{orig_height}"', f'height="{orig_height + extra_height}"', 1)
-svg_changed_canvas = svg_changed_canvas.replace(
-    f'width="{orig_width}"', f'width="{orig_width + y_step}"', 1)
-tskit.SVGString(svg_changed_canvas)
+ts_tiny.draw_svg(size=size, x_scale="treewise", style=style, canvas_size=canvas_size)
 ```
 
 :::{note}
 Using `transform` in styles is an SVG2 feature, and has not yet been implemented in
 the software programs Inkscape or librsvg. Therefore if you are
-{ref}`converting or editing <sec_tskit_viz_converting>` the examples above, symbol sizes
-and label positions may be incorrect. The `symbol_size` option can be used if you want
-to simply change the size of all symbols in the plot, but otherwise you may need
-to use the `chromium` workaround documented {ref}`here <sec_tskit_viz_converting_note>`.
+{ref}`converting or editing <sec_tskit_viz_converting>` the examples above, the
+transformed elements may be positioned incorrectly. For changing symbols, the
+`symbol_size` option can be used to simply change the size of all symbols in the plot,
+but otherwise you may need to use the `chromium` workaround documented
+{ref}`here <sec_tskit_viz_converting_note>`.
 :::
 
 
@@ -855,10 +754,14 @@ In the text format, trees (but not tree sequences) can be displayed in different
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 from IPython.display import HTML
+import msprime
+
+ts = msprime.sim_ancestry(4)
+
 orient = "top", "left", "bottom", "right"
 html = []
 for o in orient:
-    tree_string = ts_small.first().draw_text(orientation=o)
+    tree_string = ts.first().draw_text(orientation=o)
     html.append(f"<pre style='display: inline-block'>{tree_string}</pre>")
 HTML(("&nbsp;"*10).join(html))
 ```
@@ -875,37 +778,73 @@ place them, so each tree in this SVG has a nominal "root branch" at the top. Nor
 root branches are not drawn, unless the `force_root_branch` parameter is specified.
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-ts = tskit.load("data/viz_root_mut.trees")
+# Make a tree sequence with multiple mutations including some above the root
+import io
+import tskit
+
+def make_unusual_ts():
+    nodes = io.StringIO(
+        """\
+    id      is_sample   population      individual      time    metadata
+    0       1       0       -1      0
+    1       1       0       -1      0
+    2       1       0       -1      0
+    3       1       0       -1      0
+    4       0       0       -1      0.1145014598813
+    5       0       0       -1      1.11067965364865
+    6       0       0       -1      1.75005250750382
+    7       0       0       -1      5.31067154311640
+    8       0       0       -1      6.57331354884652
+    9       0       0       -1      9.08308317451295
+    """
+    )
+    edges = io.StringIO(
+        """\
+    id      left   right   parent  child
+    0       0      100     4       0
+    1       0      100     4       1
+    2       0      100     5       2
+    3       0      100     5       3
+    4       80     85      6       4
+    5       80     85      6       5
+    6       6      80      7       4
+    7       85     91      7       4
+    8       6      80      7       5
+    9       85     91      7       5
+    10      91     100     8       4
+    11      91     100     8       5
+    12      0      6       9       4
+    13      0      6       9       5
+    """
+    )
+    sites = io.StringIO(
+        """\
+    position    ancestral_state
+    4           A
+    6           0
+    30          Empty
+    50          XXX
+    91          T
+    """
+    )
+    muts = io.StringIO(
+        """\
+    site   node    derived_state    parent    time
+    0      9       T                -1        15
+    0      9       G                0         9.1
+    0      5       1                1         9
+    1      4       C                -1        1.6
+    1      4       G                3         1.5
+    2      7       G                -1        10
+    2      3       C                5         1
+    4      3       G                -1        1
+    """
+    )
+    return tskit.load_text(nodes, edges, sites=sites, mutations=muts, strict=False)
+
+
+ts = make_unusual_ts()
 ts.draw_svg()
-```
-
-#### A fancy formatted plot
-
-Here we have activated the Y axis, and changed the node style. In particular, we have
-coloured nodes by time, and increased the internal node symbol size while moving
-the internal node labels into the symbol; node labels have also been plotted in a
-sans-serif font. Axis tick labels have been changed to avoid potential overlapping (some
-Y tick labels have been removed, and the X tick labels rotated).
-
-```{code-cell} ipython3
-:"tags": ["hide-input"]
-import numpy as np
-seed=370009
-ts = msprime.sim_ancestry(7, ploidy=1, sequence_length=1000, random_seed=seed, recombination_rate=0.001)
-y_ticks = ts.tables.nodes.time
-# Thin the tick values so we don't get labels within 0.01 of each other
-y_ticks = np.delete(y_ticks, np.argwhere(np.ediff1d(y_ticks) <= 0.01))
-
-css_string = (
-    ".tree .lab {font-family: sans-serif}"
-    # Normal X axis tick labels have dominant baseline: hanging, but it needs centring when rotated
-    + ".x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}"
-    + ".y-axis .grid {stroke: #DDDDDD}"
-    + ".tree :not(.leaf).node > .lab  {transform: translate(0,0); text-anchor:middle; fill: white}"
-    + ".tree :not(.leaf).node > .sym {transform: scale(3.5)}"
-    + "".join(f".tree .n{n.id} > .sym {{fill: hsl({int((1-n.time/ts.max_root_time)*260)}, 50%, 50%)}}" for n in ts.nodes())
-)
-ts.draw_svg(size=(1000, 350), y_axis=True, y_gridlines=True, y_ticks=y_ticks, style=css_string)
 ```
 
 #### Highlighted mutations
@@ -916,7 +855,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-ts = tskit.load("data/viz_root_mut.trees")
+ts = make_unusual_ts()  # Defined in the first SVG example
 css_string = (
     ".edge {stroke: grey}"
     ".mut .sym{stroke:pink} .mut text{fill:pink}"
@@ -939,13 +878,26 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-tables = tskit.load("data/viz_root_mut.trees").dump_tables()
-tables.mutations.clear()
-tables.sites.clear()
-tables.nodes.flags = np.array([0, 0, 1, 1, 0, 0, 0, 1, 1, 0], dtype=tables.nodes.flags.dtype)
-ts = tables.tree_sequence()
+def swap_samples_ts():
+    tables = make_unusual_ts().dump_tables()  # Defined in the first SVG example
+    tables.mutations.clear()
+    tables.sites.clear()
+    flags = tables.nodes.flags
+    flags[:] = [0, 0, 1, 1, 0, 0, 0, 1, 1, 0]
+    tables.nodes.flags = flags
+    return tables.tree_sequence()
+
+
+ts = swap_samples_ts()
 css_string=".leaf .sym {fill: blue} .sample > .sym {fill: green}"
-ts.draw_svg(style=css_string, x_scale="treewise", time_scale="rank", y_axis=True, y_gridlines=True, x_lim=[0, 10])
+ts.draw_svg(
+    style=css_string,
+    x_scale="treewise",
+    time_scale="rank",
+    y_axis=True,
+    y_gridlines=True,
+    x_lim=[0, 10],
+)
 ```
 
 :::{note}
@@ -954,24 +906,66 @@ means that there can be sample nodes which are "isolated" in a tree. These are d
 unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).
 :::
 
-#### Tick labels and gridlines
+#### A fancy formatted plot
 
-Y tick labels can be specified explicitly, which allows time scales to be plotted
-e.g. in years even if the tree sequence ticks in generations. The grid lines associated
-with each y tick can also be changed or even hidden individually using the CSS
-[nth-child pseudo-selector](https://www.w3.org/TR/2018/REC-selectors-3-20181106/#nth-child-pseudo),
-where tickmarks are indexed from the bottom. This is used in
-the {ref}`sec_msprime_introgression` tutorial to show lines behind the trees at specific,
-important times. Below we show a slightly simpler example than in that tutorial,
-keeping node and mutation symbols in black, but colouring gridlines instead:
+Here we have activated the Y axis, and changed the node style. In particular, we have
+coloured nodes by time, and increased the internal node symbol size while moving
+the internal node labels into the symbol; node labels have also been plotted in a
+sans-serif font. Axis tick labels have been changed to avoid potential overlapping (some
+Y tick labels have been removed, and the X tick labels rotated).
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
-# Function from the introgression tutorial - see there for justification
 import msprime
+import numpy as np
+
+def make_standard_ts():
+    seed=370009
+    return msprime.sim_ancestry(
+        7, ploidy=1, sequence_length=1000, random_seed=seed, recombination_rate=0.001)
+
+
+ts = make_standard_ts()
+
+# Thin the tick values so we don't get labels within 0.01 of each other
+y_ticks = ts.tables.nodes.time
+y_ticks = np.delete(y_ticks, np.argwhere(np.ediff1d(y_ticks) <= 0.01))
+
+css_string = (
+    ".tree .lab {font-family: sans-serif}"
+    # Normal X axis tick labels have dominant baseline: hanging, but it needs centring when rotated
+    + ".x-axis .tick .lab {text-anchor: start; dominant-baseline: central; transform: rotate(90deg)}"
+    + ".y-axis .grid {stroke: #DDDDDD}"
+    + ".tree :not(.leaf).node > .lab  {transform: translate(0,0); text-anchor:middle; fill: white}"
+    + ".tree :not(.leaf).node > .sym {transform: scale(3.5)}"
+    + "".join(
+        f".tree .n{n.id} > .sym {{fill: hsl({int((1-n.time/ts.max_root_time)*260)}, 50%, 50%)}}"
+        for n in ts.nodes()
+      )
+)
+ts.draw_svg(size=(1000, 350), y_axis=True, y_gridlines=True, y_ticks=y_ticks, style=css_string)
+```
+
+#### Ticks, labels, and gridlines
+
+Y tick labels can be specified explicitly, which allows time scales to be plotted
+e.g. in years even if the tree sequence ticks in generations. The ``title`` class allows
+axis titles to be moved out of the way of tick labels. Finally, grid lines associated
+with each y tick can also be changed or even hidden individually using the CSS
+[nth-child pseudo-selector](https://www.w3.org/TR/2018/REC-selectors-3-20181106/#nth-child-pseudo),
+where tickmarks are indexed from the bottom. Below is an example of all 3 techniques,
+drawing on an example from the {ref}`sec_msprime_introgression` tutorial:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+import msprime
+
 time_units = 1000 / 25  # Conversion factor for kya to generations
 
-def run_simulation(sequence_length, random_seed=None):
+def make_introgression_ts(sequence_length, random_seed=None):
+    """
+    Function from the introgression tutorial - see there for justification
+    """
     demography = msprime.Demography()
     # The same size for all populations; highly unrealistic!
     Ne = 10**4
@@ -989,7 +983,7 @@ def run_simulation(sequence_length, random_seed=None):
     demography.add_mass_migration(
         time=300 * time_units, source='Neanderthal', dest='Africa', proportion=1)
 
-    ts = msprime.sim_ancestry(
+    return msprime.sim_ancestry(
         recombination_rate=1e-8,
         sequence_length=sequence_length,  
         samples=[
@@ -1002,30 +996,98 @@ def run_simulation(sequence_length, random_seed=None):
         record_migrations=True,  # Needed for tracking segments.
         random_seed=random_seed,
     )
-    return ts
 
-ts = run_simulation(20 * 10**6, 1)
 
-css = ".y-axis .tick .lab {font-size: 85%}"  # Multi-line labels unimplemented: use smaller font 
+ts = make_introgression_ts(20 * 10**6, random_seed=1)
+
+base_size = (1200, 500)
+x_shift = 60
+css = f".tree-sequence {{transform: translateX({x_shift}px)}}"  # Move rightwards
+css += ".sample .lab {text-anchor: start; transform: rotate(90deg) translate(6px); font-size: 80%}"
+css += ".x-axis .tick .lab {font-size: 85%}"
+css += ".y-axis .title {transform: translateY(250px)}"  # Move out of the way of y_tick labels
 css += ".y-axis .tick .grid {stroke: lightgrey}"  # Default gridline type
 css += ".y-axis .ticks .tick:nth-child(3) .grid {stroke-dasharray: 4}"  # 3rd line from bottom
 css += ".y-axis .ticks .tick:nth-child(3) .grid {stroke: magenta}"  # also 3rd line from bottom
 css += ".y-axis .ticks .tick:nth-child(4) .grid {stroke: blue}"  # 4th line from bottom
 css += ".y-axis .ticks .tick:nth-child(5) .grid {stroke: darkgrey}"  # 5th line from bottom
-y_ticks = {0: "0", 30: "30", 50: "Introgress", 70: "Eur origin", 300: "Nea origin", 1000: "1000"}
-y_ticks = {y * time_units: lab for y, lab in y_ticks.items()}
+y_ticks = {
+    0: "0",
+    30: "30",
+    50: "Introgression event",
+    70: "European origin",
+    300: "Neanderthal origin",
+    1000: "1000",
+}
 ts.draw_svg(
-    size=(1200, 500),
+    size=base_size,
     x_lim=(0, 25_000),
     time_scale="log_time",
-    node_labels = {0: "Afr", 1: "Eur", 2: "Neand"},
+    node_labels = {0: "Africa", 1: "Europe", 2: "Neanderthal"},
     y_axis=True,
-    y_label="Time (kya)",
-    x_label="Genomic position (bp)",
-    y_ticks=y_ticks,
+    y_ticks={y * time_units: lab for y, lab in y_ticks.items()},
     y_gridlines=True,
     style=css,
+    canvas_size=(base_size[0] + x_shift, base_size[1]),
 )
+```
+
+(sec_tskit_viz_SVG_examples_3D)=
+
+#### 3D effects
+
+We can use various CSS transforms, as
+{ref}`discussed previously<sec_tskit_viz_styling_moving_and_transforming>`,
+to skew the trees and stagger them. With a bit of trigonometry,
+this can create flexible and tolerably good 3D effects for presentations, etc.
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+import math
+import msprime
+
+def make_7_tree_4_tip_ts():
+    ts = msprime.sim_ancestry(
+        4, ploidy=1, random_seed=889, sequence_length=1000, recombination_rate=0.001)
+    ts = msprime.sim_mutations(ts, rate=2e-3, random_seed=123)
+
+    # Check we have picked a random seed that gives a nice plot of 7 trees
+    tip_orders = {
+        tuple(u for u in t.nodes(order="minlex_postorder") if t.is_sample(u))
+        for t in ts.trees()
+    }
+    topologies = {tree.rank() for tree in ts.trees()}
+    assert tip_orders == {(0, 1, 2, 3)} and len(topologies) > 1 and ts.num_trees == 7
+
+    return ts
+
+
+ts = make_7_tree_4_tip_ts()
+
+# Set some parameters: these can be adjusted to your liking
+tree_width = 100
+height = 200 # Normal height for tree + x-axis
+y_step = 40  # Stagger between trees (i.e. 0 for all trees in a horizontal line)
+skew = 0.6  # How skewed the trees are, in radians
+
+width = tree_width * ts.num_trees + 20 + 20  # L & R margins in draw_svg = 20px
+angle = math.atan(y_step/tree_width)
+ax_mv = y_step, (ts.num_trees - 1) * y_step + math.tan(skew) * (tree_width * .9)
+
+# CSS transforms used to skew the axis and stagger + skew the trees
+style = f".x-axis {{transform: translate({ax_mv[0]}px, {ax_mv[1]}px) skewY(-{angle}rad)}}"
+for i in range(ts.num_trees):
+    # Stagger each tree vertically by y_step, transforming the "plotbox" tree container
+    style += (
+        f".tree.t{i} > .plotbox " + "{transform:" +
+        f"translateY({(ts.num_trees - i - 1) * y_step}px) skewY({skew}rad)" + "}"
+    )
+
+# Define a bigger canvas size so we don't crop the moved trees from the drawing
+size = (width, height)
+canvas_size = (width + y_step, height + ts.num_trees*y_step + math.tan(skew)*tree_width)
+
+ts.draw_svg(size=size, x_scale="treewise", style=style, canvas_size=canvas_size)
 ```
 
 
@@ -1038,6 +1100,19 @@ tree sequence to allow identification of pruned edges.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
+from IPython.display import HTML
+import msprime
+
+def make_full_arg_for_spr_animation():
+    # created with record_full_arg needed to track recombination nodes (branch positions)
+    # random_seed chosen to produce a ts whose leaves are plotted in the same order
+    return msprime.sim_ancestry(
+        5, ploidy=1,
+        sequence_length=10000,
+        recombination_rate=0.00005,
+        random_seed=6787, model="smc_prime", record_full_arg=True)                
+   
+
 css_string = ".node:not(.sample) > .lab, .node:not(.sample) > .sym {display: none}"
 html_string = r"""
 <div id="animated_svg_canvas">%s</div>
@@ -1146,9 +1221,7 @@ var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
 <button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
 """
 
-ts = tskit.load("data/viz_spr_animation.trees")
-# created with record_full_arg needed to track recombination nodes (branch positions)
-
+ts = make_full_arg_for_spr_animation()
 HTML(html_string % (ts.draw_svg(style=css_string), ts.num_trees))
 ```
   
