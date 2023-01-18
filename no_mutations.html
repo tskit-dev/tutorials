@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Do you really need mutations? &#8212; Tree Sequence Tutorials</title>
     
@@ -32,9 +32,8 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -58,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Completing forwards simulations" href="completing_forward_sims.html" />
     <link rel="prev" title="Tree sequences and simulation" href="simulation_overview.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -93,11 +92,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -617,7 +613,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="do-you-really-need-mutations">
-<span id="sec-tskit-no-mutations"></span><h1>Do you really need mutations?<a class="headerlink" href="#do-you-really-need-mutations" title="Permalink to this headline">#</a></h1>
+<span id="sec-tskit-no-mutations"></span><h1>Do you really need mutations?<a class="headerlink" href="#do-you-really-need-mutations" title="Permalink to this heading">#</a></h1>
 <p>In tree sequences, the genetic genealogy exists independently of the mutations that
 generate genetic variation, and often we are primarily interested in genetic variation
 because of what it can tell us about those genealogies. This tutorial aims to illustrate
@@ -687,9 +683,9 @@ Nevertheless, it may not be obvious that it is perfectly possible, indeed someti
 preferable, to perform genetic analyses on tree sequences that do not contain mutations
 and variable sites. This is the focus of the remainder of this tutorial.</p>
 <section id="analysis-in-the-absence-of-genetic-variation">
-<h2>Analysis in the absence of genetic variation<a class="headerlink" href="#analysis-in-the-absence-of-genetic-variation" title="Permalink to this headline">#</a></h2>
+<h2>Analysis in the absence of genetic variation<a class="headerlink" href="#analysis-in-the-absence-of-genetic-variation" title="Permalink to this heading">#</a></h2>
 <section id="patterns-of-relationship">
-<h3>Patterns of relationship<a class="headerlink" href="#patterns-of-relationship" title="Permalink to this headline">#</a></h3>
+<h3>Patterns of relationship<a class="headerlink" href="#patterns-of-relationship" title="Permalink to this heading">#</a></h3>
 <p>Some genetic analyses are primarily focussed on patterns or degrees of relationship
 between genomes. In this case, the genealogy tells you all you need to know.
 This includes:</p>
@@ -726,7 +722,7 @@ the entire 1Mb genome.</p>
 </div>
 </section>
 <section id="genetic-statistics-and-branch-length-equivalents">
-<h3>Genetic statistics and branch-length equivalents<a class="headerlink" href="#genetic-statistics-and-branch-length-equivalents" title="Permalink to this headline">#</a></h3>
+<h3>Genetic statistics and branch-length equivalents<a class="headerlink" href="#genetic-statistics-and-branch-length-equivalents" title="Permalink to this heading">#</a></h3>
 <p>Although many genetic analyses are based on patterns of genetic variation, for many
 purposes the genetic variation can be thought of as a measure of the relative length of
 branches on the local trees in a tree sequence. So while mutations are necessary to
@@ -796,7 +792,7 @@ Estimated genetic divergence from the genealogy is 0.000848
 </div>
 </div>
 <section id="genealogy-based-measures-are-less-noisy">
-<h4>Genealogy-based measures are less noisy<a class="headerlink" href="#genealogy-based-measures-are-less-noisy" title="Permalink to this headline">#</a></h4>
+<h4>Genealogy-based measures are less noisy<a class="headerlink" href="#genealogy-based-measures-are-less-noisy" title="Permalink to this heading">#</a></h4>
 <p>Analyses based on observed genetic variation have a random component due to the
 stochastic nature of the mutational process. This “random mutational noise” is missing
 from analyses that use the genealogy directly: something that is particularly evident
@@ -921,7 +917,7 @@ in 1Kb windows along our simulated genome:</p>
 </section>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 <p>In summary, if you are analysing tree sequences, especially those produced by simulation,
 think carefully. Do you really need to analyse information about alleles and mutations?
 If not, you may be able to omit sites and mutations from the tree sequence,

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Analysing tree sequences &#8212; Tree Sequence Tutorials</title>
     
@@ -32,9 +32,8 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -58,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Analysing trees" href="analysing_trees.html" />
     <link rel="prev" title="Getting started with tskit" href="getting_started.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -93,11 +92,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -637,13 +633,13 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="analysing-tree-sequences">
-<span id="sec-analysing-tree-sequences"></span><h1><em>Analysing tree sequences</em><a class="headerlink" href="#analysing-tree-sequences" title="Permalink to this headline">#</a></h1>
+<span id="sec-analysing-tree-sequences"></span><h1><em>Analysing tree sequences</em><a class="headerlink" href="#analysing-tree-sequences" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial is a work in progress.</p>
 </div>
 <section id="computing-statistics">
-<span id="sec-tutorial-stats"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">#</a></h2>
+<span id="sec-tutorial-stats"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this heading">#</a></h2>
 <p>Tskit provides an extensive and flexible interface for computing population
 genetic statistics, which is documented in detail in the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">general statistics</span></a> section of the offical documentation.
@@ -787,7 +783,7 @@ parameters for 10 thousand samples and 10Mb chromosomes:</p>
 <p>This tree sequence has ~36.6 thousand trees &amp; ~39 thousand segregating sites.
 We’d now like to compute some statistics on this dataset.</p>
 <section id="one-way-statistics">
-<h3>One-way statistics<a class="headerlink" href="#one-way-statistics" title="Permalink to this headline">#</a></h3>
+<h3>One-way statistics<a class="headerlink" href="#one-way-statistics" title="Permalink to this heading">#</a></h3>
 <p>We refer to statistics that are defined with respect to a single set of
 samples as “one-way”. An example of such a statistic is diversity, which
 is computed using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.diversity()</span></code></a> method:</p>
@@ -895,7 +891,7 @@ rows and three columns: each row contains the diversity values within
 A, B and C for a particular window.</p>
 </section>
 <section id="multi-way-statistics">
-<h3>Multi-way statistics<a class="headerlink" href="#multi-way-statistics" title="Permalink to this headline">#</a></h3>
+<h3>Multi-way statistics<a class="headerlink" href="#multi-way-statistics" title="Permalink to this heading">#</a></h3>
 <p>Many population genetic statistics compare multiple sets of samples to
 each other. For example, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a> method computes
 the divergence between two subsets of samples:</p>
@@ -1000,7 +996,7 @@ full description of the <code class="docutils literal notranslate"><span class="
 </section>
 </section>
 <section id="allele-frequency-spectra">
-<span id="sec-tutorial-afs"></span><h2>Allele frequency spectra<a class="headerlink" href="#allele-frequency-spectra" title="Permalink to this headline">#</a></h2>
+<span id="sec-tutorial-afs"></span><h2>Allele frequency spectra<a class="headerlink" href="#allele-frequency-spectra" title="Permalink to this heading">#</a></h2>
 <p>The allele frequency spectrum is a fundamental tool in population genetics, and
 tskit provides a flexible and powerful approach to computing such spectra.
 Suppose we have simulated the following tree sequence:</p>
@@ -1016,21 +1012,21 @@ Suppose we have simulated the following tree sequence:</p>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/analysing_tree_sequences_25_0.svg" src="_images/analysing_tree_sequences_25_0.svg" /><div class="output text_html">
-            <div>
-                <style scoped="">
-                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
-                    .tskit-table tbody tr th {vertical-align: top;}
-                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
-                    .tskit-table tbody th {padding: 0.5em 0.5em;}
-                </style>
-                <table border="1" class="tskit-table">
-                    <thead>
-                        <tr>
-                            <th>id</th><th>position</th><th>ancestral_state</th><th>metadata</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>0</td><td>0.30043643</td><td>0</td><td></td></tr>
+        <div>
+            <style scoped="">
+                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                .tskit-table tbody tr th {vertical-align: top;}
+                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                .tskit-table tbody th {padding: 0.5em 0.5em;}
+            </style>
+            <table border="1" class="tskit-table">
+                <thead>
+                    <tr>
+                        <th>id</th><th>position</th><th>ancestral_state</th><th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>0.30043643</td><td>0</td><td></td></tr>
 <tr><td>1</td><td>0.32220794</td><td>0</td><td></td></tr>
 <tr><td>2</td><td>0.36507027</td><td>0</td><td></td></tr>
 <tr><td>3</td><td>0.50940255</td><td>0</td><td></td></tr>
@@ -1041,9 +1037,9 @@ Suppose we have simulated the following tree sequence:</p>
 <tr><td>8</td><td>0.80591800</td><td>0</td><td></td></tr>
 <tr><td>9</td><td>0.92324208</td><td>0</td><td></td></tr>
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
 </div></div>
 </div>
 <p>Computing the allele frequency spectrum is then easy:</p>
@@ -1089,7 +1085,7 @@ equal windows. Now we can see that in the first half of the sequence we
 have three sites (compare with the site table above): one singleton,
 one doubleton and one tripleton.</p>
 <section id="joint-spectra">
-<h3>Joint spectra<a class="headerlink" href="#joint-spectra" title="Permalink to this headline">#</a></h3>
+<h3>Joint spectra<a class="headerlink" href="#joint-spectra" title="Permalink to this heading">#</a></h3>
 <p>We can also compute allele frequencies within multiple sets of samples,
 the <em>joint allele frequency spectra</em>.</p>
 <div class="cell docutils container">
@@ -1129,7 +1125,7 @@ that is a doubleton in both sets, and 2 sites that singletons in <span class="ma
 and not present in the other sample set.</p>
 </section>
 <section id="branch-length-spectra">
-<h3>Branch length spectra<a class="headerlink" href="#branch-length-spectra" title="Permalink to this headline">#</a></h3>
+<h3>Branch length spectra<a class="headerlink" href="#branch-length-spectra" title="Permalink to this heading">#</a></h3>
 <p>Up to now we’ve used the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">allele_frequency_spectrum()</span></code></a> method
 to summarise the number of sites that occur at different frequencies. We can also
 use this approach to compute the total branch lengths subtending a given
@@ -1152,7 +1148,7 @@ number of samples by setting <code class="docutils literal notranslate"><span cl
 5.39, and so on.</p>
 </section>
 <section id="zeroth-and-final-entries-in-the-afs">
-<span id="sec-tutorial-afs-zeroth-entry"></span><h3>Zeroth and final entries in the AFS<a class="headerlink" href="#zeroth-and-final-entries-in-the-afs" title="Permalink to this headline">#</a></h3>
+<span id="sec-tutorial-afs-zeroth-entry"></span><h3>Zeroth and final entries in the AFS<a class="headerlink" href="#zeroth-and-final-entries-in-the-afs" title="Permalink to this heading">#</a></h3>
 <p>The zeroth element of the AFS is significant when we are working with
 sample sets that are a subset of all samples in the tree sequence.
 For example, in the following we compute the AFS within the sample set

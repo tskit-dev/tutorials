@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Completing forwards simulations &#8212; Tree Sequence Tutorials</title>
     
@@ -32,9 +32,8 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -56,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Advanced msprime topics" href="advanced_msprime.html" />
     <link rel="prev" title="Do you really need mutations?" href="no_mutations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -91,11 +90,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -577,7 +573,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="completing-forwards-simulations">
-<span id="sec-completing-forwards-simulations"></span><h1>Completing forwards simulations<a class="headerlink" href="#completing-forwards-simulations" title="Permalink to this headline">#</a></h1>
+<span id="sec-completing-forwards-simulations"></span><h1>Completing forwards simulations<a class="headerlink" href="#completing-forwards-simulations" title="Permalink to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulator generates tree sequences using the backwards in
 time coalescent model. But it is also possible to output tree sequences
 from <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1006581">forwards-time</a>
@@ -718,7 +714,7 @@ is haploid and msprime uses a diploid time scale by default.</p>
 <p>The trees have fully coalesced and we’ve successfully combined a forwards-time
 Wright-Fisher simulation with a coalescent simulation: hooray!</p>
 <section id="why-keep-input-roots-i-e-the-initial-generation">
-<h2>Why keep input roots (i.e., the initial generation)?<a class="headerlink" href="#why-keep-input-roots-i-e-the-initial-generation" title="Permalink to this headline">#</a></h2>
+<h2>Why keep input roots (i.e., the initial generation)?<a class="headerlink" href="#why-keep-input-roots-i-e-the-initial-generation" title="Permalink to this heading">#</a></h2>
 <p>We can now see why it is essential that we take care to preserve the roots of all
 trees when we simplified the tree sequence (by passing <code class="docutils literal notranslate"><span class="pre">keep_input_roots=True</span></code>),
 so that the initial generation can be properly used as the
@@ -740,7 +736,7 @@ works, and <a class="reference external" href="https://tskit.dev/pyslim/docs/sta
 the method presented here.</p>
 </section>
 <section id="topology-gotchas">
-<h2>Topology gotchas<a class="headerlink" href="#topology-gotchas" title="Permalink to this headline">#</a></h2>
+<h2>Topology gotchas<a class="headerlink" href="#topology-gotchas" title="Permalink to this heading">#</a></h2>
 <p>The trees that we output from this combined forwards and backwards simulation
 process have some slightly odd properties that are important to be aware of.
 In the example above, we can see that the old roots are still present in both trees,

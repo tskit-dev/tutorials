@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>What is a tree sequence? &#8212; Tree Sequence Tutorials</title>
     
@@ -32,9 +32,8 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -58,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Terminology &amp; concepts" href="terminology_and_concepts.html" />
     <link rel="prev" title="Welcome!" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -93,11 +92,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -633,7 +629,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-tree-sequence">
-<span id="sec-what-is"></span><h1>What is a tree sequence?<a class="headerlink" href="#what-is-a-tree-sequence" title="Permalink to this headline">#</a></h1>
+<span id="sec-what-is"></span><h1>What is a tree sequence?<a class="headerlink" href="#what-is-a-tree-sequence" title="Permalink to this heading">#</a></h1>
 <p>A <em>succinct tree sequence</em>, or “tree sequence” for short, represents the evolutionary
 relationships between a set of DNA sequences. Tree sequences are based on fundamental
 biological principles of inheritance, DNA duplication, and recombination; they can be
@@ -653,9 +649,9 @@ Plots (a) and (b) summarize results presented
 <img alt="_images/what_is_2_0.svg" src="_images/what_is_2_0.svg" /></div>
 </div>
 <section id="how-to-think-about-tree-sequences">
-<h2>How to think about tree sequences<a class="headerlink" href="#how-to-think-about-tree-sequences" title="Permalink to this headline">#</a></h2>
+<h2>How to think about tree sequences<a class="headerlink" href="#how-to-think-about-tree-sequences" title="Permalink to this heading">#</a></h2>
 <section id="a-sequence-of-trees">
-<span id="sec-what-is-local-trees"></span><h3>A sequence of trees…<a class="headerlink" href="#a-sequence-of-trees" title="Permalink to this headline">#</a></h3>
+<span id="sec-what-is-local-trees"></span><h3>A sequence of trees…<a class="headerlink" href="#a-sequence-of-trees" title="Permalink to this heading">#</a></h3>
 <p>As the name suggests, the simplest way to think about a tree sequence is that it
 describes a sequence of correlated “local trees” — i.e. genetic trees located at
 different points along a <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.
@@ -702,7 +698,7 @@ and the third from position 546 to the end. We can say that the first tree spans
 base pairs, the second 357, and the third 454.</p>
 </section>
 <section id="created-by-a-genealogical-network">
-<span id="sec-what-is-genealogical-network"></span><h3>… created by a genealogical network<a class="headerlink" href="#created-by-a-genealogical-network" title="Permalink to this headline">#</a></h3>
+<span id="sec-what-is-genealogical-network"></span><h3>… created by a genealogical network<a class="headerlink" href="#created-by-a-genealogical-network" title="Permalink to this heading">#</a></h3>
 <p>In fact, succinct tree sequences don’t store each tree separately, but instead are
 based on an interconnected <em>genetic genealogy</em>, in which
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a> has led
@@ -712,7 +708,7 @@ thinking about the tree sequence above is that it describes the full genetic
 </section>
 </section>
 <section id="an-efficient-encoding-of-dna-data">
-<span id="sec-what-is-dna-data"></span><h2>An efficient encoding of DNA data<a class="headerlink" href="#an-efficient-encoding-of-dna-data" title="Permalink to this headline">#</a></h2>
+<span id="sec-what-is-dna-data"></span><h2>An efficient encoding of DNA data<a class="headerlink" href="#an-efficient-encoding-of-dna-data" title="Permalink to this heading">#</a></h2>
 <p>A tree sequence can be used to describe patterns of genetic variation by combining the
 trees with a knowledge of where <em>mutations</em> occur on their branches. Here’s how that
 might look in our simple example:</p>
@@ -815,7 +811,7 @@ several orders of magnitude faster to process than other storage formats.</p>
 </div>
 </section>
 <section id="a-record-of-genetic-ancestry">
-<span id="sec-what-is-ancestry"></span><h2>A record of genetic ancestry<a class="headerlink" href="#a-record-of-genetic-ancestry" title="Permalink to this headline">#</a></h2>
+<span id="sec-what-is-ancestry"></span><h2>A record of genetic ancestry<a class="headerlink" href="#a-record-of-genetic-ancestry" title="Permalink to this heading">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -917,7 +913,7 @@ their genome have not been inherited by any of the sampled genomes. In other wor
 ancestral node is not present in the corresponding local tree.</p>
 </section>
 <section id="a-framework-for-efficient-computation">
-<span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this headline">#</a></h2>
+<span id="sec-what-is-analysis"></span><h2>A framework for efficient computation<a class="headerlink" href="#a-framework-for-efficient-computation" title="Permalink to this heading">#</a></h2>
 <p>Using tree structures is a common way to implement efficient computer algorithms, and
 many <a class="reference external" href="https://en.wikipedia.org/wiki/Phylogenetics">phylogenetic</a> methods use the
 structure provided by the evolutionary tree to implement efficient
@@ -957,7 +953,7 @@ larger trees.</p>
 you might now want to continue to the next tutorial: <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-and-concepts"><span class="std std-ref">Terminology &amp; concepts</span></a>.</p>
 </section>
 <section id="further-reading">
-<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h2>
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Jump straight in: if you already have a tree sequence you wish to deal with, the
 <a class="reference internal" href="getting_started.html#sec-tskit-getting-started"><span class="std std-ref">Getting started with tskit</span></a> tutorial show you how to do a number of common tasks.</p></li>

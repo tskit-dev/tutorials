@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Working with Metadata &#8212; Tree Sequence Tutorials</title>
     
@@ -32,9 +32,8 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -56,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="ARGs as tree sequences" href="args.html" />
     <link rel="prev" title="Visualization" href="viz.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -91,11 +90,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -607,7 +603,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="working-with-metadata">
-<span id="sec-tutorial-metadata"></span><h1>Working with Metadata<a class="headerlink" href="#working-with-metadata" title="Permalink to this headline">#</a></h1>
+<span id="sec-tutorial-metadata"></span><h1>Working with Metadata<a class="headerlink" href="#working-with-metadata" title="Permalink to this heading">#</a></h1>
 <p>Metadata is information associated with entities that <strong class="program">tskit</strong> doesn’t use or
 interpret, but which is useful to pass on to downstream analysis such as sample ids,
 dates etc. (see <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a> for a full discussion). Each
@@ -628,7 +624,7 @@ which contains some demonstration metadata:</p>
 </div>
 </div>
 <section id="reading-metadata-and-schemas">
-<h2>Reading metadata and schemas<a class="headerlink" href="#reading-metadata-and-schemas" title="Permalink to this headline">#</a></h2>
+<h2>Reading metadata and schemas<a class="headerlink" href="#reading-metadata-and-schemas" title="Permalink to this heading">#</a></h2>
 <p>Metadata is automatically decoded using the schema when accessed via a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> or <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> Python API. For example:</p>
 <div class="cell docutils container">
@@ -702,7 +698,7 @@ or top-level metadata, then no decoding is performed and <code class="docutils l
 </div>
 </section>
 <section id="modifying-metadata-and-schemas">
-<h2>Modifying metadata and schemas<a class="headerlink" href="#modifying-metadata-and-schemas" title="Permalink to this headline">#</a></h2>
+<h2>Modifying metadata and schemas<a class="headerlink" href="#modifying-metadata-and-schemas" title="Permalink to this heading">#</a></h2>
 <p>If you are creating or modifying a tree sequence by changing the underlying tables,
 you may want to record or add to the metadata. If the change fits into the same schema,
 this is relatively simple, you can follow the
@@ -774,9 +770,9 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="ne">--&gt; </span><span class="mi">683</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">684</span> <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/jsonschema/validators.py:353,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">352</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">353</span>     <span class="k">raise</span> <span class="n">error</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/jsonschema/validators.py:314,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">314</span>     <span class="k">raise</span> <span class="n">error</span>
 
 <span class="ne">ValidationError</span>: &#39;false&#39; is not of type &#39;boolean&#39;
 
@@ -794,13 +790,13 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/tskit/tables.py:902,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
-<span class="g g-Whitespace">    </span><span class="mi">900</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">901</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
-<span class="ne">--&gt; </span><span class="mi">902</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">903</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">904</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
-<span class="g g-Whitespace">    </span><span class="mi">905</span> <span class="p">)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/tskit/tables.py:866,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
+<span class="ne">--&gt; </span><span class="mi">866</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">867</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">869</span> <span class="p">)</span>
 
 <span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/tskit/metadata.py:685,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">683</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -837,9 +833,9 @@ also raised if we attempt to add new fields:</p>
 <span class="ne">--&gt; </span><span class="mi">683</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">684</span> <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/jsonschema/validators.py:353,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">352</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">353</span>     <span class="k">raise</span> <span class="n">error</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/jsonschema/validators.py:314,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">314</span>     <span class="k">raise</span> <span class="n">error</span>
 
 <span class="ne">ValidationError</span>: Additional properties are not allowed (&#39;newKey&#39; was unexpected)
 
@@ -869,13 +865,13 @@ also raised if we attempt to add new fields:</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/tskit/tables.py:902,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
-<span class="g g-Whitespace">    </span><span class="mi">900</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">901</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
-<span class="ne">--&gt; </span><span class="mi">902</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">903</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">904</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
-<span class="g g-Whitespace">    </span><span class="mi">905</span> <span class="p">)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/tskit/tables.py:866,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
+<span class="ne">--&gt; </span><span class="mi">866</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">867</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">869</span> <span class="p">)</span>
 
 <span class="nn">File /opt/hostedtoolcache/Python/3.8.15/x64/lib/python3.8/site-packages/tskit/metadata.py:685,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">    </span><span class="mi">683</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -952,7 +948,7 @@ modify, then write back:</p>
 <p>To modify the metadata of rows in tables use the <a class="reference internal" href="#sec-tutorial-metadata-bulk"><span class="std std-ref">Metadata for bulk table methods</span></a>.</p>
 </section>
 <section id="viewing-raw-metadata">
-<h2>Viewing raw metadata<a class="headerlink" href="#viewing-raw-metadata" title="Permalink to this headline">#</a></h2>
+<h2>Viewing raw metadata<a class="headerlink" href="#viewing-raw-metadata" title="Permalink to this heading">#</a></h2>
 <p>If you need to see the raw (i.e. bytes) metadata, you just need to remove the
 schema, for instance:</p>
 <div class="cell docutils container">
@@ -978,7 +974,7 @@ Raw metadata:
 </div>
 </section>
 <section id="metadata-for-bulk-table-methods">
-<span id="sec-tutorial-metadata-bulk"></span><h2>Metadata for bulk table methods<a class="headerlink" href="#metadata-for-bulk-table-methods" title="Permalink to this headline">#</a></h2>
+<span id="sec-tutorial-metadata-bulk"></span><h2>Metadata for bulk table methods<a class="headerlink" href="#metadata-for-bulk-table-methods" title="Permalink to this heading">#</a></h2>
 <p>In the interests of efficiency each table’s <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.packset_metadata" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">packset_metadata()</span></code></a> method,
 as well as the more general <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.set_columns" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_columns()</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.append_columns" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">append_columns()</span></code></a> methods, do not attempt to validate or encode metadata.
@@ -1002,27 +998,27 @@ for these methods:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-                <style scoped="">
-                    .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
-                    .tskit-table tbody tr th {vertical-align: top;}
-                    .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
-                    .tskit-table tbody th {padding: 0.5em 0.5em;}
-                </style>
-                <table border="1" class="tskit-table">
-                    <thead>
-                        <tr>
-                            <th>id</th><th>flags</th><th>location</th><th>parents</th><th>metadata</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>0</td><td>0</td><td></td><td></td><td>{'accession': 'etho1234', 'pcr': True}</td></tr>
+        <div>
+            <style scoped="">
+                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                .tskit-table tbody tr th {vertical-align: top;}
+                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                .tskit-table tbody th {padding: 0.5em 0.5em;}
+            </style>
+            <table border="1" class="tskit-table">
+                <thead>
+                    <tr>
+                        <th>id</th><th>flags</th><th>location</th><th>parents</th><th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>0</td><td></td><td></td><td>{'accession': 'etho1234', 'pcr': True}</td></tr>
 <tr><td>1</td><td>0</td><td></td><td></td><td>{'accession': 'richard1235', 'pcr': F...</td></tr>
 <tr><td>2</td><td>0</td><td></td><td></td><td>{'accession': 'albert1236', 'pcr': True}</td></tr>
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
 </div></div>
 </div>
 <p>Or if all columns do not need to be set:</p>
@@ -1037,7 +1033,7 @@ for these methods:</p>
 </div>
 </section>
 <section id="binary-metadata">
-<span id="sec-tutorial-metadata-binary"></span><h2>Binary metadata<a class="headerlink" href="#binary-metadata" title="Permalink to this headline">#</a></h2>
+<span id="sec-tutorial-metadata-binary"></span><h2>Binary metadata<a class="headerlink" href="#binary-metadata" title="Permalink to this heading">#</a></h2>
 <p>To disable the validation and encoding of metadata and store raw bytes pass <code class="docutils literal notranslate"><span class="pre">None</span></code> to
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MetadataSchema" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataSchema</span></code></a></p>
 <div class="cell docutils container">

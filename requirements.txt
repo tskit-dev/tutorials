@@ -14,3 +14,6 @@ tskit-book-theme==0.3.2
 tszip
 pandas
 git+https://github.com/tskit-dev/tsconvert  # for newick parsing in phylogen.md
+# Specified here due to failing build with jupyter-book specified version #214
+jsonschema[format-nongpl]==4.17.3
+nbclient==0.5.13

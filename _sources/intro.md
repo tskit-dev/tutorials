@@ -16,8 +16,9 @@ kernelspec:
 # Welcome!
 
 This site contains a number of tutorials to develop your understanding of
-[succinct tree sequences](https://tskit.dev/learn/) and software programs,
-such as [msprime](https://tskit.dev/msprime), that use them.
+[succinct tree sequences](https://tskit.dev/learn/) as implmented in the
+[tree sequence toolkit](https://tskit.dev/tskit/docs/), along with software
+programs, such as [msprime](https://tskit.dev/msprime/docs), that use them.
 
 If you are new to the world of tree sequences, we suggest you start with the
 first tutorial: {ref}`sec_what_is`

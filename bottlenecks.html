@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Instantaneous Bottlenecks &#8212; Tree Sequence Tutorials</title>
     
@@ -32,9 +32,8 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -58,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Introgression" href="introgression.html" />
     <link rel="prev" title="Demography" href="demography.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -93,11 +92,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
+      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -619,7 +615,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="instantaneous-bottlenecks">
-<span id="sec-msprime-bottlenecks"></span><h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this headline">#</a></h1>
+<span id="sec-msprime-bottlenecks"></span><h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this heading">#</a></h1>
 <p><strong>Konrad Lohse and Jerome Kelleher</strong></p>
 <p>A common approach to modelling the effect of demographic history on genealogies is to assume that effective population size (<span class="math notranslate nohighlight">\(N_e\)</span>) changes in discrete steps which define a series of epochs (Griffiths, 1994; Marth et al., 2004; Keightley &amp; Eyre-Walker, 2007; Li &amp; Durbin 2011). In this setting of piece-wise constant <span class="math notranslate nohighlight">\(N_e\)</span>, capturing a population bottleneck requires three epochs: <span class="math notranslate nohighlight">\(N_e\)</span> is reduced by some fraction <span class="math notranslate nohighlight">\(b\)</span> at the start of the bottleneck, <span class="math notranslate nohighlight">\(T_{start}\)</span>, and recovers to its initial value at time <span class="math notranslate nohighlight">\(T_{end}\)</span> (Marth et al., 2004). If bottlenecks are short both on the timescale of coalescence and mutations, one may expect little information about the duration of a bottleneck
 in sequence data. Thus a simpler, alternative model is to assume that bottlenecks are instantaneous (<span class="math notranslate nohighlight">\(T_{end}-T_{start} \rightarrow 0\)</span>) and generate a sudden burst of coalescence events (a multiple merger event) in the genealogy. The strength of the bottleneck B can be thought of as an (imaginary) time period during which coalescence events are collapsed, i.e. there is no growth in genealogical branches during B and the probability that a single pair of lineages entering the bottleneck coalesce during the bottleneck is <span class="math notranslate nohighlight">\(1-e^{-B}\)</span>. Although this simple two parameter model of bottlenecks is attractive and both analytic results and empirical inference (Griffiths, 1994; Galtier et al., 2000; Bunnefeld et al., 2015) have been developed under this model, it has not been straightforward to simulate data under instantaneous bottleneck histories with ms. Instantaneous bottlenecks are implemented as a demographic event in msprime. Instanteous bottlenecks are similar to coalescent approximations for selective sweeps in that they generate multiple merger events. However, unlike sweeps the whole genome is effected equally. Instantanous bottlenecks differ from approximate models of sweeps (Durret &amp; Scheinsberg, 2004) in that they do not affect the exchangeability of lineages. A consequence of this is that all topologies are equally likely (before collapsing, the imaginary bottleneck time).</p>
@@ -658,7 +654,7 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 <p>The genealogy shows several simultaneous coalescence events at the time of the bottleneck
 (T=0.4)</p>
 <section id="checking-the-sfs-against-analytic-expectation">
-<h2>Checking the SFS against analytic expectation<a class="headerlink" href="#checking-the-sfs-against-analytic-expectation" title="Permalink to this headline">#</a></h2>
+<h2>Checking the SFS against analytic expectation<a class="headerlink" href="#checking-the-sfs-against-analytic-expectation" title="Permalink to this heading">#</a></h2>
 <p>Bunnefeld et al (2016) derive the total length of n-ton branches under an instantaneous bottleneck using a recursion for the generating function of genealogies. Assuming a sample size of <span class="math notranslate nohighlight">\(n=4\)</span>, <span class="math notranslate nohighlight">\(B=4\)</span> and <span class="math notranslate nohighlight">\(T=0.4\)</span>, the SFS is:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -713,7 +709,7 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 </div>
 </section>
 <section id="expected-coalescence-times">
-<h2>Expected coalescence times<a class="headerlink" href="#expected-coalescence-times" title="Permalink to this headline">#</a></h2>
+<h2>Expected coalescence times<a class="headerlink" href="#expected-coalescence-times" title="Permalink to this heading">#</a></h2>
 <p>The expected pairwise coalescence time is <span class="math notranslate nohighlight">\(E[t]= 1 + e^{-(B+T)} - e^{-T}\)</span>. Both the expected
 coalescence time and the probability that a pair of lineages survives the bottleneck fit
 the analytic expectation closely:</p>
@@ -787,7 +783,7 @@ the analytic expectation closely:</p>
 </div>
 </section>
 <section id="the-distribution-of-pairwise-coalescence-times">
-<h2>The distribution of pairwise coalescence times<a class="headerlink" href="#the-distribution-of-pairwise-coalescence-times" title="Permalink to this headline">#</a></h2>
+<h2>The distribution of pairwise coalescence times<a class="headerlink" href="#the-distribution-of-pairwise-coalescence-times" title="Permalink to this heading">#</a></h2>
 <p>The distribution of pairwise coalescence times has two maxima at <span class="math notranslate nohighlight">\(t=0\)</span> and the bottleneck time <span class="math notranslate nohighlight">\(t=T\)</span> (we have assumed <span class="math notranslate nohighlight">\(T=0.8\)</span> below) as expected. The simulated distribution of pairwise coalescence times fits the analytic expectation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -819,7 +815,7 @@ the analytic expectation closely:</p>
 </div>
 </section>
 <section id="approximating-the-site-frequency-spectrum">
-<h2>Approximating the site frequency spectrum<a class="headerlink" href="#approximating-the-site-frequency-spectrum" title="Permalink to this headline">#</a></h2>
+<h2>Approximating the site frequency spectrum<a class="headerlink" href="#approximating-the-site-frequency-spectrum" title="Permalink to this heading">#</a></h2>
 <p>Bottlenecks can have a substantial effect on the site frequency spectrum (SFS). The SFS is a fundamental summary of sequence variation that forms the basis of many modern inference approaches (e.g. sweepfinder, DFE-alpha, dadi). in the absence of linkage information the SFS is a lossless summary, i.e. any summary of sequence variation that ignores linkage (e.g. pairwise measures of diversity and divergence, <span class="math notranslate nohighlight">\(F_{st}\)</span>, Tajima’s D etc) are summaries of the SFS (Achaz 2009). The SFS is convenient analytically, since it depends only on the mean length and frequency of genealogical branches. For many demographic models of interest the mean length of n-ton branches can be derived either using coalescent theory (Chen 2011) or diffusion equations (Gutenkunst 2009). A number of composite likelihood approaches have been developed based on either analytic results for the SFS or approximate obtained from coalescent simulations (Gutenkunst 2009, Excoffier 2002). We can use msprime to obtain the SFS for a sample of <span class="math notranslate nohighlight">\(n=20\)</span> for a range of bottleneck strengths:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -863,7 +859,7 @@ the analytic expectation closely:</p>
 </div>
 </section>
 <section id="the-marginal-distribution-of-n-ton-branch-lengths">
-<h2>The marginal distribution of n-ton branch lengths<a class="headerlink" href="#the-marginal-distribution-of-n-ton-branch-lengths" title="Permalink to this headline">#</a></h2>
+<h2>The marginal distribution of n-ton branch lengths<a class="headerlink" href="#the-marginal-distribution-of-n-ton-branch-lengths" title="Permalink to this heading">#</a></h2>
 <p>We may be interested in the marginal distributions (pdf) of branch lengths immediately
 above a node with n tips, which determines the expected distribution of n-ton mutations in a
 nonrecombining block of sequence (Bunnefeld et al., 2016). Like the distribution of
@@ -908,7 +904,7 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
 <p>Again, this gives a good fit to the analytic expectation (see Bunnefeld at al 2016).</p>
 </section>
 <section id="multiple-populations">
-<h2>Multiple populations<a class="headerlink" href="#multiple-populations" title="Permalink to this headline">#</a></h2>
+<h2>Multiple populations<a class="headerlink" href="#multiple-populations" title="Permalink to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">InstantaneousBottleneck</span></code> model does not work without specifying any populations. Measuring bottleneck strength in generations (i.e. an imaginary time of coalescence) has a subtle but important consequence when we consider samples from multiple populations: the effect of the bottleneck on lineages present in each population at time T depends on the size of each population: genealogies in small populations are more strongly affected.</p>
 </section>
 </section>
