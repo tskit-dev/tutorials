@@ -14,7 +14,8 @@ under construction.
 
 Install the Python requirements from requirements.txt:
 ```
-$ python -m pip install -r requirements.txt ```
+$ python -m pip install -r requirements.txt
+```
 
 You will also need a working R installation with reticulate and irkernel installed.
 This command should do the trick:
