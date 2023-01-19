@@ -2,8 +2,13 @@
 
 A set of tutorials for the tskit ecosystem build using
 [Jupyter Book](https://jupyterbook.org/), served up at
-[https://tskit.dev/tutorials/](https://tskit.dev/tutorials/)
+[https://tskit.dev/tutorials/](https://tskit.dev/tutorials/).
 
+Merges to this repo will trigger a rebuild of the
+[tskit.dev web site](https://tskit.dev/) via an
+[action](https://github.com/tskit-dev/tskit-site/actions) on the
+[tskit-site repository](https://github.com/tskit-dev/tskit-site/):
+look there for any deployment issues.
 
 **Under construction**
 
