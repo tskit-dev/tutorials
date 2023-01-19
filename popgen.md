@@ -208,7 +208,7 @@ labels = { # Label samples by population
 
 tree.draw_svg(
     size=(800, 500),
-    # canvas_size=(800, 520),  # Make room for labels - only valid in tskit >= 0.5.4
+    canvas_size=(800, 520),
     node_labels=labels,
     style="".join(styles),
     y_axis=True,
