@@ -501,12 +501,56 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attributes-and-methods">
+   Attributes and methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysis">
+   Analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyter-notebook-use">
+   Jupyter notebook use
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interaction-with-r-libraries">
+   Interaction with R libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-information">
+   Further information
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -518,6 +562,39 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attributes-and-methods">
+   Attributes and methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysis">
+   Analysis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyter-notebook-use">
+   Jupyter notebook use
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interaction-with-r-libraries">
+   Interaction with R libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-information">
+   Further information
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -527,13 +604,13 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tskit-and-r">
 <span id="sec-tskit-r"></span><h1>Tskit and R<a class="headerlink" href="#tskit-and-r" title="Permalink to this heading">#</a></h1>
-<p>To interface with <code class="docutils literal notranslate"><span class="pre">tskit</span></code> in R, we can use the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> R package, which lets you call Python functions within an R session. In this short tutorial, we’ll go through a couple of examples to show you how to get started. If you haven’t done so already, you’ll need to install <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> in your R session via <code class="docutils literal notranslate"><span class="pre">install.packages(&quot;reticulate&quot;)</span></code>.</p>
+<p>To interface with <code class="docutils literal notranslate"><span class="pre">tskit</span></code> in R, we can use the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> R package, which lets you call Python functions within an R session. In this tutorial, we’ll go through a couple of examples to show you how to get started. If you haven’t done so already, you’ll need to install <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> in your R session via <code class="docutils literal notranslate"><span class="pre">install.packages(&quot;reticulate&quot;)</span></code>.</p>
 <p>We’ll begin by simulating a small tree sequence using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
 
-<span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
+<span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">80</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="o">=</span><span class="m">1e4</span><span class="p">,</span><span class="w"> </span><span class="n">recombination_rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
 <span class="n">ts</span>
 </pre></div>
 </div>
@@ -542,32 +619,32 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>╔═══════════════════════════╗
 ║TreeSequence               ║
 ╠═══════════════╤═══════════╣
-║Trees          │          1║
+║Trees          │         26║
 ╟───────────────┼───────────╢
-║Sequence Length│        100║
+║Sequence Length│      10000║
 ╟───────────────┼───────────╢
 ║Time Units     │generations║
 ╟───────────────┼───────────╢
-║Sample Nodes   │         20║
+║Sample Nodes   │        160║
 ╟───────────────┼───────────╢
-║Total Size     │    4.1 KiB║
+║Total Size     │   29.0 KiB║
 ╚═══════════════╧═══════════╝
 ╔═══════════╤════╤═════════╤════════════╗
 ║Table      │Rows│Size     │Has Metadata║
 ╠═══════════╪════╪═════════╪════════════╣
-║Edges      │  38│  1.2 KiB│          No║
+║Edges      │ 414│ 12.9 KiB│          No║
 ╟───────────┼────┼─────────┼────────────╢
-║Individuals│  10│304 Bytes│          No║
+║Individuals│  80│  2.2 KiB│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Migrations │   0│  8 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Mutations  │   0│ 16 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
-║Nodes      │  39│  1.1 KiB│          No║
+║Nodes      │ 344│  9.4 KiB│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Populations│   1│224 Bytes│         Yes║
 ╟───────────┼────┼─────────┼────────────╢
-║Provenances│   1│942 Bytes│          No║
+║Provenances│   1│945 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Sites      │   0│ 16 Bytes│          No║
 ╚═══════════╧════╧═════════╧════════════╝
@@ -575,7 +652,11 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">reticulate</span></code> allows us to access a Python object’s attributes or call its methods via the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a variable) the number of samples in the tree sequence:</p>
+<section id="attributes-and-methods">
+<h2>Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">reticulate</span></code> allows us to access a Python object’s attributes or call its methods via
+the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a variable) the number of
+samples in the tree sequence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">num_samples</span>
@@ -584,21 +665,46 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">20</div></div>
+<div class="output text_html">160</div></div>
 </div>
-<p>We can also use <code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s powerful <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html">Statistics</a> framework to efficiently compute many different summary statistics from a tree sequence. To illustrate this, we’ll first add some mutations to our tree sequence with <code class="docutils literal notranslate"><span class="pre">msprime</span></code>’s <code class="docutils literal notranslate"><span class="pre">sim_mutations</span></code> function, and then compute the genetic diversity for each of the tree sequence’s sample nodes:</p>
+<p>We can also call tskit methods on this tree sequence, such as
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a>. The parameters are given as native R objects
+(but note that we still retain tskit’s 0-based indexing system</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1e-2</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">42</span><span class="p">)</span>
-<span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span>
-<span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">simplify</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">7</span><span class="p">)</span><span class="w">  </span><span class="c1"># only keep the first 8 samples</span>
+<span class="n">reduced_ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="nf">delete_intervals</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">6000</span><span class="p">,</span><span class="w"> </span><span class="m">10000</span><span class="p">)))</span><span class="w">  </span><span class="c1"># keep the first 6kb</span>
+<span class="n">reduced_ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="nf">trim</span><span class="p">()</span><span class="w">  </span><span class="c1"># remove the deleted end</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Reduced from&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">num_trees</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trees to&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="n">num_trees</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trees&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">14</div><div class="output text_html">0.0232631578947368</div></div>
+<div class="output text_html">'Reduced from 26 trees to 6 trees'</div></div>
 </div>
-<p>As a final example, we can also use the tree sequence <code class="docutils literal notranslate"><span class="pre">genotype_matrix()</span></code> method to return the genotypes of the the tree sequence as a matrix object in R.</p>
+</section>
+<section id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this heading">#</a></h2>
+<p>From within R we can use <code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s powerful
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html">Statistics</a> framework to efficiently
+compute many different summary statistics from a tree sequence. To illustrate this,
+we’ll first add some mutations to our tree sequence with the
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Python)"><code class="docutils literal notranslate"><span class="pre">msprime.sim_mutations()</span></code></a> function, and then compute the genetic diversity
+for each of the tree sequence’s sample nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">reduced_ts</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">321</span><span class="p">)</span>
+
+<span class="nf">paste</span><span class="p">(</span><span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mutations, genetic diversity is&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">'13 mutations, genetic diversity is 0.000720238095238095'</div></div>
+</div>
+<p>Numerical arrays and matrices work as expected. For instance, we can use the tree
+sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.genotype_matrix" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">genotype_matrix()</span></code></a> method to return the genotypes of
+the tree sequence as a matrix object in R.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">genotype_matrix</span><span class="p">()</span>
@@ -608,21 +714,21 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><table class="dataframe">
-<caption>A matrix: 13 × 20 of type int</caption>
+<caption>A matrix: 13 × 8 of type int</caption>
 <tbody>
-	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-	<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+	<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+	<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+	<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+	<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+	<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -641,10 +747,203 @@ title="Print to PDF"
 .list-inline>li {display: inline-block}
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
-<ol class=list-inline><li>0.05</li><li>0.95</li><li>0.45</li><li>0.9</li><li>0.65</li><li>0.2</li><li>0.95</li><li>0.95</li><li>0.05</li><li>0.05</li><li>1</li><li>0.05</li><li>0.05</li></ol>
+<ol class=list-inline><li>0.125</li><li>0.125</li><li>0.125</li><li>0.125</li><li>0.5</li><li>0.625</li><li>0.875</li><li>0.875</li><li>0.125</li><li>0.25</li><li>0.125</li><li>0.625</li><li>0.125</li></ol>
 </div></div>
 </div>
-<p>It’s as simple as that! Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> documentation, in particular on <a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>, which includes important information on how R data types are converted to their equivalent Python types.</p>
+</section>
+<section id="jupyter-notebook-use">
+<h2>Jupyter notebook use<a class="headerlink" href="#jupyter-notebook-use" title="Permalink to this heading">#</a></h2>
+<p>If you are running R within a <a class="reference external" href="https://jupyter.org">Jupyter notebook</a>, then you can
+define a few magic functions that will display tskit tables and plots within the notebook:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define some magic functions to allow objects to be displayed in R Jupyter notebooks</span>
+<span class="n">repr_html.tskit.trees.TreeSequence</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="kc">...</span><span class="p">){</span><span class="n">obj</span><span class="o">$</span><span class="nf">`_repr_html_`</span><span class="p">()}</span>
+<span class="n">repr_html.tskit.trees.Tree</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="kc">...</span><span class="p">){</span><span class="n">obj</span><span class="o">$</span><span class="nf">`_repr_html_`</span><span class="p">()}</span>
+<span class="n">repr_svg.tskit.drawing.SVGString</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="kc">...</span><span class="p">){</span><span class="n">obj</span><span class="o">$</span><span class="nf">`__str__`</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This leads to much nicer summary tables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+  <style>
+    .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+    .tskit-table tbody tr td:first-of-type {text-align: left;}
+    .tskit-details-label {vertical-align: top; padding-right:5px;}
+    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+    .tskit-table-set-table {margin: 12px 0 0 12px;}
+    details {display: inline-block;}
+    summary {cursor: pointer; outline: 0; display: list-item;}
+  </style>
+  <div class="tskit-table-set">
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="padding:0;line-height:21px;">
+              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+              <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Trees</td><td>6</td></tr>
+          <tr><td>Sequence Length</td><td>6000.0</td></tr>
+          <tr><td>Time Units</td><td>generations</td></tr>
+          <tr><td>Sample Nodes</td><td>8</td></tr>
+          <tr><td>Total Size</td><td>6.0 KiB</td></tr>
+          <tr>
+            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tskit-table-set-table">
+      <table class="tskit-table">
+        <thead>
+          <tr>
+            <th style="line-height:21px;">Table</th>
+            <th>Rows</th>
+            <th>Size</th>
+            <th>Has Metadata</th>
+          </tr>
+        </thead>
+        <tbody>
+
+      <tr>
+        <td>Edges</td>
+          <td>32</td>
+          <td>1.0 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Individuals</td>
+          <td>4</td>
+          <td>136 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Migrations</td>
+          <td>0</td>
+          <td>8 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Mutations</td>
+          <td>13</td>
+          <td>497 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Nodes</td>
+          <td>20</td>
+          <td>568 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Populations</td>
+          <td>1</td>
+          <td>224 Bytes</td>
+          <td style="text-align: center;">
+            ✅
+          </td>
+        </tr>
+
+      <tr>
+        <td>Provenances</td>
+          <td>5</td>
+          <td>3.0 KiB</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+      <tr>
+        <td>Sites</td>
+          <td>13</td>
+          <td>341 Bytes</td>
+          <td style="text-align: center;">
+
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+<p>And also allows trees and tree sequences to be easily plotted</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">y_ticks</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="m">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/tskitr_17_0.svg" src="_images/tskitr_17_0.svg" /></div>
+</div>
+</section>
+<section id="interaction-with-r-libraries">
+<h2>Interaction with R libraries<a class="headerlink" href="#interaction-with-r-libraries" title="Permalink to this heading">#</a></h2>
+<p>R has a number of libraries to deal with genomic data and trees. Below we focus on the
+phylogenetic tree representation defined in the the popular
+<a class="reference external" href="http://ape-package.ird.fr">ape</a> package, taking all the trees
+:meth:<code class="docutils literal notranslate"><span class="pre">exported</span> <span class="pre">in</span> <span class="pre">Nexus</span> <span class="pre">format&lt;TreeSequence.write_nexus&gt;</span></code>, or
+individual trees :meth:<code class="docutils literal notranslate"><span class="pre">exported</span> <span class="pre">in</span> <span class="pre">Newick</span> <span class="pre">format&lt;TreeSequence.as_newick&gt;</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">tempfile</span><span class="p">()</span>
+<span class="n">ts_mut</span><span class="o">$</span><span class="nf">write_nexus</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="c1"># Warning - ape trees are stored independently, so this will use much more memory than tskit</span>
+<span class="n">trees</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ape</span><span class="o">::</span><span class="nf">read.nexus</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="n">force.multi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">  </span><span class="c1"># return a set of trees</span>
+
+<span class="c1"># Or simply read in a single tree</span>
+<span class="n">tree</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ape</span><span class="o">::</span><span class="nf">read.tree</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">first</span><span class="p">()</span><span class="o">$</span><span class="nf">as_newick</span><span class="p">())</span>
+
+<span class="c1"># Now we can plot the tree in tskit style, but using the ape library</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="o">=</span><span class="s">&quot;downward&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">srt</span><span class="o">=</span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span><span class="w">  </span><span class="c1"># or equivalently use trees[[1]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/tskitr_19_0.png" src="_images/tskitr_19_0.png" />
+</div>
+</div>
+<p>Note that nodes are labelled with the prefix <code class="docutils literal notranslate"><span class="pre">n</span></code>, so that nodes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, …
+become <code class="docutils literal notranslate"><span class="pre">n0</span></code>, <code class="docutils literal notranslate"><span class="pre">n1</span></code>, <code class="docutils literal notranslate"><span class="pre">n2</span></code> … etc. This helps to avoid
+confusion between the the zero-based counting system used natively
+by <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, and the one-based counting system used in <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p>
+</section>
+<section id="further-information">
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this heading">#</a></h2>
+<p>Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> documentation, in particular on <a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>, which includes important information on how R data types are converted to their equivalent Python types.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
