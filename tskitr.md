@@ -27,12 +27,12 @@ We'll begin by simulating a small tree sequence using `msprime`.
 msprime <- reticulate::import("msprime")
 
 ts <- msprime$sim_ancestry(80, sequence_length=1e4, recombination_rate=1e-4, random_seed=42)
-ts
+ts  # See "Jupyter notebook tips", below for how to render this nicely
 ```
 
 ## Attributes and methods
 
-`reticulate` allows us to access a Python object's attributes or call its methods via
+`reticulate` allows us to access a Python object's attributes via
 the `$` operator. For example, we can access (and assign to a variable) the number of
 samples in the tree sequence:
 
@@ -41,17 +41,51 @@ n <- ts$num_samples
 n
 ```
 
-We can also call tskit methods on this tree sequence, such as
-{meth}`TreeSequence.simplify`. The parameters are given as native R objects
-(but note that we still retain tskit's 0-based indexing system
+The `$` operator can also be used to call methods, for example, the 
+{meth}`~TreeSequence.simplify` method associated with the tree sequence.
+The method parameters are given as native R objects
+(but note that object IDs are still use tskit's 0-based indexing system).
 
 ```{code-cell}
-reduced_ts <- ts$simplify(0:7)  # only keep the first 8 samples
-reduced_ts <- reduced_ts$delete_intervals(list(c(6000, 10000)))  # keep the first 6kb
-reduced_ts <- reduced_ts$trim()  # remove the deleted end
-paste("Reduced from", ts$num_trees, "trees to", reduced_ts$num_trees, "trees")
+reduced_ts <- ts$simplify(0:7)  # only keep samples with ids 0, 1, 2, 3, 4, 5, 6, 7
+reduced_ts <- reduced_ts$delete_intervals(list(c(6000, 10000)))  # delete data after 6kb
+reduced_ts <- reduced_ts$trim()  # remove the deleted region
+paste(
+    "Reduced from", ts$num_trees, "trees over", ts$sequence_length/1e3, "kb to",
+    reduced_ts$num_trees, "trees over", reduced_ts$sequence_length/1e3, "kb.")
 ```
 
+### IDs and indexes
+
+Note that if a bare digit is provided to one of these methods, it will be treated as a
+floating point number. This is useful to know when calling `tskit` methods that
+require integers (e.g. object IDs). For example, the following will not work:
+
+```{code-cell}
+:tags: [raises-exception, remove-output]
+ts$node(0)  # Will raise an error
+```
+
+In this case, to force the `0` to be passed as an integer, you can either coerce it
+using `as.integer` or simply prepend the letter `L`:
+
+```{code-cell}
+ts$node(as.integer(0))
+# or
+ts$node(0L)
+```
+
+Coercing in this way is only necessary when passing parameters to those underlying
+`tskit` methods that expect integers. It is not needed e.g. to index into numeric arrays.
+_However_, when using arrays, very careful attention must be paid to the fact that
+`tskit` IDs start at zero, whereas R indexes start at one:
+
+```{code-cell}
+root_id <- ts$first()$root
+paste("Root time via tskit method:", ts$node(root_id)$time)
+# When indexing into tskit arrays in R, add 1 to the ID
+paste("Root time via array access:", ts$nodes_time[root_id + 1])
+```
 
 ## Analysis
 
@@ -84,10 +118,10 @@ allele_frequency = rowMeans(G)
 allele_frequency
 ```
 
-## Jupyter notebook use
+## Jupyter notebook tips
 
-If you are running R within a [Jupyter notebook](https://jupyter.org), then you can
-define a few magic functions that will display tskit tables and plots within the notebook:
+When running R within a [Jupyter notebook](https://jupyter.org), a few magic functions
+can be defined that allow tskit objects to be rendered within the notebook:
 
 ```{code-cell}
 # Define some magic functions to allow objects to be displayed in R Jupyter notebooks
@@ -96,13 +130,13 @@ repr_html.tskit.trees.Tree <- function(obj, ...){obj$`_repr_html_`()}
 repr_svg.tskit.drawing.SVGString <- function(obj, ...){obj$`__str__`()}
 ```
 
-This leads to much nicer summary tables:
+This leads to much nicer tabular summaries:
 
 ```{code-cell}
 ts_mut
 ```
 
-And also allows trees and tree sequences to be easily plotted
+It also allows trees and tree sequences to be plotted inline:
 
 ```{code-cell}
 ts_mut$draw_svg(y_axis=TRUE, y_ticks=0:10)
@@ -114,8 +148,8 @@ ts_mut$draw_svg(y_axis=TRUE, y_ticks=0:10)
 R has a number of libraries to deal with genomic data and trees. Below we focus on the
 phylogenetic tree representation defined in the the popular
 [ape](http://ape-package.ird.fr) package, taking all the trees
-:meth:`exported in Nexus format<TreeSequence.write_nexus>`, or
-individual trees :meth:`exported in Newick format<TreeSequence.as_newick>`:
+{meth}`exported in Nexus format<TreeSequence.write_nexus>`, or
+individual trees {meth}`exported in Newick format<Tree.as_newick>`:
 
 ```{code-cell}
 file = tempfile()
