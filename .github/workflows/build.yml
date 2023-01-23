@@ -24,13 +24,12 @@ jobs:
     - name: Set up Python 3.8
       uses: actions/setup-python@v4
       with:
-        python-version: 3.8
+        python-version: "3.10"
 
     - name: Install python dependencies
       run: |
-        # Downgrade pip to allow conflicting deps
-        pip install pip==20.0.2
-        pip install -r requirements.txt
+        pip install --upgrade pip wheel
+        cat requirements-CI.txt | sed -e '/^\s*#.*$/d' -e '/^\s*$/d' | xargs -n 1 pip install --no-dependencies
 
     - name: Install R support
       run: |
