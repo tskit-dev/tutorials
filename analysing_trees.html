@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Analysing trees &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Counting topologies" href="counting_topologies.html" />
     <link rel="prev" title="Analysing tree sequences" href="analysing_tree_sequences.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -90,8 +91,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -675,14 +679,14 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="analysing-trees">
-<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Permalink to this heading">#</a></h1>
+<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Permalink to this headline">#</a></h1>
 <p>There are a number of different ways we might want to analyse a single  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>.
 Most involve some sort of traversal over the nodes, mutations, or branches in the tree.
 <strong class="program">tskit</strong> provides various way of traversing through a tree, and also some
 built in phylogenetic algorithms such as <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> which efficently
 places mutations (“characters” in phylogenetic terminology) on a given tree.</p>
 <section id="tree-traversals">
-<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Permalink to this heading">#</a></h2>
+<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Permalink to this headline">#</a></h2>
 <p>Given a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>, traversals in various orders are possible using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nodes()</span></code></a> iterator. Take the following tree:</p>
 <div class="cell docutils container">
@@ -733,7 +737,7 @@ here we compute the total branch length of a tree:</p>
 </div>
 <p>Note that this is also available as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.total_branch_length" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.total_branch_length</span></code></a> attribute.</p>
 <section id="traversing-upwards">
-<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Permalink to this heading">#</a></h3>
+<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Permalink to this headline">#</a></h3>
 <p>For many applications it is useful to be able to traverse upwards from the
 leaves. We can do this using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.parent" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.parent()</span></code></a> method, which
 returns the parent of a node. For example, we can traverse upwards from
@@ -762,7 +766,7 @@ each of the samples in the tree:</p>
 </div>
 </section>
 <section id="traversals-with-information">
-<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Permalink to this heading">#</a></h3>
+<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Permalink to this headline">#</a></h3>
 <p>Sometimes we will need to traverse down the tree while maintaining
 some information about the nodes that are above it. While this
 can be done using recursive algorithms, it is often more convenient
@@ -793,7 +797,7 @@ their path length to root:</p>
 </section>
 </section>
 <section id="networkx">
-<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Permalink to this heading">#</a></h2>
+<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Permalink to this headline">#</a></h2>
 <p>Traversals and other network analysis can also be performed using the sizeable
 <a class="reference external" href="https://networkx.github.io/documentation/stable/index.html">networkx</a>
 library. This can be achieved by calling <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_dict_of_dicts" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.as_dict_of_dicts()</span></code></a> to
@@ -815,7 +819,7 @@ create a graph:</p>
 </div>
 </div>
 <section id="traversing-upwards-in-networkx">
-<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Permalink to this heading">#</a></h3>
+<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Permalink to this headline">#</a></h3>
 <p>We can revisit the above examples and traverse upwards with
 networkx using a depth-first search algorithm:</p>
 <div class="cell docutils container">
@@ -840,7 +844,7 @@ networkx using a depth-first search algorithm:</p>
 </div>
 </section>
 <section id="calculating-distances-to-the-root">
-<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Permalink to this heading">#</a></h3>
+<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Permalink to this headline">#</a></h3>
 <p>Similarly, we can yield the nodes of a tree along with their distance to the
 root in pre-order in networkx as well. Running this on the example above gives us
 the same result as before:</p>
@@ -860,7 +864,7 @@ the same result as before:</p>
 </div>
 </section>
 <section id="finding-nearest-neighbors">
-<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Permalink to this heading">#</a></h3>
+<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Permalink to this headline">#</a></h3>
 <p>If some samples in a tree are not at time 0, then finding the nearest neighbor
 of a sample is a bit more involved. Instead of writing our own traversal code
 we can again draw on a networkx algorithm.
@@ -956,7 +960,7 @@ search:</p>
 </section>
 </section>
 <section id="parsimony">
-<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Permalink to this heading">#</a></h2>
+<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Permalink to this headline">#</a></h2>
 <p>Take a site on the following tree with three allelic states, where the
 samples are coloured by the allele they possess, but where we don’t know
 the position of the mutations that caused this variation:</p>
@@ -997,7 +1001,7 @@ Mutation: node = 5 derived_state = green
 description of this state is that the ancestral state is red and there was
 a mutation to blue and green over nodes 4 and 5.</p>
 <section id="building-tables">
-<h3>Building tables<a class="headerlink" href="#building-tables" title="Permalink to this heading">#</a></h3>
+<h3>Building tables<a class="headerlink" href="#building-tables" title="Permalink to this headline">#</a></h3>
 <p>Below we show how a set of tables can be updated using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a>, taking advantage of the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method to identify parsimonious positions
@@ -1090,7 +1094,7 @@ Site 9: parsimony sets ancestral state to G, and places mutation 9 to T above no
 </div>
 </section>
 <section id="parsimony-and-missing-data">
-<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Permalink to this heading">#</a></h3>
+<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Permalink to this headline">#</a></h3>
 <p>We can also take missing data
 into account when finding a set of parsimonious state transitions. We do this by
 specifying the special value <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MISSING_DATA" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.MISSING_DATA</span></code></a> (-1) as the state, which is
@@ -1161,7 +1165,7 @@ explanation.</p>
 </section>
 </section>
 <section id="fast-tree-based-algorithms-using-numba">
-<span id="sec-trees-numba"></span><h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Permalink to this heading">#</a></h2>
+<span id="sec-trees-numba"></span><h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Permalink to this headline">#</a></h2>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Add a few examples here of how to use numba to speed up tree based dynamic programming

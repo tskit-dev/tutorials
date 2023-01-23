@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Demography &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Instantaneous Bottlenecks" href="bottlenecks.html" />
     <link rel="prev" title="Advanced msprime topics" href="advanced_msprime.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -90,8 +91,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -671,7 +675,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="demography">
-<span id="sec-msprime-demography"></span><h1>Demography<a class="headerlink" href="#demography" title="Permalink to this heading">#</a></h1>
+<span id="sec-msprime-demography"></span><h1>Demography<a class="headerlink" href="#demography" title="Permalink to this headline">#</a></h1>
 <p><strong>Georgia Tsambos</strong></p>
 <p>By default, <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> simulates samples from a single population of a constant size,
 which isn’t particularly exciting!
@@ -686,7 +690,7 @@ models of demography and population history with a simple Python API.</p>
 </div>
 </div>
 <section id="population-structure">
-<h2>Population structure<a class="headerlink" href="#population-structure" title="Permalink to this heading">#</a></h2>
+<h2>Population structure<a class="headerlink" href="#population-structure" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">msprime</span></code> supports simulation from multiple discrete populations,
 each of which is initialized in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population()</span></code></a> method.
 For each population, you can specify a sample size, an effective population size
@@ -759,11 +763,11 @@ multiples of <code class="docutils literal notranslate"><span class="pre">popula
 </div>
 </section>
 <section id="migrations">
-<h2>Migrations<a class="headerlink" href="#migrations" title="Permalink to this heading">#</a></h2>
+<h2>Migrations<a class="headerlink" href="#migrations" title="Permalink to this headline">#</a></h2>
 <p>With msprime, you can specify continual rates of migrations between
 populations, as well as admixture events, divergences and one-off mass migrations.</p>
 <section id="constant-migration">
-<h3>Constant migration<a class="headerlink" href="#constant-migration" title="Permalink to this heading">#</a></h3>
+<h3>Constant migration<a class="headerlink" href="#constant-migration" title="Permalink to this headline">#</a></h3>
 <p><img alt="constant-migration-diagram" src="_images/tute-population-structure-1.png" /></p>
 <p>Migration rates between the populations can be thought as the elements of an
 <em>N</em> by <em>N</em> numpy array, and are passed to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object individually via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.set_migration_rate" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.set_migration_rate()</span></code></a>
@@ -986,7 +990,7 @@ This makes sense given that population 1 is specifying more migrants to
 population 0 than vice versa.</p>
 </section>
 <section id="changing-migration-rates">
-<h3>Changing migration rates<a class="headerlink" href="#changing-migration-rates" title="Permalink to this heading">#</a></h3>
+<h3>Changing migration rates<a class="headerlink" href="#changing-migration-rates" title="Permalink to this headline">#</a></h3>
 <p>We can change any of the migration rates at any time in the simulation.
 To do this, we just need to use the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_migration_rate_change" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_migration_rate_change()</span></code></a> method on our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object,
 specifying the populations whose migration rates are to be changed,
@@ -1164,9 +1168,9 @@ We are now ready to simulate:</p>
 </div>
 </section>
 <section id="admixture-and-population-splits">
-<h3>Admixture and population splits<a class="headerlink" href="#admixture-and-population-splits" title="Permalink to this heading">#</a></h3>
+<h3>Admixture and population splits<a class="headerlink" href="#admixture-and-population-splits" title="Permalink to this headline">#</a></h3>
 <section id="admixture">
-<h4>Admixture<a class="headerlink" href="#admixture" title="Permalink to this heading">#</a></h4>
+<h4>Admixture<a class="headerlink" href="#admixture" title="Permalink to this headline">#</a></h4>
 <p>It is also easy to specify admixture and divergence events with msprime.
 Suppose we wanted to specify our demography so that 50 generations ago,
 30% of population 0 was a migrant from population 1:</p>
@@ -1279,7 +1283,7 @@ AdmixedPop.'>0</td><td>0</td></tr></tbody></table></div><div><style scoped="">
 <p>To read more about the way that msprime treats the life cycle of populations, see <a class="reference external" href="https://tskit.dev/msprime/docs/latest/demography.html#sec-demography-populations-life-cycle">here</a>.</p>
 </section>
 <section id="population-splits">
-<h4>Population splits<a class="headerlink" href="#population-splits" title="Permalink to this heading">#</a></h4>
+<h4>Population splits<a class="headerlink" href="#population-splits" title="Permalink to this headline">#</a></h4>
 <p>We can also simulate population divergences with msprime.
 Suppose we want to model a situation where all lineages from multiple populations are migrants from a single ancestral population at a single point in time.</p>
 <div class="admonition-todo admonition" id="id2">
@@ -1352,7 +1356,7 @@ Populations of nodes from time &gt;= 100:
 </section>
 </section>
 <section id="mass-migrations">
-<h3>Mass migrations<a class="headerlink" href="#mass-migrations" title="Permalink to this heading">#</a></h3>
+<h3>Mass migrations<a class="headerlink" href="#mass-migrations" title="Permalink to this headline">#</a></h3>
 <p>If you used any of versions of msprime prior to 1.0,
 you may be familiar with mass migration events.
 These are used to specify one-off events in which some fraction of a population moves into another population, and can be supplied to a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_mass_migration" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_mass_migration()</span></code></a> method.</p>
@@ -1419,7 +1423,7 @@ so <code class="docutils literal notranslate"><span class="pre">source</span></c
 </section>
 </section>
 <section id="changing-population-sizes-or-growth-rates">
-<h2>Changing population sizes or growth rates<a class="headerlink" href="#changing-population-sizes-or-growth-rates" title="Permalink to this heading">#</a></h2>
+<h2>Changing population sizes or growth rates<a class="headerlink" href="#changing-population-sizes-or-growth-rates" title="Permalink to this headline">#</a></h2>
 <p><img alt="" src="_images/tute-parameter-changes.png" /></p>
 <p>We may wish to specify changes to rates of population growth,
 or sudden changes in population size at a particular time.
@@ -1456,7 +1460,7 @@ specifies continual growth in the early history of population 1 up until 100
 generations in the past.</p>
 </section>
 <section id="census-events">
-<h2>Census events<a class="headerlink" href="#census-events" title="Permalink to this heading">#</a></h2>
+<h2>Census events<a class="headerlink" href="#census-events" title="Permalink to this headline">#</a></h2>
 <p>There may be situations where you are particularly interested in the chromosomes that are ancestral to your simulated sample at a particular time.
 For instance, you might want to know how many different lineages are ancestral to your sample at some past time.
 Perhaps you are interested to know which populations these ancestors belonged to (ie. <em>local ancestry</em>).
@@ -1502,7 +1506,7 @@ method:</p>
 See <a class="reference external" href="https://tskit.dev/msprime/docs/latest/ancestry.html#census-events">here</a> for a slightly more involved example of this.</p>
 </section>
 <section id="debugging-demography">
-<h2>Debugging demography<a class="headerlink" href="#debugging-demography" title="Permalink to this heading">#</a></h2>
+<h2>Debugging demography<a class="headerlink" href="#debugging-demography" title="Permalink to this headline">#</a></h2>
 <p>As we’ve seen, it’s pretty easy to make mistakes when specifying demography!</p>
 <p>To help you spot these, msprime provides a debugger that prints out your
 population history in a more human-readable form.

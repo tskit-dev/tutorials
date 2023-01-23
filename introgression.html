@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Introgression &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -57,7 +58,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Building a forward simulator" href="forward_sims.html" />
     <link rel="prev" title="Instantaneous Bottlenecks" href="bottlenecks.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -92,8 +93,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -565,7 +569,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="introgression">
-<span id="sec-msprime-introgression"></span><h1>Introgression<a class="headerlink" href="#introgression" title="Permalink to this heading">#</a></h1>
+<span id="sec-msprime-introgression"></span><h1>Introgression<a class="headerlink" href="#introgression" title="Permalink to this headline">#</a></h1>
 <p><strong>Jerome Kelleher and Konrad Lohse</strong></p>
 <p>There has been great interest in understanding the contributions past populations have made to the genetic diversity of current populations via <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_admixture">admixture</a>. In particular, the availability of whole genome sequence data from archaic hominins (<a class="reference external" href="http://doi.org/10.1126/science.1188021">Green et al., 2010</a>) has allowed geneticists to identify admixture tracks (<a class="reference external" href="http://doi.org/10.1016/j.cub.2016.03.037">Sankararaman, 2016</a>). In the simplest case, admixture tracts can be defined heuristically as regions of the genome that show excessive similarity between a putative source and a recipient population (usually quantified relative to some non-admixed reference population, see <a class="reference external" href="http://doi.org/10.1093/molbev/msr048">Durand et al., 2011</a>). Because recombination breaks down admixture tracts, their length distribution gives a clock for calibrating admixture and this information has been used to date the admixure contributions Neanderthals and other archaic hominins have made to non-African modern human populations (<a class="reference external" href="http://doi.org/10.1016/j.cub.2016.03.037">Sankararamanm 2016</a>)</p>
 <p>Crucially, the power to identify admixture depends on the relative time between the admixture event and the earlier divergence between source and recipient population: the shorter this interval, the harder it is to detect admixture. This is because samples from the source and recipient poulations are increasingly likely to share local ancestry regardless of recent admixture. In other words, it becomes increasingly difficult to distinguish admixture from <a class="reference external" href="https://en.wikipedia.org/wiki/Incomplete_lineage_sorting">incomplete lineage sorting</a> (ILS).</p>
@@ -780,7 +784,7 @@ signal that can be extracted from mutational data, is therefore not a very relia
 which regions of the genome have passed through the admixed route. In other words,
 admixed tracts are likely to be hard to detect simply from the distribution of mutations.</p>
 <section id="locating-mutations">
-<h2>Locating mutations<a class="headerlink" href="#locating-mutations" title="Permalink to this heading">#</a></h2>
+<h2>Locating mutations<a class="headerlink" href="#locating-mutations" title="Permalink to this headline">#</a></h2>
 <p>We might be interested in finding the population in which mutations arose. For this, we first need to impose some mutations on the tree sequence using <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_mutations()</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

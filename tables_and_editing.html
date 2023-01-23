@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Tables and editing &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -57,7 +58,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Simplification" href="simplification.html" />
     <link rel="prev" title="Parallelization" href="parallelization.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -92,8 +93,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -725,7 +729,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tables-and-editing">
-<span id="sec-tables"></span><h1>Tables and editing<a class="headerlink" href="#tables-and-editing" title="Permalink to this heading">#</a></h1>
+<span id="sec-tables"></span><h1>Tables and editing<a class="headerlink" href="#tables-and-editing" title="Permalink to this headline">#</a></h1>
 <p>Internally, a tree sequence can be thought of as a set of tables, and <strong class="program">tskit</strong>
 provides an interface for dealing with these tables directly. This is particularly
 relevant when you wish to <a class="reference internal" href="#sec-tables-editing"><span class="std std-ref">edit or otherwise modify</span></a>
@@ -738,7 +742,7 @@ The tables are defined in the official <strong class="program">tskit</strong> do
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a> section in the docs describes how to work with
 them. In this tutorial we give some pointers about what you can and cannot do with them.</p>
 <section id="correspondence-between-tables-and-trees">
-<span id="sec-tables-correspondence"></span><h2>Correspondence between tables and trees<a class="headerlink" href="#correspondence-between-tables-and-trees" title="Permalink to this heading">#</a></h2>
+<span id="sec-tables-correspondence"></span><h2>Correspondence between tables and trees<a class="headerlink" href="#correspondence-between-tables-and-trees" title="Permalink to this headline">#</a></h2>
 <p>Consider the following sequence of trees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -760,7 +764,7 @@ them. In this tutorial we give some pointers about what you can and cannot do wi
 that relate the three sampled genomes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">2</span></code> to each other
 along the chromosome of length 100.</p>
 <section id="node-and-edge-tables">
-<span id="sec-tables-correspondence-nodes-and-edges"></span><h3>Node and edge tables<a class="headerlink" href="#node-and-edge-tables" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-correspondence-nodes-and-edges"></span><h3>Node and edge tables<a class="headerlink" href="#node-and-edge-tables" title="Permalink to this headline">#</a></h3>
 <p>Each node in each of the above trees represents a particular ancestral genome
 (a <em>haploid</em> genome; diploid individuals would be represented by two nodes).
 Details about each node, including the time it lived, are stored in a
@@ -864,7 +868,7 @@ specifying the common ancestor of 0 and 4 on the remaining intervals (parents 6
 and 5 respectively) allow us to construct all trees across the entire interval.</p>
 </section>
 <section id="site-and-mutation-tables">
-<span id="sec-tables-correspondence-sites-and-mutations"></span><h3>Site and mutation tables<a class="headerlink" href="#site-and-mutation-tables" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-correspondence-sites-and-mutations"></span><h3>Site and mutation tables<a class="headerlink" href="#site-and-mutation-tables" title="Permalink to this headline">#</a></h3>
 <p>Most tree sequences have DNA variation data associated with them,
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">stored as mutations overlaid on the trees</span></a>:</p>
 <div class="cell docutils container">
@@ -987,7 +991,7 @@ Sample 2: GGC
 </section>
 </section>
 <section id="tables-overview">
-<span id="sec-tables-overview"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this heading">#</a></h2>
+<span id="sec-tables-overview"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this headline">#</a></h2>
 <p>Now that we’ve introduced the most important tables that make up a tree sequence, it’s
 worth seeing how they come together to form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.</p>
 <aside class="margin sidebar">
@@ -1009,7 +1013,7 @@ is contained in).</p>
 <p>The lines in this diagram below show where one table refers to the IDs
 of another table, that is, they indicate dependencies between tables.</p>
 <section id="individual-and-population-tables">
-<span id="sec-tables-overview-individuals-and-populations"></span><h3>Individual and population tables<a class="headerlink" href="#individual-and-population-tables" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-overview-individuals-and-populations"></span><h3>Individual and population tables<a class="headerlink" href="#individual-and-population-tables" title="Permalink to this headline">#</a></h3>
 <p>Previously we noted that a row in the node table could contain an index into the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a>. In fact, in our example
 tree sequence, the <a class="reference internal" href="#sec-tables-correspondence-nodes-and-edges"><span class="std std-ref">node table above</span></a>
@@ -1098,7 +1102,7 @@ share the same parent, individual 2 (i.e. Carol). That means Alice and Bob must 
 either siblings or half siblings.</p>
 </section>
 <section id="metadata">
-<span id="sec-tables-overview-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-overview-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">#</a></h3>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -1146,7 +1150,7 @@ detail about how to construct and use <code class="docutils literal notranslate"
 </section>
 </section>
 <section id="accessing-table-data">
-<span id="sec-tables-accessing"></span><h2>Accessing table data<a class="headerlink" href="#accessing-table-data" title="Permalink to this heading">#</a></h2>
+<span id="sec-tables-accessing"></span><h2>Accessing table data<a class="headerlink" href="#accessing-table-data" title="Permalink to this headline">#</a></h2>
 <p>A simple way to see the contents of a table is to <code class="docutils literal notranslate"><span class="pre">print</span></code> it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1172,7 +1176,7 @@ detail about how to construct and use <code class="docutils literal notranslate"
 </div>
 <p>But <strong class="program">tskit</strong> also provides access to columns and rows separately.</p>
 <section id="column-access">
-<span id="sec-tables-accessing-columns"></span><h3>Column access<a class="headerlink" href="#column-access" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-accessing-columns"></span><h3>Column access<a class="headerlink" href="#column-access" title="Permalink to this headline">#</a></h3>
 <p>An entire column in a table can be extracted as a <strong class="program">numpy</strong> array from the table
 object. For instance, if <code class="docutils literal notranslate"><span class="pre">n</span></code> is a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTable</span></code></a>, then <code class="docutils literal notranslate"><span class="pre">n.time</span></code>
 will return an array containing the birth times of the individuals whose genomes
@@ -1267,14 +1271,14 @@ expected length:</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/tskit/tables.py:488,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/tskit/tables.py:488,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">487</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="ne">--&gt; </span><span class="mi">488</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/tskit/tables.py:1159,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.9/x64/lib/python3.10/site-packages/tskit/tables.py:1159,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1126</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="g g-Whitespace">   </span><span class="mi">1127</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
 <span class="g g-Whitespace">   </span><span class="mi">1128</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
@@ -1301,7 +1305,7 @@ expected length:</p>
 </div>
 </section>
 <section id="row-access">
-<span id="sec-tables-accessing-rows"></span><h3>Row access<a class="headerlink" href="#row-access" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-accessing-rows"></span><h3>Row access<a class="headerlink" href="#row-access" title="Permalink to this headline">#</a></h3>
 <p>Rows can be accessed using square braces, which will return an object containing the
 raw values, accessible via attributes</p>
 <div class="cell docutils container">
@@ -1459,7 +1463,7 @@ from an old one. This is often an easier way to changing one or two attributes:<
 </section>
 </section>
 <section id="turning-tables-into-a-tree-sequence">
-<span id="sec-tables-to-tree-sequence"></span><h2>Turning tables into a tree sequence<a class="headerlink" href="#turning-tables-into-a-tree-sequence" title="Permalink to this heading">#</a></h2>
+<span id="sec-tables-to-tree-sequence"></span><h2>Turning tables into a tree sequence<a class="headerlink" href="#turning-tables-into-a-tree-sequence" title="Permalink to this headline">#</a></h2>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.tree_sequence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.tree_sequence()</span></code></a> method will attempt to turn a table collection
 into a tree sequence. This is not guaranteed to work: it’s possible you have created a
 nonsensical tree sequence where, for example, a child node has multiple parents at
@@ -1468,7 +1472,7 @@ a given position, or where edges reference non-existant nodes. The
 lists the requirements for a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> to represent a valid
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>.</p>
 <section id="sorting">
-<span id="sec-tables-to-tree-sequence-sorting"></span><h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-to-tree-sequence-sorting"></span><h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">#</a></h3>
 <p>Even if the tables represent a valid tree sequence, for efficiency reasons tree
 sequences also require several of their constituent tables to be sorted in a specific
 order. For instance, edges are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-requirements" title="(in Python)"><span class="xref std std-ref">required</span></a> to be sorted
@@ -1506,7 +1510,7 @@ on it), and all the nodes except node 0 have had their times increased by 0.25.<
 </section>
 </section>
 <section id="constructing-a-tree-sequence">
-<span id="sec-tables-creating"></span><h2>Constructing a tree sequence<a class="headerlink" href="#constructing-a-tree-sequence" title="Permalink to this heading">#</a></h2>
+<span id="sec-tables-creating"></span><h2>Constructing a tree sequence<a class="headerlink" href="#constructing-a-tree-sequence" title="Permalink to this headline">#</a></h2>
 <p>With the tools above in mind, we can now see how to construct a tree sequence by hand.
 It’s unlikely that you would ever need to do this from scratch, but it’s helpful to
 understand how tables work. We’ll build an extremely simple tree sequence, consisting of
@@ -1635,7 +1639,7 @@ sample nodes need not necessarily be those with the IDs <span class="math notran
 </div>
 </section>
 <section id="editing-tree-sequences">
-<span id="sec-tables-editing"></span><h2>Editing tree sequences<a class="headerlink" href="#editing-tree-sequences" title="Permalink to this heading">#</a></h2>
+<span id="sec-tables-editing"></span><h2>Editing tree sequences<a class="headerlink" href="#editing-tree-sequences" title="Permalink to this headline">#</a></h2>
 <p>If you may wish to make modifications to a tree sequence, you will immediately encounter
 a barrier: tree sequence objects are <strong>immutable</strong> and so cannot be edited in-place.
 Therefore, the way to change a tree sequence is to edit its underlying tables.</p>
@@ -1690,7 +1694,7 @@ sequences together.</p></li>
 need to edit a copy of the underlying tables and then create a new tree sequence from
 the modified tables.</p>
 <section id="minor-edits">
-<span id="sec-tables-editing-minor"></span><h3>Minor edits<a class="headerlink" href="#minor-edits" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-editing-minor"></span><h3>Minor edits<a class="headerlink" href="#minor-edits" title="Permalink to this headline">#</a></h3>
 <p><a class="reference internal" href="#sec-tables-accessing-rows"><span class="std std-ref">Previously</span></a> we saw how to change specific rows by
 overwriting them. Here, for example, we use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTableRow.replace" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IndividualTableRow.replace()</span></code></a> to change
 the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> associated with an individual in one of our example tree sequences:</p>
@@ -1783,7 +1787,7 @@ note the extra step of validating and encoding before calling
 </div>
 </section>
 <section id="major-edits">
-<span id="sec-tables-editing-major"></span><h3>Major edits<a class="headerlink" href="#major-edits" title="Permalink to this heading">#</a></h3>
+<span id="sec-tables-editing-major"></span><h3>Major edits<a class="headerlink" href="#major-edits" title="Permalink to this headline">#</a></h3>
 <p>For larger changes, it is often worth clearing the entire table and filling it. Here,
 for example, we clear all mutations from the mutations table, then fill it up again,
 if possible using a more parsimonious placement of mutations (i.e. a placement that
@@ -1835,7 +1839,9 @@ This also involves changing the ancestral state at the site if necessary.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original ts has 154 mutations on 71 trees
-Parsimonious ts has 33 fewer muts
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parsimonious ts has 33 fewer muts
 </pre></div>
 </div>
 </div>

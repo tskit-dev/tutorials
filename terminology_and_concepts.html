@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Terminology &amp; concepts &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -57,7 +58,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Getting started with tskit" href="getting_started.html" />
     <link rel="prev" title="What is a tree sequence?" href="what_is.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -92,8 +93,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -697,12 +701,12 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="terminology-concepts">
-<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Permalink to this heading">#</a></h1>
+<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Permalink to this headline">#</a></h1>
 <p>If you have read “<a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>” we hope to have piqued your interest in tree
 sequences. This tutorial serves as an introduction to the terminology and some of the
 concepts behind <strong class="program">tskit</strong>, the tree sequence toolkit.</p>
 <section id="terminology">
-<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
+<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -728,7 +732,7 @@ sequence from a <code class="docutils literal notranslate"><span class="pre">.tr
 </div>
 </div>
 <section id="genomes">
-<h3>Genomes<a class="headerlink" href="#genomes" title="Permalink to this heading">#</a></h3>
+<h3>Genomes<a class="headerlink" href="#genomes" title="Permalink to this headline">#</a></h3>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -780,7 +784,7 @@ current population. In fact, since this pattern is seen in all trees, these part
 lines of inheritance were taken by all the DNA in this 1000 base pair genome.</p>
 </section>
 <section id="nodes">
-<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">#</a></h3>
 <p>Trees in a tree sequence are represented in a slightly unusual way.
 In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
@@ -791,7 +795,7 @@ an <em>internal node</em>, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
 coalesced (in backwards-time terminology).</p>
 <section id="sample-nodes">
-<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this heading">#</a></h4>
+<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this headline">#</a></h4>
 <p>The tip (leaf) nodes of the tree are usually marked as <em>sample nodes</em>, plotted as square
 symbols in the visualization. Sample nodes are the focal nodes in a tree sequence; they
 normally represent genomes from which we have obtained data (i.e. which we have “sampled”),
@@ -812,7 +816,7 @@ labelled <span class="math notranslate nohighlight">\(0..5\)</span>, and also 6 
 </section>
 </section>
 <section id="edges">
-<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this headline">#</a></h3>
 <p>In an evolutionary tree, the connections between nodes are conventionally referred to as
 “branches”. In a tree sequence, we instead refer to directional connections between nodes
 as <em>edges</em>, emphasizing that they usually persist across multiple trees. Thus each of the
@@ -853,7 +857,7 @@ disk space, and it takes of the order of a few seconds to iterate over all the t
 </div>
 </section>
 <section id="trees-and-tree-sequences">
-<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this headline">#</a></h3>
 <p>The combination of nodes and edges results in a tree sequence. This can be visualized,
 as in the drawing above, as a set of correlated trees. The
 sample nodes, <span class="math notranslate nohighlight">\(0..5\)</span> in the drawing, are present in all the trees (since we have their
@@ -905,7 +909,7 @@ information about (say) node <span class="math notranslate nohighlight">\(7\)</s
 </div>
 </section>
 <section id="individuals-and-populations">
-<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this headline">#</a></h3>
 <p>Sometimes we know that one or more nodes belong to a particular
 <em><a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a></em>. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
@@ -979,7 +983,7 @@ be associated with a larger <em>population</em>. In this example, there is only 
 </div>
 </section>
 <section id="mutations-and-sites">
-<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this headline">#</a></h3>
 <p>In <strong class="program">tskit</strong>, <em>mutations</em> occur at specific, defined <em>sites</em>. A mutation is
 positioned above a particular node (specified by the node ID), occurs at a particular
 site (specified by a site ID), and involves a change of allelic state to a defined
@@ -1033,7 +1037,7 @@ that genomic location). It is perfectly possible to have a site with no mutation
 used in further analysis.</p>
 </section>
 <section id="provenance">
-<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this headline">#</a></h3>
 <p>The history of the tree sequence is recorded in a set of provenance entries. That
 includes what produced it, and what operations have been done to it and when. For
 instance, if it was produced by <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplifying</span></a> a tree
@@ -1045,7 +1049,7 @@ is not always possible.</p>
 </section>
 </section>
 <section id="concepts">
-<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this heading">#</a></h2>
+<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">#</a></h2>
 <p>There are some basic concepts which can be helpful with thinking about tree sequences.
 For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1069,7 +1073,7 @@ created by the multiple-merger coalecent process, or in tree
 sequences that have been inferred from real data, it is possible to have a parent node
 with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
 <section id="tree-changes-ancestral-recombinations-and-sprs">
-<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this heading">#</a></h3>
+<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this headline">#</a></h3>
 <p>The process of recombination usually results in trees along a genome where adjacent
 trees differ by only a few “tree edit” or SPR (subtree-prune-and-regraft) operations.
 The result is a tree sequence in which very few edges
@@ -1097,7 +1101,7 @@ moving from  one tree to the next in a tree sequence might require multiple SPRs
 there are multiple, overlaid ancestral recombination events.</p>
 </section>
 <section id="tree-sequences-and-args">
-<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this heading">#</a></h3>
+<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this headline">#</a></h3>
 <p>Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
 recombination events are explictly stored. Although a tree sequence <em>can</em> represent such
@@ -1124,7 +1128,7 @@ whereas a tree sequence encodes the outcome of those events”
 </div></blockquote>
 </section>
 <section id="tables">
-<h3>Tables<a class="headerlink" href="#tables" title="Permalink to this heading">#</a></h3>
+<h3>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">#</a></h3>
 <p>The underlying data in a tree sequence are stored in a collection of tables. Details of
 these tables, as well as some basic properties of the tree sequence which they encode,
 are shown when printing a tree sequence to the screen:</p>

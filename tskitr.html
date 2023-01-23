@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Tskit and R &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Developing new tutorials" href="tutorial_development.html" />
     <link rel="prev" title="Building a forward simulator" href="forward_sims.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -90,8 +91,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -603,7 +607,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tskit-and-r">
-<span id="sec-tskit-r"></span><h1>Tskit and R<a class="headerlink" href="#tskit-and-r" title="Permalink to this heading">#</a></h1>
+<span id="sec-tskit-r"></span><h1>Tskit and R<a class="headerlink" href="#tskit-and-r" title="Permalink to this headline">#</a></h1>
 <p>To interface with <code class="docutils literal notranslate"><span class="pre">tskit</span></code> in R, we can use the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> R package, which lets you call Python functions within an R session. In this tutorial, we’ll go through a couple of examples to show you how to get started. If you haven’t done so already, you’ll need to install <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> in your R session via <code class="docutils literal notranslate"><span class="pre">install.packages(&quot;reticulate&quot;)</span></code>.</p>
 <p>We’ll begin by simulating a small tree sequence using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
 <div class="cell docutils container">
@@ -653,7 +657,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="attributes-and-methods">
-<h2>Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Permalink to this heading">#</a></h2>
+<h2>Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">reticulate</span></code> allows us to access a Python object’s attributes or call its methods via
 the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a variable) the number of
 samples in the tree sequence:</p>
@@ -684,7 +688,7 @@ samples in the tree sequence:</p>
 </div>
 </section>
 <section id="analysis">
-<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this heading">#</a></h2>
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">#</a></h2>
 <p>From within R we can use <code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s powerful
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html">Statistics</a> framework to efficiently
 compute many different summary statistics from a tree sequence. To illustrate this,
@@ -752,7 +756,7 @@ the tree sequence as a matrix object in R.</p>
 </div>
 </section>
 <section id="jupyter-notebook-use">
-<h2>Jupyter notebook use<a class="headerlink" href="#jupyter-notebook-use" title="Permalink to this heading">#</a></h2>
+<h2>Jupyter notebook use<a class="headerlink" href="#jupyter-notebook-use" title="Permalink to this headline">#</a></h2>
 <p>If you are running R within a <a class="reference external" href="https://jupyter.org">Jupyter notebook</a>, then you can
 define a few magic functions that will display tskit tables and plots within the notebook:</p>
 <div class="cell docutils container">
@@ -910,7 +914,7 @@ define a few magic functions that will display tskit tables and plots within the
 </div>
 </section>
 <section id="interaction-with-r-libraries">
-<h2>Interaction with R libraries<a class="headerlink" href="#interaction-with-r-libraries" title="Permalink to this heading">#</a></h2>
+<h2>Interaction with R libraries<a class="headerlink" href="#interaction-with-r-libraries" title="Permalink to this headline">#</a></h2>
 <p>R has a number of libraries to deal with genomic data and trees. Below we focus on the
 phylogenetic tree representation defined in the the popular
 <a class="reference external" href="http://ape-package.ird.fr">ape</a> package, taking all the trees
@@ -941,7 +945,7 @@ confusion between the the zero-based counting system used natively
 by <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, and the one-based counting system used in <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p>
 </section>
 <section id="further-information">
-<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this heading">#</a></h2>
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">#</a></h2>
 <p>Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> documentation, in particular on <a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>, which includes important information on how R data types are converted to their equivalent Python types.</p>
 </section>
 </section>

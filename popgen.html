@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Tskit for population genetics &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -57,7 +58,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Tskit for phylogenetics" href="phylogen.html" />
     <link rel="prev" title="Developing new tutorials" href="tutorial_development.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -92,8 +93,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -585,7 +589,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tskit-for-population-genetics">
-<span id="sec-intro-popgen"></span><h1><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics<a class="headerlink" href="#tskit-for-population-genetics" title="Permalink to this heading">#</a></h1>
+<span id="sec-intro-popgen"></span><h1><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics<a class="headerlink" href="#tskit-for-population-genetics" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">Tskit</span></a>, the tree sequence toolkit, brings the power of
 evolutionary trees to the field of population genetics. The
 <a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">succinct tree sequence</span></a> format
@@ -597,7 +601,7 @@ analysis framework, and APIs to build your own efficient population genetic algo
 Because of its speed and scalability, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is well-suited to interactive analysis of
 large genomic datasets.</p>
 <section id="population-genetic-simulation">
-<h2>Population genetic simulation<a class="headerlink" href="#population-genetic-simulation" title="Permalink to this heading">#</a></h2>
+<h2>Population genetic simulation<a class="headerlink" href="#population-genetic-simulation" title="Permalink to this headline">#</a></h2>
 <p>Several simulation tools output tree sequences. Below we use the
 standard library for population genetic simulation models
 (<a class="reference external" href="https://popsim-consortium.github.io/">stdpopsim</a>) to generate a model of
@@ -909,7 +913,7 @@ different colours, as described in the <a class="reference internal" href="viz.h
 </div>
 </section>
 <section id="population-genetic-inference">
-<h2>Population genetic inference<a class="headerlink" href="#population-genetic-inference" title="Permalink to this heading">#</a></h2>
+<h2>Population genetic inference<a class="headerlink" href="#population-genetic-inference" title="Permalink to this headline">#</a></h2>
 <p>If, instead of simulations, you want to analyse existing genomic data (for example
 stored in a VCF file), you will need to infer a tree sequence from it, using e.g.
 <a class="reference external" href="https://tskit.dev/tsinfer/docs/stable/">tsinfer</a>. Here we load an illustrative portion
@@ -1157,7 +1161,7 @@ various East Asian groups, using the <a class="reference internal" href="countin
 </div>
 </section>
 <section id="further-information">
-<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this heading">#</a></h2>
+<h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">#</a></h2>
 <p>This brief introduction is meant as a simple taster. Many other efficient population
 genetic <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">analyses</span></a> are possible when you have
 genomic data stored as a tree sequence.</p>

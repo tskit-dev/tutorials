@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Visualization &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Working with Metadata" href="metadata.html" />
     <link rel="prev" title="Simplification" href="simplification.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -90,8 +91,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -949,7 +953,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="visualization">
-<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Permalink to this heading">#</a></h1>
+<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">#</a></h1>
 <p><strong>Yan Wong</strong></p>
 <p>It is often helpful to visualize a single tree — or multiple trees along a tree
 sequence — together with sites and mutations. <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">Tskit</span></a>
@@ -982,7 +986,7 @@ provides examples of other representations of tree sequences, or the processes t
 can create them.</p>
 </div>
 <section id="text-format">
-<h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this heading">#</a></h2>
+<h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this headline">#</a></h2>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_text" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_text()</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_text" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_text()</span></code></a> methods provide
 a quick way to print out a tree sequence, or an individual tree within it. They are
@@ -1040,7 +1044,7 @@ Alice Bob Chris Dora
 </div>
 </section>
 <section id="svg-format">
-<h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this heading">#</a></h2>
+<h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this headline">#</a></h2>
 <p>Most users will want to use the SVG drawing functions
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg()</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> for visualization. Being a vectorised
@@ -1069,7 +1073,7 @@ black circles (but see below for ways to e.g. hide or colour these node symbols 
 apologies to US readers: the British spelling of “colour” will be used in the rest of
 this tutorial).</p>
 <section id="axes-and-scales">
-<h3>Axes and scales<a class="headerlink" href="#axes-and-scales" title="Permalink to this heading">#</a></h3>
+<h3>Axes and scales<a class="headerlink" href="#axes-and-scales" title="Permalink to this headline">#</a></h3>
 <p>For ease of drawing, the text representation and the SVG image above use unconventional
 non-linear X and Y coordinate systems. By default, the SVG output uses a more
 conventional linear scale for both time (Y) and genome position (X), and indicates the
@@ -1089,7 +1093,7 @@ causing labels to overlap:</p>
 which will be used in most subsequent examples in this tutorial.</p>
 </section>
 <section id="larger-tree-sequences">
-<h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Permalink to this heading">#</a></h3>
+<h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Permalink to this headline">#</a></h3>
 <p>So far, we have plotted only very small tree sequences. To visualize larger tree
 sequences it is sometimes advisable to focus on a small region of the genome, possibly
 even a single tree. The <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter allows you to plot the part of a tree
@@ -1157,7 +1161,7 @@ styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling">
 </div>
 </section>
 <section id="plotting-mutations">
-<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this heading">#</a></h3>
+<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this headline">#</a></h3>
 <p>By default the SVG visualization also plots sites and mutations on the tree or
 tree sequence (this can be disabled using the <code class="docutils literal notranslate"><span class="pre">omit_sites</span></code> parameter). For example,
 adding mutations to the 8-sample tree sequence above gives the following plot: each
@@ -1201,7 +1205,7 @@ mutations, 14 and 15 (above nodes 1 and 6) are recurrent mutations from T to G.<
 </div>
 </div>
 <section id="which-mutations-are-shown">
-<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Permalink to this heading">#</a></h4>
+<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Permalink to this headline">#</a></h4>
 <p>When using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter, only the mutations in the plotted region are shown.
 For the third tree in the tree sequence visualization above, we thus haven’t plotted
 mutations above position 15000. We can see <em>all</em> the mutations in the tree by changing the
@@ -1241,7 +1245,7 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 </section>
 </section>
 <section id="labelling">
-<h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this heading">#</a></h3>
+<h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this headline">#</a></h3>
 <p>Although the default node and mutation labels show unique identifiers, they are’t
 terribly intuituive. The <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters can be used
 to set more meaningful labels (for example from the tree sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a>).</p>
@@ -1274,7 +1278,7 @@ to set more meaningful labels (for example from the tree sequence <a class="refe
 </div>
 </section>
 <section id="styling">
-<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Permalink to this headline">#</a></h3>
 <p>The SVG output produced by tskit contains a large number of
 <a class="reference external" href="https://www.w3.org/TR/SVG2/styling.html#ClassAttribute">classes</a> which can be used to
 target different elements of the drawing, allowing them to be hidden, styled, or
@@ -1327,10 +1331,10 @@ within a <a class="reference external" href="https://www.w3.org/TR/SVG2/struct.h
 <code class="docutils literal notranslate"><span class="pre">node</span></code>. Moreover, elements such as <code class="docutils literal notranslate"><span class="pre">node</span></code> have <em>additional</em> classes, such as <code class="docutils literal notranslate"><span class="pre">p1</span></code>,
 indicating that the node in this case belongs to the population with ID 1.</p>
 <section id="available-css-classes">
-<h4>Available css classes<a class="headerlink" href="#available-css-classes" title="Permalink to this heading">#</a></h4>
+<h4>Available css classes<a class="headerlink" href="#available-css-classes" title="Permalink to this headline">#</a></h4>
 <p>Here are the css classes in a tskit SVG which can be used to style specific elements.</p>
 <section id="within-the-plotting-area">
-<h5>Within the plotting area<a class="headerlink" href="#within-the-plotting-area" title="Permalink to this heading">#</a></h5>
+<h5>Within the plotting area<a class="headerlink" href="#within-the-plotting-area" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tree</span></code>: a grouping element containing each tree</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: a grouping element within a tree, containing a node and its descendant
@@ -1349,7 +1353,7 @@ right-justification</p></li>
 </ul>
 </section>
 <section id="outside-the-plotting-area">
-<h5>Outside the plotting area<a class="headerlink" href="#outside-the-plotting-area" title="Permalink to this heading">#</a></h5>
+<h5>Outside the plotting area<a class="headerlink" href="#outside-the-plotting-area" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">axes</span></code>: a grouping element containing the X and Y axes, if either are present</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">x-axis</span></code>, <code class="docutils literal notranslate"><span class="pre">y-axis</span></code>: more specific grouping elements contained within <code class="docutils literal notranslate"><span class="pre">axes</span></code></p></li>
@@ -1362,7 +1366,7 @@ chevron-shaped mutation symbol</p></li>
 </ul>
 </section>
 <section id="id-based-classes">
-<h5>ID-based classes<a class="headerlink" href="#id-based-classes" title="Permalink to this heading">#</a></h5>
+<h5>ID-based classes<a class="headerlink" href="#id-based-classes" title="Permalink to this headline">#</a></h5>
 <p>Elements have additional classes based on the IDs of trees, nodes, parent (ancestor)
 nodes, individuals, populations, mutations, and sites. These class names start with a
 single letter (respectively <code class="docutils literal notranslate"><span class="pre">t</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, and <code class="docutils literal notranslate"><span class="pre">s</span></code>) followed by a
@@ -1386,7 +1390,7 @@ and so on.</p>
 </section>
 </section>
 <section id="styling-graphical-elements">
-<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this heading">#</a></h4>
+<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this headline">#</a></h4>
 <p>The classes above make it easy to target specific nodes or edges in one or multiple
 trees. For example, we can colour branches that are shared between trees
 (identified here as ones that have the same parent and child):</p>
@@ -1450,7 +1454,7 @@ additional constraint that they must belong to <em>adjacent</em> trees.</p>
 </div>
 </section>
 <section id="moving-and-transforming-elements">
-<span id="sec-tskit-viz-styling-moving-and-transforming"></span><h4>Moving and transforming elements<a class="headerlink" href="#moving-and-transforming-elements" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-styling-moving-and-transforming"></span><h4>Moving and transforming elements<a class="headerlink" href="#moving-and-transforming-elements" title="Permalink to this headline">#</a></h4>
 <p>We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
 <a class="reference internal" href="#sec-tskit-viz-large-tree-sequence"><span class="std std-ref">earlier in this tutorial</span></a> we used the
@@ -1522,7 +1526,7 @@ but otherwise you may need to use the <code class="docutils literal notranslate"
 </div>
 </section>
 <section id="styling-and-svg-structure">
-<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this heading">#</a></h4>
+<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this headline">#</a></h4>
 <p>To take full advantage of the SVG styling capabilities in tskit, it is worth knowing how
 the SVG file is structured. In particular tskit SVGs use a hierarchical grouping
 structure that reflects the tree topology. This allows easy styling and manipulation of
@@ -1572,7 +1576,7 @@ with groups containing the background and axes, if required.</p>
 </div>
 </section>
 <section id="styling-subtrees">
-<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Permalink to this heading">#</a></h4>
+<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Permalink to this headline">#</a></h4>
 <p>The nested grouping structure makes it easy to target a node and all its descendants.
 For instance, here’s how to draw all the edges of node 13 and its descendants using a
 thicker blue line:</p>
@@ -1631,7 +1635,7 @@ this normally-hidden line:</p>
 </div>
 </section>
 <section id="restricting-styling">
-<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Permalink to this heading">#</a></h4>
+<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Permalink to this headline">#</a></h4>
 <p>Sometimes the hierarchical nesting leads to styles being applied too widely. For example,
 since style selectors include all the descendants of a target, to target just the node
 itself (and not its descendants) a slightly different specification is required,
@@ -1675,7 +1679,7 @@ support it (note, however, as of v1.2 Inkscape does not appear to support this s
 </div>
 </section>
 <section id="more-about-styling">
-<h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this heading">#</a></h4>
+<h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this headline">#</a></h4>
 <p>NOTE: if your SVG is embedded directly into an HTML page (a common way for jupyter
 notebooks to render SVGs), then according to the HTML specifications, any styles applied
 to one SVG will apply to all SVGs in the document. To avoid this confusing state of
@@ -1700,9 +1704,9 @@ inspiration.</p>
 </section>
 </section>
 <section id="converting-and-editing-svg">
-<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Permalink to this headline">#</a></h3>
 <section id="converting">
-<h4>Converting<a class="headerlink" href="#converting" title="Permalink to this heading">#</a></h4>
+<h4>Converting<a class="headerlink" href="#converting" title="Permalink to this headline">#</a></h4>
 <p><a class="reference external" href="https://inkscape.org">Inkscape</a> is an open source SVG editor that can also be scripted
 to output bitmap files.</p>
 <p><a class="reference external" href="https://imagemagick.org/">Imagemagick</a> is a common piece of software used to convert
@@ -1727,7 +1731,7 @@ transformations.</p>
 </div>
 </section>
 <section id="editing-the-svg">
-<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Permalink to this heading">#</a></h4>
+<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Editing can be done in <a class="reference external" href="https://inkscape.org">Inkscape</a> (subject to the note above)</p></li>
 </ul>
@@ -1740,11 +1744,11 @@ transformations.</p>
 </section>
 </section>
 <section id="examples">
-<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
 <section id="text-examples">
-<h3>Text examples<a class="headerlink" href="#text-examples" title="Permalink to this heading">#</a></h3>
+<h3>Text examples<a class="headerlink" href="#text-examples" title="Permalink to this headline">#</a></h3>
 <section id="tree-orientation">
-<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Permalink to this heading">#</a></h4>
+<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Permalink to this headline">#</a></h4>
 <p>In the text format, trees (but not tree sequences) can be displayed in different orientations</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1763,74 +1767,74 @@ transformations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>    14         
- ┏━━━┻━━━┓     
- ┃      13     
- ┃    ┏━━┻━━┓  
- ┃   12     ┃  
- ┃   ┏┻━┓   ┃  
- ┃   ┃  ┃  11  
- ┃   ┃  ┃  ┏┻━┓
- ┃  10  ┃  ┃  ┃
- ┃  ┏┻┓ ┃  ┃  ┃
- ┃  ┃ ┃ ┃  9  ┃
- ┃  ┃ ┃ ┃ ┏┻┓ ┃
- 8  ┃ ┃ ┃ ┃ ┃ ┃
-┏┻┓ ┃ ┃ ┃ ┃ ┃ ┃
-0 2 1 3 6 4 5 7
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>                ┏0
-  ┏━━━━━━━━━━━━8┫ 
-  ┃             ┗2
-  ┃               
-  ┃         ┏━━━━1
-14┫     ┏━10┫     
-  ┃  ┏12┫   ┗━━━━3
-  ┃  ┃  ┃         
-  ┃  ┃  ┗━━━━━━━━6
-  ┗13┫            
-     ┃        ┏━━4
-     ┃    ┏━━9┫   
-     ┗━━11┫   ┗━━5
-          ┃       
-          ┗━━━━━━7
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 2 1 3 6 4 5 7
-┗┳┛ ┃ ┃ ┃ ┃ ┃ ┃
- 8  ┃ ┃ ┃ ┃ ┃ ┃
- ┃  ┃ ┃ ┃ ┗┳┛ ┃
- ┃  ┃ ┃ ┃  9  ┃
- ┃  ┗┳┛ ┃  ┃  ┃
- ┃  10  ┃  ┃  ┃
- ┃   ┃  ┃  ┗┳━┛
- ┃   ┃  ┃  11  
- ┃   ┗┳━┛   ┃  
- ┃   12     ┃  
- ┃    ┗━━┳━━┛  
- ┃      13     
- ┗━━━┳━━━┛     
-    14         
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0┓                
- ┣8━━━━━━━━━━━━┓  
-2┛             ┃  
-               ┃  
-1━━━━┓         ┃  
-     ┣10━┓     ┣14
-3━━━━┛   ┣12┓  ┃  
-         ┃  ┃  ┃  
-6━━━━━━━━┛  ┃  ┃  
-            ┣13┛  
-4━━┓        ┃     
-   ┣9━━┓    ┃     
-5━━┛   ┣11━━┛     
-       ┃          
-7━━━━━━┛          
+<div class="output text_html"><pre style='display: inline-block'>        14     
+      ┏━━┻━━┓  
+     13     ┃  
+    ┏━┻━┓   ┃  
+   12   ┃   ┃  
+  ┏━┻━┓ ┃   ┃  
+ 11   ┃ ┃   ┃  
+ ┏┻━┓ ┃ ┃   ┃  
+10  ┃ ┃ ┃   ┃  
+┏┻┓ ┃ ┃ ┃   ┃  
+┃ ┃ ┃ ┃ ┃   9  
+┃ ┃ ┃ ┃ ┃  ┏┻━┓
+┃ ┃ ┃ ┃ ┃  8  ┃
+┃ ┃ ┃ ┃ ┃ ┏┻┓ ┃
+0 5 2 4 1 3 6 7
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>              ┏━━━━0
+           ┏10┫     
+        ┏11┫  ┗━━━━5
+        ┃  ┃        
+     ┏12┫  ┗━━━━━━━2
+     ┃  ┃           
+  ┏13┫  ┗━━━━━━━━━━4
+  ┃  ┃              
+  ┃  ┗━━━━━━━━━━━━━1
+14┫                 
+  ┃               ┏3
+  ┃             ┏8┫ 
+  ┗━━━━━━━━━━━━9┫ ┗6
+                ┃   
+                ┗━━7
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 5 2 4 1 3 6 7
+┃ ┃ ┃ ┃ ┃ ┗┳┛ ┃
+┃ ┃ ┃ ┃ ┃  8  ┃
+┃ ┃ ┃ ┃ ┃  ┗┳━┛
+┃ ┃ ┃ ┃ ┃   9  
+┗┳┛ ┃ ┃ ┃   ┃  
+10  ┃ ┃ ┃   ┃  
+ ┗┳━┛ ┃ ┃   ┃  
+ 11   ┃ ┃   ┃  
+  ┗━┳━┛ ┃   ┃  
+   12   ┃   ┃  
+    ┗━┳━┛   ┃  
+     13     ┃  
+      ┗━━┳━━┛  
+        14     
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━┓              
+     ┣10┓           
+5━━━━┛  ┣11┓        
+        ┃  ┃        
+2━━━━━━━┛  ┣12┓     
+           ┃  ┃     
+4━━━━━━━━━━┛  ┣13┓  
+              ┃  ┃  
+1━━━━━━━━━━━━━┛  ┃  
+                 ┣14
+3┓               ┃  
+ ┣8┓             ┃  
+6┛ ┣9━━━━━━━━━━━━┛  
+   ┃                
+7━━┛                
 </pre></div></div>
 </div>
 </section>
 </section>
 <section id="svg-examples">
-<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Permalink to this headline">#</a></h3>
 <section id="a-standard-ts-plot">
-<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Permalink to this heading">#</a></h4>
+<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Permalink to this headline">#</a></h4>
 <p>Note that this tree sequence also illustrates a few features which are not normally
 produced e.g. by <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulations, in particular a “empty” site (with no
 associated mutations) at position 50, and some mutations that occur above root nodes in
@@ -1914,7 +1918,7 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 </div>
 </section>
 <section id="highlighted-mutations">
-<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Permalink to this heading">#</a></h4>
+<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Permalink to this headline">#</a></h4>
 <p>Specific mutations can be given a different colour. Moreover, the descendant lineages of
 specific mutations can be coloured and the branch colours overlay each other as expected.
 Note that in this example, internal node labels and symbols have been hidden for clarity.</p>
@@ -1939,7 +1943,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </section>
 <section id="leaf-sample-isolated-nodes">
-<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Permalink to this heading">#</a></h4>
+<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Permalink to this headline">#</a></h4>
 <p>By default, sample nodes are square and non-sample nodes circular (at the moment this
 can’t easily be changed). However, neither need to be at specific times: sample nodes can
 be at times other than 0, and nonsample nodes can be at time 0. Moreover, leaves need not
@@ -1982,7 +1986,7 @@ unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above)
 </div>
 </section>
 <section id="a-fancy-formatted-plot">
-<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Permalink to this heading">#</a></h4>
+<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Permalink to this headline">#</a></h4>
 <p>Here we have activated the Y axis, and changed the node style. In particular, we have
 coloured nodes by time, and increased the internal node symbol size while moving
 the internal node labels into the symbol; node labels have also been plotted in a
@@ -2026,7 +2030,7 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </section>
 <section id="ticks-labels-and-gridlines">
-<h4>Ticks, labels, and gridlines<a class="headerlink" href="#ticks-labels-and-gridlines" title="Permalink to this heading">#</a></h4>
+<h4>Ticks, labels, and gridlines<a class="headerlink" href="#ticks-labels-and-gridlines" title="Permalink to this headline">#</a></h4>
 <p>Y tick labels can be specified explicitly, which allows time scales to be plotted
 e.g. in years even if the tree sequence ticks in generations. The <code class="docutils literal notranslate"><span class="pre">title</span></code> class allows
 axis titles to be moved out of the way of tick labels. Finally, grid lines associated
@@ -2116,7 +2120,7 @@ drawing on an example from the <a class="reference internal" href="introgression
 </div>
 </section>
 <section id="d-effects">
-<span id="sec-tskit-viz-svg-examples-3d"></span><h4>3D effects<a class="headerlink" href="#d-effects" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-svg-examples-3d"></span><h4>3D effects<a class="headerlink" href="#d-effects" title="Permalink to this headline">#</a></h4>
 <p>We can use various CSS transforms, as
 <a class="reference internal" href="#sec-tskit-viz-styling-moving-and-transforming"><span class="std std-ref">discussed previously</span></a>,
 to skew the trees and stagger them. With a bit of trigonometry,
@@ -2176,7 +2180,7 @@ this can create flexible and tolerably good 3D effects for presentations, etc.</
 </div>
 </section>
 <section id="animation">
-<h4>Animation<a class="headerlink" href="#animation" title="Permalink to this heading">#</a></h4>
+<h4>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">#</a></h4>
 <p>The classes attached to the SVG also allow elements to be animated. Here’s a
 <a class="reference external" href="https://d3js.org">d3.js</a>-based animation of sucessive subtree-prune-and-regraft (SPR)
 operations, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">ARG representation</span></a> of a
@@ -2421,12 +2425,12 @@ var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
 </section>
 </section>
 <section id="other-visualizations">
-<span id="sec-tskit-viz-other"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-viz-other"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Permalink to this headline">#</a></h2>
 <p>As well as visualizing a tree sequence as, well, a sequence of local trees, or by plotting
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">statistical summaries</span></a>, other visualizations are possible, some
 of which are outlined below.</p>
 <section id="graph-representations">
-<span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this headline">#</a></h3>
 <p>A tree sequence can be treated as a specific form of (directed)
 <a class="reference external" href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> consisting
 of nodes connected by edges. Standard graph visualization software, such as
@@ -2445,7 +2449,7 @@ picture like this:</p>
 </div>
 </section>
 <section id="demographic-processes">
-<span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this headline">#</a></h3>
 <p>If you are generating a tree sequence via a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/demography.html#sec-demography-importing" title="(in Python)"><span class="xref std std-ref">Demes</span></a>
 model, then you can visualize a schematic of the demography itself (rather than the
 resulting tree sequence) using the <a class="reference external" href="https://grahamgower.github.io/demesdraw/">DemesDraw</a>
@@ -2482,7 +2486,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </section>
 <section id="geography">
-<h3>Geography<a class="headerlink" href="#geography" title="Permalink to this heading">#</a></h3>
+<h3>Geography<a class="headerlink" href="#geography" title="Permalink to this headline">#</a></h3>
 <div class="admonition-todo admonition" id="id4">
 <p class="admonition-title">Todo</p>
 <p>How to get lat/long information out of a tree sequence and plot ancestors (or a tree)

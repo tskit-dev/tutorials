@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Getting started with tskit &#8212; Tree Sequence Tutorials</title>
     
@@ -32,8 +32,9 @@
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
@@ -57,7 +58,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Analysing tree sequences" href="analysing_tree_sequences.html" />
     <link rel="prev" title="Terminology &amp; concepts" href="terminology_and_concepts.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
@@ -92,8 +93,11 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
-      <img src="_static/_static/tskit_logo.svg" class="logo" alt="logo">
+      
+      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
@@ -663,7 +667,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-tskit">
-<span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this heading">#</a></h1>
+<span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this headline">#</a></h1>
 <p>You’ve run some simulations or inference methods, and you now have a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed
 users who are new to <strong class="program">tskit</strong> and would like to get some
@@ -845,7 +849,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
 contains 40 <em>sample nodes</em>, one for each genome.</p>
 </div>
 <section id="processing-trees">
-<span id="sec-processing-trees"></span><h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this heading">#</a></h2>
+<span id="sec-processing-trees"></span><h2>Processing trees<a class="headerlink" href="#processing-trees" title="Permalink to this headline">#</a></h2>
 <p>Moving along a tree sequence usually involves iterating over all of its <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>
 objects. This common idiom underlies many tree sequence algorithms, including those
 we’ll encounter later in this tutorial for calculating
@@ -918,7 +922,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0215547 secs
+Checked in 0.0198104 secs
 </pre></div>
 </div>
 </div>
@@ -1028,7 +1032,7 @@ often incorporated automatically by the tools generating the tree sequence.</p>
 </div>
 </section>
 <section id="processing-sites-and-mutations">
-<span id="sec-processing-sites-and-mutations"></span><h2>Processing sites and mutations<a class="headerlink" href="#processing-sites-and-mutations" title="Permalink to this heading">#</a></h2>
+<span id="sec-processing-sites-and-mutations"></span><h2>Processing sites and mutations<a class="headerlink" href="#processing-sites-and-mutations" title="Permalink to this headline">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>See the tutorial entitled “<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">Do you really need mutations?</span></a>” for why you may not need
@@ -1070,7 +1074,7 @@ can occur at some sites, and we can identify them by iterating over the sites us
 </div>
 </section>
 <section id="processing-genotypes">
-<span id="sec-processing-genotypes"></span><h2>Processing genotypes<a class="headerlink" href="#processing-genotypes" title="Permalink to this heading">#</a></h2>
+<span id="sec-processing-genotypes"></span><h2>Processing genotypes<a class="headerlink" href="#processing-genotypes" title="Permalink to this headline">#</a></h2>
 <p>At each site, the sample nodes will have a particular allelic state (or be flagged as
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-missing-data" title="(in Python)"><span>Missing data</span></a>). The
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.variants()</span></code></a> method gives access to the
@@ -1154,7 +1158,7 @@ even be a single letter.</p>
 </div>
 </section>
 <section id="computing-statistics">
-<span id="sec-tskit-getting-started-compute-statistics"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-getting-started-compute-statistics"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Permalink to this headline">#</a></h2>
 <p>There are a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">large number of statistics</span></a> and related calculations
 built in to <strong class="program">tskit</strong>. Indeed, many basic population genetic statistics are based
 on the allele (or site) frequency spectrum (AFS), which can be obtained from a tree sequence
@@ -1206,7 +1210,7 @@ created by deleting the regions outside that interval using
 as we noted when looking at the trees, there’s a far higher proportion of singletons in
 the region of the sweep.</p>
 <section id="windowing">
-<span id="sec-tskit-getting-started-compute-statistics-windowing"></span><h3>Windowing<a class="headerlink" href="#windowing" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-getting-started-compute-statistics-windowing"></span><h3>Windowing<a class="headerlink" href="#windowing" title="Permalink to this headline">#</a></h3>
 <p>It is often useful to see how statistics vary in different genomic regions. This is done
 by calculating them in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Python)"><span>Windows</span></a> along the genome. For this,
 let’s look at a single statistic, the genetic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">diversity()</span></code></a> (π). As a
@@ -1244,7 +1248,7 @@ the statistic based on branch-lengths gives a less noisy signal.</p>
 </section>
 </section>
 <section id="saving-and-exporting-data">
-<span id="sec-tskit-getting-started-exporting-data"></span><h2>Saving and exporting data<a class="headerlink" href="#saving-and-exporting-data" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-getting-started-exporting-data"></span><h2>Saving and exporting data<a class="headerlink" href="#saving-and-exporting-data" title="Permalink to this headline">#</a></h2>
 <p>Tree sequences can be efficiently saved to file using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.dump" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.dump()</span></code></a>, and
 loaded back again using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">tskit.load()</span></code></a>. By convention, we use the suffix <code class="docutils literal notranslate"><span class="pre">.trees</span></code>
 for such files:</p>
@@ -1264,7 +1268,7 @@ when performed by built-in tskit functions than by exporting and using alternati
 software. If you have a large tree sequence, you should <em>try to avoid exporting
 to other formats</em>.</p>
 <section id="newick-and-nexus-format">
-<h3>Newick and Nexus format<a class="headerlink" href="#newick-and-nexus-format" title="Permalink to this heading">#</a></h3>
+<h3>Newick and Nexus format<a class="headerlink" href="#newick-and-nexus-format" title="Permalink to this headline">#</a></h3>
 <p>The most common format for interchanging tree data is Newick.
 We can export to a newick format string quite easily. This can be useful for
 interoperating with existing tree processing libraries but is very inefficient for
@@ -1315,7 +1319,7 @@ END;
 </div>
 </section>
 <section id="vcf">
-<h3>VCF<a class="headerlink" href="#vcf" title="Permalink to this heading">#</a></h3>
+<h3>VCF<a class="headerlink" href="#vcf" title="Permalink to this headline">#</a></h3>
 <p>The standard way of interchanging genetic variation data is the Variant Call Format,
 for which tskit has basic support:</p>
 <div class="cell docutils container">
@@ -1352,7 +1356,7 @@ for which tskit has basic support:</p>
 notebook here we ask it to write to stdout.</p>
 </section>
 <section id="scikit-allel">
-<span id="sec-tskit-getting-started-exporting-data-allel"></span><h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-getting-started-exporting-data-allel"></span><h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Permalink to this headline">#</a></h3>
 <p>Because tskit integrates very closely with numpy, we can interoperate very efficiently
 with downstream Python libraries for working with genetic
 sequence data, such as <a class="reference external" href="https://scikit-allel.readthedocs.io/en/stable/">scikit-allel</a>.
@@ -1397,7 +1401,7 @@ using the native <a class="reference external" href="https://tskit.dev/tskit/doc
 </section>
 </section>
 <section id="key-points-covered-above">
-<span id="sec-tskit-getting-started-key-points"></span><h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-getting-started-key-points"></span><h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Permalink to this headline">#</a></h2>
 <p>Some simple methods and take-home messages from this introduction to the
 <strong class="program">tskit</strong> <a class="reference external" href="https://tszip.readthedocs.io/en/stable/python-api.html#sec-python-api" title="(in tszip v0.2)"><span>Python API</span></a>,
 in rough order of importance:</p>
