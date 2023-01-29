@@ -18,8 +18,10 @@ kernelspec:
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
-import msprime
 import io
+import string
+
+import msprime
 import tskit
 
 def viz_ts():
@@ -38,10 +40,10 @@ def viz_ts():
     }
     topologies = {tree.rank() for tree in ts_tiny.trees()}
     # Check we have picked a random seed that gives a nice plot of 7 trees
-    assert tip_orders == {first_4_nodes} and len(topologies) > 1 and ts.num_trees == 8
+    assert tip_orders == {first_4_nodes} and len(topologies) > 1 and ts_tiny.num_trees == 8
     ts_tiny.dump("data/viz_ts_tiny.trees")
 
-    eight_nodes = first_4_nodes + [40, 41, 80, 81]  # Add nodes from individuals in B & C
+    eight_nodes = first_4_nodes + (40, 41, 80, 81)  # Add nodes from individuals in B & C
     ts_small = ts_full.simplify(eight_nodes)   # a small 8-tip TS
     ts_small.dump("data/viz_ts_small.trees")
 
@@ -58,13 +60,23 @@ def viz_selection():
     sequence_length = 5e4
     sweep_model = msprime.SweepGenicSelection(position=sequence_length/2,
     s=0.01, start_frequency=0.5e-4, end_frequency=0.99, dt=1e-6)
-    ts_selection = msprime.sim_ancestry(9,
+    ts_selection = msprime.sim_ancestry(12,
+        ploidy=1,
         model=[sweep_model, msprime.StandardCoalescent()],
         population_size=1e4,
-        recombination_rate=1e-8,
+        recombination_rate=2e-8,
         sequence_length=sequence_length,
-        random_seed=9,
+        random_seed=222,
     )
+    tables = ts_selection.dump_tables()
+    tables.nodes.clear()
+    tables.nodes.metadata_schema = tskit.MetadataSchema.permissive_json()
+    for node in ts_selection.nodes():
+        metadata = {}
+        if node.is_sample():
+            metadata["name"] = f"Sample {string.ascii_uppercase[node.id]}"
+        tables.nodes.add_row(node.replace(metadata=metadata))    
+    ts_selection = tables.tree_sequence()
     ts_selection.dump("data/viz_ts_selection.trees")
 
 
@@ -291,11 +303,15 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 third_tree.draw_svg(size=(200, 300), all_edge_mutations=True)
 ```
 
+(sec_tskit_viz_labelling)=
+
 ### Labelling
 
 Although the default node and mutation labels show unique identifiers, they are't
 terribly intuituive. The `node_labels` and `mutation_labels` parameters can be used
 to set more meaningful labels (for example from the tree sequence {ref}`sec_metadata`).
+See {ref}`sec_tskit_viz_dynamic_effects` if you want to dynamically hide and show such
+labels.
 
 ```{code-cell} ipython3
 nd_labels = {}  # An array of labels for the nodes
@@ -460,12 +476,16 @@ for node_id in focal_tree.nodes():
     if parent_id != tskit.NULL:
         css_edge_targets.append(f".a{parent_id}.n{node_id}>.edge")
 css_string = ",".join(css_edge_targets) + "{stroke: red} .sym {display: none}"
-
+css_string += (  # Rotate the position labels etc
+    ".x-axis .ticks .lab {text-anchor: start; transform: translate(6px) rotate(90deg)}"
+    ".x-axis .title .lab {text-anchor: start}"
+)
 wide_tall_fmt = (1200, 400)
 ts_selection.draw_svg(
     style=css_string,
     size=wide_tall_fmt,
-    x_lim=[1.74e4, 3.25e4],
+    canvas_size=(wide_tall_fmt[0], wide_tall_fmt[1] + 30),
+    x_lim=[1e4, 4e4],
     node_labels={},
 )
 ```
@@ -476,6 +496,81 @@ correspond to a single {ref}`edge <tskit:sec_introduction>`
 in a tree sequence: for example, edges have the
 additional constraint that they must belong to _adjacent_ trees.
 :::
+
+(sec_tskit_viz_dynamic_effects)=
+
+#### Dynamic effects
+
+In the previous example, the large size of the plotted trees meant that, for clarity,
+the node and mutation labels were turned off (in that case by passing empty mappings
+to the `node_labels` and `mutation_labels` parameters). Nevertheless, it can be useful
+to identify nodes and mutations, and this can be done dynamically (on "mouseover") by
+setting the CSS [display](https://www.w3.org/TR/SVG2/render.html#VisibilityControl)
+property to `none` vs `initial`, and combining it with the CSS `:hover` pseudoclass.
+Here's an example using a region from within the previous example:
+
+```{code-cell} ipython3
+from IPython.display import HTML
+# add some mutations
+ts = msprime.sim_mutations(ts_selection, rate=2e-8, random_seed=1)
+
+node_label_css = (
+    # hide node labels by default
+    "#hover_example .node > .sym ~ .lab {display: none}"
+    # Unless the adjacent node or the label is hovered over
+    "#hover_example .node > .sym:hover ~ .lab {display: inherit}"
+    "#hover_example .node > .sym ~ .lab:hover {display: inherit}"
+)
+
+mut_label_css = (
+    # hide mutation labels by default
+    "#hover_example .mut .sym ~ .lab {display: none}"
+    # Unless the adjacent node or the label is hovered over
+    "#hover_example .mut .sym:hover ~ .lab {display: inherit}"
+    "#hover_example .mut .sym ~ .lab:hover {display: inherit}"
+)
+
+optional_css = (
+    # These are optional, but setting e.g. the node label text to bold with grey stroke
+    # and a black fill, serves to make black text readable against a black tree 
+    "svg#hover_example {background-color: white}"
+    "#hover_example .tree .plotbox .lab {stroke: #CCC; fill: black; font-weight: bold}"
+    "#hover_example .tree .mut .lab {stroke: #FCC; fill: red; font-weight: bold}"
+)
+
+HTML(ts.draw_svg(
+    style=optional_css + node_label_css + mut_label_css,
+    y_axis=True,
+    y_ticks={0: "0", 500: "", 1000: "1000"},
+    x_lim=[2.3e4, 2.7e4],    
+    root_svg_attributes={"id": "hover_example"},
+        # Label node by name in metadata, if it exists, else node ID
+    node_labels={u.id: u.metadata.get("name", f"NodeID={u.id}") for u in ts.nodes()},
+    mutation_labels={
+        # Label mutation by site position, prev state, and new state
+        m.id: (
+            f"pos {s.position:g}: " +
+            (s.ancestral_state if m.parent<0 else ts.mutation(m.parent).derived_state) +
+            f"→{m.derived_state}"
+        )
+        for s in ts.sites()
+        for m in s.mutations
+    },
+))
+```
+
+:::{note}
+Above we have wrapped the svg in an IPython {class}`~ipython:IPython.display.HTML`
+class, and given the SVG a unique
+id as described below in {ref}`sec_tskit_viz_styling_more_about`. This forces the SVG
+plot to be rendered inline (rather than inside an `<img>` tag), allowing the hover
+functionality to work in all supported Jupyter notebook implementations. However,
+depending on your Jupyter setup, the `HTML()` wrapper may not be necessary.
+:::
+
+Using the transformations discussed in the next section, it is also possible to animate
+SVG images, as shown in the {ref}`sec_tskit_viz_SVG_examples_animation` code within the
+{ref}`sec_tskit_viz_SVG_examples` section near the end of this tutorial.
 
 (sec_tskit_viz_styling_moving_and_transforming)=
 
@@ -543,7 +638,6 @@ transformed elements may be positioned incorrectly. For changing symbols, the
 but otherwise you may need to use the `chromium` workaround documented
 {ref}`here <sec_tskit_viz_converting_note>`.
 :::
-
 
 
 #### Styling and SVG structure
@@ -680,6 +774,8 @@ support it (note, however, as of v1.2 Inkscape does not appear to support this s
 ```
 style_string = ".node:not(.leaf) > .sym, .node:not(.leaf) > .lab {display: none}"
 ```
+
+(sec_tskit_viz_styling_more_about)=
 
 #### More about styling
 
@@ -1090,6 +1186,7 @@ canvas_size = (width + y_step, height + ts.num_trees*y_step + math.tan(skew)*tre
 ts.draw_svg(size=size, x_scale="treewise", style=style, canvas_size=canvas_size)
 ```
 
+(sec_tskit_viz_SVG_examples_animation)=
 
 #### Animation
 
@@ -1113,9 +1210,12 @@ def make_full_arg_for_spr_animation():
         random_seed=6787, model="smc_prime", record_full_arg=True)                
    
 
-css_string = ".node:not(.sample) > .lab, .node:not(.sample) > .sym {display: none}"
+css_string = (
+    "#anim_svg {background-color: white} "
+    "#anim_svg .node:not(.sample) > .lab, #anim_svg .node:not(.sample) > .sym {display: none}"
+)
 html_string = r"""
-<div id="animated_svg_canvas">%s</div>
+%s
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
 function diff(A) {return A.slice(1).map((n, i) => { return n - A[i]; });};
@@ -1129,11 +1229,11 @@ function getRelativeXY(canvas, element, x, y) {
 };
 
 function animate_SPR(canvas, num_trees) {
-  d3.selectAll(".tree").attr("opacity", 0);
+  d3.selectAll("#anim_svg .tree").attr("opacity", 0);
   for(var i=0; i<num_trees - 1; i++) 
   {
-    var source_tree = ".tree.t" + i;
-    var target_tree = ".tree.t" + (i+1);
+    var source_tree = "#anim_svg .tree.t" + i;
+    var target_tree = "#anim_svg .tree.t" + (i+1);
     var dur = 2000;
     var delay = i * dur;
     d3.select(source_tree)
@@ -1213,16 +1313,19 @@ function transform_tree(canvas, src_tree, target_tree, dur, delay) {
   })
 };
 
-var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
+var svg_text = document.getElementById("anim_svg").innerHTML;
 
 </script>
 
-<button onclick='animate_SPR(d3.select("#animated_svg_canvas svg"), %s);'>Animate</button>
-<button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
+<button onclick='animate_SPR(d3.select("#anim_svg"), %s);'>Animate</button>
+<button onclick='document.getElementById("anim_svg").innerHTML = svg_text;'>Reset</button>
 """
 
 ts = make_full_arg_for_spr_animation()
-HTML(html_string % (ts.draw_svg(style=css_string), ts.num_trees))
+HTML(html_string % (
+    ts.draw_svg(root_svg_attributes={"id": "anim_svg"}, style=css_string),
+    ts.num_trees,
+))
 ```
   
 
