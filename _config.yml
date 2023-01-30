@@ -43,6 +43,7 @@ sphinx:
         msprime: ["https://tskit.dev/msprime/docs/stable", null]
         pyslim: ["https://tskit.dev/pyslim/docs/stable", null]
         numpy: ["https://numpy.org/doc/stable/", null]
+        ipython: ["https://ipython.readthedocs.io/en/stable/", null]
       myst_enable_extensions:
       - colon_fence
       - deflist
