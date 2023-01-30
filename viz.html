@@ -597,6 +597,11 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dynamic-effects">
+       Dynamic effects
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#moving-and-transforming-elements">
        Moving and transforming elements
       </a>
@@ -811,6 +816,11 @@ title="Print to PDF"
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#styling-graphical-elements">
        Styling graphical elements
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dynamic-effects">
+       Dynamic effects
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -1245,10 +1255,12 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 </section>
 </section>
 <section id="labelling">
-<h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this headline">#</a></h3>
+<span id="sec-tskit-viz-labelling"></span><h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this headline">#</a></h3>
 <p>Although the default node and mutation labels show unique identifiers, they are’t
 terribly intuituive. The <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters can be used
-to set more meaningful labels (for example from the tree sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a>).</p>
+to set more meaningful labels (for example from the tree sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a>).
+See <a class="reference internal" href="#sec-tskit-viz-dynamic-effects"><span class="std std-ref">Dynamic effects</span></a> if you want to dynamically hide and show such
+labels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nd_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the nodes</span>
@@ -1431,12 +1443,16 @@ For visual clarity, node symbols and labels have been turned off.</p>
     <span class="k">if</span> <span class="n">parent_id</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
         <span class="n">css_edge_targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.a</span><span class="si">{</span><span class="n">parent_id</span><span class="si">}</span><span class="s2">.n</span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">&gt;.edge&quot;</span><span class="p">)</span>
 <span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">css_edge_targets</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;{stroke: red} .sym {display: none}&quot;</span>
-
+<span class="n">css_string</span> <span class="o">+=</span> <span class="p">(</span>  <span class="c1"># Rotate the position labels etc</span>
+    <span class="s2">&quot;.x-axis .ticks .lab {text-anchor: start; transform: translate(6px) rotate(90deg)}&quot;</span>
+    <span class="s2">&quot;.x-axis .title .lab {text-anchor: start}&quot;</span>
+<span class="p">)</span>
 <span class="n">wide_tall_fmt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 <span class="n">ts_selection</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="n">wide_tall_fmt</span><span class="p">,</span>
-    <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mf">1.74e4</span><span class="p">,</span> <span class="mf">3.25e4</span><span class="p">],</span>
+    <span class="n">canvas_size</span><span class="o">=</span><span class="p">(</span><span class="n">wide_tall_fmt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wide_tall_fmt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mf">1e4</span><span class="p">,</span> <span class="mf">4e4</span><span class="p">],</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>
 <span class="p">)</span>
 </pre></div>
@@ -1452,6 +1468,83 @@ correspond to a single <a class="reference external" href="https://tskit.dev/tsk
 in a tree sequence: for example, edges have the
 additional constraint that they must belong to <em>adjacent</em> trees.</p>
 </div>
+</section>
+<section id="dynamic-effects">
+<span id="sec-tskit-viz-dynamic-effects"></span><h4>Dynamic effects<a class="headerlink" href="#dynamic-effects" title="Permalink to this headline">#</a></h4>
+<p>In the previous example, the large size of the plotted trees meant that, for clarity,
+the node and mutation labels were turned off (in that case by passing empty mappings
+to the <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters). Nevertheless, it can be useful
+to identify nodes and mutations, and this can be done dynamically (on “mouseover”) by
+setting the CSS <a class="reference external" href="https://www.w3.org/TR/SVG2/render.html#VisibilityControl">display</a>
+property to <code class="docutils literal notranslate"><span class="pre">none</span></code> vs <code class="docutils literal notranslate"><span class="pre">initial</span></code>, and combining it with the CSS <code class="docutils literal notranslate"><span class="pre">:hover</span></code> pseudoclass.
+Here’s an example using a region from within the previous example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="c1"># add some mutations</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts_selection</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">2e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">node_label_css</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># hide node labels by default</span>
+    <span class="s2">&quot;#hover_example .node &gt; .sym ~ .lab {display: none}&quot;</span>
+    <span class="c1"># Unless the adjacent node or the label is hovered over</span>
+    <span class="s2">&quot;#hover_example .node &gt; .sym:hover ~ .lab {display: inherit}&quot;</span>
+    <span class="s2">&quot;#hover_example .node &gt; .sym ~ .lab:hover {display: inherit}&quot;</span>
+<span class="p">)</span>
+
+<span class="n">mut_label_css</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># hide mutation labels by default</span>
+    <span class="s2">&quot;#hover_example .mut .sym ~ .lab {display: none}&quot;</span>
+    <span class="c1"># Unless the adjacent node or the label is hovered over</span>
+    <span class="s2">&quot;#hover_example .mut .sym:hover ~ .lab {display: inherit}&quot;</span>
+    <span class="s2">&quot;#hover_example .mut .sym ~ .lab:hover {display: inherit}&quot;</span>
+<span class="p">)</span>
+
+<span class="n">optional_css</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># These are optional, but setting e.g. the node label text to bold with grey stroke</span>
+    <span class="c1"># and a black fill, serves to make black text readable against a black tree </span>
+    <span class="s2">&quot;svg#hover_example {background-color: white}&quot;</span>
+    <span class="s2">&quot;#hover_example .tree .plotbox .lab {stroke: #CCC; fill: black; font-weight: bold}&quot;</span>
+    <span class="s2">&quot;#hover_example .tree .mut .lab {stroke: #FCC; fill: red; font-weight: bold}&quot;</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">optional_css</span> <span class="o">+</span> <span class="n">node_label_css</span> <span class="o">+</span> <span class="n">mut_label_css</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">},</span>
+    <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mf">2.3e4</span><span class="p">,</span> <span class="mf">2.7e4</span><span class="p">],</span>    
+    <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;hover_example&quot;</span><span class="p">},</span>
+        <span class="c1"># Label node by name in metadata, if it exists, else node ID</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">u</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;NodeID=</span><span class="si">{</span><span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()},</span>
+    <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># Label mutation by site position, prev state, and new state</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;pos </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">position</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">: &quot;</span> <span class="o">+</span>
+            <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">parent</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">else</span> <span class="n">ts</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span><span class="p">)</span> <span class="o">+</span>
+            <span class="sa">f</span><span class="s2">&quot;→</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">sites</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">mutations</span>
+    <span class="p">},</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><svg baseProfile="full" height="200" id="hover_example" version="1.1" width="600" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[.background path {fill: #808080; fill-opacity: 0}.background path:nth-child(odd) {fill-opacity: .1}.axes {font-size: 14px}.x-axis .tick .lab {font-weight: bold; dominant-baseline: hanging}.axes, .tree {font-size: 14px; text-anchor: middle}.axes line, .edge {stroke: black; fill: none}.axes .ax-skip {stroke-dasharray: 4}.y-axis .grid {stroke: #FAFAFA}.node > .sym {fill: black; stroke: none}.site > .sym {stroke: black}.mut text {fill: red; font-style: italic}.mut.extra text {fill: hotpink}.mut line {fill: none; stroke: none}.mut .sym {fill: none; stroke: red}.mut.extra .sym {stroke: hotpink}.node .mut .sym {stroke-width: 1.5px}.tree text, .tree-sequence text {dominant-baseline: central}.plotbox .lab.lft {text-anchor: end}.plotbox .lab.rgt {text-anchor: start}svg#hover_example {background-color: white}#hover_example .tree .plotbox .lab {stroke: #CCC; fill: black; font-weight: bold}#hover_example .tree .mut .lab {stroke: #FCC; fill: red; font-weight: bold}#hover_example .node > .sym ~ .lab {display: none}#hover_example .node > .sym:hover ~ .lab {display: inherit}#hover_example .node > .sym ~ .lab:hover {display: inherit}#hover_example .mut .sym ~ .lab {display: none}#hover_example .mut .sym:hover ~ .lab {display: inherit}#hover_example .mut .sym ~ .lab:hover {display: inherit}]]></style></defs><g class="tree-sequence"><g class="background"><path d="M56.8,0 l174.4,0 l0,138.2 l-21.8872,25 l0,5 l-152.513,0 l0,-5 l0,-25 l0,-138.2z" /><path d="M231.2,0 l174.4,0 l0,138.2 l-136.773,25 l0,5 l-59.514,0 l0,-5 l21.887,-25 l0,-138.2z" /><path d="M405.6,0 l174.4,0 l0,138.2 l0,25 l0,5 l-311.173,0 l0,-5 l136.773,-25 l0,-138.2z" /></g><g class="axes"><g class="x-axis"><g class="title" transform="translate(318.4 200)"><text class="lab" text-anchor="middle" transform="translate(0 -11)">Genome position</text></g><line class="ax-line" x1="56.8" x2="580" y1="163.2" y2="163.2" /><g class="ticks"><g class="tick" transform="translate(209.313 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">24166</text></g></g><g class="tick" transform="translate(268.827 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">24621</text></g></g></g><g class="site s9" transform="translate(221.216 163.2)"><line class="sym" x1="0" x2="0" y1="0" y2="-10" /><g class="mut m9"><polyline class="sym" points="2.5,-6.5 0,-1.5 -2.5,-6.5" /></g></g><g class="site s10" transform="translate(389.032 163.2)"><line class="sym" x1="0" x2="0" y1="0" y2="-10" /><g class="mut m10"><polyline class="sym" points="2.5,-6.5 0,-1.5 -2.5,-6.5" /></g></g><g class="site s11" transform="translate(530.688 163.2)"><line class="sym" x1="0" x2="0" y1="0" y2="-10" /><g class="mut m11"><polyline class="sym" points="2.5,-6.5 0,-1.5 -2.5,-6.5" /></g></g><g class="site s12" transform="translate(554.625 163.2)"><line class="sym" x1="0" x2="0" y1="0" y2="-10" /><g class="mut m12"><polyline class="sym" points="2.5,-6.5 0,-1.5 -2.5,-6.5" /></g></g></g><g class="y-axis"><g class="title" transform="translate(0 65.7)"><text class="lab" text-anchor="middle" transform="translate(11) rotate(-90)">Time (generations)</text></g><line class="ax-line" x1="56.8" x2="56.8" y1="121.4" y2="10" /><g class="ticks"><g class="tick" transform="translate(56.8 121.4)"><line x1="0" x2="-5" y1="0" y2="0" /><g transform="translate(-6 0)"><text class="lab" text-anchor="end">0</text></g></g><g class="tick" transform="translate(56.8 77.816)"><line x1="0" x2="-5" y1="0" y2="0" /><g transform="translate(-6 0)"><text class="lab" text-anchor="end" /></g></g><g class="tick" transform="translate(56.8 34.2319)"><line x1="0" x2="-5" y1="0" y2="0" /><g transform="translate(-6 0)"><text class="lab" text-anchor="end">1000</text></g></g></g></g></g><g class="plotbox trees"><g class="tree t8" transform="translate(56.8 0)"><g class="plotbox"><g class="c2 node n28 p0 root" transform="translate(131.825 26.8)"><g class="a28 i5 leaf node n5 p0 sample" transform="translate(16.975 94.6)"><path class="edge" d="M 0 0 V -94.6 H -16.975" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample F</text></g><g class="a28 c2 node n27 p0" transform="translate(-16.975 19.707)"><g class="a27 i6 leaf node n6 p0 sample" transform="translate(22.75 74.893)"><path class="edge" d="M 0 0 V -74.893 H -22.75" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample G</text></g><g class="a27 c2 node n26 p0" transform="translate(-22.75 3.24352)"><g class="a26 c2 node n24 p0" transform="translate(20.3 4.17273)"><g class="a24 i7 leaf node n7 p0 sample" transform="translate(-8.4 67.4768)"><path class="edge" d="M 0 0 V -67.4768 H 8.4" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample H</text></g><g class="a24 c2 node n19 p0" transform="translate(8.4 15.8114)"><g class="a19 i9 leaf node n9 p0 sample" transform="translate(-5.6 51.6654)"><path class="edge" d="M 0 0 V -51.6654 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample J</text></g><g class="a19 i10 leaf node n10 p0 sample" transform="translate(5.6 51.6654)"><path class="edge" d="M 0 0 V -51.6654 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample K</text></g><path class="edge" d="M 0 0 V -15.8114 H -8.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=19</text></g><path class="edge" d="M 0 0 V -4.17273 H -20.3" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=24</text></g><g class="a26 c2 node n25 p0" transform="translate(-20.3 2.82686)"><g class="a25 c2 node n15 p0" transform="translate(15.4 32.3951)"><g class="a15 i2 leaf node n2 p0 sample" transform="translate(-5.6 36.4275)"><path class="edge" d="M 0 0 V -36.4275 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample C</text></g><g class="a15 i4 leaf node n4 p0 sample" transform="translate(5.6 36.4275)"><path class="edge" d="M 0 0 V -36.4275 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample E</text></g><path class="edge" d="M 0 0 V -32.3951 H -15.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=15</text></g><g class="a25 c2 node n21 p0" transform="translate(-15.4 9.56931)"><g class="a21 i3 leaf node n3 p0 sample" transform="translate(14 59.2534)"><path class="edge" d="M 0 0 V -59.2534 H -14" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample D</text></g><g class="a21 c2 node n20 p0" transform="translate(-14 5.80278)"><g class="a20 c2 node n12 p0" transform="translate(11.2 47.6356)"><g class="a12 i1 leaf node n1 p0 sample" transform="translate(-5.6 5.81498)"><path class="edge" d="M 0 0 V -5.81498 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample B</text></g><g class="a12 i8 leaf node n8 p0 sample" transform="translate(5.6 5.81498)"><path class="edge" d="M 0 0 V -5.81498 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample I</text></g><path class="edge" d="M 0 0 V -47.6356 H -11.2" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=12</text></g><g class="a20 c2 node n18 p0" transform="translate(-11.2 2.01533)"><g class="a18 i0 leaf node n0 p0 sample" transform="translate(-5.6 51.4353)"><path class="edge" d="M 0 0 V -51.4353 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample A</text></g><g class="a18 i11 leaf node n11 p0 sample" transform="translate(5.6 51.4353)"><path class="edge" d="M 0 0 V -51.4353 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample L</text></g><path class="edge" d="M 0 0 V -2.01533 H 11.2" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=18</text></g><path class="edge" d="M 0 0 V -5.80278 H 14" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=20</text></g><path class="edge" d="M 0 0 V -9.56931 H 15.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=21</text></g><path class="edge" d="M 0 0 V -2.82686 H 20.3" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=25</text></g><path class="edge" d="M 0 0 V -3.24352 H 22.75" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=26</text></g><path class="edge" d="M 0 0 V -19.707 H 16.975" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=27</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">NodeID=28</text></g></g></g><g class="tree t9" transform="translate(231.2 0)"><g class="plotbox"><g class="c2 node n28 p0 root" transform="translate(131.825 26.8)"><g class="a28 i5 leaf node n5 p0 sample" transform="translate(16.975 94.6)"><path class="edge" d="M 0 0 V -94.6 H -16.975" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample F</text></g><g class="a28 c2 node n27 p0" transform="translate(-16.975 19.707)"><g class="a27 i6 leaf node n6 p0 sample" transform="translate(22.75 74.893)"><path class="edge" d="M 0 0 V -74.893 H -22.75" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample G</text></g><g class="a27 c2 node n26 p0" transform="translate(-22.75 3.24352)"><g class="a26 c2 node n24 p0" transform="translate(20.3 4.17273)"><g class="a24 i7 leaf node n7 p0 sample" transform="translate(-8.4 67.4768)"><path class="edge" d="M 0 0 V -67.4768 H 8.4" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample H</text></g><g class="a24 c2 node n16 p0" transform="translate(8.4 18.2495)"><g class="a16 i9 leaf node n9 p0 sample" transform="translate(-5.6 49.2273)"><path class="edge" d="M 0 0 V -49.2273 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample J</text></g><g class="a16 i10 leaf node n10 p0 sample" transform="translate(5.6 49.2273)"><path class="edge" d="M 0 0 V -49.2273 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample K</text></g><path class="edge" d="M 0 0 V -18.2495 H -8.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=16</text></g><path class="edge" d="M 0 0 V -4.17273 H -20.3" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=24</text></g><g class="a26 c2 node n25 p0" transform="translate(-20.3 2.82686)"><g class="a25 c2 node n15 p0" transform="translate(15.4 32.3951)"><g class="a15 i2 leaf node n2 p0 sample" transform="translate(-5.6 36.4275)"><path class="edge" d="M 0 0 V -36.4275 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample C</text></g><g class="a15 i4 leaf node n4 p0 sample" transform="translate(5.6 36.4275)"><path class="edge" d="M 0 0 V -36.4275 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample E</text></g><path class="edge" d="M 0 0 V -32.3951 H -15.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=15</text></g><g class="a25 c2 node n21 p0" transform="translate(-15.4 9.56931)"><g class="a21 i3 leaf m9 node n3 p0 s9 sample" transform="translate(14 59.2534)"><path class="edge" d="M 0 0 V -59.2534 H -14" /><g class="mut m9 s9" transform="translate(0 -47.4468)"><line x1="0" x2="0" y1="0" y2="47.4468" /><path class="sym" d="M -3,-3 l 6,6 M -3,3 l 6,-6" /><text class="lab rgt" transform="translate(5 0)">pos 24257: G→A</text></g><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample D</text></g><g class="a21 c2 node n20 p0" transform="translate(-14 5.80278)"><g class="a20 c2 node n12 p0" transform="translate(11.2 47.6356)"><g class="a12 i1 leaf node n1 p0 sample" transform="translate(-5.6 5.81498)"><path class="edge" d="M 0 0 V -5.81498 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample B</text></g><g class="a12 i8 leaf node n8 p0 sample" transform="translate(5.6 5.81498)"><path class="edge" d="M 0 0 V -5.81498 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample I</text></g><path class="edge" d="M 0 0 V -47.6356 H -11.2" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=12</text></g><g class="a20 c2 node n18 p0" transform="translate(-11.2 2.01533)"><g class="a18 i0 leaf node n0 p0 sample" transform="translate(-5.6 51.4353)"><path class="edge" d="M 0 0 V -51.4353 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample A</text></g><g class="a18 i11 leaf node n11 p0 sample" transform="translate(5.6 51.4353)"><path class="edge" d="M 0 0 V -51.4353 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample L</text></g><path class="edge" d="M 0 0 V -2.01533 H 11.2" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=18</text></g><path class="edge" d="M 0 0 V -5.80278 H 14" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=20</text></g><path class="edge" d="M 0 0 V -9.56931 H 15.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=21</text></g><path class="edge" d="M 0 0 V -2.82686 H 20.3" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=25</text></g><path class="edge" d="M 0 0 V -3.24352 H 22.75" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=26</text></g><path class="edge" d="M 0 0 V -19.707 H 16.975" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=27</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">NodeID=28</text></g></g></g><g class="tree t10" transform="translate(405.6 0)"><g class="plotbox"><g class="c2 node n28 p0 root" transform="translate(131.825 26.8)"><g class="a28 i5 leaf node n5 p0 sample" transform="translate(16.975 94.6)"><path class="edge" d="M 0 0 V -94.6 H -16.975" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample F</text></g><g class="a28 c2 node n27 p0" transform="translate(-16.975 19.707)"><g class="a27 i6 leaf node n6 p0 sample" transform="translate(22.75 74.893)"><path class="edge" d="M 0 0 V -74.893 H -22.75" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample G</text></g><g class="a27 c2 node n26 p0" transform="translate(-22.75 3.24352)"><g class="a26 c2 node n24 p0" transform="translate(20.3 4.17273)"><g class="a24 i7 leaf node n7 p0 sample" transform="translate(-8.4 67.4768)"><path class="edge" d="M 0 0 V -67.4768 H 8.4" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample H</text></g><g class="a24 c2 node n22 p0" transform="translate(8.4 6.08346)"><g class="a22 i9 leaf m12 node n9 p0 s12 sample" transform="translate(-5.6 61.3933)"><path class="edge" d="M 0 0 V -61.3933 H 5.6" /><g class="mut m12 s12" transform="translate(0 -42.504)"><line x1="0" x2="0" y1="0" y2="42.504" /><path class="sym" d="M -3,-3 l 6,6 M -3,3 l 6,-6" /><text class="lab lft" transform="translate(-5 0)">pos 26806: T→G</text></g><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample J</text></g><g class="a22 i10 leaf m10 m11 node n10 p0 s10 s11 sample" transform="translate(5.6 61.3933)"><path class="edge" d="M 0 0 V -61.3933 H -5.6" /><g class="mut m11 s11" transform="translate(0 -50.9321)"><line x1="0" x2="0" y1="0" y2="50.9321" /><path class="sym" d="M -3,-3 l 6,6 M -3,3 l 6,-6" /><text class="lab rgt" transform="translate(5 0)">pos 26623: G→A</text></g><g class="mut m10 s10" transform="translate(0 -16.7634)"><line x1="0" x2="0" y1="0" y2="16.7634" /><path class="sym" d="M -3,-3 l 6,6 M -3,3 l 6,-6" /><text class="lab rgt" transform="translate(5 0)">pos 25540: C→G</text></g><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample K</text></g><path class="edge" d="M 0 0 V -6.08346 H -8.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=22</text></g><path class="edge" d="M 0 0 V -4.17273 H -20.3" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=24</text></g><g class="a26 c2 node n25 p0" transform="translate(-20.3 2.82686)"><g class="a25 c2 node n15 p0" transform="translate(15.4 32.3951)"><g class="a15 i2 leaf node n2 p0 sample" transform="translate(-5.6 36.4275)"><path class="edge" d="M 0 0 V -36.4275 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample C</text></g><g class="a15 i4 leaf node n4 p0 sample" transform="translate(5.6 36.4275)"><path class="edge" d="M 0 0 V -36.4275 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample E</text></g><path class="edge" d="M 0 0 V -32.3951 H -15.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=15</text></g><g class="a25 c2 node n21 p0" transform="translate(-15.4 9.56931)"><g class="a21 i3 leaf node n3 p0 sample" transform="translate(14 59.2534)"><path class="edge" d="M 0 0 V -59.2534 H -14" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample D</text></g><g class="a21 c2 node n20 p0" transform="translate(-14 5.80278)"><g class="a20 c2 node n12 p0" transform="translate(11.2 47.6356)"><g class="a12 i1 leaf node n1 p0 sample" transform="translate(-5.6 5.81498)"><path class="edge" d="M 0 0 V -5.81498 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample B</text></g><g class="a12 i8 leaf node n8 p0 sample" transform="translate(5.6 5.81498)"><path class="edge" d="M 0 0 V -5.81498 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample I</text></g><path class="edge" d="M 0 0 V -47.6356 H -11.2" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">NodeID=12</text></g><g class="a20 c2 node n18 p0" transform="translate(-11.2 2.01533)"><g class="a18 i0 leaf node n0 p0 sample" transform="translate(-5.6 51.4353)"><path class="edge" d="M 0 0 V -51.4353 H 5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample A</text></g><g class="a18 i11 leaf node n11 p0 sample" transform="translate(5.6 51.4353)"><path class="edge" d="M 0 0 V -51.4353 H -5.6" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">Sample L</text></g><path class="edge" d="M 0 0 V -2.01533 H 11.2" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=18</text></g><path class="edge" d="M 0 0 V -5.80278 H 14" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=20</text></g><path class="edge" d="M 0 0 V -9.56931 H 15.4" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=21</text></g><path class="edge" d="M 0 0 V -2.82686 H 20.3" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=25</text></g><path class="edge" d="M 0 0 V -3.24352 H 22.75" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=26</text></g><path class="edge" d="M 0 0 V -19.707 H 16.975" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">NodeID=27</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">NodeID=28</text></g></g></g></g></g></svg></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.9.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
+class, and given the SVG a unique
+id as described below in <a class="reference internal" href="#sec-tskit-viz-styling-more-about"><span class="std std-ref">More about styling</span></a>. This forces the SVG
+plot to be rendered inline (rather than inside an <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag), allowing the hover
+functionality to work in all supported Jupyter notebook implementations. However,
+depending on your Jupyter setup, the <code class="docutils literal notranslate"><span class="pre">HTML()</span></code> wrapper may not be necessary.</p>
+</div>
+<p>Using the transformations discussed in the next section, it is also possible to animate
+SVG images, as shown in the <a class="reference internal" href="#sec-tskit-viz-svg-examples-animation"><span class="std std-ref">Animation</span></a> code within the
+<a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">SVG examples</span></a> section near the end of this tutorial.</p>
 </section>
 <section id="moving-and-transforming-elements">
 <span id="sec-tskit-viz-styling-moving-and-transforming"></span><h4>Moving and transforming elements<a class="headerlink" href="#moving-and-transforming-elements" title="Permalink to this headline">#</a></h4>
@@ -1486,7 +1579,7 @@ of symbols, which can create rather different formatting styles:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_32_0.svg" src="_images/viz_32_0.svg" /></div>
+<img alt="_images/viz_34_0.svg" src="_images/viz_34_0.svg" /></div>
 </div>
 <p>Note that when transforming elements, parts of the drawing may be plotted outsize of
 of the standard canvas. You can use the <code class="docutils literal notranslate"><span class="pre">canvas_size</span></code> parameter to increase the size of
@@ -1512,7 +1605,7 @@ transformations, for example to create <a class="reference internal" href="#sec-
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_34_0.svg" src="_images/viz_34_0.svg" /></div>
+<img alt="_images/viz_36_0.svg" src="_images/viz_36_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1589,7 +1682,7 @@ thicker blue line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_36_0.svg" src="_images/viz_36_0.svg" /></div>
+<img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
 </div>
 <p>This might not be quite what you expected: the branch leading from node 13 to its parent
 (node 17) has also been coloured. That’s because the SVG node group deliberately contains
@@ -1607,7 +1700,7 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
+<img alt="_images/viz_40_0.svg" src="_images/viz_40_0.svg" /></div>
 </div>
 <p>If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
@@ -1631,7 +1724,7 @@ this normally-hidden line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_40_0.svg" src="_images/viz_40_0.svg" /></div>
+<img alt="_images/viz_42_0.svg" src="_images/viz_42_0.svg" /></div>
 </div>
 </section>
 <section id="restricting-styling">
@@ -1653,7 +1746,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_42_0.svg" src="_images/viz_42_0.svg" /></div>
+<img alt="_images/viz_44_0.svg" src="_images/viz_44_0.svg" /></div>
 </div>
 <p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
 to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
@@ -1669,7 +1762,7 @@ targetting of the leaf symbols only:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_44_0.svg" src="_images/viz_44_0.svg" /></div>
+<img alt="_images/viz_46_0.svg" src="_images/viz_46_0.svg" /></div>
 </div>
 <p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
 so the following style specification should produce the same effect in SVG viewers that
@@ -1679,7 +1772,7 @@ support it (note, however, as of v1.2 Inkscape does not appear to support this s
 </div>
 </section>
 <section id="more-about-styling">
-<h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this headline">#</a></h4>
+<span id="sec-tskit-viz-styling-more-about"></span><h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this headline">#</a></h4>
 <p>NOTE: if your SVG is embedded directly into an HTML page (a common way for jupyter
 notebooks to render SVGs), then according to the HTML specifications, any styles applied
 to one SVG will apply to all SVGs in the document. To avoid this confusing state of
@@ -1696,7 +1789,7 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_46_0.svg" src="_images/viz_46_0.svg" /></div>
+<img alt="_images/viz_48_0.svg" src="_images/viz_48_0.svg" /></div>
 </div>
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
@@ -1767,66 +1860,66 @@ transformations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>        14     
-      ┏━━┻━━┓  
-     13     ┃  
-   ┏━━┻━┓   ┃  
-  12    ┃   ┃  
- ┏━┻━┓  ┃   ┃  
-11   ┃  ┃   ┃  
-┏┻┓  ┃  ┃   ┃  
-┃ ┃  ┃  ┃  10  
-┃ ┃  ┃  ┃  ┏┻━┓
-┃ ┃  ┃  ┃  9  ┃
-┃ ┃  ┃  ┃ ┏┻┓ ┃
-┃ ┃  8  ┃ ┃ ┃ ┃
-┃ ┃ ┏┻┓ ┃ ┃ ┃ ┃
-0 2 1 5 7 3 6 4
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>           ┏━━━━━━0
-        ┏11┫       
-        ┃  ┗━━━━━━2
-     ┏12┫          
-     ┃  ┃        ┏1
-     ┃  ┗━━━━━━━8┫ 
-  ┏13┫           ┗5
-  ┃  ┃             
-  ┃  ┗━━━━━━━━━━━━7
-14┫                
-  ┃            ┏━━3
-  ┃          ┏9┫   
-  ┗━━━━━━━━10┫ ┗━━6
-             ┃     
-             ┗━━━━4
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 2 1 5 7 3 6 4
-┃ ┃ ┗┳┛ ┃ ┃ ┃ ┃
-┃ ┃  8  ┃ ┃ ┃ ┃
-┃ ┃  ┃  ┃ ┗┳┛ ┃
-┃ ┃  ┃  ┃  9  ┃
-┃ ┃  ┃  ┃  ┗┳━┛
-┃ ┃  ┃  ┃  10  
-┗┳┛  ┃  ┃   ┃  
-11   ┃  ┃   ┃  
- ┗━┳━┛  ┃   ┃  
-  12    ┃   ┃  
-   ┗━━┳━┛   ┃  
-     13     ┃  
-      ┗━━┳━━┛  
-        14     
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━┓           
-       ┣11┓        
-2━━━━━━┛  ┃        
-          ┣12┓     
-1┓        ┃  ┃     
- ┣8━━━━━━━┛  ┃     
-5┛           ┣13┓  
-             ┃  ┃  
-7━━━━━━━━━━━━┛  ┃  
-                ┣14
-3━━┓            ┃  
-   ┣9┓          ┃  
-6━━┛ ┣10━━━━━━━━┛  
-     ┃             
-4━━━━┛             
+<div class="output text_html"><pre style='display: inline-block'>   14          
+ ┏━━┻━━┓       
+13     ┃       
+┏┻┓    ┃       
+┃ ┃   12       
+┃ ┃ ┏━━┻━━┓    
+┃ ┃ ┃    11    
+┃ ┃ ┃   ┏━┻━━┓ 
+┃ ┃ ┃  10    ┃ 
+┃ ┃ ┃ ┏━┻┓   ┃ 
+┃ ┃ ┃ ┃  9   ┃ 
+┃ ┃ ┃ ┃ ┏┻┓  ┃ 
+┃ ┃ ┃ ┃ ┃ ┃  8 
+┃ ┃ ┃ ┃ ┃ ┃ ┏┻┓
+0 6 1 2 3 5 4 7
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>     ┏━━━━━━━━━━━━0
+  ┏13┫             
+  ┃  ┗━━━━━━━━━━━━6
+  ┃                
+14┫    ┏━━━━━━━━━━1
+  ┃    ┃           
+  ┃    ┃     ┏━━━━2
+  ┗━━12┫     ┃     
+       ┃  ┏10┫ ┏━━3
+       ┃  ┃  ┗9┫   
+       ┗11┫    ┗━━5
+          ┃        
+          ┃      ┏4
+          ┗━━━━━8┫ 
+                 ┗7
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 6 1 2 3 5 4 7
+┃ ┃ ┃ ┃ ┃ ┃ ┗┳┛
+┃ ┃ ┃ ┃ ┃ ┃  8 
+┃ ┃ ┃ ┃ ┗┳┛  ┃ 
+┃ ┃ ┃ ┃  9   ┃ 
+┃ ┃ ┃ ┗━┳┛   ┃ 
+┃ ┃ ┃  10    ┃ 
+┃ ┃ ┃   ┗━┳━━┛ 
+┃ ┃ ┃    11    
+┃ ┃ ┗━━┳━━┛    
+┃ ┃   12       
+┗┳┛    ┃       
+13     ┃       
+ ┗━━┳━━┛       
+   14          
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━━━━┓     
+             ┣13┓  
+6━━━━━━━━━━━━┛  ┃  
+                ┃  
+1━━━━━━━━━━┓    ┣14
+           ┃    ┃  
+2━━━━┓     ┃    ┃  
+     ┃     ┣12━━┛  
+3━━┓ ┣10┓  ┃       
+   ┣9┛  ┃  ┃       
+5━━┛    ┣11┛       
+        ┃          
+4┓      ┃          
+ ┣8━━━━━┛          
+7┛                 
 </pre></div></div>
 </div>
 </section>
@@ -1914,7 +2007,7 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_50_0.svg" src="_images/viz_50_0.svg" /></div>
+<img alt="_images/viz_52_0.svg" src="_images/viz_52_0.svg" /></div>
 </div>
 </section>
 <section id="highlighted-mutations">
@@ -1939,7 +2032,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_52_0.svg" src="_images/viz_52_0.svg" /></div>
+<img alt="_images/viz_54_0.svg" src="_images/viz_54_0.svg" /></div>
 </div>
 </section>
 <section id="leaf-sample-isolated-nodes">
@@ -1976,7 +2069,7 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_54_0.svg" src="_images/viz_54_0.svg" /></div>
+<img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2026,7 +2119,7 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
+<img alt="_images/viz_58_0.svg" src="_images/viz_58_0.svg" /></div>
 </div>
 </section>
 <section id="ticks-labels-and-gridlines">
@@ -2116,7 +2209,7 @@ drawing on an example from the <a class="reference internal" href="introgression
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_58_0.svg" src="_images/viz_58_0.svg" /></div>
+<img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
 </div>
 </section>
 <section id="d-effects">
@@ -2176,11 +2269,11 @@ this can create flexible and tolerably good 3D effects for presentations, etc.</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
+<img alt="_images/viz_62_0.svg" src="_images/viz_62_0.svg" /></div>
 </div>
 </section>
 <section id="animation">
-<h4>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">#</a></h4>
+<span id="sec-tskit-viz-svg-examples-animation"></span><h4>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">#</a></h4>
 <p>The classes attached to the SVG also allow elements to be animated. Here’s a
 <a class="reference external" href="https://d3js.org">d3.js</a>-based animation of sucessive subtree-prune-and-regraft (SPR)
 operations, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">ARG representation</span></a> of a
@@ -2200,9 +2293,12 @@ tree sequence to allow identification of pruned edges.</p>
         <span class="n">random_seed</span><span class="o">=</span><span class="mi">6787</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;smc_prime&quot;</span><span class="p">,</span> <span class="n">record_full_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                
    
 
-<span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;.node:not(.sample) &gt; .lab, .node:not(.sample) &gt; .sym {display: none}&quot;</span>
+<span class="n">css_string</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;#anim_svg {background-color: white} &quot;</span>
+    <span class="s2">&quot;#anim_svg .node:not(.sample) &gt; .lab, #anim_svg .node:not(.sample) &gt; .sym {display: none}&quot;</span>
+<span class="p">)</span>
 <span class="n">html_string</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">&lt;div id=&quot;animated_svg_canvas&quot;&gt;</span><span class="si">%s</span><span class="s2">&lt;/div&gt;</span>
+<span class="si">%s</span>
 <span class="s2">&lt;script type=&quot;text/javascript&quot; src=&quot;https://d3js.org/d3.v4.min.js&quot;&gt;&lt;/script&gt;</span>
 <span class="s2">&lt;script type=&quot;text/javascript&quot;&gt;</span>
 <span class="s2">function diff(A) {return A.slice(1).map((n, i) =&gt; { return n - A[i]; });};</span>
@@ -2216,11 +2312,11 @@ tree sequence to allow identification of pruned edges.</p>
 <span class="s2">};</span>
 
 <span class="s2">function animate_SPR(canvas, num_trees) {</span>
-<span class="s2">  d3.selectAll(&quot;.tree&quot;).attr(&quot;opacity&quot;, 0);</span>
+<span class="s2">  d3.selectAll(&quot;#anim_svg .tree&quot;).attr(&quot;opacity&quot;, 0);</span>
 <span class="s2">  for(var i=0; i&lt;num_trees - 1; i++) </span>
 <span class="s2">  {</span>
-<span class="s2">    var source_tree = &quot;.tree.t&quot; + i;</span>
-<span class="s2">    var target_tree = &quot;.tree.t&quot; + (i+1);</span>
+<span class="s2">    var source_tree = &quot;#anim_svg .tree.t&quot; + i;</span>
+<span class="s2">    var target_tree = &quot;#anim_svg .tree.t&quot; + (i+1);</span>
 <span class="s2">    var dur = 2000;</span>
 <span class="s2">    var delay = i * dur;</span>
 <span class="s2">    d3.select(source_tree)</span>
@@ -2300,22 +2396,25 @@ tree sequence to allow identification of pruned edges.</p>
 <span class="s2">  })</span>
 <span class="s2">};</span>
 
-<span class="s2">var svg_text = document.getElementById(&quot;animated_svg_canvas&quot;).innerHTML;</span>
+<span class="s2">var svg_text = document.getElementById(&quot;anim_svg&quot;).innerHTML;</span>
 
 <span class="s2">&lt;/script&gt;</span>
 
-<span class="s2">&lt;button onclick=&#39;animate_SPR(d3.select(&quot;#animated_svg_canvas svg&quot;), </span><span class="si">%s</span><span class="s2">);&#39;&gt;Animate&lt;/button&gt;</span>
-<span class="s2">&lt;button onclick=&#39;document.getElementById(&quot;animated_svg_canvas&quot;).innerHTML = svg_text;&#39;&gt;Reset&lt;/button&gt;</span>
+<span class="s2">&lt;button onclick=&#39;animate_SPR(d3.select(&quot;#anim_svg&quot;), </span><span class="si">%s</span><span class="s2">);&#39;&gt;Animate&lt;/button&gt;</span>
+<span class="s2">&lt;button onclick=&#39;document.getElementById(&quot;anim_svg&quot;).innerHTML = svg_text;&#39;&gt;Reset&lt;/button&gt;</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="n">make_full_arg_for_spr_animation</span><span class="p">()</span>
-<span class="n">HTML</span><span class="p">(</span><span class="n">html_string</span> <span class="o">%</span> <span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">),</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">))</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">html_string</span> <span class="o">%</span> <span class="p">(</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;anim_svg&quot;</span><span class="p">},</span> <span class="n">style</span><span class="o">=</span><span class="n">css_string</span><span class="p">),</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span>
+<span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id="animated_svg_canvas"><svg baseProfile="full" height="200" version="1.1" width="800" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[.background path {fill: #808080; fill-opacity: 0}.background path:nth-child(odd) {fill-opacity: .1}.axes {font-size: 14px}.x-axis .tick .lab {font-weight: bold; dominant-baseline: hanging}.axes, .tree {font-size: 14px; text-anchor: middle}.axes line, .edge {stroke: black; fill: none}.axes .ax-skip {stroke-dasharray: 4}.y-axis .grid {stroke: #FAFAFA}.node > .sym {fill: black; stroke: none}.site > .sym {stroke: black}.mut text {fill: red; font-style: italic}.mut.extra text {fill: hotpink}.mut line {fill: none; stroke: none}.mut .sym {fill: none; stroke: red}.mut.extra .sym {stroke: hotpink}.node .mut .sym {stroke-width: 1.5px}.tree text, .tree-sequence text {dominant-baseline: central}.plotbox .lab.lft {text-anchor: end}.plotbox .lab.rgt {text-anchor: start}.node:not(.sample) > .lab, .node:not(.sample) > .sym {display: none}]]></style></defs><g class="tree-sequence"><g class="background"><path d="M20,0 l190,0 l0,138.2 l-133.684,25 l0,5 l-56.316,0 l0,-5 l0,-25 l0,-138.2z" /><path d="M210,0 l190,0 l0,138.2 l-275.044,25 l0,5 l-48.64,0 l0,-5 l133.684,-25 l0,-138.2z" /><path d="M400,0 l190,0 l0,138.2 l-321.1,25 l0,5 l-143.944,0 l0,-5 l275.044,-25 l0,-138.2z" /><path d="M590,0 l190,0 l0,138.2 l0,25 l0,5 l-511.1,0 l0,-5 l321.1,-25 l0,-138.2z" /></g><g class="axes"><g class="x-axis"><g class="title" transform="translate(400 200)"><text class="lab" text-anchor="middle" transform="translate(0 -11)">Genome position</text></g><line class="ax-line" x1="20" x2="780" y1="163.2" y2="163.2" /><g class="ticks"><g class="tick" transform="translate(20 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">0</text></g></g><g class="tick" transform="translate(76.316 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">741</text></g></g><g class="tick" transform="translate(124.956 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">1381</text></g></g><g class="tick" transform="translate(268.9 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">3275</text></g></g><g class="tick" transform="translate(780 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">10000</text></g></g></g></g></g><g class="plotbox trees"><g class="tree t0" transform="translate(20 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(63.125 26.8)"><g class="a17 c1 node n14 p0" transform="translate(-28.125 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 28.125" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c2 node n16 p0" transform="translate(28.125 13.7141)"><g class="a16 c1 node n11 p0" transform="translate(-26.25 52.4955)"><g class="a11 c1 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 c1 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(0.0 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -52.4955 H 26.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">11</text></g><g class="a16 c2 node n15 p0" transform="translate(26.25 41.8551)"><g class="a15 c1 node n6 p0" transform="translate(-22.5 31.2782)"><g class="a6 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -31.2782 H 22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">6</text></g><g class="a15 c1 node n13 p0" transform="translate(22.5 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H -22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H -26.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -28.125" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t1" transform="translate(210 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(72.5 26.8)"><g class="a17 c1 node n14 p0" transform="translate(-37.5 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c2 node n16 p0" transform="translate(37.5 13.7141)"><g class="a16 c1 node n11 p0" transform="translate(-30 52.4955)"><g class="a11 c1 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 c2 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 c1 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -52.4955 H 30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">11</text></g><g class="a16 c1 node n15 p0" transform="translate(30 41.8551)"><g class="a15 c1 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H -30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t2" transform="translate(400 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(98.75 26.8)"><g class="a17 c2 node n14 p0" transform="translate(-41.25 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(-22.5 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 22.5" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><g class="a14 c1 node n12 p0" transform="translate(22.5 10.1609)"><g class="a12 c1 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 c2 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 c1 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -10.1609 H -22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">12</text></g><path class="edge" d="M 0 0 V -56.0486 H 41.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c1 node n16 p0" transform="translate(41.25 13.7141)"><g class="a16 c1 node n15 p0" transform="translate(0.0 41.8551)"><g class="a15 c1 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -41.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t3" transform="translate(590 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(72.5 26.8)"><g class="a17 c1 node n14 p0" transform="translate(-37.5 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c1 node n16 p0" transform="translate(37.5 13.7141)"><g class="a16 c1 node n15 p0" transform="translate(0.0 41.8551)"><g class="a15 c2 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(30 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H -30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">5</text></g><g class="a13 c1 node n10 p0" transform="translate(-30 12.353)"><g class="a10 c2 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 c1 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.353 H 30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">10</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g></g></g></svg></div>
+<svg baseProfile="full" height="200" id="anim_svg" version="1.1" width="800" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"><![CDATA[.background path {fill: #808080; fill-opacity: 0}.background path:nth-child(odd) {fill-opacity: .1}.axes {font-size: 14px}.x-axis .tick .lab {font-weight: bold; dominant-baseline: hanging}.axes, .tree {font-size: 14px; text-anchor: middle}.axes line, .edge {stroke: black; fill: none}.axes .ax-skip {stroke-dasharray: 4}.y-axis .grid {stroke: #FAFAFA}.node > .sym {fill: black; stroke: none}.site > .sym {stroke: black}.mut text {fill: red; font-style: italic}.mut.extra text {fill: hotpink}.mut line {fill: none; stroke: none}.mut .sym {fill: none; stroke: red}.mut.extra .sym {stroke: hotpink}.node .mut .sym {stroke-width: 1.5px}.tree text, .tree-sequence text {dominant-baseline: central}.plotbox .lab.lft {text-anchor: end}.plotbox .lab.rgt {text-anchor: start}#anim_svg {background-color: white} #anim_svg .node:not(.sample) > .lab, #anim_svg .node:not(.sample) > .sym {display: none}]]></style></defs><g class="tree-sequence"><g class="background"><path d="M20,0 l190,0 l0,138.2 l-133.684,25 l0,5 l-56.316,0 l0,-5 l0,-25 l0,-138.2z" /><path d="M210,0 l190,0 l0,138.2 l-275.044,25 l0,5 l-48.64,0 l0,-5 l133.684,-25 l0,-138.2z" /><path d="M400,0 l190,0 l0,138.2 l-321.1,25 l0,5 l-143.944,0 l0,-5 l275.044,-25 l0,-138.2z" /><path d="M590,0 l190,0 l0,138.2 l0,25 l0,5 l-511.1,0 l0,-5 l321.1,-25 l0,-138.2z" /></g><g class="axes"><g class="x-axis"><g class="title" transform="translate(400 200)"><text class="lab" text-anchor="middle" transform="translate(0 -11)">Genome position</text></g><line class="ax-line" x1="20" x2="780" y1="163.2" y2="163.2" /><g class="ticks"><g class="tick" transform="translate(20 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">0</text></g></g><g class="tick" transform="translate(76.316 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">741</text></g></g><g class="tick" transform="translate(124.956 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">1381</text></g></g><g class="tick" transform="translate(268.9 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">3275</text></g></g><g class="tick" transform="translate(780 163.2)"><line x1="0" x2="0" y1="0" y2="5" /><g transform="translate(0 6)"><text class="lab">10000</text></g></g></g></g></g><g class="plotbox trees"><g class="tree t0" transform="translate(20 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(63.125 26.8)"><g class="a17 c1 node n14 p0" transform="translate(-28.125 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 28.125" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c2 node n16 p0" transform="translate(28.125 13.7141)"><g class="a16 c1 node n11 p0" transform="translate(-26.25 52.4955)"><g class="a11 c1 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 c1 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(0.0 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -52.4955 H 26.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">11</text></g><g class="a16 c2 node n15 p0" transform="translate(26.25 41.8551)"><g class="a15 c1 node n6 p0" transform="translate(-22.5 31.2782)"><g class="a6 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -31.2782 H 22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">6</text></g><g class="a15 c1 node n13 p0" transform="translate(22.5 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H -22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H -26.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -28.125" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t1" transform="translate(210 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(72.5 26.8)"><g class="a17 c1 node n14 p0" transform="translate(-37.5 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c2 node n16 p0" transform="translate(37.5 13.7141)"><g class="a16 c1 node n11 p0" transform="translate(-30 52.4955)"><g class="a11 c1 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 c2 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 c1 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -52.4955 H 30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">11</text></g><g class="a16 c1 node n15 p0" transform="translate(30 41.8551)"><g class="a15 c1 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H -30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t2" transform="translate(400 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(98.75 26.8)"><g class="a17 c2 node n14 p0" transform="translate(-41.25 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(-22.5 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 22.5" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><g class="a14 c1 node n12 p0" transform="translate(22.5 10.1609)"><g class="a12 c1 node n9 p0" transform="translate(0.0 12.2467)"><g class="a9 c2 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 c1 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.2467 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">9</text></g><path class="edge" d="M 0 0 V -10.1609 H -22.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">12</text></g><path class="edge" d="M 0 0 V -56.0486 H 41.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c1 node n16 p0" transform="translate(41.25 13.7141)"><g class="a16 c1 node n15 p0" transform="translate(0.0 41.8551)"><g class="a15 c1 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(0.0 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">5</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -41.25" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g><g class="tree t3" transform="translate(590 0)"><g class="plotbox"><g class="c2 node n17 p0 root" transform="translate(72.5 26.8)"><g class="a17 c1 node n14 p0" transform="translate(-37.5 56.0486)"><g class="a14 i0 leaf node n0 p0 sample" transform="translate(0.0 38.5514)"><path class="edge" d="M 0 0 V -38.5514 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">0</text></g><path class="edge" d="M 0 0 V -56.0486 H 37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">14</text></g><g class="a17 c1 node n16 p0" transform="translate(37.5 13.7141)"><g class="a16 c1 node n15 p0" transform="translate(0.0 41.8551)"><g class="a15 c2 node n13 p0" transform="translate(0.0 10.5342)"><g class="a13 c2 node n5 p0" transform="translate(30 27.5932)"><g class="a5 i3 leaf node n3 p0 sample" transform="translate(-15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">3</text></g><g class="a5 i4 leaf node n4 p0 sample" transform="translate(15 0.903508)"><path class="edge" d="M 0 0 V -0.903508 H -15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">4</text></g><path class="edge" d="M 0 0 V -27.5932 H -30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">5</text></g><g class="a13 c1 node n10 p0" transform="translate(-30 12.353)"><g class="a10 c2 node n8 p0" transform="translate(0.0 1.51859)"><g class="a8 i1 leaf node n1 p0 sample" transform="translate(-15 14.6251)"><path class="edge" d="M 0 0 V -14.6251 H 15" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">1</text></g><g class="a8 c1 node n7 p0" transform="translate(15 6.87247)"><g class="a7 i2 leaf node n2 p0 sample" transform="translate(0.0 7.75268)"><path class="edge" d="M 0 0 V -7.75268 H 0.0" /><rect class="sym" height="6" width="6" x="-3" y="-3" /><text class="lab" transform="translate(0 11)">2</text></g><path class="edge" d="M 0 0 V -6.87247 H -15" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">7</text></g><path class="edge" d="M 0 0 V -1.51859 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">8</text></g><path class="edge" d="M 0 0 V -12.353 H 30" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">10</text></g><path class="edge" d="M 0 0 V -10.5342 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">13</text></g><path class="edge" d="M 0 0 V -41.8551 H 0.0" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab lft" transform="translate(-3 -7.0)">15</text></g><path class="edge" d="M 0 0 V -13.7141 H -37.5" /><circle class="sym" cx="0" cy="0" r="3" /><text class="lab rgt" transform="translate(3 -7.0)">16</text></g><circle class="sym" cx="0" cy="0" r="3" /><text class="lab" transform="translate(0 -11)">17</text></g></g></g></g></g></svg>
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript">
 function diff(A) {return A.slice(1).map((n, i) => { return n - A[i]; });};
@@ -2329,11 +2428,11 @@ function getRelativeXY(canvas, element, x, y) {
 };
 
 function animate_SPR(canvas, num_trees) {
-  d3.selectAll(".tree").attr("opacity", 0);
+  d3.selectAll("#anim_svg .tree").attr("opacity", 0);
   for(var i=0; i<num_trees - 1; i++) 
   {
-    var source_tree = ".tree.t" + i;
-    var target_tree = ".tree.t" + (i+1);
+    var source_tree = "#anim_svg .tree.t" + i;
+    var target_tree = "#anim_svg .tree.t" + (i+1);
     var dur = 2000;
     var delay = i * dur;
     d3.select(source_tree)
@@ -2413,12 +2512,12 @@ function transform_tree(canvas, src_tree, target_tree, dur, delay) {
   })
 };
 
-var svg_text = document.getElementById("animated_svg_canvas").innerHTML;
+var svg_text = document.getElementById("anim_svg").innerHTML;
 
 </script>
 
-<button onclick='animate_SPR(d3.select("#animated_svg_canvas svg"), 4);'>Animate</button>
-<button onclick='document.getElementById("animated_svg_canvas").innerHTML = svg_text;'>Reset</button>
+<button onclick='animate_SPR(d3.select("#anim_svg"), 4);'>Animate</button>
+<button onclick='document.getElementById("anim_svg").innerHTML = svg_text;'>Reset</button>
 </div></div>
 </div>
 </section>
@@ -2482,7 +2581,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_64_0.svg" src="_images/viz_64_0.svg" /></div>
+<img alt="_images/viz_66_0.svg" src="_images/viz_66_0.svg" /></div>
 </div>
 </section>
 <section id="geography">
