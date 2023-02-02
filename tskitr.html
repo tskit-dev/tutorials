@@ -662,7 +662,7 @@ title="Print to PDF"
 ╟───────────┼────┼─────────┼────────────╢
 ║Populations│   1│224 Bytes│         Yes║
 ╟───────────┼────┼─────────┼────────────╢
-║Provenances│   1│944 Bytes│          No║
+║Provenances│   1│945 Bytes│          No║
 ╟───────────┼────┼─────────┼────────────╢
 ║Sites      │   0│ 16 Bytes│          No║
 ╚═══════════╧════╧═════════╧════════════╝
@@ -688,7 +688,7 @@ samples in the tree sequence:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">$</span></code> operator can also be used to call methods, for example, the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method associated with the tree sequence.
 The method parameters are given as native R objects
-(but note that object IDs are still use tskit’s 0-based indexing system).</p>
+(but note that object IDs still use tskit’s 0-based indexing system).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">simplify</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">7</span><span class="p">)</span><span class="w">  </span><span class="c1"># only keep samples with ids 0, 1, 2, 3, 4, 5, 6, 7</span>
@@ -1011,7 +1011,11 @@ by <code class="docutils literal notranslate"><span class="pre">tskit</span></co
 </section>
 <section id="further-information">
 <h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this headline">#</a></h2>
-<p>Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> documentation, in particular on <a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>, which includes important information on how R data types are converted to their equivalent Python types.</p>
+<p>Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a>
+documentation, in particular on
+<a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>,
+which includes important information on how R data types are converted to their
+equivalent Python types.</p>
 </section>
 </section>
 
