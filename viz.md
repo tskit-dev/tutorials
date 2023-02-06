@@ -444,7 +444,7 @@ and so on.
 
 The classes above make it easy to target specific nodes or edges in one or multiple
 trees. For example, we can colour branches that are shared between trees
-(identified here as ones that have the same parent and child):
+(identified below as ones that have the same parent and child):
 
 ```{code-cell} ipython3
 css_string = ".a15.n9 > .edge {stroke: cyan; stroke-width: 2px}"  # branches from 15->9
@@ -452,7 +452,7 @@ ts_small.draw_svg(time_scale="rank", size=wide_fmt, style=css_string)
 ```
 
 By generating the css string programatically, you can target all the edges present in a
-particular tree, and see how they gradually disappear from adjacent trees. Here, for
+particular tree, and see how they gradually disappear from adjacent trees. Below, for
 example the branches in the central tree have been coloured red, as have the identical
 branches in adjacent trees. The central tree represents a location in the genome
 that has seen a selective sweep, and therefore has short branch lengths: adjacent trees
@@ -572,9 +572,9 @@ Using the transformations discussed in the next section, it is also possible to 
 SVG images, as shown in the {ref}`sec_tskit_viz_SVG_examples_animation` code within the
 {ref}`sec_tskit_viz_SVG_examples` section near the end of this tutorial.
 
-(sec_tskit_viz_styling_moving_and_transforming)=
+(sec_tskit_viz_styling_transforming_and_masking)=
 
-#### Moving and transforming elements
+#### Transforming and masking elements
 
 We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
@@ -585,8 +585,8 @@ following CSS string to rotate leaf labels:
 .leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}
 ```
 
-Transformations not only allow us to shift e.g. labels about, but also change the size
-of symbols, which can create rather different formatting styles:
+Transformations not only allow us to shift elements about, but also resize and skew them.
+When applied to both symbols and labels this can create rather different formatting styles:
 
 ```{code-cell} ipython3
 css_string = (
@@ -639,6 +639,43 @@ but otherwise you may need to use the `chromium` workaround documented
 {ref}`here <sec_tskit_viz_converting_note>`.
 :::
 
+Although it is hard to change the style of a node symbol, the visible area of the symbol
+can be modified using the `clip-path` CSS property. This can be useful to show, for
+instance, a triangle to summarise the descendants of a MRCA. 
+
+```{code-cell} ipython3
+# Check that MRCA of 2 & 3 is node 4 in all trees, assumed later
+assert all([4 == tree.mrca(2, 3) for tree in ts_tiny.trees()])
+
+styles = [
+    # Set all node labels to be rotated and small
+    ".node > .lab {text-anchor: start; transform: rotate(90deg) translate(6px); font-size: 8px}",
+
+    # Hide all nodes descending from node 4. We then treat node 4 as a summary node
+    ".n4 > .node {display: none}",
+    
+    # Use clipping & scaling to change the symbol for node 4 into a summary triangle
+    ".n4 > .sym {clip-path: polygon(50% 50%, 75% 75%, 25% 75%); transform: scale(8.0, 8.0)}",
+    
+    # Make the font bigger for this summary node label
+    ".n4 > .lab {transform: rotate(90deg) translate(14px); font-size: 16px}"
+]
+
+node_labels = {0: "Nd. 0", 1: "Nd. 1", 4: "Two samples"}
+
+ts_tiny.draw_svg(
+    size=(800, 300),
+    x_scale="treewise",
+    time_scale="log_time",
+    style="".join(styles),
+    node_labels=node_labels,
+)
+```
+In the example above we simply hid the descendant topology for each "summary MRCA",
+meaning more horizontal space was taken up than expected. For a more sophisticated
+example, see {ref}`sec_tskit_viz_SVG_examples_larger_plots` in which some
+descendant samples are actually removed from the tree sequence entirely, and their MRCA
+is changed into a sample node instead.
 
 #### Styling and SVG structure
 
@@ -1128,12 +1165,136 @@ ts.draw_svg(
 )
 ```
 
+(sec_tskit_viz_SVG_examples_larger_plots)=
+
+#### Simplifying larger plots
+
+It is common to want to visualise a tree sequence with many samples and trees. If there
+are many trees, the `max_num_trees` parameter can be used to just show those at the start
+and end of the genome. To reduce the size of each tree, multiple samples can be clustered
+into a single representative clade. If that clade has the same set of descendant samples
+throughout the tree sequence, {ref}`sec_simplification` can be used to to turn the MRCA
+of these samples into a sample node itself, while removing the original descendants.
+By using the scaling and masking method described in
+{ref}`sec_tskit_viz_styling_transforming_and_masking` this summary MRCA can be shown
+as a large triangle, of size proportional to the number of samples underneath it. The
+example below shows how a tree sequence of 40 sample nodes can be visualised relatively
+compactly using these techniques:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+import msprime
+import numpy as np
+
+def clonal_mrcas(ts, most_recent=True):
+    """
+    Identify the nodes in a tree sequence which define clonal subtrees (i.e. in which the
+    samples descending from that node are identical and show identical relationships
+    to each other over the entire tree sequence). This includes, at its limit, nodes
+    with only a single descendant sample.
+    
+    :param bool most_recent: If True, and the clonal node is a unary node, return IDs of
+        the most recent node that defines the clonal subtree. In this case, the returned
+        IDs represent cases where the node is either a tip or a coalescent point.
+    :return: a list of nodes defining constant subtrees over the entire tree sequence
+    :rtype: list
+    """
+    for interval, edges_out, edges_in in ts.edge_diffs():
+        if interval.left==0:
+            is_full_length_clonal = np.ones(ts.num_nodes, dtype=bool)  # nodes start clonal
+        else:
+            for e in edges_in:
+                is_full_length_clonal[e.parent] = False
+        for e in edges_out:
+            is_full_length_clonal[e.parent] = False
+    clonal_nodes = np.where(is_full_length_clonal)[0]
+
+    tables = ts.dump_tables()
+    edges = tables.edges
+    # only keep edges where both the child and the parent are full-length clonal nodes
+    keep_edge = np.logical_and(
+        np.isin(edges.child, clonal_nodes),
+        np.isin(edges.parent, clonal_nodes),
+    )
+    tables.edges.set_columns(
+            left = tables.edges.left[keep_edge],
+            right=tables.edges.right[keep_edge],
+            parent=tables.edges.parent[keep_edge],
+            child=tables.edges.child[keep_edge],
+        )
+    clonal_ts = tables.tree_sequence()
+    assert clonal_ts.num_trees == 1
+
+    # Also remove all the edges ascending from removed edges
+    tree = clonal_ts.first()
+    non_clonal_ancestors = set()
+    deleted_edges = np.logical_not(keep_edge)
+    for u in np.unique(ts.edges_parent[deleted_edges]):
+        while u != tskit.NULL and u not in non_clonal_ancestors:
+            non_clonal_ancestors.add(u)
+            u = tree.parent(u)
+    non_clonal_ancestors = np.array(list(non_clonal_ancestors))
+    tables = clonal_ts.dump_tables()
+    remove_edge = np.isin(tables.edges.parent, non_clonal_ancestors)
+    tables.edges.replace_with(tables.edges[np.logical_not(remove_edge)])
+    clonal_ts = tables.tree_sequence()   
+    
+    tree = ts.first(sample_lists=True)
+    clonal_tree = clonal_ts.first(sample_lists=True)
+    clonal_nodes = []
+    for root in clonal_tree.roots:
+        # Clonal trees should subtend the same set of samples as in the original tree
+        assert set(tree.samples(root)) == set(clonal_tree.samples(root))
+        u = root
+        if most_recent:
+            # decend to the first coalescent node (i.e. MRCA)
+            while clonal_tree.num_children(u) == 1:
+                u = clonal_tree.children(u)[0]
+        clonal_nodes.append(u)
+    return clonal_nodes
+
+ts = msprime.sim_ancestry(
+        20, population_size=1e2, sequence_length=1e4, recombination_rate=1e-6, random_seed=83)
+clones = clonal_mrcas(ts)
+# Simplify but keep the same node IDs using filter_nodes=False
+ts_simp = ts.simplify(clones, filter_nodes=False)
+
+styles = [
+    ".node > .lab {font-size: 9px}",
+    ".leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(5px); font-size: 12px}",
+
+]
+
+node_labels = {u: u for u in range(ts.num_nodes)}
+for u in ts.samples():
+    node_labels[u] = f"S{u}"
+
+tree = ts.first()
+for u in clones:
+    num_samples = tree.num_samples(u)
+    if num_samples > 1:
+        node_labels[u] = f"{num_samples} samples"
+        styles.append(
+            f".n{u} > .sym {{clip-path: polygon(50% 50%, 100% 100%, 0% 100%);"+
+            f"transform: scale({(num_samples-1)/5 + 1}, 4.0)}}" +
+            f".n{u} > .lab {{transform: rotate(90deg) translate(15px); font-size: 13px}}"
+        )
+ts_simp.draw_svg(
+    size=(1000, 400),
+    style="".join(styles),
+    node_labels=node_labels,
+    time_scale="log_time",
+    y_axis=True,
+    y_ticks=[0, 1, 10, 100],
+    max_num_trees=4)
+```
+
 (sec_tskit_viz_SVG_examples_3D)=
 
 #### 3D effects
 
 We can use various CSS transforms, as
-{ref}`discussed previously<sec_tskit_viz_styling_moving_and_transforming>`,
+{ref}`discussed previously<sec_tskit_viz_styling_transforming_and_masking>`,
 to skew the trees and stagger them. With a bit of trigonometry,
 this can create flexible and tolerably good 3D effects for presentations, etc.
 
