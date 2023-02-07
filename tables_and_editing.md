@@ -603,12 +603,13 @@ edge_table.set_columns(
 edge_table
 ```
 
-And finally we can add a site and a mutation: here we'll use 0/1 mutations rather than
+Finally we can add a site and a mutation: here we'll use 0/1 mutations rather than
 ATGC.
 
 ```{code-cell} ipython3
 site_id = tables.sites.add_row(position=500.0, ancestral_state='0')
 tables.mutations.add_row(site=site_id, node=2, derived_state='1')
+tables.sort()  # make sure the edges & sites are in the right order
 ts = tables.tree_sequence()
 print("A hand-built tree sequence!")
 ts.draw_svg(y_axis=True)
