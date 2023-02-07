@@ -1610,12 +1610,13 @@ type. We’ll use that for the edges:</p>
         </div>
 </div></div>
 </div>
-<p>And finally we can add a site and a mutation: here we’ll use 0/1 mutations rather than
+<p>Finally we can add a site and a mutation: here we’ll use 0/1 mutations rather than
 ATGC.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site_id</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">derived_state</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  <span class="c1"># make sure the edges &amp; sites are in the right order</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A hand-built tree sequence!&quot;</span><span class="p">)</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

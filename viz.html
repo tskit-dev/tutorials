@@ -602,8 +602,8 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#moving-and-transforming-elements">
-       Moving and transforming elements
+      <a class="reference internal nav-link" href="#transforming-and-masking-elements">
+       Transforming and masking elements
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -692,6 +692,11 @@ title="Print to PDF"
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#ticks-labels-and-gridlines">
        Ticks, labels, and gridlines
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#simplifying-larger-plots">
+       Simplifying larger plots
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -824,8 +829,8 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#moving-and-transforming-elements">
-       Moving and transforming elements
+      <a class="reference internal nav-link" href="#transforming-and-masking-elements">
+       Transforming and masking elements
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -914,6 +919,11 @@ title="Print to PDF"
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#ticks-labels-and-gridlines">
        Ticks, labels, and gridlines
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#simplifying-larger-plots">
+       Simplifying larger plots
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -1405,7 +1415,7 @@ and so on.</p>
 <h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this headline">#</a></h4>
 <p>The classes above make it easy to target specific nodes or edges in one or multiple
 trees. For example, we can colour branches that are shared between trees
-(identified here as ones that have the same parent and child):</p>
+(identified below as ones that have the same parent and child):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="s2">&quot;.a15.n9 &gt; .edge {stroke: cyan; stroke-width: 2px}&quot;</span>  <span class="c1"># branches from 15-&gt;9</span>
@@ -1417,7 +1427,7 @@ trees. For example, we can colour branches that are shared between trees
 <img alt="_images/viz_27_0.svg" src="_images/viz_27_0.svg" /></div>
 </div>
 <p>By generating the css string programatically, you can target all the edges present in a
-particular tree, and see how they gradually disappear from adjacent trees. Here, for
+particular tree, and see how they gradually disappear from adjacent trees. Below, for
 example the branches in the central tree have been coloured red, as have the identical
 branches in adjacent trees. The central tree represents a location in the genome
 that has seen a selective sweep, and therefore has short branch lengths: adjacent trees
@@ -1546,8 +1556,8 @@ depending on your Jupyter setup, the <code class="docutils literal notranslate">
 SVG images, as shown in the <a class="reference internal" href="#sec-tskit-viz-svg-examples-animation"><span class="std std-ref">Animation</span></a> code within the
 <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">SVG examples</span></a> section near the end of this tutorial.</p>
 </section>
-<section id="moving-and-transforming-elements">
-<span id="sec-tskit-viz-styling-moving-and-transforming"></span><h4>Moving and transforming elements<a class="headerlink" href="#moving-and-transforming-elements" title="Permalink to this headline">#</a></h4>
+<section id="transforming-and-masking-elements">
+<span id="sec-tskit-viz-styling-transforming-and-masking"></span><h4>Transforming and masking elements<a class="headerlink" href="#transforming-and-masking-elements" title="Permalink to this headline">#</a></h4>
 <p>We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
 <a class="reference internal" href="#sec-tskit-viz-large-tree-sequence"><span class="std std-ref">earlier in this tutorial</span></a> we used the
@@ -1555,8 +1565,8 @@ following CSS string to rotate leaf labels:</p>
 <div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">leaf</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">lab</span><span class="w"> </span><span class="p">{</span><span class="n">text-anchor</span><span class="p">:</span><span class="w"> </span><span class="kc">start</span><span class="p">;</span><span class="w"> </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="nb">rotate</span><span class="p">(</span><span class="mi">90</span><span class="kt">deg</span><span class="p">)</span><span class="w"> </span><span class="nb">translate</span><span class="p">(</span><span class="mi">6</span><span class="kt">px</span><span class="p">)}</span>
 </pre></div>
 </div>
-<p>Transformations not only allow us to shift e.g. labels about, but also change the size
-of symbols, which can create rather different formatting styles:</p>
+<p>Transformations not only allow us to shift elements about, but also resize and skew them.
+When applied to both symbols and labels this can create rather different formatting styles:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">css_string</span> <span class="o">=</span> <span class="p">(</span>
@@ -1617,6 +1627,48 @@ transformed elements may be positioned incorrectly. For changing symbols, the
 but otherwise you may need to use the <code class="docutils literal notranslate"><span class="pre">chromium</span></code> workaround documented
 <a class="reference internal" href="#sec-tskit-viz-converting-note"><span class="std std-ref">here</span></a>.</p>
 </div>
+<p>Although it is hard to change the style of a node symbol, the visible area of the symbol
+can be modified using the <code class="docutils literal notranslate"><span class="pre">clip-path</span></code> CSS property. This can be useful to show, for
+instance, a triangle to summarise the descendants of a MRCA.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that MRCA of 2 &amp; 3 is node 4 in all trees, assumed later</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="mi">4</span> <span class="o">==</span> <span class="n">tree</span><span class="o">.</span><span class="n">mrca</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts_tiny</span><span class="o">.</span><span class="n">trees</span><span class="p">()])</span>
+
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Set all node labels to be rotated and small</span>
+    <span class="s2">&quot;.node &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px); font-size: 8px}&quot;</span><span class="p">,</span>
+
+    <span class="c1"># Hide all nodes descending from node 4. We then treat node 4 as a summary node</span>
+    <span class="s2">&quot;.n4 &gt; .node {display: none}&quot;</span><span class="p">,</span>
+    
+    <span class="c1"># Use clipping &amp; scaling to change the symbol for node 4 into a summary triangle</span>
+    <span class="s2">&quot;.n4 &gt; .sym {clip-path: polygon(50</span><span class="si">% 50%</span><span class="s2">, 75</span><span class="si">% 75%</span><span class="s2">, 25</span><span class="si">% 75%</span><span class="s2">); transform: scale(8.0, 8.0)}&quot;</span><span class="p">,</span>
+    
+    <span class="c1"># Make the font bigger for this summary node label</span>
+    <span class="s2">&quot;.n4 &gt; .lab {transform: rotate(90deg) translate(14px); font-size: 16px}&quot;</span>
+<span class="p">]</span>
+
+<span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Nd. 0&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Nd. 1&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Two samples&quot;</span><span class="p">}</span>
+
+<span class="n">ts_tiny</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+    <span class="n">x_scale</span><span class="o">=</span><span class="s2">&quot;treewise&quot;</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
+</div>
+<p>In the example above we simply hid the descendant topology for each “summary MRCA”,
+meaning more horizontal space was taken up than expected. For a more sophisticated
+example, see <a class="reference internal" href="#sec-tskit-viz-svg-examples-larger-plots"><span class="std std-ref">Simplifying larger plots</span></a> in which some
+descendant samples are actually removed from the tree sequence entirely, and their MRCA
+is changed into a sample node instead.</p>
 </section>
 <section id="styling-and-svg-structure">
 <h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this headline">#</a></h4>
@@ -1682,7 +1734,7 @@ thicker blue line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_38_0.svg" src="_images/viz_38_0.svg" /></div>
+<img alt="_images/viz_40_0.svg" src="_images/viz_40_0.svg" /></div>
 </div>
 <p>This might not be quite what you expected: the branch leading from node 13 to its parent
 (node 17) has also been coloured. That’s because the SVG node group deliberately contains
@@ -1700,7 +1752,7 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_40_0.svg" src="_images/viz_40_0.svg" /></div>
+<img alt="_images/viz_42_0.svg" src="_images/viz_42_0.svg" /></div>
 </div>
 <p>If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
@@ -1724,7 +1776,7 @@ this normally-hidden line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_42_0.svg" src="_images/viz_42_0.svg" /></div>
+<img alt="_images/viz_44_0.svg" src="_images/viz_44_0.svg" /></div>
 </div>
 </section>
 <section id="restricting-styling">
@@ -1746,7 +1798,7 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_44_0.svg" src="_images/viz_44_0.svg" /></div>
+<img alt="_images/viz_46_0.svg" src="_images/viz_46_0.svg" /></div>
 </div>
 <p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
 to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
@@ -1762,7 +1814,7 @@ targetting of the leaf symbols only:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_46_0.svg" src="_images/viz_46_0.svg" /></div>
+<img alt="_images/viz_48_0.svg" src="_images/viz_48_0.svg" /></div>
 </div>
 <p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
 so the following style specification should produce the same effect in SVG viewers that
@@ -1789,7 +1841,7 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_48_0.svg" src="_images/viz_48_0.svg" /></div>
+<img alt="_images/viz_50_0.svg" src="_images/viz_50_0.svg" /></div>
 </div>
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
@@ -1860,66 +1912,66 @@ transformations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>       14      
-   ┏━━━━┻━━━┓  
-   ┃       13  
-   ┃      ┏━┻━┓
-   ┃     12   ┃
-   ┃    ┏━┻┓  ┃
-   ┃    ┃ 11  ┃
-   ┃    ┃ ┏┻┓ ┃
-  10    ┃ ┃ ┃ ┃
- ┏━┻━┓  ┃ ┃ ┃ ┃
- ┃   9  ┃ ┃ ┃ ┃
- ┃  ┏┻┓ ┃ ┃ ┃ ┃
+<div class="output text_html"><pre style='display: inline-block'>         14    
+      ┏━━━┻━━━┓
+     13       ┃
+  ┏━━━┻━━━┓   ┃
+  ┃      12   ┃
+  ┃     ┏━┻━┓ ┃
+ 11     ┃   ┃ ┃
+ ┏┻━┓   ┃   ┃ ┃
+ ┃  ┃  10   ┃ ┃
+ ┃  ┃  ┏┻━┓ ┃ ┃
+ ┃  ┃  9  ┃ ┃ ┃
+ ┃  ┃ ┏┻┓ ┃ ┃ ┃
  8  ┃ ┃ ┃ ┃ ┃ ┃
 ┏┻┓ ┃ ┃ ┃ ┃ ┃ ┃
-0 3 5 6 1 2 7 4
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>                 ┏0
-             ┏━━8┫ 
-             ┃   ┗3
-  ┏━━━━━━━━10┫     
-  ┃          ┃ ┏━━5
-  ┃          ┗9┫   
-  ┃            ┗━━6
-  ┃                
-14┫     ┏━━━━━━━━━1
-  ┃     ┃          
-  ┃  ┏12┫  ┏━━━━━━2
-  ┃  ┃  ┗11┫       
-  ┗13┫     ┗━━━━━━7
-     ┃             
-     ┗━━━━━━━━━━━━4
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 3 5 6 1 2 7 4
+0 3 5 1 6 7 4 2
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>                ┏0
+          ┏━━━━8┫ 
+     ┏━━11┫     ┗3
+     ┃    ┃       
+     ┃    ┗━━━━━━5
+     ┃            
+  ┏13┫        ┏━━1
+  ┃  ┃      ┏9┫   
+  ┃  ┃  ┏━10┫ ┗━━6
+  ┃  ┃  ┃   ┃     
+14┫  ┗12┫   ┗━━━━7
+  ┃     ┃         
+  ┃     ┗━━━━━━━━4
+  ┃               
+  ┗━━━━━━━━━━━━━━2
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 3 5 1 6 7 4 2
 ┗┳┛ ┃ ┃ ┃ ┃ ┃ ┃
  8  ┃ ┃ ┃ ┃ ┃ ┃
- ┃  ┗┳┛ ┃ ┃ ┃ ┃
- ┃   9  ┃ ┃ ┃ ┃
- ┗━┳━┛  ┃ ┃ ┃ ┃
-  10    ┃ ┃ ┃ ┃
-   ┃    ┃ ┗┳┛ ┃
-   ┃    ┃ 11  ┃
-   ┃    ┗━┳┛  ┃
-   ┃     12   ┃
-   ┃      ┗━┳━┛
-   ┃       13  
-   ┗━━━━┳━━━┛  
-       14      
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0┓                 
- ┣8━━┓             
-3┛   ┃             
-     ┣10━━━━━━━━┓  
-5━━┓ ┃          ┃  
-   ┣9┛          ┃  
-6━━┛            ┃  
-                ┃  
-1━━━━━━━━━┓     ┣14
-          ┃     ┃  
-2━━━━━━┓  ┣12┓  ┃  
-       ┣11┛  ┃  ┃  
-7━━━━━━┛     ┣13┛  
-             ┃     
-4━━━━━━━━━━━━┛     
+ ┃  ┃ ┗┳┛ ┃ ┃ ┃
+ ┃  ┃  9  ┃ ┃ ┃
+ ┃  ┃  ┗┳━┛ ┃ ┃
+ ┃  ┃  10   ┃ ┃
+ ┗┳━┛   ┃   ┃ ┃
+ 11     ┃   ┃ ┃
+  ┃     ┗━┳━┛ ┃
+  ┃      12   ┃
+  ┗━━━┳━━━┛   ┃
+     13       ┃
+      ┗━━━┳━━━┛
+         14    
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0┓                
+ ┣8━━━━┓          
+3┛     ┣11━━┓     
+       ┃    ┃     
+5━━━━━━┛    ┃     
+            ┃     
+1━━┓        ┣13┓  
+   ┣9┓      ┃  ┃  
+6━━┛ ┣10━┓  ┃  ┃  
+     ┃   ┃  ┃  ┃  
+7━━━━┛   ┣12┛  ┣14
+         ┃     ┃  
+4━━━━━━━━┛     ┃  
+               ┃  
+2━━━━━━━━━━━━━━┛  
 </pre></div></div>
 </div>
 </section>
@@ -2007,7 +2059,7 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_52_0.svg" src="_images/viz_52_0.svg" /></div>
+<img alt="_images/viz_54_0.svg" src="_images/viz_54_0.svg" /></div>
 </div>
 </section>
 <section id="highlighted-mutations">
@@ -2032,7 +2084,7 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_54_0.svg" src="_images/viz_54_0.svg" /></div>
+<img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
 </div>
 </section>
 <section id="leaf-sample-isolated-nodes">
@@ -2069,7 +2121,7 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_56_0.svg" src="_images/viz_56_0.svg" /></div>
+<img alt="_images/viz_58_0.svg" src="_images/viz_58_0.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2119,7 +2171,7 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_58_0.svg" src="_images/viz_58_0.svg" /></div>
+<img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
 </div>
 </section>
 <section id="ticks-labels-and-gridlines">
@@ -2209,13 +2261,139 @@ drawing on an example from the <a class="reference internal" href="introgression
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_60_0.svg" src="_images/viz_60_0.svg" /></div>
+<img alt="_images/viz_62_0.svg" src="_images/viz_62_0.svg" /></div>
+</div>
+</section>
+<section id="simplifying-larger-plots">
+<span id="sec-tskit-viz-svg-examples-larger-plots"></span><h4>Simplifying larger plots<a class="headerlink" href="#simplifying-larger-plots" title="Permalink to this headline">#</a></h4>
+<p>It is common to want to visualise a tree sequence with many samples and trees. If there
+are many trees, the <code class="docutils literal notranslate"><span class="pre">max_num_trees</span></code> parameter can be used to just show those at the start
+and end of the genome. To reduce the size of each tree, multiple samples can be clustered
+into a single representative clade. If that clade has the same set of descendant samples
+throughout the tree sequence, <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">Simplification</span></a> can be used to to turn the MRCA
+of these samples into a sample node itself, while removing the original descendants.
+By using the scaling and masking method described in
+<a class="reference internal" href="#sec-tskit-viz-styling-transforming-and-masking"><span class="std std-ref">Transforming and masking elements</span></a> this summary MRCA can be shown
+as a large triangle, of size proportional to the number of samples underneath it. The
+example below shows how a tree sequence of 40 sample nodes can be visualised relatively
+compactly using these techniques:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">clonal_mrcas</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">most_recent</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Identify the nodes in a tree sequence which define clonal subtrees (i.e. in which the</span>
+<span class="sd">    samples descending from that node are identical and show identical relationships</span>
+<span class="sd">    to each other over the entire tree sequence). This includes, at its limit, nodes</span>
+<span class="sd">    with only a single descendant sample.</span>
+<span class="sd">    </span>
+<span class="sd">    :param bool most_recent: If True, and the clonal node is a unary node, return IDs of</span>
+<span class="sd">        the most recent node that defines the clonal subtree. In this case, the returned</span>
+<span class="sd">        IDs represent cases where the node is either a tip or a coalescent point.</span>
+<span class="sd">    :return: a list of nodes defining constant subtrees over the entire tree sequence</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">interval</span><span class="p">,</span> <span class="n">edges_out</span><span class="p">,</span> <span class="n">edges_in</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">edge_diffs</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">interval</span><span class="o">.</span><span class="n">left</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">is_full_length_clonal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># nodes start clonal</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges_in</span><span class="p">:</span>
+                <span class="n">is_full_length_clonal</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges_out</span><span class="p">:</span>
+            <span class="n">is_full_length_clonal</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">clonal_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_full_length_clonal</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">edges</span>
+    <span class="c1"># only keep edges where both the child and the parent are full-length clonal nodes</span>
+    <span class="n">keep_edge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">edges</span><span class="o">.</span><span class="n">child</span><span class="p">,</span> <span class="n">clonal_nodes</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">edges</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">clonal_nodes</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">left</span><span class="p">[</span><span class="n">keep_edge</span><span class="p">],</span>
+            <span class="n">right</span><span class="o">=</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">keep_edge</span><span class="p">],</span>
+            <span class="n">parent</span><span class="o">=</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">keep_edge</span><span class="p">],</span>
+            <span class="n">child</span><span class="o">=</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">child</span><span class="p">[</span><span class="n">keep_edge</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="n">clonal_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">clonal_ts</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="c1"># Also remove all the edges ascending from removed edges</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">clonal_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="n">non_clonal_ancestors</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">deleted_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">keep_edge</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">edges_parent</span><span class="p">[</span><span class="n">deleted_edges</span><span class="p">]):</span>
+        <span class="k">while</span> <span class="n">u</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span> <span class="ow">and</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_clonal_ancestors</span><span class="p">:</span>
+            <span class="n">non_clonal_ancestors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">non_clonal_ancestors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">non_clonal_ancestors</span><span class="p">))</span>
+    <span class="n">tables</span> <span class="o">=</span> <span class="n">clonal_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+    <span class="n">remove_edge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">non_clonal_ancestors</span><span class="p">)</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">replace_with</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">remove_edge</span><span class="p">)])</span>
+    <span class="n">clonal_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>   
+    
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">sample_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">clonal_tree</span> <span class="o">=</span> <span class="n">clonal_ts</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">sample_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">clonal_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">clonal_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">:</span>
+        <span class="c1"># Clonal trees should subtend the same set of samples as in the original tree</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">root</span><span class="p">))</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">clonal_tree</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="k">if</span> <span class="n">most_recent</span><span class="p">:</span>
+            <span class="c1"># decend to the first coalescent node (i.e. MRCA)</span>
+            <span class="k">while</span> <span class="n">clonal_tree</span><span class="o">.</span><span class="n">num_children</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">u</span> <span class="o">=</span> <span class="n">clonal_tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">u</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">clonal_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">clonal_nodes</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+        <span class="mi">20</span><span class="p">,</span> <span class="n">population_size</span><span class="o">=</span><span class="mf">1e2</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">83</span><span class="p">)</span>
+<span class="n">clones</span> <span class="o">=</span> <span class="n">clonal_mrcas</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="c1"># Simplify but keep the same node IDs using filter_nodes=False</span>
+<span class="n">ts_simp</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">clones</span><span class="p">,</span> <span class="n">filter_nodes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;.node &gt; .lab {font-size: 9px}&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(5px); font-size: 12px}&quot;</span><span class="p">,</span>
+
+<span class="p">]</span>
+
+<span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)}</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">():</span>
+    <span class="n">node_labels</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;S</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">clones</span><span class="p">:</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">node_labels</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> samples&quot;</span>
+        <span class="n">styles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">clip-path: polygon(50% 50%, 100% 100%, 0% 100%);&quot;</span><span class="o">+</span>
+            <span class="sa">f</span><span class="s2">&quot;transform: scale(</span><span class="si">{</span><span class="p">(</span><span class="n">num_samples</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">, 4.0)</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="o">+</span>
+            <span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> &gt; .lab </span><span class="se">{{</span><span class="s2">transform: rotate(90deg) translate(15px); font-size: 13px</span><span class="se">}}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+<span class="n">ts_simp</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="n">max_num_trees</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/viz_64_0.svg" src="_images/viz_64_0.svg" /></div>
 </div>
 </section>
 <section id="d-effects">
 <span id="sec-tskit-viz-svg-examples-3d"></span><h4>3D effects<a class="headerlink" href="#d-effects" title="Permalink to this headline">#</a></h4>
 <p>We can use various CSS transforms, as
-<a class="reference internal" href="#sec-tskit-viz-styling-moving-and-transforming"><span class="std std-ref">discussed previously</span></a>,
+<a class="reference internal" href="#sec-tskit-viz-styling-transforming-and-masking"><span class="std std-ref">discussed previously</span></a>,
 to skew the trees and stagger them. With a bit of trigonometry,
 this can create flexible and tolerably good 3D effects for presentations, etc.</p>
 <div class="cell tag_hide-input docutils container">
@@ -2269,7 +2447,7 @@ this can create flexible and tolerably good 3D effects for presentations, etc.</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_62_0.svg" src="_images/viz_62_0.svg" /></div>
+<img alt="_images/viz_66_0.svg" src="_images/viz_66_0.svg" /></div>
 </div>
 </section>
 <section id="animation">
@@ -2581,7 +2759,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/viz_66_0.svg" src="_images/viz_66_0.svg" /></div>
+<img alt="_images/viz_70_0.svg" src="_images/viz_70_0.svg" /></div>
 </div>
 </section>
 <section id="geography">
