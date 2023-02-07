@@ -214,7 +214,7 @@ mutated_ts.draw_svg(
 ```
 
 There are now twelve single nucleotide mutations in the tree sequence. They are shown on the
-branches of the trees, and the positions of the ten variable sites associated with the
+branches of the trees, and the positions of the twelve variable sites associated with the
 mutations are shown along the X axis.
 
 :::{margin} Key point
