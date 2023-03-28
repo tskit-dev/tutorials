@@ -21,3 +21,6 @@ sections:
 
 ```{tableofcontents}
 ```
+
+For discussion of other advanced msprime topics, you might also want to look at
+the [msprime discussion forums](https://github.com/tskit-dev/msprime/discussions).
