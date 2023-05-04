@@ -316,6 +316,84 @@ structures for simulation or inference is therefore infeasible.
 
 ## Working with the ARG
 
+All the normal tskit functions can be used to analyse an ARG stored in tskit form. However, some
+operations are naturally though of in terms of the tree sequence as a graph.
+
+### Graph traversal
+
+The standard edge iterator, {meth}`TreeSequence.edge_diffs()`, goes from left to
+right along the genome, matching the {meth}`TreeSequence.trees()` iterator. This
+means that unlike most conventional graph traversal methods, the returned edges
+are *not* necessarily grouped by node ID (either
+the edge's parent node or the edge's child node).
+
+To traverse the graph by node ID, the {meth}`TreeSequence.nodes()` iterator can be
+used. In particular, because parents are required to be strictly older than their
+children, iterating through nodes using `order="timeasc"` will ensure that children
+are always visited before their parents (similar to a breadth-first or "level order"
+search). However, using {meth}`TreeSequence.nodes()` is inefficient if you also
+want to access the *edges* associated with each node. 
+
+The examples below show how to efficiently traverse the connected nodes in a tree
+sequence graph, visiting each
+only once, ensuring children are visited before parents (or vice versa), while
+simultaneously giving access to the edges associated with each node.
+
+#### Traversing parent nodes
+
+The most efficient graph traversal method visits all the parent nodes in the
+tree sequence, grouping edges for which that node is a parent. This is simple
+because edges in a tree sequence are {ref}`ordered<tskit:sec_edge_requirements>`
+firstly by the time of the parent node, then by node ID.
+
+```{code-cell}
+import itertools
+import operator
+def edges_by_parent_timeasc(ts):
+    return itertools.groupby(ts.edges(), operator.attrgetter("parent"))
+
+for parent_id, edges in edges_by_parent_timeasc(ts):
+    t = ts.node(parent_id).time
+    children = {e.child for e in edges}
+    print(f"Node {parent_id} at time {t} has these child node IDs: {children}")
+```
+
+This visits children before parents. To visit parents before children, you can
+simply use ``reversed(ts.edges())`` rather than ``ts.edges()`` within the
+``groupby`` function. Note that terminal nodes (i.e. which are either isolated
+or leaf nodes in all local trees) are not visited by this function: therefore
+the method above will omit all the terminal sample nodes.
+
+#### Traversing child nodes
+
+Sometimes you may wish to iterate over all the edges for which a node is a
+child (rather than a parent). This can be done by sorting the edges by
+child node time (then child node id). This is a little slower, but can be
+done relatively efficiently as follows:
+
+```{code-cell}
+import itertools
+import operator
+import numpy as np
+def edges_by_child_timeasc(ts):
+    # edges sorted by child node time, then child node id using np.lexsort
+    it = (ts.edge(u) for u in np.lexsort((ts.edges_child, ts.nodes_time[ts.edges_child])))
+    return itertools.groupby(it, operator.attrgetter("child"))
+
+for child_id, edges in edges_by_child_timeasc(ts):
+    t = ts.node(child_id).time
+    parents = {e.parent for e in edges}
+    print(f"Node {child_id} at time {t} has these parent node IDs: {parents}")
+```
+
+To visit parents before children, the ``lexsort`` can take the negated
+``-ts.nodes_time`` rather than simply using ``ts.nodes_time``. Note that nodes
+which are never children of an edge are not visited by this algorithm. Such
+nodes are either {ref}`isolated<sec_data_model_tree_isolated_nodes>` or a
+{ref}`root<sec_data_model_tree_roots> in each local tree.
+
+### Misc
+
 :::{todo}
 Add extra content as per [https://github.com/tskit-dev/tutorials/issues/43](https://github.com/tskit-dev/tutorials/issues/43)
 :::
