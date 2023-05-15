@@ -159,17 +159,11 @@ plt.show()
 It's obvious that there's something unusual about the trees in the middle of this
 chromosome, where the selective sweep occurred. 
 
-:::{margin} Comments needed
-If you have a need for efficient random access to trees like this, please comment on
-[this GitHub issue](https://github.com/tskit-dev/tskit/issues/684) to help us implement
-a solution.
-:::
-
-Currently, it's not particularly efficient to pull out individual trees from the middle
-of a tree sequence, but it *can* be done, via the
-{meth}`TreeSequence.at` method. Here's the tree at location
-$5\ 000\ 000$ --- the position of the sweep --- drawn using the 
-{meth}`Tree.draw_svg` method.
+Although tskit is designed so that is it rapid to pass through trees sequentially,
+it is also possible to pull out individual trees from the middle of a tree sequence
+via the {meth}`TreeSequence.at` method. Here's how you can use that to extract
+the tree at location $5\ 000\ 000$ --- the position of the sweep --- and draw it
+using the {meth}`Tree.draw_svg` method.
 
 ```{code-cell} ipython3
 swept_tree = ts.at(5_000_000)  # or you can get e.g. the nth tree using ts.at_index(n)
