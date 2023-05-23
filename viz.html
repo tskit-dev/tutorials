@@ -1545,7 +1545,7 @@ Here’s an example using a region from within the previous example:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.11.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
+<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.13.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
 class, and given the SVG a unique
 id as described below in <a class="reference internal" href="#sec-tskit-viz-styling-more-about"><span class="std std-ref">More about styling</span></a>. This forces the SVG
 plot to be rendered inline (rather than inside an <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag), allowing the hover
@@ -1912,66 +1912,66 @@ transformations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>        14     
-     ┏━━━┻━━━┓ 
-    13       ┃ 
-  ┏━━┻━━┓    ┃ 
-  ┃    12    ┃ 
-  ┃    ┏┻━┓  ┃ 
+<div class="output text_html"><pre style='display: inline-block'>         14    
+       ┏━━┻━━┓ 
+      13     ┃ 
+    ┏━━┻━━┓  ┃ 
+   12     ┃  ┃ 
+  ┏━┻━━┓  ┃  ┃ 
  11    ┃  ┃  ┃ 
-┏━┻┓   ┃  ┃  ┃ 
-┃ 10   ┃  ┃  ┃ 
-┃ ┏┻┓  ┃  ┃  ┃ 
+ ┏┻━┓  ┃  ┃  ┃ 
+10  ┃  ┃  ┃  ┃ 
+┏┻┓ ┃  ┃  ┃  ┃ 
 ┃ ┃ ┃  9  ┃  ┃ 
 ┃ ┃ ┃ ┏┻┓ ┃  ┃ 
 ┃ ┃ ┃ ┃ ┃ ┃  8 
 ┃ ┃ ┃ ┃ ┃ ┃ ┏┻┓
-0 1 2 3 5 6 4 7
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>          ┏━━━━━━━0
-          ┃        
-     ┏━━11┫  ┏━━━━1
-     ┃    ┗10┫     
-     ┃       ┗━━━━2
-  ┏13┫             
-  ┃  ┃         ┏━━3
-  ┃  ┃  ┏━━━━━9┫   
-  ┃  ┗12┫      ┗━━5
-14┫     ┃          
-  ┃     ┗━━━━━━━━━6
-  ┃                
-  ┃              ┏4
-  ┗━━━━━━━━━━━━━8┫ 
-                 ┗7
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 2 3 5 6 4 7
+0 7 3 4 6 1 2 5
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>              ┏━━━━0
+           ┏10┫     
+        ┏11┫  ┗━━━━7
+        ┃  ┃        
+     ┏12┫  ┗━━━━━━━3
+     ┃  ┃           
+     ┃  ┃       ┏━━4
+  ┏13┫  ┗━━━━━━9┫   
+  ┃  ┃          ┗━━6
+  ┃  ┃              
+14┫  ┗━━━━━━━━━━━━━1
+  ┃                 
+  ┃               ┏2
+  ┗━━━━━━━━━━━━━━8┫ 
+                  ┗5
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 7 3 4 6 1 2 5
 ┃ ┃ ┃ ┃ ┃ ┃ ┗┳┛
 ┃ ┃ ┃ ┃ ┃ ┃  8 
 ┃ ┃ ┃ ┗┳┛ ┃  ┃ 
 ┃ ┃ ┃  9  ┃  ┃ 
-┃ ┗┳┛  ┃  ┃  ┃ 
-┃ 10   ┃  ┃  ┃ 
-┗━┳┛   ┃  ┃  ┃ 
+┗┳┛ ┃  ┃  ┃  ┃ 
+10  ┃  ┃  ┃  ┃ 
+ ┗┳━┛  ┃  ┃  ┃ 
  11    ┃  ┃  ┃ 
-  ┃    ┗┳━┛  ┃ 
-  ┃    12    ┃ 
-  ┗━━┳━━┛    ┃ 
-    13       ┃ 
-     ┗━━━┳━━━┛ 
-        14     
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━┓          
-        ┃          
-1━━━━┓  ┣11━━┓     
-     ┣10┛    ┃     
-2━━━━┛       ┃     
-             ┣13┓  
-3━━┓         ┃  ┃  
-   ┣9━━━━━┓  ┃  ┃  
-5━━┛      ┣12┛  ┃  
-          ┃     ┣14
-6━━━━━━━━━┛     ┃  
-                ┃  
-4┓              ┃  
- ┣8━━━━━━━━━━━━━┛  
-7┛                 
+  ┗━┳━━┛  ┃  ┃ 
+   12     ┃  ┃ 
+    ┗━━┳━━┛  ┃ 
+      13     ┃ 
+       ┗━━┳━━┛ 
+         14    
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━┓              
+     ┣10┓           
+7━━━━┛  ┣11┓        
+        ┃  ┃        
+3━━━━━━━┛  ┣12┓     
+           ┃  ┃     
+4━━┓       ┃  ┃     
+   ┣9━━━━━━┛  ┣13┓  
+6━━┛          ┃  ┃  
+              ┃  ┃  
+1━━━━━━━━━━━━━┛  ┣14
+                 ┃  
+2┓               ┃  
+ ┣8━━━━━━━━━━━━━━┛  
+5┛                  
 </pre></div></div>
 </div>
 </section>

@@ -1271,14 +1271,14 @@ expected length:</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/tskit/tables.py:488,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/tskit/tables.py:488,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">487</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="ne">--&gt; </span><span class="mi">488</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.10.10/x64/lib/python3.10/site-packages/tskit/tables.py:1159,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/tskit/tables.py:1159,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1126</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="g g-Whitespace">   </span><span class="mi">1127</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
 <span class="g g-Whitespace">   </span><span class="mi">1128</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
@@ -1804,10 +1804,10 @@ This also involves changing the ancestral state at the site if necessary.</p>
 
 <span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>  <span class="c1"># Copy the table collection associated with this tree sequence</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Clear all mutations in the table collection copy</span>
-<span class="n">v_iter</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">()</span>  <span class="c1"># Workaround until https://github.com/tskit-dev/tskit/issues/605 is solved</span>
+<span class="n">variant</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Variant</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>  <span class="c1"># Reuse the same Variant object</span>
 <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">sites</span><span class="p">():</span>
-        <span class="n">variant</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">v_iter</span><span class="p">)</span>
+        <span class="n">variant</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>  <span class="c1"># Efficient if ids are sequential</span>
         <span class="n">anc_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">variant</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutations</span><span class="p">)</span> <span class="o">&lt;</span>  <span class="nb">len</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">mutations</span><span class="p">):</span>
             <span class="c1"># Genotypes can be explained with a more parsimonious distribution of mutations</span>

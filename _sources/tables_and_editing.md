@@ -738,10 +738,10 @@ print("Original ts has", ts.num_mutations, "mutations on", ts.num_trees, "trees"
 
 tables = ts.dump_tables()  # Copy the table collection associated with this tree sequence
 tables.mutations.clear()  # Clear all mutations in the table collection copy
-v_iter = ts.variants()  # Workaround until https://github.com/tskit-dev/tskit/issues/605 is solved
+variant = tskit.Variant(ts)  # Reuse the same Variant object
 for tree in ts.trees():
     for site in tree.sites():
-        variant = next(v_iter)
+        variant.decode(site.id)  # Efficient if ids are sequential
         anc_state, mutations = tree.map_mutations(variant.genotypes, variant.alleles)
         if len(mutations) <  len(site.mutations):
             # Genotypes can be explained with a more parsimonious distribution of mutations

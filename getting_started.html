@@ -922,7 +922,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0194137 secs
+Checked in 0.0197723 secs
 </pre></div>
 </div>
 </div>
@@ -956,17 +956,11 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
 chromosome, where the selective sweep occurred.</p>
-<aside class="margin sidebar">
-<p class="sidebar-title">Comments needed</p>
-<p>If you have a need for efficient random access to trees like this, please comment on
-<a class="reference external" href="https://github.com/tskit-dev/tskit/issues/684">this GitHub issue</a> to help us implement
-a solution.</p>
-</aside>
-<p>Currently, it’s not particularly efficient to pull out individual trees from the middle
-of a tree sequence, but it <em>can</em> be done, via the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s the tree at location
-<span class="math notranslate nohighlight">\(5\ 000\ 000\)</span> — the position of the sweep — drawn using the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method.</p>
+<p>Although tskit is designed so that is it rapid to pass through trees sequentially,
+it is also possible to pull out individual trees from the middle of a tree sequence
+via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s how you can use that to extract
+the tree at location <span class="math notranslate nohighlight">\(5\ 000\ 000\)</span> — the position of the sweep — and draw it
+using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">swept_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5_000_000</span><span class="p">)</span>  <span class="c1"># or you can get e.g. the nth tree using ts.at_index(n)</span>
