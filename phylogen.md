@@ -74,8 +74,7 @@ import tsconvert  # used for reading tree sequences from different formats
 # example code reading in a large file, timed
 
 # Or read smaller trees from strings (here we create a tree spanning 1000 genomic units)
-# Todo: add sequence length: https://github.com/tskit-dev/tsconvert/issues/40
-ts = tsconvert.from_newick("(A:6,((B:1,C:1):2,(D:2,E:2):1):3);", span=100)
+ts = tsconvert.from_newick("(A:6,((B:1,C:1):2,(D:2,E:2):1):3);", span=1000)
 ```
 
 The "succinct tree sequence" format used by `tskit` can also store mutations
