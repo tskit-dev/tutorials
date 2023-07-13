@@ -291,13 +291,13 @@ its simplified version:
 ```{code-cell}
 large_sim_parameters = parameters.copy()
 large_sim_parameters["sequence_length"] *= 1000
-ts_arg = msprime.sim_ancestry(**large_sim_parameters, record_full_arg=True)
-ts = ts_arg.simplify()
+large_ts_arg = msprime.sim_ancestry(**large_sim_parameters, record_full_arg=True)
+large_ts = large_ts_arg.simplify()
 
 print(
     "Non-coalescent nodes take up "
-    f"{(1-ts.num_nodes/ts_arg.num_nodes) * 100:0.2f}% "
-    f"of this {ts.sequence_length/1e6:g} megabase {ts.num_samples}-tip ARG"
+    f"{(1-large_ts.num_nodes/large_ts_arg.num_nodes) * 100:0.2f}% "
+    f"of this {large_ts.sequence_length/1e6:g} megabase {large_ts.num_samples}-tip ARG"
 )
 ```
 
@@ -314,18 +314,21 @@ vastly larger number of nodes than even the ARGs simulated here, and using such
 structures for simulation or inference is therefore infeasible.
 :::
 
-## Working with the ARG
+## Working with the tree sequence graph
 
-All the normal tskit functions can be used to analyse an ARG stored in tskit form. However, some
-operations are naturally though of in terms of the tree sequence as a graph.
+All tree sequences, including, but not limited to full ARGs, can be treated as
+directed (acyclic) graphs. Although many tree sequence operations operate from left to
+right along the genome, some are more naturally though of as passing from node
+to node via the edges, regardless of the genomic position of the edge. This section
+describes some of these fundamental graph operations.
 
 ### Graph traversal
 
 The standard edge iterator, {meth}`TreeSequence.edge_diffs()`, goes from left to
-right along the genome, matching the {meth}`TreeSequence.trees()` iterator. This
-means that unlike most conventional graph traversal methods, the returned edges
-are *not* necessarily grouped by node ID (either
-the edge's parent node or the edge's child node).
+right along the genome, matching the {meth}`TreeSequence.trees()` iterator. Although
+this will visit all the edges in the graph, these will *not* necessarily be grouped
+by the node ID either of the edge parent or the edge child. To do this, an alternative
+traversal (from top-to-bottom or bottom-to-top of the tree sequence) is required.
 
 To traverse the graph by node ID, the {meth}`TreeSequence.nodes()` iterator can be
 used. In particular, because parents are required to be strictly older than their
@@ -334,10 +337,9 @@ are always visited before their parents (similar to a breadth-first or "level or
 search). However, using {meth}`TreeSequence.nodes()` is inefficient if you also
 want to access the *edges* associated with each node. 
 
-The examples below show how to efficiently traverse the connected nodes in a tree
-sequence graph, visiting each
-only once, ensuring children are visited before parents (or vice versa), while
-simultaneously giving access to the edges associated with each node.
+The examples below show how to efficiently visit the all the edges in a
+tree sequence, grouped by the nodes to which they are connected, while
+also ensuring that children are visited before parents (or vice versa).
 
 #### Traversing parent nodes
 
