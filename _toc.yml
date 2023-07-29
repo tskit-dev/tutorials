@@ -32,6 +32,7 @@ parts:
     - file: bottlenecks
     - file: introgression
   - file: forward_sims
+  - file: more_forward_sims
 - caption: Other languages
   # TODO: add basic C and maybe Rust tutes
   chapters:

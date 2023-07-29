@@ -143,6 +143,7 @@ coalesced_ts.draw_svg()
 The trees have fully coalesced and we've successfully combined a forwards-time
 Wright-Fisher simulation with a coalescent simulation: hooray!
 
+(sec_completing_forwards_simulations_input_roots)=
 
 ## Why keep input roots (i.e., the initial generation)?
 
