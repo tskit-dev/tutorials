@@ -1,19 +1,14 @@
-sphinx
-jupyter-book>=0.12.0
+git+https://github.com/tskit-dev/tsconvert@e99c837e4e26ccbf4f480a4c48626338eeff7dc3
 demes
 demesdraw
-matplotlib>=3.4.0
-scikit-allel
-tqdm
-numpy
-networkx
-tskit>=0.5.4
+jupyter-book>=0.12.0
+jupyter-cache
 msprime>=1.0
-stdpopsim
-tskit-book-theme==0.3.2
-tszip
+networkx
 pandas
-git+https://github.com/tskit-dev/tsconvert  # for newick parsing in phylogen.md
-# Specified here due to failing build with jupyter-book specified version #214
-jsonschema[format-nongpl]==4.17.3
-nbclient==0.5.13
+scikit-allel
+stdpopsim
+tqdm
+tskit>=0.5.4
+tskit-book-theme
+tszip
