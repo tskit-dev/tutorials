@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Tskit-Book-Theme\n"
+"Project-Id-Version: Sphinx-Book-Theme\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,9 +26,6 @@ msgstr "саҳифаи оянда"
 msgid "previous page"
 msgstr "саҳифаи қаблӣ"
 
-msgid "Search the docs ..."
-msgstr "Ҷустуҷӯи ҳуҷҷатҳо ..."
-
 msgid "suggest edit"
 msgstr "пешниҳод вироиш"
 
@@ -40,9 +37,6 @@ msgstr "Ҳуқуқи муаллиф"
 
 msgid "Toggle navigation"
 msgstr "Гузаришро иваз кунед"
-
-msgid "Search this book..."
-msgstr "Ин китобро ҷустуҷӯ кунед ..."
 
 msgid "Launch"
 msgstr "Оғоз"

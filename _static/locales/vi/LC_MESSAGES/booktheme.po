@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Tskit-Book-Theme\n"
+"Project-Id-Version: Sphinx-Book-Theme\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,9 +26,6 @@ msgstr "Trang tiếp theo"
 msgid "previous page"
 msgstr "trang trước"
 
-msgid "Search the docs ..."
-msgstr "Tìm kiếm tài liệu ..."
-
 msgid "suggest edit"
 msgstr "đề nghị chỉnh sửa"
 
@@ -40,9 +37,6 @@ msgstr "Bản quyền"
 
 msgid "Toggle navigation"
 msgstr "Chuyển đổi điều hướng thành"
-
-msgid "Search this book..."
-msgstr "Tìm kiếm cuốn sách này ..."
 
 msgid "Launch"
 msgstr "Phóng"

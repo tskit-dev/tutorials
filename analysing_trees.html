@@ -1,49 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Analysing trees &#8212; Tree Sequence Tutorials</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=843e051bda38cea0b82cdbe0f4a2038796abf3af" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=6c16a51f00e73652d8545b3e0a23483d12d6db7d"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -51,61 +62,93 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'analysing_trees';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Counting topologies" href="counting_topologies.html" />
     <link rel="prev" title="Analysing tree sequences" href="analysing_tree_sequences.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/tskit_logo.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/tskit_logo.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -115,578 +158,330 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="what_is.html">
-   What is a tree sequence?
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tree sequence basics
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tree sequence basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="terminology_and_concepts.html">
-   Terminology &amp; concepts
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
-   Getting started with
-   <strong class="program">
-    tskit
-   </strong>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="terminology_and_concepts.html">Terminology &amp; concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started with <strong class="program">tskit</strong></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Statistics and Analysis
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistics and Analysis</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="analysing_tree_sequences.html">
-   <em>
-    Analysing tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Analysing trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="counting_topologies.html">
-   <em>
-    Counting topologies
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="parallelization.html">
-   <em>
-    Parallelization
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analysing trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counting_topologies.html"><em>Counting topologies</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Further tskit tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tables_and_editing.html">
-   Tables and editing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="metadata.html">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tables_and_editing.html">Tables and editing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Simulation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="simulation_overview.html">
-   Tree sequences and simulation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="no_mutations.html">
-   Do you really need mutations?
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing_forward_sims.html">
-   Completing forwards simulations
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="advanced_msprime.html">
-   Advanced
-   <strong class="program">
-    msprime
-   </strong>
-   topics
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="demography.html">
-     Demography
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bottlenecks.html">
-     Instantaneous Bottlenecks
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="introgression.html">
-     Introgression
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="forward_sims.html">
-   <em>
-    Building a forward simulator
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Other languages
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
-  </a>
- </li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forward_sims.html"><em>Building a forward simulator</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Development
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tutorial_development.html">
-   <em>
-    Developing new tutorials
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tskitr.html">Tskit and R</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tskit for ...
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="popgen.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Tskit
-    </span>
-   </code>
-   for population genetics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="phylogen.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Tskit
-    </span>
-   </code>
-   for phylogenetics
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_development.html"><em>Developing new tutorials</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tskit for ...</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="popgen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phylogen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
   </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fanalysing_trees.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
 
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-    </ul>
-  </div>
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/analysing_trees.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/tskit-dev/tutorials"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-<span class="headerbtn__text-container">repository</span>
+<span class="btn__text-container">Repository</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fanalysing_trees.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fanalysing_trees.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-lightbulb"></i>
   </span>
-<span class="headerbtn__text-container">open issue</span>
+<span class="btn__text-container">Open issue</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/analysing_trees.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="_sources/analysing_trees.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tree-traversals">
-   Tree traversals
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#traversing-upwards">
-     Traversing upwards
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#traversals-with-information">
-     Traversals with information
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#networkx">
-   Networkx
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#traversing-upwards-in-networkx">
-     Traversing upwards in networkx
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#calculating-distances-to-the-root">
-     Calculating distances to the root
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#finding-nearest-neighbors">
-     Finding nearest neighbors
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parsimony">
-   Parsimony
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#building-tables">
-     Building tables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#parsimony-and-missing-data">
-     Parsimony and missing data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fast-tree-based-algorithms-using-numba">
-   Fast tree-based algorithms using numba
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Analysing trees</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tree-traversals">
-   Tree traversals
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#traversing-upwards">
-     Traversing upwards
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#traversals-with-information">
-     Traversals with information
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#networkx">
-   Networkx
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#traversing-upwards-in-networkx">
-     Traversing upwards in networkx
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#calculating-distances-to-the-root">
-     Calculating distances to the root
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#finding-nearest-neighbors">
-     Finding nearest neighbors
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parsimony">
-   Parsimony
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#building-tables">
-     Building tables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#parsimony-and-missing-data">
-     Parsimony and missing data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fast-tree-based-algorithms-using-numba">
-   Fast tree-based algorithms using numba
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Analysing trees</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-traversals">Tree traversals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversing-upwards">Traversing upwards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversals-with-information">Traversals with information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx">Networkx</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversing-upwards-in-networkx">Traversing upwards in networkx</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-distances-to-the-root">Calculating distances to the root</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-nearest-neighbors">Finding nearest neighbors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parsimony">Parsimony</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-tables">Building tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parsimony-and-missing-data">Parsimony and missing data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fast-tree-based-algorithms-using-numba">Fast tree-based algorithms using numba</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="analysing-trees">
-<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Permalink to this headline">#</a></h1>
+<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Permalink to this heading">#</a></h1>
 <p>There are a number of different ways we might want to analyse a single  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>.
 Most involve some sort of traversal over the nodes, mutations, or branches in the tree.
 <strong class="program">tskit</strong> provides various way of traversing through a tree, and also some
 built in phylogenetic algorithms such as <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> which efficently
 places mutations (“characters” in phylogenetic terminology) on a given tree.</p>
 <section id="tree-traversals">
-<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Permalink to this headline">#</a></h2>
+<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Permalink to this heading">#</a></h2>
 <p>Given a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>, traversals in various orders are possible using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nodes()</span></code></a> iterator. Take the following tree:</p>
 <div class="cell docutils container">
@@ -700,7 +495,7 @@ places mutations (“characters” in phylogenetic terminology) on a given tree.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/analysing_trees_3_0.svg" src="_images/analysing_trees_3_0.svg" /></div>
+<img alt="_images/2466b0308618ab2ec1b300374700a7418b12b17a80e8195373b6145649ab4625.svg" src="_images/2466b0308618ab2ec1b300374700a7418b12b17a80e8195373b6145649ab4625.svg" /></div>
 </div>
 <p>We can visit the nodes in different orders by providing an <code class="docutils literal notranslate"><span class="pre">order</span></code> parameter to
 the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.nodes()</span></code></a> iterator:</p>
@@ -737,7 +532,7 @@ here we compute the total branch length of a tree:</p>
 </div>
 <p>Note that this is also available as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.total_branch_length" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.total_branch_length</span></code></a> attribute.</p>
 <section id="traversing-upwards">
-<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Permalink to this headline">#</a></h3>
+<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Permalink to this heading">#</a></h3>
 <p>For many applications it is useful to be able to traverse upwards from the
 leaves. We can do this using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.parent" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.parent()</span></code></a> method, which
 returns the parent of a node. For example, we can traverse upwards from
@@ -766,7 +561,7 @@ each of the samples in the tree:</p>
 </div>
 </section>
 <section id="traversals-with-information">
-<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Permalink to this headline">#</a></h3>
+<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Permalink to this heading">#</a></h3>
 <p>Sometimes we will need to traverse down the tree while maintaining
 some information about the nodes that are above it. While this
 can be done using recursive algorithms, it is often more convenient
@@ -797,7 +592,7 @@ their path length to root:</p>
 </section>
 </section>
 <section id="networkx">
-<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Permalink to this headline">#</a></h2>
+<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Permalink to this heading">#</a></h2>
 <p>Traversals and other network analysis can also be performed using the sizeable
 <a class="reference external" href="https://networkx.github.io/documentation/stable/index.html">networkx</a>
 library. This can be achieved by calling <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_dict_of_dicts" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.as_dict_of_dicts()</span></code></a> to
@@ -819,7 +614,7 @@ create a graph:</p>
 </div>
 </div>
 <section id="traversing-upwards-in-networkx">
-<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Permalink to this headline">#</a></h3>
+<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Permalink to this heading">#</a></h3>
 <p>We can revisit the above examples and traverse upwards with
 networkx using a depth-first search algorithm:</p>
 <div class="cell docutils container">
@@ -844,7 +639,7 @@ networkx using a depth-first search algorithm:</p>
 </div>
 </section>
 <section id="calculating-distances-to-the-root">
-<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Permalink to this headline">#</a></h3>
+<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Permalink to this heading">#</a></h3>
 <p>Similarly, we can yield the nodes of a tree along with their distance to the
 root in pre-order in networkx as well. Running this on the example above gives us
 the same result as before:</p>
@@ -864,7 +659,7 @@ the same result as before:</p>
 </div>
 </section>
 <section id="finding-nearest-neighbors">
-<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Permalink to this headline">#</a></h3>
+<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Permalink to this heading">#</a></h3>
 <p>If some samples in a tree are not at time 0, then finding the nearest neighbor
 of a sample is a bit more involved. Instead of writing our own traversal code
 we can again draw on a networkx algorithm.
@@ -879,7 +674,7 @@ different time points:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/analysing_trees_19_0.svg" src="_images/analysing_trees_19_0.svg" /></div>
+<img alt="_images/dd6d4cddf59671236bd1dbd9937088e376068ce35592e3611c6123f5fc20a8f1.svg" src="_images/dd6d4cddf59671236bd1dbd9937088e376068ce35592e3611c6123f5fc20a8f1.svg" /></div>
 </div>
 <p>The generation times for these nodes are as follows:</p>
 <div class="cell docutils container">
@@ -960,7 +755,7 @@ search:</p>
 </section>
 </section>
 <section id="parsimony">
-<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Permalink to this headline">#</a></h2>
+<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Permalink to this heading">#</a></h2>
 <p>Take a site on the following tree with three allelic states, where the
 samples are coloured by the allele they possess, but where we don’t know
 the position of the mutations that caused this variation:</p>
@@ -975,7 +770,7 @@ the position of the mutations that caused this variation:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/analysing_trees_29_0.svg" src="_images/analysing_trees_29_0.svg" /></div>
+<img alt="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" src="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" /></div>
 </div>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method finds a parsimonious explanation for a
 set of discrete character observations on the samples in a tree using classical
@@ -1001,7 +796,7 @@ Mutation: node = 5 derived_state = green
 description of this state is that the ancestral state is red and there was
 a mutation to blue and green over nodes 4 and 5.</p>
 <section id="building-tables">
-<h3>Building tables<a class="headerlink" href="#building-tables" title="Permalink to this headline">#</a></h3>
+<h3>Building tables<a class="headerlink" href="#building-tables" title="Permalink to this heading">#</a></h3>
 <p>Below we show how a set of tables can be updated using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a>, taking advantage of the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method to identify parsimonious positions
@@ -1015,7 +810,7 @@ for mutations on a tree. Here’s the tree we’ll use:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/analysing_trees_33_0.svg" src="_images/analysing_trees_33_0.svg" /></div>
+<img alt="_images/44c056384c1d7460c37584949981f442c850c5d8cd64160c44beeedf3c3a26cc.svg" src="_images/44c056384c1d7460c37584949981f442c850c5d8cd64160c44beeedf3c3a26cc.svg" /></div>
 </div>
 <p>Now we can modify the tables by adding mutations. To find the location of mutations,
 we infer them from some observed data (some site positions with associated genotypes
@@ -1090,11 +885,11 @@ Site 9: parsimony sets ancestral state to G, and places mutation 9 to T above no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/analysing_trees_37_0.svg" src="_images/analysing_trees_37_0.svg" /></div>
+<img alt="_images/b97d612e46fdf7d7c7ec8e81544c0fb4a3e60a695c428c2d97c64cf03eef38bd.svg" src="_images/b97d612e46fdf7d7c7ec8e81544c0fb4a3e60a695c428c2d97c64cf03eef38bd.svg" /></div>
 </div>
 </section>
 <section id="parsimony-and-missing-data">
-<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Permalink to this headline">#</a></h3>
+<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Permalink to this heading">#</a></h3>
 <p>We can also take missing data
 into account when finding a set of parsimonious state transitions. We do this by
 specifying the special value <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MISSING_DATA" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.MISSING_DATA</span></code></a> (-1) as the state, which is
@@ -1111,7 +906,7 @@ treated by the algorithm as “could be anything”.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/analysing_trees_39_0.svg" src="_images/analysing_trees_39_0.svg" /></div>
+<img alt="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" src="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" /></div>
 </div>
 <p>Now we run the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method, which applies the Hartigan parsimony
 algorithm:</p>
@@ -1155,7 +950,7 @@ out mutation table as above, we would impute the missing value for 0 as red.</p>
 Mutation: node = 6 derived_state = blue
 </pre></div>
 </div>
-<img alt="_images/analysing_trees_43_1.svg" src="_images/analysing_trees_43_1.svg" /></div>
+<img alt="_images/152340d922595756b5d5c764b890d939034a7cfed3e8f49d92c382e8672b9a24.svg" src="_images/152340d922595756b5d5c764b890d939034a7cfed3e8f49d92c382e8672b9a24.svg" /></div>
 </div>
 <p>Note that this is putting a mutation to blue over node 6, <strong>not</strong> node 0 as
 we might expect. Thus, we impute here that node 1 is blue. It is important
@@ -1165,7 +960,7 @@ explanation.</p>
 </section>
 </section>
 <section id="fast-tree-based-algorithms-using-numba">
-<span id="sec-trees-numba"></span><h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Permalink to this headline">#</a></h2>
+<span id="sec-trees-numba"></span><h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Permalink to this heading">#</a></h2>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Add a few examples here of how to use numba to speed up tree based dynamic programming
@@ -1187,7 +982,7 @@ algorithms. There are a good number of worked-up examples with timings in
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1195,50 +990,121 @@ algorithms. There are a good number of worked-up examples with timings in
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="analysing_tree_sequences.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><em>Analysing tree sequences</em></p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="analysing_tree_sequences.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><em>Analysing tree sequences</em></p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="counting_topologies.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="counting_topologies.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><em>Counting topologies</em></p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Tskit Developers<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-traversals">Tree traversals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversing-upwards">Traversing upwards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversals-with-information">Traversals with information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#networkx">Networkx</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversing-upwards-in-networkx">Traversing upwards in networkx</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-distances-to-the-root">Calculating distances to the root</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-nearest-neighbors">Finding nearest neighbors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parsimony">Parsimony</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-tables">Building tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parsimony-and-missing-data">Parsimony and missing data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fast-tree-based-algorithms-using-numba">Fast tree-based algorithms using numba</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tskit Developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

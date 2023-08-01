@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Tskit-Book-Theme\n"
+"Project-Id-Version: Sphinx-Book-Theme\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,9 +26,6 @@ msgstr "järgmine leht"
 msgid "previous page"
 msgstr "eelmine leht"
 
-msgid "Search the docs ..."
-msgstr "Dokumentidest otsimine ..."
-
 msgid "suggest edit"
 msgstr "soovita muuta"
 
@@ -40,9 +37,6 @@ msgstr "Autoriõigus"
 
 msgid "Toggle navigation"
 msgstr "Lülita navigeerimine sisse"
-
-msgid "Search this book..."
-msgstr "Otsige sellest raamatust ..."
 
 msgid "Launch"
 msgstr "Käivitage"

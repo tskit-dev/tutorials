@@ -1,49 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Tables and editing &#8212; Tree Sequence Tutorials</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=843e051bda38cea0b82cdbe0f4a2038796abf3af" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=6c16a51f00e73652d8545b3e0a23483d12d6db7d"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -53,61 +64,93 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tables_and_editing';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Simplification" href="simplification.html" />
     <link rel="prev" title="Parallelization" href="parallelization.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/tskit_logo.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/tskit_logo.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,619 +160,331 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="what_is.html">
-   What is a tree sequence?
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tree sequence basics
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tree sequence basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="terminology_and_concepts.html">
-   Terminology &amp; concepts
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
-   Getting started with
-   <strong class="program">
-    tskit
-   </strong>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="terminology_and_concepts.html">Terminology &amp; concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started with <strong class="program">tskit</strong></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Statistics and Analysis
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistics and Analysis</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="analysing_tree_sequences.html">
-   <em>
-    Analysing tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="analysing_trees.html">
-   Analysing trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="counting_topologies.html">
-   <em>
-    Counting topologies
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="parallelization.html">
-   <em>
-    Parallelization
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing_trees.html">Analysing trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counting_topologies.html"><em>Counting topologies</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Further tskit tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Tables and editing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="metadata.html">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tables and editing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Simulation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="simulation_overview.html">
-   Tree sequences and simulation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="no_mutations.html">
-   Do you really need mutations?
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing_forward_sims.html">
-   Completing forwards simulations
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="advanced_msprime.html">
-   Advanced
-   <strong class="program">
-    msprime
-   </strong>
-   topics
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="demography.html">
-     Demography
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bottlenecks.html">
-     Instantaneous Bottlenecks
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="introgression.html">
-     Introgression
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="forward_sims.html">
-   <em>
-    Building a forward simulator
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Other languages
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
-  </a>
- </li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forward_sims.html"><em>Building a forward simulator</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Development
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tutorial_development.html">
-   <em>
-    Developing new tutorials
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tskitr.html">Tskit and R</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tskit for ...
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="popgen.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Tskit
-    </span>
-   </code>
-   for population genetics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="phylogen.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Tskit
-    </span>
-   </code>
-   for phylogenetics
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_development.html"><em>Developing new tutorials</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tskit for ...</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="popgen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phylogen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
   </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Ftables_and_editing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
 
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-    </ul>
-  </div>
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tables_and_editing.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/tskit-dev/tutorials"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-<span class="headerbtn__text-container">repository</span>
+<span class="btn__text-container">Repository</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Ftables_and_editing.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Ftables_and_editing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-lightbulb"></i>
   </span>
-<span class="headerbtn__text-container">open issue</span>
+<span class="btn__text-container">Open issue</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/tables_and_editing.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="_sources/tables_and_editing.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#correspondence-between-tables-and-trees">
-   Correspondence between tables and trees
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#node-and-edge-tables">
-     Node and edge tables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#site-and-mutation-tables">
-     Site and mutation tables
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tables-overview">
-   Tables overview
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#individual-and-population-tables">
-     Individual and population tables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#metadata">
-     Metadata
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#accessing-table-data">
-   Accessing table data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#column-access">
-     Column access
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#row-access">
-     Row access
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#turning-tables-into-a-tree-sequence">
-   Turning tables into a tree sequence
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sorting">
-     Sorting
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-a-tree-sequence">
-   Constructing a tree sequence
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#editing-tree-sequences">
-   Editing tree sequences
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#minor-edits">
-     Minor edits
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#major-edits">
-     Major edits
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tables and editing</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#correspondence-between-tables-and-trees">
-   Correspondence between tables and trees
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#node-and-edge-tables">
-     Node and edge tables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#site-and-mutation-tables">
-     Site and mutation tables
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tables-overview">
-   Tables overview
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#individual-and-population-tables">
-     Individual and population tables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#metadata">
-     Metadata
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#accessing-table-data">
-   Accessing table data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#column-access">
-     Column access
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#row-access">
-     Row access
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#turning-tables-into-a-tree-sequence">
-   Turning tables into a tree sequence
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sorting">
-     Sorting
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-a-tree-sequence">
-   Constructing a tree sequence
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#editing-tree-sequences">
-   Editing tree sequences
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#minor-edits">
-     Minor edits
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#major-edits">
-     Major edits
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tables and editing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correspondence-between-tables-and-trees">Correspondence between tables and trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-and-edge-tables">Node and edge tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#site-and-mutation-tables">Site and mutation tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables-overview">Tables overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-and-population-tables">Individual and population tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">Metadata</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-table-data">Accessing table data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#column-access">Column access</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#row-access">Row access</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-tables-into-a-tree-sequence">Turning tables into a tree sequence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting">Sorting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-tree-sequence">Constructing a tree sequence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-tree-sequences">Editing tree sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minor-edits">Minor edits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#major-edits">Major edits</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="tables-and-editing">
-<span id="sec-tables"></span><h1>Tables and editing<a class="headerlink" href="#tables-and-editing" title="Permalink to this headline">#</a></h1>
+<span id="sec-tables"></span><h1>Tables and editing<a class="headerlink" href="#tables-and-editing" title="Permalink to this heading">#</a></h1>
 <p>Internally, a tree sequence can be thought of as a set of tables, and <strong class="program">tskit</strong>
 provides an interface for dealing with these tables directly. This is particularly
 relevant when you wish to <a class="reference internal" href="#sec-tables-editing"><span class="std std-ref">edit or otherwise modify</span></a>
@@ -742,7 +497,7 @@ The tables are defined in the official <strong class="program">tskit</strong> do
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a> section in the docs describes how to work with
 them. In this tutorial we give some pointers about what you can and cannot do with them.</p>
 <section id="correspondence-between-tables-and-trees">
-<span id="sec-tables-correspondence"></span><h2>Correspondence between tables and trees<a class="headerlink" href="#correspondence-between-tables-and-trees" title="Permalink to this headline">#</a></h2>
+<span id="sec-tables-correspondence"></span><h2>Correspondence between tables and trees<a class="headerlink" href="#correspondence-between-tables-and-trees" title="Permalink to this heading">#</a></h2>
 <p>Consider the following sequence of trees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -752,19 +507,25 @@ them. In this tutorial we give some pointers about what you can and cannot do wi
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_4_0.svg" src="_images/tables_and_editing_4_0.svg" /></div>
+<img alt="_images/0327585c23c21d289094cc6394cc71ecc7e43f14197d7961b9d759c5abcc0e29.svg" src="_images/0327585c23c21d289094cc6394cc71ecc7e43f14197d7961b9d759c5abcc0e29.svg" /></div>
 </div>
 <p>Ancestral recombination events have produced three different trees
 that relate the three sampled genomes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">2</span></code> to each other
 along the chromosome of length 100.</p>
 <section id="node-and-edge-tables">
-<span id="sec-tables-correspondence-nodes-and-edges"></span><h3>Node and edge tables<a class="headerlink" href="#node-and-edge-tables" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-correspondence-nodes-and-edges"></span><h3>Node and edge tables<a class="headerlink" href="#node-and-edge-tables" title="Permalink to this heading">#</a></h3>
 <p>Each node in each of the above trees represents a particular ancestral genome
 (a <em>haploid</em> genome; diploid individuals would be represented by two nodes).
 Details about each node, including the time it lived, are stored in a
@@ -802,7 +563,7 @@ Details about each node, including the time it lived, are stored in a
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>Importantly, the first column, <code class="docutils literal notranslate"><span class="pre">id</span></code>, is not actually recorded, and is
 only shown when printing out node tables (as here) for convenience.
@@ -856,7 +617,7 @@ appears in the trees:</p>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>Since node 3 is most recent, the edge that says that nodes 0 and 2 inherit
 from node 3 on the interval between 0.2 and 0.8 comes first.  Next are the
@@ -868,7 +629,7 @@ specifying the common ancestor of 0 and 4 on the remaining intervals (parents 6
 and 5 respectively) allow us to construct all trees across the entire interval.</p>
 </section>
 <section id="site-and-mutation-tables">
-<span id="sec-tables-correspondence-sites-and-mutations"></span><h3>Site and mutation tables<a class="headerlink" href="#site-and-mutation-tables" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-correspondence-sites-and-mutations"></span><h3>Site and mutation tables<a class="headerlink" href="#site-and-mutation-tables" title="Permalink to this heading">#</a></h3>
 <p>Most tree sequences have DNA variation data associated with them,
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">stored as mutations overlaid on the trees</span></a>:</p>
 <div class="cell docutils container">
@@ -879,6 +640,11 @@ and 5 respectively) allow us to construct all trees across the entire interval.<
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations, listing position &amp; allele change</span>
 <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">mutations</span><span class="p">():</span>  <span class="c1"># This entire loop is just to make pretty labels</span>
@@ -890,8 +656,9 @@ and 5 respectively) allow us to construct all trees across the entire interval.<
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_11_0.svg" src="_images/tables_and_editing_11_0.svg" /></div>
+<img alt="_images/4a9eee4906ad34d1d4026f2fdc0fc571674bee2f5912f29153c28221be7ed3a3.svg" src="_images/4a9eee4906ad34d1d4026f2fdc0fc571674bee2f5912f29153c28221be7ed3a3.svg" /></div>
 </div>
 <p>There are four mutations in the depiction above,
 marked by red crosses: one above node <code class="docutils literal notranslate"><span class="pre">4</span></code> on the first tree which records an A to G
@@ -928,7 +695,7 @@ transitions, both at position 60, on the second tree. The positions are recorded
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>As with node tables, the <code class="docutils literal notranslate"><span class="pre">id</span></code> column is <strong>not</strong> actually recorded, but is
 implied by the position in the table.  The mutations themselves are recorded in the
@@ -966,7 +733,7 @@ time at which the mutation occured.</p>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>Where there are multiple mutations at the same site, there can be mutations
 stacked on top of each other. The “parent” column therefore contains the ID of the
@@ -991,7 +758,7 @@ Sample 2: GGC
 </section>
 </section>
 <section id="tables-overview">
-<span id="sec-tables-overview"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this headline">#</a></h2>
+<span id="sec-tables-overview"></span><h2>Tables overview<a class="headerlink" href="#tables-overview" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve introduced the most important tables that make up a tree sequence, it’s
 worth seeing how they come together to form a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a>.</p>
 <aside class="margin sidebar">
@@ -1013,7 +780,7 @@ is contained in).</p>
 <p>The lines in this diagram below show where one table refers to the IDs
 of another table, that is, they indicate dependencies between tables.</p>
 <section id="individual-and-population-tables">
-<span id="sec-tables-overview-individuals-and-populations"></span><h3>Individual and population tables<a class="headerlink" href="#individual-and-population-tables" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-overview-individuals-and-populations"></span><h3>Individual and population tables<a class="headerlink" href="#individual-and-population-tables" title="Permalink to this heading">#</a></h3>
 <p>Previously we noted that a row in the node table could contain an index into the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IndividualTable</span></code></a> and the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.PopulationTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopulationTable</span></code></a>. In fact, in our example
 tree sequence, the <a class="reference internal" href="#sec-tables-correspondence-nodes-and-edges"><span class="std std-ref">node table above</span></a>
@@ -1027,26 +794,26 @@ Here’s what that table looks like in this tree sequence:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div>
-    <style scoped="">
-        .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
-        .tskit-table tbody tr th {vertical-align: top;}
-        .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
-        .tskit-table tbody th {padding: 0.5em 0.5em;}
-    </style>
-    <table border="1" class="tskit-table">
-        <thead>
-            <tr>
-                <th>id</th><th>metadata</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>0</td><td>{'name': 'GBR', 'description': 'British in England and Scotland'}</td></tr>
+        <div>
+            <style scoped="">
+                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                .tskit-table tbody tr th {vertical-align: top;}
+                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                .tskit-table tbody th {padding: 0.5em 0.5em;}
+            </style>
+            <table border="1" class="tskit-table">
+                <thead>
+                    <tr>
+                        <th>id</th><th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>{'name': 'GBR', 'description': 'British in England and Scotland'}</td></tr>
 
-        </tbody>
-    </table>
-</div>
-</div></div>
+                </tbody>
+            </table>
+        </div>
+    </div></div>
 </div>
 <p>The data in this table, and indeed in the individual table, is not visible in the
 default tree sequence visualization, but can be very useful for keeping track of
@@ -1086,7 +853,7 @@ Here’s the relevant individual table:</p>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>Since individual 0 (Alice) is referenced by two nodes (genomes), and assuming that this
 is a diploid species, this indicates that we have sampled both maternal and paternal
@@ -1102,7 +869,7 @@ share the same parent, individual 2 (i.e. Carol). That means Alice and Bob must 
 either siblings or half siblings.</p>
 </section>
 <section id="metadata">
-<span id="sec-tables-overview-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-overview-metadata"></span><h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">#</a></h3>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -1150,7 +917,7 @@ detail about how to construct and use <code class="docutils literal notranslate"
 </section>
 </section>
 <section id="accessing-table-data">
-<span id="sec-tables-accessing"></span><h2>Accessing table data<a class="headerlink" href="#accessing-table-data" title="Permalink to this headline">#</a></h2>
+<span id="sec-tables-accessing"></span><h2>Accessing table data<a class="headerlink" href="#accessing-table-data" title="Permalink to this heading">#</a></h2>
 <p>A simple way to see the contents of a table is to <code class="docutils literal notranslate"><span class="pre">print</span></code> it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1176,7 +943,7 @@ detail about how to construct and use <code class="docutils literal notranslate"
 </div>
 <p>But <strong class="program">tskit</strong> also provides access to columns and rows separately.</p>
 <section id="column-access">
-<span id="sec-tables-accessing-columns"></span><h3>Column access<a class="headerlink" href="#column-access" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-accessing-columns"></span><h3>Column access<a class="headerlink" href="#column-access" title="Permalink to this heading">#</a></h3>
 <p>An entire column in a table can be extracted as a <strong class="program">numpy</strong> array from the table
 object. For instance, if <code class="docutils literal notranslate"><span class="pre">n</span></code> is a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTable</span></code></a>, then <code class="docutils literal notranslate"><span class="pre">n.time</span></code>
 will return an array containing the birth times of the individuals whose genomes
@@ -1255,7 +1022,7 @@ every <code class="docutils literal notranslate"><span class="pre">time</span></
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>When assigning columns like this, an error will be raised if the column is not of the
 expected length:</p>
@@ -1271,32 +1038,32 @@ expected length:</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/tskit/tables.py:488,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/tskit/tables.py:488,</span> in <span class="ni">BaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">487</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="ne">--&gt; </span><span class="mi">488</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/tskit/tables.py:1159,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1126</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1127</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
-<span class="g g-Whitespace">   </span><span class="mi">1128</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/tskit/tables.py:1210,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1177</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1178</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
+<span class="g g-Whitespace">   </span><span class="mi">1179</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1156</span><span class="sd"> :type metadata_schema: str</span>
-<span class="g g-Whitespace">   </span><span class="mi">1157</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1158</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1159</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1160</span>     <span class="nb">dict</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1161</span>         <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1162</span>         <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1163</span>         <span class="n">population</span><span class="o">=</span><span class="n">population</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1164</span>         <span class="n">individual</span><span class="o">=</span><span class="n">individual</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1165</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1166</span>         <span class="n">metadata_offset</span><span class="o">=</span><span class="n">metadata_offset</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1167</span>         <span class="n">metadata_schema</span><span class="o">=</span><span class="n">metadata_schema</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1168</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1169</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1207</span><span class="sd"> :type metadata_schema: str</span>
+<span class="g g-Whitespace">   </span><span class="mi">1208</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1209</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1210</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1211</span>     <span class="nb">dict</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1212</span>         <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1213</span>         <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1214</span>         <span class="n">population</span><span class="o">=</span><span class="n">population</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1215</span>         <span class="n">individual</span><span class="o">=</span><span class="n">individual</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1216</span>         <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span>         <span class="n">metadata_offset</span><span class="o">=</span><span class="n">metadata_offset</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1218</span>         <span class="n">metadata_schema</span><span class="o">=</span><span class="n">metadata_schema</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1219</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1220</span> <span class="p">)</span>
 
 <span class="ne">ValueError</span>: Input array dimensions must be equal.
 </pre></div>
@@ -1305,7 +1072,7 @@ expected length:</p>
 </div>
 </section>
 <section id="row-access">
-<span id="sec-tables-accessing-rows"></span><h3>Row access<a class="headerlink" href="#row-access" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-accessing-rows"></span><h3>Row access<a class="headerlink" href="#row-access" title="Permalink to this heading">#</a></h3>
 <p>Rows can be accessed using square braces, which will return an object containing the
 raw values, accessible via attributes</p>
 <div class="cell docutils container">
@@ -1328,7 +1095,7 @@ NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b&#39;&#39
 </div>
 </div>
 <p>Additionally, many rows can be extracted into a new table using slices or
-<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.24)"><span class="xref std std-ref">numpy indexing</span></a></p>
+<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.25)"><span class="xref std std-ref">numpy indexing</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
@@ -1357,7 +1124,7 @@ NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b&#39;&#39
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>As with columns, to change the data in a row of a tree sequence table, you must operate
 on the copy that was produced by <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.dump_tables" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.dump_tables()</span></code></a>. Here we’ll try to
@@ -1458,12 +1225,12 @@ from an old one. This is often an easier way to changing one or two attributes:<
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 </section>
 </section>
 <section id="turning-tables-into-a-tree-sequence">
-<span id="sec-tables-to-tree-sequence"></span><h2>Turning tables into a tree sequence<a class="headerlink" href="#turning-tables-into-a-tree-sequence" title="Permalink to this headline">#</a></h2>
+<span id="sec-tables-to-tree-sequence"></span><h2>Turning tables into a tree sequence<a class="headerlink" href="#turning-tables-into-a-tree-sequence" title="Permalink to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.tree_sequence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.tree_sequence()</span></code></a> method will attempt to turn a table collection
 into a tree sequence. This is not guaranteed to work: it’s possible you have created a
 nonsensical tree sequence where, for example, a child node has multiple parents at
@@ -1472,7 +1239,7 @@ a given position, or where edges reference non-existant nodes. The
 lists the requirements for a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> to represent a valid
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>.</p>
 <section id="sorting">
-<span id="sec-tables-to-tree-sequence-sorting"></span><h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-to-tree-sequence-sorting"></span><h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">#</a></h3>
 <p>Even if the tables represent a valid tree sequence, for efficiency reasons tree
 sequences also require several of their constituent tables to be sorted in a specific
 order. For instance, edges are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-requirements" title="(in Python)"><span class="xref std std-ref">required</span></a> to be sorted
@@ -1502,7 +1269,7 @@ in the order required for a tree sequence. That means we need to call
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_51_0.svg" src="_images/tables_and_editing_51_0.svg" /></div>
+<img alt="_images/f6a24404a632abc7ee8d9afc2ad755da0ea030f83cfacd9a8deac311be87762f.svg" src="_images/f6a24404a632abc7ee8d9afc2ad755da0ea030f83cfacd9a8deac311be87762f.svg" /></div>
 </div>
 <p>You can see that the new tree sequence has been modified as expected: there is a new
 empty site at position 10 (represented by a tickmark above the X axis with no mutations
@@ -1510,7 +1277,7 @@ on it), and all the nodes except node 0 have had their times increased by 0.25.<
 </section>
 </section>
 <section id="constructing-a-tree-sequence">
-<span id="sec-tables-creating"></span><h2>Constructing a tree sequence<a class="headerlink" href="#constructing-a-tree-sequence" title="Permalink to this headline">#</a></h2>
+<span id="sec-tables-creating"></span><h2>Constructing a tree sequence<a class="headerlink" href="#constructing-a-tree-sequence" title="Permalink to this heading">#</a></h2>
 <p>With the tools above in mind, we can now see how to construct a tree sequence by hand.
 It’s unlikely that you would ever need to do this from scratch, but it’s helpful to
 understand how tables work. We’ll build an extremely simple tree sequence, consisting of
@@ -1522,7 +1289,7 @@ a single tree that looks like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/tables_and_editing_53_0.svg" src="_images/tables_and_editing_53_0.svg" /></div>
+<img alt="_images/b44df646e6bd47553ccdc3157040ac803ecf0cc2745e7da206f6c02f41b864aa.svg" src="_images/b44df646e6bd47553ccdc3157040ac803ecf0cc2745e7da206f6c02f41b864aa.svg" /></div>
 </div>
 <p>Starting with an empty set of tables, we can fill, say, the node information by using
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.add_row" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NodeTable.add_row()</span></code></a> as follows:</p>
@@ -1564,7 +1331,7 @@ a single tree that looks like this:</p>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">.add_row()</span></code> method is natural (and should be reasonably efficient) if
 new records appear one-by-one. Alternatively <code class="docutils literal notranslate"><span class="pre">.set_columns()</span></code> can be used to
@@ -1608,7 +1375,7 @@ type. We’ll use that for the edges:</p>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>Finally we can add a site and a mutation: here we’ll use 0/1 mutations rather than
 ATGC.</p>
@@ -1627,7 +1394,7 @@ ATGC.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A hand-built tree sequence!
 </pre></div>
 </div>
-<img alt="_images/tables_and_editing_59_1.svg" src="_images/tables_and_editing_59_1.svg" /></div>
+<img alt="_images/a8b34da42965bda54ecb1a658b00ed6b326e88fabcbe67e19e6987d5e247efd4.svg" src="_images/a8b34da42965bda54ecb1a658b00ed6b326e88fabcbe67e19e6987d5e247efd4.svg" /></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1640,7 +1407,7 @@ sample nodes need not necessarily be those with the IDs <span class="math notran
 </div>
 </section>
 <section id="editing-tree-sequences">
-<span id="sec-tables-editing"></span><h2>Editing tree sequences<a class="headerlink" href="#editing-tree-sequences" title="Permalink to this headline">#</a></h2>
+<span id="sec-tables-editing"></span><h2>Editing tree sequences<a class="headerlink" href="#editing-tree-sequences" title="Permalink to this heading">#</a></h2>
 <p>If you may wish to make modifications to a tree sequence, you will immediately encounter
 a barrier: tree sequence objects are <strong>immutable</strong> and so cannot be edited in-place.
 Therefore, the way to change a tree sequence is to edit its underlying tables.</p>
@@ -1695,7 +1462,7 @@ sequences together.</p></li>
 need to edit a copy of the underlying tables and then create a new tree sequence from
 the modified tables.</p>
 <section id="minor-edits">
-<span id="sec-tables-editing-minor"></span><h3>Minor edits<a class="headerlink" href="#minor-edits" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-editing-minor"></span><h3>Minor edits<a class="headerlink" href="#minor-edits" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="#sec-tables-accessing-rows"><span class="std std-ref">Previously</span></a> we saw how to change specific rows by
 overwriting them. Here, for example, we use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTableRow.replace" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">IndividualTableRow.replace()</span></code></a> to change
 the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> associated with an individual in one of our example tree sequences:</p>
@@ -1732,7 +1499,7 @@ the <code class="docutils literal notranslate"><span class="pre">metadata</span>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>If you are overwriting an entire column, especially something like metadata which is a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-encoding-ragged-columns" title="(in Python)"><span class="xref std std-ref">ragged column</span></a>, looping through each row and changing
@@ -1784,11 +1551,11 @@ note the extra step of validating and encoding before calling
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 </section>
 <section id="major-edits">
-<span id="sec-tables-editing-major"></span><h3>Major edits<a class="headerlink" href="#major-edits" title="Permalink to this headline">#</a></h3>
+<span id="sec-tables-editing-major"></span><h3>Major edits<a class="headerlink" href="#major-edits" title="Permalink to this heading">#</a></h3>
 <p>For larger changes, it is often worth clearing the entire table and filling it. Here,
 for example, we clear all mutations from the mutations table, then fill it up again,
 if possible using a more parsimonious placement of mutations (i.e. a placement that
@@ -1867,7 +1634,7 @@ collection as we go. This is a common idiom.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1875,50 +1642,129 @@ collection as we go. This is a common idiom.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="parallelization.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><em>Parallelization</em></p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="parallelization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><em>Parallelization</em></p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="simplification.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="simplification.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><em>Simplification</em></p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Tskit Developers<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correspondence-between-tables-and-trees">Correspondence between tables and trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-and-edge-tables">Node and edge tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#site-and-mutation-tables">Site and mutation tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables-overview">Tables overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-and-population-tables">Individual and population tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">Metadata</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-table-data">Accessing table data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#column-access">Column access</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#row-access">Row access</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turning-tables-into-a-tree-sequence">Turning tables into a tree sequence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting">Sorting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-a-tree-sequence">Constructing a tree sequence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-tree-sequences">Editing tree sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minor-edits">Minor edits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#major-edits">Major edits</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tskit Developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

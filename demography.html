@@ -1,49 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Demography &#8212; Tree Sequence Tutorials</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=4e121f05f62280197eeb3e8760a1903920f0778f" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=843e051bda38cea0b82cdbe0f4a2038796abf3af" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script src="_static/scripts/tskit-book-theme.js?digest=9a6366feaade5ec470560844be9ff19788eb9b85"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/scripts/tskit-book-theme.js?digest=6c16a51f00e73652d8545b3e0a23483d12d6db7d"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -51,61 +62,93 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'demography';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Instantaneous Bottlenecks" href="bottlenecks.html" />
     <link rel="prev" title="Advanced msprime topics" href="advanced_msprime.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/tskit_logo.svg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Tree Sequence Tutorials</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/tskit_logo.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/tskit_logo.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -115,567 +158,321 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="what_is.html">
-   What is a tree sequence?
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tree sequence basics
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tree sequence basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="terminology_and_concepts.html">
-   Terminology &amp; concepts
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
-   Getting started with
-   <strong class="program">
-    tskit
-   </strong>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="terminology_and_concepts.html">Terminology &amp; concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started with <strong class="program">tskit</strong></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Statistics and Analysis
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistics and Analysis</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="analysing_tree_sequences.html">
-   <em>
-    Analysing tree sequences
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="analysing_trees.html">
-   Analysing trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="counting_topologies.html">
-   <em>
-    Counting topologies
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="parallelization.html">
-   <em>
-    Parallelization
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing_trees.html">Analysing trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counting_topologies.html"><em>Counting topologies</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Further tskit tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tables_and_editing.html">
-   Tables and editing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="simplification.html">
-   <em>
-    Simplification
-   </em>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="viz.html">
-   Visualization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="metadata.html">
-   Working with Metadata
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="args.html">
-   <em>
-    ARGs as tree sequences
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tables_and_editing.html">Tables and editing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Simulation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="simulation_overview.html">
-   Tree sequences and simulation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="no_mutations.html">
-   Do you really need mutations?
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="completing_forward_sims.html">
-   Completing forwards simulations
-  </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="advanced_msprime.html">
-   Advanced
-   <strong class="program">
-    msprime
-   </strong>
-   topics
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Demography
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bottlenecks.html">
-     Instantaneous Bottlenecks
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="introgression.html">
-     Introgression
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="forward_sims.html">
-   <em>
-    Building a forward simulator
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Demography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Other languages
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tskitr.html">
-   Tskit and R
-  </a>
- </li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forward_sims.html"><em>Building a forward simulator</em></a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Development
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="tutorial_development.html">
-   <em>
-    Developing new tutorials
-   </em>
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tskitr.html">Tskit and R</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tskit for ...
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="popgen.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Tskit
-    </span>
-   </code>
-   for population genetics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="phylogen.html">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     Tskit
-    </span>
-   </code>
-   for phylogenetics
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_development.html"><em>Developing new tutorials</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tskit for ...</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="popgen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phylogen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
   </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fdemography.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
 
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-    </ul>
-  </div>
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/demography.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/tskit-dev/tutorials"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-<span class="headerbtn__text-container">repository</span>
+<span class="btn__text-container">Repository</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fdemography.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
+      
+      
+      
+      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fdemography.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-lightbulb"></i>
   </span>
-<span class="headerbtn__text-container">open issue</span>
+<span class="btn__text-container">Open issue</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/demography.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="_sources/demography.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#population-structure">
-   Population structure
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#migrations">
-   Migrations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#constant-migration">
-     Constant migration
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#changing-migration-rates">
-     Changing migration rates
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#admixture-and-population-splits">
-     Admixture and population splits
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#admixture">
-       Admixture
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#population-splits">
-       Population splits
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mass-migrations">
-     Mass migrations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#changing-population-sizes-or-growth-rates">
-   Changing population sizes or growth rates
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#census-events">
-   Census events
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#debugging-demography">
-   Debugging demography
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Demography</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#population-structure">
-   Population structure
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#migrations">
-   Migrations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#constant-migration">
-     Constant migration
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#changing-migration-rates">
-     Changing migration rates
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#admixture-and-population-splits">
-     Admixture and population splits
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#admixture">
-       Admixture
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#population-splits">
-       Population splits
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mass-migrations">
-     Mass migrations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#changing-population-sizes-or-growth-rates">
-   Changing population sizes or growth rates
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#census-events">
-   Census events
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#debugging-demography">
-   Debugging demography
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Demography</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-structure">Population structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrations">Migrations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-migration">Constant migration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-migration-rates">Changing migration rates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#admixture-and-population-splits">Admixture and population splits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#admixture">Admixture</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#population-splits">Population splits</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-migrations">Mass migrations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-population-sizes-or-growth-rates">Changing population sizes or growth rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#census-events">Census events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-demography">Debugging demography</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="demography">
-<span id="sec-msprime-demography"></span><h1>Demography<a class="headerlink" href="#demography" title="Permalink to this headline">#</a></h1>
+<span id="sec-msprime-demography"></span><h1>Demography<a class="headerlink" href="#demography" title="Permalink to this heading">#</a></h1>
 <p><strong>Georgia Tsambos</strong></p>
 <p>By default, <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> simulates samples from a single population of a constant size,
 which isn’t particularly exciting!
@@ -690,7 +487,7 @@ models of demography and population history with a simple Python API.</p>
 </div>
 </div>
 <section id="population-structure">
-<h2>Population structure<a class="headerlink" href="#population-structure" title="Permalink to this headline">#</a></h2>
+<h2>Population structure<a class="headerlink" href="#population-structure" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">msprime</span></code> supports simulation from multiple discrete populations,
 each of which is initialized in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population()</span></code></a> method.
 For each population, you can specify a sample size, an effective population size
@@ -763,11 +560,11 @@ multiples of <code class="docutils literal notranslate"><span class="pre">popula
 </div>
 </section>
 <section id="migrations">
-<h2>Migrations<a class="headerlink" href="#migrations" title="Permalink to this headline">#</a></h2>
+<h2>Migrations<a class="headerlink" href="#migrations" title="Permalink to this heading">#</a></h2>
 <p>With msprime, you can specify continual rates of migrations between
 populations, as well as admixture events, divergences and one-off mass migrations.</p>
 <section id="constant-migration">
-<h3>Constant migration<a class="headerlink" href="#constant-migration" title="Permalink to this headline">#</a></h3>
+<h3>Constant migration<a class="headerlink" href="#constant-migration" title="Permalink to this heading">#</a></h3>
 <p><img alt="constant-migration-diagram" src="_images/tute-population-structure-1.png" /></p>
 <p>Migration rates between the populations can be thought as the elements of an
 <em>N</em> by <em>N</em> numpy array, and are passed to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object individually via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.set_migration_rate" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.set_migration_rate()</span></code></a>
@@ -808,129 +605,129 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div>
-  <style>
-    .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-    .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-    .tskit-table tbody tr td:first-of-type {text-align: left;}
-    .tskit-details-label {vertical-align: top; padding-right:5px;}
-    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-    .tskit-table-set-table {margin: 12px 0 0 12px;}
-    details {display: inline-block;}
-    summary {cursor: pointer; outline: 0; display: list-item;}
-  </style>
-  <div class="tskit-table-set">
-    <div class="tskit-table-set-table">
-      <table class="tskit-table">
-        <thead>
-          <tr>
-            <th style="padding:0;line-height:21px;">
-              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-              <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Trees</td><td>1</td></tr>
-          <tr><td>Sequence Length</td><td>1000.0</td></tr>
-          <tr><td>Time Units</td><td>generations</td></tr>
-          <tr><td>Sample Nodes</td><td>4</td></tr>
-          <tr><td>Total Size</td><td>2.3 KiB</td></tr>
-          <tr>
-            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tskit-table-set-table">
-      <table class="tskit-table">
-        <thead>
-          <tr>
-            <th style="line-height:21px;">Table</th>
-            <th>Rows</th>
-            <th>Size</th>
-            <th>Has Metadata</th>
-          </tr>
-        </thead>
-        <tbody>
-
-      <tr>
-        <td>Edges</td>
-          <td>6</td>
-          <td>200 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Individuals</td>
-          <td>2</td>
-          <td>80 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Migrations</td>
-          <td>0</td>
-          <td>8 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Mutations</td>
-          <td>0</td>
-          <td>16 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Nodes</td>
-          <td>7</td>
-          <td>204 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Populations</td>
-          <td>2</td>
-          <td>288 Bytes</td>
-          <td style="text-align: center;">
-            ✅
-          </td>
-        </tr>
-
-      <tr>
-        <td>Provenances</td>
-          <td>1</td>
-          <td>1.4 KiB</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Sites</td>
-          <td>0</td>
-          <td>16 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-</div></div>
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>1</td></tr>
+                      <tr><td>Sequence Length</td><td>1000.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>4</td></tr>
+                      <tr><td>Total Size</td><td>2.3 KiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>6</td>
+                      <td>200 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>2</td>
+                      <td>80 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>0</td>
+                      <td>16 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>7</td>
+                      <td>204 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>2</td>
+                      <td>288 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>1</td>
+                      <td>1.4 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>0</td>
+                      <td>16 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
 </div>
 <p>One consequence of specifying <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Population" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Population</span></code></a> objects
 is that each of the simulated nodes will now belong to one of our specified
@@ -968,7 +765,7 @@ populations:</p>
                 </tbody>
             </table>
         </div>
-</div></div>
+    </div></div>
 </div>
 <p>Notice that the <code class="docutils literal notranslate"><span class="pre">population</span></code> column of the node table now contains values of 0 and 1.
 If you are working in a Jupyter notebook, you can draw the tree sequence
@@ -983,14 +780,14 @@ with nodes coloured by population label using SVG:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/demography_11_0.svg" src="_images/demography_11_0.svg" /></div>
+<img alt="_images/c195b9b6c8554c61a4c4acf5521241fd228fe9666d4b04736fd644d51f867c50.svg" src="_images/c195b9b6c8554c61a4c4acf5521241fd228fe9666d4b04736fd644d51f867c50.svg" /></div>
 </div>
 <p>More coalescences are happening in population 1 than population 0.
 This makes sense given that population 1 is specifying more migrants to
 population 0 than vice versa.</p>
 </section>
 <section id="changing-migration-rates">
-<h3>Changing migration rates<a class="headerlink" href="#changing-migration-rates" title="Permalink to this headline">#</a></h3>
+<h3>Changing migration rates<a class="headerlink" href="#changing-migration-rates" title="Permalink to this heading">#</a></h3>
 <p>We can change any of the migration rates at any time in the simulation.
 To do this, we just need to use the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_migration_rate_change" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_migration_rate_change()</span></code></a> method on our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object,
 specifying the populations whose migration rates are to be changed,
@@ -1042,135 +839,135 @@ We are now ready to simulate:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div>
-  <style>
-    .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-    .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-    .tskit-table tbody tr td:first-of-type {text-align: left;}
-    .tskit-details-label {vertical-align: top; padding-right:5px;}
-    .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-    .tskit-table-set-table {margin: 12px 0 0 12px;}
-    details {display: inline-block;}
-    summary {cursor: pointer; outline: 0; display: list-item;}
-  </style>
-  <div class="tskit-table-set">
-    <div class="tskit-table-set-table">
-      <table class="tskit-table">
-        <thead>
-          <tr>
-            <th style="padding:0;line-height:21px;">
-              <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-              <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Trees</td><td>1</td></tr>
-          <tr><td>Sequence Length</td><td>1000.0</td></tr>
-          <tr><td>Time Units</td><td>generations</td></tr>
-          <tr><td>Sample Nodes</td><td>4</td></tr>
-          <tr><td>Total Size</td><td>2.3 KiB</td></tr>
-          <tr>
-            <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tskit-table-set-table">
-      <table class="tskit-table">
-        <thead>
-          <tr>
-            <th style="line-height:21px;">Table</th>
-            <th>Rows</th>
-            <th>Size</th>
-            <th>Has Metadata</th>
-          </tr>
-        </thead>
-        <tbody>
-
-      <tr>
-        <td>Edges</td>
-          <td>6</td>
-          <td>200 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Individuals</td>
-          <td>2</td>
-          <td>80 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Migrations</td>
-          <td>0</td>
-          <td>8 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Mutations</td>
-          <td>0</td>
-          <td>16 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Nodes</td>
-          <td>7</td>
-          <td>204 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Populations</td>
-          <td>2</td>
-          <td>288 Bytes</td>
-          <td style="text-align: center;">
-            ✅
-          </td>
-        </tr>
-
-      <tr>
-        <td>Provenances</td>
-          <td>1</td>
-          <td>1.5 KiB</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-      <tr>
-        <td>Sites</td>
-          <td>0</td>
-          <td>16 Bytes</td>
-          <td style="text-align: center;">
-
-          </td>
-        </tr>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-</div></div>
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>1</td></tr>
+                      <tr><td>Sequence Length</td><td>1000.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>4</td></tr>
+                      <tr><td>Total Size</td><td>2.3 KiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>6</td>
+                      <td>200 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>2</td>
+                      <td>80 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>0</td>
+                      <td>16 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>7</td>
+                      <td>204 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>2</td>
+                      <td>288 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>1</td>
+                      <td>1.5 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>0</td>
+                      <td>16 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
 </div>
 </section>
 <section id="admixture-and-population-splits">
-<h3>Admixture and population splits<a class="headerlink" href="#admixture-and-population-splits" title="Permalink to this headline">#</a></h3>
+<h3>Admixture and population splits<a class="headerlink" href="#admixture-and-population-splits" title="Permalink to this heading">#</a></h3>
 <section id="admixture">
-<h4>Admixture<a class="headerlink" href="#admixture" title="Permalink to this headline">#</a></h4>
+<h4>Admixture<a class="headerlink" href="#admixture" title="Permalink to this heading">#</a></h4>
 <p>It is also easy to specify admixture and divergence events with msprime.
 Suppose we wanted to specify our demography so that 50 generations ago,
 30% of population 0 was a migrant from population 1:</p>
@@ -1283,7 +1080,7 @@ AdmixedPop.'>0</td><td>0</td></tr></tbody></table></div><div><style scoped="">
 <p>To read more about the way that msprime treats the life cycle of populations, see <a class="reference external" href="https://tskit.dev/msprime/docs/latest/demography.html#sec-demography-populations-life-cycle">here</a>.</p>
 </section>
 <section id="population-splits">
-<h4>Population splits<a class="headerlink" href="#population-splits" title="Permalink to this headline">#</a></h4>
+<h4>Population splits<a class="headerlink" href="#population-splits" title="Permalink to this heading">#</a></h4>
 <p>We can also simulate population divergences with msprime.
 Suppose we want to model a situation where all lineages from multiple populations are migrants from a single ancestral population at a single point in time.</p>
 <div class="admonition-todo admonition" id="id2">
@@ -1356,7 +1153,7 @@ Populations of nodes from time &gt;= 100:
 </section>
 </section>
 <section id="mass-migrations">
-<h3>Mass migrations<a class="headerlink" href="#mass-migrations" title="Permalink to this headline">#</a></h3>
+<h3>Mass migrations<a class="headerlink" href="#mass-migrations" title="Permalink to this heading">#</a></h3>
 <p>If you used any of versions of msprime prior to 1.0,
 you may be familiar with mass migration events.
 These are used to specify one-off events in which some fraction of a population moves into another population, and can be supplied to a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_mass_migration" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_mass_migration()</span></code></a> method.</p>
@@ -1423,7 +1220,7 @@ so <code class="docutils literal notranslate"><span class="pre">source</span></c
 </section>
 </section>
 <section id="changing-population-sizes-or-growth-rates">
-<h2>Changing population sizes or growth rates<a class="headerlink" href="#changing-population-sizes-or-growth-rates" title="Permalink to this headline">#</a></h2>
+<h2>Changing population sizes or growth rates<a class="headerlink" href="#changing-population-sizes-or-growth-rates" title="Permalink to this heading">#</a></h2>
 <p><img alt="" src="_images/tute-parameter-changes.png" /></p>
 <p>We may wish to specify changes to rates of population growth,
 or sudden changes in population size at a particular time.
@@ -1460,7 +1257,7 @@ specifies continual growth in the early history of population 1 up until 100
 generations in the past.</p>
 </section>
 <section id="census-events">
-<h2>Census events<a class="headerlink" href="#census-events" title="Permalink to this headline">#</a></h2>
+<h2>Census events<a class="headerlink" href="#census-events" title="Permalink to this heading">#</a></h2>
 <p>There may be situations where you are particularly interested in the chromosomes that are ancestral to your simulated sample at a particular time.
 For instance, you might want to know how many different lineages are ancestral to your sample at some past time.
 Perhaps you are interested to know which populations these ancestors belonged to (ie. <em>local ancestry</em>).
@@ -1500,13 +1297,13 @@ method:</p>
 [5, 6, 7]
 </pre></div>
 </div>
-<img alt="_images/demography_37_1.svg" src="_images/demography_37_1.svg" /></div>
+<img alt="_images/0d1eedf3c45268d5f3c7101f37cae1f78cb2221ee9aa44db8bf22e2e06d25d8f.svg" src="_images/0d1eedf3c45268d5f3c7101f37cae1f78cb2221ee9aa44db8bf22e2e06d25d8f.svg" /></div>
 </div>
 <p>By extracting these node IDs, you can perform further analyses using the ancestral haplotypes.
 See <a class="reference external" href="https://tskit.dev/msprime/docs/latest/ancestry.html#census-events">here</a> for a slightly more involved example of this.</p>
 </section>
 <section id="debugging-demography">
-<h2>Debugging demography<a class="headerlink" href="#debugging-demography" title="Permalink to this headline">#</a></h2>
+<h2>Debugging demography<a class="headerlink" href="#debugging-demography" title="Permalink to this heading">#</a></h2>
 <p>As we’ve seen, it’s pretty easy to make mistakes when specifying demography!</p>
 <p>To help you spot these, msprime provides a debugger that prints out your
 population history in a more human-readable form.
@@ -1552,7 +1349,7 @@ before running your simulations.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1560,50 +1357,119 @@ before running your simulations.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="advanced_msprime.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Advanced <strong class="program">msprime</strong> topics</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="advanced_msprime.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Advanced <strong class="program">msprime</strong> topics</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="bottlenecks.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="bottlenecks.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Instantaneous Bottlenecks</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Tskit Developers<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-structure">Population structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrations">Migrations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-migration">Constant migration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-migration-rates">Changing migration rates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#admixture-and-population-splits">Admixture and population splits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#admixture">Admixture</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#population-splits">Population splits</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mass-migrations">Mass migrations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-population-sizes-or-growth-rates">Changing population sizes or growth rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#census-events">Census events</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-demography">Debugging demography</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tskit Developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

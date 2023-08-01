@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Tskit-Book-Theme\n"
+"Project-Id-Version: Sphinx-Book-Theme\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -9,16 +9,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Sphinx Book Theme"
-msgstr "Sphinx boktema"
+msgstr "Sphinx Boktema"
 
 msgid "Fullscreen mode"
 msgstr "Fullskärmsläge"
 
 msgid "Open an issue"
-msgstr "Öppna ett problem"
+msgstr "Öppna en problemrapport"
 
 msgid "By the"
-msgstr "Vid"
+msgstr "Av den"
 
 msgid "next page"
 msgstr "nästa sida"
@@ -26,38 +26,32 @@ msgstr "nästa sida"
 msgid "previous page"
 msgstr "föregående sida"
 
-msgid "Search the docs ..."
-msgstr "Sök i dokumenten ..."
-
 msgid "suggest edit"
-msgstr "föreslå redigering"
+msgstr "föreslå ändring"
 
 msgid "Contents"
 msgstr "Innehåll"
 
 msgid "Copyright"
-msgstr "upphovsrätt"
+msgstr "Upphovsrätt"
 
 msgid "Toggle navigation"
 msgstr "Växla navigering"
 
-msgid "Search this book..."
-msgstr "Sök i den här boken ..."
-
 msgid "Launch"
-msgstr "Lansera"
+msgstr "Öppna"
 
 msgid "Download notebook file"
-msgstr "Ladda ner anteckningsbokfilen"
+msgstr "Ladda ner notebook-fil"
 
 msgid "Edit this page"
 msgstr "Redigera den här sidan"
 
 msgid "open issue"
-msgstr "öppet problem"
+msgstr "öppna problemrapport"
 
 msgid "By"
-msgstr "Förbi"
+msgstr "Av"
 
 msgid "Last updated on"
 msgstr "Senast uppdaterad den"
@@ -72,10 +66,10 @@ msgid "Download source file"
 msgstr "Ladda ner källfil"
 
 msgid "Source repository"
-msgstr "Källförvar"
+msgstr "Källkodsrepositorium"
 
 msgid "repository"
-msgstr "förvar"
+msgstr "repositorium"
 
 msgid "Download this page"
 msgstr "Ladda ner den här sidan"
