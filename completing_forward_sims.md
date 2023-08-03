@@ -40,22 +40,22 @@ import numpy as np
 
 def wright_fisher(N, T, L=100, random_seed=None):
     """
-    Simulate a Wright-Fisher population of N haploid individuals with L
-    discrete loci for T generations. Based on Algorithm W from
-    https://doi.org/10.1371/journal.pcbi.1006581
+    Simulate a Wright-Fisher population of N haploid individuals with L discrete
+    loci for T generations, with one recombination per transmission event
+    Based on Algorithm W from https://doi.org/10.1371/journal.pcbi.1006581
     """
     random.seed(random_seed)
     tables = tskit.TableCollection(L)
     tables.populations.add_row()
     P = np.arange(N, dtype=int)
     for _ in range(N):
-        tables.nodes.add_row(time=T, flags=0, population=0)
+        tables.nodes.add_row(time=T, population=0)
     t = T
     while t > 0:
         t -= 1
         Pp = P.copy()
         for j in range(N):
-            u = tables.nodes.add_row(time=t, flags=0, population=0)
+            u = tables.nodes.add_row(time=t, population=0)
             Pp[j] = u
             a = random.randint(0, N - 1)
             b = random.randint(0, N - 1)
@@ -64,19 +64,10 @@ def wright_fisher(N, T, L=100, random_seed=None):
             tables.edges.add_row(x, L, P[b], u)
         P = Pp
 
-    # Now do some table manipulations to ensure that the tree sequence
-    # that we output has the form that msprime needs to finish the
-    # simulation. (Note: table columns are not modified in place because the
-    # tables API does not currently allow direct access to memory.)
-
-    # Mark the extant population as samples.
-    flags = tables.nodes.flags
-    flags[P] = tskit.NODE_IS_SAMPLE
-    tables.nodes.flags = flags
     tables.sort()
-    # Simplify with respect to the current generation, but ensuring we keep the
-    # ancient nodes from the initial population.
-    tables.simplify(keep_input_roots=True)
+    # Simplify with respect to nodes at time zero (the current generation), using
+    # `keep_input_roots`` to keep the ancient nodes from the initial population.
+    tables.simplify(np.where(tables.nodes.time == 0)[0], keep_input_roots=True)
     return tables.tree_sequence()
 ```
 
