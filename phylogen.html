@@ -503,8 +503,8 @@ tips, as in the example below:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70017528533936 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 8.43 s, sys: 271 ms, total: 8.7 s
-Wall time: 8.71 s
+CPU times: user 7.82 s, sys: 262 ms, total: 8.08 s
+Wall time: 8.08 s
 </pre></div>
 </div>
 </div>
@@ -529,8 +529,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 nodes took:
-CPU times: user 514 ms, sys: 0 ns, total: 514 ms
-Wall time: 517 ms
+CPU times: user 513 ms, sys: 85 µs, total: 513 ms
+Wall time: 514 ms
 </pre></div>
 </div>
 </div>
@@ -546,8 +546,8 @@ Wall time: 517 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 14.1 ms, sys: 3.92 ms, total: 18 ms
-Wall time: 17.9 ms
+CPU times: user 14.4 ms, sys: 3.92 ms, total: 18.3 ms
+Wall time: 18.3 ms
 </pre></div>
 </div>
 </div>
@@ -569,8 +569,7 @@ this means when reading in a large tree you are mainly limited by disk access sp
 <span class="c1"># example code reading in a large file, timed</span>
 
 <span class="c1"># Or read smaller trees from strings (here we create a tree spanning 1000 genomic units)</span>
-<span class="c1"># Todo: add sequence length: https://github.com/tskit-dev/tsconvert/issues/40</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tsconvert</span><span class="o">.</span><span class="n">from_newick</span><span class="p">(</span><span class="s2">&quot;(A:6,((B:1,C:1):2,(D:2,E:2):1):3);&quot;</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tsconvert</span><span class="o">.</span><span class="n">from_newick</span><span class="p">(</span><span class="s2">&quot;(A:6,((B:1,C:1):2,(D:2,E:2):1):3);&quot;</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -680,7 +679,7 @@ contained using the <a class="reference external" href="https://tskit.dev/tskit/
                     </thead>
                     <tbody>
                       <tr><td>Trees</td><td>1</td></tr>
-                      <tr><td>Sequence Length</td><td>100.0</td></tr>
+                      <tr><td>Sequence Length</td><td>1000.0</td></tr>
                       <tr><td>Time Units</td><td>unknown</td></tr>
                       <tr><td>Sample Nodes</td><td>5</td></tr>
                       <tr><td>Total Size</td><td>942 Bytes</td></tr>
@@ -845,7 +844,7 @@ to by an integer ID. For instance, here is the edge above the internal node 4</p
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The edge above 4 has ID 5
-Edge(left=0.0, right=100.0, parent=2, child=4, metadata=b&#39;&#39;, id=5)
+Edge(left=0.0, right=1000.0, parent=2, child=4, metadata=b&#39;&#39;, id=5)
 </pre></div>
 </div>
 </div>
@@ -1199,18 +1198,55 @@ along the genome.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable sites with the following IDs generated
-Site ID 0 @ genomic position 7: C -&gt; T
-Site ID 1 @ genomic position 8: C -&gt; G
-Site ID 2 @ genomic position 24: T -&gt; C
-Site ID 3 @ genomic position 34: C -&gt; A
-Site ID 4 @ genomic position 49: T -&gt; A
-Site ID 5 @ genomic position 51: G -&gt; T
-Site ID 6 @ genomic position 52: T -&gt; A
-Site ID 7 @ genomic position 54: G -&gt; A
-Site ID 8 @ genomic position 60: G -&gt; A
+Site ID 0 @ genomic position 47: G -&gt; C
+Site ID 1 @ genomic position 77: C -&gt; G
+Site ID 2 @ genomic position 87: G -&gt; C
+Site ID 3 @ genomic position 91: T -&gt; A
+Site ID 4 @ genomic position 115: G -&gt; A
+Site ID 5 @ genomic position 116: G -&gt; A
+Site ID 6 @ genomic position 117: T -&gt; A
+Site ID 7 @ genomic position 126: C -&gt; A
+Site ID 8 @ genomic position 130: G -&gt; T
+Site ID 9 @ genomic position 141: G -&gt; T
+Site ID 10 @ genomic position 143: T -&gt; A
+Site ID 11 @ genomic position 203: A -&gt; G
+Site ID 12 @ genomic position 230: A -&gt; G
+Site ID 13 @ genomic position 247: G -&gt; A
+Site ID 14 @ genomic position 272: A -&gt; G
+Site ID 15 @ genomic position 317: G -&gt; A
+Site ID 16 @ genomic position 335: C -&gt; G
+Site ID 17 @ genomic position 355: G -&gt; C
+Site ID 18 @ genomic position 364: T -&gt; G
+Site ID 19 @ genomic position 382: G -&gt; T
+Site ID 20 @ genomic position 426: T -&gt; A
+Site ID 21 @ genomic position 430: C -&gt; T
+Site ID 22 @ genomic position 433: A -&gt; G
+Site ID 23 @ genomic position 489: C -&gt; A
+Site ID 24 @ genomic position 516: C -&gt; T
+Site ID 25 @ genomic position 523: G -&gt; A
+Site ID 26 @ genomic position 540: C -&gt; G
+Site ID 27 @ genomic position 623: A -&gt; T
+Site ID 28 @ genomic position 671: C -&gt; A
+Site ID 29 @ genomic position 711: G -&gt; T
+Site ID 30 @ genomic position 737: A -&gt; C
+Site ID 31 @ genomic position 742: T -&gt; G
+Site ID 32 @ genomic position 752: G -&gt; A
+Site ID 33 @ genomic position 800: G -&gt; A
+Site ID 34 @ genomic position 803: T -&gt; C
+Site ID 35 @ genomic position 819: A -&gt; G
+Site ID 36 @ genomic position 842: C -&gt; G
+Site ID 37 @ genomic position 849: A -&gt; G
+Site ID 38 @ genomic position 861: A -&gt; T
+Site ID 39 @ genomic position 913: C -&gt; A
+Site ID 40 @ genomic position 922: G -&gt; A
+Site ID 41 @ genomic position 965: G -&gt; A
+Site ID 42 @ genomic position 975: A -&gt; G
+Site ID 43 @ genomic position 979: G -&gt; A
+Site ID 44 @ genomic position 988: A -&gt; C
+Site ID 45 @ genomic position 997: T -&gt; G
 </pre></div>
 </div>
-<img alt="_images/cdbd13dfb9519bd866c1225085fdcf7927d4ebe5f1c6139fb158bcdff8dbc1da.svg" src="_images/cdbd13dfb9519bd866c1225085fdcf7927d4ebe5f1c6139fb158bcdff8dbc1da.svg" /></div>
+<img alt="_images/fdb7e9e4fbc8a79e5554ebd6962ec70a33217ed967cb25fe1325b78c8ac381f9.svg" src="_images/fdb7e9e4fbc8a79e5554ebd6962ec70a33217ed967cb25fe1325b78c8ac381f9.svg" /></div>
 </div>
 <p>Mutations occur above nodes in a tree, with all the descendant
 nodes inheriting that specific mutation (unless replaced by a subsequent
@@ -1231,11 +1267,11 @@ entire sequences for each sample node:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 1: .......CC...............T.........C..............A.GT.A.....G.......................................
-Node 5: .......TC...............T.........C..............T.GT.G.....A.......................................
-Node 6: .......CC...............C.........C..............T.GT.G.....A.......................................
-Node 7: .......CC...............T.........C..............T.GA.G.....A.......................................
-Node 8: .......CG...............T.........A..............T.TT.G.....A.......................................
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 1: ...............................................C.............................C.........C...T.......................GGT........C...G..........T.T...........................................................G..........................G................G........................A............................................G.................C...................A........T.................G...........................................T...T..G.......................................................C..........................T......G................C..................................................................................T...............................................C.......................................G.........................A....A.........G...............................................A..T...............A......................C......C...........A...................................................C........A..........................................G.........A...G........A........G..
+Node 5: ...............................................G.............................C.........G...A.......................GGT........C...T..........G.T...........................................................A..........................A................A........................A............................................G.................C...................G........T.................G...........................................T...C..A.......................................................C..........................C......G................C..................................................................................A...............................................A.......................................T.........................C....T.........A...............................................G..T...............G......................C......G...........A...................................................C........G..........................................G.........G...A........A........T..
+Node 6: ...............................................G.............................C.........G...A.......................GGA........C...T..........G.T...........................................................A..........................A................G........................A............................................A.................G...................G........T.................G...........................................T...C..A.......................................................C..........................C......G................G..................................................................................A...............................................A.......................................T.........................C....T.........G...............................................G..T...............G......................C......G...........A...................................................A........G..........................................A.........G...G........A........T..
+Node 7: ...............................................G.............................G.........G...A.......................GAT........C...T..........G.A...........................................................A..........................A................G........................A............................................G.................C...................G........G.................T...........................................A...C..A.......................................................A..........................C......G................C..................................................................................A...............................................C.......................................T.........................A....T.........G...............................................G..T...............G......................C......G...........T...................................................C........G..........................................G.........A...G........C........T..
+Node 8: ...............................................G.............................G.........G...A.......................AAT........A...T..........G.A...........................................................A..........................A................G........................G............................................G.................C...................G........T.................T...........................................T...C..A.......................................................C..........................C......A................C..................................................................................A...............................................C.......................................T.........................A....G.........G...............................................G..C...............G......................G......G...........A...................................................C........G..........................................G.........A...G........A........T..
 </pre></div>
 </div>
 </div>
@@ -1268,7 +1304,7 @@ for the first half of the genome.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0544651f9658c19ddf59bc54f517bb00f005fc765baa02ce6f5392755e9ec3a2.svg" src="_images/0544651f9658c19ddf59bc54f517bb00f005fc765baa02ce6f5392755e9ec3a2.svg" /></div>
+<img alt="_images/692b09974f89b359d93862322506623c26b3366603c008da6291970a5a20fad9.svg" src="_images/692b09974f89b359d93862322506623c26b3366603c008da6291970a5a20fad9.svg" /></div>
 </div>
 <p>For the left hand side of the genome we lack information about the ancestry of
 node 4, but for the right hand side we know this information. The result is to

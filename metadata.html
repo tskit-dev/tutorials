@@ -483,7 +483,7 @@ which contains some demonstration metadata:</p>
 </div>
 </div>
 <section id="reading-metadata-and-schemas">
-<h2>Reading metadata and schemas<a class="headerlink" href="#reading-metadata-and-schemas" title="Permalink to this heading">#</a></h2>
+<span id="sec-tutorial-metadata-reading"></span><h2>Reading metadata and schemas<a class="headerlink" href="#reading-metadata-and-schemas" title="Permalink to this heading">#</a></h2>
 <p>Metadata is automatically decoded using the schema when accessed via a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> or <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> Python API. For example:</p>
 <div class="cell docutils container">
@@ -557,7 +557,7 @@ or top-level metadata, then no decoding is performed and <code class="docutils l
 </div>
 </section>
 <section id="modifying-metadata-and-schemas">
-<h2>Modifying metadata and schemas<a class="headerlink" href="#modifying-metadata-and-schemas" title="Permalink to this heading">#</a></h2>
+<span id="sec-tutorial-metadata-modifying"></span><h2>Modifying metadata and schemas<a class="headerlink" href="#modifying-metadata-and-schemas" title="Permalink to this heading">#</a></h2>
 <p>If you are creating or modifying a tree sequence by changing the underlying tables,
 you may want to record or add to the metadata. If the change fits into the same schema,
 this is relatively simple, you can follow the
@@ -629,9 +629,9 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="ne">--&gt; </span><span class="mi">683</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">684</span> <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/jsonschema/validators.py:430,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">430</span>     <span class="k">raise</span> <span class="n">error</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/jsonschema/validators.py:432,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">431</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">432</span>     <span class="k">raise</span> <span class="n">error</span>
 
 <span class="ne">ValidationError</span>: &#39;false&#39; is not of type &#39;boolean&#39;
 
@@ -692,9 +692,9 @@ also raised if we attempt to add new fields:</p>
 <span class="ne">--&gt; </span><span class="mi">683</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">684</span> <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/jsonschema/validators.py:430,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">430</span>     <span class="k">raise</span> <span class="n">error</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/jsonschema/validators.py:432,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">431</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">432</span>     <span class="k">raise</span> <span class="n">error</span>
 
 <span class="ne">ValidationError</span>: Additional properties are not allowed (&#39;newKey&#39; was unexpected)
 
@@ -807,7 +807,7 @@ modify, then write back:</p>
 <p>To modify the metadata of rows in tables use the <a class="reference internal" href="#sec-tutorial-metadata-bulk"><span class="std std-ref">Metadata for bulk table methods</span></a>.</p>
 </section>
 <section id="viewing-raw-metadata">
-<h2>Viewing raw metadata<a class="headerlink" href="#viewing-raw-metadata" title="Permalink to this heading">#</a></h2>
+<span id="sec-tutorial-metadata-viewing-raw"></span><h2>Viewing raw metadata<a class="headerlink" href="#viewing-raw-metadata" title="Permalink to this heading">#</a></h2>
 <p>If you need to see the raw (i.e. bytes) metadata, you just need to remove the
 schema, for instance:</p>
 <div class="cell docutils container">

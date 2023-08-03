@@ -486,22 +486,22 @@ for a formal description of these properties):</p>
 
 <span class="k">def</span> <span class="nf">wright_fisher</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Simulate a Wright-Fisher population of N haploid individuals with L</span>
-<span class="sd">    discrete loci for T generations. Based on Algorithm W from</span>
-<span class="sd">    https://doi.org/10.1371/journal.pcbi.1006581</span>
+<span class="sd">    Simulate a Wright-Fisher population of N haploid individuals with L discrete</span>
+<span class="sd">    loci for T generations, with one recombination per transmission event</span>
+<span class="sd">    Based on Algorithm W from https://doi.org/10.1371/journal.pcbi.1006581</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
     <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">add_row</span><span class="p">()</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">T</span>
     <span class="k">while</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">t</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="n">Pp</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-            <span class="n">u</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">Pp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -510,19 +510,10 @@ for a formal description of these properties):</p>
             <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">u</span><span class="p">)</span>
         <span class="n">P</span> <span class="o">=</span> <span class="n">Pp</span>
 
-    <span class="c1"># Now do some table manipulations to ensure that the tree sequence</span>
-    <span class="c1"># that we output has the form that msprime needs to finish the</span>
-    <span class="c1"># simulation. (Note: table columns are not modified in place because the</span>
-    <span class="c1"># tables API does not currently allow direct access to memory.)</span>
-
-    <span class="c1"># Mark the extant population as samples.</span>
-    <span class="n">flags</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span>
-    <span class="n">flags</span><span class="p">[</span><span class="n">P</span><span class="p">]</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NODE_IS_SAMPLE</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">flags</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-    <span class="c1"># Simplify with respect to the current generation, but ensuring we keep the</span>
-    <span class="c1"># ancient nodes from the initial population.</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">keep_input_roots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Simplify with respect to nodes at time zero (the current generation), using</span>
+    <span class="c1"># `keep_input_roots`` to keep the ancient nodes from the initial population.</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">keep_input_roots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 </pre></div>
 </div>

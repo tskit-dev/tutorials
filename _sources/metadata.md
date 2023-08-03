@@ -73,6 +73,7 @@ import json
 
 ts = tskit.load("data/metadata.trees")
 ```
+(sec_tutorial_metadata_reading)=
 
 ## Reading metadata and schemas
 
@@ -106,6 +107,8 @@ accessed with {attr}`TreeSequence.metadata` and {attr}`TreeSequence.metadata_sch
 If there is no schema (i.e. it is equal to ``MetadataSchema(None)``) for a table
 or top-level metadata, then no decoding is performed and ``bytes`` will be returned.
 :::
+
+(sec_tutorial_metadata_modifying)=
 
 ## Modifying metadata and schemas
 
@@ -199,6 +202,8 @@ print(tables.individuals[new_id].metadata)
 ```
 
 To modify the metadata of rows in tables use the {ref}`sec_tutorial_metadata_bulk`.
+
+(sec_tutorial_metadata_viewing_raw)=
 
 ## Viewing raw metadata
 
