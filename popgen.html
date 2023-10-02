@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -79,6 +80,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -409,10 +419,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -420,7 +430,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -498,13 +508,13 @@ migrations and population size changes that define this model.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:158: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:158: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
   time=int(extended_GF.time.head(1) - 1), rate=0
-/opt/hostedtoolcache/Python/3.10.12/x64/lib/python3.10/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:161: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
+/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:161: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
   time=int(extended_GF.time.tail(1) + 1), rate=0
 </pre></div>
 </div>
-<img alt="_images/3655ed44c7811f0f95b477bb5f0972e1b3b59faffafaaddac536713eb443a545.png" src="_images/3655ed44c7811f0f95b477bb5f0972e1b3b59faffafaaddac536713eb443a545.png" />
+<img alt="_images/f4b04062afcbc8084e422c8be6d47540b071a3b54825ee27c2089d16780cea4d.png" src="_images/f4b04062afcbc8084e422c8be6d47540b071a3b54825ee27c2089d16780cea4d.png" />
 </div>
 </div>
 <p>Genomic data in tree sequence format can be generated via the widely-used
@@ -723,7 +733,7 @@ Sample 31 (ADMIX): ACCAAATGCAGTACAACCACAGGGACCGTTAGATCTTTA
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/639ad820b863d20b296ed55476798098eaf06fe8624e50182a34c60115d312ec.png" src="_images/639ad820b863d20b296ed55476798098eaf06fe8624e50182a34c60115d312ec.png" />
+<img alt="_images/4f830d62d082fcae72774fd783d07ec5c771e0f121d3656708953c0eeb9f98cb.png" src="_images/4f830d62d082fcae72774fd783d07ec5c771e0f121d3656708953c0eeb9f98cb.png" />
 </div>
 </div>
 <p>Similarly <code class="docutils literal notranslate"><span class="pre">tskit</span></code> allows fast and easy
@@ -749,7 +759,7 @@ region of chromosome:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e3a90f7141dd171d219a30b653ad2a9bd3b3fad0bb32abfcfc599f3441a1ec02.png" src="_images/e3a90f7141dd171d219a30b653ad2a9bd3b3fad0bb32abfcfc599f3441a1ec02.png" />
+<img alt="_images/54edec1868912e5c584ee41e53494b6bd3a1be9f73f8c1437696f3c9024c803d.png" src="_images/54edec1868912e5c584ee41e53494b6bd3a1be9f73f8c1437696f3c9024c803d.png" />
 </div>
 </div>
 <p>Extracting the genetic tree at a specific genomic location is easy using <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, which
@@ -1018,7 +1028,7 @@ region:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/638950b1e98c2e289ccf201c0f3d0943b3af7fe67ca40c8dcddf4f37a2b95012.png" src="_images/638950b1e98c2e289ccf201c0f3d0943b3af7fe67ca40c8dcddf4f37a2b95012.png" />
+<img alt="_images/022fa9933c444074ee5e14dfca7dd597576bc47857ce545d838b4b42d0e4c986.png" src="_images/022fa9933c444074ee5e14dfca7dd597576bc47857ce545d838b4b42d0e4c986.png" />
 </div>
 </div>
 <p>Other population genetic libraries such as
@@ -1075,11 +1085,10 @@ are relevant to population genetic analysis and research. You can also visit the
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="tutorial_development.html"
@@ -1099,10 +1108,7 @@ are relevant to population genetic analysis and research. You can also visit the
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1167,8 +1173,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
