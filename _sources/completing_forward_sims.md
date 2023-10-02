@@ -46,6 +46,7 @@ def wright_fisher(N, T, L=100, random_seed=None):
     """
     random.seed(random_seed)
     tables = tskit.TableCollection(L)
+    tables.time_units = "generations"
     tables.populations.add_row()
     P = np.arange(N, dtype=int)
     for _ in range(N):
@@ -145,7 +146,7 @@ so that the initial generation can be properly used as the
 node ``10`` inherits from on ``[0.0, 1.0)`` and the segment that node ``2``
 inherits from on ``[1.0, 2.0)`` both exist in the same node.
 
-Note that although the portions of intial generation (above, nodes ``16``, ``17``,
+Note that although the portions of initial generation (above, nodes ``16``, ``17``,
 ``18``, and ``19``) must be in the tree sequence, they do *not* have to be
 samples, and their entire genomes need not be represented (e.g., node ``19`` is
 only present on ``[1.0, 2.0)``). This allows {func}`msprime.sim_ancestry` to not simulate

@@ -201,7 +201,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="forward_sims.html"><em>Building a forward simulator</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
@@ -502,6 +502,7 @@ for a formal description of these properties):</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
     <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">add_row</span><span class="p">()</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
@@ -590,9 +591,7 @@ is haploid and msprime uses a diploid time scale by default.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/msprime/ancestry.py:831: TimeUnitsMismatchWarning: The initial_state has time_units=unknown but time is measured in generations in msprime. This may lead to significant discrepancies between the timescales. If you wish to suppress this warning, you can use, e.g., warnings.simplefilter(&#39;ignore&#39;, msprime.TimeUnitsMismatchWarning)
-  warnings.warn(message, TimeUnitsMismatchWarning)
-/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/msprime/demography.py:1176: IncompletePopulationMetadataWarning: No metadata schema present in population table, not recording metadata
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/msprime/demography.py:1176: IncompletePopulationMetadataWarning: No metadata schema present in population table, not recording metadata
   warnings.warn(
 </pre></div>
 </div>
@@ -609,7 +608,7 @@ so that the initial generation can be properly used as the
 <code class="docutils literal notranslate"><span class="pre">18</span></code> was not in the tree sequence, we would not know that the segment that
 node <code class="docutils literal notranslate"><span class="pre">10</span></code> inherits from on <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0)</span></code> and the segment that node <code class="docutils literal notranslate"><span class="pre">2</span></code>
 inherits from on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code> both exist in the same node.</p>
-<p>Note that although the portions of intial generation (above, nodes <code class="docutils literal notranslate"><span class="pre">16</span></code>, <code class="docutils literal notranslate"><span class="pre">17</span></code>,
+<p>Note that although the portions of initial generation (above, nodes <code class="docutils literal notranslate"><span class="pre">16</span></code>, <code class="docutils literal notranslate"><span class="pre">17</span></code>,
 <code class="docutils literal notranslate"><span class="pre">18</span></code>, and <code class="docutils literal notranslate"><span class="pre">19</span></code>) must be in the tree sequence, they do <em>not</em> have to be
 samples, and their entire genomes need not be represented (e.g., node <code class="docutils literal notranslate"><span class="pre">19</span></code> is
 only present on <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">2.0)</span></code>). This allows <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> to not simulate

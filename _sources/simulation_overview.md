@@ -26,7 +26,7 @@ Add links to papers that illustrate each of the following points
 ::::
 
 Exploration
-: Simulations allow us to explore the influence of various historical scenarios on
+: Simulations allow us to explore the influence of complex historical scenarios on
 observed patterns of genetic variation and inheritance.
 
 Benchmarking and evaluating methodologies
@@ -38,6 +38,11 @@ Model training
 Bayesian Computation). This is especially important in studies of complex demographies,
 where there are many potential parameters and models, making it impractical to specify
 likelihood functions.
+
+Compare to expectations
+: It is often useful to compare data to what is expected under a simpler situation
+(e.g. for use as a null model). For instance,  comparison to *neutral* simulations
+can be used to identify regions subject to selection.
 
 There are two major forms of population genetic simulation: **forwards-time**
 and **backwards-time**. In general, forwards-time simulation is detailed and more
