@@ -12,3 +12,4 @@ tqdm==4.65.0
 tskit==0.5.5
 tskit-book-theme #Unpinned for easy updating
 tszip==0.2.2
+jsonschema==4.18.6 # Pinned due to 4.19 "AttributeError module jsonschema has no attribute _validators"
