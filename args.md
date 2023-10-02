@@ -392,7 +392,7 @@ To visit parents before children, the ``lexsort`` can take the negated
 ``-ts.nodes_time`` rather than simply using ``ts.nodes_time``. Note that nodes
 which are never children of an edge are not visited by this algorithm. Such
 nodes are either {ref}`isolated<sec_data_model_tree_isolated_nodes>` or a
-{ref}`root<sec_data_model_tree_roots> in each local tree.
+{ref}`root<sec_data_model_tree_roots>` in each local tree.
 
 ### Misc
 
