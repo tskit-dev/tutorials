@@ -8,14 +8,32 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Sphinx Book Theme"
-msgstr "Тема книги Сфинкс"
+msgid "suggest edit"
+msgstr "предложить редактировать"
 
-msgid "Fullscreen mode"
-msgstr "Полноэкранный режим"
+msgid "Last updated on"
+msgstr "Последнее обновление"
 
-msgid "Open an issue"
-msgstr "Открыть вопрос"
+msgid "Edit this page"
+msgstr "Редактировать эту страницу"
+
+msgid "Launch"
+msgstr "Запуск"
+
+msgid "Print to PDF"
+msgstr "Распечатать в PDF"
+
+msgid "open issue"
+msgstr "открытый вопрос"
+
+msgid "Download notebook file"
+msgstr "Скачать файл записной книжки"
+
+msgid "Toggle navigation"
+msgstr "Переключить навигацию"
+
+msgid "Source repository"
+msgstr "Исходный репозиторий"
 
 msgid "By the"
 msgstr "Посредством"
@@ -23,53 +41,35 @@ msgstr "Посредством"
 msgid "next page"
 msgstr "Следующая страница"
 
-msgid "previous page"
-msgstr "Предыдущая страница"
+msgid "repository"
+msgstr "хранилище"
 
-msgid "suggest edit"
-msgstr "предложить редактировать"
-
-msgid "Contents"
-msgstr "Содержание"
-
-msgid "Copyright"
-msgstr "авторское право"
-
-msgid "Toggle navigation"
-msgstr "Переключить навигацию"
-
-msgid "Launch"
-msgstr "Запуск"
-
-msgid "Download notebook file"
-msgstr "Скачать файл записной книжки"
-
-msgid "Edit this page"
-msgstr "Редактировать эту страницу"
-
-msgid "open issue"
-msgstr "открытый вопрос"
-
-msgid "By"
-msgstr "По"
-
-msgid "Last updated on"
-msgstr "Последнее обновление"
-
-msgid "Print to PDF"
-msgstr "Распечатать в PDF"
-
-msgid "Theme by the"
-msgstr "Тема от"
+msgid "Sphinx Book Theme"
+msgstr "Тема книги Сфинкс"
 
 msgid "Download source file"
 msgstr "Скачать исходный файл"
 
-msgid "Source repository"
-msgstr "Исходный репозиторий"
+msgid "Contents"
+msgstr "Содержание"
 
-msgid "repository"
-msgstr "хранилище"
+msgid "By"
+msgstr "По"
+
+msgid "Copyright"
+msgstr "авторское право"
+
+msgid "Fullscreen mode"
+msgstr "Полноэкранный режим"
+
+msgid "Open an issue"
+msgstr "Открыть вопрос"
+
+msgid "previous page"
+msgstr "Предыдущая страница"
 
 msgid "Download this page"
 msgstr "Загрузите эту страницу"
+
+msgid "Theme by the"
+msgstr "Тема от"

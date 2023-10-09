@@ -8,14 +8,32 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Sphinx Book Theme"
-msgstr "Tema del libro de la esfinge"
+msgid "suggest edit"
+msgstr "sugerir editar"
 
-msgid "Fullscreen mode"
-msgstr "Modo de pantalla completa"
+msgid "Last updated on"
+msgstr "Ultima actualización en"
 
-msgid "Open an issue"
-msgstr "Abrir un problema"
+msgid "Edit this page"
+msgstr "Edita esta página"
+
+msgid "Launch"
+msgstr "Lanzamiento"
+
+msgid "Print to PDF"
+msgstr "Imprimir en PDF"
+
+msgid "open issue"
+msgstr "Tema abierto"
+
+msgid "Download notebook file"
+msgstr "Descargar archivo de cuaderno"
+
+msgid "Toggle navigation"
+msgstr "Navegación de palanca"
+
+msgid "Source repository"
+msgstr "Repositorio de origen"
 
 msgid "By the"
 msgstr "Por el"
@@ -23,53 +41,35 @@ msgstr "Por el"
 msgid "next page"
 msgstr "siguiente página"
 
-msgid "previous page"
-msgstr "pagina anterior"
+msgid "repository"
+msgstr "repositorio"
 
-msgid "suggest edit"
-msgstr "sugerir editar"
-
-msgid "Contents"
-msgstr "Contenido"
-
-msgid "Copyright"
-msgstr "Derechos de autor"
-
-msgid "Toggle navigation"
-msgstr "Navegación de palanca"
-
-msgid "Launch"
-msgstr "Lanzamiento"
-
-msgid "Download notebook file"
-msgstr "Descargar archivo de cuaderno"
-
-msgid "Edit this page"
-msgstr "Edita esta página"
-
-msgid "open issue"
-msgstr "Tema abierto"
-
-msgid "By"
-msgstr "Por"
-
-msgid "Last updated on"
-msgstr "Ultima actualización en"
-
-msgid "Print to PDF"
-msgstr "Imprimir en PDF"
-
-msgid "Theme by the"
-msgstr "Tema por el"
+msgid "Sphinx Book Theme"
+msgstr "Tema del libro de la esfinge"
 
 msgid "Download source file"
 msgstr "Descargar archivo fuente"
 
-msgid "Source repository"
-msgstr "Repositorio de origen"
+msgid "Contents"
+msgstr "Contenido"
 
-msgid "repository"
-msgstr "repositorio"
+msgid "By"
+msgstr "Por"
+
+msgid "Copyright"
+msgstr "Derechos de autor"
+
+msgid "Fullscreen mode"
+msgstr "Modo de pantalla completa"
+
+msgid "Open an issue"
+msgstr "Abrir un problema"
+
+msgid "previous page"
+msgstr "pagina anterior"
 
 msgid "Download this page"
 msgstr "Descarga esta pagina"
+
+msgid "Theme by the"
+msgstr "Tema por el"

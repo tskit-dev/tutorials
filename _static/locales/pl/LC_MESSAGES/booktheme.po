@@ -8,14 +8,32 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Sphinx Book Theme"
-msgstr "Motyw książki Sphinx"
+msgid "suggest edit"
+msgstr "zaproponuj edycję"
 
-msgid "Fullscreen mode"
-msgstr "Pełny ekran"
+msgid "Last updated on"
+msgstr "Ostatnia aktualizacja"
 
-msgid "Open an issue"
-msgstr "Otwórz problem"
+msgid "Edit this page"
+msgstr "Edytuj tę strone"
+
+msgid "Launch"
+msgstr "Uruchomić"
+
+msgid "Print to PDF"
+msgstr "Drukuj do PDF"
+
+msgid "open issue"
+msgstr "otwarty problem"
+
+msgid "Download notebook file"
+msgstr "Pobierz plik notatnika"
+
+msgid "Toggle navigation"
+msgstr "Przełącz nawigację"
+
+msgid "Source repository"
+msgstr "Repozytorium źródłowe"
 
 msgid "By the"
 msgstr "Przez"
@@ -23,53 +41,35 @@ msgstr "Przez"
 msgid "next page"
 msgstr "Następna strona"
 
-msgid "previous page"
-msgstr "Poprzednia strona"
+msgid "repository"
+msgstr "magazyn"
 
-msgid "suggest edit"
-msgstr "zaproponuj edycję"
-
-msgid "Contents"
-msgstr "Zawartość"
-
-msgid "Copyright"
-msgstr "prawa autorskie"
-
-msgid "Toggle navigation"
-msgstr "Przełącz nawigację"
-
-msgid "Launch"
-msgstr "Uruchomić"
-
-msgid "Download notebook file"
-msgstr "Pobierz plik notatnika"
-
-msgid "Edit this page"
-msgstr "Edytuj tę strone"
-
-msgid "open issue"
-msgstr "otwarty problem"
-
-msgid "By"
-msgstr "Przez"
-
-msgid "Last updated on"
-msgstr "Ostatnia aktualizacja"
-
-msgid "Print to PDF"
-msgstr "Drukuj do PDF"
-
-msgid "Theme by the"
-msgstr "Motyw autorstwa"
+msgid "Sphinx Book Theme"
+msgstr "Motyw książki Sphinx"
 
 msgid "Download source file"
 msgstr "Pobierz plik źródłowy"
 
-msgid "Source repository"
-msgstr "Repozytorium źródłowe"
+msgid "Contents"
+msgstr "Zawartość"
 
-msgid "repository"
-msgstr "magazyn"
+msgid "By"
+msgstr "Przez"
+
+msgid "Copyright"
+msgstr "prawa autorskie"
+
+msgid "Fullscreen mode"
+msgstr "Pełny ekran"
+
+msgid "Open an issue"
+msgstr "Otwórz problem"
+
+msgid "previous page"
+msgstr "Poprzednia strona"
 
 msgid "Download this page"
 msgstr "Pobierz tę stronę"
+
+msgid "Theme by the"
+msgstr "Motyw autorstwa"

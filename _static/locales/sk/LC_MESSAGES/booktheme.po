@@ -8,14 +8,32 @@ msgstr ""
 "Language: sk\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Sphinx Book Theme"
-msgstr "Téma knihy Sfinga"
+msgid "suggest edit"
+msgstr "navrhnúť úpravu"
 
-msgid "Fullscreen mode"
-msgstr "Režim celej obrazovky"
+msgid "Last updated on"
+msgstr "Posledná aktualizácia dňa"
 
-msgid "Open an issue"
-msgstr "Otvorte problém"
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+msgid "Launch"
+msgstr "Spustiť"
+
+msgid "Print to PDF"
+msgstr "Tlač do PDF"
+
+msgid "open issue"
+msgstr "otvorené vydanie"
+
+msgid "Download notebook file"
+msgstr "Stiahnite si zošit"
+
+msgid "Toggle navigation"
+msgstr "Prepnúť navigáciu"
+
+msgid "Source repository"
+msgstr "Zdrojové úložisko"
 
 msgid "By the"
 msgstr "Podľa"
@@ -23,53 +41,35 @@ msgstr "Podľa"
 msgid "next page"
 msgstr "ďalšia strana"
 
-msgid "previous page"
-msgstr "predchádzajúca strana"
+msgid "repository"
+msgstr "Úložisko"
 
-msgid "suggest edit"
-msgstr "navrhnúť úpravu"
-
-msgid "Contents"
-msgstr "Obsah"
-
-msgid "Copyright"
-msgstr "Autorské práva"
-
-msgid "Toggle navigation"
-msgstr "Prepnúť navigáciu"
-
-msgid "Launch"
-msgstr "Spustiť"
-
-msgid "Download notebook file"
-msgstr "Stiahnite si zošit"
-
-msgid "Edit this page"
-msgstr "Upraviť túto stránku"
-
-msgid "open issue"
-msgstr "otvorené vydanie"
-
-msgid "By"
-msgstr "Autor:"
-
-msgid "Last updated on"
-msgstr "Posledná aktualizácia dňa"
-
-msgid "Print to PDF"
-msgstr "Tlač do PDF"
-
-msgid "Theme by the"
-msgstr "Téma od"
+msgid "Sphinx Book Theme"
+msgstr "Téma knihy Sfinga"
 
 msgid "Download source file"
 msgstr "Stiahnite si zdrojový súbor"
 
-msgid "Source repository"
-msgstr "Zdrojové úložisko"
+msgid "Contents"
+msgstr "Obsah"
 
-msgid "repository"
-msgstr "Úložisko"
+msgid "By"
+msgstr "Autor:"
+
+msgid "Copyright"
+msgstr "Autorské práva"
+
+msgid "Fullscreen mode"
+msgstr "Režim celej obrazovky"
+
+msgid "Open an issue"
+msgstr "Otvorte problém"
+
+msgid "previous page"
+msgstr "predchádzajúca strana"
 
 msgid "Download this page"
 msgstr "Stiahnite si túto stránku"
+
+msgid "Theme by the"
+msgstr "Téma od"

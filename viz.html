@@ -30,7 +30,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/tskit-book-theme.css?digest=843e051bda38cea0b82cdbe0f4a2038796abf3af" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -54,7 +54,6 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script src="_static/scripts/tskit-book-theme.js?digest=6c16a51f00e73652d8545b3e0a23483d12d6db7d"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -111,8 +110,8 @@ const thebe_selector_output = ".output, .cell_output"
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -159,14 +158,6 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Welcome!
-                </a>
-            </li>
-        </ul>
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
 </ul>
@@ -261,53 +252,6 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fviz.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
 <div class="dropdown dropdown-download-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
     <i class="fas fa-download"></i>
@@ -366,53 +310,6 @@ const thebe_selector_output = ".output, .cell_output"
   </span>
 
 </button>
-
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/tskit-dev/tutorials" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/tskit-dev/tutorials/issues/new?title=Issue%20on%20page%20%2Fviz.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
 
 
 <script>
@@ -1486,66 +1383,66 @@ transformations.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>       14      
-   ┏━━━━┻━━━━┓ 
-  13         ┃ 
-┏━━┻━━┓      ┃ 
-┃    12      ┃ 
-┃   ┏━┻━━┓   ┃ 
-┃  11    ┃   ┃ 
-┃  ┏┻━┓  ┃   ┃ 
-┃ 10  ┃  ┃   ┃ 
-┃ ┏┻┓ ┃  ┃   ┃ 
-┃ ┃ ┃ ┃  ┃   9 
-┃ ┃ ┃ ┃  ┃  ┏┻┓
-┃ ┃ ┃ ┃  8  ┃ ┃
-┃ ┃ ┃ ┃ ┏┻┓ ┃ ┃
-0 1 3 6 2 7 4 5
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>     ┏━━━━━━━━━━━━━0
-     ┃              
-     ┃        ┏━━━━1
-  ┏13┫     ┏10┫     
-  ┃  ┃  ┏11┫  ┗━━━━3
-  ┃  ┃  ┃  ┃        
-  ┃  ┗12┫  ┗━━━━━━━6
-  ┃     ┃           
-14┫     ┃         ┏2
-  ┃     ┗━━━━━━━━8┫ 
-  ┃               ┗7
-  ┃                 
-  ┃             ┏━━4
-  ┗━━━━━━━━━━━━9┫   
-                ┗━━5
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 3 6 2 7 4 5
-┃ ┃ ┃ ┃ ┗┳┛ ┃ ┃
-┃ ┃ ┃ ┃  8  ┃ ┃
-┃ ┃ ┃ ┃  ┃  ┗┳┛
-┃ ┃ ┃ ┃  ┃   9 
-┃ ┗┳┛ ┃  ┃   ┃ 
-┃ 10  ┃  ┃   ┃ 
-┃  ┗┳━┛  ┃   ┃ 
-┃  11    ┃   ┃ 
-┃   ┗━┳━━┛   ┃ 
-┃    12      ┃ 
-┗━━┳━━┛      ┃ 
-  13         ┃ 
-   ┗━━━━┳━━━━┛ 
-       14      
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━━━━━┓     
-              ┃     
-1━━━━┓        ┃     
-     ┣10┓     ┣13┓  
-3━━━━┛  ┣11┓  ┃  ┃  
-        ┃  ┃  ┃  ┃  
-6━━━━━━━┛  ┣12┛  ┃  
-           ┃     ┃  
-2┓         ┃     ┣14
- ┣8━━━━━━━━┛     ┃  
-7┛               ┃  
-                 ┃  
-4━━┓             ┃  
-   ┣9━━━━━━━━━━━━┛  
-5━━┛                
+<div class="output text_html"><pre style='display: inline-block'>          14   
+        ┏━━┻━━┓
+       13     ┃
+     ┏━━┻━━┓  ┃
+    12     ┃  ┃
+  ┏━━┻━━┓  ┃  ┃
+ 11     ┃  ┃  ┃
+┏━┻━┓   ┃  ┃  ┃
+┃   ┃   ┃ 10  ┃
+┃   ┃   ┃ ┏┻┓ ┃
+┃   9   ┃ ┃ ┃ ┃
+┃  ┏┻━┓ ┃ ┃ ┃ ┃
+┃  8  ┃ ┃ ┃ ┃ ┃
+┃ ┏┻┓ ┃ ┃ ┃ ┃ ┃
+0 1 6 2 7 3 5 4
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>           ┏━━━━━━0
+           ┃       
+        ┏11┫     ┏1
+        ┃  ┃   ┏8┫ 
+        ┃  ┗━━9┫ ┗6
+     ┏12┫      ┃   
+     ┃  ┃      ┗━━2
+     ┃  ┃          
+  ┏13┫  ┗━━━━━━━━━7
+  ┃  ┃             
+  ┃  ┃       ┏━━━━3
+14┫  ┗━━━━━10┫     
+  ┃          ┗━━━━5
+  ┃                
+  ┗━━━━━━━━━━━━━━━4
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 6 2 7 3 5 4
+┃ ┗┳┛ ┃ ┃ ┃ ┃ ┃
+┃  8  ┃ ┃ ┃ ┃ ┃
+┃  ┗┳━┛ ┃ ┃ ┃ ┃
+┃   9   ┃ ┃ ┃ ┃
+┃   ┃   ┃ ┗┳┛ ┃
+┃   ┃   ┃ 10  ┃
+┗━┳━┛   ┃  ┃  ┃
+ 11     ┃  ┃  ┃
+  ┗━━┳━━┛  ┃  ┃
+    12     ┃  ┃
+     ┗━━┳━━┛  ┃
+       13     ┃
+        ┗━━┳━━┛
+          14   
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━┓           
+       ┃           
+1┓     ┣11┓        
+ ┣8┓   ┃  ┃        
+6┛ ┣9━━┛  ┃        
+   ┃      ┣12┓     
+2━━┛      ┃  ┃     
+          ┃  ┃     
+7━━━━━━━━━┛  ┣13┓  
+             ┃  ┃  
+3━━━━┓       ┃  ┃  
+     ┣10━━━━━┛  ┣14
+5━━━━┛          ┃  
+                ┃  
+4━━━━━━━━━━━━━━━┛  
 </pre></div></div>
 </div>
 </section>
@@ -2387,7 +2284,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/a4b743b62409df73614c05dd45cb6844b4e91a793cc9069201bc17d555ca21ee.svg" src="_images/a4b743b62409df73614c05dd45cb6844b4e91a793cc9069201bc17d555ca21ee.svg" /></div>
+<img alt="_images/b67b450c859196fcf3498fcda76e6c8d0599a31a15a2a2b1dd64480eaa0962e3.svg" src="_images/b67b450c859196fcf3498fcda76e6c8d0599a31a15a2a2b1dd64480eaa0962e3.svg" /></div>
 </div>
 </section>
 <section id="geography">
