@@ -96,7 +96,7 @@ Unlike other phylogenetic libraries, `tskit` is designed to efficiently store no
 single trees, but sequences of correlated trees along a genome. This means that the
 library has some features not found in more standard phylogenetic libraries.
 Here we focus on the {ref}`sec_python_api`,
-introducing eight `tskit` concepts that may be useful to those with a background in
+introducing seven `tskit` concepts that may be useful to those with a background in
 phylogenetics (each is linked to a separate section below):
 
 1. An evolutionary tree is always contained within a "tree sequence".
