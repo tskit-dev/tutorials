@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -146,13 +146,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="_static/tskit_logo.svg" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/tskit_logo.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/tskit_logo.svg" class="logo__image only-light" alt="Tree Sequence Tutorials - Home"/>
+    <script>document.write(`<img src="_static/tskit_logo.svg" class="logo__image only-dark" alt="Tree Sequence Tutorials - Home"/>`);</script>
   
   
 </a></div>
@@ -1010,7 +1011,7 @@ Here’s an example using a region from within the previous example:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.16.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
+<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.17.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
 class, and given the SVG a unique
 id as described below in <a class="reference internal" href="#sec-tskit-viz-styling-more-about"><span class="std std-ref">More about styling</span></a>. This forces the SVG
 plot to be rendered inline (rather than inside an <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag), allowing the hover
@@ -1383,66 +1384,66 @@ transformations.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>       14      
-   ┏━━━━┻━━━━┓ 
-  13         ┃ 
-┏━━┻━━┓      ┃ 
-┃    12      ┃ 
-┃  ┏━━┻━┓    ┃ 
-┃ 11    ┃    ┃ 
-┃ ┏┻┓   ┃    ┃ 
-┃ ┃ ┃   ┃   10 
-┃ ┃ ┃   ┃   ┏┻┓
-┃ ┃ ┃   9   ┃ ┃
-┃ ┃ ┃ ┏━┻┓  ┃ ┃
-┃ ┃ ┃ ┃  8  ┃ ┃
-┃ ┃ ┃ ┃ ┏┻┓ ┃ ┃
-0 1 5 3 4 6 2 7
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>     ┏━━━━━━━━━━━━0
-     ┃             
-     ┃     ┏━━━━━━1
-  ┏13┫  ┏11┫       
-  ┃  ┃  ┃  ┗━━━━━━5
-  ┃  ┃  ┃          
-  ┃  ┗12┫      ┏━━3
-  ┃     ┃      ┃   
-14┫     ┗━━━━━9┫ ┏4
-  ┃            ┗8┫ 
-  ┃              ┗6
-  ┃                
-  ┃          ┏━━━━2
-  ┗━━━━━━━━10┫     
-             ┗━━━━7
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 5 3 4 6 2 7
-┃ ┃ ┃ ┃ ┗┳┛ ┃ ┃
-┃ ┃ ┃ ┃  8  ┃ ┃
-┃ ┃ ┃ ┗━┳┛  ┃ ┃
-┃ ┃ ┃   9   ┃ ┃
-┃ ┃ ┃   ┃   ┗┳┛
-┃ ┃ ┃   ┃   10 
-┃ ┗┳┛   ┃    ┃ 
-┃ 11    ┃    ┃ 
-┃  ┗━━┳━┛    ┃ 
-┃    12      ┃ 
-┗━━┳━━┛      ┃ 
-  13         ┃ 
-   ┗━━━━┳━━━━┛ 
-       14      
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━━━━┓     
-             ┃     
-1━━━━━━┓     ┃     
-       ┣11┓  ┣13┓  
-5━━━━━━┛  ┃  ┃  ┃  
-          ┃  ┃  ┃  
-3━━┓      ┣12┛  ┃  
-   ┃      ┃     ┃  
-4┓ ┣9━━━━━┛     ┣14
- ┣8┛            ┃  
-6┛              ┃  
-                ┃  
-2━━━━┓          ┃  
-     ┣10━━━━━━━━┛  
-7━━━━┛             
+<div class="output text_html"><pre style='display: inline-block'>         14    
+      ┏━━━┻━━┓ 
+     13      ┃ 
+  ┏━━━┻━━━┓  ┃ 
+ 12       ┃  ┃ 
+┏━┻━━┓    ┃  ┃ 
+┃   11    ┃  ┃ 
+┃  ┏━┻━┓  ┃  ┃ 
+┃  ┃  10  ┃  ┃ 
+┃  ┃  ┏┻┓ ┃  ┃ 
+┃  9  ┃ ┃ ┃  ┃ 
+┃ ┏┻┓ ┃ ┃ ┃  ┃ 
+┃ ┃ ┃ ┃ ┃ ┃  8 
+┃ ┃ ┃ ┃ ┃ ┃ ┏┻┓
+0 3 6 4 7 1 2 5
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>        ┏━━━━━━━━━━0
+        ┃           
+     ┏12┫       ┏━━3
+     ┃  ┃  ┏━━━9┫   
+     ┃  ┃  ┃    ┗━━6
+     ┃  ┗11┫        
+  ┏13┫     ┃  ┏━━━━4
+  ┃  ┃     ┗10┫     
+  ┃  ┃        ┗━━━━7
+  ┃  ┃              
+14┫  ┗━━━━━━━━━━━━━1
+  ┃                 
+  ┃               ┏2
+  ┗━━━━━━━━━━━━━━8┫ 
+                  ┗5
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 3 6 4 7 1 2 5
+┃ ┃ ┃ ┃ ┃ ┃ ┗┳┛
+┃ ┃ ┃ ┃ ┃ ┃  8 
+┃ ┗┳┛ ┃ ┃ ┃  ┃ 
+┃  9  ┃ ┃ ┃  ┃ 
+┃  ┃  ┗┳┛ ┃  ┃ 
+┃  ┃  10  ┃  ┃ 
+┃  ┗━┳━┛  ┃  ┃ 
+┃   11    ┃  ┃ 
+┗━┳━━┛    ┃  ┃ 
+ 12       ┃  ┃ 
+  ┗━━━┳━━━┛  ┃ 
+     13      ┃ 
+      ┗━━━┳━━┛ 
+         14    
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━━┓        
+           ┃        
+3━━┓       ┣12┓     
+   ┣9━━━┓  ┃  ┃     
+6━━┛    ┃  ┃  ┃     
+        ┣11┛  ┃     
+4━━━━┓  ┃     ┣13┓  
+     ┣10┛     ┃  ┃  
+7━━━━┛        ┃  ┃  
+              ┃  ┃  
+1━━━━━━━━━━━━━┛  ┣14
+                 ┃  
+2┓               ┃  
+ ┣8━━━━━━━━━━━━━━┛  
+5┛                  
 </pre></div></div>
 </div>
 </section>
@@ -2284,7 +2285,7 @@ software. For example, here’s the plotting code to generate the
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/cf57be28cf8cce88c784949e98f6d05df26307c84aac0da430b758b4c093ad62.svg" src="_images/cf57be28cf8cce88c784949e98f6d05df26307c84aac0da430b758b4c093ad62.svg" /></div>
+<img alt="_images/c096f3efd5d565cfbf120d3c8701ce05af63d790e794e8ad0546f2d666a9b492.svg" src="_images/c096f3efd5d565cfbf120d3c8701ce05af63d790e794e8ad0546f2d666a9b492.svg" /></div>
 </div>
 </section>
 <section id="geography">
@@ -2464,8 +2465,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
