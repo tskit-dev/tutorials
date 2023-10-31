@@ -36,7 +36,7 @@ $ R -e 'install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()'
   the right format.
 - To build locally, run ``make``. The output tells you where to find the
   built HTML.
-- Pages rendered at https://tskit-dev.github.io/tutorials/
+- Pages rendered at https://tskit.dev/tutorials
 - Pages might take a while to be updated after a new tutorial is merged.
 
 If you have an idea for a tutorial, please open an issue to discuss.
