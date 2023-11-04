@@ -59,7 +59,7 @@ as rows of the the {ref}`sec_individual_table_definition` (a node can then be as
 individual by storing that individual's id in the appropriate row of the node table).
 
 An *edge* reflects a transmission event between nodes.  An edge is a tuple `(Left, Right, Parent, Child)`
-whose meaning is "Child genome $C$ inherited the genomic interval $[L, R)$ from $Parent genome $P$".
+whose meaning is "The `Child` genome inherited the genomic interval [`Left`, `Right`) from the `Parent` genome".
 In a tree sequence this is stored in a row of the {ref}`sec_edge_table_definition`.
 
 The *time*, in the discrete-time Wright-Fisher (WF) model which we will simulate, is measured in
@@ -90,7 +90,7 @@ import numpy as np
 random_seed = 2
 random = np.random.default_rng(random_seed)  # A random number generator for general use
 
-L = 50_000  # The sequence length = 50 Kb
+L = 50_000  # The sequence length: 50 Kb
 ```
 
 ### Core steps

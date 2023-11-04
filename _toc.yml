@@ -25,13 +25,14 @@ parts:
   chapters:
   - file: simulation_overview
   - file: no_mutations
-  - file: completing_forward_sims
   - file: advanced_msprime
     sections:
     - file: demography
     - file: bottlenecks
     - file: introgression
+  - file: completing_forward_sims
   - file: forward_sims
+  - file: more_forward_sims
 - caption: Other languages
   # TODO: add basic C and maybe Rust tutes
   chapters:
