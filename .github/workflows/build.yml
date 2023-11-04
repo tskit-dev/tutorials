@@ -40,6 +40,10 @@ jobs:
         sudo R -e 'install.packages("IRkernel")'
         R -e 'IRkernel::installspec()'
 
+    - name: Install Graphviz
+      run: |
+        sudo apt-get install graphviz
+
     # Build the book
     - name: Build the book
       run: ./build.sh

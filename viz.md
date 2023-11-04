@@ -1503,22 +1503,109 @@ of which are outlined below.
 
 A tree sequence can be treated as a specific form of (directed)
 [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)) consisting
-of nodes connected by edges. Standard graph visualization software, such as
-[graphviz](https://graphviz.org) can therefore be used to represent tree sequence
-topologies. This is a relatively common approach to visualizing the full
-"Ancestral Recombination Graph" or ARG (a structure in which some nodes are
-"recombination nodes", and which is possible to 
-{ref}`represent as a tree sequence <msprime:sec_ancestry_full_arg>`).
+of nodes connected by edges. Standard graph manipulation and visualization software,
+such as [graphviz](https://graphviz.org) can therefore be used to represent tree sequence
+topologies. The {ref}`sec_args` tutorial shows how a tree sequence can be converted into
+a networkx graph, and then plotted using graphviz, as below:
 
+```{code-cell} ipython3
+```
 
-:::{todo}
-Link to the ARG tutorial,
-[once it is created](https://github.com/tskit-dev/tutorials/issues/43), and show a
-picture like this:
+There is also a recent project, [tskit_arg_visualizer](https://github.com/kitchensjn/tskit_arg_visualizer)
+which will directly draw a `tskit` graph. Below is an example, using the `variable_edge_width` function to
+highlight the spans of genome inherited through different routes. The plot is interactive: try
+dragging a node or hovering over a genomic segment.
 
-![A tree sequence (ARG) as a graph](https://user-images.githubusercontent.com/36134434/109398193-2ec6b700-7933-11eb-9cbf-99fdfab46df0.png)
-(from [here](https://github.com/tskit-dev/tutorials/issues/43#issuecomment-787124425))
-:::
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+%%javascript
+require.config({paths: {d3: 'https://d3js.org/d3.v7.min'}});
+require(["d3"], function(d3) {window.d3 = d3;});
+```
+
+```{code-cell} ipython3
+import msprime
+import tskit_arg_visualizer
+ts = msprime.sim_ancestry(4, sequence_length=1000, recombination_rate=0.001, random_seed=3)
+d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=ts)
+tip_order = [0, 6, 3, 1, 2, 7, 4, 5]  # Found by trial and error for this seed
+d3arg.draw(width=500, height=500, variable_edge_width=True, sample_order=tip_order)
+```
+
+For an `msprime` "full ARG" tree sequence, `edge_type="ortho"` can be used to draw a
+traditional "[Ancestral Recombination Graph](sec_args)" style plot (variable edge widths
+turned off for clarity):
+
+```{code-cell} ipython3
+import msprime
+import tskit_arg_visualizer
+full_arg_ts = msprime.sim_ancestry(
+    4, sequence_length=1000, recombination_rate=0.001, random_seed=3, record_full_arg=True)
+d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=full_arg_ts)
+d3arg.draw(width=500, height=500, edge_type="ortho", sample_order=tip_order)
+```
+
+For a more general treatment of the tree sequence as a graph, standard graph visualization
+packages such as [graphviz](https://graphviz.org) can be useful. For this, it can be helpful
+convert the tree sequence to a networkx graph first, as described in the {ref}`sec_args_other_analysis`
+section of the {ref}`sec_args` tutorial.
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+## Networkx conversion code taken from the ARG tutorial
+
+import networkx as nx
+import pandas as pd
+import tskit
+
+def to_networkx_graph(ts, interval_lists=False):
+    """
+    Make an nx graph from a tree sequence. If `intervals_lists` is True, then
+    each graph edge will have an ``intervals`` attribute containing a *list*
+    of tskit.Intervals per parent/child combination. Otherwise each graph edge
+    will correspond to a tskit edge, with a ``left`` and ``right`` attribute.
+    """
+    D = dict(source=ts.edges_parent, target=ts.edges_child, left=ts.edges_left, right=ts.edges_right)
+    G = nx.from_pandas_edgelist(pd.DataFrame(D), edge_attr=True, create_using=nx.MultiDiGraph)
+    if interval_lists:
+        GG = nx.DiGraph()  # Mave a new graph with one edge that can contai
+        for parent, children in G.adjacency():
+            for child, edict in children.items():
+                ilist = [tskit.Interval(v['left'], v['right']) for v in edict.values()]
+                GG.add_edge(parent, child, intervals=ilist)
+        G = GG
+    nx.set_node_attributes(G, {n.id: {'flags':n.flags, 'time': n.time} for n in ts.nodes()})
+    return G
+```
+
+```{code-cell} ipython3
+import networkx as nx
+from matplotlib import pyplot as plt
+
+def get_graphviz_positions(networkx_graph):
+    AG = nx.drawing.nx_agraph.to_agraph(networkx_graph)  # Convert to graphviz "agraph"
+    AG.add_subgraph(ts.samples(), rank='same')  # put samples at same rank
+    AG.layout(prog="dot")  # create the layout, storing positions in the "pos" attribute
+    return {n: [float(x) for x in AG.get_node(n).attr["pos"].split(",")] for n in G.nodes()}
+
+G = to_networkx_graph(ts, interval_lists=True)  # Function from the ARG tutorial
+print("Converted `ts` to a networkx graph named `G`")
+
+pos=get_graphviz_positions(G)
+edge_labels = {
+    edge[0:2]: "\n".join([f"[{int(i.left)},{int(i.right)})" for i in edge[2]["intervals"]])
+    for edge in G.edges(data=True)
+}
+
+plt.figure(figsize=(10, 4))
+nx.draw(G, pos, with_labels=True, node_color="#00BBFF", node_size=150, font_size=9)
+nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=5);
+```
+
+Since this plot uses [matplotlib](https://matplotlib.org), it is relatively easy to change node
+colours, labels, rotations, etc, and to annotate the plot. However, it can be tricky to use the
+graphviz layout engine to get particular layouts, for example to place nodes at specific
+vertical (time) positions.
 
 (sec_tskit_viz_other_demographic)=
 

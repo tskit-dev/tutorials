@@ -16,12 +16,7 @@ kernelspec:
 
 (sec_args)=
 
-# _ARGs as tree sequences_
-% remove underscores in title when tutorial is complete or near-complete
-
-:::{note}
-This tutorial is a work in progress.
-:::
+# ARGs as tree sequences
 
 At its heart, a `tskit` {ref}`tree sequence<sec_what_is>` consists of a list of
 {ref}`sec_terminology_nodes`, and a list of {ref}`sec_terminology_edges` that connect
@@ -30,22 +25,25 @@ those nodes. Therefore a succinct tree sequence is equivalent to a
 which is additionally annotated with genomic positions such that at each
 position, a path through the edges exists which defines a tree. This graph
 interpretation of a tree sequence is tightly connected to the concept of
-an "ancestral recombination graph" (or ARG). 
+an "ancestral recombination graph" (or ARG). See
+[this preprint](https://www.biorxiv.org/content/10.1101/2023.11.03.565466v1) for further details.
+
+## Full ARGs
 
 :::{margin}
 An original, narrower definition, which we do not use here, restricts the term ARG to
-the neutral coalescent process with crossover-recombination, and the graph structure
-defined by that process, see e.g.
+the neutral coalescent process with simple crossover-recombination, and the
+graph structure defined by that process, see e.g.
 [Griffiths & Marjoram (1997)](https://research.monash.edu/en/publications/an-ancestral-recombination-graph)
 :::
+
 The term "ARG" is [often used](https://doi.org/10.1086%2F508901) to refer to
 a structure consisting of nodes and edges that describe the genetic genealogy of a set
 of sampled chromosomes which have evolved via a process of genetic inheritance combined
 with recombination. ARGs may contain not just nodes corresponding to genetic
-coalescence, but also additional nodes that correspond e.g. to recombination events
-(see {ref}`sec_args_arg_nodes`, below). We call these "full ARGs", and this tutorial aims
-to show you how [tskit](https://tskit.dev) can be used to store and analyse them.
-As an example, we will generate a full ARG using the process 
+coalescence, but also additional nodes that correspond e.g. to recombination events.
+These "full ARGs" can be stored and analysed in
+[tskit](https://tskit.dev) like any other tree sequence. A full ARG can be generated using
 {func}`msprime:msprime.sim_ancestry` with the `record_full_arg=True` option, as described
 {ref}`in the msprime docs<msprime:sec_ancestry_full_arg>`:
 
@@ -63,15 +61,16 @@ parameters = {
 ts_arg = msprime.sim_ancestry(**parameters, record_full_arg=True, discrete_genome=False)
 # NB: the strict Hudson ARG needs unique crossover positions (i.e. a continuous genome)
 
-print('"Full ARG" simulated under the Hudson model:')
+print('Simulated a "full ARG" under the Hudson model:')
 print(
-    f" stored in a tree sequence with {ts_arg.num_nodes} nodes and "
-    f" {ts_arg.num_edges} edges which form {ts_arg.num_trees} local trees"
+    f" ARG stored in a tree sequence with {ts_arg.num_nodes} nodes and"
+    f" {ts_arg.num_edges} edges (creating {ts_arg.num_trees} local trees)"
 )
 ```
 
 Like any tree sequence, we can also add mutations to the ARG to generate genetic
 variation:
+
 
 ```{code-cell}
 import numpy as np
@@ -82,100 +81,61 @@ for v in ts_arg.variants():
     print(f"Variable site {v.site.id}:", np.array(v.alleles)[v.genotypes])
 ```
 
-As well as the standard {ref}`sec_tskit_viz` of the tree sequence as a set of local
-trees, we can also
-{ref}`plot this tree sequence in network form<sec_tskit_viz_other_graph>`:
+### Visualization
 
-:::{todo}
-Incorporate something into [tsviz](https://github.com/tskit-dev/tsviz)
-like the `draw` function from
-https://github.com/tskit-dev/what-is-an-arg-paper/blob/main/argutils/viz.py, and
-use that to plot a graph-based viz of this ts, e.g.
-```{code}
-import argutils
-from matplotlib import pyplot as plt
-fig, ax = plt.subplots(1, 1, figsize=(5, 5), sharey=True)
-ts2 = argutils.viz.label_nodes(ts_arg)
-_ = argutils.draw(ts_arg, ax, draw_edge_widths=True)
-```
-![Example ARG view](_static/ARG.png)
-
-(this PNG file can be removed once the code to autogenerate it is incorporated)
+:::{margin}
+In an `msprime` full ARG, recombinations are recorded in a specific way, by storing
+the parental genomes of a gamete. This means that
+*two* `tskit` nodes are created for each recombination, capturing transmission
+to the left vs right of the crossover breakpoint. These two nodes, which exist
+at the same timepoint, are identified by the
+{data}`~msprime:msprime.msprime.NODE_IS_RE_EVENT` and
+are displayed as a single point in the "ortho" viz below, labelled with
+two node IDs separated by a slash.
 :::
 
-## Background semantics
+The normal {ref}`sec_tskit_viz` of a tree sequence is as a set of local
+trees. However, all tree sequences can also be
+{ref}`plotted as graphs<sec_tskit_viz_other_graph>`. In particular, the Hudson "full ARG"
+model guarantees that the graph consists of nodes which mark a split into two child lineages
+("common ancestor" nodes) or nodes which mark a split into two parent lineages
+("recombination" nodes). Such ARGs can be visualized drawing edges as horizontal and vertical
+lines (the "ortho" style in the [tskit_arg_visualiser](https://github.com/kitchensjn/tskit_arg_visualizer)
+software):
 
-Two features distinguish the genealogical structure stored in a `tskit` tree sequence
-from many other ARG formats. Firstly, the annotations that define which genomic regions
-are inherited are stored on *edges* (via the {attr}`~Edge.left` and a {attr}`~Edge.right`
-properties), rather than on the graph nodes, as is sometimes the case. Secondly, the
-nodes in a tree sequence correspond to *genomes*, rather that specific events such as
-coalescence or recombination.
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+%%javascript
+require.config({paths: {d3: 'https://d3js.org/d3.v7.min'}});
+require(["d3"], function(d3) {window.d3 = d3;});
+```
 
-Technically therefore, ARGs stored by `tskit` are edge-annotated
-"genome ARGs" (gARGs). This results in a flexible format that can describe
-ancestral graphs created by many biological processes, including ones that deviate from
-the neutral coalescent-with-recombination (CwR), for example ancestries incorporating
-gene conversion, or that have evolved under a Wright-Fisher model of inheritance,
-in which parents can have more than two children, and coalescence and recombination
-can occur in the same generation. The focus on genomes rather than events also
-makes it possible to accurately encode ancestry without having to pin down exactly when
-the relevant ancestral events took place (TODO: cite our ARG paper).
+```{code-cell} ipython3
+import tskit_arg_visualizer
+d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=ts_arg)
+w, h = 450, 300  # width and height
+d3arg.draw(w, h, edge_type="ortho", sample_order=[0, 2, 1, 3, 5, 4])
+```
 
-(sec_args_arg_nodes)=
-## ARG nodes
+### Local trees and arity
 
-{ref}`Simplified<sec_simplification>` tree sequences, such those normally produced by
-`msprime`, can be though of as a "simplified ARGs" that contain only nodes that
-correspond to a coalescence somewhere in the genome. They are sufficient to capture the
-structure of local trees and the correlations between them; this is usually all that is
-needed for analysis. However they do not contain complete information about the timings
-and topological operations associated with recombination events. This extra information
-can be useful for a few specific purposes:
-
-1. Assuming each recombination happens at a unique position, precise information about
-   which lineages are involved in recombination allows you to work out the exact
-   tree editing, or {ref}`subtree-prune-and-regraft (SPR)<sec_concepts_sprs>` moves
-   required to change one local tree into another as you move along the genome.
-
-2. Information about recombination and common ancestor events can be used to calculate
-   the likelihood of an full ARG under a specific model of evolution (most commonly, the
-   neutral coalescent with recombination, or CwR, as modelled e.g. by
-   [Hudson (1983)](https://doi.org/10.1016/0040-5809(83)90013-8))
-
-Note, however, that it can be impossible to infer non-coalescent
-nodes from genetic variation data with any degree of precision.
-
-
-(sec_args_unary_nodes)=
-### Unary tree nodes
-
-To store additional information about non-coalescent nodes, a full ARG stored in tree
-sequence form contains extra *unary* nodes (i.e. nodes with only one child).
-In particular, it can contain *recombination nodes* which record the timing of
-recombination events, and *non-coalescent-common-ancestor* nodes which record cases
-where lineages share a common ancestor but in which genetic material does not coalesce. 
-
-The example we have been using is small, and contains just 2 recombination events
-(associated with 2 breakpoints). In this instance the only extra nodes happen to be
-recombination nodes. `Msprime` only simulates full ARGs in which a recombination event
-results in a single crossover, and it records this by storing the two genomes
-immediately prior to gamete formation (the genomes that come together to form a
-recombinant). In other words, *two* extra nodes are created for each
-recombination: one that captures transmission to the left of the crossover and another,
-at an identical time, to the right. These are identified by the
-{data}`~msprime:msprime.msprime.NODE_IS_RE_EVENT` flag, and are are highlighed in red
-below:
+Below is a plot of the equivalent local trees in the ARG above,
+colouring recombination nodes in red and common
+ancestor nodes (unlabelled) in blue.
 
 ```{code-cell}
+:"tags": ["hide-input"]
 # Plot the recombination nodes in red, with a horizontal line at the time of occurrence,
 # and only label nodes that are samples or recombination nodes.
 samples = set(ts_arg.samples())
 re_nodes = set(nd.id for nd in ts_arg.nodes() if nd.flags & msprime.NODE_IS_RE_EVENT)
+ca_nodes = set(np.arange(ts_arg.num_nodes)) - re_nodes - samples
 re_times = [int(nd.time) for nd in ts_arg.nodes() if nd.flags & msprime.NODE_IS_RE_EVENT]
 style = ".y-axis .grid {stroke: #ff000033} .mut .sym {stroke: goldenrod}"
 for u in re_nodes:
     style += f".n{u} > .sym {{fill: red}}"
+for u in ca_nodes:
+    style += f".n{u} > .sym {{fill: blue}}"
 ts_arg.draw_svg(
     size=(600, 300),
     y_axis=True,
@@ -187,8 +147,30 @@ ts_arg.draw_svg(
 )
 ```
 
-The location of the recombination nodes imply that the *recombination events*
-happened ~588 and ~59 generations ago. The older one, at 588 generations, involved node
+The number of children a node has in a local tree can be termed the
+"local arity" of a node. It is clear from the plot above that both red and blue nodes
+can have a local arity of one. The act of `simplification` can
+transform a tree sequence so that all nodes have a local arity of
+2 or more, which is [more efficient](sec_args_disadvantages).
+However, this loses information about the timings
+and topological operations associated with recombination
+events and some common ancestor events. This information is useful for
+
+1. Retaining precise information about the time and lineages involved in recombination.
+   This is required e.g. to ensure we can always work out the tree editing (or
+   {ref}`subtree-prune-and-regraft (SPR)<sec_concepts_sprs>`) moves
+   required to change one local tree into another as you move along the genome.
+
+2. Calculating the likelihood of an full ARG under a specific model of evolution
+   (most commonly, the neutral coalescent with recombination, or CwR, as modelled e.g. by
+   [Hudson (1983)](https://doi.org/10.1016/0040-5809(83)90013-8))
+
+(sec_args_sprs)=
+#### SPRs and recombination
+
+The location of the recombination nodes in the trees above imply that the
+*recombination events* happened ~588 and ~59 generations ago. The older one,
+at 588 generations, involved node
 13 (to the left of position 2601.01) and node 14 (to the right). As well as narrowing
 down the recombination event to a specific point in time, the position of these two
 nodes tells us that the SPR to convert the first into the second tree
@@ -204,43 +186,14 @@ branch above the common ancestor of 1 and 3. In this case, the recombination has
 a change in topology, such that the closest relative of 5 is node 4 from positions 0
 to 6516.94, but 1 and 3 from positions 6516.94 to 10,000.
 
-::::{note}
-
-Many ARG representations associate each recombination event with a single node rather
-than two. It is possible to represent this in `tskit`, but in such an ARG, the
-edge annotations do not contain enough information to calculate the standard
-likelihood under the Hudson model (see {ref}`sec_args_likelihoods`).
-
-:::{todo}
-
-Explain in plain language why 2 RE nodes are needed to calculate the likelihood under the
-Hudson CwR: see e.g. https://github.com/tskit-dev/msprime/issues/1942#issuecomment-1013718650
-
-One suggested way to do this is to show how there is not enough information in a 1-RE-node
-plot to fully recreate the 2-RE-node equivalent. I think this is because we lose
-information about the order of breakpoints when multiple breakpoints occur in
-the same region of hidden material.
-
-Note also that this approach only applies to a model in which a single crossover occurs
-per chromosome.
-
-:::
-
-::::
-
 (sec_args_likelihoods)=
 
-## Calculating likelihoods
+### Calculating likelihoods
 
-Because the ARG above was generated under the standard Hudson model (e.g. neutral
+Because our ARG above was generated under the standard Hudson model (e.g. neutral
 evolution in a large population with unique recombination breakpoints along a continuous
 genome), we can calculate its likelihood under that model, for a given recombination
-rate and population size, using the {func}`msprime:msprime.log_arg_likelihood` method.
-Note however, that the simulation was run with the default ploidy level of 2, so that the
-{func}`msprime:msprime.sim_ancestry` method assumed the `population_size` parameter was
-the *diploid* population size. The `log_arg_likelihood` method requires `Ne`, the haploid
-population size, which is twice as large, so the likelihood is calculated as follows:
-
+rate and population size, using the {func}`msprime:msprime.log_arg_likelihood` method:
 
 ```{code-cell}
 print(
@@ -248,14 +201,25 @@ print(
     msprime.log_arg_likelihood(
         ts_arg,
         recombination_rate=parameters["recombination_rate"],
-        Ne=parameters["population_size"] * 2  # Number of *haploid* genomes
+        Ne=parameters["population_size"]
     )
 )
 ```
 
-It is worth noting that we fully simplify the tree above, we remove all the unary nodes
-and therefore lose information about the timings of recombination and non-coalescent
-common ancestry, but we still keep the local trees intact:
+:::{note}
+This likelihood calculation is tied to the specific `tskit` representation of the ARG that
+is output by the `msprime` simulator. In particular, it expects each recombination event to
+correspond to two recombination nodes, which allows so-called `diamond` events to be
+represented, in which both parents at a recombination event trace directly back to the
+same common ancestor.
+:::
+
+## Simplification
+
+If we fully {ref}`simplify<sec_simplification>` the tree above, all remaining nodes
+(apart from the samples) will have a local arity greater than one.
+This loses information about the timings of recombination and non-coalescent
+common ancestry, but it still keeps the local tree structure intact:
 
 ```{code-cell}
 ts = ts_arg.simplify()
@@ -269,8 +233,23 @@ ts.draw_svg(
 )
 ```
 
-Because of this loss of information, the ARG likelihood cannot be calculated from the
-simplified tree sequence. We can still, however, calculate the *mutation likelihood*
+Note that all recombination nodes have been lost from this graph; the effects of recombination
+are instead reflected in more recent coalescent nodes that are recombinant decendants of the
+original recombination nodes. This results in graph nodes which simultanousely have
+multiple children and multiple parents. Graphs with such nodes are unsuited to
+the "ortho" style of
+graph plotting. Instead, we can plot the tree sequence graph using diagonal lines:
+    
+```{code-cell}
+d3graph = tskit_arg_visualizer.D3ARG.from_ts(ts=ts)
+d3graph.draw(w, h, sample_order=[0, 2, 1, 3, 5, 4])
+```
+
+These "simplified" graphs are what are produced as the default `msprime` output. The
+exact SPR moves from tree to tree may no longer be obvious, and the ARG likelihood
+cannot be calculated from a tree sequence of this form.
+
+Note that we can still calculate the *mutation likelihood*
 (i.e. the likelihood of the observed pattern of mutations, given the genealogy) because
 the topology and branch lengths of the local trees remain unchanged after simplification:
 
@@ -280,11 +259,18 @@ print(' "full" ARG:',  msprime.log_mutation_likelihood(ts_arg, mutation_rate=mu)
 print(" simplified:", msprime.log_mutation_likelihood(ts, mutation_rate=mu))
 ```
 
-## Recording all nodes is expensive
+(sec_args_disadvantages)=
+## Disadvantages of Full ARGs
 
-Many extra nodes are required to store full information about ancestrally relevant
-recombination. In fact, as the sequence length increases, these non-coalescent nodes come
-to dominate the tree sequence (which is one reason they are not included by default).
+There are two main reasons why you might *not* want to store a full ARG, but instead use
+a simplified version. Firstly if you are inferring ARGs from real data (rather than simulating
+them), it may not be possible or even desirable to infer recombination events. Often
+there are many possible recombination events which are compatible with a given
+set of recombined genome sequences.
+
+Secondly, even if you *are* simulating genetic ancestry, storing full ARG requires many extra nodes.
+In fact, as the sequence length increases, the non-coalescent nodes come
+to dominate the tree sequence.
 We can calculate the percentage of non-coalescent nodes by comparing a full ARG with
 its simplified version:
 
@@ -313,6 +299,26 @@ nodes that are not ancestral to the samples. This leads to a graph with an
 vastly larger number of nodes than even the ARGs simulated here, and using such
 structures for simulation or inference is therefore infeasible.
 :::
+
+## ARG formats and `tskit`
+
+In classical ARGs, nodes often represent events (specifically, _common ancestor_,
+_recombination_, and _sampling_ events), with the genomic regions of inheritance
+encoded by storing a specific breakpoint location on each recombination node.
+In contrast, nodes in a `tskit` ARG correspond to _genomes_, and inherited regions
+are defined by intervals stored on *edges* (via the {attr}`~Edge.left` and 
+{attr}`~Edge.right` properties), rather than on nodes.
+
+Technically therefore, ARGs stored by `tskit` are edge-annotated
+"genome ARGs", or [gARGs](https://www.biorxiv.org/content/10.1101/2023.11.03.565466v1).
+This flexible format can describe both simulated genetic ancestries (including
+those involving {ref}`msprime:sec_ancestry_gene_conversion`), and e.g. real-world
+genetic ancestries, such as
+[inferrred recombining viral genealogies](https://www.biorxiv.org/content/10.1101/2023.06.08.544212v1).
+The focus on genomes rather than events is also what makes
+simplification possible, and means `tskit` can encode ancestry without having
+to pin down exactly when specific ancestral events took place.
+
 
 ## Working with the tree sequence graph
 
@@ -394,11 +400,60 @@ which are never children of an edge are not visited by this algorithm. Such
 nodes are either {ref}`isolated<sec_data_model_tree_isolated_nodes>` or a
 {ref}`root<sec_data_model_tree_roots>` in each local tree.
 
-### Misc
 
-:::{todo}
-Add extra content as per [https://github.com/tskit-dev/tutorials/issues/43](https://github.com/tskit-dev/tutorials/issues/43)
-:::
+(sec_args_other_analysis)=
+
+### Other graph analysis
+
+For graph-theory based analysis, it can be helpful to convert a tree sequence
+to a [networkx](https://networkx.org/) graph. This can be done using the
+following code:
+
+```{code-cell} ipython3
+import tskit
+import networkx as nx
+import pandas as pd
+
+def to_networkx_graph(ts, interval_lists=False):
+    """
+    Make an nx graph from a tree sequence. If `intervals_lists` is True, then
+    each graph edge will have an ``intervals`` attribute containing a *list*
+    of tskit.Intervals per parent/child combination. Otherwise each graph edge
+    will correspond to a tskit edge, with a ``left`` and ``right`` attribute.
+    """
+    D = dict(source=ts.edges_parent, target=ts.edges_child, left=ts.edges_left, right=ts.edges_right)
+    G = nx.from_pandas_edgelist(pd.DataFrame(D), edge_attr=True, create_using=nx.MultiDiGraph)
+    if interval_lists:
+        GG = nx.DiGraph()  # Mave a new graph with one edge that can contai
+        for parent, children in G.adjacency():
+            for child, edict in children.items():
+                ilist = [tskit.Interval(v['left'], v['right']) for v in edict.values()]
+                GG.add_edge(parent, child, intervals=ilist)
+        G = GG
+    nx.set_node_attributes(G, {n.id: {'flags':n.flags, 'time': n.time} for n in ts.nodes()})
+    return G
+
+arg = to_networkx_graph(ts_arg)
+```
+
+It is then possible to use the full range of networkx functions to analyse the graph:
+
+```{code-cell} ipython3
+assert nx.is_directed_acyclic_graph(arg)  # All ARGs should be DAGs
+print("All descendants of node 10 are", nx.descendants(arg, 10))
+```
+
+Networkx also has some built-in drawing functions: below is one of the simplest ones
+(for other possibilities, see the {ref}`sec_tskit_viz` tutorial).
+
+```{code-cell} ipython3
+for layer, nodes in enumerate(nx.topological_generations(arg.reverse())):
+    for node in nodes:
+        arg.nodes[node]["layer"] = layer
+pos = nx.multipartite_layout(arg, subset_key="layer", align='horizontal')
+
+nx.draw_networkx(arg, pos=pos)
+```
 
 ## Other software
 

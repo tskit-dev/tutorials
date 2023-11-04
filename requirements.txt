@@ -6,8 +6,10 @@ jupyter-cache
 msprime>=1.0
 networkx
 pandas
+pygraphviz
 scikit-allel
 stdpopsim
 tqdm
 tskit>=0.5.4
+tskit_arg_visualizer
 tszip
