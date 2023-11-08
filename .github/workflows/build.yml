@@ -21,6 +21,10 @@ jobs:
       uses: actions/checkout@v4
 
     # Install dependencies
+    - name: Install Graphviz
+      run: |
+        sudo apt-get install graphviz {lib,}graphviz-dev
+
     - name: Set up Python 3.11
       uses: actions/setup-python@v4
       with:
@@ -39,10 +43,6 @@ jobs:
         sudo apt-get install r-cran-reticulate r-cran-pbdzmq r-cran-uuid r-cran-ape
         sudo R -e 'install.packages("IRkernel")'
         R -e 'IRkernel::installspec()'
-
-    - name: Install Graphviz
-      run: |
-        sudo apt-get install graphviz
 
     # Build the book
     - name: Build the book
