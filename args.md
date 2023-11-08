@@ -99,9 +99,9 @@ trees. However, all tree sequences can also be
 {ref}`plotted as graphs<sec_tskit_viz_other_graph>`. In particular, the Hudson "full ARG"
 model guarantees that the graph consists of nodes which mark a split into two child lineages
 ("common ancestor" nodes) or nodes which mark a split into two parent lineages
-("recombination" nodes). Such ARGs can be visualized drawing edges as horizontal and vertical
-lines (the "ortho" style in the [tskit_arg_visualiser](https://github.com/kitchensjn/tskit_arg_visualizer)
-software):
+("recombination" nodes). Such ARGs can be visualized with edges drawn as horizontal and vertical
+lines (the "ortho" style in the
+[tskit_arg_visualiser](https://github.com/kitchensjn/tskit_arg_visualizer) software):
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -209,7 +209,7 @@ print(
 :::{note}
 This likelihood calculation is tied to the specific `tskit` representation of the ARG that
 is output by the `msprime` simulator. In particular, it expects each recombination event to
-correspond to two recombination nodes, which allows so-called `diamond` events to be
+correspond to two recombination nodes, which allows so-called "diamond" events to be
 represented, in which both parents at a recombination event trace directly back to the
 same common ancestor.
 :::
@@ -307,7 +307,12 @@ _recombination_, and _sampling_ events), with the genomic regions of inheritance
 encoded by storing a specific breakpoint location on each recombination node.
 In contrast, nodes in a `tskit` ARG correspond to _genomes_, and inherited regions
 are defined by intervals stored on *edges* (via the {attr}`~Edge.left` and 
-{attr}`~Edge.right` properties), rather than on nodes.
+{attr}`~Edge.right` properties), rather than on nodes. Here, for example, is the
+edge table from our ARG:
+
+```{code-cell}
+ts_arg.tables.edges
+```
 
 Technically therefore, ARGs stored by `tskit` are edge-annotated
 "genome ARGs", or [gARGs](https://www.biorxiv.org/content/10.1101/2023.11.03.565466v1).
