@@ -1533,6 +1533,7 @@ turned off for clarity):
 ```{code-cell} ipython3
 import msprime
 import tskit_arg_visualizer
+tip_order = [3, 0, 1, 2, 6, 7, 4, 5]
 full_arg_ts = msprime.sim_ancestry(
     4, sequence_length=1000, recombination_rate=0.001, random_seed=3, record_full_arg=True)
 d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=full_arg_ts)
