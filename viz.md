@@ -1503,18 +1503,12 @@ of which are outlined below.
 
 A tree sequence can be treated as a specific form of (directed)
 [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)) consisting
-of nodes connected by edges. Standard graph manipulation and visualization software,
-such as [graphviz](https://graphviz.org) can therefore be used to represent tree sequence
-topologies. The {ref}`sec_args` tutorial shows how a tree sequence can be converted into
-a networkx graph, and then plotted using graphviz, as below:
-
-```{code-cell} ipython3
-```
-
-There is also a recent project, [tskit_arg_visualizer](https://github.com/kitchensjn/tskit_arg_visualizer)
-which will directly draw a `tskit` graph. Below is an example, using the `variable_edge_width` function to
-highlight the spans of genome inherited through different routes. The plot is interactive: try
-dragging a node or hovering over a genomic segment.
+of nodes connected by edges. Standard graph visualization software,
+such as [graphviz](https://graphviz.org) can therefore be used to depict tree sequence
+topologies. Alternatively, the [tskit_arg_visualizer](https://github.com/kitchensjn/tskit_arg_visualizer)
+project will draw a interactive `tskit` graph directly. Below is an example, which uses the
+`variable_edge_width` option to highlight the spans of genome inherited through different routes.
+Nodes can be dragged horizontally and embedded trees highlighted:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -1545,10 +1539,12 @@ d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=full_arg_ts)
 d3arg.draw(width=500, height=500, edge_type="ortho", sample_order=tip_order)
 ```
 
-For a more general treatment of the tree sequence as a graph, standard graph visualization
-packages such as [graphviz](https://graphviz.org) can be useful. For this, it can be helpful
-convert the tree sequence to a networkx graph first, as described in the {ref}`sec_args_other_analysis`
-section of the {ref}`sec_args` tutorial.
+For more general graph plots, it can be helpful convert the tree sequence to a
+[networkx](https://networkx.org) graph first, as described in the
+{ref}`sec_args_other_analysis` section of the {ref}`sec_args` tutorial.
+This provides interfaces to graph plotting software such as
+[graphviz](https://graphviz.org), which provides the `dot` layout engine for
+directed graphs:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -1580,16 +1576,37 @@ def to_networkx_graph(ts, interval_lists=False):
 
 ```{code-cell} ipython3
 import networkx as nx
-from matplotlib import pyplot as plt
+from IPython.display import SVG
 
-def get_graphviz_positions(networkx_graph):
+def graphviz_svg(networkx_graph):
     AG = nx.drawing.nx_agraph.to_agraph(networkx_graph)  # Convert to graphviz "agraph"
-    AG.add_subgraph(ts.samples(), rank='same')  # put samples at same rank
-    AG.layout(prog="dot")  # create the layout, storing positions in the "pos" attribute
-    return {n: [float(x) for x in AG.get_node(n).attr["pos"].split(",")] for n in G.nodes()}
+    nodes_at_time_0 = [k for k, v in networkx_graph.nodes(data=True) if v['time'] == 0]
+    AG.add_subgraph(nodes_at_time_0, rank='same')  # put time=0 at same rank
+    return AG.draw(prog="dot", format="svg")
 
 G = to_networkx_graph(ts, interval_lists=True)  # Function from the ARG tutorial
 print("Converted `ts` to a networkx graph named `G`")
+print("Plotting using graphviz...")
+SVG(graphviz_svg(G))
+```
+
+Alternatively, you can read the `graphviz` positions back into `networkx`
+and use the `networkx` drawing functionality, which
+relies upon the [matplotlib](https://matplotlib.org) library. This
+allows modification of node colours and symbols, labels, rotations,
+annotations, etc., as shown below:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+from matplotlib import pyplot as plt
+import string
+
+def get_graphviz_positions(networkx_graph):
+    AG = nx.drawing.nx_agraph.to_agraph(networkx_graph)  # Convert to graphviz "agraph"
+    nodes_at_time_0 = [k for k, v in networkx_graph.nodes(data=True) if v['time'] == 0]
+    AG.add_subgraph(nodes_at_time_0, rank='same')  # put time=0 at same rank
+    AG.layout(prog="dot")  # create the layout, storing positions in the "pos" attribute
+    return {n: [float(x) for x in AG.get_node(n).attr["pos"].split(",")] for n in G.nodes()}
 
 pos=get_graphviz_positions(G)
 edge_labels = {
@@ -1597,15 +1614,24 @@ edge_labels = {
     for edge in G.edges(data=True)
 }
 
+samples = set(ts.samples())
+nonsamples = set(range(ts.num_nodes)) - samples
+
 plt.figure(figsize=(10, 4))
-nx.draw(G, pos, with_labels=True, node_color="#00BBFF", node_size=150, font_size=9)
-nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=5);
+# Sample nodes as dark green squares with white text
+nx.draw(G, pos, node_color="#007700", font_size=9, node_size=250, node_shape="s", nodelist=samples, edgelist=[])
+nx.draw_networkx_labels(G, pos, font_size=9, labels={u: u for u in samples}, font_color="white")
+# Others as blue circles with alphabetic labels
+nx.draw(G, pos, node_color="#22CCFF", font_size=9, edgecolors="black", nodelist=nonsamples, edgelist=[])
+nx.draw_networkx_labels(G, pos, font_size=9, labels={u: string.ascii_lowercase[u] for u in nonsamples})
+
+nx.draw_networkx_edges(G, pos, edge_color="lightgrey", arrows=False, width=2);
+nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=7, rotate=False);
 ```
 
-Since this plot uses [matplotlib](https://matplotlib.org), it is relatively easy to change node
-colours, labels, rotations, etc, and to annotate the plot. However, it can be tricky to use the
-graphviz layout engine to get particular layouts, for example to place nodes at specific
-vertical (time) positions.
+Note, however, that finding node and edge layout positions that avoid too much overlap
+can be tricky, even for the graphviz layout engine, and there is no easy functionality
+to place nodes at specific vertical (time) positions.
 
 (sec_tskit_viz_other_demographic)=
 
