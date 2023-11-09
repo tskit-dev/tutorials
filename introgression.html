@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'introgression';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Building a forward simulator" href="forward_sims.html" />
+    <link rel="next" title="Completing forwards simulations" href="completing_forward_sims.html" />
     <link rel="prev" title="Instantaneous Bottlenecks" href="bottlenecks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,20 +182,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Introgression</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
@@ -533,7 +534,7 @@ Proportions: [0.0186865  0.00828085 0.22377805]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e0924697dc2f25963a22aac1ab03a05e6abcc97092e2cbd37491de31f8dbdc61.png" src="_images/e0924697dc2f25963a22aac1ab03a05e6abcc97092e2cbd37491de31f8dbdc61.png" />
+<img alt="_images/922d3067c23021a050d03c21b07212cbb187e56882e484f1eae1acc699a2987a.png" src="_images/922d3067c23021a050d03c21b07212cbb187e56882e484f1eae1acc699a2987a.png" />
 </div>
 </div>
 <p>Note that this is just a single replicate: we would need more replicates (or a larger chromosome) to draw firm conclusions from the patterns. Nevertheless, a few things stand out. Firstly, confirming our assessment of the relative proportions of the three types, the green bars (tracts at which Neanderthals and non-African humans are most closely related to each other) far outweigh the blue (admixed tracts). In other words, ILS accounts for the vast majority of the tracts plotted in green. Secondly, although there are relatively few admixure tracts they are are on average much longer. By definition ILS tracts must be old and are therefore likely to be short; indeed most of the green tracts are very short indeed (note that the Y axis is on a log scale). Finally, although the orange tracts are a strict subset of the blue, there are places where there are orange bars without blue equivalents. That suggests that the long blue admixture tracts may contain some regions that coalesce within Neanderthals and some that don’t. We can look at (say) the longest of the blue tracts to see how it intersects with the other tracts we’ve calculated:</p>
@@ -570,7 +571,7 @@ Proportions: [0.0186865  0.00828085 0.22377805]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/76c85588c0668f1e709f41b7b0c43e577677f45e02bb740397c061ecb9a17ceb.png" src="_images/76c85588c0668f1e709f41b7b0c43e577677f45e02bb740397c061ecb9a17ceb.png" />
+<img alt="_images/0f1242c7f6b7d52a8d8ee76c7f45e7e1f2c978fa3e3e6bf7f70732f4966e820d.png" src="_images/0f1242c7f6b7d52a8d8ee76c7f45e7e1f2c978fa3e3e6bf7f70732f4966e820d.png" />
 </div>
 </div>
 <p>As we go back in time, the single 178kb admixture tract (in blue) breaks down, with some regions
@@ -749,11 +750,11 @@ Only about 1 in 7 actually mutated in Neanderthals themselves.</p>
       </div>
     </a>
     <a class="right-next"
-       href="forward_sims.html"
+       href="completing_forward_sims.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Building a forward simulator</p>
+        <p class="prev-next-title">Completing forwards simulations</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

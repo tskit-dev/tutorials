@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'forward_sims';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tskit and R" href="tskitr.html" />
-    <link rel="prev" title="Introgression" href="introgression.html" />
+    <link rel="next" title="Advanced forward simulations" href="more_forward_sims.html" />
+    <link rel="prev" title="Completing forwards simulations" href="completing_forward_sims.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,20 +182,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Building a forward simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
@@ -423,7 +424,7 @@ It can be helpful (but not strictly necessary) to store individuals within the t
 as rows of the the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-individual-table-definition" title="(in Python)"><span>Individual Table</span></a> (a node can then be assigned to an
 individual by storing that individual’s id in the appropriate row of the node table).</p>
 <p>An <em>edge</em> reflects a transmission event between nodes.  An edge is a tuple <code class="docutils literal notranslate"><span class="pre">(Left,</span> <span class="pre">Right,</span> <span class="pre">Parent,</span> <span class="pre">Child)</span></code>
-whose meaning is “Child genome <span class="math notranslate nohighlight">\(C\)</span> inherited the genomic interval <span class="math notranslate nohighlight">\([L, R)\)</span> from <span class="math notranslate nohighlight">\(Parent genome \)</span>P$”.
+whose meaning is “The <code class="docutils literal notranslate"><span class="pre">Child</span></code> genome inherited the genomic interval [<code class="docutils literal notranslate"><span class="pre">Left</span></code>, <code class="docutils literal notranslate"><span class="pre">Right</span></code>) from the <code class="docutils literal notranslate"><span class="pre">Parent</span></code> genome”.
 In a tree sequence this is stored in a row of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Python)"><span>Edge Table</span></a>.</p>
 <p>The <em>time</em>, in the discrete-time Wright-Fisher (WF) model which we will simulate, is measured in
 integer generations. To match the tskit notion of time, we record time in <em>generations ago</em>:
@@ -452,7 +453,7 @@ The <a class="reference external" href="https://numpy.org/doc/stable/">numpy</a>
 <span class="n">random_seed</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>  <span class="c1"># A random number generator for general use</span>
 
-<span class="n">L</span> <span class="o">=</span> <span class="mi">50_000</span>  <span class="c1"># The sequence length = 50 Kb</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">50_000</span>  <span class="c1"># The sequence length: 50 Kb</span>
 </pre></div>
 </div>
 </div>
@@ -792,7 +793,7 @@ can have a dramatic effect on the disk storage and memory required:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulated 100 individuals (200 genomes) for 1000 generations in 8.0 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulated 100 individuals (200 genomes) for 1000 generations in 9.0 seconds
 </pre></div>
 </div>
 </div>
@@ -849,7 +850,7 @@ long enough to capture the ancestry back to a single common ancestor
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0c3e48cd784d736095b8139c2c7ff9cf108ff770912d508f0f0971a5c1c19b65.png" src="_images/0c3e48cd784d736095b8139c2c7ff9cf108ff770912d508f0f0971a5c1c19b65.png" />
+<img alt="_images/d08e93c085b6498745e1f394fd1dcbda5a0b1c888ce737b7bc2b1e2f0e154223.png" src="_images/d08e93c085b6498745e1f394fd1dcbda5a0b1c888ce737b7bc2b1e2f0e154223.png" />
 </div>
 </div>
 <p>Most of our trees have one root, but a handful have two.
@@ -885,7 +886,7 @@ tMRCAs using <code class="docutils literal notranslate"><span class="pre">msprim
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/09b6e68e25ae8ca0c150689686e77183236a8fd10dc9a4d3ba5864d4f634cfa4.png" src="_images/09b6e68e25ae8ca0c150689686e77183236a8fd10dc9a4d3ba5864d4f634cfa4.png" />
+<img alt="_images/f06ddf84ebe36eb46c422e9d85ea96c56c320a696f2eacd1ba977777b054cdb1.png" src="_images/f06ddf84ebe36eb46c422e9d85ea96c56c320a696f2eacd1ba977777b054cdb1.png" />
 </div>
 </div>
 <p>So, some fraction of local trees have very large tMRCAs! And of course
@@ -945,20 +946,20 @@ It also details several extra tips and tricks we have learned when building forw
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="introgression.html"
+       href="completing_forward_sims.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introgression</p>
+        <p class="prev-next-title">Completing forwards simulations</p>
       </div>
     </a>
     <a class="right-next"
-       href="tskitr.html"
+       href="more_forward_sims.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tskit and R</p>
+        <p class="prev-next-title"><em>Advanced forward simulations</em></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

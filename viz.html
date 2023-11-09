@@ -180,20 +180,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
@@ -1011,7 +1012,7 @@ Here’s an example using a region from within the previous example:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.17.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
+<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.17.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
 class, and given the SVG a unique
 id as described below in <a class="reference internal" href="#sec-tskit-viz-styling-more-about"><span class="std std-ref">More about styling</span></a>. This forces the SVG
 plot to be rendered inline (rather than inside an <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag), allowing the hover
@@ -1384,66 +1385,66 @@ transformations.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>         14    
-      ┏━━━┻━━┓ 
-     13      ┃ 
-  ┏━━━┻━━━┓  ┃ 
- 12       ┃  ┃ 
-┏━┻━━┓    ┃  ┃ 
-┃   11    ┃  ┃ 
-┃  ┏━┻━┓  ┃  ┃ 
-┃  ┃  10  ┃  ┃ 
-┃  ┃  ┏┻┓ ┃  ┃ 
-┃  9  ┃ ┃ ┃  ┃ 
-┃ ┏┻┓ ┃ ┃ ┃  ┃ 
-┃ ┃ ┃ ┃ ┃ ┃  8 
-┃ ┃ ┃ ┃ ┃ ┃ ┏┻┓
-0 3 6 4 7 1 2 5
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>        ┏━━━━━━━━━━0
-        ┃           
-     ┏12┫       ┏━━3
-     ┃  ┃  ┏━━━9┫   
-     ┃  ┃  ┃    ┗━━6
-     ┃  ┗11┫        
-  ┏13┫     ┃  ┏━━━━4
-  ┃  ┃     ┗10┫     
-  ┃  ┃        ┗━━━━7
-  ┃  ┃              
-14┫  ┗━━━━━━━━━━━━━1
-  ┃                 
-  ┃               ┏2
-  ┗━━━━━━━━━━━━━━8┫ 
-                  ┗5
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 3 6 4 7 1 2 5
-┃ ┃ ┃ ┃ ┃ ┃ ┗┳┛
-┃ ┃ ┃ ┃ ┃ ┃  8 
-┃ ┗┳┛ ┃ ┃ ┃  ┃ 
-┃  9  ┃ ┃ ┃  ┃ 
-┃  ┃  ┗┳┛ ┃  ┃ 
-┃  ┃  10  ┃  ┃ 
-┃  ┗━┳━┛  ┃  ┃ 
-┃   11    ┃  ┃ 
-┗━┳━━┛    ┃  ┃ 
- 12       ┃  ┃ 
-  ┗━━━┳━━━┛  ┃ 
-     13      ┃ 
-      ┗━━━┳━━┛ 
-         14    
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━━┓        
-           ┃        
-3━━┓       ┣12┓     
-   ┣9━━━┓  ┃  ┃     
-6━━┛    ┃  ┃  ┃     
-        ┣11┛  ┃     
-4━━━━┓  ┃     ┣13┓  
-     ┣10┛     ┃  ┃  
-7━━━━┛        ┃  ┃  
-              ┃  ┃  
-1━━━━━━━━━━━━━┛  ┣14
-                 ┃  
-2┓               ┃  
- ┣8━━━━━━━━━━━━━━┛  
-5┛                  
+<div class="output text_html"><pre style='display: inline-block'>   14          
+┏━━━┻━━━┓      
+┃      13      
+┃  ┏━━━━┻━━━┓  
+┃  ┃       12  
+┃  ┃      ┏━┻━┓
+┃ 11      ┃   ┃
+┃ ┏┻┓     ┃   ┃
+┃ ┃ ┃    10   ┃
+┃ ┃ ┃   ┏━┻━┓ ┃
+┃ ┃ ┃   9   ┃ ┃
+┃ ┃ ┃  ┏┻━┓ ┃ ┃
+┃ ┃ ┃  8  ┃ ┃ ┃
+┃ ┃ ┃ ┏┻┓ ┃ ┃ ┃
+0 1 4 2 7 3 6 5
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>  ┏━━━━━━━━━━━━━━0
+  ┃               
+  ┃       ┏━━━━━━1
+  ┃  ┏━━11┫       
+14┫  ┃    ┗━━━━━━4
+  ┃  ┃            
+  ┃  ┃          ┏2
+  ┃  ┃        ┏8┫ 
+  ┗13┫      ┏9┫ ┗7
+     ┃      ┃ ┃   
+     ┃  ┏━10┫ ┗━━3
+     ┃  ┃   ┃     
+     ┗12┫   ┗━━━━6
+        ┃         
+        ┗━━━━━━━━5
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 4 2 7 3 6 5
+┃ ┃ ┃ ┗┳┛ ┃ ┃ ┃
+┃ ┃ ┃  8  ┃ ┃ ┃
+┃ ┃ ┃  ┗┳━┛ ┃ ┃
+┃ ┃ ┃   9   ┃ ┃
+┃ ┃ ┃   ┗━┳━┛ ┃
+┃ ┃ ┃    10   ┃
+┃ ┗┳┛     ┃   ┃
+┃ 11      ┃   ┃
+┃  ┃      ┗━┳━┛
+┃  ┃       12  
+┃  ┗━━━━┳━━━┛  
+┃      13      
+┗━━━┳━━━┛      
+   14          
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━━━━━━━┓  
+               ┃  
+1━━━━━━┓       ┃  
+       ┣11━━┓  ┃  
+4━━━━━━┛    ┃  ┣14
+            ┃  ┃  
+2┓          ┃  ┃  
+ ┣8┓        ┃  ┃  
+7┛ ┣9┓      ┣13┛  
+   ┃ ┃      ┃     
+3━━┛ ┣10━┓  ┃     
+     ┃   ┃  ┃     
+6━━━━┛   ┣12┛     
+         ┃        
+5━━━━━━━━┛        
 </pre></div></div>
 </div>
 </section>
@@ -2230,20 +2231,1697 @@ of which are outlined below.</p>
 <span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this heading">#</a></h3>
 <p>A tree sequence can be treated as a specific form of (directed)
 <a class="reference external" href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> consisting
-of nodes connected by edges. Standard graph visualization software, such as
-<a class="reference external" href="https://graphviz.org">graphviz</a> can therefore be used to represent tree sequence
-topologies. This is a relatively common approach to visualizing the full
-“Ancestral Recombination Graph” or ARG (a structure in which some nodes are
-“recombination nodes”, and which is possible to
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">represent as a tree sequence</span></a>).</p>
-<div class="admonition-todo admonition" id="id3">
-<p class="admonition-title">Todo</p>
-<p>Link to the ARG tutorial,
-<a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/43">once it is created</a>, and show a
-picture like this:</p>
-<p><img alt="A tree sequence (ARG) as a graph" src="https://user-images.githubusercontent.com/36134434/109398193-2ec6b700-7933-11eb-9cbf-99fdfab46df0.png" />
-(from <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/43#issuecomment-787124425">here</a>)</p>
+of nodes connected by edges. Standard graph visualization software,
+such as <a class="reference external" href="https://graphviz.org">graphviz</a> can therefore be used to depict tree sequence
+topologies. Alternatively, the <a class="reference external" href="https://github.com/kitchensjn/tskit_arg_visualizer">tskit_arg_visualizer</a>
+project will draw a interactive <code class="docutils literal notranslate"><span class="pre">tskit</span></code> graph directly. Below is an example, which uses the
+<code class="docutils literal notranslate"><span class="pre">variable_edge_width</span></code> option to highlight the spans of genome inherited through different routes.
+Nodes can be dragged horizontally and embedded trees highlighted:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%javascript</span>
+<span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span><span class="nx">paths</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">d3</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://d3js.org/d3.v7.min&#39;</span><span class="p">}});</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;d3&quot;</span><span class="p">],</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">d3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="nb">window</span><span class="p">.</span><span class="nx">d3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">d3</span><span class="p">;});</span>
+</pre></div>
 </div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<script type="application/javascript">require.config({paths: {d3: 'https://d3js.org/d3.v7.min'}});
+require(["d3"], function(d3) {window.d3 = d3;});
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">tskit_arg_visualizer</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">d3arg</span> <span class="o">=</span> <span class="n">tskit_arg_visualizer</span><span class="o">.</span><span class="n">D3ARG</span><span class="o">.</span><span class="n">from_ts</span><span class="p">(</span><span class="n">ts</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+<span class="n">tip_order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>  <span class="c1"># Found by trial and error for this seed</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">variable_edge_width</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sample_order</span><span class="o">=</span><span class="n">tip_order</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>.d3arg {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px 20px 60px 20px;
+}
+
+.d3arg:hover .dashboard {
+    visibility: visible;
+}
+
+.dashboard {
+    display: flex;
+    visibility: hidden;
+}
+
+.dashboard button {
+    position: relative;
+    font-size: 30px;
+    border: 0px;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+}
+
+.dashboard button .tip {
+    width: 120px;
+    font-size: 12px;
+    background-color: lightgrey;
+    color: #053e4e;
+    text-align: center;
+    padding: 5px 0px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%; 
+    margin-left: -60px;
+    visibility: hidden;
+}
+
+.dashboard button:hover .desc {
+    visibility: visible;
+}
+
+.dashboard path {
+    fill: grey;
+}
+
+.dashboard button:hover path {
+    fill: #053e4e;
+}
+
+.dashboard button:active path {
+    fill: #1eebb1;
+}
+
+.yaxis path {
+    stroke: #053e4e;
+    stroke-width: 3px;
+}
+
+.yaxis line {
+    stroke: #053e4e;
+    stroke-width: 3px;
+}
+
+.yaxis text {
+    fill: #053e4e;
+    stroke: 1px;
+}
+
+.node {
+    fill: #1eebb1;
+    stroke: #053e4e;
+    stroke-width: 4px;
+}
+
+.hiddennode {
+    fill: lightgrey;
+    stroke: lightgrey;
+    stroke-width: 4px;
+}
+
+.underlink {
+    stroke: #ffffff;
+    stroke-width: 12px;
+    fill: none;
+}
+
+.link {
+    stroke: #053e4e;
+    stroke-width: 4px;
+    fill: none;
+}
+
+.hiddenlink {
+    stroke: lightgrey;
+    stroke-width: 4px;
+    fill: none;
+}
+
+.labels {
+    text-anchor: middle;
+}
+
+.label {
+    fill: #053e4e;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.hiddenlabel {
+    fill: lightgrey;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+svg {
+    display: block;
+}
+
+button {
+    display: block;
+    cursor: pointer;
+}
+
+.saving {
+    display: flex;
+    flex-direction: row;
+}
+
+.saving .message {
+    display: none;
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_7441325330'class='d3arg' style='min-width:590px; min-height:655px;'></div><script>var line = d3.line();
+var step = d3.line().curve(d3.curveStep);
+var stepAfter = d3.line().curve(d3.curveStepAfter);
+var stepBefore = d3.line().curve(d3.curveStepBefore);
+
+function draw_force_diagram() {
+    
+    var graph = {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 450.0, 'y': 450.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '1', 'fx': 271.42857142857144, 'fy': 450.0, 'y': 450.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '2', 'fx': 328.57142857142856, 'fy': 450.0, 'y': 450.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [13, 14, 16], 'parent_of': [], 'label': '3', 'fx': 214.28571428571428, 'fy': 450.0, 'y': 450.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '4', 'fx': 442.8571428571429, 'fy': 450.0, 'y': 450.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '5', 'fx': 500.0, 'fy': 450.0, 'y': 450.0}, {'id': 6, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '6', 'fx': 157.14285714285714, 'fy': 450.0, 'y': 450.0}, {'id': 7, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '7', 'fx': 385.7142857142857, 'fy': 450.0, 'y': 450.0}, {'id': 8, 'flag': 0, 'time': 0.00523931699745691, 'time_01': 0.9989390987325849, 'logtime_01': 0.9967279882217678, 'rank_01': 0.9090909090909091, 'child_of': [10], 'parent_of': [1, 2], 'label': '8', 'x': 300.0, 'fy': 413.6363636363636, 'y': 413.6363636363636}, {'id': 9, 'flag': 0, 'time': 0.017557818091816682, 'time_01': 0.9964447443291382, 'logtime_01': 0.9891016456244728, 'rank_01': 0.8181818181818181, 'child_of': [15, 17, 18], 'parent_of': [4, 5], 'label': '9', 'x': 300.0, 'fy': 377.27272727272725, 'y': 377.27272727272725}, {'id': 10, 'flag': 0, 'time': 0.09416924140000202, 'time_01': 0.98093181466186, 'logtime_01': 0.9436497714987854, 'rank_01': 0.7272727272727273, 'child_of': [12, 15], 'parent_of': [0, 8], 'label': '10', 'x': 300.0, 'fy': 340.90909090909093, 'y': 340.90909090909093}, {'id': 11, 'flag': 0, 'time': 0.1024650871470267, 'time_01': 0.9792520015733276, 'logtime_01': 0.9389203243971302, 'rank_01': 0.6363636363636364, 'child_of': [12, 14, 16], 'parent_of': [6, 7], 'label': '11', 'x': 300.0, 'fy': 304.5454545454545, 'y': 304.5454545454545}, {'id': 12, 'flag': 0, 'time': 0.12175435946697583, 'time_01': 0.9753461463899743, 'logtime_01': 0.9280597072431825, 'rank_01': 0.5454545454545454, 'child_of': [13, 16], 'parent_of': [10, 11], 'label': '12', 'x': 300.0, 'fy': 268.18181818181813, 'y': 268.18181818181813}, {'id': 13, 'flag': 0, 'time': 0.39582244241347575, 'time_01': 0.9198505203957684, 'logtime_01': 0.7911905451922276, 'rank_01': 0.4545454545454546, 'child_of': [17, 18], 'parent_of': [3, 12], 'label': '13', 'x': 300.0, 'fy': 231.81818181818184, 'y': 231.81818181818184}, {'id': 14, 'flag': 0, 'time': 0.8565089125241158, 'time_01': 0.8265668232538372, 'logtime_01': 0.6126050290609146, 'rank_01': 0.36363636363636365, 'child_of': [17], 'parent_of': [3, 11], 'label': '14', 'x': 300.0, 'fy': 195.45454545454547, 'y': 195.45454545454547}, {'id': 15, 'flag': 0, 'time': 1.0352810563867096, 'time_01': 0.7903675258846593, 'logtime_01': 0.5550396185408524, 'rank_01': 0.2727272727272727, 'child_of': [17], 'parent_of': [9, 10], 'label': '15', 'x': 300.0, 'fy': 159.09090909090907, 'y': 159.09090909090907}, {'id': 16, 'flag': 0, 'time': 2.033597596813773, 'time_01': 0.5882199399427213, 'logtime_01': 0.3051352725610018, 'rank_01': 0.18181818181818177, 'child_of': [17], 'parent_of': [3, 11, 12], 'label': '16', 'x': 300.0, 'fy': 122.7272727272727, 'y': 122.7272727272727}, {'id': 17, 'flag': 0, 'time': 3.30638247068103, 'time_01': 0.3304956818976572, 'logtime_01': 0.0857657633683675, 'rank_01': 0.09090909090909083, 'child_of': [], 'parent_of': [9, 13, 14, 15, 16], 'label': '17', 'x': 300.0, 'fy': 86.36363636363633, 'y': 86.36363636363633}, {'id': 18, 'flag': 0, 'time': 4.9385528685650755, 'time_01': 0.0, 'logtime_01': -0.11545696884408474, 'rank_01': 0.0, 'child_of': [], 'parent_of': [9, 13], 'label': '18', 'x': 300.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 10, 'target': 0, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 8, 'region_fraction': 1.0}, {'source': 8, 'target': 1, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 8, 'target': 2, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 13, 'target': 3, 'bounds': '0.0-224.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 0.224}, {'source': 14, 'target': 3, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.165}, {'source': 16, 'target': 3, 'bounds': '224.0-835.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.611}, {'source': 9, 'target': 4, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 1.0}, {'source': 9, 'target': 5, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 1.0}, {'source': 11, 'target': 6, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 11, 'target': 7, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 1.0}, {'source': 10, 'target': 8, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 15, 'target': 9, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.237}, {'source': 17, 'target': 9, 'bounds': '145.0-763.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.618}, {'source': 18, 'target': 9, 'bounds': '0.0-145.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.145}, {'source': 12, 'target': 10, 'bounds': '0.0-763.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.763}, {'source': 15, 'target': 10, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.237}, {'source': 12, 'target': 11, 'bounds': '0.0-763.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.763}, {'source': 14, 'target': 11, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.165}, {'source': 16, 'target': 11, 'bounds': '763.0-835.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.072}, {'source': 13, 'target': 12, 'bounds': '0.0-224.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.224}, {'source': 16, 'target': 12, 'bounds': '224.0-763.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.539}, {'source': 17, 'target': 13, 'bounds': '145.0-224.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.079}, {'source': 18, 'target': 13, 'bounds': '0.0-145.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.145}, {'source': 17, 'target': 14, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.165}, {'source': 17, 'target': 15, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.237}, {'source': 17, 'target': 16, 'bounds': '224.0-835.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.611}], 'breakpoints': [{'start': 0, 'stop': 145.0, 'x_pos_01': 0.0, 'width_01': 0.145, 'x_pos': 50.0, 'width': 72.5}, {'start': 145.0, 'stop': 224.0, 'x_pos_01': 0.145, 'width_01': 0.079, 'x_pos': 122.5, 'width': 39.5}, {'start': 224.0, 'stop': 763.0, 'x_pos_01': 0.224, 'width_01': 0.539, 'x_pos': 162.0, 'width': 269.5}, {'start': 763.0, 'stop': 835.0, 'x_pos_01': 0.763, 'width_01': 0.072, 'x_pos': 431.5, 'width': 36.0}, {'start': 835.0, 'stop': 1000.0, 'x_pos_01': 0.835, 'width_01': 0.165, 'x_pos': 467.5, 'width': 82.5}]};
+    var y_axis = {'include_labels': 'true', 'ticks': [450.0, 413.6363636363636, 377.27272727272725, 340.90909090909093, 304.5454545454545, 268.18181818181813, 231.81818181818184, 195.45454545454547, 159.09090909090907, 122.7272727272727, 86.36363636363633, 50.0], 'text': [0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 5], 'max_min': [450.0, 50.0], 'scale': 'rank'};
+    var subset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+    var evenly_distributed_positions = [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0];
+
+    var dashboard = d3.select("#arg_7441325330").append("div").attr("class", "dashboard");
+    
+    var clipboard = dashboard.append("button")
+        .on("click", function() {
+            navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 450.0, 'y': 450.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '1', 'fx': 271.42857142857144, 'fy': 450.0, 'y': 450.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '2', 'fx': 328.57142857142856, 'fy': 450.0, 'y': 450.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [13, 14, 16], 'parent_of': [], 'label': '3', 'fx': 214.28571428571428, 'fy': 450.0, 'y': 450.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '4', 'fx': 442.8571428571429, 'fy': 450.0, 'y': 450.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '5', 'fx': 500.0, 'fy': 450.0, 'y': 450.0}, {'id': 6, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '6', 'fx': 157.14285714285714, 'fy': 450.0, 'y': 450.0}, {'id': 7, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '7', 'fx': 385.7142857142857, 'fy': 450.0, 'y': 450.0}, {'id': 8, 'flag': 0, 'time': 0.00523931699745691, 'time_01': 0.9989390987325849, 'logtime_01': 0.9967279882217678, 'rank_01': 0.9090909090909091, 'child_of': [10], 'parent_of': [1, 2], 'label': '8', 'x': 300.0, 'fy': 413.6363636363636, 'y': 413.6363636363636}, {'id': 9, 'flag': 0, 'time': 0.017557818091816682, 'time_01': 0.9964447443291382, 'logtime_01': 0.9891016456244728, 'rank_01': 0.8181818181818181, 'child_of': [15, 17, 18], 'parent_of': [4, 5], 'label': '9', 'x': 300.0, 'fy': 377.27272727272725, 'y': 377.27272727272725}, {'id': 10, 'flag': 0, 'time': 0.09416924140000202, 'time_01': 0.98093181466186, 'logtime_01': 0.9436497714987854, 'rank_01': 0.7272727272727273, 'child_of': [12, 15], 'parent_of': [0, 8], 'label': '10', 'x': 300.0, 'fy': 340.90909090909093, 'y': 340.90909090909093}, {'id': 11, 'flag': 0, 'time': 0.1024650871470267, 'time_01': 0.9792520015733276, 'logtime_01': 0.9389203243971302, 'rank_01': 0.6363636363636364, 'child_of': [12, 14, 16], 'parent_of': [6, 7], 'label': '11', 'x': 300.0, 'fy': 304.5454545454545, 'y': 304.5454545454545}, {'id': 12, 'flag': 0, 'time': 0.12175435946697583, 'time_01': 0.9753461463899743, 'logtime_01': 0.9280597072431825, 'rank_01': 0.5454545454545454, 'child_of': [13, 16], 'parent_of': [10, 11], 'label': '12', 'x': 300.0, 'fy': 268.18181818181813, 'y': 268.18181818181813}, {'id': 13, 'flag': 0, 'time': 0.39582244241347575, 'time_01': 0.9198505203957684, 'logtime_01': 0.7911905451922276, 'rank_01': 0.4545454545454546, 'child_of': [17, 18], 'parent_of': [3, 12], 'label': '13', 'x': 300.0, 'fy': 231.81818181818184, 'y': 231.81818181818184}, {'id': 14, 'flag': 0, 'time': 0.8565089125241158, 'time_01': 0.8265668232538372, 'logtime_01': 0.6126050290609146, 'rank_01': 0.36363636363636365, 'child_of': [17], 'parent_of': [3, 11], 'label': '14', 'x': 300.0, 'fy': 195.45454545454547, 'y': 195.45454545454547}, {'id': 15, 'flag': 0, 'time': 1.0352810563867096, 'time_01': 0.7903675258846593, 'logtime_01': 0.5550396185408524, 'rank_01': 0.2727272727272727, 'child_of': [17], 'parent_of': [9, 10], 'label': '15', 'x': 300.0, 'fy': 159.09090909090907, 'y': 159.09090909090907}, {'id': 16, 'flag': 0, 'time': 2.033597596813773, 'time_01': 0.5882199399427213, 'logtime_01': 0.3051352725610018, 'rank_01': 0.18181818181818177, 'child_of': [17], 'parent_of': [3, 11, 12], 'label': '16', 'x': 300.0, 'fy': 122.7272727272727, 'y': 122.7272727272727}, {'id': 17, 'flag': 0, 'time': 3.30638247068103, 'time_01': 0.3304956818976572, 'logtime_01': 0.0857657633683675, 'rank_01': 0.09090909090909083, 'child_of': [], 'parent_of': [9, 13, 14, 15, 16], 'label': '17', 'x': 300.0, 'fy': 86.36363636363633, 'y': 86.36363636363633}, {'id': 18, 'flag': 0, 'time': 4.9385528685650755, 'time_01': 0.0, 'logtime_01': -0.11545696884408474, 'rank_01': 0.0, 'child_of': [], 'parent_of': [9, 13], 'label': '18', 'x': 300.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 10, 'target': 0, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 8, 'region_fraction': 1.0}, {'source': 8, 'target': 1, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 8, 'target': 2, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 13, 'target': 3, 'bounds': '0.0-224.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 0.224}, {'source': 14, 'target': 3, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.165}, {'source': 16, 'target': 3, 'bounds': '224.0-835.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.611}, {'source': 9, 'target': 4, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 1.0}, {'source': 9, 'target': 5, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 1.0}, {'source': 11, 'target': 6, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 11, 'target': 7, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 1.0}, {'source': 10, 'target': 8, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 15, 'target': 9, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.237}, {'source': 17, 'target': 9, 'bounds': '145.0-763.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.618}, {'source': 18, 'target': 9, 'bounds': '0.0-145.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.145}, {'source': 12, 'target': 10, 'bounds': '0.0-763.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.763}, {'source': 15, 'target': 10, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.237}, {'source': 12, 'target': 11, 'bounds': '0.0-763.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.763}, {'source': 14, 'target': 11, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.165}, {'source': 16, 'target': 11, 'bounds': '763.0-835.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.072}, {'source': 13, 'target': 12, 'bounds': '0.0-224.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.224}, {'source': 16, 'target': 12, 'bounds': '224.0-763.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.539}, {'source': 17, 'target': 13, 'bounds': '145.0-224.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.079}, {'source': 18, 'target': 13, 'bounds': '0.0-145.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.145}, {'source': 17, 'target': 14, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.165}, {'source': 17, 'target': 15, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.237}, {'source': 17, 'target': 16, 'bounds': '224.0-835.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.611}], 'breakpoints': [{'start': 0, 'stop': 145.0, 'x_pos_01': 0.0, 'width_01': 0.145, 'x_pos': 50.0, 'width': 72.5}, {'start': 145.0, 'stop': 224.0, 'x_pos_01': 0.145, 'width_01': 0.079, 'x_pos': 122.5, 'width': 39.5}, {'start': 224.0, 'stop': 763.0, 'x_pos_01': 0.224, 'width_01': 0.539, 'x_pos': 162.0, 'width': 269.5}, {'start': 763.0, 'stop': 835.0, 'x_pos_01': 0.763, 'width_01': 0.072, 'x_pos': 431.5, 'width': 36.0}, {'start': 835.0, 'stop': 1000.0, 'x_pos_01': 0.835, 'width_01': 0.165, 'x_pos': 467.5, 'width': 82.5}]}, 'width': 550, 'height': 575, 'y_axis': {'include_labels': 'true', 'ticks': [450.0, 413.6363636363636, 377.27272727272725, 340.90909090909093, 304.5454545454545, 268.18181818181813, 231.81818181818184, 195.45454545454547, 159.09090909090907, 122.7272727272727, 86.36363636363633, 50.0], 'text': [0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 5], 'max_min': [450.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'line', 'variable_edge_width': 'true', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
+            d3.select("#arg_7441325330 .copymessage").style("visibility", "visible");
+            setTimeout( function() {
+                d3.select("#arg_7441325330 .copymessage").style("visibility", "hidden");
+            }, 1000);
+        });
+    clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("viewBox", "0 0 448 512")
+        .append("path")
+        .attr("d", "M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z");
+    clipboard.append("span").attr("class", "tip desc").text("Copy To Clipboard");
+    clipboard.append("span").attr("class", "tip copymessage").text("Copied!");
+
+    var reheat = dashboard.append("button")
+        .on("click", function(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();       
+            var order = d3.selectAll("#arg_7441325330 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_7441325330 .node").classed("unfix", function(d) {
+                if (d.flag != 1) {
+                    delete d.fx;
+                } else {
+                    d.fx = evenly_distributed_positions[order.indexOf(d.id)];
+                }
+            });
+        });
+    reheat.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("viewBox", "0 0 384 512")
+        .append("path")
+        .attr("d", "M153.6 29.9l16-21.3C173.6 3.2 180 0 186.7 0C198.4 0 208 9.6 208 21.3V43.5c0 13.1 5.4 25.7 14.9 34.7L307.6 159C356.4 205.6 384 270.2 384 337.7C384 434 306 512 209.7 512H192C86 512 0 426 0 320v-3.8c0-48.8 19.4-95.6 53.9-130.1l3.5-3.5c4.2-4.2 10-6.6 16-6.6C85.9 176 96 186.1 96 198.6V288c0 35.3 28.7 64 64 64s64-28.7 64-64v-3.9c0-18-7.2-35.3-19.9-48l-38.6-38.6c-24-24-37.5-56.7-37.5-90.7c0-27.7 9-54.8 25.6-76.9z");
+    reheat.append("span").attr("class", "tip desc").text("Reheat Simulation");
+    
+    var evenly_distribute = dashboard.append("button")
+        .on("click", function() {
+            var order = d3.selectAll("#arg_7441325330 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_7441325330 .sample").classed("distribute", function(d) {
+                d.fx = evenly_distributed_positions[order.indexOf(d.id)];
+            });
+        });
+    evenly_distribute.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("viewBox", "0 0 512 512")
+        .append("path")
+        .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
+    evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
+
+    var svg = d3.select("#arg_7441325330").append("svg")
+        .attr("width", 550)
+        .attr("height", 575)
+        .style("padding-top", "10px");
+
+    var result = y_axis.ticks.map(function (x) { 
+        return parseInt(x, 10); 
+    });
+
+
+    if (y_axis.include_labels == "true") {
+        var bottom = 575 - 50;
+        if (true) {
+            bottom = 575 - 125;
+        }
+        var yscale = d3.scaleLinear() 
+            .domain([y_axis.max_min[0], y_axis.max_min[1]]) 
+            .range([bottom, 50]); 
+
+        var y_axis_text = y_axis.text;
+
+        var y_axis = d3.axisRight().scale(yscale)
+            .tickValues(result)
+            .tickFormat((d, i) => y_axis_text[i]); 
+
+        var y_axis_labels = svg
+            .append("g")
+            .attr("class", "yaxis")
+            .attr("transform", "translate(5,0)")
+            .call(y_axis);
+    }
+
+    var simulation = d3
+        .forceSimulation(graph.nodes)
+        .force("link", d3.forceLink()
+            .id(function(d) {
+                return d.id;
+            })
+            .links(graph.links)
+        )
+        .force("charge", d3.forceManyBody().strength(-10))
+        .on("tick", ticked);
+
+    var link_container = svg
+        .append("g")
+        .attr("class", "links")
+        .selectAll("path")
+        .data(graph.links)
+        .enter()
+        .append("g")
+        .attr("bounds", function(d) {
+            return d.bounds;
+        });
+
+    var underlink = link_container
+        .append("path")
+        .attr("class", "underlink");
+
+    var link = link_container
+        .append("path")
+        .attr("class", function(d) {
+            if (subset.includes(d.source.id) & subset.includes(d.target.id)) {
+                return "link"
+            } else {
+                return "hiddenlink"
+            }
+        });
+    
+    if (true) {
+        link
+            .style("stroke-width", function(d) {
+                return d.region_fraction * 7 + 1;
+            });
+    }
+    
+    if (true) {
+        link
+            .on('mouseover', function (event, d) {
+                d3.select(this)
+                    .style('stroke', '#1eebb1')
+                    .style("cursor", "pointer");
+                d3.select("#arg_7441325330 .breakpoints")
+                    .selectAll("rect")
+                        .filter(function(j) {
+                            return d.bounds.split(" ").some(function(region) {
+                                region = region.split("-");
+                                return (parseFloat(region[0]) <= j.start) & (parseFloat(region[1]) >= j.stop)
+                            });
+                        })
+                        .style('fill', '#1eebb1');
+            })
+            .on('mouseout', function (d, i) {
+                d3.select(this)
+                    .style('stroke', '#053e4e')
+                    .style("cursor", "default")
+                d3.select("#arg_7441325330 .breakpoints").selectAll("rect")
+                    .style("fill", "#053e4e")
+            });
+    }
+
+    var node = svg
+        .append("g")
+        .attr("class", "nodes")
+        .selectAll("circle")
+        .data(graph.nodes)
+        .enter()
+        .append("circle")
+        .attr("id", function(d) {
+            return String(7441325330) + "_node" + d.id
+        })
+        .attr("class", function(d) {
+            var classy = ""
+            if (subset.includes(d.id)) {
+                classy += "node";
+            } else {
+                classy += "hiddennode";
+            }
+            if (d.flag == 1) {
+                classy += " sample";
+            }
+            return classy
+        })
+        .attr("parents", function(d) {
+            return d.child_of.toString().replace(",", " ")
+        })
+        .attr("children", function(d) {
+            return d.parent_of.toString().replace(",", " ")
+        })
+        .attr("r", 7)
+        .call(
+            d3
+                .drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+        )
+        .on('mouseover', function (d, i) {
+            d3.select(this)
+                .style("cursor", "pointer")
+        });
+
+    
+    if (true) {
+        var label = svg
+            .append("g")
+            .attr("class", "labels")
+            .selectAll("text")
+            .data(graph.nodes)
+            .enter()
+            .append("text")
+                .attr("class", function(d) {
+                    if (subset.includes(d.id)) {
+                        return "label"
+                    } else {
+                        return "hiddenlabel"
+                    }
+                })
+                .text(function (d) { return d.label; });
+    };
+    
+    function determine_path_type(d) {
+        path_type = ""
+        var start_position_x = d.source.x;
+        var start_position_y = d.source.y;
+        var stop_position_x = d.target.x;
+        var stop_position_y = d.target.y;
+        var vnub = Math.min((stop_position_y-start_position_y)/2, 20);
+        if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
+            vnub = 0;
+        }
+        var alt_child = document.getElementById(String(7441325330) + "_node" + d.alt_child);
+        if (alt_child != null) {
+            var alt_child_x = alt_child.getAttribute("cx");
+            var alt_child_y = alt_child.getAttribute("cy");
+        }
+        if (d.source.flag == 131072) {
+            path_type += "r0";
+            start_position_y = d.source.y + vnub;
+        } else {
+            if (d.target.y < alt_child_y) {
+                if (d.target.x < d.source.x) {
+                    if (d.target.x < d.source.x - 40) {
+                        path_type += "tL";
+                    } else {
+                        path_type += "fL";
+                    }
+                    start_position_x = d.source.x - 20;
+                } else {
+                    if (d.target.x > d.source.x + 40) {
+                        path_type += "tR";
+                    } else {
+                        path_type += "fR";
+                    }
+                    start_position_x = d.source.x + 20;
+                }
+            } else if (d.target.y > alt_child_y) {
+                if (alt_child_x < d.source.x) {
+                    if (d.target.x < d.source.x + 40) {
+                        path_type += "fR";
+                    } else {
+                        path_type += "tR";
+                    }
+                    start_position_x = d.source.x + 20;
+                } else {
+                    if (d.target.x > d.source.x - 40) {
+                        path_type += "fL";
+                    } else {
+                        path_type += "tL";
+                    }
+                    start_position_x = d.source.x - 20;
+                }
+            } else {
+                if (d.target.x < alt_child_x) {
+                    if (d.target.x < d.source.x - 40) {
+                        path_type += "tL";
+                    } else {
+                        path_type += "fL";
+                    }
+                    start_position_x = d.source.x - 20;
+                } else if (d.target.x > alt_child_x) {
+                    if (d.target.x > d.source.x + 40) {
+                        path_type += "tR";
+                    } else {
+                        path_type += "fR";
+                    }
+                    start_position_x = d.source.x + 20;
+                } else {
+                    if (d.index % 2 == 0) {
+                        path_type += "fL";
+                        start_position_x = d.source.x - 20;
+                    } else {
+                        path_type += "fR";
+                        start_position_x = d.source.x + 20;
+                    }
+                }
+            }
+        }
+        var alt_parent = document.getElementById(String(7441325330) + "_node" + d.alt_parent);
+        if (alt_parent != null) {
+            var alt_parent_x = alt_parent.getAttribute("cx");
+            var alt_parent_y = alt_parent.getAttribute("cy");
+        }
+        if (d.target.flag == 131072) {
+            if (d.source.y < alt_parent_y) {
+                if (alt_parent_x < d.target.x) {
+                    if (d.source.x < d.target.x + 40) {
+                        path_type += "fR";
+                    } else {
+                        path_type += "tR";
+                    }
+                    stop_position_x = d.target.x + 20;
+                } else {
+                    if (d.source.x > d.target.x - 40) {
+                        path_type += "fL";
+                    } else {
+                        path_type += "tL";
+                    }
+                    stop_position_x = d.target.x - 20;
+                }
+            } else if (d.source.y > alt_parent_y) {
+                if (d.source.x < d.target.x) {
+                    if (d.source.x < d.target.x - 40) {
+                        path_type += "tL";
+                    } else {
+                        path_type += "fL";
+                    }
+                    stop_position_x = d.target.x - 20;
+                } else {
+                    if (d.source.x > d.target.x + 40) {
+                        path_type += "tR";
+                    } else {
+                        path_type += "fR";
+                    }
+                    stop_position_x = d.target.x + 20;
+                }
+            } else {
+                if (d.index % 2 == 0) {
+                    path_type += "fL";
+                    stop_position_x = d.target.x - 20;
+                } else {
+                    path_type += "fR";
+                    stop_position_x = d.target.x + 20;
+                }
+            }
+        } else {
+            path_type += "b0";
+            stop_position_y = d.target.y - vnub;
+        }
+        if (path_type == "fLb0" ) {
+            if (start_position_x >= stop_position_x) {
+                path_type = "tLb0";
+            }
+        } else if (path_type == "fRb0") {
+            if (start_position_x <= stop_position_x) {
+                path_type = "tRb0";
+            }
+        } else if (path_type == "r0fL") {
+            if (start_position_x <= stop_position_x) {
+                path_type = "r0tL";
+            }
+        } else if (path_type == "r0fR") {
+            if (start_position_x >= stop_position_x) {
+                path_type = "r0tR";
+            }
+        } else if (path_type == "fLfL") {
+            if (start_position_x <= stop_position_x) {
+                path_type = "fLtL";
+            } else {
+                path_type = "tLfL";
+            }
+        } else if (path_type == "fRfR") {
+            if (start_position_x >= stop_position_x) {
+                path_type = "fRtR";
+            } else {
+                path_type = "tRfR";
+            }
+        }
+        if ((d.source.id == 60) & (d.target.id == 35)) {
+            path_type = "r0b0";
+            start_position_x = d.source.x;
+            start_position_y = d.source.y + vnub;
+            stop_position_x = d.target.x;
+            stop_position_y = d.target.y - vnub;
+        }
+        return [path_type, start_position_x, start_position_y, stop_position_x, stop_position_y];
+    }
+
+    function ticked() {
+
+        node
+            .attr("cx", function(d) {
+                if (y_axis.include_labels == "false") {
+                    return d.x = Math.max(50, Math.min(550-50, d.x));
+                } else {
+                    return d.x = Math.max(100, Math.min(550-50, d.x));
+                }
+            })
+            .attr("cy", function(d) {
+                return d.y;
+            });
+
+        underlink
+            .attr("d", function(d) {
+                if ("line" == "ortho") {
+                    const output = determine_path_type(d);
+                
+                    const path_type = output[0];
+                    const simple_path_type = Array.from(path_type)[0] + Array.from(path_type)[2];
+                    const start_position_x = output[1];
+                    const start_position_y = output[2];
+                    const stop_position_x = output[3];
+                    const stop_position_y = output[4];
+
+                    const after_paths = ["rf", "tb", "tf"];
+                    const before_paths = ["rt", "fb", "ft"];
+                    const step_paths = ["tt"];
+                    const mid_paths = ["rb", "ff"];
+
+                    if (after_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepAfter([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (before_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepBefore([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (step_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + step([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (mid_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + line([[start_position_x, start_position_y],[start_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[start_position_x, start_position_y + (stop_position_y - start_position_y)/2],[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2], [stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    }
+                }
+            });
+
+        link
+            .attr("path_type", function(d) {
+                return determine_path_type(d)[0];
+            })
+            .attr("d", function(d) {
+                if ("line" == "ortho") {
+                    const output = determine_path_type(d);
+                
+                    const path_type = output[0];
+                    const simple_path_type = Array.from(path_type)[0] + Array.from(path_type)[2];
+                    const start_position_x = output[1];
+                    const start_position_y = output[2];
+                    const stop_position_x = output[3];
+                    const stop_position_y = output[4];
+
+                    const after_paths = ["rf", "tb", "tf"];
+                    const before_paths = ["rt", "fb", "ft"];
+                    const step_paths = ["tt"];
+                    const mid_paths = ["rb", "ff"];
+
+                    if (after_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepAfter([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (before_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepBefore([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (step_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + step([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (mid_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + line([[start_position_x, start_position_y],[start_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[start_position_x, start_position_y + (stop_position_y - start_position_y)/2],[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2], [stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    }
+                } else if ("line" == "line") {
+                    if (d.source.id == d.alt_parent) {
+                        var leftOrRight = 20;
+                        if (d.index % 2 == 0) {
+                            leftOrRight = -20;
+                        }
+                        return "M " + d.source.x + " " + d.source.y + " C " + (d.source.x + leftOrRight).toString() + " " +  (d.source.y - 10).toString() + ", " + (d.target.x + leftOrRight).toString() + " " + (d.target.y + 10).toString() + ", " + d.target.x + " " + d.target.y;
+                    } else {
+                        return line([[d.source.x, d.source.y], [d.target.x, d.target.y]]);
+                    }
+                }
+            });
+
+        function determine_label_positioning(d) {
+            if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
+                return "c";
+            } else if (d.child_of.length == 1) {
+                var parent = document.getElementById(String(7441325330) + "_node" + d.child_of[0])
+                if (parent != null) {
+                    var parent_x = parent.getAttribute("cx");
+                    if (parent_x > d.x) {
+                        return "l";
+                    } else {
+                        return "r";
+                    }
+                } else {
+                    return "r";
+                }
+            } else {
+                return "r";
+            }
+        };
+
+        if (true) {
+
+            label
+                .attr("x", function(d) {
+                    var positioning = determine_label_positioning(d);
+                    if (positioning == "l") {
+                        return d.x - 15;
+                    } else if (positioning == "r") {
+                        return d.x + 15;
+                    } else {
+                        return d.x;
+                    }
+                })
+                .style("text-anchor", function(d) {
+                    var positioning = determine_label_positioning(d);
+                    if (positioning == "l") {
+                        return "end";
+                    } else if (positioning == "r") {
+                        return "start";
+                    } else {
+                        return "middle";
+                    }
+                })
+                .attr("y", function(d) {
+                    if (d.parent_of.length == 0) {
+                        return d.y + 25;
+                    } else {
+                        return d.y - 15;
+                    }
+                });
+        };
+    }
+
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+    }
+
+    if (true) {
+        
+        var th_group = svg.append("g").attr("class", "tree_highlighting");
+        
+        th_group
+            .append("g")
+            .attr("class", "breakpoints")
+            .selectAll("rect")
+            .data(graph.breakpoints)
+            .enter()
+            .append("rect")
+            .attr("start", function(d) {
+                return d.start;
+            })
+            .attr("stop", function(d) {
+                return d.stop;
+            })
+            .attr("x", function(d) {
+                return d.x_pos;
+            })
+            .attr("y", 575-60)
+            .attr("width", function(d) {
+                return d.width;
+            })
+            .attr("height", 40)
+            .attr("stroke", "#FFFFFF")
+            .attr("stroke-width", 5)
+            .attr("fill", "#053e4e")
+            .on('mouseover', function (event, d) {
+                d3.select(this)
+                    .style('fill', '#1eebb1')
+                    .style("cursor", "pointer");
+                var highlight_links = d3.select("#arg_7441325330 .links")
+                    .selectAll("g")
+                        .filter(function(j) {
+                            return j.bounds.split(" ").some(function(region) {
+                                region = region.split("-");
+                                return (parseFloat(region[1]) > d.start) & (parseFloat(region[0]) < d.stop)
+                            });
+                        });
+                highlight_links.raise();
+                //if (true) {
+                    highlight_links
+                        .select(".link")
+                        .style("stroke", "#1eebb1");
+                //} else {
+                //    highlight_links
+                //        .select(".link")
+                //        .style("stroke", "#1eebb1")
+                //        .style("stroke-width", 7);
+                //};
+            })
+            .on('mouseout', function (d, i) {
+                d3.select(this)
+                    .style('fill', '#053e4e')
+                    .style("cursor", "default");
+                //if (true) {
+                    d3.selectAll("#arg_7441325330 .link")
+                        .style("stroke", "#053e4e");
+                //} else {
+                //    d3.selectAll("#arg_7441325330 .link")
+                //        .style("stroke", "#053e4e")
+                //        .style("stroke-width", 3);
+                //};     
+            });
+        
+        var endpoints = th_group.append("g").attr("class", "endpoints");
+        
+        endpoints
+            .append("text")
+                .attr("class", "label")
+                .style("text-anchor", "start")
+                .text(graph.breakpoints[0].start)
+                .attr("x", graph.breakpoints[0].x_pos)
+                .attr("y", 575-5);
+        
+        endpoints
+            .append("text")
+                .attr("class", "label")
+                .style("text-anchor", "end")
+                .text(graph.breakpoints[graph.breakpoints.length-1].stop)
+                .attr("x", 550)
+                .attr("y", 575-5);
+    }
+}
+
+draw_force_diagram()</script></div></div>
+</div>
+<p>For an <code class="docutils literal notranslate"><span class="pre">msprime</span></code> “full ARG” tree sequence, <code class="docutils literal notranslate"><span class="pre">edge_type=&quot;ortho&quot;</span></code> can be used to draw a
+traditional “<a class="reference internal" href="args.html#sec-args"><span class="std std-ref">Ancestral Recombination Graph</span></a>” style plot (variable edge widths
+turned off for clarity):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">tskit_arg_visualizer</span>
+<span class="n">full_arg_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+    <span class="mi">4</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">record_full_arg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">d3arg</span> <span class="o">=</span> <span class="n">tskit_arg_visualizer</span><span class="o">.</span><span class="n">D3ARG</span><span class="o">.</span><span class="n">from_ts</span><span class="p">(</span><span class="n">ts</span><span class="o">=</span><span class="n">full_arg_ts</span><span class="p">)</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">edge_type</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">,</span> <span class="n">sample_order</span><span class="o">=</span><span class="n">tip_order</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>.d3arg {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px 20px 60px 20px;
+}
+
+.d3arg:hover .dashboard {
+    visibility: visible;
+}
+
+.dashboard {
+    display: flex;
+    visibility: hidden;
+}
+
+.dashboard button {
+    position: relative;
+    font-size: 30px;
+    border: 0px;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+}
+
+.dashboard button .tip {
+    width: 120px;
+    font-size: 12px;
+    background-color: lightgrey;
+    color: #053e4e;
+    text-align: center;
+    padding: 5px 0px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%; 
+    margin-left: -60px;
+    visibility: hidden;
+}
+
+.dashboard button:hover .desc {
+    visibility: visible;
+}
+
+.dashboard path {
+    fill: grey;
+}
+
+.dashboard button:hover path {
+    fill: #053e4e;
+}
+
+.dashboard button:active path {
+    fill: #1eebb1;
+}
+
+.yaxis path {
+    stroke: #053e4e;
+    stroke-width: 3px;
+}
+
+.yaxis line {
+    stroke: #053e4e;
+    stroke-width: 3px;
+}
+
+.yaxis text {
+    fill: #053e4e;
+    stroke: 1px;
+}
+
+.node {
+    fill: #1eebb1;
+    stroke: #053e4e;
+    stroke-width: 4px;
+}
+
+.hiddennode {
+    fill: lightgrey;
+    stroke: lightgrey;
+    stroke-width: 4px;
+}
+
+.underlink {
+    stroke: #ffffff;
+    stroke-width: 12px;
+    fill: none;
+}
+
+.link {
+    stroke: #053e4e;
+    stroke-width: 4px;
+    fill: none;
+}
+
+.hiddenlink {
+    stroke: lightgrey;
+    stroke-width: 4px;
+    fill: none;
+}
+
+.labels {
+    text-anchor: middle;
+}
+
+.label {
+    fill: #053e4e;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.hiddenlabel {
+    fill: lightgrey;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+svg {
+    display: block;
+}
+
+button {
+    display: block;
+    cursor: pointer;
+}
+
+.saving {
+    display: flex;
+    flex-direction: row;
+}
+
+.saving .message {
+    display: none;
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_9272079464'class='d3arg' style='min-width:590px; min-height:655px;'></div><script>var line = d3.line();
+var step = d3.line().curve(d3.curveStep);
+var stepAfter = d3.line().curve(d3.curveStepAfter);
+var stepBefore = d3.line().curve(d3.curveStepBefore);
+
+function draw_force_diagram() {
+    
+    var graph = {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 450.0, 'y': 450.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '1', 'fx': 271.42857142857144, 'fy': 450.0, 'y': 450.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '2', 'fx': 328.57142857142856, 'fy': 450.0, 'y': 450.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [17], 'parent_of': [], 'label': '3', 'fx': 214.28571428571428, 'fy': 450.0, 'y': 450.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '4', 'fx': 442.8571428571429, 'fy': 450.0, 'y': 450.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '5', 'fx': 500.0, 'fy': 450.0, 'y': 450.0}, {'id': 6, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '6', 'fx': 157.14285714285714, 'fy': 450.0, 'y': 450.0}, {'id': 7, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '7', 'fx': 385.7142857142857, 'fy': 450.0, 'y': 450.0}, {'id': 8, 'flag': 0, 'time': 0.00523931699745691, 'time_01': 0.9984443191777483, 'logtime_01': 0.9956965043456049, 'rank_01': 0.9473684210526316, 'child_of': [10], 'parent_of': [1, 2], 'label': '8', 'x': 300.0, 'fy': 428.94736842105266, 'y': 428.94736842105266}, {'id': 9, 'flag': 0, 'time': 0.017557818091816682, 'time_01': 0.9947866561807043, 'logtime_01': 0.9856659988184764, 'rank_01': 0.8947368421052632, 'child_of': [21], 'parent_of': [4, 5], 'label': '9', 'x': 300.0, 'fy': 407.89473684210526, 'y': 407.89473684210526}, {'id': 10, 'flag': 0, 'time': 0.09416924140000202, 'time_01': 0.9720388586979789, 'logtime_01': 0.9258856691493427, 'rank_01': 0.8421052631578947, 'child_of': [12], 'parent_of': [0, 8], 'label': '10', 'x': 300.0, 'fy': 386.84210526315786, 'y': 386.84210526315786}, {'id': 11, 'flag': 0, 'time': 0.1024650871470267, 'time_01': 0.9695756200469736, 'logtime_01': 0.919665289630825, 'rank_01': 0.7894736842105263, 'child_of': [14], 'parent_of': [6, 7], 'label': '11', 'x': 300.0, 'fy': 365.7894736842105, 'y': 365.7894736842105}, {'id': 12, 'flag': 131072, 'time': 0.11568803951902568, 'time_01': 0.965649403437318, 'logtime_01': 0.9098465900873469, 'rank_01': 0.736842105263158, 'child_of': [14], 'parent_of': [10], 'x_pos_reference': 10, 'label': '12/13', 'x': 300.0, 'fy': 344.7368421052632, 'y': 344.7368421052632}, {'id': 14, 'flag': 0, 'time': 0.12175435946697583, 'time_01': 0.96384816529707, 'logtime_01': 0.9053809221242646, 'rank_01': 0.6842105263157895, 'child_of': [15], 'parent_of': [11, 12], 'label': '14', 'x': 300.0, 'fy': 323.6842105263158, 'y': 323.6842105263158}, {'id': 15, 'flag': 131072, 'time': 0.308460674409082, 'time_01': 0.9084105130821528, 'logtime_01': 0.7785915434792432, 'rank_01': 0.631578947368421, 'child_of': [20], 'parent_of': [14], 'x_pos_reference': 14, 'label': '15/16', 'x': 300.0, 'fy': 302.63157894736844, 'y': 302.63157894736844}, {'id': 17, 'flag': 0, 'time': 0.39582244241347575, 'time_01': 0.8824706764300845, 'logtime_01': 0.7253645028602671, 'rank_01': 0.5789473684210527, 'child_of': [23], 'parent_of': [3, 12], 'label': '17', 'x': 300.0, 'fy': 281.57894736842104, 'y': 281.57894736842104}, {'id': 18, 'flag': 131072, 'time': 0.6941217594839495, 'time_01': 0.7938983439900809, 'logtime_01': 0.5658617484880195, 'rank_01': 0.5263157894736843, 'child_of': [24], 'parent_of': [15], 'x_pos_reference': 15, 'label': '18/19', 'x': 300.0, 'fy': 260.52631578947376, 'y': 260.52631578947376}, {'id': 20, 'flag': 262144, 'time': 0.8577976766058426, 'time_01': 0.7452989778027361, 'logtime_01': 0.48990938765448055, 'rank_01': 0.4736842105263158, 'child_of': [23], 'parent_of': [15, 18], 'x_pos_reference': 15, 'label': '20', 'x': 300.0, 'fy': 239.47368421052633, 'y': 239.47368421052633}, {'id': 21, 'flag': 131072, 'time': 1.0255837873540103, 'time_01': 0.6954791950223049, 'logtime_01': 0.4187014623755223, 'rank_01': 0.42105263157894735, 'child_of': [28], 'parent_of': [9], 'x_pos_reference': 9, 'label': '21/22', 'x': 300.0, 'fy': 218.42105263157893, 'y': 218.42105263157893}, {'id': 23, 'flag': 0, 'time': 1.0987444051668527, 'time_01': 0.6737560257369251, 'logtime_01': 0.38948136747010653, 'rank_01': 0.368421052631579, 'child_of': [24], 'parent_of': [17, 20], 'label': '23', 'x': 300.0, 'fy': 197.3684210526316, 'y': 197.3684210526316}, {'id': 24, 'flag': 0, 'time': 1.2059022164118993, 'time_01': 0.6419382617059832, 'logtime_01': 0.34847153657098406, 'rank_01': 0.3157894736842106, 'child_of': [25], 'parent_of': [18, 23], 'label': '24', 'x': 300.0, 'fy': 176.31578947368425, 'y': 176.31578947368425}, {'id': 25, 'flag': 131072, 'time': 1.5998364961174132, 'time_01': 0.5249695796310361, 'logtime_01': 0.21315492775386224, 'rank_01': 0.26315789473684215, 'child_of': [27], 'parent_of': [24], 'x_pos_reference': 24, 'label': '25/26', 'x': 300.0, 'fy': 155.26315789473688, 'y': 155.26315789473688}, {'id': 27, 'flag': 0, 'time': 1.721772254949798, 'time_01': 0.4887638830384604, 'logtime_01': 0.17540848049470925, 'rank_01': 0.21052631578947367, 'child_of': [28], 'parent_of': [21, 25], 'label': '27', 'x': 300.0, 'fy': 134.21052631578948, 'y': 134.21052631578948}, {'id': 28, 'flag': 0, 'time': 2.0490896096414075, 'time_01': 0.3915753884825759, 'logtime_01': 0.08188802035833243, 'rank_01': 0.1578947368421053, 'child_of': [29], 'parent_of': [21, 27], 'label': '28', 'x': 300.0, 'fy': 113.15789473684212, 'y': 113.15789473684212}, {'id': 29, 'flag': 131072, 'time': 2.087239695481809, 'time_01': 0.38024769883562837, 'logtime_01': 0.07164791621979116, 'rank_01': 0.10526315789473695, 'child_of': [32], 'parent_of': [28], 'x_pos_reference': 28, 'label': '29/30', 'x': 300.0, 'fy': 92.10526315789478, 'y': 92.10526315789478}, {'id': 31, 'flag': 0, 'time': 2.349570553333265, 'time_01': 0.3023552779642755, 'logtime_01': 0.0044847425546915565, 'rank_01': 0.052631578947368474, 'child_of': [32], 'parent_of': [25, 29], 'label': '31', 'x': 300.0, 'fy': 71.0526315789474, 'y': 71.0526315789474}, {'id': 32, 'flag': 0, 'time': 3.367861146397306, 'time_01': 0.0, 'logtime_01': -0.2141153912966347, 'rank_01': 0.0, 'child_of': [], 'parent_of': [29, 31], 'label': '32', 'x': 300.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 10, 'target': 0, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 8, 'region_fraction': 1.0}, {'source': 8, 'target': 1, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 8, 'target': 2, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 17, 'target': 3, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 1.0}, {'source': 9, 'target': 4, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 1.0}, {'source': 9, 'target': 5, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 1.0}, {'source': 11, 'target': 6, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 11, 'target': 7, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 1.0}, {'source': 10, 'target': 8, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 21, 'target': 9, 'bounds': '0.0-166.0 166.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 12, 'target': 10, 'bounds': '0.0-763.0 763.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 14, 'target': 11, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 1.0}, {'source': 14, 'target': 12, 'bounds': '0.0-763.0', 'alt_parent': 17, 'alt_child': 11, 'region_fraction': 0.763}, {'source': 17, 'target': 12, 'bounds': '763.0-1000.0', 'alt_parent': 14, 'alt_child': 3, 'region_fraction': 0.237}, {'source': 15, 'target': 14, 'bounds': '0.0-461.0 461.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 20, 'target': 15, 'bounds': '0.0-461.0', 'alt_parent': 18, 'alt_child': 18, 'region_fraction': 0.461}, {'source': 18, 'target': 15, 'bounds': '461.0-533.0 533.0-1000.0', 'alt_parent': 20, 'alt_child': '', 'region_fraction': 0.539}, {'source': 23, 'target': 17, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 20, 'region_fraction': 1.0}, {'source': 24, 'target': 18, 'bounds': '461.0-533.0', 'alt_parent': 20, 'alt_child': 23, 'region_fraction': 0.072}, {'source': 20, 'target': 18, 'bounds': '533.0-1000.0', 'alt_parent': 24, 'alt_child': 15, 'region_fraction': 0.467}, {'source': 23, 'target': 20, 'bounds': '0.0-461.0 533.0-1000.0', 'alt_parent': '', 'alt_child': 17, 'region_fraction': 0.928}, {'source': 28, 'target': 21, 'bounds': '0.0-166.0', 'alt_parent': 27, 'alt_child': 27, 'region_fraction': 0.166}, {'source': 27, 'target': 21, 'bounds': '166.0-1000.0', 'alt_parent': 28, 'alt_child': 25, 'region_fraction': 0.834}, {'source': 24, 'target': 23, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 18, 'region_fraction': 1.0}, {'source': 25, 'target': 24, 'bounds': '0.0-726.0 726.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 27, 'target': 25, 'bounds': '0.0-726.0', 'alt_parent': 31, 'alt_child': 21, 'region_fraction': 0.726}, {'source': 31, 'target': 25, 'bounds': '726.0-1000.0', 'alt_parent': 27, 'alt_child': 29, 'region_fraction': 0.274}, {'source': 28, 'target': 27, 'bounds': '0.0-166.0 726.0-1000.0', 'alt_parent': '', 'alt_child': 21, 'region_fraction': 0.44}, {'source': 29, 'target': 28, 'bounds': '726.0-804.0 804.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 0.274}, {'source': 32, 'target': 29, 'bounds': '726.0-804.0', 'alt_parent': 31, 'alt_child': 31, 'region_fraction': 0.078}, {'source': 31, 'target': 29, 'bounds': '804.0-1000.0', 'alt_parent': 32, 'alt_child': 25, 'region_fraction': 0.196}, {'source': 32, 'target': 31, 'bounds': '726.0-804.0', 'alt_parent': '', 'alt_child': 29, 'region_fraction': 0.078}], 'breakpoints': [{'start': 0, 'stop': 166.0, 'x_pos_01': 0.0, 'width_01': 0.166, 'x_pos': 50.0, 'width': 83.0}, {'start': 166.0, 'stop': 461.0, 'x_pos_01': 0.166, 'width_01': 0.295, 'x_pos': 133.0, 'width': 147.5}, {'start': 461.0, 'stop': 533.0, 'x_pos_01': 0.461, 'width_01': 0.072, 'x_pos': 280.5, 'width': 36.0}, {'start': 533.0, 'stop': 726.0, 'x_pos_01': 0.533, 'width_01': 0.193, 'x_pos': 316.5, 'width': 96.5}, {'start': 726.0, 'stop': 763.0, 'x_pos_01': 0.726, 'width_01': 0.037, 'x_pos': 413.0, 'width': 18.5}, {'start': 763.0, 'stop': 804.0, 'x_pos_01': 0.763, 'width_01': 0.041, 'x_pos': 431.5, 'width': 20.5}, {'start': 804.0, 'stop': 1000.0, 'x_pos_01': 0.804, 'width_01': 0.196, 'x_pos': 452.0, 'width': 98.0}]};
+    var y_axis = {'include_labels': 'true', 'ticks': [450.0, 428.94736842105266, 407.89473684210526, 386.84210526315786, 365.7894736842105, 344.7368421052632, 323.6842105263158, 302.63157894736844, 281.57894736842104, 260.52631578947376, 239.47368421052633, 218.42105263157893, 197.3684210526316, 176.31578947368425, 155.26315789473688, 134.21052631578948, 113.15789473684212, 92.10526315789478, 71.0526315789474, 50.0], 'text': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3], 'max_min': [450.0, 50.0], 'scale': 'rank'};
+    var subset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 25, 27, 28, 29, 31, 32];
+    var evenly_distributed_positions = [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0];
+
+    var dashboard = d3.select("#arg_9272079464").append("div").attr("class", "dashboard");
+    
+    var clipboard = dashboard.append("button")
+        .on("click", function() {
+            navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 450.0, 'y': 450.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '1', 'fx': 271.42857142857144, 'fy': 450.0, 'y': 450.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '2', 'fx': 328.57142857142856, 'fy': 450.0, 'y': 450.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [17], 'parent_of': [], 'label': '3', 'fx': 214.28571428571428, 'fy': 450.0, 'y': 450.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '4', 'fx': 442.8571428571429, 'fy': 450.0, 'y': 450.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '5', 'fx': 500.0, 'fy': 450.0, 'y': 450.0}, {'id': 6, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '6', 'fx': 157.14285714285714, 'fy': 450.0, 'y': 450.0}, {'id': 7, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '7', 'fx': 385.7142857142857, 'fy': 450.0, 'y': 450.0}, {'id': 8, 'flag': 0, 'time': 0.00523931699745691, 'time_01': 0.9984443191777483, 'logtime_01': 0.9956965043456049, 'rank_01': 0.9473684210526316, 'child_of': [10], 'parent_of': [1, 2], 'label': '8', 'x': 300.0, 'fy': 428.94736842105266, 'y': 428.94736842105266}, {'id': 9, 'flag': 0, 'time': 0.017557818091816682, 'time_01': 0.9947866561807043, 'logtime_01': 0.9856659988184764, 'rank_01': 0.8947368421052632, 'child_of': [21], 'parent_of': [4, 5], 'label': '9', 'x': 300.0, 'fy': 407.89473684210526, 'y': 407.89473684210526}, {'id': 10, 'flag': 0, 'time': 0.09416924140000202, 'time_01': 0.9720388586979789, 'logtime_01': 0.9258856691493427, 'rank_01': 0.8421052631578947, 'child_of': [12], 'parent_of': [0, 8], 'label': '10', 'x': 300.0, 'fy': 386.84210526315786, 'y': 386.84210526315786}, {'id': 11, 'flag': 0, 'time': 0.1024650871470267, 'time_01': 0.9695756200469736, 'logtime_01': 0.919665289630825, 'rank_01': 0.7894736842105263, 'child_of': [14], 'parent_of': [6, 7], 'label': '11', 'x': 300.0, 'fy': 365.7894736842105, 'y': 365.7894736842105}, {'id': 12, 'flag': 131072, 'time': 0.11568803951902568, 'time_01': 0.965649403437318, 'logtime_01': 0.9098465900873469, 'rank_01': 0.736842105263158, 'child_of': [14], 'parent_of': [10], 'x_pos_reference': 10, 'label': '12/13', 'x': 300.0, 'fy': 344.7368421052632, 'y': 344.7368421052632}, {'id': 14, 'flag': 0, 'time': 0.12175435946697583, 'time_01': 0.96384816529707, 'logtime_01': 0.9053809221242646, 'rank_01': 0.6842105263157895, 'child_of': [15], 'parent_of': [11, 12], 'label': '14', 'x': 300.0, 'fy': 323.6842105263158, 'y': 323.6842105263158}, {'id': 15, 'flag': 131072, 'time': 0.308460674409082, 'time_01': 0.9084105130821528, 'logtime_01': 0.7785915434792432, 'rank_01': 0.631578947368421, 'child_of': [20], 'parent_of': [14], 'x_pos_reference': 14, 'label': '15/16', 'x': 300.0, 'fy': 302.63157894736844, 'y': 302.63157894736844}, {'id': 17, 'flag': 0, 'time': 0.39582244241347575, 'time_01': 0.8824706764300845, 'logtime_01': 0.7253645028602671, 'rank_01': 0.5789473684210527, 'child_of': [23], 'parent_of': [3, 12], 'label': '17', 'x': 300.0, 'fy': 281.57894736842104, 'y': 281.57894736842104}, {'id': 18, 'flag': 131072, 'time': 0.6941217594839495, 'time_01': 0.7938983439900809, 'logtime_01': 0.5658617484880195, 'rank_01': 0.5263157894736843, 'child_of': [24], 'parent_of': [15], 'x_pos_reference': 15, 'label': '18/19', 'x': 300.0, 'fy': 260.52631578947376, 'y': 260.52631578947376}, {'id': 20, 'flag': 262144, 'time': 0.8577976766058426, 'time_01': 0.7452989778027361, 'logtime_01': 0.48990938765448055, 'rank_01': 0.4736842105263158, 'child_of': [23], 'parent_of': [15, 18], 'x_pos_reference': 15, 'label': '20', 'x': 300.0, 'fy': 239.47368421052633, 'y': 239.47368421052633}, {'id': 21, 'flag': 131072, 'time': 1.0255837873540103, 'time_01': 0.6954791950223049, 'logtime_01': 0.4187014623755223, 'rank_01': 0.42105263157894735, 'child_of': [28], 'parent_of': [9], 'x_pos_reference': 9, 'label': '21/22', 'x': 300.0, 'fy': 218.42105263157893, 'y': 218.42105263157893}, {'id': 23, 'flag': 0, 'time': 1.0987444051668527, 'time_01': 0.6737560257369251, 'logtime_01': 0.38948136747010653, 'rank_01': 0.368421052631579, 'child_of': [24], 'parent_of': [17, 20], 'label': '23', 'x': 300.0, 'fy': 197.3684210526316, 'y': 197.3684210526316}, {'id': 24, 'flag': 0, 'time': 1.2059022164118993, 'time_01': 0.6419382617059832, 'logtime_01': 0.34847153657098406, 'rank_01': 0.3157894736842106, 'child_of': [25], 'parent_of': [18, 23], 'label': '24', 'x': 300.0, 'fy': 176.31578947368425, 'y': 176.31578947368425}, {'id': 25, 'flag': 131072, 'time': 1.5998364961174132, 'time_01': 0.5249695796310361, 'logtime_01': 0.21315492775386224, 'rank_01': 0.26315789473684215, 'child_of': [27], 'parent_of': [24], 'x_pos_reference': 24, 'label': '25/26', 'x': 300.0, 'fy': 155.26315789473688, 'y': 155.26315789473688}, {'id': 27, 'flag': 0, 'time': 1.721772254949798, 'time_01': 0.4887638830384604, 'logtime_01': 0.17540848049470925, 'rank_01': 0.21052631578947367, 'child_of': [28], 'parent_of': [21, 25], 'label': '27', 'x': 300.0, 'fy': 134.21052631578948, 'y': 134.21052631578948}, {'id': 28, 'flag': 0, 'time': 2.0490896096414075, 'time_01': 0.3915753884825759, 'logtime_01': 0.08188802035833243, 'rank_01': 0.1578947368421053, 'child_of': [29], 'parent_of': [21, 27], 'label': '28', 'x': 300.0, 'fy': 113.15789473684212, 'y': 113.15789473684212}, {'id': 29, 'flag': 131072, 'time': 2.087239695481809, 'time_01': 0.38024769883562837, 'logtime_01': 0.07164791621979116, 'rank_01': 0.10526315789473695, 'child_of': [32], 'parent_of': [28], 'x_pos_reference': 28, 'label': '29/30', 'x': 300.0, 'fy': 92.10526315789478, 'y': 92.10526315789478}, {'id': 31, 'flag': 0, 'time': 2.349570553333265, 'time_01': 0.3023552779642755, 'logtime_01': 0.0044847425546915565, 'rank_01': 0.052631578947368474, 'child_of': [32], 'parent_of': [25, 29], 'label': '31', 'x': 300.0, 'fy': 71.0526315789474, 'y': 71.0526315789474}, {'id': 32, 'flag': 0, 'time': 3.367861146397306, 'time_01': 0.0, 'logtime_01': -0.2141153912966347, 'rank_01': 0.0, 'child_of': [], 'parent_of': [29, 31], 'label': '32', 'x': 300.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 10, 'target': 0, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 8, 'region_fraction': 1.0}, {'source': 8, 'target': 1, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 8, 'target': 2, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 17, 'target': 3, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 1.0}, {'source': 9, 'target': 4, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 1.0}, {'source': 9, 'target': 5, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 1.0}, {'source': 11, 'target': 6, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 11, 'target': 7, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 1.0}, {'source': 10, 'target': 8, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 21, 'target': 9, 'bounds': '0.0-166.0 166.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 12, 'target': 10, 'bounds': '0.0-763.0 763.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 14, 'target': 11, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 1.0}, {'source': 14, 'target': 12, 'bounds': '0.0-763.0', 'alt_parent': 17, 'alt_child': 11, 'region_fraction': 0.763}, {'source': 17, 'target': 12, 'bounds': '763.0-1000.0', 'alt_parent': 14, 'alt_child': 3, 'region_fraction': 0.237}, {'source': 15, 'target': 14, 'bounds': '0.0-461.0 461.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 20, 'target': 15, 'bounds': '0.0-461.0', 'alt_parent': 18, 'alt_child': 18, 'region_fraction': 0.461}, {'source': 18, 'target': 15, 'bounds': '461.0-533.0 533.0-1000.0', 'alt_parent': 20, 'alt_child': '', 'region_fraction': 0.539}, {'source': 23, 'target': 17, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 20, 'region_fraction': 1.0}, {'source': 24, 'target': 18, 'bounds': '461.0-533.0', 'alt_parent': 20, 'alt_child': 23, 'region_fraction': 0.072}, {'source': 20, 'target': 18, 'bounds': '533.0-1000.0', 'alt_parent': 24, 'alt_child': 15, 'region_fraction': 0.467}, {'source': 23, 'target': 20, 'bounds': '0.0-461.0 533.0-1000.0', 'alt_parent': '', 'alt_child': 17, 'region_fraction': 0.928}, {'source': 28, 'target': 21, 'bounds': '0.0-166.0', 'alt_parent': 27, 'alt_child': 27, 'region_fraction': 0.166}, {'source': 27, 'target': 21, 'bounds': '166.0-1000.0', 'alt_parent': 28, 'alt_child': 25, 'region_fraction': 0.834}, {'source': 24, 'target': 23, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 18, 'region_fraction': 1.0}, {'source': 25, 'target': 24, 'bounds': '0.0-726.0 726.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 27, 'target': 25, 'bounds': '0.0-726.0', 'alt_parent': 31, 'alt_child': 21, 'region_fraction': 0.726}, {'source': 31, 'target': 25, 'bounds': '726.0-1000.0', 'alt_parent': 27, 'alt_child': 29, 'region_fraction': 0.274}, {'source': 28, 'target': 27, 'bounds': '0.0-166.0 726.0-1000.0', 'alt_parent': '', 'alt_child': 21, 'region_fraction': 0.44}, {'source': 29, 'target': 28, 'bounds': '726.0-804.0 804.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 0.274}, {'source': 32, 'target': 29, 'bounds': '726.0-804.0', 'alt_parent': 31, 'alt_child': 31, 'region_fraction': 0.078}, {'source': 31, 'target': 29, 'bounds': '804.0-1000.0', 'alt_parent': 32, 'alt_child': 25, 'region_fraction': 0.196}, {'source': 32, 'target': 31, 'bounds': '726.0-804.0', 'alt_parent': '', 'alt_child': 29, 'region_fraction': 0.078}], 'breakpoints': [{'start': 0, 'stop': 166.0, 'x_pos_01': 0.0, 'width_01': 0.166, 'x_pos': 50.0, 'width': 83.0}, {'start': 166.0, 'stop': 461.0, 'x_pos_01': 0.166, 'width_01': 0.295, 'x_pos': 133.0, 'width': 147.5}, {'start': 461.0, 'stop': 533.0, 'x_pos_01': 0.461, 'width_01': 0.072, 'x_pos': 280.5, 'width': 36.0}, {'start': 533.0, 'stop': 726.0, 'x_pos_01': 0.533, 'width_01': 0.193, 'x_pos': 316.5, 'width': 96.5}, {'start': 726.0, 'stop': 763.0, 'x_pos_01': 0.726, 'width_01': 0.037, 'x_pos': 413.0, 'width': 18.5}, {'start': 763.0, 'stop': 804.0, 'x_pos_01': 0.763, 'width_01': 0.041, 'x_pos': 431.5, 'width': 20.5}, {'start': 804.0, 'stop': 1000.0, 'x_pos_01': 0.804, 'width_01': 0.196, 'x_pos': 452.0, 'width': 98.0}]}, 'width': 550, 'height': 575, 'y_axis': {'include_labels': 'true', 'ticks': [450.0, 428.94736842105266, 407.89473684210526, 386.84210526315786, 365.7894736842105, 344.7368421052632, 323.6842105263158, 302.63157894736844, 281.57894736842104, 260.52631578947376, 239.47368421052633, 218.42105263157893, 197.3684210526316, 176.31578947368425, 155.26315789473688, 134.21052631578948, 113.15789473684212, 92.10526315789478, 71.0526315789474, 50.0], 'text': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3], 'max_min': [450.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'ortho', 'variable_edge_width': 'false', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 25, 27, 28, 29, 31, 32], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
+            d3.select("#arg_9272079464 .copymessage").style("visibility", "visible");
+            setTimeout( function() {
+                d3.select("#arg_9272079464 .copymessage").style("visibility", "hidden");
+            }, 1000);
+        });
+    clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("viewBox", "0 0 448 512")
+        .append("path")
+        .attr("d", "M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z");
+    clipboard.append("span").attr("class", "tip desc").text("Copy To Clipboard");
+    clipboard.append("span").attr("class", "tip copymessage").text("Copied!");
+
+    var reheat = dashboard.append("button")
+        .on("click", function(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();       
+            var order = d3.selectAll("#arg_9272079464 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_9272079464 .node").classed("unfix", function(d) {
+                if (d.flag != 1) {
+                    delete d.fx;
+                } else {
+                    d.fx = evenly_distributed_positions[order.indexOf(d.id)];
+                }
+            });
+        });
+    reheat.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("viewBox", "0 0 384 512")
+        .append("path")
+        .attr("d", "M153.6 29.9l16-21.3C173.6 3.2 180 0 186.7 0C198.4 0 208 9.6 208 21.3V43.5c0 13.1 5.4 25.7 14.9 34.7L307.6 159C356.4 205.6 384 270.2 384 337.7C384 434 306 512 209.7 512H192C86 512 0 426 0 320v-3.8c0-48.8 19.4-95.6 53.9-130.1l3.5-3.5c4.2-4.2 10-6.6 16-6.6C85.9 176 96 186.1 96 198.6V288c0 35.3 28.7 64 64 64s64-28.7 64-64v-3.9c0-18-7.2-35.3-19.9-48l-38.6-38.6c-24-24-37.5-56.7-37.5-90.7c0-27.7 9-54.8 25.6-76.9z");
+    reheat.append("span").attr("class", "tip desc").text("Reheat Simulation");
+    
+    var evenly_distribute = dashboard.append("button")
+        .on("click", function() {
+            var order = d3.selectAll("#arg_9272079464 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_9272079464 .sample").classed("distribute", function(d) {
+                d.fx = evenly_distributed_positions[order.indexOf(d.id)];
+            });
+        });
+    evenly_distribute.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("viewBox", "0 0 512 512")
+        .append("path")
+        .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
+    evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
+
+    var svg = d3.select("#arg_9272079464").append("svg")
+        .attr("width", 550)
+        .attr("height", 575)
+        .style("padding-top", "10px");
+
+    var result = y_axis.ticks.map(function (x) { 
+        return parseInt(x, 10); 
+    });
+
+
+    if (y_axis.include_labels == "true") {
+        var bottom = 575 - 50;
+        if (true) {
+            bottom = 575 - 125;
+        }
+        var yscale = d3.scaleLinear() 
+            .domain([y_axis.max_min[0], y_axis.max_min[1]]) 
+            .range([bottom, 50]); 
+
+        var y_axis_text = y_axis.text;
+
+        var y_axis = d3.axisRight().scale(yscale)
+            .tickValues(result)
+            .tickFormat((d, i) => y_axis_text[i]); 
+
+        var y_axis_labels = svg
+            .append("g")
+            .attr("class", "yaxis")
+            .attr("transform", "translate(5,0)")
+            .call(y_axis);
+    }
+
+    var simulation = d3
+        .forceSimulation(graph.nodes)
+        .force("link", d3.forceLink()
+            .id(function(d) {
+                return d.id;
+            })
+            .links(graph.links)
+        )
+        .force("charge", d3.forceManyBody().strength(-10))
+        .on("tick", ticked);
+
+    var link_container = svg
+        .append("g")
+        .attr("class", "links")
+        .selectAll("path")
+        .data(graph.links)
+        .enter()
+        .append("g")
+        .attr("bounds", function(d) {
+            return d.bounds;
+        });
+
+    var underlink = link_container
+        .append("path")
+        .attr("class", "underlink");
+
+    var link = link_container
+        .append("path")
+        .attr("class", function(d) {
+            if (subset.includes(d.source.id) & subset.includes(d.target.id)) {
+                return "link"
+            } else {
+                return "hiddenlink"
+            }
+        });
+    
+    if (false) {
+        link
+            .style("stroke-width", function(d) {
+                return d.region_fraction * 7 + 1;
+            });
+    }
+    
+    if (true) {
+        link
+            .on('mouseover', function (event, d) {
+                d3.select(this)
+                    .style('stroke', '#1eebb1')
+                    .style("cursor", "pointer");
+                d3.select("#arg_9272079464 .breakpoints")
+                    .selectAll("rect")
+                        .filter(function(j) {
+                            return d.bounds.split(" ").some(function(region) {
+                                region = region.split("-");
+                                return (parseFloat(region[0]) <= j.start) & (parseFloat(region[1]) >= j.stop)
+                            });
+                        })
+                        .style('fill', '#1eebb1');
+            })
+            .on('mouseout', function (d, i) {
+                d3.select(this)
+                    .style('stroke', '#053e4e')
+                    .style("cursor", "default")
+                d3.select("#arg_9272079464 .breakpoints").selectAll("rect")
+                    .style("fill", "#053e4e")
+            });
+    }
+
+    var node = svg
+        .append("g")
+        .attr("class", "nodes")
+        .selectAll("circle")
+        .data(graph.nodes)
+        .enter()
+        .append("circle")
+        .attr("id", function(d) {
+            return String(9272079464) + "_node" + d.id
+        })
+        .attr("class", function(d) {
+            var classy = ""
+            if (subset.includes(d.id)) {
+                classy += "node";
+            } else {
+                classy += "hiddennode";
+            }
+            if (d.flag == 1) {
+                classy += " sample";
+            }
+            return classy
+        })
+        .attr("parents", function(d) {
+            return d.child_of.toString().replace(",", " ")
+        })
+        .attr("children", function(d) {
+            return d.parent_of.toString().replace(",", " ")
+        })
+        .attr("r", 7)
+        .call(
+            d3
+                .drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+        )
+        .on('mouseover', function (d, i) {
+            d3.select(this)
+                .style("cursor", "pointer")
+        });
+
+    
+    if (true) {
+        var label = svg
+            .append("g")
+            .attr("class", "labels")
+            .selectAll("text")
+            .data(graph.nodes)
+            .enter()
+            .append("text")
+                .attr("class", function(d) {
+                    if (subset.includes(d.id)) {
+                        return "label"
+                    } else {
+                        return "hiddenlabel"
+                    }
+                })
+                .text(function (d) { return d.label; });
+    };
+    
+    function determine_path_type(d) {
+        path_type = ""
+        var start_position_x = d.source.x;
+        var start_position_y = d.source.y;
+        var stop_position_x = d.target.x;
+        var stop_position_y = d.target.y;
+        var vnub = Math.min((stop_position_y-start_position_y)/2, 20);
+        if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
+            vnub = 0;
+        }
+        var alt_child = document.getElementById(String(9272079464) + "_node" + d.alt_child);
+        if (alt_child != null) {
+            var alt_child_x = alt_child.getAttribute("cx");
+            var alt_child_y = alt_child.getAttribute("cy");
+        }
+        if (d.source.flag == 131072) {
+            path_type += "r0";
+            start_position_y = d.source.y + vnub;
+        } else {
+            if (d.target.y < alt_child_y) {
+                if (d.target.x < d.source.x) {
+                    if (d.target.x < d.source.x - 40) {
+                        path_type += "tL";
+                    } else {
+                        path_type += "fL";
+                    }
+                    start_position_x = d.source.x - 20;
+                } else {
+                    if (d.target.x > d.source.x + 40) {
+                        path_type += "tR";
+                    } else {
+                        path_type += "fR";
+                    }
+                    start_position_x = d.source.x + 20;
+                }
+            } else if (d.target.y > alt_child_y) {
+                if (alt_child_x < d.source.x) {
+                    if (d.target.x < d.source.x + 40) {
+                        path_type += "fR";
+                    } else {
+                        path_type += "tR";
+                    }
+                    start_position_x = d.source.x + 20;
+                } else {
+                    if (d.target.x > d.source.x - 40) {
+                        path_type += "fL";
+                    } else {
+                        path_type += "tL";
+                    }
+                    start_position_x = d.source.x - 20;
+                }
+            } else {
+                if (d.target.x < alt_child_x) {
+                    if (d.target.x < d.source.x - 40) {
+                        path_type += "tL";
+                    } else {
+                        path_type += "fL";
+                    }
+                    start_position_x = d.source.x - 20;
+                } else if (d.target.x > alt_child_x) {
+                    if (d.target.x > d.source.x + 40) {
+                        path_type += "tR";
+                    } else {
+                        path_type += "fR";
+                    }
+                    start_position_x = d.source.x + 20;
+                } else {
+                    if (d.index % 2 == 0) {
+                        path_type += "fL";
+                        start_position_x = d.source.x - 20;
+                    } else {
+                        path_type += "fR";
+                        start_position_x = d.source.x + 20;
+                    }
+                }
+            }
+        }
+        var alt_parent = document.getElementById(String(9272079464) + "_node" + d.alt_parent);
+        if (alt_parent != null) {
+            var alt_parent_x = alt_parent.getAttribute("cx");
+            var alt_parent_y = alt_parent.getAttribute("cy");
+        }
+        if (d.target.flag == 131072) {
+            if (d.source.y < alt_parent_y) {
+                if (alt_parent_x < d.target.x) {
+                    if (d.source.x < d.target.x + 40) {
+                        path_type += "fR";
+                    } else {
+                        path_type += "tR";
+                    }
+                    stop_position_x = d.target.x + 20;
+                } else {
+                    if (d.source.x > d.target.x - 40) {
+                        path_type += "fL";
+                    } else {
+                        path_type += "tL";
+                    }
+                    stop_position_x = d.target.x - 20;
+                }
+            } else if (d.source.y > alt_parent_y) {
+                if (d.source.x < d.target.x) {
+                    if (d.source.x < d.target.x - 40) {
+                        path_type += "tL";
+                    } else {
+                        path_type += "fL";
+                    }
+                    stop_position_x = d.target.x - 20;
+                } else {
+                    if (d.source.x > d.target.x + 40) {
+                        path_type += "tR";
+                    } else {
+                        path_type += "fR";
+                    }
+                    stop_position_x = d.target.x + 20;
+                }
+            } else {
+                if (d.index % 2 == 0) {
+                    path_type += "fL";
+                    stop_position_x = d.target.x - 20;
+                } else {
+                    path_type += "fR";
+                    stop_position_x = d.target.x + 20;
+                }
+            }
+        } else {
+            path_type += "b0";
+            stop_position_y = d.target.y - vnub;
+        }
+        if (path_type == "fLb0" ) {
+            if (start_position_x >= stop_position_x) {
+                path_type = "tLb0";
+            }
+        } else if (path_type == "fRb0") {
+            if (start_position_x <= stop_position_x) {
+                path_type = "tRb0";
+            }
+        } else if (path_type == "r0fL") {
+            if (start_position_x <= stop_position_x) {
+                path_type = "r0tL";
+            }
+        } else if (path_type == "r0fR") {
+            if (start_position_x >= stop_position_x) {
+                path_type = "r0tR";
+            }
+        } else if (path_type == "fLfL") {
+            if (start_position_x <= stop_position_x) {
+                path_type = "fLtL";
+            } else {
+                path_type = "tLfL";
+            }
+        } else if (path_type == "fRfR") {
+            if (start_position_x >= stop_position_x) {
+                path_type = "fRtR";
+            } else {
+                path_type = "tRfR";
+            }
+        }
+        if ((d.source.id == 60) & (d.target.id == 35)) {
+            path_type = "r0b0";
+            start_position_x = d.source.x;
+            start_position_y = d.source.y + vnub;
+            stop_position_x = d.target.x;
+            stop_position_y = d.target.y - vnub;
+        }
+        return [path_type, start_position_x, start_position_y, stop_position_x, stop_position_y];
+    }
+
+    function ticked() {
+
+        node
+            .attr("cx", function(d) {
+                if (y_axis.include_labels == "false") {
+                    return d.x = Math.max(50, Math.min(550-50, d.x));
+                } else {
+                    return d.x = Math.max(100, Math.min(550-50, d.x));
+                }
+            })
+            .attr("cy", function(d) {
+                return d.y;
+            });
+
+        underlink
+            .attr("d", function(d) {
+                if ("ortho" == "ortho") {
+                    const output = determine_path_type(d);
+                
+                    const path_type = output[0];
+                    const simple_path_type = Array.from(path_type)[0] + Array.from(path_type)[2];
+                    const start_position_x = output[1];
+                    const start_position_y = output[2];
+                    const stop_position_x = output[3];
+                    const stop_position_y = output[4];
+
+                    const after_paths = ["rf", "tb", "tf"];
+                    const before_paths = ["rt", "fb", "ft"];
+                    const step_paths = ["tt"];
+                    const mid_paths = ["rb", "ff"];
+
+                    if (after_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepAfter([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (before_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepBefore([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (step_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + step([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (mid_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + line([[start_position_x, start_position_y],[start_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[start_position_x, start_position_y + (stop_position_y - start_position_y)/2],[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2], [stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    }
+                }
+            });
+
+        link
+            .attr("path_type", function(d) {
+                return determine_path_type(d)[0];
+            })
+            .attr("d", function(d) {
+                if ("ortho" == "ortho") {
+                    const output = determine_path_type(d);
+                
+                    const path_type = output[0];
+                    const simple_path_type = Array.from(path_type)[0] + Array.from(path_type)[2];
+                    const start_position_x = output[1];
+                    const start_position_y = output[2];
+                    const stop_position_x = output[3];
+                    const stop_position_y = output[4];
+
+                    const after_paths = ["rf", "tb", "tf"];
+                    const before_paths = ["rt", "fb", "ft"];
+                    const step_paths = ["tt"];
+                    const mid_paths = ["rb", "ff"];
+
+                    if (after_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepAfter([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (before_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepBefore([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (step_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + step([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    } else if (mid_paths.includes(simple_path_type)) {
+                        return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + line([[start_position_x, start_position_y],[start_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[start_position_x, start_position_y + (stop_position_y - start_position_y)/2],[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2], [stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                    }
+                } else if ("ortho" == "line") {
+                    if (d.source.id == d.alt_parent) {
+                        var leftOrRight = 20;
+                        if (d.index % 2 == 0) {
+                            leftOrRight = -20;
+                        }
+                        return "M " + d.source.x + " " + d.source.y + " C " + (d.source.x + leftOrRight).toString() + " " +  (d.source.y - 10).toString() + ", " + (d.target.x + leftOrRight).toString() + " " + (d.target.y + 10).toString() + ", " + d.target.x + " " + d.target.y;
+                    } else {
+                        return line([[d.source.x, d.source.y], [d.target.x, d.target.y]]);
+                    }
+                }
+            });
+
+        function determine_label_positioning(d) {
+            if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
+                return "c";
+            } else if (d.child_of.length == 1) {
+                var parent = document.getElementById(String(9272079464) + "_node" + d.child_of[0])
+                if (parent != null) {
+                    var parent_x = parent.getAttribute("cx");
+                    if (parent_x > d.x) {
+                        return "l";
+                    } else {
+                        return "r";
+                    }
+                } else {
+                    return "r";
+                }
+            } else {
+                return "r";
+            }
+        };
+
+        if (true) {
+
+            label
+                .attr("x", function(d) {
+                    var positioning = determine_label_positioning(d);
+                    if (positioning == "l") {
+                        return d.x - 15;
+                    } else if (positioning == "r") {
+                        return d.x + 15;
+                    } else {
+                        return d.x;
+                    }
+                })
+                .style("text-anchor", function(d) {
+                    var positioning = determine_label_positioning(d);
+                    if (positioning == "l") {
+                        return "end";
+                    } else if (positioning == "r") {
+                        return "start";
+                    } else {
+                        return "middle";
+                    }
+                })
+                .attr("y", function(d) {
+                    if (d.parent_of.length == 0) {
+                        return d.y + 25;
+                    } else {
+                        return d.y - 15;
+                    }
+                });
+        };
+    }
+
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+    }
+
+    if (true) {
+        
+        var th_group = svg.append("g").attr("class", "tree_highlighting");
+        
+        th_group
+            .append("g")
+            .attr("class", "breakpoints")
+            .selectAll("rect")
+            .data(graph.breakpoints)
+            .enter()
+            .append("rect")
+            .attr("start", function(d) {
+                return d.start;
+            })
+            .attr("stop", function(d) {
+                return d.stop;
+            })
+            .attr("x", function(d) {
+                return d.x_pos;
+            })
+            .attr("y", 575-60)
+            .attr("width", function(d) {
+                return d.width;
+            })
+            .attr("height", 40)
+            .attr("stroke", "#FFFFFF")
+            .attr("stroke-width", 5)
+            .attr("fill", "#053e4e")
+            .on('mouseover', function (event, d) {
+                d3.select(this)
+                    .style('fill', '#1eebb1')
+                    .style("cursor", "pointer");
+                var highlight_links = d3.select("#arg_9272079464 .links")
+                    .selectAll("g")
+                        .filter(function(j) {
+                            return j.bounds.split(" ").some(function(region) {
+                                region = region.split("-");
+                                return (parseFloat(region[1]) > d.start) & (parseFloat(region[0]) < d.stop)
+                            });
+                        });
+                highlight_links.raise();
+                //if (false) {
+                    highlight_links
+                        .select(".link")
+                        .style("stroke", "#1eebb1");
+                //} else {
+                //    highlight_links
+                //        .select(".link")
+                //        .style("stroke", "#1eebb1")
+                //        .style("stroke-width", 7);
+                //};
+            })
+            .on('mouseout', function (d, i) {
+                d3.select(this)
+                    .style('fill', '#053e4e')
+                    .style("cursor", "default");
+                //if (false) {
+                    d3.selectAll("#arg_9272079464 .link")
+                        .style("stroke", "#053e4e");
+                //} else {
+                //    d3.selectAll("#arg_9272079464 .link")
+                //        .style("stroke", "#053e4e")
+                //        .style("stroke-width", 3);
+                //};     
+            });
+        
+        var endpoints = th_group.append("g").attr("class", "endpoints");
+        
+        endpoints
+            .append("text")
+                .attr("class", "label")
+                .style("text-anchor", "start")
+                .text(graph.breakpoints[0].start)
+                .attr("x", graph.breakpoints[0].x_pos)
+                .attr("y", 575-5);
+        
+        endpoints
+            .append("text")
+                .attr("class", "label")
+                .style("text-anchor", "end")
+                .text(graph.breakpoints[graph.breakpoints.length-1].stop)
+                .attr("x", 550)
+                .attr("y", 575-5);
+    }
+}
+
+draw_force_diagram()</script></div></div>
+</div>
+<p>For more general graph plots, it can be helpful convert the tree sequence to a
+<a class="reference external" href="https://networkx.org">networkx</a> graph first, as described in the
+<a class="reference internal" href="args.html#sec-args-other-analysis"><span class="std std-ref">Other graph analysis</span></a> section of the <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARGs as tree sequences</span></a> tutorial.
+This provides interfaces to graph plotting software such as
+<a class="reference external" href="https://graphviz.org">graphviz</a>, which provides the <code class="docutils literal notranslate"><span class="pre">dot</span></code> layout engine for
+directed graphs:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Networkx conversion code taken from the ARG tutorial</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">tskit</span>
+
+<span class="k">def</span> <span class="nf">to_networkx_graph</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">interval_lists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make an nx graph from a tree sequence. If `intervals_lists` is True, then</span>
+<span class="sd">    each graph edge will have an ``intervals`` attribute containing a *list*</span>
+<span class="sd">    of tskit.Intervals per parent/child combination. Otherwise each graph edge</span>
+<span class="sd">    will correspond to a tskit edge, with a ``left`` and ``right`` attribute.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">edges_parent</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">edges_child</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">edges_left</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">ts</span><span class="o">.</span><span class="n">edges_right</span><span class="p">)</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="n">edge_attr</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">interval_lists</span><span class="p">:</span>
+        <span class="n">GG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>  <span class="c1"># Mave a new graph with one edge that can contai</span>
+        <span class="k">for</span> <span class="n">parent</span><span class="p">,</span> <span class="n">children</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">adjacency</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">child</span><span class="p">,</span> <span class="n">edict</span> <span class="ow">in</span> <span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">ilist</span> <span class="o">=</span> <span class="p">[</span><span class="n">tskit</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edict</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+                <span class="n">GG</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">intervals</span><span class="o">=</span><span class="n">ilist</span><span class="p">)</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">GG</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="p">{</span><span class="n">n</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;flags&#39;</span><span class="p">:</span><span class="n">n</span><span class="o">.</span><span class="n">flags</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">time</span><span class="p">}</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()})</span>
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
+
+<span class="k">def</span> <span class="nf">graphviz_svg</span><span class="p">(</span><span class="n">networkx_graph</span><span class="p">):</span>
+    <span class="n">AG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">drawing</span><span class="o">.</span><span class="n">nx_agraph</span><span class="o">.</span><span class="n">to_agraph</span><span class="p">(</span><span class="n">networkx_graph</span><span class="p">)</span>  <span class="c1"># Convert to graphviz &quot;agraph&quot;</span>
+    <span class="n">nodes_at_time_0</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">networkx_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">AG</span><span class="o">.</span><span class="n">add_subgraph</span><span class="p">(</span><span class="n">nodes_at_time_0</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>  <span class="c1"># put time=0 at same rank</span>
+    <span class="k">return</span> <span class="n">AG</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">to_networkx_graph</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">interval_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Function from the ARG tutorial</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converted `ts` to a networkx graph named `G`&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting using graphviz...&quot;</span><span class="p">)</span>
+<span class="n">SVG</span><span class="p">(</span><span class="n">graphviz_svg</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converted `ts` to a networkx graph named `G`
+Plotting using graphviz...
+</pre></div>
+</div>
+<img alt="_images/acb153e64e86280ae05d28010e7335c69e195a4e63be9344b2bd363c5bcdaace.svg" src="_images/acb153e64e86280ae05d28010e7335c69e195a4e63be9344b2bd363c5bcdaace.svg" /></div>
+</div>
+<p>Alternatively, you can read the <code class="docutils literal notranslate"><span class="pre">graphviz</span></code> positions back into <code class="docutils literal notranslate"><span class="pre">networkx</span></code>
+and use the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> drawing functionality, which
+relies upon the <a class="reference external" href="https://matplotlib.org">matplotlib</a> library. This
+allows modification of node colours and symbols, labels, rotations,
+annotations, etc., as shown below:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="k">def</span> <span class="nf">get_graphviz_positions</span><span class="p">(</span><span class="n">networkx_graph</span><span class="p">):</span>
+    <span class="n">AG</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">drawing</span><span class="o">.</span><span class="n">nx_agraph</span><span class="o">.</span><span class="n">to_agraph</span><span class="p">(</span><span class="n">networkx_graph</span><span class="p">)</span>  <span class="c1"># Convert to graphviz &quot;agraph&quot;</span>
+    <span class="n">nodes_at_time_0</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">networkx_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">AG</span><span class="o">.</span><span class="n">add_subgraph</span><span class="p">(</span><span class="n">nodes_at_time_0</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>  <span class="c1"># put time=0 at same rank</span>
+    <span class="n">AG</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">)</span>  <span class="c1"># create the layout, storing positions in the &quot;pos&quot; attribute</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">AG</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()}</span>
+
+<span class="n">pos</span><span class="o">=</span><span class="n">get_graphviz_positions</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">left</span><span class="p">)</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">right</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;intervals&quot;</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">samples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">())</span>
+<span class="n">nonsamples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span> <span class="o">-</span> <span class="n">samples</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># Sample nodes as dark green squares with white text</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;#007700&quot;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">node_shape</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">nodelist</span><span class="o">=</span><span class="n">samples</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">},</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="c1"># Others as blue circles with alphabetic labels</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;#22CCFF&quot;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">nodelist</span><span class="o">=</span><span class="n">nonsamples</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="p">[])</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">nonsamples</span><span class="p">})</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/e9395ad0efadad738b9fa2efa12c45cfbae08ab3e5ac78fb31dc29dad8ddb22f.png" src="_images/e9395ad0efadad738b9fa2efa12c45cfbae08ab3e5ac78fb31dc29dad8ddb22f.png" />
+</div>
+</div>
+<p>Note, however, that finding node and edge layout positions that avoid too much overlap
+can be tricky, even for the graphviz layout engine, and there is no easy functionality
+to place nodes at specific vertical (time) positions.</p>
 </section>
 <section id="demographic-processes">
 <span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this heading">#</a></h3>
@@ -2285,12 +3963,12 @@ software. For example, here’s the plotting code to generate the
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/c096f3efd5d565cfbf120d3c8701ce05af63d790e794e8ad0546f2d666a9b492.svg" src="_images/c096f3efd5d565cfbf120d3c8701ce05af63d790e794e8ad0546f2d666a9b492.svg" /></div>
+<img alt="_images/f2404f578b9f0c9b2224eaff5efd34970f3e3a3eb5b7a3333fc90deb2c4c3c60.svg" src="_images/f2404f578b9f0c9b2224eaff5efd34970f3e3a3eb5b7a3333fc90deb2c4c3c60.svg" /></div>
 </div>
 </section>
 <section id="geography">
 <h3>Geography<a class="headerlink" href="#geography" title="Permalink to this heading">#</a></h3>
-<div class="admonition-todo admonition" id="id4">
+<div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">Todo</p>
 <p>How to get lat/long information out of a tree sequence and plot ancestors (or a tree)
 on a geographical landscape.</p>

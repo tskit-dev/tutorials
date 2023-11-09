@@ -182,20 +182,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
@@ -393,7 +394,7 @@ Plots (a) and (b) summarize results presented
 <a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/317def7dbcced5715e79c4ced87db152e0187294deed4bcc2a2e4ce8421dc3de.svg" src="_images/317def7dbcced5715e79c4ced87db152e0187294deed4bcc2a2e4ce8421dc3de.svg" /></div>
+<img alt="_images/459f6d705bc53c7ef7c6c0a3b73f4da7a7350eb4ffe0b7a190a3454c4fa3a69e.svg" src="_images/459f6d705bc53c7ef7c6c0a3b73f4da7a7350eb4ffe0b7a190a3454c4fa3a69e.svg" /></div>
 </div>
 <section id="how-to-think-about-tree-sequences">
 <h2>How to think about tree sequences<a class="headerlink" href="#how-to-think-about-tree-sequences" title="Permalink to this heading">#</a></h2>
@@ -578,7 +579,7 @@ noting that the efficiency extends to processing time too: tree sequences are of
 several orders of magnitude faster to process than other storage formats.</p>
 <div class="cell tag_remove-input docutils container" id="plot-storing-everyone">
 <div class="cell_output docutils container">
-<img alt="_images/284bcb6d07c98b191b8af17d6718efdddfacf9faca91694b983ba3c71a313c75.svg" src="_images/284bcb6d07c98b191b8af17d6718efdddfacf9faca91694b983ba3c71a313c75.svg" /></div>
+<img alt="_images/0000ab8dddeceb02f4f2615be00c3bc2e991dc123a46b86b47e2cdb36a31fd72.svg" src="_images/0000ab8dddeceb02f4f2615be00c3bc2e991dc123a46b86b47e2cdb36a31fd72.svg" /></div>
 </div>
 </section>
 <section id="a-record-of-genetic-ancestry">
@@ -608,7 +609,7 @@ from modern day populations A (a constant-size population) and B (a recently exp
 one), where limited migration is occuring from A to B.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/4cd995526e9556da920865d1c0660b9e5ce0bce106bea35238c48ae1d4c061cb.svg" src="_images/4cd995526e9556da920865d1c0660b9e5ce0bce106bea35238c48ae1d4c061cb.svg" /></div>
+<img alt="_images/f751308e02b6038ad785894a74816f150571247ae6df9eefd2daaae3eacc28ce.svg" src="_images/f751308e02b6038ad785894a74816f150571247ae6df9eefd2daaae3eacc28ce.svg" /></div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
 tree sequence and the underlying biological processes that produced the genetic
@@ -722,7 +723,7 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_remove-input docutils container" id="plot-incremental-calculation">
 <div class="cell_output docutils container">
-<img alt="_images/63ff694e915a77a3668603322079c7452bdc5863b7a0797f9251dc9addc5f9ed.svg" src="_images/63ff694e915a77a3668603322079c7452bdc5863b7a0797f9251dc9addc5f9ed.svg" /></div>
+<img alt="_images/c47af039481cbb12f8bbfacefeb19cc776212770a06aa40ef6e25523d16af178.svg" src="_images/c47af039481cbb12f8bbfacefeb19cc776212770a06aa40ef6e25523d16af178.svg" /></div>
 </div>
 <p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>
 for these sorts of population genetic calculations. It provides efficient methods for

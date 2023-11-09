@@ -182,20 +182,21 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="args.html"><em>ARGs as tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
 <ul class="nav bd-sidenav">
@@ -412,7 +413,7 @@ migrations and population size changes that define this model.</p>
   time=int(extended_GF.time.tail(1) + 1), rate=0
 </pre></div>
 </div>
-<img alt="_images/f4b04062afcbc8084e422c8be6d47540b071a3b54825ee27c2089d16780cea4d.png" src="_images/f4b04062afcbc8084e422c8be6d47540b071a3b54825ee27c2089d16780cea4d.png" />
+<img alt="_images/869c368a0ec8edcf92431dc6e1ae503e341931c07f4849c8c5f006a2167a6f72.png" src="_images/869c368a0ec8edcf92431dc6e1ae503e341931c07f4849c8c5f006a2167a6f72.png" />
 </div>
 </div>
 <p>Genomic data in tree sequence format can be generated via the widely-used
@@ -631,7 +632,7 @@ Sample 31 (ADMIX): ACCAAATGCAGTACAACCACAGGGACCGTTAGATCTTTA
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4f830d62d082fcae72774fd783d07ec5c771e0f121d3656708953c0eeb9f98cb.png" src="_images/4f830d62d082fcae72774fd783d07ec5c771e0f121d3656708953c0eeb9f98cb.png" />
+<img alt="_images/e5b0d1fc080a2026db9f0b2c1eedb4379769361b5757fd20c075aef44f1bd34c.png" src="_images/e5b0d1fc080a2026db9f0b2c1eedb4379769361b5757fd20c075aef44f1bd34c.png" />
 </div>
 </div>
 <p>Similarly <code class="docutils literal notranslate"><span class="pre">tskit</span></code> allows fast and easy
@@ -657,7 +658,7 @@ region of chromosome:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/54edec1868912e5c584ee41e53494b6bd3a1be9f73f8c1437696f3c9024c803d.png" src="_images/54edec1868912e5c584ee41e53494b6bd3a1be9f73f8c1437696f3c9024c803d.png" />
+<img alt="_images/ba09cf205721bd5ccd6f981297482ef070d8f29bb27b2c8519e9a0d973de069b.png" src="_images/ba09cf205721bd5ccd6f981297482ef070d8f29bb27b2c8519e9a0d973de069b.png" />
 </div>
 </div>
 <p>Extracting the genetic tree at a specific genomic location is easy using <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, which
@@ -926,7 +927,7 @@ region:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/022fa9933c444074ee5e14dfca7dd597576bc47857ce545d838b4b42d0e4c986.png" src="_images/022fa9933c444074ee5e14dfca7dd597576bc47857ce545d838b4b42d0e4c986.png" />
+<img alt="_images/a9cf2d780cddaf4cbcfd85d2c3a6209c0da773911faef1d9d9f25f5c73a86e0b.png" src="_images/a9cf2d780cddaf4cbcfd85d2c3a6209c0da773911faef1d9d9f25f5c73a86e0b.png" />
 </div>
 </div>
 <p>Other population genetic libraries such as

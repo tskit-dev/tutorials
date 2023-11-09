@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Advanced forward simulations &#8212; Tree Sequence Tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'more_forward_sims';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tskit and R" href="tskitr.html" />
+    <link rel="prev" title="Building a forward simulator" href="forward_sims.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/tskit_logo.svg" class="logo__image only-light" alt="Tree Sequence Tutorials - Home"/>
+    <script>document.write(`<img src="_static/tskit_logo.svg" class="logo__image only-dark" alt="Tree Sequence Tutorials - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tree sequence basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="terminology_and_concepts.html">Terminology &amp; concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started with <strong class="program">tskit</strong></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistics and Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing_trees.html">Analysing trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counting_topologies.html"><em>Counting topologies</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tables_and_editing.html">Tables and editing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simplification.html"><em>Simplification</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><em>Advanced forward simulations</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Other languages</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tskitr.html">Tskit and R</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tutorial_development.html"><em>Developing new tutorials</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tskit for ...</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="popgen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phylogen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/more_forward_sims.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Advanced forward simulations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-simplification">Repeated simplification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invariance-to-simplification-interval">Invariance to simplification interval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-notes">Technical notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mutations">Mutations</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="advanced-forward-simulations">
+<span id="sec-tskit-more-forward-simulations"></span><h1><em>Advanced forward simulations</em><a class="headerlink" href="#advanced-forward-simulations" title="Permalink to this heading">#</a></h1>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Add further details on building a forward simulator
+(see issue <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/14">#14</a>)</p>
+</div>
+<p>In the <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">previous tutorial</span></a>, we developed a basic
+basic forward-time Wright-Fisher (WF) simulator (refer back to that tutorial for a
+detailed run through of the hidden code):</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">random_seed</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>  <span class="c1"># A random number generator for general use</span>
+
+<span class="n">L</span> <span class="o">=</span> <span class="mi">50_000</span>  <span class="c1"># The sequence length: 50 Kb</span>
+
+<span class="k">def</span> <span class="nf">add_inheritance_paths</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">parent_genomes</span><span class="p">,</span> <span class="n">child_genome</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">):</span>
+    <span class="s2">&quot;Add paths from parent genomes to the child genome, with crossover recombination&quot;</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sequence_length</span>
+    <span class="n">num_recombinations</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">recombination_rate</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+    <span class="n">breakpoints</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_recombinations</span><span class="p">)</span>
+    <span class="n">break_pos</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">breakpoints</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">crossovers</span> <span class="o">=</span> <span class="n">break_pos</span><span class="p">[</span><span class="n">counts</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># no crossover if e.g. 2 breaks at same pos</span>
+    <span class="n">left_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">crossovers</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">right_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">crossovers</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+
+    <span class="n">inherit_from</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">left_positions</span><span class="p">,</span> <span class="n">right_positions</span><span class="p">):</span>
+        <span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">parent_genomes</span><span class="p">[</span><span class="n">inherit_from</span><span class="p">],</span> <span class="n">child_genome</span><span class="p">)</span>
+        <span class="n">inherit_from</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">inherit_from</span>  <span class="c1"># switch to other parent genome</span>
+
+<span class="k">def</span> <span class="nf">make_diploid</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">parent_individuals</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">individual_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="n">parent_individuals</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">individual_id</span><span class="p">,</span> <span class="p">(</span>
+        <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">individual</span><span class="o">=</span><span class="n">individual_id</span><span class="p">),</span>
+        <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">individual</span><span class="o">=</span><span class="n">individual_id</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">new_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">prev_pop</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">):</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">prev_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prev_pop</span><span class="o">.</span><span class="n">keys</span><span class="p">()],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prev_pop</span><span class="p">)):</span>
+        <span class="n">mother_and_father</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">prev_individuals</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">child_id</span><span class="p">,</span> <span class="n">child_genomes</span> <span class="o">=</span> <span class="n">make_diploid</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">mother_and_father</span><span class="p">)</span>
+        <span class="n">pop</span><span class="p">[</span><span class="n">child_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">child_genomes</span>  <span class="c1"># store the genome IDs</span>
+        <span class="k">for</span> <span class="n">child_genome</span><span class="p">,</span> <span class="n">parent_individual</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">child_genomes</span><span class="p">,</span> <span class="n">mother_and_father</span><span class="p">):</span>
+            <span class="n">parent_genomes</span> <span class="o">=</span> <span class="n">prev_pop</span><span class="p">[</span><span class="n">parent_individual</span><span class="p">]</span>
+            <span class="n">add_inheritance_paths</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">parent_genomes</span><span class="p">,</span> <span class="n">child_genome</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pop</span>
+
+<span class="k">def</span> <span class="nf">initialise_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">make_diploid</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>The main simulation function, as below, returned an unsimplified tree sequence,
+which we subsequently <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplified</span></code></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward_WF</span><span class="p">(</span><span class="n">num_diploids</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">random</span>
+    <span class="n">random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span> 
+    <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">seq_len</span><span class="p">)</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
+
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">initialise_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">num_diploids</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">generations</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">generations</span> <span class="o">=</span> <span class="n">generations</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">pop</span> <span class="o">=</span> <span class="n">new_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">)</span>
+
+    <span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="repeated-simplification">
+<h2>Repeated simplification<a class="headerlink" href="#repeated-simplification" title="Permalink to this heading">#</a></h2>
+<p>We can perform simplification directly on the tables within the <code class="docutils literal notranslate"><span class="pre">forward_WF()</span></code> function,
+using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TableCollection.simplify()</span></code></a>. More importantly, we can carry this out at
+repeated intervals. It is helpful to think of this as regular “garbage collection”,
+as what we’re really doing is getting rid of extinct lineages while also “trimming”
+extant lineages down to a minimal representation.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Regular garbage collection forces us to reckon with the fact that simplification
+<a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations-simplification-id-changes"><span class="std std-ref">changes the node IDs</span></a>.
+We therefore need to remap any node (and individual) IDs that are used outside of
+<code class="docutils literal notranslate"><span class="pre">tskit</span></code>. In the implementation described here, those IDs are stored in the <code class="docutils literal notranslate"><span class="pre">pop</span></code>
+variable.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simplify_tables</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simplify the tables with respect to the given samples, returning a</span>
+<span class="sd">    population dict in which individual and nodes have been remapped to their</span>
+<span class="sd">    new ID numbers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">node_map</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">keep_input_roots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">nodes_individual</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">individual</span>
+    <span class="n">remapped_pop</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="ow">in</span> <span class="n">pop</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="n">node_map</span><span class="p">[[</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">]]</span>  <span class="c1"># remap</span>
+        <span class="k">assert</span> <span class="n">nodes_individual</span><span class="p">[</span><span class="n">node1</span><span class="p">]</span> <span class="o">==</span> <span class="n">nodes_individual</span><span class="p">[</span><span class="n">node2</span><span class="p">]</span>  <span class="c1"># sanity check</span>
+        <span class="n">remapped_pop</span><span class="p">[</span><span class="n">nodes_individual</span><span class="p">[</span><span class="n">node1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">remapped_pop</span>
+
+
+<span class="k">def</span> <span class="nf">forward_WF</span><span class="p">(</span>
+    <span class="n">num_diploids</span><span class="p">,</span>
+    <span class="n">seq_len</span><span class="p">,</span>
+    <span class="n">generations</span><span class="p">,</span>
+    <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">simplification_interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># default to simplifying only at end</span>
+    <span class="n">show</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">global</span> <span class="n">random</span>
+    <span class="n">random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span> 
+    <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">seq_len</span><span class="p">)</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>  <span class="c1"># optional, but helpful when plotting</span>
+    <span class="k">if</span> <span class="n">simplification_interval</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">simplification_interval</span> <span class="o">=</span> <span class="n">generations</span>
+    <span class="n">simplify_mod</span> <span class="o">=</span> <span class="n">generations</span> <span class="o">%</span> <span class="n">simplification_interval</span>
+
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">initialise_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">num_diploids</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">generations</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">generations</span> <span class="o">=</span> <span class="n">generations</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">pop</span> <span class="o">=</span> <span class="n">new_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">generations</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">generations</span> <span class="o">%</span> <span class="n">simplification_interval</span> <span class="o">==</span> <span class="n">simplify_mod</span><span class="p">:</span>
+            <span class="n">current_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">pop</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+            <span class="n">pop</span> <span class="o">=</span> <span class="n">simplify_tables</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">current_nodes</span><span class="p">,</span> <span class="n">pop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simplified&quot;</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="s2">&quot;generations before end&quot;</span><span class="p">)</span>
+
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">simplify_tables</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">pop</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">],</span> <span class="n">pop</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final simplification&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">simplification_interval</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simplified 75 generations before end
+Simplified 50 generations before end
+Simplified 25 generations before end
+Final simplification
+</pre></div>
+</div>
+<img alt="_images/4893833e712053bc71fcf0fcf31149a1178e826dbd0f1ab4197a7b0555864211.svg" src="_images/4893833e712053bc71fcf0fcf31149a1178e826dbd0f1ab4197a7b0555864211.svg" /></div>
+</div>
+<section id="invariance-to-simplification-interval">
+<h3>Invariance to simplification interval<a class="headerlink" href="#invariance-to-simplification-interval" title="Permalink to this heading">#</a></h3>
+<p>A critical concept to keep in mind is that the simulation itself is the only random component.
+The simplification algorithm is deterministic given a set of (nodes, edges) satisfying
+<code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s sorting requirements. Therefore, the results of our new <code class="docutils literal notranslate"><span class="pre">forward_WF()</span></code> function
+must be the same for all simplification intervals</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This invariance property only holds in some cases.
+We discuss this in more detail below when we add in mutation.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">simplification_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Iterate over a range of odd and even simplification intervals.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing invariance to simplification interval&quot;</span><span class="p">)</span>
+<span class="n">test_intervals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">33</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_intervals</span><span class="p">:</span>
+    <span class="c1"># Make sure each new sim starts with same random seed!</span>
+    <span class="n">ts_test</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">simplification_interval</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">ts_test</span><span class="p">,</span> <span class="n">ignore_provenance</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intervals </span><span class="si">{</span><span class="n">test_intervals</span><span class="si">}</span><span class="s2"> passed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Testing invariance to simplification interval
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intervals [2, 35, 68, 101, 134, 167, 200, 233, 266, 299, 332, 365, 398, 431, 464, 497] passed
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Testing your own code using loops like the one above is a very
+good way to identify subtle bugs in book-keeping.</p>
+</div>
+</section>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Simplifying during a simulation changes IDs in the tree sequence tables, so we need to remap
+entities that store any of these IDs between generations.</p></li>
+<li><p>Our code to carry out simplification gets called both during the simulation and at the end.
+It’s therefore worth encapsulating it into a class or function for easier code re-use and testing.</p></li>
+</ul>
+<section id="technical-notes">
+<h4>Technical notes<a class="headerlink" href="#technical-notes" title="Permalink to this heading">#</a></h4>
+<p>We have found that it is possible to write a simulation where the results differ
+by simplification interval, but appear correct in distribution.
+By this we mean that looking at distributions of numbers of mutations, their frequencies, etc.,
+match predictions from analytical theory.  However, our experience is that such simulations
+contain bugs and that the summaries being used for testing are too crude to catch them.
+For example, they may affect the variance in a subtle way that would require millions
+of simulations to catch.  Often what is going on is that parent/offspring relationships
+are not being properly recorded, resulting in lineages that either persist too long or
+not long enough.  (In other words, the variance in offspring number per diploid is no
+longer what it should be, meaning you’ve changed the effective population size.)
+Thus, please make sure you get the <strong>same</strong> <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tables out of a simulation for
+any simplification interval.</p>
+</section>
+</section>
+</section>
+<section id="mutations">
+<h2>Mutations<a class="headerlink" href="#mutations" title="Permalink to this heading">#</a></h2>
+<p>In this section, we will add mutation to our simulation.  Mutations will occur according to the
+infinitely-many sites model, which means that a new mutation cannot arise at a currently-mutated
+position. <span class="math notranslate nohighlight">\(\theta = 4N\mu\)</span> is the scaled mutation rate, and is equal to twice the expected number
+of new mutations per generation.  The parameter <span class="math notranslate nohighlight">\(\mu\)</span> is the expected number of new mutations
+per gamete, per generation. Mutation positions will be uniformly distributed along the genome.</p>
+<p>Adding mutations changes the complexity of the simulation quite a bit, because now we must
+add to and simplify <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Python)"><span class="xref myst">site tables</span></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-mutation-table-definition" title="(in Python)"><span class="xref myst">mutation tables</span></a> instances. We might also
+want to add <em>metadata</em> to the sites or mutations, recording details such as
+the selection coefficient of a mutation, or the type of mutation (e.g., synonymous vs. non-synonymous).</p>
+<p>We will write a mutation function here which we will re-use in future examples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We will be treating mutations as neutral.  Doing so is odd, as one big
+selling point of <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is the ability to skip the tracking of neutral mutations
+in forward simulations.  However, tracking neutral mutations plus metadata is the
+same as tracking selected mutations and their metadata, and being able to do neat
+things like put your selected mutations onto a figure of the genealogy
+is one of several possible use cases.</p>
+</div>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>The rest of this tutorial is still under construction, and needs porting from
+<a class="reference external" href="https://github.com/tskit-dev/tutorials/blob/main/old-content/notebooks/wfforward.ipynb">this workbook</a>.
+This will primarily deal with sites and mutations (and mutational metadata).
+We could also include details on selection, if that seems sensible.</p>
+<p>The section in that workbook on “Starting with a prior history” should be put in
+the <a class="reference internal" href="completing_forward_sims.html#sec-completing-forwards-simulations"><span class="std std-ref">Completing forwards simulations</span></a> tutorial.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="forward_sims.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Building a forward simulator</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tskitr.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tskit and R</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-simplification">Repeated simplification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invariance-to-simplification-interval">Invariance to simplification interval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-notes">Technical notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mutations">Mutations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tskit Developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
