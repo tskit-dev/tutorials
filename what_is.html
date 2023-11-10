@@ -378,11 +378,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-tree-sequence">
 <span id="sec-what-is"></span><h1>What is a tree sequence?<a class="headerlink" href="#what-is-a-tree-sequence" title="Permalink to this heading">#</a></h1>
-<p>A <em>succinct tree sequence</em>, or “tree sequence” for short, represents the evolutionary
+<p>A <em>succinct tree sequence</em>, or “tree sequence” for short, represents the ancestral
 relationships between a set of DNA sequences. Tree sequences are based on fundamental
 biological principles of inheritance, DNA duplication, and recombination; they can be
-created by <a class="reference external" href="https://tskit.dev/software/#simulate">simulation</a> or by
-<a class="reference external" href="https://tskit.dev/software/#infer">inferring relationships from empirical DNA data</a>.</p>
+created by <a class="reference external" href="https://tskit.dev/software/#simulate">evolutionary simulation</a> or by
+<a class="reference external" href="https://tskit.dev/software/#infer">inferring genealogies from empirical DNA data</a>.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">Key point</p>
 <p>Tree sequences are used to encode and analyse large genetic datasets</p>
@@ -394,7 +394,7 @@ Plots (a) and (b) summarize results presented
 <a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/459f6d705bc53c7ef7c6c0a3b73f4da7a7350eb4ffe0b7a190a3454c4fa3a69e.svg" src="_images/459f6d705bc53c7ef7c6c0a3b73f4da7a7350eb4ffe0b7a190a3454c4fa3a69e.svg" /></div>
+<img alt="_images/fa2fd69e8549604bd381340720f722c961ba1772eb5fe46f0ba3afe2765d108a.svg" src="_images/fa2fd69e8549604bd381340720f722c961ba1772eb5fe46f0ba3afe2765d108a.svg" /></div>
 </div>
 <section id="how-to-think-about-tree-sequences">
 <h2>How to think about tree sequences<a class="headerlink" href="#how-to-think-about-tree-sequences" title="Permalink to this heading">#</a></h2>
@@ -579,7 +579,7 @@ noting that the efficiency extends to processing time too: tree sequences are of
 several orders of magnitude faster to process than other storage formats.</p>
 <div class="cell tag_remove-input docutils container" id="plot-storing-everyone">
 <div class="cell_output docutils container">
-<img alt="_images/0000ab8dddeceb02f4f2615be00c3bc2e991dc123a46b86b47e2cdb36a31fd72.svg" src="_images/0000ab8dddeceb02f4f2615be00c3bc2e991dc123a46b86b47e2cdb36a31fd72.svg" /></div>
+<img alt="_images/b8658843e94420a0adcacb7c3f07a8738d3ca9df42f20edbbf43753ca99e2c3a.svg" src="_images/b8658843e94420a0adcacb7c3f07a8738d3ca9df42f20edbbf43753ca99e2c3a.svg" /></div>
 </div>
 </section>
 <section id="a-record-of-genetic-ancestry">
@@ -609,7 +609,7 @@ from modern day populations A (a constant-size population) and B (a recently exp
 one), where limited migration is occuring from A to B.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/f751308e02b6038ad785894a74816f150571247ae6df9eefd2daaae3eacc28ce.svg" src="_images/f751308e02b6038ad785894a74816f150571247ae6df9eefd2daaae3eacc28ce.svg" /></div>
+<img alt="_images/1f0f7408cff5a6e10be61f8409560f27aee3701307dfee82177275f326cf7e50.svg" src="_images/1f0f7408cff5a6e10be61f8409560f27aee3701307dfee82177275f326cf7e50.svg" /></div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
 tree sequence and the underlying biological processes that produced the genetic
@@ -723,7 +723,7 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_remove-input docutils container" id="plot-incremental-calculation">
 <div class="cell_output docutils container">
-<img alt="_images/c47af039481cbb12f8bbfacefeb19cc776212770a06aa40ef6e25523d16af178.svg" src="_images/c47af039481cbb12f8bbfacefeb19cc776212770a06aa40ef6e25523d16af178.svg" /></div>
+<img alt="_images/2f9cbe8a2c582b064c34e8fd4022686c7113c45d4f64d11ef99e6599dd52836f.svg" src="_images/2f9cbe8a2c582b064c34e8fd4022686c7113c45d4f64d11ef99e6599dd52836f.svg" /></div>
 </div>
 <p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>
 for these sorts of population genetic calculations. It provides efficient methods for

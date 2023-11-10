@@ -72,11 +72,11 @@ def create_notebook_data():
 
 # What is a tree sequence?
 
-A *succinct tree sequence*, or "tree sequence" for short, represents the evolutionary
+A *succinct tree sequence*, or "tree sequence" for short, represents the ancestral
 relationships between a set of DNA sequences. Tree sequences are based on fundamental
 biological principles of inheritance, DNA duplication, and recombination; they can be
-created by [simulation](https://tskit.dev/software/#simulate) or by
-[inferring relationships from empirical DNA data](https://tskit.dev/software/#infer).
+created by [evolutionary simulation](https://tskit.dev/software/#simulate) or by
+[inferring genealogies from empirical DNA data](https://tskit.dev/software/#infer).
 
 :::{margin} Key point
 Tree sequences are used to encode and analyse large genetic datasets
