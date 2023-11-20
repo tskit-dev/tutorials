@@ -20,8 +20,8 @@ kernelspec:
 
 At its heart, a `tskit` {ref}`tree sequence<sec_what_is>` consists of a list of
 {ref}`sec_terminology_nodes`, and a list of {ref}`sec_terminology_edges` that connect
-those nodes. Therefore a succinct tree sequence is equivalent to a
-[mathematical graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)),
+parent to child nodes. Therefore a succinct tree sequence is equivalent to a
+[directed graph](https://en.wikipedia.org/wiki/Directed_graph),
 which is additionally annotated with genomic positions such that at each
 position, a path through the edges exists which defines a tree. This graph
 interpretation of a tree sequence is tightly connected to the concept of
@@ -147,14 +147,17 @@ ts_arg.draw_svg(
 )
 ```
 
-The number of children a node has in a local tree can be termed the
-"local arity" of a node. It is clear from the plot above that both red and blue nodes
-can have a local arity of one. The act of `simplification` can
-transform a tree sequence so that all nodes have a local arity of
-2 or more, which is [more efficient](sec_args_disadvantages).
-However, this loses information about the timings
-and topological operations associated with recombination
-events and some common ancestor events. This information is useful for
+The number of children descending from a node in a local tree can be termed the
+"local arity" of that node. It is clear from the plot above that red nodes always
+have a local arity of 1, and blue nodes sometimes do. This may seem an unusual
+state of affairs: tree representations often focus on branch-points, and ignore nodes
+with a single child. Indeed, it is possible to [simplify](sec_args_simplification) the
+ARG above, resulting in a graph whose local trees only contain branch points or tips
+(i.e. local arity is never 1). Such a graph is [more compact](sec_args_disadvantages)
+than the full ARG, but it omits some information about the timings and
+topological operations associated with recombination
+events and some common ancestor events. This information, as captured by the local
+unary nodes, is useful for
 
 1. Retaining precise information about the time and lineages involved in recombination.
    This is required e.g. to ensure we can always work out the tree editing (or
@@ -213,6 +216,8 @@ correspond to two recombination nodes, which allows so-called "diamond" events t
 represented, in which both parents at a recombination event trace directly back to the
 same common ancestor.
 :::
+
+(sec_args_simplification)=
 
 ## Simplification
 
@@ -302,13 +307,15 @@ structures for simulation or inference is therefore infeasible.
 
 ## ARG formats and `tskit`
 
-In classical ARGs, nodes often represent events (specifically, _common ancestor_,
-_recombination_, and _sampling_ events), with the genomic regions of inheritance
-encoded by storing a specific breakpoint location on each recombination node.
-In contrast, nodes in a `tskit` ARG correspond to _genomes_, and inherited regions
-are defined by intervals stored on *edges* (via the {attr}`~Edge.left` and 
-{attr}`~Edge.right` properties), rather than on nodes. Here, for example, is the
-edge table from our ARG:
+It is worth noting a subtle and somewhat philosophical
+difference between some classical ARG formulations, and the ARG formulation
+used in `tskit`. Classically, nodes in an ARG are taken to represent _events_
+(specifically, "common ancestor", "recombination", and "sampling" events),
+and genomic regions of inheritance are encoded by storing a specific breakpoint location on
+each recombination node. In contrast, [nodes](tskit:sec_data_model_definitions_node) in a `tskit`
+ARG correspond to _genomes_. More crucially, inherited regions are defined by intervals
+stored on *edges* (via the {attr}`~Edge.left` and  {attr}`~Edge.right` properties),
+rather than on nodes. Here, for example, is the edge table from our ARG:
 
 ```{code-cell}
 ts_arg.tables.edges
@@ -325,7 +332,7 @@ simplification possible, and means `tskit` can encode ancestry without having
 to pin down exactly when specific ancestral events took place.
 
 
-## Working with the tree sequence graph
+## Working with ARGs in `tskit`
 
 All tree sequences, including, but not limited to full ARGs, can be treated as
 directed (acyclic) graphs. Although many tree sequence operations operate from left to
