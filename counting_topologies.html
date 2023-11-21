@@ -62,11 +62,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'counting_topologies';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Parallelization" href="parallelization.html" />
-    <link rel="prev" title="Analysing trees" href="analysing_trees.html" />
+    <link rel="prev" title="Incremental algorithms" href="incremental_algorithms.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -171,7 +173,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysing_trees.html">Analysing trees</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><em>Counting topologies</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="incremental_algorithms.html"><em>Incremental algorithms</em></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Counting topologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
@@ -331,7 +334,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -347,6 +352,22 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-labellings-and-shapes">Tree labellings and shapes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerating-shapes-and-labellings">Enumerating shapes and labellings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-for-large-trees">Methods for large trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedded-topologies">Embedded topologies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-over-tree-sequences">Methods over tree sequences</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -357,13 +378,456 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="counting-topologies">
-<span id="sec-counting-topologies"></span><h1><em>Counting topologies</em><a class="headerlink" href="#counting-topologies" title="Permalink to this heading">#</a></h1>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Add examples of using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> and introduce <a class="reference external" href="https://tskit.dev/tskit/docs/stable/topological-analysis.html#sec-combinatorics" title="(in Python)"><span>Identifying and counting topologies</span></a>
-in a gentle way.</p>
-<p>See https://github.com/tskit-dev/tutorials/issues/93</p>
+<span id="sec-counting-topologies"></span><h1>Counting topologies<a class="headerlink" href="#counting-topologies" title="Permalink to this heading">#</a></h1>
+<p><strong>Yan Wong</strong></p>
+<p>This tutorial is intended to be a gentle introduction to the combinatorial
+treatment of tree topologies in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>. For a more formal introduction,
+see the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/topological-analysis.html#sec-combinatorics" title="(in Python)"><span>Identifying and counting topologies</span></a> section of the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref myst">official <code class="docutils literal notranslate"><span class="pre">tskit</span></code> documentation</span></a>.</p>
+<p>The <em>topology</em> of a single tree is the term used to describe the branching pattern,
+regardless of the lengths of the branches. For example, both trees below have the
+same topology, although the branch lengths differ:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
+<span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">}</span>  <span class="c1"># avoid confusion by using letters to label tips</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">generate_comb</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="n">deep_tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">generate_comb</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">simplify</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">deep_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/09f92a110368fa093f6fe5ec1eb1ebe33203a4e32aa6fa92d056e5aa2423b1a2.svg" src="_images/09f92a110368fa093f6fe5ec1eb1ebe33203a4e32aa6fa92d056e5aa2423b1a2.svg" /><img alt="_images/efe0421f9f081243590bb87960e2437f09c7a12a3546644c45c641d8e2458995.svg" src="_images/efe0421f9f081243590bb87960e2437f09c7a12a3546644c45c641d8e2458995.svg" /></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The treatment of topologies in <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is restricted to trees with a single defined root,
+without nodes with a single child (i.e. trees must consist of nodes that are either leaves,
+or internal nodes with two or more children).  For convenience in the examples
+below, trees are drawn with the tips flagged as samples, although whether a node is a sample or
+not does not change the topology of the tree.</p>
+</div>
+<section id="tree-labellings-and-shapes">
+<h2>Tree labellings and shapes<a class="headerlink" href="#tree-labellings-and-shapes" title="Permalink to this heading">#</a></h2>
+<p>The topology of a tree also takes into account the labelling of tips, so that
+the trees below, although they have the same <em>shape</em>, count as three
+different topologies:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">ascii_lowercase</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">SVG</span>
+
+<span class="k">def</span> <span class="nf">str_none</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot; = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">draw_svg_trees</span><span class="p">(</span><span class="n">trees</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">x_lab_attr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">+</span> <span class="n">space</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">height</span> <span class="o">+</span> <span class="n">space</span>
+    <span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;svg height=&quot;</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s1">&quot; width=&quot;</span><span class="si">{</span><span class="n">w</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&#39;</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;style&gt;.x-axis </span><span class="se">{{</span><span class="s1">transform: translateY(</span><span class="si">{</span><span class="n">space</span><span class="si">}</span><span class="s1">px)</span><span class="se">}}</span><span class="s1">&lt;/style&gt;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trees</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+            <span class="n">canvas_size</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span>
+            <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">w</span><span class="p">},</span>
+            <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
+            <span class="n">x_label</span><span class="o">=</span><span class="n">str_none</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">(),</span> <span class="n">x_lab_attr</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">x_lab_attr</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/svg&gt;&#39;</span>
+    <span class="k">return</span> <span class="n">SVG</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="n">draw_svg_trees</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_labellings</span><span class="p">(</span><span class="n">tree</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()})</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/edd72122b815294233bf158a4a6940474490fe7f69baaaf3e17064f461782db3.svg" src="_images/edd72122b815294233bf158a4a6940474490fe7f69baaaf3e17064f461782db3.svg" /></div>
+</div>
+<p>These are, in fact, the only possible three labellings for a three-tip tree of that shape.
+There is only one other possible shape for a three-tip tree, and for this shape,
+all labelling orders are equivalent (in other words, there is only one
+possible labelling):</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">generate_star</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">node_labels</span><span class="o">=</span><span class="p">{})</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/593c7946a4e6572e149f5bf138170329eb67ade476502e7573cfaaad4d68e8e6.svg" src="_images/593c7946a4e6572e149f5bf138170329eb67ade476502e7573cfaaad4d68e8e6.svg" /></div>
+</div>
+<p>A 3-tip tree therefore has only four possible topologies.
+These can be generated with the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generated_trees</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For a three-tip tree there are&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">generated_trees</span><span class="p">)),</span> <span class="s2">&quot;labelled topologies.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For a three-tip tree there are 4 labelled topologies.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here they are, plotted out with their shapes enumerated from zero:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">draw_svg_trees</span><span class="p">(</span>
+    <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()},</span>
+    <span class="n">x_lab_attr</span><span class="o">=</span><span class="s2">&quot;shape&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/a08c5aa838da5f384d9e79cf0823eb198f34405d2349841ee2fccb40de04224f.svg" src="_images/a08c5aa838da5f384d9e79cf0823eb198f34405d2349841ee2fccb40de04224f.svg" /></div>
+</div>
+<section id="enumerating-shapes-and-labellings">
+<h3>Enumerating shapes and labellings<a class="headerlink" href="#enumerating-shapes-and-labellings" title="Permalink to this heading">#</a></h3>
+<p>For a tree with four tips, more topologies and shapes are possible. As before, we can generate the
+topologies using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>. Alternatively, if we only want the (unlabelled) shapes,
+we can use the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For a four-tip tree there are&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">4</span><span class="p">))),</span> <span class="s2">&quot;labelled topologies.&quot;</span><span class="p">)</span>
+
+<span class="n">generated_trees</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;These can be categorised into&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">generated_trees</span><span class="p">)),</span> <span class="s2">&quot;shapes.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For a four-tip tree there are 26 labelled topologies.
+These can be categorised into 5 shapes.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, we can give each shape a number or <em>index</em>, starting from zero:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">draw_svg_trees</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">x_lab_attr</span><span class="o">=</span><span class="s2">&quot;shape&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/6dd8dfcea4b69c37319988ec24aeb624bce904ea71f9b320bb7bd204263790c6.svg" src="_images/6dd8dfcea4b69c37319988ec24aeb624bce904ea71f9b320bb7bd204263790c6.svg" /></div>
+</div>
+<p>Each of these shapes will have a separate number of possible labellings, and trees with
+these labellings can be created using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">shape_index</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">4</span><span class="p">)):</span>
+    <span class="n">labellings</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_labellings</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="n">num_labellings</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">labellings</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Tree shape </span><span class="si">{</span><span class="n">shape_index</span><span class="si">}</span><span class="s2"> for a four-tip tree has &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_labellings</span><span class="si">}</span><span class="s2"> labelling</span><span class="si">{</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">num_labellings</span><span class="o">==</span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;s&#39;</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree shape 0 for a four-tip tree has 1 labelling.
+Tree shape 1 for a four-tip tree has 6 labellings.
+Tree shape 2 for a four-tip tree has 4 labellings.
+Tree shape 3 for a four-tip tree has 12 labellings.
+Tree shape 4 for a four-tip tree has 3 labellings.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Any tree topology for a tree of <span class="math notranslate nohighlight">\(N\)</span> tips can therefore be described by a
+shape index combined with a labelling index. This is known as the
+<em>rank</em> of a tree, and it can be obtained using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.rank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.rank()</span></code></a> method. For instance, here is the rank of a simulated tree
+of 10 tips:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="n">num_tips</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">simulated_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">ploidy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">simulated_tree</span> <span class="o">=</span> <span class="n">simulated_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The topology of the simulated tree below can be described as&quot;</span><span class="p">,</span> <span class="n">simulated_tree</span><span class="o">.</span><span class="n">rank</span><span class="p">())</span>
+<span class="n">ascii_node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">simulated_tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()}</span>
+<span class="n">simulated_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">node_labels</span><span class="o">=</span><span class="n">ascii_node_labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The topology of the simulated tree below can be described as Rank(shape=1270, label=205540)
+</pre></div>
+</div>
+<img alt="_images/33d0f763a204e184411d4fc5abfeb3b3da57c2e4e96f80825ba793f9d96dc953.svg" src="_images/33d0f763a204e184411d4fc5abfeb3b3da57c2e4e96f80825ba793f9d96dc953.svg" /></div>
+</div>
+<p>A tree with the same topology (i.e. the same shape and labelling, but ignoring
+the branch lengths) can be generated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.unrank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.unrank()</span></code></a> method, by
+specifying the number of tips and the appropriate <code class="docutils literal notranslate"><span class="pre">(shape,</span> <span class="pre">labelling)</span></code> tuple:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">unrank</span><span class="p">(</span><span class="n">num_tips</span><span class="p">,</span> <span class="p">(</span><span class="mi">1270</span><span class="p">,</span> <span class="mi">21580</span><span class="p">))</span>
+<span class="n">new_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">node_labels</span><span class="o">=</span><span class="n">ascii_node_labels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/50c0119a4a7a90c05e03cf85be4f94c6dbd082da9c32bcbd3e35344e7385eaa3.svg" src="_images/50c0119a4a7a90c05e03cf85be4f94c6dbd082da9c32bcbd3e35344e7385eaa3.svg" /></div>
+</div>
+<p>Note that this method generates a single tree in a new tree sequence
+whose a default sequence length is 1.0.</p>
+</section>
+</section>
+<section id="methods-for-large-trees">
+<h2>Methods for large trees<a class="headerlink" href="#methods-for-large-trees" title="Permalink to this heading">#</a></h2>
+<p>The number of possible topologies for a tree with <span class="math notranslate nohighlight">\(N\)</span> tips
+grows very rapidly with <span class="math notranslate nohighlight">\(N\)</span>. For instance, with 10 tips, there are
+282,137,824 possible topologies.</p>
+<p>For this reason, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a> methods do not return a list of trees
+but an iterator over the trees. This means it is perfectly possible to start
+iterating over (say) all tree shapes for a tree of 100 leaves, but
+the iterator will not finish before the death of our galaxy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">num_trees</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">100</span><span class="p">)):</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">b2_index</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A 100-tip tree with shape index </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> has a b2 balance index of </span><span class="si">{</span><span class="n">b2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">num_trees</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+      <span class="k">break</span>  <span class="c1"># better not let this run too long!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A 100-tip tree with shape index 0 has a b2 balance index of 2.0000000000000013
+A 100-tip tree with shape index 1 has a b2 balance index of 1.9986759016244608
+A 100-tip tree with shape index 2 has a b2 balance index of 1.9960946599243323
+A 100-tip tree with shape index 3 has a b2 balance index of 1.9958336776669476
+A 100-tip tree with shape index 4 has a b2 balance index of 1.9973695449917637
+A 100-tip tree with shape index 5 has a b2 balance index of 1.992978538300552
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A 100-tip tree with shape index 6 has a b2 balance index of 1.9927249774271467
+</pre></div>
+</div>
+</div>
+</div>
+<p>For similar combinatorial reasons, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.rank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.rank()</span></code></a> method can be
+inefficient for large trees. To compare the topology of two trees, you are
+therefore recommended to use e.g. the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.kc_distance" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.kc_distance()</span></code></a> method
+rather than comparing ranks directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_tree</span> <span class="o">=</span> <span class="n">simulated_ts</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">sample_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># kc_distance requires sample lists</span>
+<span class="k">if</span> <span class="n">simulated_ts</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">sample_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">kc_distance</span><span class="p">(</span><span class="n">simulated_tree</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trees are identical&quot;</span><span class="p">)</span>
+    <span class="c1"># To compare to the new_tree we need to fix </span>
+    <span class="c1"># print(&quot;The simulated and topology-constructed trees have the same topology&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Trees are identical
+</pre></div>
+</div>
+</div>
+</div>
+<p>Despite the combinatorial explosion associated with topologies of
+many-tip trees, it is still possible to efficiently count
+the number of <em>embedded topologies</em> in a large tree.</p>
+<section id="embedded-topologies">
+<h3>Embedded topologies<a class="headerlink" href="#embedded-topologies" title="Permalink to this heading">#</a></h3>
+<p>An embedded topology is a a topology involving a subset of the tips of a tree.
+If the tips are classified into (say) three groups, red, green, and blue,
+we can efficiently count all the embedded three-tip trees which have
+one tip from each group using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newick_species_tree</span> <span class="o">=</span> <span class="s2">&quot;((A:100.0,B:100.0):100.0,C:200.0)&quot;</span>
+<span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="o">.</span><span class="n">from_species_tree</span><span class="p">(</span><span class="n">newick_species_tree</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">321</span><span class="p">)</span>
+<span class="n">big_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="sa">f</span><span class="s2">&quot;.node.sample.p</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym &quot;</span> <span class="o">+</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;fill: </span><span class="si">{</span><span class="n">colour</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+  <span class="k">for</span> <span class="n">colour</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="n">big_tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">populations</span><span class="p">())</span>
+<span class="p">]</span>
+<span class="n">big_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_label</span><span class="o">=</span><span class="s2">&quot;big_tree&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/e289f5c89dffa1fabf78442a8b9884c87a86c054f64a123445c73e36aa841eea.svg" src="_images/e289f5c89dffa1fabf78442a8b9884c87a86c054f64a123445c73e36aa841eea.svg" /></div>
+</div>
+<p>In this tree, it is fairly clear that the red and green tips cluster together (although not exclusively),
+so that if we took one red, one blue, and one green tip at random, we nearly always see the
+same embedded topology. The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method does this exhaustively:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># By default `count_topologies` chooses one tip from each population, like setting</span>
+<span class="c1"># sample_sets=[ts.samples(p.id) for p in ts.populations() if len(ts.samples(p.id)) &gt; 0]</span>
+
+<span class="n">topology_counter</span> <span class="o">=</span> <span class="n">big_tree</span><span class="o">.</span><span class="n">count_topologies</span><span class="p">()</span>
+
+<span class="n">colours</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&gt;.sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colours</span><span class="p">)]</span>
+
+<span class="n">embedded_counts</span> <span class="o">=</span> <span class="n">topology_counter</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">embedded_tree</span> <span class="ow">in</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">embedded_tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span>
+    <span class="n">number_of_instances</span> <span class="o">=</span> <span class="n">embedded_counts</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">number_of_instances</span><span class="si">}</span><span class="s2"> instances embedded in big_tree&quot;</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">embedded_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">x_label</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ac31ade6eaf2165cbc5c9c160363bd82a14bcc216c53b1c948ad641132fc09d2.svg" src="_images/ac31ade6eaf2165cbc5c9c160363bd82a14bcc216c53b1c948ad641132fc09d2.svg" /><img alt="_images/100df3990c9cd85d40d1dab0b981b7547a705ded6e6a64f98176e63ac0e2dec3.svg" src="_images/100df3990c9cd85d40d1dab0b981b7547a705ded6e6a64f98176e63ac0e2dec3.svg" /><img alt="_images/c3a9a4c6196bc1f6bca3e109bcdb3ad2fac5f11eb28cfa8b70a1561a4cfaa38d.svg" src="_images/c3a9a4c6196bc1f6bca3e109bcdb3ad2fac5f11eb28cfa8b70a1561a4cfaa38d.svg" /><img alt="_images/ce77f92cc3ab53dfeba38b94db2922fe7c7ebc85525f82b4c5281c156a4c397f.svg" src="_images/ce77f92cc3ab53dfeba38b94db2922fe7c7ebc85525f82b4c5281c156a4c397f.svg" /></div>
+</div>
+</section>
+</section>
+<section id="methods-over-tree-sequences">
+<h2>Methods over tree sequences<a class="headerlink" href="#methods-over-tree-sequences" title="Permalink to this heading">#</a></h2>
+<p>It can be useful to count embedded topologies over an entire tree sequence.
+For instance, we might want to know the number of embedded topologies
+that support Neanderthals as a sister group to europeans versus africans.
+<code class="docutils literal notranslate"><span class="pre">Tskit</span></code> provides the efficient <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> method to
+do this <a class="reference internal" href="incremental_algorithms.html#sec-incremental"><span class="std std-ref">incrementally</span></a>, without having to re-count the topologies
+independently in each tree.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stdpopsim</span>
+<span class="n">species</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_species</span><span class="p">(</span><span class="s2">&quot;HomSap&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_demographic_model</span><span class="p">(</span><span class="s2">&quot;OutOfAfrica_3G09&quot;</span><span class="p">)</span>
+<span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">&quot;chr1&quot;</span><span class="p">,</span> <span class="n">length_multiplier</span><span class="o">=</span><span class="mf">0.0002</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;YRI&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s2">&quot;msprime&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">contig</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simulated&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">&quot;African+European+Chinese trees, each with&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="p">,</span> <span class="s2">&quot;tips&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:158: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
+  time=int(extended_GF.time.head(1) - 1), rate=0
+/opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:161: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
+  time=int(extended_GF.time.tail(1) + 1), rate=0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulated 446 African+European+Chinese trees, each with 6000 tips
+</pre></div>
+</div>
+</div>
+</div>
+<p>Although the trees in this tree sequence are very large, counting the embedded topologies is
+quite doable (for speed we are only simulating 0.02% of chromosome 1, but calculating the
+average over an entire chromosome simply takes a little longer)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;YRI&quot;</span><span class="p">:</span> <span class="s2">&quot;African&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span><span class="p">:</span> <span class="s2">&quot;European&quot;</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">:</span> <span class="s2">&quot;Chinese&quot;</span><span class="p">}</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;YRI&quot;</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
+
+<span class="n">population_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()}</span>
+<span class="n">sample_populations</span> <span class="o">=</span> <span class="p">[</span><span class="n">population_map</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">samples</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+<span class="n">topology_span</span> <span class="o">=</span> <span class="p">{</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">():</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_populations</span><span class="p">))}</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">topology_counter</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">count_topologies</span><span class="p">(),</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">()):</span>
+    <span class="n">embedded_topologies</span> <span class="o">=</span> <span class="n">topology_counter</span><span class="p">[</span><span class="n">sample_populations</span><span class="p">]</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">span</span> <span class="o">/</span> <span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span>
+    <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">embedded_topologies</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">topology_span</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">+=</span> <span class="n">count</span> <span class="o">*</span> <span class="n">weight</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">count</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Counted </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> embedded topologies in </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3568000000000 embedded topologies in 0:00:10.117067 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ntips</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_populations</span><span class="p">)</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="s2">&quot;.sample text.lab {baseline-shift: super; font-size: 0.7em;}&quot;</span>
+<span class="n">node_labels</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ntips</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">sample_populations</span><span class="p">[</span><span class="n">p</span><span class="p">])</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+    <span class="n">node_labels</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="n">styles</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&gt;.sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">&quot;</span>
+
+<span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">topology_span</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">topology_span</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">weight</span><span class="o">/</span><span class="n">total</span><span class="w"> </span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% of genome&quot;</span>
+    <span class="n">embedded_tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">unrank</span><span class="p">(</span><span class="n">ntips</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">embedded_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">x_label</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/5c7ca8795484b0e3370e3576152acf98067bba9e82a93f8551a2b734ba3b641f.svg" src="_images/5c7ca8795484b0e3370e3576152acf98067bba9e82a93f8551a2b734ba3b641f.svg" /><img alt="_images/ad7b78c682857fa573641fef3ce2c9f0b6c0d2a174bb18f8c734ba48c26a3a26.svg" src="_images/ad7b78c682857fa573641fef3ce2c9f0b6c0d2a174bb18f8c734ba48c26a3a26.svg" /><img alt="_images/dd31b18d1cff85e83eacba5ebc5be4060b1d41e81847508924a3700363192b12.svg" src="_images/dd31b18d1cff85e83eacba5ebc5be4060b1d41e81847508924a3700363192b12.svg" /><img alt="_images/7fd92d9de365279cc468b6a1314425c44830ed1b57dcf8975978c186202526d1.svg" src="_images/7fd92d9de365279cc468b6a1314425c44830ed1b57dcf8975978c186202526d1.svg" /></div>
+</div>
+<p>For an example with real data, see <a class="reference internal" href="popgen.html#sec-popgen-topological"><span class="std std-ref">Topological analysis</span></a>
+in the <a class="reference internal" href="popgen.html#sec-intro-popgen"><span class="std std-ref">Tskit for population genetics</span></a> tutorial.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -397,12 +861,12 @@ in a gentle way.</p>
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="analysing_trees.html"
+       href="incremental_algorithms.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Analysing trees</p>
+        <p class="prev-next-title"><em>Incremental algorithms</em></p>
       </div>
     </a>
     <a class="right-next"
@@ -420,6 +884,28 @@ in a gentle way.</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-labellings-and-shapes">Tree labellings and shapes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerating-shapes-and-labellings">Enumerating shapes and labellings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-for-large-trees">Methods for large trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedded-topologies">Embedded topologies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-over-tree-sequences">Methods over tree sequences</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

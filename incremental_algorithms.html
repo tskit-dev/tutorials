@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Welcome! &#8212; Tree Sequence Tutorials</title>
+    <title>Incremental algorithms &#8212; Tree Sequence Tutorials</title>
   
   
   
@@ -62,10 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'incremental_algorithms';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="What is a tree sequence?" href="what_is.html" />
+    <link rel="next" title="Counting topologies" href="counting_topologies.html" />
+    <link rel="prev" title="Analysing trees" href="analysing_trees.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -140,7 +141,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -167,10 +168,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started with <strong class="program">tskit</strong></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistics and Analysis</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysing_trees.html">Analysing trees</a></li>
-<li class="toctree-l1"><a class="reference internal" href="incremental_algorithms.html"><em>Incremental algorithms</em></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><em>Incremental algorithms</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="counting_topologies.html">Counting topologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
 </ul>
@@ -262,7 +263,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/incremental_algorithms.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -331,9 +332,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -344,23 +343,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Welcome!</h1>
+    <h1>Incremental algorithms</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-sources-of-help">Other sources of help</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tutorial-code">Running tutorial code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-tutorial-datafiles">Downloading tutorial datafiles</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -370,110 +357,19 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="welcome">
-<span id="sec-intro"></span><h1>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this heading">#</a></h1>
-<p>This site contains a number of tutorials to develop your understanding of
-genetic genealogies, ancestral recombination graphs, and the
-<a class="reference external" href="https://tskit.dev/learn/">succinct tree sequence</a> storage format,
-as implemented in <a class="reference external" href="https://tskit.dev/tskit/docs/"><code class="docutils literal notranslate"><span class="pre">tskit</span></code>: the tree sequence toolkit</a>.
-Also included are a number of tutorials showing advanced use of
-<a class="reference external" href="https://tskit.dev/software/">software programs</a>,
-such as <a class="reference external" href="https://tskit.dev/msprime/docs"><code class="docutils literal notranslate"><span class="pre">msprime</span></code></a>, that form part of the
-<a class="reference external" href="https://tskit.dev"><code class="docutils literal notranslate"><span class="pre">tskit</span></code> ecosystem</a>.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/8ce5c59c328c83a25ee4800f3e579143366c28744c1dcbfdb1a929b4f32736c0.svg" src="_images/8ce5c59c328c83a25ee4800f3e579143366c28744c1dcbfdb1a929b4f32736c0.svg" /></div>
-</div>
-<p>If you are new to the world of tree sequences, we suggest you start with the
-first tutorial: <a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Tutorials are under constant development. Those that are still a work in progress and
-not yet ready for use are shown in <em>italics</em> in the list of tutorials.</p>
-<p>We very much welcome help developing existing tutorials or writing new ones. Please open
-or contribute to a <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues">GitHub issue</a> if you
-would like to help out.</p>
-</div>
-<section id="other-sources-of-help">
-<h2>Other sources of help<a class="headerlink" href="#other-sources-of-help" title="Permalink to this heading">#</a></h2>
-<p>In addition to these tutorials, our <a class="reference external" href="https://tskit.dev/learn/">Learn page</a> lists
-selected videos and publications to help you learn about tree sequences.</p>
-<p>We aim to be a friendly, welcoming open source community.
-Questions and discussion about using <strong class="program">tskit</strong>, the tree sequence toolkit
-should be directed to the
-<a class="reference external" href="https://github.com/tskit-dev/tskit/discussions">GitHub discussion forum</a>, and there are
-similar forums for other software in the tree sequence <a class="reference external" href="https://github.com/tskit-dev">development community</a>,
-such as for <a class="reference external" href="https://github.com/tskit-dev/msprime/discussions">msprime</a> and
-<a class="reference external" href="https://github.com/tskit-dev/tsinfer/discussions">tsinfer</a>.</p>
-</section>
-<section id="running-tutorial-code">
-<span id="sec-intro-running"></span><h2>Running tutorial code<a class="headerlink" href="#running-tutorial-code" title="Permalink to this heading">#</a></h2>
-<p>It is possible to run the tutorial code on your own computer, if you wish.
-This will allow you to experiment with the examples provided.
-The recommended way to do this is from within a
-<a class="reference external" href="https://jupyter.org">Jupyter notebook</a>. As well as installing Jupyter, you will also
-need to install the various Python libraries, most importantly
-<code class="docutils literal notranslate"><span class="pre">tskit</span></code>, <code class="docutils literal notranslate"><span class="pre">msprime</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. These and other packages are
-listed  in the <a class="reference external" href="https://tskit.dev/tutorials/requirements.txt">requirements.txt</a>
-file; a shortcut to installing the necessary software is therefore:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tskit</span><span class="o">.</span><span class="n">dev</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
-<p>In addition, to run the <a class="reference internal" href="tskitr.html#sec-tskit-r"><span class="std std-ref">R tutorial</span></a> you will need to install the R
-<a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> library, and if running it in a Jupyter
-notebook, the <a class="reference external" href="https://irkernel.github.io">IRkernel</a> library. This can be done by
-running the following command within R:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="s2">&quot;reticulate&quot;</span><span class="p">,</span> <span class="s2">&quot;IRkernel&quot;</span><span class="p">));</span> <span class="n">IRkernel</span><span class="p">::</span><span class="n">installspec</span><span class="p">()</span>
-</pre></div>
-</div>
-<section id="downloading-tutorial-datafiles">
-<span id="sec-intro-downloading-datafiles"></span><h3>Downloading tutorial datafiles<a class="headerlink" href="#downloading-tutorial-datafiles" title="Permalink to this heading">#</a></h3>
-<p>Many of the tutorials use pre-existing tree sequences stored in the
-<a class="reference external" href="https://github.com/tskit-dev/tutorials/tree/main/data"><code class="docutils literal notranslate"><span class="pre">data</span></code></a> directory.
-These can be downloaded individually from that link, or you can
-download them all at once by running the script stored in
-<a class="reference external" href="https://tskit.dev/tutorials/examples/download.py">https://tskit.dev/tutorials/examples/download.py</a>.
-If you are running the code in the tutorials from within a Jupyter notebook
-then you can simply load this code into a new cell by using the
-<a class="reference external" href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-load">%load cell magic</a>.
-Just run the following in a Jupyter code cell:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tskit</span><span class="o">.</span><span class="n">dev</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">download</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<p>Running the resulting Python code should download the data files, then print out
-<code class="docutils literal notranslate"><span class="pre">finished</span> <span class="pre">downloading</span></code> when all files are downloaded. You should then be able
-to successfully run code such as the following:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/basics.trees&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The file &#39;data/basics.trees&#39; exists, and contains </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The file &#39;data/basics.trees&#39; exists, and contains 3 trees
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="incremental-algorithms">
+<span id="sec-incremental"></span><h1><em>Incremental algorithms</em><a class="headerlink" href="#incremental-algorithms" title="Permalink to this heading">#</a></h1>
+<p>Much of the <a class="reference internal" href="what_is.html#sec-what-is-analysis"><span class="std std-ref">efficiency</span></a>
+of the tskit approach comes from the use of incremental algorithms.
+By considering only the difference between adjacent trees,
+incremental algorithms avoid having to perform the same
+calculation multiple times on different trees.</p>
+<p>This tutorial will explain the philosophy behind incremental algorithms,
+and provide examples of how to create your own (e.g. using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.edge_diffs" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.edge_diffs()</span></code></a> method).</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Create content. See <a class="reference external" href="https://github.com/tskit-dev/tutorials/issues/233">issue 233</a></p>
 </div>
 </section>
 
@@ -507,12 +403,21 @@ to successfully run code such as the following:</p>
                 <footer class="prev-next-footer">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="analysing_trees.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analysing trees</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="what_is.html"
+       href="counting_topologies.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">What is a tree sequence?</p>
+        <p class="prev-next-title">Counting topologies</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -522,24 +427,6 @@ to successfully run code such as the following:</p>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-sources-of-help">Other sources of help</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tutorial-code">Running tutorial code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-tutorial-datafiles">Downloading tutorial datafiles</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

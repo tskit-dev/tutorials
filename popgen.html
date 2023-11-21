@@ -173,7 +173,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="analysing_tree_sequences.html"><em>Analysing tree sequences</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysing_trees.html">Analysing trees</a></li>
-<li class="toctree-l1"><a class="reference internal" href="counting_topologies.html"><em>Counting topologies</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="incremental_algorithms.html"><em>Incremental algorithms</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="counting_topologies.html">Counting topologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
@@ -357,7 +358,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-simulation">Population genetic simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-inference">Population genetic inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-inference">Population genetic inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-analysis">Topological analysis</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-information">Further information</a></li>
 </ul>
             </nav>
@@ -936,7 +940,9 @@ region:</p>
 could also have been used to produce the plot above. In this case, the advantage of
 using tree sequences is simply that they allow these sorts of analysis to
 <a class="reference internal" href="what_is.html#plot-incremental-calculation"><span class="std std-ref">scale</span></a> to datasets of millions of whole genomes.</p>
-<p>However, because this inferred tree sequence stores (an estimate of) the underlying
+<section id="topological-analysis">
+<span id="sec-popgen-topological"></span><h3>Topological analysis<a class="headerlink" href="#topological-analysis" title="Permalink to this heading">#</a></h3>
+<p>As this inferred tree sequence stores (an estimate of) the underlying
 genealogy, we can also derive statistics based on genealogical relationships. For
 example, this tree sequence also contains a sample genome based on an ancient
 genome, a <a class="reference external" href="https://en.wikipedia.org/wiki/Denisovan">Denisovan</a> individual. We can
@@ -947,6 +953,9 @@ regions and the Denisovan:</p>
 <p>Show an example of looking at topological relationships between the Denisovan and
 various East Asian groups, using the <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">Counting topologies</span></a> functionality.</p>
 </div>
+<p>See <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">Counting topologies</span></a> for an introduction to topological methods in
+<code class="docutils literal notranslate"><span class="pre">tskit</span></code>.</p>
+</section>
 </section>
 <section id="further-information">
 <h2>Further information<a class="headerlink" href="#further-information" title="Permalink to this heading">#</a></h2>
@@ -1023,7 +1032,10 @@ are relevant to population genetic analysis and research. You can also visit the
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-simulation">Population genetic simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-inference">Population genetic inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-inference">Population genetic inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-analysis">Topological analysis</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-information">Further information</a></li>
 </ul>
   </nav></div>
