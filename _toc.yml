@@ -12,6 +12,7 @@ parts:
   chapters:
   - file: analysing_tree_sequences
   - file: analysing_trees
+  - file: incremental_algorithms
   - file: counting_topologies
   - file: parallelization
 - caption: Further tskit tutorials

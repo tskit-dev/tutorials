@@ -316,8 +316,11 @@ could also have been used to produce the plot above. In this case, the advantage
 using tree sequences is simply that they allow these sorts of analysis to
 {ref}`scale<plot_incremental_calculation>` to datasets of millions of whole genomes.
 
+(sec_popgen_topological)=
 
-However, because this inferred tree sequence stores (an estimate of) the underlying
+### Topological analysis
+
+As this inferred tree sequence stores (an estimate of) the underlying
 genealogy, we can also derive statistics based on genealogical relationships. For
 example, this tree sequence also contains a sample genome based on an ancient
 genome, a [Denisovan](https://en.wikipedia.org/wiki/Denisovan) individual. We can
@@ -328,6 +331,9 @@ regions and the Denisovan:
 Show an example of looking at topological relationships between the Denisovan and
 various East Asian groups, using the {ref}`sec_counting_topologies` functionality.
 :::
+
+See {ref}`sec_counting_topologies` for an introduction to topological methods in
+`tskit`.
 
 ## Further information
 
