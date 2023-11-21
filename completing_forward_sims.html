@@ -402,6 +402,7 @@ for a formal description of these properties):</p>
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
     <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">metadata_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="o">.</span><span class="n">permissive_json</span><span class="p">()</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">add_row</span><span class="p">()</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
@@ -490,10 +491,6 @@ is haploid and msprime uses a diploid time scale by default.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/msprime/demography.py:1176: IncompletePopulationMetadataWarning: No metadata schema present in population table, not recording metadata
-  warnings.warn(
-</pre></div>
-</div>
 <img alt="_images/81e3e7dc0b29a39185f951ad8566ab0e6d814d205a978f89939a9e7654559b75.svg" src="_images/81e3e7dc0b29a39185f951ad8566ab0e6d814d205a978f89939a9e7654559b75.svg" /></div>
 </div>
 <p>The trees have fully coalesced and we’ve successfully combined a forwards-time

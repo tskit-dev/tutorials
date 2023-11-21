@@ -47,6 +47,7 @@ def wright_fisher(N, T, L=100, random_seed=None):
     random.seed(random_seed)
     tables = tskit.TableCollection(L)
     tables.time_units = "generations"
+    tables.populations.metadata_schema = tskit.MetadataSchema.permissive_json()
     tables.populations.add_row()
     P = np.arange(N, dtype=int)
     for _ in range(N):

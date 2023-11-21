@@ -654,7 +654,7 @@ button {
 
 .saving .message {
     display: none;
-}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_2340745285'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_7151556018'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
 var step = d3.line().curve(d3.curveStep);
 var stepAfter = d3.line().curve(d3.curveStepAfter);
 var stepBefore = d3.line().curve(d3.curveStepBefore);
@@ -666,14 +666,14 @@ function draw_force_diagram() {
     var subset = [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16];
     var evenly_distributed_positions = [100.0, 170.0, 240.0, 310.0, 380.0, 450.0];
 
-    var dashboard = d3.select("#arg_2340745285").append("div").attr("class", "dashboard");
+    var dashboard = d3.select("#arg_7151556018").append("div").attr("class", "dashboard");
     
     var clipboard = dashboard.append("button")
         .on("click", function() {
             navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 250.0, 'y': 250.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '1', 'fx': 240.0, 'fy': 250.0, 'y': 250.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '2', 'fx': 170.0, 'fy': 250.0, 'y': 250.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '3', 'fx': 310.0, 'fy': 250.0, 'y': 250.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '4', 'fx': 450.0, 'fy': 250.0, 'y': 250.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [7], 'parent_of': [], 'label': '5', 'fx': 380.0, 'fy': 250.0, 'y': 250.0}, {'id': 6, 'flag': 0, 'time': 56.0454802286223, 'time_01': 0.9594597716363211, 'logtime_01': 0.4408104125482307, 'rank_01': 0.8888888888888888, 'child_of': [9], 'parent_of': [1, 3], 'label': '6', 'x': 275.0, 'fy': 227.77777777777777, 'y': 227.77777777777777}, {'id': 7, 'flag': 131072, 'time': 59.45059299910596, 'time_01': 0.9569966997033771, 'logtime_01': 0.4327931901064175, 'rank_01': 0.7777777777777778, 'child_of': [10], 'parent_of': [5], 'x_pos_reference': 5, 'label': '7/8', 'x': 275.0, 'fy': 205.55555555555557, 'y': 205.55555555555557}, {'id': 9, 'flag': 0, 'time': 120.7850821708138, 'time_01': 0.9126306921779251, 'logtime_01': 0.3359364561713586, 'rank_01': 0.6666666666666667, 'child_of': [12], 'parent_of': [6, 7], 'label': '9', 'x': 275.0, 'fy': 183.33333333333334, 'y': 183.33333333333334}, {'id': 10, 'flag': 0, 'time': 142.86643656492956, 'time_01': 0.8966582507595428, 'logtime_01': 0.31289495466312167, 'rank_01': 0.5555555555555556, 'child_of': [12], 'parent_of': [4, 7], 'label': '10', 'x': 275.0, 'fy': 161.11111111111111, 'y': 161.11111111111111}, {'id': 11, 'flag': 0, 'time': 236.7237255340037, 'time_01': 0.8287670325403284, 'logtime_01': 0.24344667636347894, 'rank_01': 0.4444444444444444, 'child_of': [15], 'parent_of': [0, 2], 'label': '11', 'x': 275.0, 'fy': 138.88888888888889, 'y': 138.88888888888889}, {'id': 12, 'flag': 0, 'time': 272.05118690557765, 'time_01': 0.8032130833963393, 'logtime_01': 0.22428775813629553, 'rank_01': 0.33333333333333337, 'child_of': [13], 'parent_of': [9, 10], 'label': '12', 'x': 275.0, 'fy': 116.66666666666667, 'y': 116.66666666666667}, {'id': 13, 'flag': 131072, 'time': 588.0902773240502, 'time_01': 0.574607728510451, 'logtime_01': 0.11796030426281645, 'rank_01': 0.22222222222222232, 'child_of': [16], 'parent_of': [12], 'x_pos_reference': 12, 'label': '13/14', 'x': 275.0, 'fy': 94.44444444444446, 'y': 94.44444444444446}, {'id': 15, 'flag': 0, 'time': 610.912738605865, 'time_01': 0.5580992109919682, 'logtime_01': 0.11270418970307061, 'rank_01': 0.11111111111111116, 'child_of': [16], 'parent_of': [11, 13], 'label': '15', 'x': 275.0, 'fy': 72.22222222222223, 'y': 72.22222222222223}, {'id': 16, 'flag': 0, 'time': 1382.4658244607965, 'time_01': 0.0, 'logtime_01': -9.998911688890999e-05, 'rank_01': 0.0, 'child_of': [], 'parent_of': [13, 15], 'label': '16', 'x': 275.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 11, 'target': 0, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 6, 'target': 1, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 1.0}, {'source': 11, 'target': 2, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 6, 'target': 3, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 10, 'target': 4, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 7, 'target': 5, 'bounds': '0.0-6516.940179280937 6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 9, 'target': 6, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 10, 'target': 7, 'bounds': '0.0-6516.940179280937', 'alt_parent': 9, 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 9, 'target': 7, 'bounds': '6516.940179280937-10000.0', 'alt_parent': 10, 'alt_child': 6, 'region_fraction': 0.34830598207190633}, {'source': 12, 'target': 9, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 1.0}, {'source': 12, 'target': 10, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 1.0}, {'source': 15, 'target': 11, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 1.0}, {'source': 13, 'target': 12, 'bounds': '0.0-2601.014547981321 2601.014547981321-10000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 16, 'target': 13, 'bounds': '0.0-2601.014547981321', 'alt_parent': 15, 'alt_child': 15, 'region_fraction': 0.26010145479813207}, {'source': 15, 'target': 13, 'bounds': '2601.014547981321-10000.0', 'alt_parent': 16, 'alt_child': 11, 'region_fraction': 0.7398985452018679}, {'source': 16, 'target': 15, 'bounds': '0.0-2601.014547981321', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.26010145479813207}], 'breakpoints': [{'start': 0, 'stop': 2601.014547981321, 'x_pos_01': 0.0, 'width_01': 0.26010145479813207, 'x_pos': 50.0, 'width': 117.04565465915942}, {'start': 2601.014547981321, 'stop': 6516.940179280937, 'x_pos_01': 0.26010145479813207, 'width_01': 0.3915925631299616, 'x_pos': 167.04565465915942, 'width': 176.21665340848273}, {'start': 6516.940179280937, 'stop': 10000.0, 'x_pos_01': 0.6516940179280937, 'width_01': 0.34830598207190633, 'x_pos': 343.26230806764215, 'width': 156.73769193235785}]}, 'width': 500, 'height': 375, 'y_axis': {'include_labels': 'true', 'ticks': [250.0, 227.77777777777777, 205.55555555555557, 183.33333333333334, 161.11111111111111, 138.88888888888889, 116.66666666666667, 94.44444444444446, 72.22222222222223, 50.0], 'text': [0, 56, 59, 121, 143, 237, 272, 588, 611, 1382], 'max_min': [250.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'ortho', 'variable_edge_width': 'false', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 170.0, 240.0, 310.0, 380.0, 450.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
-            d3.select("#arg_2340745285 .copymessage").style("visibility", "visible");
+            d3.select("#arg_7151556018 .copymessage").style("visibility", "visible");
             setTimeout( function() {
-                d3.select("#arg_2340745285 .copymessage").style("visibility", "hidden");
+                d3.select("#arg_7151556018 .copymessage").style("visibility", "hidden");
             }, 1000);
         });
     clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -687,8 +687,8 @@ function draw_force_diagram() {
     var reheat = dashboard.append("button")
         .on("click", function(event) {
             if (!event.active) simulation.alphaTarget(0.3).restart();       
-            var order = d3.selectAll("#arg_2340745285 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_2340745285 .node").classed("unfix", function(d) {
+            var order = d3.selectAll("#arg_7151556018 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_7151556018 .node").classed("unfix", function(d) {
                 if (d.flag != 1) {
                     delete d.fx;
                 } else {
@@ -705,8 +705,8 @@ function draw_force_diagram() {
     
     var evenly_distribute = dashboard.append("button")
         .on("click", function() {
-            var order = d3.selectAll("#arg_2340745285 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_2340745285 .sample").classed("distribute", function(d) {
+            var order = d3.selectAll("#arg_7151556018 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_7151556018 .sample").classed("distribute", function(d) {
                 d.fx = evenly_distributed_positions[order.indexOf(d.id)];
             });
         });
@@ -717,7 +717,7 @@ function draw_force_diagram() {
         .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
     evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
 
-    var svg = d3.select("#arg_2340745285").append("svg")
+    var svg = d3.select("#arg_7151556018").append("svg")
         .attr("width", 500)
         .attr("height", 375)
         .style("padding-top", "10px");
@@ -798,7 +798,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#1eebb1')
                     .style("cursor", "pointer");
-                d3.select("#arg_2340745285 .breakpoints")
+                d3.select("#arg_7151556018 .breakpoints")
                     .selectAll("rect")
                         .filter(function(j) {
                             return d.bounds.split(" ").some(function(region) {
@@ -812,7 +812,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#053e4e')
                     .style("cursor", "default")
-                d3.select("#arg_2340745285 .breakpoints").selectAll("rect")
+                d3.select("#arg_7151556018 .breakpoints").selectAll("rect")
                     .style("fill", "#053e4e")
             });
     }
@@ -825,7 +825,7 @@ function draw_force_diagram() {
         .enter()
         .append("circle")
         .attr("id", function(d) {
-            return String(2340745285) + "_node" + d.id
+            return String(7151556018) + "_node" + d.id
         })
         .attr("class", function(d) {
             var classy = ""
@@ -886,7 +886,7 @@ function draw_force_diagram() {
         if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
             vnub = 0;
         }
-        var alt_child = document.getElementById(String(2340745285) + "_node" + d.alt_child);
+        var alt_child = document.getElementById(String(7151556018) + "_node" + d.alt_child);
         if (alt_child != null) {
             var alt_child_x = alt_child.getAttribute("cx");
             var alt_child_y = alt_child.getAttribute("cy");
@@ -953,7 +953,7 @@ function draw_force_diagram() {
                 }
             }
         }
-        var alt_parent = document.getElementById(String(2340745285) + "_node" + d.alt_parent);
+        var alt_parent = document.getElementById(String(7151556018) + "_node" + d.alt_parent);
         if (alt_parent != null) {
             var alt_parent_x = alt_parent.getAttribute("cx");
             var alt_parent_y = alt_parent.getAttribute("cy");
@@ -1132,7 +1132,7 @@ function draw_force_diagram() {
             if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
                 return "c";
             } else if (d.child_of.length == 1) {
-                var parent = document.getElementById(String(2340745285) + "_node" + d.child_of[0])
+                var parent = document.getElementById(String(7151556018) + "_node" + d.child_of[0])
                 if (parent != null) {
                     var parent_x = parent.getAttribute("cx");
                     if (parent_x > d.x) {
@@ -1222,7 +1222,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('fill', '#1eebb1')
                     .style("cursor", "pointer");
-                var highlight_links = d3.select("#arg_2340745285 .links")
+                var highlight_links = d3.select("#arg_7151556018 .links")
                     .selectAll("g")
                         .filter(function(j) {
                             return j.bounds.split(" ").some(function(region) {
@@ -1247,10 +1247,10 @@ function draw_force_diagram() {
                     .style('fill', '#053e4e')
                     .style("cursor", "default");
                 //if (false) {
-                    d3.selectAll("#arg_2340745285 .link")
+                    d3.selectAll("#arg_7151556018 .link")
                         .style("stroke", "#053e4e");
                 //} else {
-                //    d3.selectAll("#arg_2340745285 .link")
+                //    d3.selectAll("#arg_7151556018 .link")
                 //        .style("stroke", "#053e4e")
                 //        .style("stroke-width", 3);
                 //};     
@@ -1563,7 +1563,7 @@ button {
 
 .saving .message {
     display: none;
-}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_3785944905'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_2336652615'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
 var step = d3.line().curve(d3.curveStep);
 var stepAfter = d3.line().curve(d3.curveStepAfter);
 var stepBefore = d3.line().curve(d3.curveStepBefore);
@@ -1575,14 +1575,14 @@ function draw_force_diagram() {
     var subset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     var evenly_distributed_positions = [100.0, 170.0, 240.0, 310.0, 380.0, 450.0];
 
-    var dashboard = d3.select("#arg_3785944905").append("div").attr("class", "dashboard");
+    var dashboard = d3.select("#arg_2336652615").append("div").attr("class", "dashboard");
     
     var clipboard = dashboard.append("button")
         .on("click", function() {
             navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 250.0, 'y': 250.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '1', 'fx': 240.0, 'fy': 250.0, 'y': 250.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '2', 'fx': 170.0, 'fy': 250.0, 'y': 250.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '3', 'fx': 310.0, 'fy': 250.0, 'y': 250.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8, 10], 'parent_of': [], 'label': '4', 'fx': 450.0, 'fy': 250.0, 'y': 250.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [7, 8], 'parent_of': [], 'label': '5', 'fx': 380.0, 'fy': 250.0, 'y': 250.0}, {'id': 6, 'flag': 0, 'time': 56.0454802286223, 'time_01': 0.9594597716363211, 'logtime_01': 0.4408104125482307, 'rank_01': 0.8571428571428572, 'child_of': [7, 10], 'parent_of': [1, 3], 'label': '6', 'x': 275.0, 'fy': 221.42857142857144, 'y': 221.42857142857144}, {'id': 7, 'flag': 0, 'time': 120.7850821708138, 'time_01': 0.9126306921779251, 'logtime_01': 0.3359364561713586, 'rank_01': 0.7142857142857143, 'child_of': [10], 'parent_of': [5, 6], 'label': '7', 'x': 275.0, 'fy': 192.85714285714286, 'y': 192.85714285714286}, {'id': 8, 'flag': 0, 'time': 142.86643656492956, 'time_01': 0.8966582507595428, 'logtime_01': 0.31289495466312167, 'rank_01': 0.5714285714285714, 'child_of': [10], 'parent_of': [4, 5], 'label': '8', 'x': 275.0, 'fy': 164.28571428571428, 'y': 164.28571428571428}, {'id': 9, 'flag': 0, 'time': 236.7237255340037, 'time_01': 0.8287670325403284, 'logtime_01': 0.24344667636347894, 'rank_01': 0.4285714285714286, 'child_of': [11, 12], 'parent_of': [0, 2], 'label': '9', 'x': 275.0, 'fy': 135.71428571428572, 'y': 135.71428571428572}, {'id': 10, 'flag': 0, 'time': 272.05118690557765, 'time_01': 0.8032130833963393, 'logtime_01': 0.22428775813629553, 'rank_01': 0.2857142857142858, 'child_of': [11, 12], 'parent_of': [4, 6, 7, 8], 'label': '10', 'x': 275.0, 'fy': 107.14285714285717, 'y': 107.14285714285717}, {'id': 11, 'flag': 0, 'time': 610.912738605865, 'time_01': 0.5580992109919682, 'logtime_01': 0.11270418970307061, 'rank_01': 0.1428571428571429, 'child_of': [], 'parent_of': [9, 10], 'label': '11', 'x': 275.0, 'fy': 78.57142857142858, 'y': 78.57142857142858}, {'id': 12, 'flag': 0, 'time': 1382.4658244607965, 'time_01': 0.0, 'logtime_01': -9.998911688890999e-05, 'rank_01': 0.0, 'child_of': [], 'parent_of': [9, 10], 'label': '12', 'x': 275.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 9, 'target': 0, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 6, 'target': 1, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 1.0}, {'source': 9, 'target': 2, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 6, 'target': 3, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 8, 'target': 4, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 0.6516940179280937}, {'source': 10, 'target': 4, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 0.34830598207190633}, {'source': 7, 'target': 5, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 0.34830598207190633}, {'source': 8, 'target': 5, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 7, 'target': 6, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 0.34830598207190633}, {'source': 10, 'target': 6, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 10, 'target': 7, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.34830598207190633}, {'source': 10, 'target': 8, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 11, 'target': 9, 'bounds': '2601.014547981321-10000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.7398985452018679}, {'source': 12, 'target': 9, 'bounds': '0.0-2601.014547981321', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.26010145479813207}, {'source': 11, 'target': 10, 'bounds': '2601.014547981321-10000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.7398985452018679}, {'source': 12, 'target': 10, 'bounds': '0.0-2601.014547981321', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.26010145479813207}], 'breakpoints': [{'start': 0, 'stop': 2601.014547981321, 'x_pos_01': 0.0, 'width_01': 0.26010145479813207, 'x_pos': 50.0, 'width': 117.04565465915942}, {'start': 2601.014547981321, 'stop': 6516.940179280937, 'x_pos_01': 0.26010145479813207, 'width_01': 0.3915925631299616, 'x_pos': 167.04565465915942, 'width': 176.21665340848273}, {'start': 6516.940179280937, 'stop': 10000.0, 'x_pos_01': 0.6516940179280937, 'width_01': 0.34830598207190633, 'x_pos': 343.26230806764215, 'width': 156.73769193235785}]}, 'width': 500, 'height': 375, 'y_axis': {'include_labels': 'true', 'ticks': [250.0, 221.42857142857144, 192.85714285714286, 164.28571428571428, 135.71428571428572, 107.14285714285717, 78.57142857142858, 50.0], 'text': [0, 56, 121, 143, 237, 272, 611, 1382], 'max_min': [250.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'line', 'variable_edge_width': 'false', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 170.0, 240.0, 310.0, 380.0, 450.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
-            d3.select("#arg_3785944905 .copymessage").style("visibility", "visible");
+            d3.select("#arg_2336652615 .copymessage").style("visibility", "visible");
             setTimeout( function() {
-                d3.select("#arg_3785944905 .copymessage").style("visibility", "hidden");
+                d3.select("#arg_2336652615 .copymessage").style("visibility", "hidden");
             }, 1000);
         });
     clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -1596,8 +1596,8 @@ function draw_force_diagram() {
     var reheat = dashboard.append("button")
         .on("click", function(event) {
             if (!event.active) simulation.alphaTarget(0.3).restart();       
-            var order = d3.selectAll("#arg_3785944905 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_3785944905 .node").classed("unfix", function(d) {
+            var order = d3.selectAll("#arg_2336652615 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_2336652615 .node").classed("unfix", function(d) {
                 if (d.flag != 1) {
                     delete d.fx;
                 } else {
@@ -1614,8 +1614,8 @@ function draw_force_diagram() {
     
     var evenly_distribute = dashboard.append("button")
         .on("click", function() {
-            var order = d3.selectAll("#arg_3785944905 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_3785944905 .sample").classed("distribute", function(d) {
+            var order = d3.selectAll("#arg_2336652615 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_2336652615 .sample").classed("distribute", function(d) {
                 d.fx = evenly_distributed_positions[order.indexOf(d.id)];
             });
         });
@@ -1626,7 +1626,7 @@ function draw_force_diagram() {
         .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
     evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
 
-    var svg = d3.select("#arg_3785944905").append("svg")
+    var svg = d3.select("#arg_2336652615").append("svg")
         .attr("width", 500)
         .attr("height", 375)
         .style("padding-top", "10px");
@@ -1707,7 +1707,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#1eebb1')
                     .style("cursor", "pointer");
-                d3.select("#arg_3785944905 .breakpoints")
+                d3.select("#arg_2336652615 .breakpoints")
                     .selectAll("rect")
                         .filter(function(j) {
                             return d.bounds.split(" ").some(function(region) {
@@ -1721,7 +1721,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#053e4e')
                     .style("cursor", "default")
-                d3.select("#arg_3785944905 .breakpoints").selectAll("rect")
+                d3.select("#arg_2336652615 .breakpoints").selectAll("rect")
                     .style("fill", "#053e4e")
             });
     }
@@ -1734,7 +1734,7 @@ function draw_force_diagram() {
         .enter()
         .append("circle")
         .attr("id", function(d) {
-            return String(3785944905) + "_node" + d.id
+            return String(2336652615) + "_node" + d.id
         })
         .attr("class", function(d) {
             var classy = ""
@@ -1795,7 +1795,7 @@ function draw_force_diagram() {
         if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
             vnub = 0;
         }
-        var alt_child = document.getElementById(String(3785944905) + "_node" + d.alt_child);
+        var alt_child = document.getElementById(String(2336652615) + "_node" + d.alt_child);
         if (alt_child != null) {
             var alt_child_x = alt_child.getAttribute("cx");
             var alt_child_y = alt_child.getAttribute("cy");
@@ -1862,7 +1862,7 @@ function draw_force_diagram() {
                 }
             }
         }
-        var alt_parent = document.getElementById(String(3785944905) + "_node" + d.alt_parent);
+        var alt_parent = document.getElementById(String(2336652615) + "_node" + d.alt_parent);
         if (alt_parent != null) {
             var alt_parent_x = alt_parent.getAttribute("cx");
             var alt_parent_y = alt_parent.getAttribute("cy");
@@ -2041,7 +2041,7 @@ function draw_force_diagram() {
             if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
                 return "c";
             } else if (d.child_of.length == 1) {
-                var parent = document.getElementById(String(3785944905) + "_node" + d.child_of[0])
+                var parent = document.getElementById(String(2336652615) + "_node" + d.child_of[0])
                 if (parent != null) {
                     var parent_x = parent.getAttribute("cx");
                     if (parent_x > d.x) {
@@ -2131,7 +2131,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('fill', '#1eebb1')
                     .style("cursor", "pointer");
-                var highlight_links = d3.select("#arg_3785944905 .links")
+                var highlight_links = d3.select("#arg_2336652615 .links")
                     .selectAll("g")
                         .filter(function(j) {
                             return j.bounds.split(" ").some(function(region) {
@@ -2156,10 +2156,10 @@ function draw_force_diagram() {
                     .style('fill', '#053e4e')
                     .style("cursor", "default");
                 //if (false) {
-                    d3.selectAll("#arg_3785944905 .link")
+                    d3.selectAll("#arg_2336652615 .link")
                         .style("stroke", "#053e4e");
                 //} else {
-                //    d3.selectAll("#arg_3785944905 .link")
+                //    d3.selectAll("#arg_2336652615 .link")
                 //        .style("stroke", "#053e4e")
                 //        .style("stroke-width", 3);
                 //};     
@@ -2491,7 +2491,7 @@ following code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/317a7f813139d11e5d4fb8a972af97ceefa191cc6e4bd778101a360207f71666.png" src="_images/317a7f813139d11e5d4fb8a972af97ceefa191cc6e4bd778101a360207f71666.png" />
+<img alt="_images/5c976ce0610eb828463434a4e61f45f156db8ba9c003a6f64e907a6e1a805b94.png" src="_images/5c976ce0610eb828463434a4e61f45f156db8ba9c003a6f64e907a6e1a805b94.png" />
 </div>
 </div>
 </section>
