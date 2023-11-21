@@ -188,7 +188,7 @@ For this reason, the {func}`~tskit.all_trees`, {func}`~tskit.all_tree_shapes` an
 {func}`~tskit.all_tree_labellings` methods do not return a list of trees
 but an iterator over the trees. This means it is perfectly possible to start
 iterating over (say) all tree shapes for a tree of 100 leaves, but
-the iterator will not finish before the death of our galaxy
+the iterator will not finish before the death of our galaxy.
 
 ```{code-cell}
 for num_trees, tree in enumerate(tskit.all_tree_shapes(100)):
