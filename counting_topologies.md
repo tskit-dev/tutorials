@@ -16,6 +16,34 @@ kernelspec:
 
 (sec_counting_topologies)=
 
+```{code-cell} ipython3
+:tags: [remove-cell]
+import msprime
+import stdpopsim
+
+def topologies_sim_speciestree():
+    newick_species_tree = "((A:100.0,B:100.0):100.0,C:200.0)"
+    demography = msprime.Demography.from_species_tree(newick_species_tree, initial_size=100)
+    ts = msprime.sim_ancestry({0: 2, 1: 2, 2: 2}, demography=demography, random_seed=321)
+    ts.dump("data/topologies_sim_speciestree.trees")
+
+def topologies_sim_stdpopsim():
+    species = stdpopsim.get_species("HomSap")
+    model = species.get_demographic_model("OutOfAfrica_3G09")
+    contig = species.get_contig("chr1", length_multiplier=0.0002, mutation_rate=model.mutation_rate)
+    samples = {"YRI": 1000, "CEU": 1000, "CHB": 1000}
+    engine = stdpopsim.get_engine("msprime")
+    ts = engine.simulate(model, contig, samples, seed=321)
+    ts.dump("data/topologies_sim_stdpopsim.trees")
+
+
+def create_notebook_data():
+    topologies_sim_speciestree()
+    topologies_sim_stdpopsim()
+
+# create_notebook_data()  # uncomment to recreate the tree seqs used in this notebook
+```
+
 # Counting topologies
 
 **Yan Wong**
@@ -225,21 +253,22 @@ one tip from each group using the {meth}`Tree.count_topologies` method.
 
 ```{code-cell}
 :tags: [hide-input]
-
-newick_species_tree = "((A:100.0,B:100.0):100.0,C:200.0)"
-demography = msprime.Demography.from_species_tree(newick_species_tree, initial_size=100)
-ts = msprime.sim_ancestry({0: 2, 1: 2, 2: 2}, demography=demography, random_seed=321)
-big_tree = ts.first()
+big_tree = tskit.load("data/topologies_sim_speciestree.trees").first()
+# Check all observed topologies have the same counts
+assert list(big_tree.count_topologies()[0, 1, 2].values()) == [32, 32]
 styles = [
-  f".node.sample.p{p.id} > .sym " + "{" + f"fill: {colour}" + "}"
-  for colour, p in zip(['red', 'green', 'blue'], big_tree.tree_sequence.populations())
+    f".node.sample.p{p.id} > .sym " + "{" + f"fill: {colour}" + "}"
+    for colour, p in zip(['red', 'green', 'blue'], big_tree.tree_sequence.populations())
 ]
 big_tree.draw_svg(style="".join(styles), node_labels={}, time_scale="rank", x_label="big_tree")
 ```
 
-In this tree, it is fairly clear that the red and green tips cluster together (although not exclusively),
-so that if we took one red, one blue, and one green tip at random, we nearly always see the
-same embedded topology. The {meth}`Tree.count_topologies` method does this exhaustively:
+In this tree, it is clear that the green and blue tips never cluster together.
+The {meth}`Tree.count_topologies` method exhaustively looks at all
+combinations of one red, one blue, and one green tip, and confirms that we never see
+the topology grouping green and blue. However, as might be expected from
+examination of the plot above, a red tip is equally likely to be a sister to a
+green tip as to a blue tip:
 
 ```{code-cell}
 # By default `count_topologies` chooses one tip from each population, like setting
@@ -268,19 +297,16 @@ do this [incrementally](sec_incremental), without having to re-count the topolog
 independently in each tree.
 
 ```{code-cell}
-import stdpopsim
-species = stdpopsim.get_species("HomSap")
-model = species.get_demographic_model("OutOfAfrica_3G09")
-contig = species.get_contig("chr1", length_multiplier=0.0002, mutation_rate=model.mutation_rate)
-samples = {"YRI": 1000, "CEU": 1000, "CHB": 1000}
-engine = stdpopsim.get_engine("msprime")
-ts = engine.simulate(model, contig, samples)
-print("Simulated", ts.num_trees, "African+European+Chinese trees, each with", ts.num_samples, "tips")
+:tags: [hide-input]
+from myst_nb import glue
+ts = tskit.load("data/topologies_sim_stdpopsim.trees")
+print(f"Loaded a stdpopsim of {ts.num_trees} African+European+Chinese trees, each with {ts.num_samples} tips")
+glue("seq_len", int(ts.sequence_length/1000), display=False)
 ```
 
 Although the trees in this tree sequence are very large, counting the embedded topologies is
-quite doable (for speed we are only simulating 0.02% of chromosome 1, but calculating the
-average over an entire chromosome simply takes a little longer)
+quite doable (for speed in this demo we are only simulating {glue:}`seq_len` kilobases, but
+calculating the average over an entire chromosome simply takes a little longer)
 
 ```{code-cell}
 from datetime import datetime
@@ -288,7 +314,7 @@ names = {"YRI": "African", "CEU": "European", "CHB": "Chinese"}
 colours = {"YRI": "yellow", "CEU": "green", "CHB": "blue"}
 
 population_map = {p.metadata["id"]: p.id for p in ts.populations()}
-sample_populations = [population_map[name] for name in samples.keys()]
+sample_populations = list(sorted({ts.node(u).population for u in ts.samples()}))
 topology_span = {tree.rank(): 0 for tree in tskit.all_trees(len(sample_populations))}
 
 start = datetime.now()
@@ -319,6 +345,10 @@ for rank, weight in topology_span.items():
     embedded_tree = tskit.Tree.unrank(ntips, rank)
     display(embedded_tree.draw_svg(size=(160, 150), style="".join(styles), node_labels=node_labels, x_label=label))
 ```
+
+Perhaps unsurprisingly, the most common topology is the one that groups the non-African
+populations together (although there are many trees of the other two topologies,
+mostly reflecting genetic divergence prior to the emergence of humans out of Africa).
 
 For an example with real data, see {ref}`sec_popgen_topological`
 in the {ref}`sec_intro_popgen` tutorial.
