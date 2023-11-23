@@ -39,6 +39,7 @@ jobs:
     - name: Install R support
       run: |
         # We need to remove R to pull in a version that's compatible with CRAN, weirdly.
+        sudo apt-get update
         sudo apt-get remove r-base-core
         sudo apt-get install r-cran-reticulate r-cran-pbdzmq r-cran-uuid r-cran-ape
         sudo R -e 'install.packages("IRkernel")'
