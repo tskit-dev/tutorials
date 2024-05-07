@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -78,10 +78,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -122,11 +121,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -317,6 +320,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -326,6 +330,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -375,7 +380,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-tree-sequence">
 <span id="sec-what-is"></span><h1>What is a tree sequence?<a class="headerlink" href="#what-is-a-tree-sequence" title="Permalink to this heading">#</a></h1>
@@ -395,7 +400,7 @@ Plots (a) and (b) summarize results presented
 <a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/5d8d16365347f5f8e8b62944c2dfe603152e418ea9b4df8739064660d88e14a8.svg" src="_images/5d8d16365347f5f8e8b62944c2dfe603152e418ea9b4df8739064660d88e14a8.svg" /></div>
+<img alt="_images/ce1932110751cccf5f207d70201e99f1ca0ea690c7fa7adfcc6abc54abc9a4bc.svg" src="_images/ce1932110751cccf5f207d70201e99f1ca0ea690c7fa7adfcc6abc54abc9a4bc.svg" /></div>
 </div>
 <section id="how-to-think-about-tree-sequences">
 <h2>How to think about tree sequences<a class="headerlink" href="#how-to-think-about-tree-sequences" title="Permalink to this heading">#</a></h2>
@@ -580,7 +585,7 @@ noting that the efficiency extends to processing time too: tree sequences are of
 several orders of magnitude faster to process than other storage formats.</p>
 <div class="cell tag_remove-input docutils container" id="plot-storing-everyone">
 <div class="cell_output docutils container">
-<img alt="_images/056a87a6554ec41d1b5388b463003718a20af842f4006554144505e9d6af7b51.svg" src="_images/056a87a6554ec41d1b5388b463003718a20af842f4006554144505e9d6af7b51.svg" /></div>
+<img alt="_images/8c3164842c07e7deec4772f6808ef6f9362100b63cc0cc6465175dcc52266f31.svg" src="_images/8c3164842c07e7deec4772f6808ef6f9362100b63cc0cc6465175dcc52266f31.svg" /></div>
 </div>
 </section>
 <section id="a-record-of-genetic-ancestry">
@@ -610,7 +615,7 @@ from modern day populations A (a constant-size population) and B (a recently exp
 one), where limited migration is occuring from A to B.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/c1f94460ea109644e0b6015f120a7217cdb45dbb6f3c9874c22b7ebc08346fbc.svg" src="_images/c1f94460ea109644e0b6015f120a7217cdb45dbb6f3c9874c22b7ebc08346fbc.svg" /></div>
+<img alt="_images/f032ab4a121b67d8a1f0eba191050f523155f3828962204b9b5567554d0f7d80.svg" src="_images/f032ab4a121b67d8a1f0eba191050f523155f3828962204b9b5567554d0f7d80.svg" /></div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
 tree sequence and the underlying biological processes that produced the genetic
@@ -724,7 +729,7 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_remove-input docutils container" id="plot-incremental-calculation">
 <div class="cell_output docutils container">
-<img alt="_images/b75255611d368f5d83d5e48daa201e9529dc2b83e82904a7de8865503b6246bc.svg" src="_images/b75255611d368f5d83d5e48daa201e9529dc2b83e82904a7de8865503b6246bc.svg" /></div>
+<img alt="_images/0036911068c28c15178ac3cad79339068ef3ae6792b32443414eec20100066c4.svg" src="_images/0036911068c28c15178ac3cad79339068ef3ae6792b32443414eec20100066c4.svg" /></div>
 </div>
 <p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>
 for these sorts of population genetic calculations. It provides efficient methods for
@@ -776,7 +781,7 @@ you might now want to continue to the next tutorial: <a class="reference interna
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="intro.html"
@@ -804,6 +809,7 @@ you might now want to continue to the next tutorial: <a class="reference interna
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -841,6 +847,7 @@ By Tskit Developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -867,8 +874,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

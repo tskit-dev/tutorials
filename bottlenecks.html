@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -78,10 +78,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -122,11 +121,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -317,6 +320,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -326,6 +330,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -372,7 +377,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="instantaneous-bottlenecks">
 <span id="sec-msprime-bottlenecks"></span><h1>Instantaneous Bottlenecks<a class="headerlink" href="#instantaneous-bottlenecks" title="Permalink to this heading">#</a></h1>
@@ -464,7 +469,7 @@ in sequence data. Thus a simpler, alternative model is to assume that bottleneck
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e53e1c6c39ab93abebc9c62dbbd70c0cb3930e479f692362c2fc5da82519c5dd.png" src="_images/e53e1c6c39ab93abebc9c62dbbd70c0cb3930e479f692362c2fc5da82519c5dd.png" />
+<img alt="_images/ca51a50f3612dee74a4622a7c2c87504f66844f3cbc001b09c9dfc03e7596276.png" src="_images/ca51a50f3612dee74a4622a7c2c87504f66844f3cbc001b09c9dfc03e7596276.png" />
 </div>
 </div>
 </section>
@@ -537,8 +542,8 @@ the analytic expectation closely:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ff31278a926b05681bdc44f67282b0b6f7e9d805dc66b883165651a423553569.png" src="_images/ff31278a926b05681bdc44f67282b0b6f7e9d805dc66b883165651a423553569.png" />
-<img alt="_images/c48ce7c5689f9bab290a17594851a0da1a8d668f5ac273c25581b18db95061bc.png" src="_images/c48ce7c5689f9bab290a17594851a0da1a8d668f5ac273c25581b18db95061bc.png" />
+<img alt="_images/e917412c2c6210d6b1de46f45a494a9a860dbbb5c6b8bcb2eb41adcfa5715ab4.png" src="_images/e917412c2c6210d6b1de46f45a494a9a860dbbb5c6b8bcb2eb41adcfa5715ab4.png" />
+<img alt="_images/297633feba7b67d48a8825b14ca54b877e2378c52d0c3b000fc5874797ebebcc.png" src="_images/297633feba7b67d48a8825b14ca54b877e2378c52d0c3b000fc5874797ebebcc.png" />
 </div>
 </div>
 </section>
@@ -570,7 +575,7 @@ the analytic expectation closely:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/928019668d1021e0205d7d64f73717cda81aa7ec272649fab43f0d18c34bc992.png" src="_images/928019668d1021e0205d7d64f73717cda81aa7ec272649fab43f0d18c34bc992.png" />
+<img alt="_images/987c3673bc43ea4625b382ba23ae49c838043db15eb35170ead47a826eda8b70.png" src="_images/987c3673bc43ea4625b382ba23ae49c838043db15eb35170ead47a826eda8b70.png" />
 </div>
 </div>
 </section>
@@ -614,7 +619,7 @@ the analytic expectation closely:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e94337daf25786fd81b7fe9d796c23f19178879f3eb5d1cfa69ab264e6251865.png" src="_images/e94337daf25786fd81b7fe9d796c23f19178879f3eb5d1cfa69ab264e6251865.png" />
+<img alt="_images/fe5fc6e8957889f6bbdd2966bab746e171e879f951be317edd2e3a7e5363e5c7.png" src="_images/fe5fc6e8957889f6bbdd2966bab746e171e879f951be317edd2e3a7e5363e5c7.png" />
 </div>
 </div>
 </section>
@@ -658,7 +663,7 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f6deb39c10efb1c4ee9efd38c69772b2fceb48ca896e112d64758ae177ba8270.png" src="_images/f6deb39c10efb1c4ee9efd38c69772b2fceb48ca896e112d64758ae177ba8270.png" />
+<img alt="_images/8b7f89ef4c60ce1bc58e277d2cd66f9a2c1acb38db02713a4c93d017bee63cf9.png" src="_images/8b7f89ef4c60ce1bc58e277d2cd66f9a2c1acb38db02713a4c93d017bee63cf9.png" />
 </div>
 </div>
 <p>Again, this gives a good fit to the analytic expectation (see Bunnefeld at al 2016).</p>
@@ -697,7 +702,7 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="demography.html"
@@ -725,6 +730,7 @@ Assuming n=4, B=0.75 and T=0.8 (as above):</p>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -759,6 +765,7 @@ By Tskit Developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -785,8 +792,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

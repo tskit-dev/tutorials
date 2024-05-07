@@ -188,6 +188,8 @@ ts_tiny.draw_svg(size=svg_size, y_axis=True)
 One way to avoid overlapping labels on the Y axis is to use the `y_ticks` parameter,
 which will be used in most subsequent examples in this tutorial.
 
+(sec_tskit_viz_larger_tree_sequences)=
+
 ### Larger tree sequences
 
 So far, we have plotted only very small tree sequences. To visualize larger tree
@@ -239,6 +241,12 @@ ts_full.first().draw_svg(
     style=node_label_style,
 )
 ```
+
+For even larger numbers of samples, you can plot the trees for a subset of samples
+by applying the {meth}`TreeSequence.simplify` method (make sure to specify
+`filter_nodes=False` to retain the same node IDs). For a fancier solution, see
+{ref}`sec_tskit_viz_SVG_examples_larger_plots` below.
+
 
 ### Plotting mutations
 

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -78,10 +78,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -122,11 +121,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -317,6 +320,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -326,6 +330,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -380,7 +385,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-tskit">
 <span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Permalink to this heading">#</a></h1>
@@ -638,7 +643,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.00974226 secs
+Checked in 0.00966311 secs
 </pre></div>
 </div>
 </div>
@@ -667,7 +672,7 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b02f820d78f8b7321ca8d60f89cefb233fc5a302fb8920cbfcfa8e565cbd7d1b.png" src="_images/b02f820d78f8b7321ca8d60f89cefb233fc5a302fb8920cbfcfa8e565cbd7d1b.png" />
+<img alt="_images/2d6d8a2c76278f4ec6a6f5db17381f2db0b053c36c9a83bb48fbc177f5e5fd8b.png" src="_images/2d6d8a2c76278f4ec6a6f5db17381f2db0b053c36c9a83bb48fbc177f5e5fd8b.png" />
 </div>
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
@@ -884,7 +889,7 @@ method:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/64b2a76c298b599de74fb9df5e2f7aa710141bcc17fdea9351f5ac7002bb285e.png" src="_images/64b2a76c298b599de74fb9df5e2f7aa710141bcc17fdea9351f5ac7002bb285e.png" />
+<img alt="_images/2a669600c9f61cb0db134e858daa2c7f3867884cb6cdcae120d8492dbc1dd192.png" src="_images/2a669600c9f61cb0db134e858daa2c7f3867884cb6cdcae120d8492dbc1dd192.png" />
 </div>
 </div>
 <p>By default this method returns the “folded” or unpolarized AFS that doesn’t
@@ -910,7 +915,7 @@ which provides an estimate that is not influenced by random mutational “noise�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cf20d2e99b08e6f92ad90c9f83b025411ab18ee5bdac4a6522f2e5be0dad5ddf.png" src="_images/cf20d2e99b08e6f92ad90c9f83b025411ab18ee5bdac4a6522f2e5be0dad5ddf.png" />
+<img alt="_images/69f2769af962689ba256da1b3765c81c7b56d151af7d6517bfa178d25f451dae.png" src="_images/69f2769af962689ba256da1b3765c81c7b56d151af7d6517bfa178d25f451dae.png" />
 </div>
 </div>
 <p>On the left is the frequency spectrum averaged over the entire genome, and on the right
@@ -950,7 +955,7 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a1393ecdde429f1ad0d8cd8bda7e561d5019a9d774b4067b03119328db86f5c6.png" src="_images/a1393ecdde429f1ad0d8cd8bda7e561d5019a9d774b4067b03119328db86f5c6.png" />
+<img alt="_images/b504555d91cb2417df091307dc0dcfdbe08b18812ec026bb5c159f17e7136379.png" src="_images/b504555d91cb2417df091307dc0dcfdbe08b18812ec026bb5c159f17e7136379.png" />
 </div>
 </div>
 <p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,
@@ -1187,7 +1192,7 @@ also be calculated in windows along the genome.</p></li>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="terminology_and_concepts.html"
@@ -1215,6 +1220,7 @@ also be calculated in windows along the genome.</p></li>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1257,6 +1263,7 @@ By Tskit Developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -1283,8 +1290,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
