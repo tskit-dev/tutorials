@@ -9,7 +9,7 @@ pandas==2.1.1
 pygraphviz==1.10
 scikit-allel==1.3.7
 stdpopsim==0.2.0
-tqdm==4.66.1
+tqdm==4.66.3
 tskit==0.5.5
 tskit_arg_visualizer==0.0.1
 tszip==0.2.2
