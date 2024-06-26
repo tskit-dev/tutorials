@@ -307,8 +307,8 @@ plt.show()
 ::::{margin}
 :::{note}
 The genetic genealogy is sometimes referred to as an ancestral recombination graph,
-or ARG, and there are {ref}`close similarities<sec_concepts_args>` between ARGs
-and tree sequences (see the {ref}`ARG tutorial<sec_args>`)
+or ARG, and one way to think of tskit tree sequence is as a way
+to store various different sorts of ARGs (see the {ref}`ARG tutorial<sec_args>`)
 :::
 ::::
 
