@@ -491,6 +491,6 @@ Show how KwARG output can be converted to tskit form.
 :::
 
 :::{todo}
-Implement conversion between the 2 RE node version and the 1 RE node version
+Implement conversion between the _msprime_ 2 RE node version and the more conventional 1 RE node version. See https://github.com/tskit-dev/msprime/issues/1942 for extensive discussion on the advantages / disadvantages of using 2 nodes vs 1 node-with-metadata.
 :::
 
