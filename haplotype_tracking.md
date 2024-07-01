@@ -387,7 +387,56 @@ ax.set_xlabel("genomic position")
 plt.tight_layout()
 ```
 
+### Diversity calculation, moving back in time
+
 We can use this data structure to compute mean tree distance
 (i.e., twice the TMRCA) between the samples,
 which is `ts.diversity(mode="branch")`.
-To do this, we need to 
+To do this, we just need to keep track of how many distinct
+pairs of lineages coalesced each time two segments merge.
+To do this, we can just add two lines to the `merge( )` method
+that returns this information.
+We will then compute the mean TMRCA as
+$$
+    \pi = \frac{\sum_i t_i (b_i - a_i) n_i m_i}{ L n (n-1) / 2 },
+$$
+where the sum is over distinct events for which two distinct
+lines of descent covering the segment $[a_i, b_i)$ coalesce;
+the time this happened at is $t_i$,
+the number of samples below each line of descent is $n_i$ and $m_i$,
+the total sequence length is $L$, and the total number of samples is $n$.
+
+```{code-cell} ipython3
+class TmrcaLabelSegmentList(LabelSegmentList):
+    
+    def merge(self, other):
+        pairs = 0
+        for (a, b, x), label in self.iter_intersection(other):
+            pairs += x * label * (b - a) # <--- new addition
+            new_x = self.update_label(x, label)
+            self.segments.append([a, b, new_x])
+        other.remove_intersection(self)
+        for a, b, x in other:
+            self.segments.append([a, b, x])
+        self.squash()
+        return pairs # <--- and here
+
+ancestry = {n.id : TmrcaLabelSegmentList() for n in ts.nodes()}
+for j in ts.samples():
+    ancestry[j].add_segment(0, ts.sequence_length, 1)
+
+total = 0
+for e in ts.edges():
+    t = ts.node(e.parent).time
+    ca = ancestry[e.child]
+    pa = ancestry[e.parent]
+    seg = ca.remove_segment(e.left, e.right)
+    pairs = pa.merge(seg)
+    total += pairs * t
+
+total *= 2 / (ts.num_samples * (ts.num_samples - 1) * ts.sequence_length)
+
+print(f"Branch-mode diversity: {ts.diversity(mode='branch')}")
+print(f"   as calculated here: {2 * total}")
+```
+
