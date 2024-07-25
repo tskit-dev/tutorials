@@ -51,7 +51,7 @@ def create_notebook_data():
 This tutorial is intended to be a gentle introduction to the combinatorial
 treatment of tree topologies in `tskit`. For a more formal introduction,
 see the {ref}`sec_combinatorics` section of the
-[official `tskit` documentation](tskit:sec_introduction).
+official `tskit` {ref}`documentation<tskit:sec_introduction>`.
 
 The *topology* of a single tree is the term used to describe the branching pattern,
 regardless of the lengths of the branches. For example, both trees below have the
