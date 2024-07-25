@@ -416,28 +416,38 @@ there are multiple, overlaid ancestral recombination events.
 
 ### Tree sequences and ARGs
 
-Much of the literature on ancestral inference concentrates on the Ancestral Recombination
-Graph, or ARG, in which details of the position and potentially the timing of
-recombination events are explictly stored. Although a tree sequence *can* represent such
-an ARG, by incorporating nodes that represent recombination events (see the
-{ref}`sec_args` tutorial), this is not normally done for two reasons:
+::::{margin}
+:::{note}
+There is a subtle distinction between common ancestry and coalescence. In particular, all coalescent nodes are common ancestor events, but not all common ancestor events in an ARG result in coalescence in a local tree.
+:::
+::::
+
+The term "Ancestral Recombination Graph", or ARG, is commonly used to describe a genetic
+genealogy. In particular, many (but not all) authors use it to mean a genetic
+genealogy in which details of the position and potentially the timing of all
+recombination and common ancestor events are explictly stored. For clarity
+we refer to this sort of genetic genealogy as a "full ARG". Succinct tree sequences can
+represent many different sorts of ARGs, including "full ARGs", by incorporating extra
+non-coalescent nodes (see the {ref}`sec_args` tutorial). However, tree sequences are
+often shown and stored in {ref}`fully simplified<sec_simplification>` form,
+which omits these extra nodes. This is for two main reasons:
 
 1. Many recombination events are undetectable from sequence data, and even if they are
    detectable, they can be logically impossible to place in the genealogy (as in the
    second SPR example above).
-2. The number of recombination events in the genealogy can grow to dominate the total
-   number of nodes in the total tree sequence, without actually contributing to the
-   realised sequences in the samples. In other words, recombination nodes are redundant
-   to the storing of genome data.
+2. The number of recombination and non-coalescing common ancestor events in the genealogy
+   quickly grows to dominate the total number of nodes in the tree sequence,
+   without actually contributing to the mutations inherited by the samples.
+   In other words, these nodes are redundant to the storing of genome data.
 
-Therefore, compared to an ARG, you can think of a standard tree sequence as simply
+Therefore, compared to a full ARG, you can think of a simplified tree sequence as
 storing the trees *created by* recombination events, rather than attempting to record the
 recombination events themselves. The actual recombination events can be sometimes be
 inferred from these trees but, as we have seen, it's not always possible. Here's another
 way to put it:
 
 > "an ARG encodes the events that occurred in the history of a sample,
-> whereas a tree sequence encodes the outcome of those events"
+> whereas a [simplified] tree sequence encodes the outcome of those events"
 > ([Kelleher _et al._, 2019](https://doi.org/10.1534/genetics.120.303253))
 
 

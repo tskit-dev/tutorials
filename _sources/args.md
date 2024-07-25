@@ -24,9 +24,9 @@ parent to child nodes. Therefore a succinct tree sequence is equivalent to a
 [directed graph](https://en.wikipedia.org/wiki/Directed_graph),
 which is additionally annotated with genomic positions such that at each
 position, a path through the edges exists which defines a tree. This graph
-interpretation of a tree sequence is tightly connected to the concept of
+interpretation of a tree sequence maps very closely to the concept of
 an "ancestral recombination graph" (or ARG). See
-[this preprint](https://www.biorxiv.org/content/10.1101/2023.11.03.565466v1) for further details.
+[this preprint](https://www.biorxiv.org/content/10.1101/2023.11.03.565466v2) for further details.
 
 ## Full ARGs
 
@@ -39,12 +39,16 @@ graph structure defined by that process, see e.g.
 
 The term "ARG" is [often used](https://doi.org/10.1086%2F508901) to refer to
 a structure consisting of nodes and edges that describe the genetic genealogy of a set
-of sampled chromosomes which have evolved via a process of genetic inheritance combined
-with recombination. ARGs may contain not just nodes corresponding to genetic
-coalescence, but also additional nodes that correspond e.g. to recombination events.
-These "full ARGs" can be stored and analysed in
+of sampled chromosomes which have evolved via a process of inheritance combined
+with recombination. We use the term "full ARG" for a commonly-described type of
+ARG that contains not just nodes that involve coalescence of ancestral material,
+but also additional non-coalescent nodes. These nodes correspond to
+recombination events, and common ancestor events that are not associated with
+coalescence in any of the local trees. Full ARGs can be stored and analysed in
 [tskit](https://tskit.dev) like any other tree sequence. A full ARG can be generated using
-{func}`msprime:msprime.sim_ancestry` with the `record_full_arg=True` option, as described
+{func}`msprime:msprime.sim_ancestry` by specifying `coalescing_segments_only=False` along with
+`additional_nodes = msprime.NodeType.COMMON_ANCESTOR | msprime.NodeType.RECOMBINANT`
+(or the equivalent `record_full_arg=True`) as described
 {ref}`in the msprime docs<msprime:sec_ancestry_full_arg>`:
 
 ```{code-cell}
@@ -58,8 +62,12 @@ parameters = {
     "random_seed": 333,
 }
 
-ts_arg = msprime.sim_ancestry(**parameters, record_full_arg=True, discrete_genome=False)
-# NB: the strict Hudson ARG needs unique crossover positions (i.e. a continuous genome)
+ts_arg = msprime.sim_ancestry(
+    **parameters,
+    discrete_genome=False,  # the strict Hudson ARG needs unique crossover positions (i.e. a continuous genome)
+    coalescing_segments_only=False,   # setting record_full_arg=True is equivalent to these last 2 parameters
+    additional_nodes=msprime.NodeType.COMMON_ANCESTOR | msprime.NodeType.RECOMBINANT,
+)
 
 print('Simulated a "full ARG" under the Hudson model:')
 print(
@@ -282,7 +290,12 @@ its simplified version:
 ```{code-cell}
 large_sim_parameters = parameters.copy()
 large_sim_parameters["sequence_length"] *= 1000
-large_ts_arg = msprime.sim_ancestry(**large_sim_parameters, record_full_arg=True)
+large_ts_arg = msprime.sim_ancestry(
+    **large_sim_parameters,
+    discrete_genome=False,  # not technically needed, as we aren't calculating likelihoods
+    coalescing_segments_only=False,
+    additional_nodes=msprime.NodeType.COMMON_ANCESTOR | msprime.NodeType.RECOMBINANT,
+)
 large_ts = large_ts_arg.simplify()
 
 print(
@@ -478,6 +491,6 @@ Show how KwARG output can be converted to tskit form.
 :::
 
 :::{todo}
-Implement conversion between the 2 RE node version and the 1 RE node version
+Implement conversion between the _msprime_ 2 RE node version and the more conventional 1 RE node version. See https://github.com/tskit-dev/msprime/issues/1942 for extensive discussion on the advantages / disadvantages of using 2 nodes vs 1 node-with-metadata.
 :::
 
