@@ -312,7 +312,7 @@ difference between some classical ARG formulations, and the ARG formulation
 used in `tskit`. Classically, nodes in an ARG are taken to represent _events_
 (specifically, "common ancestor", "recombination", and "sampling" events),
 and genomic regions of inheritance are encoded by storing a specific breakpoint location on
-each recombination node. In contrast, [nodes](tskit:sec_data_model_definitions_node) in a `tskit`
+each recombination node. In contrast, {ref}`nodes<tskit:sec_data_model_definitions_node>` in a `tskit`
 ARG correspond to _genomes_. More crucially, inherited regions are defined by intervals
 stored on *edges* (via the {attr}`~Edge.left` and  {attr}`~Edge.right` properties),
 rather than on nodes. Here, for example, is the edge table from our ARG:

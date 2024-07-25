@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Building a forward simulator &#8212; Tree Sequence Tutorials</title>
   
@@ -15,53 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'forward_sims';</script>
@@ -78,27 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -120,8 +111,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -145,6 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -162,7 +160,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
@@ -192,12 +201,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
@@ -229,7 +238,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -238,14 +247,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -323,10 +332,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -334,14 +343,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -394,7 +403,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="building-a-forward-simulator">
-<span id="sec-tskit-forward-simulations"></span><h1>Building a forward simulator<a class="headerlink" href="#building-a-forward-simulator" title="Permalink to this heading">#</a></h1>
+<span id="sec-tskit-forward-simulations"></span><h1>Building a forward simulator<a class="headerlink" href="#building-a-forward-simulator" title="Link to this heading">#</a></h1>
 <p>This tutorial shows how tskit can be used to build your own forward-time, tree sequence simulator from scratch.
 The simulator will use the discrete-time Wright-Fisher model, and track individuals
 along with their genomes, storing inherited genomic regions as well as the full pedigree.</p>
@@ -418,7 +427,7 @@ The individuals themselves are not strictly necessary for representing genetic g
 (it’s the genomes which are important), but they are needed during the simulation,
 and so we record them in the resulting output for completeness.</p>
 <section id="definitions">
-<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
+<h2>Definitions<a class="headerlink" href="#definitions" title="Link to this heading">#</a></h2>
 <p>Before we can make any progress, we require a few definitions.</p>
 <p>A <em>node</em> represents a genome at a point in time (often we imagine this as the “birth time” of the genome).
 It can be described by a tuple, <code class="docutils literal notranslate"><span class="pre">(id,</span> <span class="pre">time)</span></code>, where <code class="docutils literal notranslate"><span class="pre">id</span></code> is a unique integer,
@@ -442,13 +451,13 @@ each individual will be formed by choosing (at random) two parent individuals fr
 population in the previous generation.</p>
 </section>
 <section id="approach">
-<h2>Approach<a class="headerlink" href="#approach" title="Permalink to this heading">#</a></h2>
+<h2>Approach<a class="headerlink" href="#approach" title="Link to this heading">#</a></h2>
 <p>We will generate edges, nodes, and individuals forwards in time, adding them to the relevant <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tables.
 To aid efficiency, we will also see how to “simplify” the tables into the minimal set of nodes and edges that
 describe the history of the sample. Finally, these tables can be exported into an immutable
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> for storing or analysis.</p>
 <section id="setup">
-<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h3>
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <p>First, we’ll import the necessary libraries and define some general parameters.
 The <a class="reference external" href="https://numpy.org/doc/stable/">numpy</a> library will be used to produce random numbers.</p>
 <div class="cell docutils container">
@@ -466,7 +475,7 @@ The <a class="reference external" href="https://numpy.org/doc/stable/">numpy</a>
 </div>
 </section>
 <section id="core-steps">
-<h3>Core steps<a class="headerlink" href="#core-steps" title="Permalink to this heading">#</a></h3>
+<h3>Core steps<a class="headerlink" href="#core-steps" title="Link to this heading">#</a></h3>
 <p>The core simulation function generates a new population by repeating the following steps:</p>
 <ol class="arabic simple">
 <li><p>Pick a pair of parent individuals at random from the population in the previous generation.</p></li>
@@ -564,7 +573,7 @@ for the order of edges in the edge table, so we need to <a class="reference exte
 </div>
 </section>
 <section id="inheritance-without-recombination">
-<h3>Inheritance without recombination<a class="headerlink" href="#inheritance-without-recombination" title="Permalink to this heading">#</a></h3>
+<h3>Inheritance without recombination<a class="headerlink" href="#inheritance-without-recombination" title="Link to this heading">#</a></h3>
 <p>The final piece of the simulation is to define the <code class="docutils literal notranslate"><span class="pre">add_inheritance_paths()</span></code> function,
 which saves the inheritance paths in the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Python)"><span>Edge Table</span></a>.
 For reference, the simplest case (a small focal region in which there is no recombination)
@@ -583,7 +592,7 @@ can be coded as follows:</p>
 </div>
 </section>
 <section id="inheritance-with-recombination">
-<h3>Inheritance with recombination<a class="headerlink" href="#inheritance-with-recombination" title="Permalink to this heading">#</a></h3>
+<h3>Inheritance with recombination<a class="headerlink" href="#inheritance-with-recombination" title="Link to this heading">#</a></h3>
 <p>Recombination adds complexity to the inheritance paths from a child to its parents,
 that the child inherits a mosaic of the two genomes present in each parent.</p>
 <p>The exact details of the mosaic will depend on the model of recombination you
@@ -626,7 +635,7 @@ allow recombinations only at integer positions</p>
 </div>
 </section>
 <section id="basic-examples">
-<h3>Basic examples<a class="headerlink" href="#basic-examples" title="Permalink to this heading">#</a></h3>
+<h3>Basic examples<a class="headerlink" href="#basic-examples" title="Link to this heading">#</a></h3>
 <p>Now we can test the <code class="docutils literal notranslate"><span class="pre">forward_WF()</span></code> function for a single generation with a small
 population size of 6 diploids, and print out the resulting tree sequence. For simplicity,
 we will omit recombination for now.</p>
@@ -638,7 +647,8 @@ we will omit recombination for now.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/57fb682d33632da1951228f29d6547f511d28d3bfdf70520870c817b247decaf.svg" src="_images/57fb682d33632da1951228f29d6547f511d28d3bfdf70520870c817b247decaf.svg" /></div>
+<img alt="_images/57fb682d33632da1951228f29d6547f511d28d3bfdf70520870c817b247decaf.svg" src="_images/57fb682d33632da1951228f29d6547f511d28d3bfdf70520870c817b247decaf.svg" />
+</div>
 </div>
 <p>It looks like it is working correctly: all 12 genomes (6 diploids) in the current generation at time=0 trace back to a
 genome in the initial generation at time=1. Note that not all individuals in the initial generation have passed on genetic
@@ -663,14 +673,15 @@ material at this genomic position (they appear as isolated nodes at the top of t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3e1420a8906e654a58eddab751c771ec003332228ac76b23c22497b12629f665.svg" src="_images/3e1420a8906e654a58eddab751c771ec003332228ac76b23c22497b12629f665.svg" /></div>
+<img alt="_images/3e1420a8906e654a58eddab751c771ec003332228ac76b23c22497b12629f665.svg" src="_images/3e1420a8906e654a58eddab751c771ec003332228ac76b23c22497b12629f665.svg" />
+</div>
 </div>
 <p>This is starting to look like a real genealogy! Clearly, however, there are many
 “extinct” lineages that have not made it to the current day.</p>
 </section>
 </section>
 <section id="simplification">
-<span id="sec-tskit-forward-simulations-simplification"></span><h2>Simplification<a class="headerlink" href="#simplification" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-forward-simulations-simplification"></span><h2>Simplification<a class="headerlink" href="#simplification" title="Link to this heading">#</a></h2>
 <p>The key to efficent forward-time genealogical simulation is the process of <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">Simplification</span></a>,
 which can reduce much of the complexity shown in the tree above.
 Typically, we want to remove all the lineages that do not contribute to the current day genomes.
@@ -685,10 +696,11 @@ in the current generation are “samples”.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b7ba1f1279c9c5b5c6f64ca42862320ebcb857bab6bf5e91891ac225e57f7362.svg" src="_images/b7ba1f1279c9c5b5c6f64ca42862320ebcb857bab6bf5e91891ac225e57f7362.svg" /></div>
+<img alt="_images/b7ba1f1279c9c5b5c6f64ca42862320ebcb857bab6bf5e91891ac225e57f7362.svg" src="_images/b7ba1f1279c9c5b5c6f64ca42862320ebcb857bab6bf5e91891ac225e57f7362.svg" />
+</div>
 </div>
 <section id="sec-tskit-forward-simulations-simplification-id-changes">
-<span id="id-changes"></span><h3>ID changes<a class="headerlink" href="#sec-tskit-forward-simulations-simplification-id-changes" title="Permalink to this heading">#</a></h3>
+<span id="id-changes"></span><h3>ID changes<a class="headerlink" href="#sec-tskit-forward-simulations-simplification-id-changes" title="Link to this heading">#</a></h3>
 <p>We just simplified with <code class="docutils literal notranslate"><span class="pre">filter_nodes=False</span></code>, meaning that the tree sequence retained
 all nodes even after simplification, even those that are no longer part of
 the genealogy. By default (if <code class="docutils literal notranslate"><span class="pre">filter_nodes</span></code> is not specified), these nodes are removed,
@@ -701,14 +713,15 @@ which changes the node IDs.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7e3383c6889fe3389855230a4a8aa9471ae75ec92700699da6a1a516f55f19fa.svg" src="_images/7e3383c6889fe3389855230a4a8aa9471ae75ec92700699da6a1a516f55f19fa.svg" /></div>
+<img alt="_images/7e3383c6889fe3389855230a4a8aa9471ae75ec92700699da6a1a516f55f19fa.svg" src="_images/7e3383c6889fe3389855230a4a8aa9471ae75ec92700699da6a1a516f55f19fa.svg" />
+</div>
 </div>
 <p>You can see that the list of nodes passed to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> (i.e. the current-day genomes)
 have become the first nodes in the table, numbered from 0..11;
 the remaining (internal) nodes have been renumbered from youngest to oldest.</p>
 </section>
 <section id="removing-intermediate-nodes">
-<h3>Removing intermediate nodes<a class="headerlink" href="#removing-intermediate-nodes" title="Permalink to this heading">#</a></h3>
+<h3>Removing intermediate nodes<a class="headerlink" href="#removing-intermediate-nodes" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">keep_unary=True</span></code> parameter meant that we kept intermediate (“unary”) nodes,
 even those that do not not represent branch-points in the tree.
 Often these are also unneeded, and by default we remove those too, although
@@ -723,14 +736,15 @@ Since we are removing more nodes, the node IDs of non-samples will again change.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/217cf21a332517a3980da7266dc7c688075650e0a1da098f97f04d7affdb66a8.svg" src="_images/217cf21a332517a3980da7266dc7c688075650e0a1da098f97f04d7affdb66a8.svg" /></div>
+<img alt="_images/217cf21a332517a3980da7266dc7c688075650e0a1da098f97f04d7affdb66a8.svg" src="_images/217cf21a332517a3980da7266dc7c688075650e0a1da098f97f04d7affdb66a8.svg" />
+</div>
 </div>
 <p>This is now looking much more like a “normal” genetic genealogy (a “gene tree”),
 in which all the sample genomes trace back to a single common ancestor.</p>
 </section>
 </section>
 <section id="recombination">
-<h2>Recombination<a class="headerlink" href="#recombination" title="Permalink to this heading">#</a></h2>
+<h2>Recombination<a class="headerlink" href="#recombination" title="Link to this heading">#</a></h2>
 <p>If we pass a non-zero recombination rate to the <code class="docutils literal notranslate"><span class="pre">forward_WF()</span></code> function, different regions
 of the genome may have different ancestries. This results in multiple trees along the genome.</p>
 <div class="cell docutils container">
@@ -756,7 +770,8 @@ of the genome may have different ancestries. This results in multiple trees alon
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ec3f5029ec954dd343d391f31159b878ae98463750bbf5c4235d14d975bdfce8.svg" src="_images/ec3f5029ec954dd343d391f31159b878ae98463750bbf5c4235d14d975bdfce8.svg" /></div>
+<img alt="_images/ec3f5029ec954dd343d391f31159b878ae98463750bbf5c4235d14d975bdfce8.svg" src="_images/ec3f5029ec954dd343d391f31159b878ae98463750bbf5c4235d14d975bdfce8.svg" />
+</div>
 </div>
 <p>Because we are showing the extinct lineages and the recombinations associated with them,
 this plot has many trees and nodes, and is rather confusing.
@@ -773,10 +788,11 @@ analysis and visualization.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11349f1c08ed93c844e0556d13a2c6e4ff3e27dfe1323d558ec7fc6e25cb8fab.svg" src="_images/11349f1c08ed93c844e0556d13a2c6e4ff3e27dfe1323d558ec7fc6e25cb8fab.svg" /></div>
+<img alt="_images/11349f1c08ed93c844e0556d13a2c6e4ff3e27dfe1323d558ec7fc6e25cb8fab.svg" src="_images/11349f1c08ed93c844e0556d13a2c6e4ff3e27dfe1323d558ec7fc6e25cb8fab.svg" />
+</div>
 </div>
 <section id="larger-simulations">
-<h3>Larger simulations<a class="headerlink" href="#larger-simulations" title="Permalink to this heading">#</a></h3>
+<h3>Larger simulations<a class="headerlink" href="#larger-simulations" title="Link to this heading">#</a></h3>
 <p>So far we have only simulated a relatively small population size (12 genomes / 6 diploids)
 for a short time. We can easily simulate for longer times, and increase the population size.
 In this case, simplification
@@ -835,7 +851,7 @@ described in the next tutorial:</p>
 </section>
 </section>
 <section id="ensuring-coalescence">
-<span id="sec-forward-simulations-ensuring-coalescence"></span><h2>Ensuring coalescence<a class="headerlink" href="#ensuring-coalescence" title="Permalink to this heading">#</a></h2>
+<span id="sec-forward-simulations-ensuring-coalescence"></span><h2>Ensuring coalescence<a class="headerlink" href="#ensuring-coalescence" title="Link to this heading">#</a></h2>
 <p>Even though the simulation above was run for hundreds of generations, there are still
 trees with multiple roots in some regions of the genome. 1000 generations is not therefore
 long enough to capture the ancestry back to a single common ancestor
@@ -856,7 +872,7 @@ long enough to capture the ancestry back to a single common ancestor
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/de8d37e1da865598f5984f66a77482b654f36628fe45e1e194fff42c026b3d3f.png" src="_images/de8d37e1da865598f5984f66a77482b654f36628fe45e1e194fff42c026b3d3f.png" />
+<img alt="_images/298507a00d5fb08de55f8567db4925f7a24b0b2fac08eceacc637fb0d03e96df.png" src="_images/298507a00d5fb08de55f8567db4925f7a24b0b2fac08eceacc637fb0d03e96df.png" />
 </div>
 </div>
 <p>Most of our trees have one root, but a handful have two.
@@ -892,7 +908,7 @@ tMRCAs using <code class="docutils literal notranslate"><span class="pre">msprim
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5d1f25aea6b4cb12d060d0eab5aee6b40094441d399e8c0e5158fd5605b2d572.png" src="_images/5d1f25aea6b4cb12d060d0eab5aee6b40094441d399e8c0e5158fd5605b2d572.png" />
+<img alt="_images/7eb6adf620be15bf2a4d15b1924a61d4f4a00d25daa6cfacb930d18c9e823458.png" src="_images/7eb6adf620be15bf2a4d15b1924a61d4f4a00d25daa6cfacb930d18c9e823458.png" />
 </div>
 </div>
 <p>So, some fraction of local trees have very large tMRCAs! And of course
@@ -913,7 +929,7 @@ Details are described in the <a class="reference internal" href="completing_forw
 tutorial.</p>
 </section>
 <section id="more-complex-forward-simulations">
-<h2>More complex forward-simulations<a class="headerlink" href="#more-complex-forward-simulations" title="Permalink to this heading">#</a></h2>
+<h2>More complex forward-simulations<a class="headerlink" href="#more-complex-forward-simulations" title="Link to this heading">#</a></h2>
 <p>The next tutorial shows the principles behind more complex simulations,
 including e.g. regular simplification during the simulation,
 adding mutations, and adding metadata.
@@ -948,7 +964,7 @@ It also details several extra tips and tricks we have learned when building forw
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1029,7 +1045,7 @@ By Tskit Developers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1053,8 +1069,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

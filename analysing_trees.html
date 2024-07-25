@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Analysing trees &#8212; Tree Sequence Tutorials</title>
   
@@ -15,53 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'analysing_trees';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -76,27 +71,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,8 +109,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -143,6 +139,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -160,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
@@ -190,12 +199,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
@@ -227,7 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -236,14 +245,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -321,10 +330,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -332,14 +341,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -389,14 +398,14 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analysing-trees">
-<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Permalink to this heading">#</a></h1>
+<span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Link to this heading">#</a></h1>
 <p>There are a number of different ways we might want to analyse a single  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>.
 Most involve some sort of traversal over the nodes, mutations, or branches in the tree.
 <strong class="program">tskit</strong> provides various way of traversing through a tree, and also some
 built in phylogenetic algorithms such as <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> which efficently
 places mutations (“characters” in phylogenetic terminology) on a given tree.</p>
 <section id="tree-traversals">
-<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Permalink to this heading">#</a></h2>
+<span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Link to this heading">#</a></h2>
 <p>Given a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>, traversals in various orders are possible using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nodes()</span></code></a> iterator. Take the following tree:</p>
 <div class="cell docutils container">
@@ -410,7 +419,8 @@ places mutations (“characters” in phylogenetic terminology) on a given tree.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2466b0308618ab2ec1b300374700a7418b12b17a80e8195373b6145649ab4625.svg" src="_images/2466b0308618ab2ec1b300374700a7418b12b17a80e8195373b6145649ab4625.svg" /></div>
+<img alt="_images/2466b0308618ab2ec1b300374700a7418b12b17a80e8195373b6145649ab4625.svg" src="_images/2466b0308618ab2ec1b300374700a7418b12b17a80e8195373b6145649ab4625.svg" />
+</div>
 </div>
 <p>We can visit the nodes in different orders by providing an <code class="docutils literal notranslate"><span class="pre">order</span></code> parameter to
 the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.nodes()</span></code></a> iterator:</p>
@@ -447,7 +457,7 @@ here we compute the total branch length of a tree:</p>
 </div>
 <p>Note that this is also available as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.total_branch_length" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.total_branch_length</span></code></a> attribute.</p>
 <section id="traversing-upwards">
-<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Permalink to this heading">#</a></h3>
+<h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Link to this heading">#</a></h3>
 <p>For many applications it is useful to be able to traverse upwards from the
 leaves. We can do this using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.parent" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.parent()</span></code></a> method, which
 returns the parent of a node. For example, we can traverse upwards from
@@ -476,7 +486,7 @@ each of the samples in the tree:</p>
 </div>
 </section>
 <section id="traversals-with-information">
-<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Permalink to this heading">#</a></h3>
+<h3>Traversals with information<a class="headerlink" href="#traversals-with-information" title="Link to this heading">#</a></h3>
 <p>Sometimes we will need to traverse down the tree while maintaining
 some information about the nodes that are above it. While this
 can be done using recursive algorithms, it is often more convenient
@@ -507,7 +517,7 @@ their path length to root:</p>
 </section>
 </section>
 <section id="networkx">
-<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Permalink to this heading">#</a></h2>
+<span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Link to this heading">#</a></h2>
 <p>Traversals and other network analysis can also be performed using the sizeable
 <a class="reference external" href="https://networkx.github.io/documentation/stable/index.html">networkx</a>
 library. This can be achieved by calling <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_dict_of_dicts" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.as_dict_of_dicts()</span></code></a> to
@@ -529,7 +539,7 @@ create a graph:</p>
 </div>
 </div>
 <section id="traversing-upwards-in-networkx">
-<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Permalink to this heading">#</a></h3>
+<h3>Traversing upwards in networkx<a class="headerlink" href="#traversing-upwards-in-networkx" title="Link to this heading">#</a></h3>
 <p>We can revisit the above examples and traverse upwards with
 networkx using a depth-first search algorithm:</p>
 <div class="cell docutils container">
@@ -554,7 +564,7 @@ networkx using a depth-first search algorithm:</p>
 </div>
 </section>
 <section id="calculating-distances-to-the-root">
-<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Permalink to this heading">#</a></h3>
+<h3>Calculating distances to the root<a class="headerlink" href="#calculating-distances-to-the-root" title="Link to this heading">#</a></h3>
 <p>Similarly, we can yield the nodes of a tree along with their distance to the
 root in pre-order in networkx as well. Running this on the example above gives us
 the same result as before:</p>
@@ -574,7 +584,7 @@ the same result as before:</p>
 </div>
 </section>
 <section id="finding-nearest-neighbors">
-<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Permalink to this heading">#</a></h3>
+<h3>Finding nearest neighbors<a class="headerlink" href="#finding-nearest-neighbors" title="Link to this heading">#</a></h3>
 <p>If some samples in a tree are not at time 0, then finding the nearest neighbor
 of a sample is a bit more involved. Instead of writing our own traversal code
 we can again draw on a networkx algorithm.
@@ -589,7 +599,8 @@ different time points:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dd6d4cddf59671236bd1dbd9937088e376068ce35592e3611c6123f5fc20a8f1.svg" src="_images/dd6d4cddf59671236bd1dbd9937088e376068ce35592e3611c6123f5fc20a8f1.svg" /></div>
+<img alt="_images/dd6d4cddf59671236bd1dbd9937088e376068ce35592e3611c6123f5fc20a8f1.svg" src="_images/dd6d4cddf59671236bd1dbd9937088e376068ce35592e3611c6123f5fc20a8f1.svg" />
+</div>
 </div>
 <p>The generation times for these nodes are as follows:</p>
 <div class="cell docutils container">
@@ -670,7 +681,7 @@ search:</p>
 </section>
 </section>
 <section id="parsimony">
-<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Permalink to this heading">#</a></h2>
+<span id="sec-analysing-trees-parsimony"></span><h2>Parsimony<a class="headerlink" href="#parsimony" title="Link to this heading">#</a></h2>
 <p>Take a site on the following tree with three allelic states, where the
 samples are coloured by the allele they possess, but where we don’t know
 the position of the mutations that caused this variation:</p>
@@ -685,7 +696,8 @@ the position of the mutations that caused this variation:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" src="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" /></div>
+<img alt="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" src="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" />
+</div>
 </div>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method finds a parsimonious explanation for a
 set of discrete character observations on the samples in a tree using classical
@@ -711,7 +723,7 @@ Mutation: node = 5 derived_state = green
 description of this state is that the ancestral state is red and there was
 a mutation to blue and green over nodes 4 and 5.</p>
 <section id="building-tables">
-<h3>Building tables<a class="headerlink" href="#building-tables" title="Permalink to this heading">#</a></h3>
+<h3>Building tables<a class="headerlink" href="#building-tables" title="Link to this heading">#</a></h3>
 <p>Below we show how a set of tables can be updated using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a>, taking advantage of the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method to identify parsimonious positions
@@ -725,7 +737,8 @@ for mutations on a tree. Here’s the tree we’ll use:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/44c056384c1d7460c37584949981f442c850c5d8cd64160c44beeedf3c3a26cc.svg" src="_images/44c056384c1d7460c37584949981f442c850c5d8cd64160c44beeedf3c3a26cc.svg" /></div>
+<img alt="_images/44c056384c1d7460c37584949981f442c850c5d8cd64160c44beeedf3c3a26cc.svg" src="_images/44c056384c1d7460c37584949981f442c850c5d8cd64160c44beeedf3c3a26cc.svg" />
+</div>
 </div>
 <p>Now we can modify the tables by adding mutations. To find the location of mutations,
 we infer them from some observed data (some site positions with associated genotypes
@@ -800,11 +813,12 @@ Site 9: parsimony sets ancestral state to G, and places mutation 9 to T above no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b97d612e46fdf7d7c7ec8e81544c0fb4a3e60a695c428c2d97c64cf03eef38bd.svg" src="_images/b97d612e46fdf7d7c7ec8e81544c0fb4a3e60a695c428c2d97c64cf03eef38bd.svg" /></div>
+<img alt="_images/b97d612e46fdf7d7c7ec8e81544c0fb4a3e60a695c428c2d97c64cf03eef38bd.svg" src="_images/b97d612e46fdf7d7c7ec8e81544c0fb4a3e60a695c428c2d97c64cf03eef38bd.svg" />
+</div>
 </div>
 </section>
 <section id="parsimony-and-missing-data">
-<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Permalink to this heading">#</a></h3>
+<h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Link to this heading">#</a></h3>
 <p>We can also take missing data
 into account when finding a set of parsimonious state transitions. We do this by
 specifying the special value <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MISSING_DATA" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.MISSING_DATA</span></code></a> (-1) as the state, which is
@@ -821,7 +835,8 @@ treated by the algorithm as “could be anything”.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" src="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" /></div>
+<img alt="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" src="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" />
+</div>
 </div>
 <p>Now we run the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method, which applies the Hartigan parsimony
 algorithm:</p>
@@ -865,7 +880,8 @@ out mutation table as above, we would impute the missing value for 0 as red.</p>
 Mutation: node = 6 derived_state = blue
 </pre></div>
 </div>
-<img alt="_images/152340d922595756b5d5c764b890d939034a7cfed3e8f49d92c382e8672b9a24.svg" src="_images/152340d922595756b5d5c764b890d939034a7cfed3e8f49d92c382e8672b9a24.svg" /></div>
+<img alt="_images/152340d922595756b5d5c764b890d939034a7cfed3e8f49d92c382e8672b9a24.svg" src="_images/152340d922595756b5d5c764b890d939034a7cfed3e8f49d92c382e8672b9a24.svg" />
+</div>
 </div>
 <p>Note that this is putting a mutation to blue over node 6, <strong>not</strong> node 0 as
 we might expect. Thus, we impute here that node 1 is blue. It is important
@@ -875,7 +891,7 @@ explanation.</p>
 </section>
 </section>
 <section id="fast-tree-based-algorithms-using-numba">
-<span id="sec-trees-numba"></span><h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Permalink to this heading">#</a></h2>
+<span id="sec-trees-numba"></span><h2>Fast tree-based algorithms using numba<a class="headerlink" href="#fast-tree-based-algorithms-using-numba" title="Link to this heading">#</a></h2>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Add a few examples here of how to use numba to speed up tree based dynamic programming
@@ -912,7 +928,7 @@ algorithms. There are a good number of worked-up examples with timings in
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -990,7 +1006,7 @@ By Tskit Developers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1014,8 +1030,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

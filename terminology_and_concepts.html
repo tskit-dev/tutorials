@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Terminology &amp; concepts &#8212; Tree Sequence Tutorials</title>
   
@@ -15,53 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'terminology_and_concepts';</script>
@@ -78,27 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -120,8 +111,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -145,6 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -162,7 +160,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
@@ -192,12 +201,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
@@ -229,7 +238,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -238,14 +247,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -323,10 +332,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -334,14 +343,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -393,12 +402,12 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="terminology-concepts">
-<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Permalink to this heading">#</a></h1>
+<span id="sec-terminology-and-concepts"></span><h1>Terminology &amp; concepts<a class="headerlink" href="#terminology-concepts" title="Link to this heading">#</a></h1>
 <p>If you have read “<a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>” we hope to have piqued your interest in tree
 sequences. This tutorial serves as an introduction to the terminology and some of the
 concepts behind <strong class="program">tskit</strong>, the tree sequence toolkit.</p>
 <section id="terminology">
-<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
+<span id="sec-terminology"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Link to this heading">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -424,7 +433,7 @@ sequence from a <code class="docutils literal notranslate"><span class="pre">.tr
 </div>
 </div>
 <section id="genomes">
-<h3>Genomes<a class="headerlink" href="#genomes" title="Permalink to this heading">#</a></h3>
+<h3>Genomes<a class="headerlink" href="#genomes" title="Link to this heading">#</a></h3>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <div class="admonition note">
@@ -472,7 +481,8 @@ pairs. This is accessible using the <a class="reference external" href="https://
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/9d4b35464691e8f65bfc8002062fdfcf36e818399f936a7374d0037df3540b93.svg" src="_images/9d4b35464691e8f65bfc8002062fdfcf36e818399f936a7374d0037df3540b93.svg" /></div>
+<img alt="_images/9d4b35464691e8f65bfc8002062fdfcf36e818399f936a7374d0037df3540b93.svg" src="_images/9d4b35464691e8f65bfc8002062fdfcf36e818399f936a7374d0037df3540b93.svg" />
+</div>
 </div>
 <p>Each tree records the lines of descent along which a piece of DNA has been
 inherited (ignore for the moment the red symbols, which represent a mutation).
@@ -482,7 +492,7 @@ current population. In fact, since this pattern is seen in all trees, these part
 lines of inheritance were taken by all the DNA in this 1000 base pair genome.</p>
 </section>
 <section id="nodes">
-<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Link to this heading">#</a></h3>
 <p>Trees in a tree sequence are represented in a slightly unusual way.
 In the majority of libraries dealing with trees, each node is represented
 as an object in memory and the relationship between nodes as pointers between these
@@ -493,7 +503,7 @@ an <em>internal node</em>, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
 coalesced (in backwards-time terminology).</p>
 <section id="sample-nodes">
-<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Permalink to this heading">#</a></h4>
+<span id="sec-terminology-nodes-samples"></span><h4>Sample nodes<a class="headerlink" href="#sample-nodes" title="Link to this heading">#</a></h4>
 <p>The tip (leaf) nodes of the tree are usually marked as <em>sample nodes</em>, plotted as square
 symbols in the visualization. Sample nodes are the focal nodes in a tree sequence; they
 normally represent genomes from which we have obtained data (i.e. which we have “sampled”),
@@ -514,7 +524,7 @@ labelled <span class="math notranslate nohighlight">\(0..5\)</span>, and also 6 
 </section>
 </section>
 <section id="edges">
-<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-edges"></span><h3>Edges<a class="headerlink" href="#edges" title="Link to this heading">#</a></h3>
 <p>In an evolutionary tree, the connections between nodes are conventionally referred to as
 “branches”. In a tree sequence, we instead refer to directional connections between nodes
 as <em>edges</em>, emphasizing that they usually persist across multiple trees. Thus each of the
@@ -555,7 +565,7 @@ disk space, and it takes of the order of a few seconds to iterate over all the t
 </div>
 </section>
 <section id="trees-and-tree-sequences">
-<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-trees-and-tree-sequences"></span><h3>Trees and tree sequences<a class="headerlink" href="#trees-and-tree-sequences" title="Link to this heading">#</a></h3>
 <p>The combination of nodes and edges results in a tree sequence. This can be visualized,
 as in the drawing above, as a set of correlated trees. The
 sample nodes, <span class="math notranslate nohighlight">\(0..5\)</span> in the drawing, are present in all the trees (since we have their
@@ -607,7 +617,7 @@ information about (say) node <span class="math notranslate nohighlight">\(7\)</s
 </div>
 </section>
 <section id="individuals-and-populations">
-<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Link to this heading">#</a></h3>
 <p>Sometimes we know that one or more nodes belong to a particular
 <em><a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a></em>. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
@@ -665,7 +675,8 @@ together in the trees, as the original simulation was of a randomly mating popul
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/a2838dcfd9daca0c32c1ef9bba7ec90edeca5ef971edc19d7d360798e13ff209.svg" src="_images/a2838dcfd9daca0c32c1ef9bba7ec90edeca5ef971edc19d7d360798e13ff209.svg" /></div>
+<img alt="_images/a2838dcfd9daca0c32c1ef9bba7ec90edeca5ef971edc19d7d360798e13ff209.svg" src="_images/a2838dcfd9daca0c32c1ef9bba7ec90edeca5ef971edc19d7d360798e13ff209.svg" />
+</div>
 </div>
 <p>In the same way that nodes can be associated with a specific individual, nodes can also
 be associated with a larger <em>population</em>. In this example, there is only one population
@@ -687,7 +698,7 @@ be associated with a larger <em>population</em>. In this example, there is only 
 </div>
 </section>
 <section id="mutations-and-sites">
-<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-mutations-and-sites"></span><h3>Mutations and sites<a class="headerlink" href="#mutations-and-sites" title="Link to this heading">#</a></h3>
 <p>In <strong class="program">tskit</strong>, <em>mutations</em> occur at specific, defined <em>sites</em>. A mutation is
 positioned above a particular node (specified by the node ID), occurs at a particular
 site (specified by a site ID), and involves a change of allelic state to a defined
@@ -741,7 +752,7 @@ that genomic location). It is perfectly possible to have a site with no mutation
 used in further analysis.</p>
 </section>
 <section id="provenance">
-<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Permalink to this heading">#</a></h3>
+<span id="sec-terminology-provenance"></span><h3>Provenance<a class="headerlink" href="#provenance" title="Link to this heading">#</a></h3>
 <p>The history of the tree sequence is recorded in a set of provenance entries. That
 includes what produced it, and what operations have been done to it and when. For
 instance, if it was produced by <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplifying</span></a> a tree
@@ -753,7 +764,7 @@ is not always possible.</p>
 </section>
 </section>
 <section id="concepts">
-<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this heading">#</a></h2>
+<span id="sec-concepts"></span><h2>Concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h2>
 <p>There are some basic concepts which can be helpful with thinking about tree sequences.
 For reference, here is the tree sequence topology that we have been using:</p>
 <div class="cell tag_hide-input docutils container">
@@ -775,7 +786,8 @@ For reference, here is the tree sequence topology that we have been using:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/e6335965c61b049680378ae204664dcd9c41d010a32c7188c64b2e06a49aa078.svg" src="_images/e6335965c61b049680378ae204664dcd9c41d010a32c7188c64b2e06a49aa078.svg" /></div>
+<img alt="_images/e6335965c61b049680378ae204664dcd9c41d010a32c7188c64b2e06a49aa078.svg" src="_images/e6335965c61b049680378ae204664dcd9c41d010a32c7188c64b2e06a49aa078.svg" />
+</div>
 </div>
 <p>Note that all these trees show strictly bifurcating splits, but this does not need to be
 the case for tree sequences in general. In particular, where tree sequences have been
@@ -783,7 +795,7 @@ created by the multiple-merger coalecent process, or in tree
 sequences that have been inferred from real data, it is possible to have a parent node
 with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
 <section id="tree-changes-ancestral-recombinations-and-sprs">
-<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Permalink to this heading">#</a></h3>
+<span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Link to this heading">#</a></h3>
 <p>The process of recombination usually results in trees along a genome where adjacent
 trees differ by only a few “tree edit” or SPR (subtree-prune-and-regraft) operations.
 The result is a tree sequence in which very few edges
@@ -811,7 +823,7 @@ moving from  one tree to the next in a tree sequence might require multiple SPRs
 there are multiple, overlaid ancestral recombination events.</p>
 </section>
 <section id="tree-sequences-and-args">
-<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Permalink to this heading">#</a></h3>
+<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Link to this heading">#</a></h3>
 <p>Much of the literature on ancestral inference concentrates on the Ancestral Recombination
 Graph, or ARG, in which details of the position and potentially the timing of
 recombination events are explictly stored. Although a tree sequence <em>can</em> represent such
@@ -838,7 +850,7 @@ whereas a tree sequence encodes the outcome of those events”
 </div></blockquote>
 </section>
 <section id="tables">
-<h3>Tables<a class="headerlink" href="#tables" title="Permalink to this heading">#</a></h3>
+<h3>Tables<a class="headerlink" href="#tables" title="Link to this heading">#</a></h3>
 <p>The underlying data in a tree sequence are stored in a collection of tables. Details of
 these tables, as well as some basic properties of the tree sequence which they encode,
 are shown when printing a tree sequence to the screen:</p>
@@ -1009,7 +1021,7 @@ the <a class="reference internal" href="tables_and_editing.html#sec-tables"><spa
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1089,7 +1101,7 @@ By Tskit Developers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1113,8 +1125,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

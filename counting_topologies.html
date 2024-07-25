@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Counting topologies &#8212; Tree Sequence Tutorials</title>
   
@@ -15,53 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'counting_topologies';</script>
@@ -78,27 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -120,8 +111,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -145,6 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -162,7 +160,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
@@ -192,12 +201,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
@@ -229,7 +238,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -238,14 +247,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -323,10 +332,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -334,14 +343,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -383,12 +392,12 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="counting-topologies">
-<span id="sec-counting-topologies"></span><h1>Counting topologies<a class="headerlink" href="#counting-topologies" title="Permalink to this heading">#</a></h1>
+<span id="sec-counting-topologies"></span><h1>Counting topologies<a class="headerlink" href="#counting-topologies" title="Link to this heading">#</a></h1>
 <p><strong>Yan Wong</strong></p>
 <p>This tutorial is intended to be a gentle introduction to the combinatorial
 treatment of tree topologies in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>. For a more formal introduction,
 see the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/topological-analysis.html#sec-combinatorics" title="(in Python)"><span>Identifying and counting topologies</span></a> section of the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref myst">official <code class="docutils literal notranslate"><span class="pre">tskit</span></code> documentation</span></a>.</p>
+official <code class="docutils literal notranslate"><span class="pre">tskit</span></code> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">documentation</span></a>.</p>
 <p>The <em>topology</em> of a single tree is the term used to describe the branching pattern,
 regardless of the lengths of the branches. For example, both trees below have the
 same topology, although the branch lengths differ:</p>
@@ -405,7 +414,9 @@ same topology, although the branch lengths differ:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/09f92a110368fa093f6fe5ec1eb1ebe33203a4e32aa6fa92d056e5aa2423b1a2.svg" src="_images/09f92a110368fa093f6fe5ec1eb1ebe33203a4e32aa6fa92d056e5aa2423b1a2.svg" /><img alt="_images/efe0421f9f081243590bb87960e2437f09c7a12a3546644c45c641d8e2458995.svg" src="_images/efe0421f9f081243590bb87960e2437f09c7a12a3546644c45c641d8e2458995.svg" /></div>
+<img alt="_images/09f92a110368fa093f6fe5ec1eb1ebe33203a4e32aa6fa92d056e5aa2423b1a2.svg" src="_images/09f92a110368fa093f6fe5ec1eb1ebe33203a4e32aa6fa92d056e5aa2423b1a2.svg" />
+<img alt="_images/efe0421f9f081243590bb87960e2437f09c7a12a3546644c45c641d8e2458995.svg" src="_images/efe0421f9f081243590bb87960e2437f09c7a12a3546644c45c641d8e2458995.svg" />
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -416,7 +427,7 @@ below, trees are drawn with the tips flagged as samples, although whether a node
 not does not change the topology of the tree.</p>
 </div>
 <section id="tree-labellings-and-shapes">
-<h2>Tree labellings and shapes<a class="headerlink" href="#tree-labellings-and-shapes" title="Permalink to this heading">#</a></h2>
+<h2>Tree labellings and shapes<a class="headerlink" href="#tree-labellings-and-shapes" title="Link to this heading">#</a></h2>
 <p>The topology of a tree also takes into account the labelling of tips, so that
 the trees below, although they have the same <em>shape</em>, count as three
 different topologies:</p>
@@ -461,7 +472,8 @@ different topologies:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/edd72122b815294233bf158a4a6940474490fe7f69baaaf3e17064f461782db3.svg" src="_images/edd72122b815294233bf158a4a6940474490fe7f69baaaf3e17064f461782db3.svg" /></div>
+<img alt="_images/edd72122b815294233bf158a4a6940474490fe7f69baaaf3e17064f461782db3.svg" src="_images/edd72122b815294233bf158a4a6940474490fe7f69baaaf3e17064f461782db3.svg" />
+</div>
 </div>
 <p>These are, in fact, the only possible three labellings for a three-tip tree of that shape.
 There is only one other possible shape for a three-tip tree, and for this shape,
@@ -480,7 +492,8 @@ possible labelling):</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/593c7946a4e6572e149f5bf138170329eb67ade476502e7573cfaaad4d68e8e6.svg" src="_images/593c7946a4e6572e149f5bf138170329eb67ade476502e7573cfaaad4d68e8e6.svg" /></div>
+<img alt="_images/593c7946a4e6572e149f5bf138170329eb67ade476502e7573cfaaad4d68e8e6.svg" src="_images/593c7946a4e6572e149f5bf138170329eb67ade476502e7573cfaaad4d68e8e6.svg" />
+</div>
 </div>
 <p>A 3-tip tree therefore has only four possible topologies.
 These can be generated with the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a> function.</p>
@@ -515,10 +528,11 @@ These can be generated with the <a class="reference external" href="https://tski
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/a08c5aa838da5f384d9e79cf0823eb198f34405d2349841ee2fccb40de04224f.svg" src="_images/a08c5aa838da5f384d9e79cf0823eb198f34405d2349841ee2fccb40de04224f.svg" /></div>
+<img alt="_images/a08c5aa838da5f384d9e79cf0823eb198f34405d2349841ee2fccb40de04224f.svg" src="_images/a08c5aa838da5f384d9e79cf0823eb198f34405d2349841ee2fccb40de04224f.svg" />
+</div>
 </div>
 <section id="enumerating-shapes-and-labellings">
-<h3>Enumerating shapes and labellings<a class="headerlink" href="#enumerating-shapes-and-labellings" title="Permalink to this heading">#</a></h3>
+<h3>Enumerating shapes and labellings<a class="headerlink" href="#enumerating-shapes-and-labellings" title="Link to this heading">#</a></h3>
 <p>For a tree with four tips, more topologies and shapes are possible. As before, we can generate the
 topologies using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>. Alternatively, if we only want the (unlabelled) shapes,
 we can use the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> function:</p>
@@ -552,7 +566,8 @@ These can be categorised into 5 shapes.
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/6dd8dfcea4b69c37319988ec24aeb624bce904ea71f9b320bb7bd204263790c6.svg" src="_images/6dd8dfcea4b69c37319988ec24aeb624bce904ea71f9b320bb7bd204263790c6.svg" /></div>
+<img alt="_images/6dd8dfcea4b69c37319988ec24aeb624bce904ea71f9b320bb7bd204263790c6.svg" src="_images/6dd8dfcea4b69c37319988ec24aeb624bce904ea71f9b320bb7bd204263790c6.svg" />
+</div>
 </div>
 <p>Each of these shapes will have a separate number of possible labellings, and trees with
 these labellings can be created using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a>:</p>
@@ -605,7 +620,8 @@ of 10 tips:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The topology of the simulated tree below can be described as Rank(shape=1270, label=205540)
 </pre></div>
 </div>
-<img alt="_images/33d0f763a204e184411d4fc5abfeb3b3da57c2e4e96f80825ba793f9d96dc953.svg" src="_images/33d0f763a204e184411d4fc5abfeb3b3da57c2e4e96f80825ba793f9d96dc953.svg" /></div>
+<img alt="_images/33d0f763a204e184411d4fc5abfeb3b3da57c2e4e96f80825ba793f9d96dc953.svg" src="_images/33d0f763a204e184411d4fc5abfeb3b3da57c2e4e96f80825ba793f9d96dc953.svg" />
+</div>
 </div>
 <p>A tree with the same topology (i.e. the same shape and labelling, but ignoring
 the branch lengths) can be generated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.unrank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.unrank()</span></code></a> method, by
@@ -618,14 +634,15 @@ specifying the number of tips and the appropriate <code class="docutils literal 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/50c0119a4a7a90c05e03cf85be4f94c6dbd082da9c32bcbd3e35344e7385eaa3.svg" src="_images/50c0119a4a7a90c05e03cf85be4f94c6dbd082da9c32bcbd3e35344e7385eaa3.svg" /></div>
+<img alt="_images/50c0119a4a7a90c05e03cf85be4f94c6dbd082da9c32bcbd3e35344e7385eaa3.svg" src="_images/50c0119a4a7a90c05e03cf85be4f94c6dbd082da9c32bcbd3e35344e7385eaa3.svg" />
+</div>
 </div>
 <p>Note that this method generates a single tree in a new tree sequence
 whose a default sequence length is 1.0.</p>
 </section>
 </section>
 <section id="methods-for-large-trees">
-<h2>Methods for large trees<a class="headerlink" href="#methods-for-large-trees" title="Permalink to this heading">#</a></h2>
+<h2>Methods for large trees<a class="headerlink" href="#methods-for-large-trees" title="Link to this heading">#</a></h2>
 <p>The number of possible topologies for a tree with <span class="math notranslate nohighlight">\(N\)</span> tips
 grows very rapidly with <span class="math notranslate nohighlight">\(N\)</span>. For instance, with 10 tips, there are
 282,137,824 possible topologies.</p>
@@ -681,7 +698,7 @@ rather than comparing ranks directly.</p>
 many-tip trees, it is still possible to efficiently count
 the number of <em>embedded topologies</em> in a large tree.</p>
 <section id="embedded-topologies">
-<h3>Embedded topologies<a class="headerlink" href="#embedded-topologies" title="Permalink to this heading">#</a></h3>
+<h3>Embedded topologies<a class="headerlink" href="#embedded-topologies" title="Link to this heading">#</a></h3>
 <p>An embedded topology is a a topology involving a subset of the tips of a tree.
 If the tips are classified into (say) three groups, red, green, and blue,
 we can efficiently count all the embedded three-tip trees which have
@@ -706,7 +723,8 @@ one tip from each group using the <a class="reference external" href="https://ts
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/e289f5c89dffa1fabf78442a8b9884c87a86c054f64a123445c73e36aa841eea.svg" src="_images/e289f5c89dffa1fabf78442a8b9884c87a86c054f64a123445c73e36aa841eea.svg" /></div>
+<img alt="_images/e289f5c89dffa1fabf78442a8b9884c87a86c054f64a123445c73e36aa841eea.svg" src="_images/e289f5c89dffa1fabf78442a8b9884c87a86c054f64a123445c73e36aa841eea.svg" />
+</div>
 </div>
 <p>In this tree, it is clear that the green and blue tips never cluster together.
 The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method exhaustively looks at all
@@ -734,12 +752,16 @@ green tip as to a blue tip:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ac31ade6eaf2165cbc5c9c160363bd82a14bcc216c53b1c948ad641132fc09d2.svg" src="_images/ac31ade6eaf2165cbc5c9c160363bd82a14bcc216c53b1c948ad641132fc09d2.svg" /><img alt="_images/100df3990c9cd85d40d1dab0b981b7547a705ded6e6a64f98176e63ac0e2dec3.svg" src="_images/100df3990c9cd85d40d1dab0b981b7547a705ded6e6a64f98176e63ac0e2dec3.svg" /><img alt="_images/c3a9a4c6196bc1f6bca3e109bcdb3ad2fac5f11eb28cfa8b70a1561a4cfaa38d.svg" src="_images/c3a9a4c6196bc1f6bca3e109bcdb3ad2fac5f11eb28cfa8b70a1561a4cfaa38d.svg" /><img alt="_images/ce77f92cc3ab53dfeba38b94db2922fe7c7ebc85525f82b4c5281c156a4c397f.svg" src="_images/ce77f92cc3ab53dfeba38b94db2922fe7c7ebc85525f82b4c5281c156a4c397f.svg" /></div>
+<img alt="_images/ac31ade6eaf2165cbc5c9c160363bd82a14bcc216c53b1c948ad641132fc09d2.svg" src="_images/ac31ade6eaf2165cbc5c9c160363bd82a14bcc216c53b1c948ad641132fc09d2.svg" />
+<img alt="_images/100df3990c9cd85d40d1dab0b981b7547a705ded6e6a64f98176e63ac0e2dec3.svg" src="_images/100df3990c9cd85d40d1dab0b981b7547a705ded6e6a64f98176e63ac0e2dec3.svg" />
+<img alt="_images/c3a9a4c6196bc1f6bca3e109bcdb3ad2fac5f11eb28cfa8b70a1561a4cfaa38d.svg" src="_images/c3a9a4c6196bc1f6bca3e109bcdb3ad2fac5f11eb28cfa8b70a1561a4cfaa38d.svg" />
+<img alt="_images/ce77f92cc3ab53dfeba38b94db2922fe7c7ebc85525f82b4c5281c156a4c397f.svg" src="_images/ce77f92cc3ab53dfeba38b94db2922fe7c7ebc85525f82b4c5281c156a4c397f.svg" />
+</div>
 </div>
 </section>
 </section>
 <section id="methods-over-tree-sequences">
-<h2>Methods over tree sequences<a class="headerlink" href="#methods-over-tree-sequences" title="Permalink to this heading">#</a></h2>
+<h2>Methods over tree sequences<a class="headerlink" href="#methods-over-tree-sequences" title="Link to this heading">#</a></h2>
 <p>It can be useful to count embedded topologies over an entire tree sequence.
 For instance, we might want to know the number of embedded topologies
 that support Neanderthals as a sister group to europeans versus africans.
@@ -793,7 +815,7 @@ calculating the average over an entire chromosome simply takes a little longer)<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3720000000000 embedded topologies in 0:00:07.953739 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3720000000000 embedded topologies in 0:00:07.820602 seconds
 </pre></div>
 </div>
 </div>
@@ -824,7 +846,11 @@ calculating the average over an entire chromosome simply takes a little longer)<
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/5c7ca8795484b0e3370e3576152acf98067bba9e82a93f8551a2b734ba3b641f.svg" src="_images/5c7ca8795484b0e3370e3576152acf98067bba9e82a93f8551a2b734ba3b641f.svg" /><img alt="_images/ad46eb7051be969bfcb2f2df37d29a7850a91ba2c457b4031cf1671dc28dff89.svg" src="_images/ad46eb7051be969bfcb2f2df37d29a7850a91ba2c457b4031cf1671dc28dff89.svg" /><img alt="_images/72ab3a1086d4335cac22b064699b2875ffdc85b393f1631f805a08bf7fc4265b.svg" src="_images/72ab3a1086d4335cac22b064699b2875ffdc85b393f1631f805a08bf7fc4265b.svg" /><img alt="_images/4e5fba9fa7af215052b7bc04e37ddb0812ccf4ac547ad0955907d71dd52a5bd7.svg" src="_images/4e5fba9fa7af215052b7bc04e37ddb0812ccf4ac547ad0955907d71dd52a5bd7.svg" /></div>
+<img alt="_images/5c7ca8795484b0e3370e3576152acf98067bba9e82a93f8551a2b734ba3b641f.svg" src="_images/5c7ca8795484b0e3370e3576152acf98067bba9e82a93f8551a2b734ba3b641f.svg" />
+<img alt="_images/ad46eb7051be969bfcb2f2df37d29a7850a91ba2c457b4031cf1671dc28dff89.svg" src="_images/ad46eb7051be969bfcb2f2df37d29a7850a91ba2c457b4031cf1671dc28dff89.svg" />
+<img alt="_images/72ab3a1086d4335cac22b064699b2875ffdc85b393f1631f805a08bf7fc4265b.svg" src="_images/72ab3a1086d4335cac22b064699b2875ffdc85b393f1631f805a08bf7fc4265b.svg" />
+<img alt="_images/4e5fba9fa7af215052b7bc04e37ddb0812ccf4ac547ad0955907d71dd52a5bd7.svg" src="_images/4e5fba9fa7af215052b7bc04e37ddb0812ccf4ac547ad0955907d71dd52a5bd7.svg" />
+</div>
 </div>
 <p>Perhaps unsurprisingly, the most common topology is the one that groups the non-African
 populations together (although there are many trees of the other two topologies,
@@ -861,7 +887,7 @@ in the <a class="reference internal" href="popgen.html#sec-intro-popgen"><span c
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -931,7 +957,7 @@ By Tskit Developers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -955,8 +981,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

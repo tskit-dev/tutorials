@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Visualization &#8212; Tree Sequence Tutorials</title>
   
@@ -15,53 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'viz';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -76,27 +71,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -118,8 +109,13 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -143,6 +139,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -160,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is.html">What is a tree sequence?</a></li>
@@ -190,12 +199,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="simulation_overview.html">Tree sequences and simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="no_mutations.html">Do you really need mutations?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="advanced_msprime.html">Advanced <strong class="program">msprime</strong> topics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="demography.html">Demography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bottlenecks.html">Instantaneous Bottlenecks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
@@ -227,7 +236,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -236,14 +245,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -321,10 +330,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -332,14 +341,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -428,7 +437,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="visualization">
-<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Permalink to this heading">#</a></h1>
+<span id="sec-tskit-viz"></span><h1>Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h1>
 <p><strong>Yan Wong</strong></p>
 <p>It is often helpful to visualize a single tree — or multiple trees along a tree
 sequence — together with sites and mutations. <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">Tskit</span></a>
@@ -467,7 +476,7 @@ provides examples of other representations of tree sequences, or the processes t
 can create them.</p>
 </div>
 <section id="text-format">
-<h2>Text format<a class="headerlink" href="#text-format" title="Permalink to this heading">#</a></h2>
+<h2>Text format<a class="headerlink" href="#text-format" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_text" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_text()</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_text" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_text()</span></code></a> methods provide
 a quick way to print out a tree sequence, or an individual tree within it. They are
@@ -525,7 +534,7 @@ Alice Bob Chris Dora
 </div>
 </section>
 <section id="svg-format">
-<h2>SVG format<a class="headerlink" href="#svg-format" title="Permalink to this heading">#</a></h2>
+<h2>SVG format<a class="headerlink" href="#svg-format" title="Link to this heading">#</a></h2>
 <p>Most users will want to use the SVG drawing functions
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.draw_svg()</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.draw_svg" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.draw_svg()</span></code></a> for visualization. Being a vectorised
@@ -547,14 +556,15 @@ automatically drawn if the string is the result of the last call in a Jupyter no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1b055881e84ea5657973e0fee71168b00c1656e634184c7247a818b8a602b103.svg" src="_images/1b055881e84ea5657973e0fee71168b00c1656e634184c7247a818b8a602b103.svg" /></div>
+<img alt="_images/1b055881e84ea5657973e0fee71168b00c1656e634184c7247a818b8a602b103.svg" src="_images/1b055881e84ea5657973e0fee71168b00c1656e634184c7247a818b8a602b103.svg" />
+</div>
 </div>
 <p>By default, sample nodes are drawn as black squares, and non-sample nodes are drawn as
 black circles (but see below for ways to e.g. hide or colour these node symbols - NB.
 apologies to US readers: the British spelling of “colour” will be used in the rest of
 this tutorial).</p>
 <section id="axes-and-scales">
-<h3>Axes and scales<a class="headerlink" href="#axes-and-scales" title="Permalink to this heading">#</a></h3>
+<h3>Axes and scales<a class="headerlink" href="#axes-and-scales" title="Link to this heading">#</a></h3>
 <p>For ease of drawing, the text representation and the SVG image above use unconventional
 non-linear X and Y coordinate systems. By default, the SVG output uses a more
 conventional linear scale for both time (Y) and genome position (X), and indicates the
@@ -568,13 +578,14 @@ causing labels to overlap:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8b6cc0827026a6603664b0db7fa12a33b9d53e05fd7df33b0fe7645c794238e1.svg" src="_images/8b6cc0827026a6603664b0db7fa12a33b9d53e05fd7df33b0fe7645c794238e1.svg" /></div>
+<img alt="_images/8b6cc0827026a6603664b0db7fa12a33b9d53e05fd7df33b0fe7645c794238e1.svg" src="_images/8b6cc0827026a6603664b0db7fa12a33b9d53e05fd7df33b0fe7645c794238e1.svg" />
+</div>
 </div>
 <p>One way to avoid overlapping labels on the Y axis is to use the <code class="docutils literal notranslate"><span class="pre">y_ticks</span></code> parameter,
 which will be used in most subsequent examples in this tutorial.</p>
 </section>
 <section id="larger-tree-sequences">
-<span id="sec-tskit-viz-larger-tree-sequences"></span><h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-larger-tree-sequences"></span><h3>Larger tree sequences<a class="headerlink" href="#larger-tree-sequences" title="Link to this heading">#</a></h3>
 <p>So far, we have plotted only very small tree sequences. To visualize larger tree
 sequences it is sometimes advisable to focus on a small region of the genome, possibly
 even a single tree. The <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter allows you to plot the part of a tree
@@ -599,10 +610,12 @@ with 8 samples, but where we’ve restricted the amount of the tree sequence we 
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tree sequence between positions 5000 and 15000 ...
 </pre></div>
 </div>
-<img alt="_images/6c497ca94a7f22adcf4c09e3286551ccea483da7a183cb0d46b476e05fef2c01.svg" src="_images/6c497ca94a7f22adcf4c09e3286551ccea483da7a183cb0d46b476e05fef2c01.svg" /><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... or just look at (say) the third tree
+<img alt="_images/6c497ca94a7f22adcf4c09e3286551ccea483da7a183cb0d46b476e05fef2c01.svg" src="_images/6c497ca94a7f22adcf4c09e3286551ccea483da7a183cb0d46b476e05fef2c01.svg" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>... or just look at (say) the third tree
 </pre></div>
 </div>
-<img alt="_images/cef53842fe98e50b6393039663a98d6a8d74470ac16e6ef13e060914342a3ff4.svg" src="_images/cef53842fe98e50b6393039663a98d6a8d74470ac16e6ef13e060914342a3ff4.svg" /></div>
+<img alt="_images/cef53842fe98e50b6393039663a98d6a8d74470ac16e6ef13e060914342a3ff4.svg" src="_images/cef53842fe98e50b6393039663a98d6a8d74470ac16e6ef13e060914342a3ff4.svg" />
+</div>
 </div>
 <p>As the number of sample nodes increases, internal nodes often bunch up at recent time
 points, obscuring relationships. Setting <code class="docutils literal notranslate"><span class="pre">time_scale=&quot;rank&quot;</span></code>, as in the first SVG plot,
@@ -638,7 +651,8 @@ styling is detailed <a class="reference internal" href="#sec-tskit-viz-styling">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A larger tree, on a log timescale
 </pre></div>
 </div>
-<img alt="_images/2d3313982e829ec0c677d060b67584f4f9e6deba13f1ce71675f67feba5c123c.svg" src="_images/2d3313982e829ec0c677d060b67584f4f9e6deba13f1ce71675f67feba5c123c.svg" /></div>
+<img alt="_images/2d3313982e829ec0c677d060b67584f4f9e6deba13f1ce71675f67feba5c123c.svg" src="_images/2d3313982e829ec0c677d060b67584f4f9e6deba13f1ce71675f67feba5c123c.svg" />
+</div>
 </div>
 <p>For even larger numbers of samples, you can plot the trees for a subset of samples
 by applying the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> method (make sure to specify
@@ -646,7 +660,7 @@ by applying the <a class="reference external" href="https://tskit.dev/tskit/docs
 <a class="reference internal" href="#sec-tskit-viz-svg-examples-larger-plots"><span class="std std-ref">Simplifying larger plots</span></a> below.</p>
 </section>
 <section id="plotting-mutations">
-<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Permalink to this heading">#</a></h3>
+<h3>Plotting mutations<a class="headerlink" href="#plotting-mutations" title="Link to this heading">#</a></h3>
 <p>By default the SVG visualization also plots sites and mutations on the tree or
 tree sequence (this can be disabled using the <code class="docutils literal notranslate"><span class="pre">omit_sites</span></code> parameter). For example,
 adding mutations to the 8-sample tree sequence above gives the following plot: each
@@ -666,7 +680,8 @@ as a red downwards-pointing chevron.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ae61d9b198eb2fe3b8642c319cbfef46a3aaf4b0d04c1418d49a2b3fd4be3f35.svg" src="_images/ae61d9b198eb2fe3b8642c319cbfef46a3aaf4b0d04c1418d49a2b3fd4be3f35.svg" /></div>
+<img alt="_images/ae61d9b198eb2fe3b8642c319cbfef46a3aaf4b0d04c1418d49a2b3fd4be3f35.svg" src="_images/ae61d9b198eb2fe3b8642c319cbfef46a3aaf4b0d04c1418d49a2b3fd4be3f35.svg" />
+</div>
 </div>
 <p>Note that, unusually, the rightmost site on the axis has more than one stacked chevron,
 indicating that multiple mutations in the tree occur at the same site. These could be
@@ -696,7 +711,7 @@ mutations, 14 and 15 (above nodes 1 and 6) are recurrent mutations from T to G.<
 </div>
 </div>
 <section id="which-mutations-are-shown">
-<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Permalink to this heading">#</a></h4>
+<h4>Which mutations are shown?<a class="headerlink" href="#which-mutations-are-shown" title="Link to this heading">#</a></h4>
 <p>When using the <code class="docutils literal notranslate"><span class="pre">x_lim</span></code> parameter, only the mutations in the plotted region are shown.
 For the third tree in the tree sequence visualization above, we thus haven’t plotted
 mutations above position 15000. We can see <em>all</em> the mutations in the tree by changing the
@@ -713,7 +728,8 @@ plot region, or simply plotting the tree itself:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The third tree in the mutated tree sequence, which covers Interval(left=13901.0, right=21285.0)
 </pre></div>
 </div>
-<img alt="_images/9f74ca04afafbf9a2d6fa17e1359582055355093cf6c5b0d310650037ce2007e.svg" src="_images/9f74ca04afafbf9a2d6fa17e1359582055355093cf6c5b0d310650037ce2007e.svg" /></div>
+<img alt="_images/9f74ca04afafbf9a2d6fa17e1359582055355093cf6c5b0d310650037ce2007e.svg" src="_images/9f74ca04afafbf9a2d6fa17e1359582055355093cf6c5b0d310650037ce2007e.svg" />
+</div>
 </div>
 <p id="sec-tskit-viz-extra-mutations">However, when plotting a single tree it may not be evident that identical branches
 may exist in several adjacent trees, indicating an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">edge</span></a>
@@ -731,12 +747,13 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d8033e8a3b138ac60ae2453c11b58f30d45bafbc3c73db317905c67d7a076f29.svg" src="_images/d8033e8a3b138ac60ae2453c11b58f30d45bafbc3c73db317905c67d7a076f29.svg" /></div>
+<img alt="_images/d8033e8a3b138ac60ae2453c11b58f30d45bafbc3c73db317905c67d7a076f29.svg" src="_images/d8033e8a3b138ac60ae2453c11b58f30d45bafbc3c73db317905c67d7a076f29.svg" />
+</div>
 </div>
 </section>
 </section>
 <section id="labelling">
-<span id="sec-tskit-viz-labelling"></span><h3>Labelling<a class="headerlink" href="#labelling" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-labelling"></span><h3>Labelling<a class="headerlink" href="#labelling" title="Link to this heading">#</a></h3>
 <p>Although the default node and mutation labels show unique identifiers, they are’t
 terribly intuituive. The <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters can be used
 to set more meaningful labels (for example from the tree sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span>Metadata</span></a>).
@@ -767,11 +784,12 @@ labels.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/31a8a8b4fa98aeb40f0e9d9370abe3b86699dc3e0c71bbef39c773c3e8b26d5f.svg" src="_images/31a8a8b4fa98aeb40f0e9d9370abe3b86699dc3e0c71bbef39c773c3e8b26d5f.svg" /></div>
+<img alt="_images/31a8a8b4fa98aeb40f0e9d9370abe3b86699dc3e0c71bbef39c773c3e8b26d5f.svg" src="_images/31a8a8b4fa98aeb40f0e9d9370abe3b86699dc3e0c71bbef39c773c3e8b26d5f.svg" />
+</div>
 </div>
 </section>
 <section id="styling">
-<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-styling"></span><h3>Styling<a class="headerlink" href="#styling" title="Link to this heading">#</a></h3>
 <p>The SVG output produced by tskit contains a large number of
 <a class="reference external" href="https://www.w3.org/TR/SVG2/styling.html#ClassAttribute">classes</a> which can be used to
 target different elements of the drawing, allowing them to be hidden, styled, or
@@ -806,7 +824,8 @@ CSS string applied:
     &quot;.node.p0 &gt; .sym {fill: red} .node.p1 &gt; .sym {fill: green} .node.p2 &gt; .sym {fill: blue}&quot;
 </pre></div>
 </div>
-<img alt="_images/fe7f931e03f742453adfbb1722ea2880020b45988e7ce50eb2875ec7e99be936.svg" src="_images/fe7f931e03f742453adfbb1722ea2880020b45988e7ce50eb2875ec7e99be936.svg" /></div>
+<img alt="_images/fe7f931e03f742453adfbb1722ea2880020b45988e7ce50eb2875ec7e99be936.svg" src="_images/fe7f931e03f742453adfbb1722ea2880020b45988e7ce50eb2875ec7e99be936.svg" />
+</div>
 </div>
 <p>Colouring nodes by population makes it immediately clear that, while the tree structure
 does not exactly reflect the population divisions, there’s still considerable
@@ -824,10 +843,10 @@ within a <a class="reference external" href="https://www.w3.org/TR/SVG2/struct.h
 <code class="docutils literal notranslate"><span class="pre">node</span></code>. Moreover, elements such as <code class="docutils literal notranslate"><span class="pre">node</span></code> have <em>additional</em> classes, such as <code class="docutils literal notranslate"><span class="pre">p1</span></code>,
 indicating that the node in this case belongs to the population with ID 1.</p>
 <section id="available-css-classes">
-<h4>Available css classes<a class="headerlink" href="#available-css-classes" title="Permalink to this heading">#</a></h4>
+<h4>Available css classes<a class="headerlink" href="#available-css-classes" title="Link to this heading">#</a></h4>
 <p>Here are the css classes in a tskit SVG which can be used to style specific elements.</p>
 <section id="within-the-plotting-area">
-<h5>Within the plotting area<a class="headerlink" href="#within-the-plotting-area" title="Permalink to this heading">#</a></h5>
+<h5>Within the plotting area<a class="headerlink" href="#within-the-plotting-area" title="Link to this heading">#</a></h5>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tree</span></code>: a grouping element containing each tree</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: a grouping element within a tree, containing a node and its descendant
@@ -846,7 +865,7 @@ right-justification</p></li>
 </ul>
 </section>
 <section id="outside-the-plotting-area">
-<h5>Outside the plotting area<a class="headerlink" href="#outside-the-plotting-area" title="Permalink to this heading">#</a></h5>
+<h5>Outside the plotting area<a class="headerlink" href="#outside-the-plotting-area" title="Link to this heading">#</a></h5>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">axes</span></code>: a grouping element containing the X and Y axes, if either are present</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">x-axis</span></code>, <code class="docutils literal notranslate"><span class="pre">y-axis</span></code>: more specific grouping elements contained within <code class="docutils literal notranslate"><span class="pre">axes</span></code></p></li>
@@ -859,7 +878,7 @@ chevron-shaped mutation symbol</p></li>
 </ul>
 </section>
 <section id="id-based-classes">
-<h5>ID-based classes<a class="headerlink" href="#id-based-classes" title="Permalink to this heading">#</a></h5>
+<h5>ID-based classes<a class="headerlink" href="#id-based-classes" title="Link to this heading">#</a></h5>
 <p>Elements have additional classes based on the IDs of trees, nodes, parent (ancestor)
 nodes, individuals, populations, mutations, and sites. These class names start with a
 single letter (respectively <code class="docutils literal notranslate"><span class="pre">t</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, and <code class="docutils literal notranslate"><span class="pre">s</span></code>) followed by a
@@ -883,7 +902,7 @@ and so on.</p>
 </section>
 </section>
 <section id="styling-graphical-elements">
-<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Permalink to this heading">#</a></h4>
+<h4>Styling graphical elements<a class="headerlink" href="#styling-graphical-elements" title="Link to this heading">#</a></h4>
 <p>The classes above make it easy to target specific nodes or edges in one or multiple
 trees. For example, we can colour branches that are shared between trees
 (identified below as ones that have the same parent and child):</p>
@@ -895,7 +914,8 @@ trees. For example, we can colour branches that are shared between trees
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bcc4111c905db0df2f142193a70e6056e876151ed9a16830d574bb788a81ca1a.svg" src="_images/bcc4111c905db0df2f142193a70e6056e876151ed9a16830d574bb788a81ca1a.svg" /></div>
+<img alt="_images/bcc4111c905db0df2f142193a70e6056e876151ed9a16830d574bb788a81ca1a.svg" src="_images/bcc4111c905db0df2f142193a70e6056e876151ed9a16830d574bb788a81ca1a.svg" />
+</div>
 </div>
 <p>By generating the css string programatically, you can target all the edges present in a
 particular tree, and see how they gradually disappear from adjacent trees. Below, for
@@ -946,7 +966,8 @@ For visual clarity, node symbols and labels have been turned off.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b54ab87cca207130f4801b9ca43dc525d59a431e4c75a38d6be2e401c313b375.svg" src="_images/b54ab87cca207130f4801b9ca43dc525d59a431e4c75a38d6be2e401c313b375.svg" /></div>
+<img alt="_images/b54ab87cca207130f4801b9ca43dc525d59a431e4c75a38d6be2e401c313b375.svg" src="_images/b54ab87cca207130f4801b9ca43dc525d59a431e4c75a38d6be2e401c313b375.svg" />
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -957,7 +978,7 @@ additional constraint that they must belong to <em>adjacent</em> trees.</p>
 </div>
 </section>
 <section id="dynamic-effects">
-<span id="sec-tskit-viz-dynamic-effects"></span><h4>Dynamic effects<a class="headerlink" href="#dynamic-effects" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-dynamic-effects"></span><h4>Dynamic effects<a class="headerlink" href="#dynamic-effects" title="Link to this heading">#</a></h4>
 <p>In the previous example, the large size of the plotted trees meant that, for clarity,
 the node and mutation labels were turned off (in that case by passing empty mappings
 to the <code class="docutils literal notranslate"><span class="pre">node_labels</span></code> and <code class="docutils literal notranslate"><span class="pre">mutation_labels</span></code> parameters). Nevertheless, it can be useful
@@ -1022,7 +1043,7 @@ Here’s an example using a region from within the previous example:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.24.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
+<p>Above we have wrapped the svg in an IPython <a class="reference external" href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html#IPython.display.HTML" title="(in IPython v8.26.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HTML</span></code></a>
 class, and given the SVG a unique
 id as described below in <a class="reference internal" href="#sec-tskit-viz-styling-more-about"><span class="std std-ref">More about styling</span></a>. This forces the SVG
 plot to be rendered inline (rather than inside an <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag), allowing the hover
@@ -1034,7 +1055,7 @@ SVG images, as shown in the <a class="reference internal" href="#sec-tskit-viz-s
 <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">SVG examples</span></a> section near the end of this tutorial.</p>
 </section>
 <section id="transforming-and-masking-elements">
-<span id="sec-tskit-viz-styling-transforming-and-masking"></span><h4>Transforming and masking elements<a class="headerlink" href="#transforming-and-masking-elements" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-styling-transforming-and-masking"></span><h4>Transforming and masking elements<a class="headerlink" href="#transforming-and-masking-elements" title="Link to this heading">#</a></h4>
 <p>We can also use styles to transform elements of the drawing, shifting them into different
 locations or changing their orientation. For example,
 <a class="reference internal" href="#sec-tskit-viz-large-tree-sequence"><span class="std std-ref">earlier in this tutorial</span></a> we used the
@@ -1066,7 +1087,8 @@ When applied to both symbols and labels this can create rather different formatt
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b5251ed9a4c58e0217a9bb27227863a1bcb71d0fd643f2d448e6200660c88125.svg" src="_images/b5251ed9a4c58e0217a9bb27227863a1bcb71d0fd643f2d448e6200660c88125.svg" /></div>
+<img alt="_images/b5251ed9a4c58e0217a9bb27227863a1bcb71d0fd643f2d448e6200660c88125.svg" src="_images/b5251ed9a4c58e0217a9bb27227863a1bcb71d0fd643f2d448e6200660c88125.svg" />
+</div>
 </div>
 <p>Note that when transforming elements, parts of the drawing may be plotted outsize of
 of the standard canvas. You can use the <code class="docutils literal notranslate"><span class="pre">canvas_size</span></code> parameter to increase the size of
@@ -1092,7 +1114,8 @@ transformations, for example to create <a class="reference internal" href="#sec-
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a01caa900793c2858be20f3334ce59c0b9063ab21639a3796845d082ccb5fea5.svg" src="_images/a01caa900793c2858be20f3334ce59c0b9063ab21639a3796845d082ccb5fea5.svg" /></div>
+<img alt="_images/a01caa900793c2858be20f3334ce59c0b9063ab21639a3796845d082ccb5fea5.svg" src="_images/a01caa900793c2858be20f3334ce59c0b9063ab21639a3796845d082ccb5fea5.svg" />
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1139,7 +1162,8 @@ instance, a triangle to summarise the descendants of a MRCA.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d32433d477f69b5566e0948201b12c31e155099b6c966cadad1d449fc673743b.svg" src="_images/d32433d477f69b5566e0948201b12c31e155099b6c966cadad1d449fc673743b.svg" /></div>
+<img alt="_images/d32433d477f69b5566e0948201b12c31e155099b6c966cadad1d449fc673743b.svg" src="_images/d32433d477f69b5566e0948201b12c31e155099b6c966cadad1d449fc673743b.svg" />
+</div>
 </div>
 <p>In the example above we simply hid the descendant topology for each “summary MRCA”,
 meaning more horizontal space was taken up than expected. For a more sophisticated
@@ -1148,7 +1172,7 @@ descendant samples are actually removed from the tree sequence entirely, and the
 is changed into a sample node instead.</p>
 </section>
 <section id="styling-and-svg-structure">
-<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Permalink to this heading">#</a></h4>
+<h4>Styling and SVG structure<a class="headerlink" href="#styling-and-svg-structure" title="Link to this heading">#</a></h4>
 <p>To take full advantage of the SVG styling capabilities in tskit, it is worth knowing how
 the SVG file is structured. In particular tskit SVGs use a hierarchical grouping
 structure that reflects the tree topology. This allows easy styling and manipulation of
@@ -1198,7 +1222,7 @@ with groups containing the background and axes, if required.</p>
 </div>
 </section>
 <section id="styling-subtrees">
-<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Permalink to this heading">#</a></h4>
+<h4>Styling subtrees<a class="headerlink" href="#styling-subtrees" title="Link to this heading">#</a></h4>
 <p>The nested grouping structure makes it easy to target a node and all its descendants.
 For instance, here’s how to draw all the edges of node 13 and its descendants using a
 thicker blue line:</p>
@@ -1211,7 +1235,8 @@ thicker blue line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f52fc2c39c0a8b50455f72c43a6a9da07ff4d721f5becafd3d306ac775ad7942.svg" src="_images/f52fc2c39c0a8b50455f72c43a6a9da07ff4d721f5becafd3d306ac775ad7942.svg" /></div>
+<img alt="_images/f52fc2c39c0a8b50455f72c43a6a9da07ff4d721f5becafd3d306ac775ad7942.svg" src="_images/f52fc2c39c0a8b50455f72c43a6a9da07ff4d721f5becafd3d306ac775ad7942.svg" />
+</div>
 </div>
 <p>This might not be quite what you expected: the branch leading from node 13 to its parent
 (node 17) has also been coloured. That’s because the SVG node group deliberately contains
@@ -1229,7 +1254,8 @@ extra <code class="docutils literal notranslate"><span class="pre">.node</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e7365cf8e3fc97e8bc4114ffd3f16fb5eec0269e355b8bd777028fa43cce0b4b.svg" src="_images/e7365cf8e3fc97e8bc4114ffd3f16fb5eec0269e355b8bd777028fa43cce0b4b.svg" /></div>
+<img alt="_images/e7365cf8e3fc97e8bc4114ffd3f16fb5eec0269e355b8bd777028fa43cce0b4b.svg" src="_images/e7365cf8e3fc97e8bc4114ffd3f16fb5eec0269e355b8bd777028fa43cce0b4b.svg" />
+</div>
 </div>
 <p>If you want to colour the branches descending from a particular mutation (say mutation 7)
 then you need to colour not only the edges, but also <em>part</em> of an edge (i.e. the line
@@ -1253,11 +1279,12 @@ this normally-hidden line:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/29a9c8bac7ea1326eedbe177fcd42d061483608103801f0106795973bb672041.svg" src="_images/29a9c8bac7ea1326eedbe177fcd42d061483608103801f0106795973bb672041.svg" /></div>
+<img alt="_images/29a9c8bac7ea1326eedbe177fcd42d061483608103801f0106795973bb672041.svg" src="_images/29a9c8bac7ea1326eedbe177fcd42d061483608103801f0106795973bb672041.svg" />
+</div>
 </div>
 </section>
 <section id="restricting-styling">
-<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Permalink to this heading">#</a></h4>
+<h4>Restricting styling<a class="headerlink" href="#restricting-styling" title="Link to this heading">#</a></h4>
 <p>Sometimes the hierarchical nesting leads to styles being applied too widely. For example,
 since style selectors include all the descendants of a target, to target just the node
 itself (and not its descendants) a slightly different specification is required,
@@ -1275,7 +1302,8 @@ when all decendant symbols are targetted, versus just the immediate child symbol
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7895272486bcbbd8aebb37cf7eda5e8bb81fb0f8c9afb7efb17ab5cfb9880acf.svg" src="_images/7895272486bcbbd8aebb37cf7eda5e8bb81fb0f8c9afb7efb17ab5cfb9880acf.svg" /></div>
+<img alt="_images/7895272486bcbbd8aebb37cf7eda5e8bb81fb0f8c9afb7efb17ab5cfb9880acf.svg" src="_images/7895272486bcbbd8aebb37cf7eda5e8bb81fb0f8c9afb7efb17ab5cfb9880acf.svg" />
+</div>
 </div>
 <p>Another example of modifying the style target is <em>negation</em>. This is needed, for example,
 to target nodes that are <em>not</em> leaves (i.e. internal nodes). One way to do this is to
@@ -1291,7 +1319,8 @@ targetting of the leaf symbols only:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d1d0f508d0f1a6ef86e6338d6c35db2da272b351ca79f2d7aae09778141b0b74.svg" src="_images/d1d0f508d0f1a6ef86e6338d6c35db2da272b351ca79f2d7aae09778141b0b74.svg" /></div>
+<img alt="_images/d1d0f508d0f1a6ef86e6338d6c35db2da272b351ca79f2d7aae09778141b0b74.svg" src="_images/d1d0f508d0f1a6ef86e6338d6c35db2da272b351ca79f2d7aae09778141b0b74.svg" />
+</div>
 </div>
 <p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">:not</span></code> selector can be used to target nodes that are <em>not</em> leaves,
 so the following style specification should produce the same effect in SVG viewers that
@@ -1301,7 +1330,7 @@ support it (note, however, as of v1.2 Inkscape does not appear to support this s
 </div>
 </section>
 <section id="more-about-styling">
-<span id="sec-tskit-viz-styling-more-about"></span><h4>More about styling<a class="headerlink" href="#more-about-styling" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-styling-more-about"></span><h4>More about styling<a class="headerlink" href="#more-about-styling" title="Link to this heading">#</a></h4>
 <p>NOTE: if your SVG is embedded directly into an HTML page (a common way for jupyter
 notebooks to render SVGs), then according to the HTML specifications, any styles applied
 to one SVG will apply to all SVGs in the document. To avoid this confusing state of
@@ -1318,7 +1347,8 @@ affairs,  we recommend that you tag the SVG with a unique ID using the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/809c0b4a9eb62e84f1b4aff59d5fe5a471490b92d85b66c1f43a5fae930f7342.svg" src="_images/809c0b4a9eb62e84f1b4aff59d5fe5a471490b92d85b66c1f43a5fae930f7342.svg" /></div>
+<img alt="_images/809c0b4a9eb62e84f1b4aff59d5fe5a471490b92d85b66c1f43a5fae930f7342.svg" src="_images/809c0b4a9eb62e84f1b4aff59d5fe5a471490b92d85b66c1f43a5fae930f7342.svg" />
+</div>
 </div>
 <p>SVG styles allow a huge amount of flexibility in formatting your plot, even extending to
 animations. Feel free to browse the <a class="reference internal" href="#sec-tskit-viz-svg-examples"><span class="std std-ref">examples</span></a> for
@@ -1326,9 +1356,9 @@ inspiration.</p>
 </section>
 </section>
 <section id="converting-and-editing-svg">
-<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-converting"></span><h3>Converting and editing SVG<a class="headerlink" href="#converting-and-editing-svg" title="Link to this heading">#</a></h3>
 <section id="converting">
-<h4>Converting<a class="headerlink" href="#converting" title="Permalink to this heading">#</a></h4>
+<h4>Converting<a class="headerlink" href="#converting" title="Link to this heading">#</a></h4>
 <p><a class="reference external" href="https://inkscape.org">Inkscape</a> is an open source SVG editor that can also be scripted
 to output bitmap files.</p>
 <p><a class="reference external" href="https://imagemagick.org/">Imagemagick</a> is a common piece of software used to convert
@@ -1353,7 +1383,7 @@ transformations.</p>
 </div>
 </section>
 <section id="editing-the-svg">
-<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Permalink to this heading">#</a></h4>
+<h4>Editing the SVG<a class="headerlink" href="#editing-the-svg" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Editing can be done in <a class="reference external" href="https://inkscape.org">Inkscape</a> (subject to the note above)</p></li>
 </ul>
@@ -1366,11 +1396,11 @@ transformations.</p>
 </section>
 </section>
 <section id="examples">
-<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-viz-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
 <section id="text-examples">
-<h3>Text examples<a class="headerlink" href="#text-examples" title="Permalink to this heading">#</a></h3>
+<h3>Text examples<a class="headerlink" href="#text-examples" title="Link to this heading">#</a></h3>
 <section id="tree-orientation">
-<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Permalink to this heading">#</a></h4>
+<h4>Tree orientation<a class="headerlink" href="#tree-orientation" title="Link to this heading">#</a></h4>
 <p>In the text format, trees (but not tree sequences) can be displayed in different orientations</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1395,74 +1425,74 @@ transformations.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_html"><pre style='display: inline-block'>          14   
-        ┏━━┻━━┓
-       13     ┃
-      ┏━┻━━┓  ┃
-     12    ┃  ┃
-    ┏━┻━┓  ┃  ┃
-   11   ┃  ┃  ┃
-  ┏━┻━┓ ┃  ┃  ┃
-  ┃   ┃ ┃ 10  ┃
-  ┃   ┃ ┃ ┏┻┓ ┃
-  9   ┃ ┃ ┃ ┃ ┃
- ┏┻━┓ ┃ ┃ ┃ ┃ ┃
- 8  ┃ ┃ ┃ ┃ ┃ ┃
-┏┻┓ ┃ ┃ ┃ ┃ ┃ ┃
-0 3 2 1 4 5 7 6
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>                 ┏0
-               ┏8┫ 
-           ┏━━9┫ ┗3
-           ┃   ┃   
-        ┏11┫   ┗━━2
-        ┃  ┃       
-     ┏12┫  ┗━━━━━━1
-     ┃  ┃          
-  ┏13┫  ┗━━━━━━━━━4
-  ┃  ┃             
-  ┃  ┃       ┏━━━━5
-14┫  ┗━━━━━10┫     
-  ┃          ┗━━━━7
-  ┃                
-  ┗━━━━━━━━━━━━━━━6
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 3 2 1 4 5 7 6
-┗┳┛ ┃ ┃ ┃ ┃ ┃ ┃
- 8  ┃ ┃ ┃ ┃ ┃ ┃
- ┗┳━┛ ┃ ┃ ┃ ┃ ┃
-  9   ┃ ┃ ┃ ┃ ┃
-  ┃   ┃ ┃ ┗┳┛ ┃
-  ┃   ┃ ┃ 10  ┃
-  ┗━┳━┛ ┃  ┃  ┃
-   11   ┃  ┃  ┃
-    ┗━┳━┛  ┃  ┃
-     12    ┃  ┃
-      ┗━┳━━┛  ┃
-       13     ┃
-        ┗━━┳━━┛
-          14   
-</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0┓                 
- ┣8┓               
-3┛ ┣9━━┓           
-   ┃   ┃           
-2━━┛   ┣11┓        
-       ┃  ┃        
-1━━━━━━┛  ┣12┓     
-          ┃  ┃     
-4━━━━━━━━━┛  ┣13┓  
-             ┃  ┃  
-5━━━━┓       ┃  ┃  
-     ┣10━━━━━┛  ┣14
-7━━━━┛          ┃  
-                ┃  
-6━━━━━━━━━━━━━━━┛  
+<div class="output text_html"><pre style='display: inline-block'>         14    
+      ┏━━━┻━━━┓
+     13       ┃
+  ┏━━━┻━━━┓   ┃
+ 12       ┃   ┃
+┏━┻━┓     ┃   ┃
+┃   ┃    11   ┃
+┃   ┃    ┏┻━┓ ┃
+┃  10    ┃  ┃ ┃
+┃ ┏━┻┓   ┃  ┃ ┃
+┃ ┃  ┃   9  ┃ ┃
+┃ ┃  ┃  ┏┻┓ ┃ ┃
+┃ ┃  8  ┃ ┃ ┃ ┃
+┃ ┃ ┏┻┓ ┃ ┃ ┃ ┃
+0 1 3 5 2 6 7 4
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>        ┏━━━━━━━━0
+        ┃         
+     ┏12┫   ┏━━━━1
+     ┃  ┃   ┃     
+     ┃  ┗━10┫   ┏3
+     ┃      ┗━━8┫ 
+  ┏13┫          ┗5
+  ┃  ┃            
+  ┃  ┃        ┏━━2
+  ┃  ┃    ┏━━9┫   
+14┫  ┗━━11┫   ┗━━6
+  ┃       ┃       
+  ┃       ┗━━━━━━7
+  ┃               
+  ┗━━━━━━━━━━━━━━4
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0 1 3 5 2 6 7 4
+┃ ┃ ┗┳┛ ┃ ┃ ┃ ┃
+┃ ┃  8  ┃ ┃ ┃ ┃
+┃ ┃  ┃  ┗┳┛ ┃ ┃
+┃ ┃  ┃   9  ┃ ┃
+┃ ┗━┳┛   ┃  ┃ ┃
+┃  10    ┃  ┃ ┃
+┃   ┃    ┗┳━┛ ┃
+┃   ┃    11   ┃
+┗━┳━┛     ┃   ┃
+ 12       ┃   ┃
+  ┗━━━┳━━━┛   ┃
+     13       ┃
+      ┗━━━┳━━━┛
+         14    
+</pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre style='display: inline-block'>0━━━━━━━━┓        
+         ┃        
+1━━━━┓   ┣12┓     
+     ┃   ┃  ┃     
+3┓   ┣10━┛  ┃     
+ ┣8━━┛      ┃     
+5┛          ┣13┓  
+            ┃  ┃  
+2━━┓        ┃  ┃  
+   ┣9━━┓    ┃  ┃  
+6━━┛   ┣11━━┛  ┣14
+       ┃       ┃  
+7━━━━━━┛       ┃  
+               ┃  
+4━━━━━━━━━━━━━━┛  
 </pre></div></div>
 </div>
 </section>
 </section>
 <section id="svg-examples">
-<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-svg-examples"></span><h3>SVG examples<a class="headerlink" href="#svg-examples" title="Link to this heading">#</a></h3>
 <section id="a-standard-ts-plot">
-<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Permalink to this heading">#</a></h4>
+<h4>A standard ts plot<a class="headerlink" href="#a-standard-ts-plot" title="Link to this heading">#</a></h4>
 <p>Note that this tree sequence also illustrates a few features which are not normally
 produced e.g. by <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulations, in particular a “empty” site (with no
 associated mutations) at position 50, and some mutations that occur above root nodes in
@@ -1548,11 +1578,12 @@ root branches are not drawn, unless the <code class="docutils literal notranslat
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/735a3ab251c0addfd7114dd955617209cf1c96c45602b0d3e94e170faf6c0d03.svg" src="_images/735a3ab251c0addfd7114dd955617209cf1c96c45602b0d3e94e170faf6c0d03.svg" /></div>
+<img alt="_images/735a3ab251c0addfd7114dd955617209cf1c96c45602b0d3e94e170faf6c0d03.svg" src="_images/735a3ab251c0addfd7114dd955617209cf1c96c45602b0d3e94e170faf6c0d03.svg" />
+</div>
 </div>
 </section>
 <section id="highlighted-mutations">
-<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Permalink to this heading">#</a></h4>
+<h4>Highlighted mutations<a class="headerlink" href="#highlighted-mutations" title="Link to this heading">#</a></h4>
 <p>Specific mutations can be given a different colour. Moreover, the descendant lineages of
 specific mutations can be coloured and the branch colours overlay each other as expected.
 Note that in this example, internal node labels and symbols have been hidden for clarity.</p>
@@ -1579,11 +1610,12 @@ Note that in this example, internal node labels and symbols have been hidden for
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/82ddc79963bee0a22403f8180b0eededbb4bfb3dfa7939e2d5d69b050e17625b.svg" src="_images/82ddc79963bee0a22403f8180b0eededbb4bfb3dfa7939e2d5d69b050e17625b.svg" /></div>
+<img alt="_images/82ddc79963bee0a22403f8180b0eededbb4bfb3dfa7939e2d5d69b050e17625b.svg" src="_images/82ddc79963bee0a22403f8180b0eededbb4bfb3dfa7939e2d5d69b050e17625b.svg" />
+</div>
 </div>
 </section>
 <section id="leaf-sample-isolated-nodes">
-<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Permalink to this heading">#</a></h4>
+<h4>Leaf, sample &amp; isolated nodes<a class="headerlink" href="#leaf-sample-isolated-nodes" title="Link to this heading">#</a></h4>
 <p>By default, sample nodes are square and non-sample nodes circular (at the moment this
 can’t easily be changed). However, neither need to be at specific times: sample nodes can
 be at times other than 0, and nonsample nodes can be at time 0. Moreover, leaves need not
@@ -1622,7 +1654,8 @@ we have plotted sample nodes in green, and leaf nodes (if not samples) in blue.<
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/46fb6b52e3c9991185c9fdd7511351ac7b5750876d2ef8a4735d30d76d1a61e3.svg" src="_images/46fb6b52e3c9991185c9fdd7511351ac7b5750876d2ef8a4735d30d76d1a61e3.svg" /></div>
+<img alt="_images/46fb6b52e3c9991185c9fdd7511351ac7b5750876d2ef8a4735d30d76d1a61e3.svg" src="_images/46fb6b52e3c9991185c9fdd7511351ac7b5750876d2ef8a4735d30d76d1a61e3.svg" />
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1632,7 +1665,7 @@ unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above)
 </div>
 </section>
 <section id="a-fancy-formatted-plot">
-<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Permalink to this heading">#</a></h4>
+<h4>A fancy formatted plot<a class="headerlink" href="#a-fancy-formatted-plot" title="Link to this heading">#</a></h4>
 <p>Here we have activated the Y axis, and changed the node style. In particular, we have
 coloured nodes by time, and increased the internal node symbol size while moving
 the internal node labels into the symbol; node labels have also been plotted in a
@@ -1678,11 +1711,12 @@ Y tick labels have been removed, and the X tick labels rotated).</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/a88b0b499d6ca8bdd33c2211b5f9df4052f4abd096666bbfef8b4b5679604f26.svg" src="_images/a88b0b499d6ca8bdd33c2211b5f9df4052f4abd096666bbfef8b4b5679604f26.svg" /></div>
+<img alt="_images/a88b0b499d6ca8bdd33c2211b5f9df4052f4abd096666bbfef8b4b5679604f26.svg" src="_images/a88b0b499d6ca8bdd33c2211b5f9df4052f4abd096666bbfef8b4b5679604f26.svg" />
+</div>
 </div>
 </section>
 <section id="ticks-labels-and-gridlines">
-<h4>Ticks, labels, and gridlines<a class="headerlink" href="#ticks-labels-and-gridlines" title="Permalink to this heading">#</a></h4>
+<h4>Ticks, labels, and gridlines<a class="headerlink" href="#ticks-labels-and-gridlines" title="Link to this heading">#</a></h4>
 <p>Y tick labels can be specified explicitly, which allows time scales to be plotted
 e.g. in years even if the tree sequence ticks in generations. The <code class="docutils literal notranslate"><span class="pre">title</span></code> class allows
 axis titles to be moved out of the way of tick labels. Finally, grid lines associated
@@ -1774,11 +1808,12 @@ drawing on an example from the <a class="reference internal" href="introgression
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/4c6e025d442470a609c9a2839abc4786b769ea6692d1a7caeaded857861d711c.svg" src="_images/4c6e025d442470a609c9a2839abc4786b769ea6692d1a7caeaded857861d711c.svg" /></div>
+<img alt="_images/4c6e025d442470a609c9a2839abc4786b769ea6692d1a7caeaded857861d711c.svg" src="_images/4c6e025d442470a609c9a2839abc4786b769ea6692d1a7caeaded857861d711c.svg" />
+</div>
 </div>
 </section>
 <section id="simplifying-larger-plots">
-<span id="sec-tskit-viz-svg-examples-larger-plots"></span><h4>Simplifying larger plots<a class="headerlink" href="#simplifying-larger-plots" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-svg-examples-larger-plots"></span><h4>Simplifying larger plots<a class="headerlink" href="#simplifying-larger-plots" title="Link to this heading">#</a></h4>
 <p>It is common to want to visualise a tree sequence with many samples and trees. If there
 are many trees, the <code class="docutils literal notranslate"><span class="pre">max_num_trees</span></code> parameter can be used to just show those at the start
 and end of the genome. To reduce the size of each tree, multiple samples can be clustered
@@ -1906,11 +1941,12 @@ compactly using these techniques:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/ea9556beea74c9de943aa64e0be335c66f2905be7d3b5f305f458f0ad2d70f13.svg" src="_images/ea9556beea74c9de943aa64e0be335c66f2905be7d3b5f305f458f0ad2d70f13.svg" /></div>
+<img alt="_images/ea9556beea74c9de943aa64e0be335c66f2905be7d3b5f305f458f0ad2d70f13.svg" src="_images/ea9556beea74c9de943aa64e0be335c66f2905be7d3b5f305f458f0ad2d70f13.svg" />
+</div>
 </div>
 </section>
 <section id="d-effects">
-<span id="sec-tskit-viz-svg-examples-3d"></span><h4>3D effects<a class="headerlink" href="#d-effects" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-svg-examples-3d"></span><h4>3D effects<a class="headerlink" href="#d-effects" title="Link to this heading">#</a></h4>
 <p>We can use various CSS transforms, as
 <a class="reference internal" href="#sec-tskit-viz-styling-transforming-and-masking"><span class="std std-ref">discussed previously</span></a>,
 to skew the trees and stagger them. With a bit of trigonometry,
@@ -1972,11 +2008,12 @@ this can create flexible and tolerably good 3D effects for presentations, etc.</
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/ef7c7af0bf4f4518b2f17b8c5b1f212c4d9a413469f9de287b84df0b98ef2f97.svg" src="_images/ef7c7af0bf4f4518b2f17b8c5b1f212c4d9a413469f9de287b84df0b98ef2f97.svg" /></div>
+<img alt="_images/ef7c7af0bf4f4518b2f17b8c5b1f212c4d9a413469f9de287b84df0b98ef2f97.svg" src="_images/ef7c7af0bf4f4518b2f17b8c5b1f212c4d9a413469f9de287b84df0b98ef2f97.svg" />
+</div>
 </div>
 </section>
 <section id="animation">
-<span id="sec-tskit-viz-svg-examples-animation"></span><h4>Animation<a class="headerlink" href="#animation" title="Permalink to this heading">#</a></h4>
+<span id="sec-tskit-viz-svg-examples-animation"></span><h4>Animation<a class="headerlink" href="#animation" title="Link to this heading">#</a></h4>
 <p>The classes attached to the SVG also allow elements to be animated. Here’s a
 <a class="reference external" href="https://d3js.org">d3.js</a>-based animation of sucessive subtree-prune-and-regraft (SPR)
 operations, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">ARG representation</span></a> of a
@@ -2233,12 +2270,12 @@ var svg_text = document.getElementById("anim_svg").innerHTML;
 </section>
 </section>
 <section id="other-visualizations">
-<span id="sec-tskit-viz-other"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Permalink to this heading">#</a></h2>
+<span id="sec-tskit-viz-other"></span><h2>Other visualizations<a class="headerlink" href="#other-visualizations" title="Link to this heading">#</a></h2>
 <p>As well as visualizing a tree sequence as, well, a sequence of local trees, or by plotting
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">statistical summaries</span></a>, other visualizations are possible, some
 of which are outlined below.</p>
 <section id="graph-representations">
-<span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-other-graph"></span><h3>Graph representations<a class="headerlink" href="#graph-representations" title="Link to this heading">#</a></h3>
 <p>A tree sequence can be treated as a specific form of (directed)
 <a class="reference external" href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> consisting
 of nodes connected by edges. Standard graph visualization software,
@@ -2414,7 +2451,7 @@ button {
 
 .saving .message {
     display: none;
-}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_6573283009'class='d3arg' style='min-width:590px; min-height:655px;'></div><script>var line = d3.line();
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_1354796160'class='d3arg' style='min-width:590px; min-height:655px;'></div><script>var line = d3.line();
 var step = d3.line().curve(d3.curveStep);
 var stepAfter = d3.line().curve(d3.curveStepAfter);
 var stepBefore = d3.line().curve(d3.curveStepBefore);
@@ -2426,14 +2463,14 @@ function draw_force_diagram() {
     var subset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
     var evenly_distributed_positions = [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0];
 
-    var dashboard = d3.select("#arg_6573283009").append("div").attr("class", "dashboard");
+    var dashboard = d3.select("#arg_1354796160").append("div").attr("class", "dashboard");
     
     var clipboard = dashboard.append("button")
         .on("click", function() {
             navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 450.0, 'y': 450.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '1', 'fx': 271.42857142857144, 'fy': 450.0, 'y': 450.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '2', 'fx': 328.57142857142856, 'fy': 450.0, 'y': 450.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [13, 14, 16], 'parent_of': [], 'label': '3', 'fx': 214.28571428571428, 'fy': 450.0, 'y': 450.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '4', 'fx': 442.8571428571429, 'fy': 450.0, 'y': 450.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '5', 'fx': 500.0, 'fy': 450.0, 'y': 450.0}, {'id': 6, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '6', 'fx': 157.14285714285714, 'fy': 450.0, 'y': 450.0}, {'id': 7, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '7', 'fx': 385.7142857142857, 'fy': 450.0, 'y': 450.0}, {'id': 8, 'flag': 0, 'time': 0.00523931699745691, 'time_01': 0.9989390987325849, 'logtime_01': 0.9967279882217678, 'rank_01': 0.9090909090909091, 'child_of': [10], 'parent_of': [1, 2], 'label': '8', 'x': 300.0, 'fy': 413.6363636363636, 'y': 413.6363636363636}, {'id': 9, 'flag': 0, 'time': 0.017557818091816682, 'time_01': 0.9964447443291382, 'logtime_01': 0.9891016456244728, 'rank_01': 0.8181818181818181, 'child_of': [15, 17, 18], 'parent_of': [4, 5], 'label': '9', 'x': 300.0, 'fy': 377.27272727272725, 'y': 377.27272727272725}, {'id': 10, 'flag': 0, 'time': 0.09416924140000202, 'time_01': 0.98093181466186, 'logtime_01': 0.9436497714987854, 'rank_01': 0.7272727272727273, 'child_of': [12, 15], 'parent_of': [0, 8], 'label': '10', 'x': 300.0, 'fy': 340.90909090909093, 'y': 340.90909090909093}, {'id': 11, 'flag': 0, 'time': 0.1024650871470267, 'time_01': 0.9792520015733276, 'logtime_01': 0.9389203243971302, 'rank_01': 0.6363636363636364, 'child_of': [12, 14, 16], 'parent_of': [6, 7], 'label': '11', 'x': 300.0, 'fy': 304.5454545454545, 'y': 304.5454545454545}, {'id': 12, 'flag': 0, 'time': 0.12175435946697583, 'time_01': 0.9753461463899743, 'logtime_01': 0.9280597072431825, 'rank_01': 0.5454545454545454, 'child_of': [13, 16], 'parent_of': [10, 11], 'label': '12', 'x': 300.0, 'fy': 268.18181818181813, 'y': 268.18181818181813}, {'id': 13, 'flag': 0, 'time': 0.39582244241347575, 'time_01': 0.9198505203957684, 'logtime_01': 0.7911905451922276, 'rank_01': 0.4545454545454546, 'child_of': [17, 18], 'parent_of': [3, 12], 'label': '13', 'x': 300.0, 'fy': 231.81818181818184, 'y': 231.81818181818184}, {'id': 14, 'flag': 0, 'time': 0.8565089125241158, 'time_01': 0.8265668232538372, 'logtime_01': 0.6126050290609146, 'rank_01': 0.36363636363636365, 'child_of': [17], 'parent_of': [3, 11], 'label': '14', 'x': 300.0, 'fy': 195.45454545454547, 'y': 195.45454545454547}, {'id': 15, 'flag': 0, 'time': 1.0352810563867096, 'time_01': 0.7903675258846593, 'logtime_01': 0.5550396185408524, 'rank_01': 0.2727272727272727, 'child_of': [17], 'parent_of': [9, 10], 'label': '15', 'x': 300.0, 'fy': 159.09090909090907, 'y': 159.09090909090907}, {'id': 16, 'flag': 0, 'time': 2.033597596813773, 'time_01': 0.5882199399427213, 'logtime_01': 0.3051352725610018, 'rank_01': 0.18181818181818177, 'child_of': [17], 'parent_of': [3, 11, 12], 'label': '16', 'x': 300.0, 'fy': 122.7272727272727, 'y': 122.7272727272727}, {'id': 17, 'flag': 0, 'time': 3.30638247068103, 'time_01': 0.3304956818976572, 'logtime_01': 0.0857657633683675, 'rank_01': 0.09090909090909083, 'child_of': [], 'parent_of': [9, 13, 14, 15, 16], 'label': '17', 'x': 300.0, 'fy': 86.36363636363633, 'y': 86.36363636363633}, {'id': 18, 'flag': 0, 'time': 4.9385528685650755, 'time_01': 0.0, 'logtime_01': -0.11545696884408474, 'rank_01': 0.0, 'child_of': [], 'parent_of': [9, 13], 'label': '18', 'x': 300.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 10, 'target': 0, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 8, 'region_fraction': 1.0}, {'source': 8, 'target': 1, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 8, 'target': 2, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 13, 'target': 3, 'bounds': '0.0-224.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 0.224}, {'source': 14, 'target': 3, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.165}, {'source': 16, 'target': 3, 'bounds': '224.0-835.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.611}, {'source': 9, 'target': 4, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 1.0}, {'source': 9, 'target': 5, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 1.0}, {'source': 11, 'target': 6, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 11, 'target': 7, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 1.0}, {'source': 10, 'target': 8, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 15, 'target': 9, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.237}, {'source': 17, 'target': 9, 'bounds': '145.0-763.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.618}, {'source': 18, 'target': 9, 'bounds': '0.0-145.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.145}, {'source': 12, 'target': 10, 'bounds': '0.0-763.0', 'alt_parent': '', 'alt_child': 11, 'region_fraction': 0.763}, {'source': 15, 'target': 10, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.237}, {'source': 12, 'target': 11, 'bounds': '0.0-763.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.763}, {'source': 14, 'target': 11, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.165}, {'source': 16, 'target': 11, 'bounds': '763.0-835.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.072}, {'source': 13, 'target': 12, 'bounds': '0.0-224.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.224}, {'source': 16, 'target': 12, 'bounds': '224.0-763.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 0.539}, {'source': 17, 'target': 13, 'bounds': '145.0-224.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.079}, {'source': 18, 'target': 13, 'bounds': '0.0-145.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.145}, {'source': 17, 'target': 14, 'bounds': '835.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.165}, {'source': 17, 'target': 15, 'bounds': '763.0-1000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.237}, {'source': 17, 'target': 16, 'bounds': '224.0-835.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.611}], 'breakpoints': [{'start': 0, 'stop': 145.0, 'x_pos_01': 0.0, 'width_01': 0.145, 'x_pos': 50.0, 'width': 72.5}, {'start': 145.0, 'stop': 224.0, 'x_pos_01': 0.145, 'width_01': 0.079, 'x_pos': 122.5, 'width': 39.5}, {'start': 224.0, 'stop': 763.0, 'x_pos_01': 0.224, 'width_01': 0.539, 'x_pos': 162.0, 'width': 269.5}, {'start': 763.0, 'stop': 835.0, 'x_pos_01': 0.763, 'width_01': 0.072, 'x_pos': 431.5, 'width': 36.0}, {'start': 835.0, 'stop': 1000.0, 'x_pos_01': 0.835, 'width_01': 0.165, 'x_pos': 467.5, 'width': 82.5}]}, 'width': 550, 'height': 575, 'y_axis': {'include_labels': 'true', 'ticks': [450.0, 413.6363636363636, 377.27272727272725, 340.90909090909093, 304.5454545454545, 268.18181818181813, 231.81818181818184, 195.45454545454547, 159.09090909090907, 122.7272727272727, 86.36363636363633, 50.0], 'text': [0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 5], 'max_min': [450.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'line', 'variable_edge_width': 'true', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
-            d3.select("#arg_6573283009 .copymessage").style("visibility", "visible");
+            d3.select("#arg_1354796160 .copymessage").style("visibility", "visible");
             setTimeout( function() {
-                d3.select("#arg_6573283009 .copymessage").style("visibility", "hidden");
+                d3.select("#arg_1354796160 .copymessage").style("visibility", "hidden");
             }, 1000);
         });
     clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -2447,8 +2484,8 @@ function draw_force_diagram() {
     var reheat = dashboard.append("button")
         .on("click", function(event) {
             if (!event.active) simulation.alphaTarget(0.3).restart();       
-            var order = d3.selectAll("#arg_6573283009 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_6573283009 .node").classed("unfix", function(d) {
+            var order = d3.selectAll("#arg_1354796160 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_1354796160 .node").classed("unfix", function(d) {
                 if (d.flag != 1) {
                     delete d.fx;
                 } else {
@@ -2465,8 +2502,8 @@ function draw_force_diagram() {
     
     var evenly_distribute = dashboard.append("button")
         .on("click", function() {
-            var order = d3.selectAll("#arg_6573283009 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_6573283009 .sample").classed("distribute", function(d) {
+            var order = d3.selectAll("#arg_1354796160 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_1354796160 .sample").classed("distribute", function(d) {
                 d.fx = evenly_distributed_positions[order.indexOf(d.id)];
             });
         });
@@ -2477,7 +2514,7 @@ function draw_force_diagram() {
         .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
     evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
 
-    var svg = d3.select("#arg_6573283009").append("svg")
+    var svg = d3.select("#arg_1354796160").append("svg")
         .attr("width", 550)
         .attr("height", 575)
         .style("padding-top", "10px");
@@ -2558,7 +2595,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#1eebb1')
                     .style("cursor", "pointer");
-                d3.select("#arg_6573283009 .breakpoints")
+                d3.select("#arg_1354796160 .breakpoints")
                     .selectAll("rect")
                         .filter(function(j) {
                             return d.bounds.split(" ").some(function(region) {
@@ -2572,7 +2609,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#053e4e')
                     .style("cursor", "default")
-                d3.select("#arg_6573283009 .breakpoints").selectAll("rect")
+                d3.select("#arg_1354796160 .breakpoints").selectAll("rect")
                     .style("fill", "#053e4e")
             });
     }
@@ -2585,7 +2622,7 @@ function draw_force_diagram() {
         .enter()
         .append("circle")
         .attr("id", function(d) {
-            return String(6573283009) + "_node" + d.id
+            return String(1354796160) + "_node" + d.id
         })
         .attr("class", function(d) {
             var classy = ""
@@ -2646,7 +2683,7 @@ function draw_force_diagram() {
         if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
             vnub = 0;
         }
-        var alt_child = document.getElementById(String(6573283009) + "_node" + d.alt_child);
+        var alt_child = document.getElementById(String(1354796160) + "_node" + d.alt_child);
         if (alt_child != null) {
             var alt_child_x = alt_child.getAttribute("cx");
             var alt_child_y = alt_child.getAttribute("cy");
@@ -2713,7 +2750,7 @@ function draw_force_diagram() {
                 }
             }
         }
-        var alt_parent = document.getElementById(String(6573283009) + "_node" + d.alt_parent);
+        var alt_parent = document.getElementById(String(1354796160) + "_node" + d.alt_parent);
         if (alt_parent != null) {
             var alt_parent_x = alt_parent.getAttribute("cx");
             var alt_parent_y = alt_parent.getAttribute("cy");
@@ -2892,7 +2929,7 @@ function draw_force_diagram() {
             if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
                 return "c";
             } else if (d.child_of.length == 1) {
-                var parent = document.getElementById(String(6573283009) + "_node" + d.child_of[0])
+                var parent = document.getElementById(String(1354796160) + "_node" + d.child_of[0])
                 if (parent != null) {
                     var parent_x = parent.getAttribute("cx");
                     if (parent_x > d.x) {
@@ -2982,7 +3019,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('fill', '#1eebb1')
                     .style("cursor", "pointer");
-                var highlight_links = d3.select("#arg_6573283009 .links")
+                var highlight_links = d3.select("#arg_1354796160 .links")
                     .selectAll("g")
                         .filter(function(j) {
                             return j.bounds.split(" ").some(function(region) {
@@ -3007,10 +3044,10 @@ function draw_force_diagram() {
                     .style('fill', '#053e4e')
                     .style("cursor", "default");
                 //if (true) {
-                    d3.selectAll("#arg_6573283009 .link")
+                    d3.selectAll("#arg_1354796160 .link")
                         .style("stroke", "#053e4e");
                 //} else {
-                //    d3.selectAll("#arg_6573283009 .link")
+                //    d3.selectAll("#arg_1354796160 .link")
                 //        .style("stroke", "#053e4e")
                 //        .style("stroke-width", 3);
                 //};     
@@ -3190,7 +3227,7 @@ button {
 
 .saving .message {
     display: none;
-}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_9210977017'class='d3arg' style='min-width:590px; min-height:655px;'></div><script>var line = d3.line();
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_2289043364'class='d3arg' style='min-width:590px; min-height:655px;'></div><script>var line = d3.line();
 var step = d3.line().curve(d3.curveStep);
 var stepAfter = d3.line().curve(d3.curveStepAfter);
 var stepBefore = d3.line().curve(d3.curveStepBefore);
@@ -3202,14 +3239,14 @@ function draw_force_diagram() {
     var subset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 25, 27, 28, 29, 31, 32];
     var evenly_distributed_positions = [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0];
 
-    var dashboard = d3.select("#arg_9210977017").append("div").attr("class", "dashboard");
+    var dashboard = d3.select("#arg_2289043364").append("div").attr("class", "dashboard");
     
     var clipboard = dashboard.append("button")
         .on("click", function() {
             navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '0', 'fx': 157.14285714285714, 'fy': 450.0, 'y': 450.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '1', 'fx': 214.28571428571428, 'fy': 450.0, 'y': 450.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8], 'parent_of': [], 'label': '2', 'fx': 271.42857142857144, 'fy': 450.0, 'y': 450.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [17], 'parent_of': [], 'label': '3', 'fx': 100.0, 'fy': 450.0, 'y': 450.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '4', 'fx': 442.8571428571429, 'fy': 450.0, 'y': 450.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '5', 'fx': 500.0, 'fy': 450.0, 'y': 450.0}, {'id': 6, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '6', 'fx': 328.57142857142856, 'fy': 450.0, 'y': 450.0}, {'id': 7, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '7', 'fx': 385.7142857142857, 'fy': 450.0, 'y': 450.0}, {'id': 8, 'flag': 0, 'time': 0.00523931699745691, 'time_01': 0.9984443191777483, 'logtime_01': 0.9956965043456049, 'rank_01': 0.9473684210526316, 'child_of': [10], 'parent_of': [1, 2], 'label': '8', 'x': 300.0, 'fy': 428.94736842105266, 'y': 428.94736842105266}, {'id': 9, 'flag': 0, 'time': 0.017557818091816682, 'time_01': 0.9947866561807043, 'logtime_01': 0.9856659988184764, 'rank_01': 0.8947368421052632, 'child_of': [21], 'parent_of': [4, 5], 'label': '9', 'x': 300.0, 'fy': 407.89473684210526, 'y': 407.89473684210526}, {'id': 10, 'flag': 0, 'time': 0.09416924140000202, 'time_01': 0.9720388586979789, 'logtime_01': 0.9258856691493427, 'rank_01': 0.8421052631578947, 'child_of': [12], 'parent_of': [0, 8], 'label': '10', 'x': 300.0, 'fy': 386.84210526315786, 'y': 386.84210526315786}, {'id': 11, 'flag': 0, 'time': 0.1024650871470267, 'time_01': 0.9695756200469736, 'logtime_01': 0.919665289630825, 'rank_01': 0.7894736842105263, 'child_of': [14], 'parent_of': [6, 7], 'label': '11', 'x': 300.0, 'fy': 365.7894736842105, 'y': 365.7894736842105}, {'id': 12, 'flag': 131072, 'time': 0.11568803951902568, 'time_01': 0.965649403437318, 'logtime_01': 0.9098465900873469, 'rank_01': 0.736842105263158, 'child_of': [14], 'parent_of': [10], 'x_pos_reference': 10, 'label': '12/13', 'x': 300.0, 'fy': 344.7368421052632, 'y': 344.7368421052632}, {'id': 14, 'flag': 0, 'time': 0.12175435946697583, 'time_01': 0.96384816529707, 'logtime_01': 0.9053809221242646, 'rank_01': 0.6842105263157895, 'child_of': [15], 'parent_of': [11, 12], 'label': '14', 'x': 300.0, 'fy': 323.6842105263158, 'y': 323.6842105263158}, {'id': 15, 'flag': 131072, 'time': 0.308460674409082, 'time_01': 0.9084105130821528, 'logtime_01': 0.7785915434792432, 'rank_01': 0.631578947368421, 'child_of': [20], 'parent_of': [14], 'x_pos_reference': 14, 'label': '15/16', 'x': 300.0, 'fy': 302.63157894736844, 'y': 302.63157894736844}, {'id': 17, 'flag': 0, 'time': 0.39582244241347575, 'time_01': 0.8824706764300845, 'logtime_01': 0.7253645028602671, 'rank_01': 0.5789473684210527, 'child_of': [23], 'parent_of': [3, 12], 'label': '17', 'x': 300.0, 'fy': 281.57894736842104, 'y': 281.57894736842104}, {'id': 18, 'flag': 131072, 'time': 0.6941217594839495, 'time_01': 0.7938983439900809, 'logtime_01': 0.5658617484880195, 'rank_01': 0.5263157894736843, 'child_of': [24], 'parent_of': [15], 'x_pos_reference': 15, 'label': '18/19', 'x': 300.0, 'fy': 260.52631578947376, 'y': 260.52631578947376}, {'id': 20, 'flag': 262144, 'time': 0.8577976766058426, 'time_01': 0.7452989778027361, 'logtime_01': 0.48990938765448055, 'rank_01': 0.4736842105263158, 'child_of': [23], 'parent_of': [15, 18], 'x_pos_reference': 15, 'label': '20', 'x': 300.0, 'fy': 239.47368421052633, 'y': 239.47368421052633}, {'id': 21, 'flag': 131072, 'time': 1.0255837873540103, 'time_01': 0.6954791950223049, 'logtime_01': 0.4187014623755223, 'rank_01': 0.42105263157894735, 'child_of': [28], 'parent_of': [9], 'x_pos_reference': 9, 'label': '21/22', 'x': 300.0, 'fy': 218.42105263157893, 'y': 218.42105263157893}, {'id': 23, 'flag': 0, 'time': 1.0987444051668527, 'time_01': 0.6737560257369251, 'logtime_01': 0.38948136747010653, 'rank_01': 0.368421052631579, 'child_of': [24], 'parent_of': [17, 20], 'label': '23', 'x': 300.0, 'fy': 197.3684210526316, 'y': 197.3684210526316}, {'id': 24, 'flag': 0, 'time': 1.2059022164118993, 'time_01': 0.6419382617059832, 'logtime_01': 0.34847153657098406, 'rank_01': 0.3157894736842106, 'child_of': [25], 'parent_of': [18, 23], 'label': '24', 'x': 300.0, 'fy': 176.31578947368425, 'y': 176.31578947368425}, {'id': 25, 'flag': 131072, 'time': 1.5998364961174132, 'time_01': 0.5249695796310361, 'logtime_01': 0.21315492775386224, 'rank_01': 0.26315789473684215, 'child_of': [27], 'parent_of': [24], 'x_pos_reference': 24, 'label': '25/26', 'x': 300.0, 'fy': 155.26315789473688, 'y': 155.26315789473688}, {'id': 27, 'flag': 0, 'time': 1.721772254949798, 'time_01': 0.4887638830384604, 'logtime_01': 0.17540848049470925, 'rank_01': 0.21052631578947367, 'child_of': [28], 'parent_of': [21, 25], 'label': '27', 'x': 300.0, 'fy': 134.21052631578948, 'y': 134.21052631578948}, {'id': 28, 'flag': 0, 'time': 2.0490896096414075, 'time_01': 0.3915753884825759, 'logtime_01': 0.08188802035833243, 'rank_01': 0.1578947368421053, 'child_of': [29], 'parent_of': [21, 27], 'label': '28', 'x': 300.0, 'fy': 113.15789473684212, 'y': 113.15789473684212}, {'id': 29, 'flag': 131072, 'time': 2.087239695481809, 'time_01': 0.38024769883562837, 'logtime_01': 0.07164791621979116, 'rank_01': 0.10526315789473695, 'child_of': [32], 'parent_of': [28], 'x_pos_reference': 28, 'label': '29/30', 'x': 300.0, 'fy': 92.10526315789478, 'y': 92.10526315789478}, {'id': 31, 'flag': 0, 'time': 2.349570553333265, 'time_01': 0.3023552779642755, 'logtime_01': 0.0044847425546915565, 'rank_01': 0.052631578947368474, 'child_of': [32], 'parent_of': [25, 29], 'label': '31', 'x': 300.0, 'fy': 71.0526315789474, 'y': 71.0526315789474}, {'id': 32, 'flag': 0, 'time': 3.367861146397306, 'time_01': 0.0, 'logtime_01': -0.2141153912966347, 'rank_01': 0.0, 'child_of': [], 'parent_of': [29, 31], 'label': '32', 'x': 300.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 10, 'target': 0, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 8, 'region_fraction': 1.0}, {'source': 8, 'target': 1, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 8, 'target': 2, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 17, 'target': 3, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 1.0}, {'source': 9, 'target': 4, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 1.0}, {'source': 9, 'target': 5, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 1.0}, {'source': 11, 'target': 6, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 11, 'target': 7, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 1.0}, {'source': 10, 'target': 8, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 21, 'target': 9, 'bounds': '0.0-166.0 166.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 12, 'target': 10, 'bounds': '0.0-763.0 763.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 14, 'target': 11, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 12, 'region_fraction': 1.0}, {'source': 14, 'target': 12, 'bounds': '0.0-763.0', 'alt_parent': 17, 'alt_child': 11, 'region_fraction': 0.763}, {'source': 17, 'target': 12, 'bounds': '763.0-1000.0', 'alt_parent': 14, 'alt_child': 3, 'region_fraction': 0.237}, {'source': 15, 'target': 14, 'bounds': '0.0-461.0 461.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 20, 'target': 15, 'bounds': '0.0-461.0', 'alt_parent': 18, 'alt_child': 18, 'region_fraction': 0.461}, {'source': 18, 'target': 15, 'bounds': '461.0-533.0 533.0-1000.0', 'alt_parent': 20, 'alt_child': '', 'region_fraction': 0.539}, {'source': 23, 'target': 17, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 20, 'region_fraction': 1.0}, {'source': 24, 'target': 18, 'bounds': '461.0-533.0', 'alt_parent': 20, 'alt_child': 23, 'region_fraction': 0.072}, {'source': 20, 'target': 18, 'bounds': '533.0-1000.0', 'alt_parent': 24, 'alt_child': 15, 'region_fraction': 0.467}, {'source': 23, 'target': 20, 'bounds': '0.0-461.0 533.0-1000.0', 'alt_parent': '', 'alt_child': 17, 'region_fraction': 0.928}, {'source': 28, 'target': 21, 'bounds': '0.0-166.0', 'alt_parent': 27, 'alt_child': 27, 'region_fraction': 0.166}, {'source': 27, 'target': 21, 'bounds': '166.0-1000.0', 'alt_parent': 28, 'alt_child': 25, 'region_fraction': 0.834}, {'source': 24, 'target': 23, 'bounds': '0.0-1000.0', 'alt_parent': '', 'alt_child': 18, 'region_fraction': 1.0}, {'source': 25, 'target': 24, 'bounds': '0.0-726.0 726.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 27, 'target': 25, 'bounds': '0.0-726.0', 'alt_parent': 31, 'alt_child': 21, 'region_fraction': 0.726}, {'source': 31, 'target': 25, 'bounds': '726.0-1000.0', 'alt_parent': 27, 'alt_child': 29, 'region_fraction': 0.274}, {'source': 28, 'target': 27, 'bounds': '0.0-166.0 726.0-1000.0', 'alt_parent': '', 'alt_child': 21, 'region_fraction': 0.44}, {'source': 29, 'target': 28, 'bounds': '726.0-804.0 804.0-1000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 0.274}, {'source': 32, 'target': 29, 'bounds': '726.0-804.0', 'alt_parent': 31, 'alt_child': 31, 'region_fraction': 0.078}, {'source': 31, 'target': 29, 'bounds': '804.0-1000.0', 'alt_parent': 32, 'alt_child': 25, 'region_fraction': 0.196}, {'source': 32, 'target': 31, 'bounds': '726.0-804.0', 'alt_parent': '', 'alt_child': 29, 'region_fraction': 0.078}], 'breakpoints': [{'start': 0, 'stop': 166.0, 'x_pos_01': 0.0, 'width_01': 0.166, 'x_pos': 50.0, 'width': 83.0}, {'start': 166.0, 'stop': 461.0, 'x_pos_01': 0.166, 'width_01': 0.295, 'x_pos': 133.0, 'width': 147.5}, {'start': 461.0, 'stop': 533.0, 'x_pos_01': 0.461, 'width_01': 0.072, 'x_pos': 280.5, 'width': 36.0}, {'start': 533.0, 'stop': 726.0, 'x_pos_01': 0.533, 'width_01': 0.193, 'x_pos': 316.5, 'width': 96.5}, {'start': 726.0, 'stop': 763.0, 'x_pos_01': 0.726, 'width_01': 0.037, 'x_pos': 413.0, 'width': 18.5}, {'start': 763.0, 'stop': 804.0, 'x_pos_01': 0.763, 'width_01': 0.041, 'x_pos': 431.5, 'width': 20.5}, {'start': 804.0, 'stop': 1000.0, 'x_pos_01': 0.804, 'width_01': 0.196, 'x_pos': 452.0, 'width': 98.0}]}, 'width': 550, 'height': 575, 'y_axis': {'include_labels': 'true', 'ticks': [450.0, 428.94736842105266, 407.89473684210526, 386.84210526315786, 365.7894736842105, 344.7368421052632, 323.6842105263158, 302.63157894736844, 281.57894736842104, 260.52631578947376, 239.47368421052633, 218.42105263157893, 197.3684210526316, 176.31578947368425, 155.26315789473688, 134.21052631578948, 113.15789473684212, 92.10526315789478, 71.0526315789474, 50.0], 'text': [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3], 'max_min': [450.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'ortho', 'variable_edge_width': 'false', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 25, 27, 28, 29, 31, 32], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 157.14285714285714, 214.28571428571428, 271.42857142857144, 328.57142857142856, 385.7142857142857, 442.8571428571429, 500.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
-            d3.select("#arg_9210977017 .copymessage").style("visibility", "visible");
+            d3.select("#arg_2289043364 .copymessage").style("visibility", "visible");
             setTimeout( function() {
-                d3.select("#arg_9210977017 .copymessage").style("visibility", "hidden");
+                d3.select("#arg_2289043364 .copymessage").style("visibility", "hidden");
             }, 1000);
         });
     clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -3223,8 +3260,8 @@ function draw_force_diagram() {
     var reheat = dashboard.append("button")
         .on("click", function(event) {
             if (!event.active) simulation.alphaTarget(0.3).restart();       
-            var order = d3.selectAll("#arg_9210977017 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_9210977017 .node").classed("unfix", function(d) {
+            var order = d3.selectAll("#arg_2289043364 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_2289043364 .node").classed("unfix", function(d) {
                 if (d.flag != 1) {
                     delete d.fx;
                 } else {
@@ -3241,8 +3278,8 @@ function draw_force_diagram() {
     
     var evenly_distribute = dashboard.append("button")
         .on("click", function() {
-            var order = d3.selectAll("#arg_9210977017 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_9210977017 .sample").classed("distribute", function(d) {
+            var order = d3.selectAll("#arg_2289043364 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_2289043364 .sample").classed("distribute", function(d) {
                 d.fx = evenly_distributed_positions[order.indexOf(d.id)];
             });
         });
@@ -3253,7 +3290,7 @@ function draw_force_diagram() {
         .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
     evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
 
-    var svg = d3.select("#arg_9210977017").append("svg")
+    var svg = d3.select("#arg_2289043364").append("svg")
         .attr("width", 550)
         .attr("height", 575)
         .style("padding-top", "10px");
@@ -3334,7 +3371,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#1eebb1')
                     .style("cursor", "pointer");
-                d3.select("#arg_9210977017 .breakpoints")
+                d3.select("#arg_2289043364 .breakpoints")
                     .selectAll("rect")
                         .filter(function(j) {
                             return d.bounds.split(" ").some(function(region) {
@@ -3348,7 +3385,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#053e4e')
                     .style("cursor", "default")
-                d3.select("#arg_9210977017 .breakpoints").selectAll("rect")
+                d3.select("#arg_2289043364 .breakpoints").selectAll("rect")
                     .style("fill", "#053e4e")
             });
     }
@@ -3361,7 +3398,7 @@ function draw_force_diagram() {
         .enter()
         .append("circle")
         .attr("id", function(d) {
-            return String(9210977017) + "_node" + d.id
+            return String(2289043364) + "_node" + d.id
         })
         .attr("class", function(d) {
             var classy = ""
@@ -3422,7 +3459,7 @@ function draw_force_diagram() {
         if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
             vnub = 0;
         }
-        var alt_child = document.getElementById(String(9210977017) + "_node" + d.alt_child);
+        var alt_child = document.getElementById(String(2289043364) + "_node" + d.alt_child);
         if (alt_child != null) {
             var alt_child_x = alt_child.getAttribute("cx");
             var alt_child_y = alt_child.getAttribute("cy");
@@ -3489,7 +3526,7 @@ function draw_force_diagram() {
                 }
             }
         }
-        var alt_parent = document.getElementById(String(9210977017) + "_node" + d.alt_parent);
+        var alt_parent = document.getElementById(String(2289043364) + "_node" + d.alt_parent);
         if (alt_parent != null) {
             var alt_parent_x = alt_parent.getAttribute("cx");
             var alt_parent_y = alt_parent.getAttribute("cy");
@@ -3668,7 +3705,7 @@ function draw_force_diagram() {
             if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
                 return "c";
             } else if (d.child_of.length == 1) {
-                var parent = document.getElementById(String(9210977017) + "_node" + d.child_of[0])
+                var parent = document.getElementById(String(2289043364) + "_node" + d.child_of[0])
                 if (parent != null) {
                     var parent_x = parent.getAttribute("cx");
                     if (parent_x > d.x) {
@@ -3758,7 +3795,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('fill', '#1eebb1')
                     .style("cursor", "pointer");
-                var highlight_links = d3.select("#arg_9210977017 .links")
+                var highlight_links = d3.select("#arg_2289043364 .links")
                     .selectAll("g")
                         .filter(function(j) {
                             return j.bounds.split(" ").some(function(region) {
@@ -3783,10 +3820,10 @@ function draw_force_diagram() {
                     .style('fill', '#053e4e')
                     .style("cursor", "default");
                 //if (false) {
-                    d3.selectAll("#arg_9210977017 .link")
+                    d3.selectAll("#arg_2289043364 .link")
                         .style("stroke", "#053e4e");
                 //} else {
-                //    d3.selectAll("#arg_9210977017 .link")
+                //    d3.selectAll("#arg_2289043364 .link")
                 //        .style("stroke", "#053e4e")
                 //        .style("stroke-width", 3);
                 //};     
@@ -3879,7 +3916,8 @@ directed graphs:</p>
 Plotting using graphviz...
 </pre></div>
 </div>
-<img alt="_images/acb153e64e86280ae05d28010e7335c69e195a4e63be9344b2bd363c5bcdaace.svg" src="_images/acb153e64e86280ae05d28010e7335c69e195a4e63be9344b2bd363c5bcdaace.svg" /></div>
+<img alt="_images/acb153e64e86280ae05d28010e7335c69e195a4e63be9344b2bd363c5bcdaace.svg" src="_images/acb153e64e86280ae05d28010e7335c69e195a4e63be9344b2bd363c5bcdaace.svg" />
+</div>
 </div>
 <p>Alternatively, you can read the <code class="docutils literal notranslate"><span class="pre">graphviz</span></code> positions back into <code class="docutils literal notranslate"><span class="pre">networkx</span></code>
 and use the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> drawing functionality, which
@@ -3927,7 +3965,7 @@ annotations, etc., as shown below:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/ecb119de9761134b765b4f3868d3496b87a83f692794c67e69d709348acc877a.png" src="_images/ecb119de9761134b765b4f3868d3496b87a83f692794c67e69d709348acc877a.png" />
+<img alt="_images/143734d3be3cdfbd3d670e38b653a33bffd1b42149a68088b1c91db466640beb.png" src="_images/143734d3be3cdfbd3d670e38b653a33bffd1b42149a68088b1c91db466640beb.png" />
 </div>
 </div>
 <p>Note, however, that finding node and edge layout positions that avoid too much overlap
@@ -3935,7 +3973,7 @@ can be tricky, even for the graphviz layout engine, and there is no easy functio
 to place nodes at specific vertical (time) positions.</p>
 </section>
 <section id="demographic-processes">
-<span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Permalink to this heading">#</a></h3>
+<span id="sec-tskit-viz-other-demographic"></span><h3>Demographic processes<a class="headerlink" href="#demographic-processes" title="Link to this heading">#</a></h3>
 <p>If you are generating a tree sequence via a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/demography.html#sec-demography-importing" title="(in Python)"><span class="xref std std-ref">Demes</span></a>
 model, then you can visualize a schematic of the demography itself (rather than the
 resulting tree sequence) using the <a class="reference external" href="https://grahamgower.github.io/demesdraw/">DemesDraw</a>
@@ -3974,11 +4012,12 @@ software. For example, here’s the plotting code to generate the
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/2d00cfc748a19c91ce5bb9acf2cee3eb4d0fa21a2fe8bc6da9380deec62ff6ba.svg" src="_images/2d00cfc748a19c91ce5bb9acf2cee3eb4d0fa21a2fe8bc6da9380deec62ff6ba.svg" /></div>
+<img alt="_images/7d207acf488fa0f3dc0c40088207c5bf22483bbe473e26b8a383c477f2327345.svg" src="_images/7d207acf488fa0f3dc0c40088207c5bf22483bbe473e26b8a383c477f2327345.svg" />
+</div>
 </div>
 </section>
 <section id="geography">
-<h3>Geography<a class="headerlink" href="#geography" title="Permalink to this heading">#</a></h3>
+<h3>Geography<a class="headerlink" href="#geography" title="Link to this heading">#</a></h3>
 <div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">Todo</p>
 <p>How to get lat/long information out of a tree sequence and plot ancestors (or a tree)
@@ -4015,7 +4054,7 @@ on a geographical landscape.</p>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -4132,7 +4171,7 @@ By Tskit Developers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -4156,8 +4195,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
