@@ -18,20 +18,21 @@ kernelspec:
 # Getting started with {program}`tskit`
 
 You've run some simulations or inference methods, and you now have a 
-{class}`TreeSequence` object; what now? This tutorial is aimed 
+{class}`TreeSequence` object; what now? This tutorial is aimed for
 users who are new to {program}`tskit` and would like to get some
 basic tasks completed. We'll look at five fundamental things you might
-need to do:
+want to do:
 {ref}`process trees<sec_processing_trees>`,
-{ref}`sites & mutations<sec_processing_sites_and_mutations>`, and
-{ref}`genotypes<sec_processing_genotypes>`,
+{ref}`process sites & mutations<sec_processing_sites_and_mutations>`,
+{ref}`extract genotypes<sec_processing_genotypes>`,
 {ref}`compute statistics<sec_tskit_getting_started_compute_statistics>`, and
 {ref}`save or export data<sec_tskit_getting_started_exporting_data>`.
 Throughout, we'll also provide pointers to where you can learn more.
 
+
 :::{note}
 The examples in this
-tutorial are all written using the {ref}`sec_python_api`, but it's also possible to
+tutorial are all written using the {ref}`tskit:sec_python_api`, but it's also possible to
 {ref}`use R <sec_tskit_r>`, or access the API in other languages, notably
 {ref}`C<sec_c_api>` and [Rust](https://github.com/tskit-dev/tskit-rust).
 :::
@@ -42,7 +43,6 @@ an example tree sequence representing the genetic genealogy of a 10Mb chromosome
 twenty diploid individuals. To make it a bit more interesting, we'll simulate the effects
 of a {ref}`selective sweep<msprime:sec_ancestry_models_selective_sweeps>` in the middle
 of the chromosome, then throw some neutral mutations onto the resulting tree sequence.
-
 
 ```{code-cell} ipython3
 import msprime
@@ -61,7 +61,7 @@ ts = msprime.sim_ancestry(
     recombination_rate=1e-8,
     random_seed=1234,  # only needed for repeatabilty
     )
-# Optionally add finite-site mutations to the ts using the Jukes & Cantor model, creating SNPs
+# Optionally add finite-site mutations to the ts using the default Jukes & Cantor model, creating SNPs
 ts = msprime.sim_mutations(ts, rate=1e-8, random_seed=4321)
 ts
 ```
@@ -250,13 +250,16 @@ for nmuts, count in enumerate(np.bincount(num_muts)):
 
 (sec_processing_genotypes)=
 
-## Processing genotypes
+## Extracting genotypes
 
 At each site, the sample nodes will have a particular allelic state (or be flagged as
 {ref}`tskit:sec_data_model_missing_data`). The
-{meth}`TreeSequence.variants` method gives access to the
-full variation data. For efficiency, the {attr}`~Variant.genotypes`
-at a site are returned as a [numpy](https://numpy.org) array of integers:
+{meth}`TreeSequence.variants` method gives access to
+full variation data - possible allelic states and node genotypes at each site.
+Since nodes are by definition haploid, their genotype at a site is their allelic state
+at the site. For efficiency, its attribute {attr}`~Variant.genotypes`
+at a site returns a [numpy](https://numpy.org) array of integers
+representing allelic states:
 
 ```{code-cell} ipython3
 import numpy as np
@@ -275,10 +278,8 @@ Tree sequences are optimised to look at all samples at one site, then all sample
 adjacent site, and so on along the genome. It is much less efficient look at all the
 sites for a single sample, then all the sites for the next sample, etc. In other words,
 you should generally iterate over sites, not samples. Nevertheless, all the alleles for
-a single sample can be obtained via the
-{meth}`TreeSequence.haplotypes` method.
+a single sample can be obtained via the {meth}`TreeSequence.haplotypes` method.
 :::
-
 
 To find the actual allelic states at a site, you can refer to the
 {attr}`~Variant.alleles` provided for each {class}`Variant`:
@@ -286,8 +287,6 @@ the genotype value is an index into this list. Here's one way to print them out;
 clarity this example also prints out the IDs of both the sample nodes (i.e. the genomes)
 and the diploid {ref}`individuals <sec_nodes_or_individuals>` in which each sample
 node resides.
-
-
 
 ````{code-cell} ipython3
 samp_ids = ts.samples()
@@ -308,7 +307,6 @@ either 'A', 'T', 'G', or 'C'. However, more complex mutation models can involve 
 such as indels, leading to allelic states which need not be one of these 4 letters, nor
 even be a single letter.
 :::
-
 
 (sec_tskit_getting_started_compute_statistics)=
 
@@ -353,17 +351,17 @@ is the spectrum for a section of the tree sequence between 5 and 5.5Mb, which we
 created by deleting the regions outside that interval using
 {meth}`TreeSequence.keep_intervals`. Unsurprisingly,
 as we noted when looking at the trees, there's a far higher proportion of singletons in
-the region of the sweep.
+the region of the sweep compared to the entire genome.
 
 (sec_tskit_getting_started_compute_statistics_windowing)=
 
 ### Windowing
 
 It is often useful to see how statistics vary in different genomic regions. This is done
-by calculating them in {ref}`tskit:sec_stats_windows` along the genome. For this,
+by calculating them in {ref}`windows<tskit:sec_stats_windows>` along the genome. For this,
 let's look at a single statistic, the genetic {meth}`~TreeSequence.diversity` (π). As a
-site statistic this measures the average number of genetic differences between two
-randomly chosen samples, whereas as a branch length statistic it measures the average
+site statistic, it measures the average number of genetic differences between two
+randomly chosen samples, whereas as a branch statistic, it measures the average
 branch length between them. We'll plot how the value of π changes using 10kb windows,
 plotting the resulting diversity between positions 4 and 6 Mb:
 
@@ -380,15 +378,15 @@ ax1.set_yscale("log")
 ax1.set_ylim(1e-6, 1e-3)
 ax2.stairs(ts.diversity(windows=windows, mode="branch"), windows/1_000, baseline=None)
 ax2.set_xlabel("Genome position (kb)")
-ax2.set_title("Branch-length-based calculation")
+ax2.set_title("Branch-based calculation")
 ax2.set_xlim(4e3, 6e3)
 ax2.set_yscale("log")
 plt.show()
 ```
 
 There's a clear drop in diversity in the region of the selective sweep. And as expected,
-the statistic based on branch-lengths gives a less noisy signal.
-
+the statistic based on branch lengths gives a less noisy signal than the statistic based
+on randomly occuring mutations at sites.
 
 (sec_tskit_getting_started_exporting_data)=
 
@@ -434,7 +432,7 @@ print(small_ts.as_nexus(precision=3, include_alignments=False))
 
 ### VCF
 
-The standard way of interchanging genetic variation data is the Variant Call Format, 
+The standard way of interchanging genetic variation data is the Variant Call Format (VCF), 
 for which tskit has basic support:
 
 ```{code-cell} ipython3
@@ -442,9 +440,8 @@ import sys
 small_ts.write_vcf(sys.stdout)
 ```
 
-The write_vcf method takes a file object as a parameter; to get it to write out to the
-notebook here we ask it to write to stdout.
-
+The {meth}`TreeSequence.write_vcf` method takes a file object as a parameter;
+to get it to write out to the notebook here we ask it to write to stdout.
 
 (sec_tskit_getting_started_exporting_data_allel)=
 
@@ -466,8 +463,8 @@ print(h.n_variants, h.n_haplotypes)
 h
 ```
 
-Sckit.allel has a wide-ranging and efficient suite of tools for working with genotype
-data, so should provide anything that's needed. For example, it gives us an
+{program}`scikit-allel` has a wide-ranging and efficient suite of tools for working
+with genotype data for most of users' needs. For example, it gives us an
 another way to compute the pairwise diversity statistic (that we calculated
 {ref}`above<sec_tskit_getting_started_compute_statistics_windowing>`
 using the native {meth}`TreeSequence.diversity` method):
@@ -477,6 +474,23 @@ ac = h.count_alleles()
 allel.mean_pairwise_difference(ac)
 ```
 
+Comparative call with tskit is:
+
+```{code-cell} ipython3
+# Per site (not span-normalised to match scikit-allel)
+small_ts.diversity(windows="sites", span_normalise=False)
+# Per site (span-normalised to account for variable span of windows defined by sites)
+small_ts.diversity(windows="sites")
+
+# Per whole genome
+small_ts.diversity(span_normalise=False)
+# ... equivalent call to the above
+sum(small_ts.diversity(windows="sites", span_normalise=False))
+small_ts.diversity()
+```
+
+See {ref}`windows<tskit:sec_stats_windows>` and {ref}`windows<tskit:sec_stats_span_normalise>`
+for details about the ``span_normalise=False``.
 
 (sec_tskit_getting_started_key_points)=
 
@@ -496,15 +510,15 @@ in rough order of importance:
     * {ref}`sec_terminology_nodes` (i.e. genomes) can belong to
         {ref}`individuals<sec_terminology_individuals_and_populations>`. For example,
         sampling a diploid individual results in an {class}`Individual` object which
-        possesses two distinct {ref}`sample nodes<sec_terminology_nodes_samples>`.
+        links to two distinct {ref}`sample nodes<sec_terminology_nodes_samples>`.
 * Key tree sequence methods
     * {meth}`~TreeSequence.samples()` returns an array of node IDs specifying the
         nodes that are marked as samples
     * {meth}`~TreeSequence.node` returns the node object for a given integer node ID
     * {meth}`~TreeSequence.trees` iterates over all the trees
     * {meth}`~TreeSequence.sites` iterates over all the sites
-    * {meth}`~TreeSequence.variants` iterates over all the sites with their genotypes
-        and alleles
+    * {meth}`~TreeSequence.variants` iterates over all the sites with their list of
+        unique alleles and sample/node? genotypes
     * {meth}`~TreeSequence.simplify()` reduces the number of sample nodes in the tree
         sequence to a specified subset
     * {meth}`~TreeSequence.keep_intervals()` (or its complement,
@@ -519,4 +533,3 @@ in rough order of importance:
         sequence, for example {meth}`~TreeSequence.allele_frequency_spectrum`,
         {meth}`~TreeSequence.diversity`, and {meth}`~TreeSequence.Fst`; these can
         also be calculated in windows along the genome.
-
