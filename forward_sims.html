@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -421,7 +421,7 @@ Documentation and tutorials for these tools exist on their respective websites. 
 tutorial is instead intended to illustrate the general principles that lie behind such
 simulators.</p>
 </div>
-<p>We will focus on the case of diploids, in which each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a> contains 2 genomes,
+<p>We will focus on the case of diploids, in which each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Project name not set)"><span class="xref std std-ref">individual</span></a> contains 2 genomes,
 but the concepts used here generalize to any ploidy, if you are willing to do the book-keeping.
 The individuals themselves are not strictly necessary for representing genetic genealogies
 (it’s the genomes which are important), but they are needed during the simulation,
@@ -432,15 +432,15 @@ and so we record them in the resulting output for completeness.</p>
 <p>A <em>node</em> represents a genome at a point in time (often we imagine this as the “birth time” of the genome).
 It can be described by a tuple, <code class="docutils literal notranslate"><span class="pre">(id,</span> <span class="pre">time)</span></code>, where <code class="docutils literal notranslate"><span class="pre">id</span></code> is a unique integer,
 and <code class="docutils literal notranslate"><span class="pre">time</span></code> reflects the birth time of that <code class="docutils literal notranslate"><span class="pre">id</span></code>. When generating a tree sequence,
-this will be stored in a row of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-node-table-definition" title="(in Python)"><span>Node Table</span></a>.</p>
+this will be stored in a row of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-node-table-definition" title="(in Project name not set)"><span>Node Table</span></a>.</p>
 <p>A <em>diploid individual</em> is a group of two nodes. During simulation,
 a simple and efficient grouping assigns sequential pairs of node IDs to an individual.
 It can be helpful (but not strictly necessary) to store individuals within the tree sequence
-as rows of the the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-individual-table-definition" title="(in Python)"><span>Individual Table</span></a> (a node can then be assigned to an
+as rows of the the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-individual-table-definition" title="(in Project name not set)"><span>Individual Table</span></a> (a node can then be assigned to an
 individual by storing that individual’s id in the appropriate row of the node table).</p>
 <p>An <em>edge</em> reflects a transmission event between nodes.  An edge is a tuple <code class="docutils literal notranslate"><span class="pre">(Left,</span> <span class="pre">Right,</span> <span class="pre">Parent,</span> <span class="pre">Child)</span></code>
 whose meaning is “The <code class="docutils literal notranslate"><span class="pre">Child</span></code> genome inherited the genomic interval [<code class="docutils literal notranslate"><span class="pre">Left</span></code>, <code class="docutils literal notranslate"><span class="pre">Right</span></code>) from the <code class="docutils literal notranslate"><span class="pre">Parent</span></code> genome”.
-In a tree sequence this is stored in a row of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Python)"><span>Edge Table</span></a>.</p>
+In a tree sequence this is stored in a row of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Project name not set)"><span>Edge Table</span></a>.</p>
 <p>The <em>time</em>, in the discrete-time Wright-Fisher (WF) model which we will simulate, is measured in
 integer generations. To match the tskit notion of time, we record time in <em>generations ago</em>:
 i.e. for a simple simulation of G generations, we start the simulation at generation <span class="math notranslate nohighlight">\(G-1\)</span>
@@ -455,7 +455,7 @@ population in the previous generation.</p>
 <p>We will generate edges, nodes, and individuals forwards in time, adding them to the relevant <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tables.
 To aid efficiency, we will also see how to “simplify” the tables into the minimal set of nodes and edges that
 describe the history of the sample. Finally, these tables can be exported into an immutable
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> for storing or analysis.</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> for storing or analysis.</p>
 <section id="setup">
 <h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <p>First, we’ll import the necessary libraries and define some general parameters.
@@ -480,9 +480,9 @@ The <a class="reference external" href="https://numpy.org/doc/stable/">numpy</a>
 <ol class="arabic simple">
 <li><p>Pick a pair of parent individuals at random from the population in the previous generation.</p></li>
 <li><p>Create a new child individual with two genomes (an individual ID will be created
-by <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable.add_row" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adding</span> <span class="pre">a</span> <span class="pre">row</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">individual</span> <span class="pre">table</span></code></a>
+by <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable.add_row" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adding</span> <span class="pre">a</span> <span class="pre">row</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">individual</span> <span class="pre">table</span></code></a>
 and two nodes IDs will be created by
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.add_row" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adding</span> <span class="pre">two</span> <span class="pre">rows</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">node</span> <span class="pre">table</span></code></a>. If desired,
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.NodeTable.add_row" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adding</span> <span class="pre">two</span> <span class="pre">rows</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">node</span> <span class="pre">table</span></code></a>. If desired,
 we can also provide the parent IDs when adding to the individual table, which
 will result in storing the entire genealogical pedigree.</p></li>
 <li><p>Add the inheritance paths for each child genome using an <code class="docutils literal notranslate"><span class="pre">add_inheritance_paths()</span></code>
@@ -547,7 +547,7 @@ which gives simpler theoretical results. This is easy to change if required.</p>
 </div>
 <p>Our forward-time simulator simply involves repeatedly running the <code class="docutils literal notranslate"><span class="pre">next_population()</span></code> routine,
 replacing the old population with the new one. For efficiency reasons, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> has strict requirements
-for the order of edges in the edge table, so we need to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.sort" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sort()</span></code></a> the tables before we output the final tree sequence.</p>
+for the order of edges in the edge table, so we need to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.sort" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sort()</span></code></a> the tables before we output the final tree sequence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward_WF</span><span class="p">(</span><span class="n">num_diploids</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
@@ -575,7 +575,7 @@ for the order of edges in the edge table, so we need to <a class="reference exte
 <section id="inheritance-without-recombination">
 <h3>Inheritance without recombination<a class="headerlink" href="#inheritance-without-recombination" title="Link to this heading">#</a></h3>
 <p>The final piece of the simulation is to define the <code class="docutils literal notranslate"><span class="pre">add_inheritance_paths()</span></code> function,
-which saves the inheritance paths in the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Python)"><span>Edge Table</span></a>.
+which saves the inheritance paths in the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-table-definition" title="(in Project name not set)"><span>Edge Table</span></a>.
 For reference, the simplest case (a small focal region in which there is no recombination)
 can be coded as follows:</p>
 <div class="cell docutils container">
@@ -600,7 +600,7 @@ wish to implement. For instance, a simple model such as that in the
 <a class="reference internal" href="completing_forward_sims.html#sec-completing-forwards-simulations"><span class="std std-ref">Completing forwards simulations</span></a> tutorial might assume exactly one
 crossover per chromosome. A complex model might allow not just multiple
 crossovers with e.g. recombination “hotspots”, but also non-crossover events
-such as <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-gene-conversion" title="(in Python)"><span>Gene conversion</span></a>.</p>
+such as <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-gene-conversion" title="(in Project name not set)"><span>Gene conversion</span></a>.</p>
 <p>Below is a redefined <code class="docutils literal notranslate"><span class="pre">add_inheritance_paths()</span></code> function of intermediate complexity,
 which models recombination as a uniform Poisson process along a genomic interval.
 We generate a set of “breakpoints” along the genome, then allocates edges from the
@@ -685,7 +685,7 @@ material at this genomic position (they appear as isolated nodes at the top of t
 <p>The key to efficent forward-time genealogical simulation is the process of <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">Simplification</span></a>,
 which can reduce much of the complexity shown in the tree above.
 Typically, we want to remove all the lineages that do not contribute to the current day genomes.
-We do this via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method, specifying that only the nodes
+We do this via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method, specifying that only the nodes
 in the current generation are “samples”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -716,7 +716,7 @@ which changes the node IDs.</p>
 <img alt="_images/7e3383c6889fe3389855230a4a8aa9471ae75ec92700699da6a1a516f55f19fa.svg" src="_images/7e3383c6889fe3389855230a4a8aa9471ae75ec92700699da6a1a516f55f19fa.svg" />
 </div>
 </div>
-<p>You can see that the list of nodes passed to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> (i.e. the current-day genomes)
+<p>You can see that the list of nodes passed to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> (i.e. the current-day genomes)
 have become the first nodes in the table, numbered from 0..11;
 the remaining (internal) nodes have been renumbered from youngest to oldest.</p>
 </section>
@@ -726,7 +726,7 @@ the remaining (internal) nodes have been renumbered from youngest to oldest.</p>
 even those that do not not represent branch-points in the tree.
 Often these are also unneeded, and by default we remove those too, although
 this will mean that we lose track of the pedigree of the individuals
-(which is stored in the parents column of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-individual-table-definition" title="(in Python)"><span>Individual Table</span></a>).
+(which is stored in the parents column of the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-individual-table-definition" title="(in Project name not set)"><span>Individual Table</span></a>).
 Since we are removing more nodes, the node IDs of non-samples will again change.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -872,7 +872,7 @@ long enough to capture the ancestry back to a single common ancestor
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/298507a00d5fb08de55f8567db4925f7a24b0b2fac08eceacc637fb0d03e96df.png" src="_images/298507a00d5fb08de55f8567db4925f7a24b0b2fac08eceacc637fb0d03e96df.png" />
+<img alt="_images/6be63c1e07ff22d39572bf6d60ede15420b9ce96767a6d4fe8e63d78f95d945a.png" src="_images/6be63c1e07ff22d39572bf6d60ede15420b9ce96767a6d4fe8e63d78f95d945a.png" />
 </div>
 </div>
 <p>Most of our trees have one root, but a handful have two.
@@ -908,7 +908,7 @@ tMRCAs using <code class="docutils literal notranslate"><span class="pre">msprim
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7eb6adf620be15bf2a4d15b1924a61d4f4a00d25daa6cfacb930d18c9e823458.png" src="_images/7eb6adf620be15bf2a4d15b1924a61d4f4a00d25daa6cfacb930d18c9e823458.png" />
+<img alt="_images/a22284fae27df124feb008ad5ffcbb43fd19ccb5ac31a130d19819dfe9f19be9.png" src="_images/a22284fae27df124feb008ad5ffcbb43fd19ccb5ac31a130d19819dfe9f19be9.png" />
 </div>
 </div>
 <p>So, some fraction of local trees have very large tMRCAs! And of course

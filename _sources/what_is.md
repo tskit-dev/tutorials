@@ -74,9 +74,9 @@ def create_notebook_data():
 
 A *succinct tree sequence*, or "tree sequence" for short, represents the ancestral
 relationships between a set of DNA sequences. Tree sequences are based on fundamental
-biological principles of inheritance, DNA duplication, and recombination; they can be
-created by [evolutionary simulation](https://tskit.dev/software/#simulate) or by
-[inferring genealogies from empirical DNA data](https://tskit.dev/software/#infer).
+biological principles of inheritance, DNA duplication, mutation, and recombination;
+they can be created by [evolutionary simulation](https://tskit.dev/software/#simulate)
+or by [inferring genealogies from empirical DNA data](https://tskit.dev/software/#infer).
 
 :::{margin} Key point
 Tree sequences are used to encode and analyse large genetic datasets
@@ -85,8 +85,9 @@ Tree sequences are used to encode and analyse large genetic datasets
 Tree sequences provide an efficient way of storing
 [genetic variation](https://en.wikipedia.org/wiki/Genetic_variation) data, and can
 power analyses of millions of whole [genomes](https://en.wikipedia.org/wiki/Genome).
-Plots (a) and (b) summarize results presented
-[further](plot_storing_everyone) [down](plot_incremental_calculation) this tutorial.
+Plots (a) and (b) below summarize these aspects 
+(see additional details on [storage](plot_storing_everyone) and
+[compute](plot_incremental_calculation) further down).
 
 ```{code-cell} ipython3
 :"tags": ["remove-input"]
@@ -141,8 +142,8 @@ plt.show()
 As the name suggests, the simplest way to think about a tree sequence is that it
 describes a sequence of correlated "local trees" --- i.e. genetic trees located at
 different points along a [chromosome](https://en.wikipedia.org/wiki/Chromosome).
-Here's a tiny example based on ten genomes, $\mathrm{a}$ to $\mathrm{j}$, spanning
-a short 1000 letter chromosome.
+Here's a tiny example based on ten haploid genomes, $\mathrm{a}$ to $\mathrm{j}$,
+spanning a short 1000 letter chromosome.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -173,11 +174,18 @@ the nodes are referred to by {ref}`numerical ID<sec_terminology_nodes>`.
 ::::
 
 The tickmarks on the X axis and background shading indicate the genomic positions covered
-by the trees. For the first short portion of the chromosome, from the
-start until position 189, the relationships between the ten genomes are shown by
-the first tree. The second tree shows the relationships between positions 189 and 546,
-and the third from position 546 to the end. We can say that the first tree spans 189
-base pairs, the second 357, and the third 454.
+by the trees. The tickmarks indicate recombination events that explain relationships
+between the ten genomes. There were two such recombination events, giving us three local trees.
+For the first short portion of the chromosome, from the start until position 189,
+the relationships between the ten genomes are shown by the first tree.
+The second tree shows the relationships between positions 189 and 546.
+By inspecting the first and the second local tree we can see that genomes $\mathrm{b}-\mathrm{f}$
+changed their "most recent common ancestor" (MRCA) with genome $\mathrm{a}$ to
+MRCA with genome $\mathrm{g}$.
+The third tree shows the relationships between positions 546 and 1000 (the end).
+By inspecting the second and the third local tree we can see that
+recombination changed the ancestry of genomes $\mathrm{b}-\mathrm{f}$
+back to shared MRCA with genome $\mathrm{g}$.
 
 (sec_what_is_genealogical_network)=
 
@@ -187,8 +195,8 @@ In fact, succinct tree sequences don't store each tree separately, but instead a
 based on an interconnected *genetic genealogy*, in which
 [genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination) has led
 to different regions of the chromosome having different histories. Another way of
-thinking about the tree sequence above is that it describes the full genetic
-*family "tree"* (strictly, "network") of our 10 genomes.
+thinking about the tree sequence above is that it describes the full genetic ancestry
+of our 10 genomes.
 
 (sec_what_is_dna_data)=
 
@@ -355,10 +363,10 @@ tree sequence and the underlying biological processes that produced the genetic
 sequences in the first place, such as those pictured in the demography above. For
 example, each branch point (or "internal node") in one of our trees can be
 imagined as a genome which existed at a specific time in the past, and
-which is a "most recent common ancestor" (MRCA) of the descendant genomes at that
-position on the chromosome. We can mark these extra "ancestral genomes" on our tree
-diagrams, distinguishing them from the *sampled* genomes ($\mathrm{a}$ to $\mathrm{j}$)
-by using circular symbols. We can even colour the nodes by the population that we know
+which is a MRCA of the descendant genomes at that position on the chromosome.
+We can mark these extra "ancestral genomes" on our tree diagrams with circular symbols,
+distinguishing them from the *sampled* genomes ($\mathrm{a}$ to $\mathrm{j}$)
+marked with square symbols. We can even colour the nodes by the population that we know
 (or infer) them to belong to at the time:
 
 ```{code-cell} ipython3
@@ -425,7 +433,7 @@ Most genetic calculations involve iterating over trees, which is highly efficien
 
 For example, statistical measures of genetic variation can be thought of as a calculation
 combining the local trees with the mutations on each branch (or, often preferably, the
-length of the branches: see [this summary](https://academic.oup.com/genetics/article/215/3/779/5930459)).
+length of the branches: see [this summary](https://doi.org/10.1534/genetics.120.303253)).
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation *de novo* on each tree.

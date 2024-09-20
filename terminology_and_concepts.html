@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -419,10 +419,10 @@ concepts behind <strong class="program">tskit</strong>, the tree sequence toolki
 evolutionary trees, together with some associated data that specifies, for example,
 the location of mutations in the tree sequence. More technically, a tree sequence
 stores a biological structure known as an “Ancestral Recombination Graph”, or ARG.</p>
-<p>Below are the most important <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions" title="(in Python)"><span class="xref std std-ref">terms and concepts</span></a>
-that you’ll encounter in these tutorials,  but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree
+<p>Below are the most important <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions" title="(in Project name not set)"><span class="xref std std-ref">terms and concepts</span></a>
+that you’ll encounter in these tutorials,  but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree
 sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Python)"><span>Python API</span></a> (which will be used in the rest of this tutorial):</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Project name not set)"><span>Python API</span></a> (which will be used in the rest of this tutorial):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
@@ -438,7 +438,7 @@ sequence from a <code class="docutils literal notranslate"><span class="pre">.tr
 <p class="sidebar-title"></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-multiple-chromosomes" title="(in Python)"><span class="xref std std-ref">Workarounds</span></a> exist
+<p><a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-multiple-chromosomes" title="(in Project name not set)"><span class="xref std std-ref">Workarounds</span></a> exist
 to represent a multi-chromosome genome as a tree
 sequence, but are not covered here</p>
 </div>
@@ -449,7 +449,7 @@ the whole tree sequence (if you find it easier, imagine our examples describe an
 organism with a single, short chromosome).</p>
 <p>In the tree sequence we have just loaded,
 the genome is of length 1000, conventionally interpreted as the number of base
-pairs. This is accessible using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sequence_length" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sequence_length</span></code></a> attribute.</p>
+pairs. This is accessible using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sequence_length" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sequence_length</span></code></a> attribute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span>  <span class="c1"># a floating point number: positions need not be integers</span>
@@ -597,7 +597,7 @@ and <a class="reference internal" href="getting_started.html#sec-tskit-getting-s
 </aside>
 <p>Note that in keeping with the reliance on node numbers (rather than objects), information
 about the relationships between nodes in a tree is obtained using their <strong>integer IDs</strong>.
-In the Python API, for instance, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a>
+In the Python API, for instance, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a>
 method will return the first tree, which then provides basic methods to obtain
 information about (say) node <span class="math notranslate nohighlight">\(7\)</span>, including the IDs of its parent and child nodes:</p>
 <div class="cell docutils container">
@@ -619,13 +619,13 @@ information about (say) node <span class="math notranslate nohighlight">\(7\)</s
 <section id="individuals-and-populations">
 <span id="sec-terminology-individuals-and-populations"></span><h3>Individuals and populations<a class="headerlink" href="#individuals-and-populations" title="Link to this heading">#</a></h3>
 <p>Sometimes we know that one or more nodes belong to a particular
-<em><a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Python)"><span class="xref std std-ref">individual</span></a></em>. For example,
+<em><a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-nodes-or-individuals" title="(in Project name not set)"><span class="xref std std-ref">individual</span></a></em>. For example,
 most organisms are diploid, so if we sequence the DNA from an individual we are likely to
 obtain two copies of each autosomal chromosome. The tree with six sample nodes above
 could therefore represent the result of sampling three diploid individuals from a larger
 population. The tree sequence can keep track of the individuals in which nodes reside,
 and store specific information about them (such as the individuals’ spatial location)
-as well as arbitrary <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Python)"><span class="xref std std-ref">metadata</span></a> (such as a name). In this particular
+as well as arbitrary <a class="reference external" href="https://tskit.dev/tskit/docs/stable/metadata.html#sec-metadata" title="(in Project name not set)"><span class="xref std std-ref">metadata</span></a> (such as a name). In this particular
 tree sequence the sample nodes are indeed associated with three named diploid
 individuals: <code class="docutils literal notranslate"><span class="pre">Ada</span></code>, <code class="docutils literal notranslate"><span class="pre">Bob</span></code> and <code class="docutils literal notranslate"><span class="pre">Cat</span></code>.</p>
 <div class="cell docutils container">
@@ -702,7 +702,7 @@ be associated with a larger <em>population</em>. In this example, there is only 
 <p>In <strong class="program">tskit</strong>, <em>mutations</em> occur at specific, defined <em>sites</em>. A mutation is
 positioned above a particular node (specified by the node ID), occurs at a particular
 site (specified by a site ID), and involves a change of allelic state to a defined
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a>. A mutation therefore can be specified something like
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a>. A mutation therefore can be specified something like
 this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -719,9 +719,9 @@ this:</p>
 </div>
 </div>
 </div>
-<p>The mutation can have a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.time" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time</span></code></a> or if, as in this case, the times of
+<p>The mutation can have a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.time" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time</span></code></a> or if, as in this case, the times of
 mutations in the tree sequence are unknown, all mutations can have the special NaN value
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.UNKNOWN_TIME" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.UNKNOWN_TIME</span></code></a>. Notice that the genomic position of the mutation is not
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.UNKNOWN_TIME" title="(in Project name not set)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.UNKNOWN_TIME</span></code></a>. Notice that the genomic position of the mutation is not
 included. Instead, that is a property of the <em>site</em> to which the mutation refers, in
 this case, site ID 0 (which happens to be at position 751):</p>
 <div class="cell docutils container">
@@ -737,12 +737,12 @@ this case, site ID 0 (which happens to be at position 751):</p>
 </div>
 </div>
 <p>In the plot above, since the the only mutation is above node 8 in the last tree, and has
-a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
-8 in the last tree (sample genomes 2, 3, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 751,
-while the others have the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a> of “T”. This means that Ada is
+a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
+8 in the last tree (sample genomes 2, 3, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 751,
+while the others have the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a> of “T”. This means that Ada is
 homozygous for “T”, Bob is homozygous for “G”, and Cat is heterozygous “T/G”.
 In other words the ancestral state and the details of any mutations at that site,
-when coupled with the tree topology at the site <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a>, is sufficient to
+when coupled with the tree topology at the site <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a>, is sufficient to
 define the allelic state possessed by each sample.</p>
 <p>Note that even though the genome is 1000 base pairs long, the tree sequence only contains
 a single site, because we usually only bother defining <em>variable</em> sites in a tree
@@ -758,7 +758,7 @@ includes what produced it, and what operations have been done to it and when. Fo
 instance, if it was produced by <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplifying</span></a> a tree
 sequence produced by the msprime simulator, the first provenance entry would record the
 call to msprime that produced it, and the second the call to
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> that was done on the result. Ideally, the list of
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> that was done on the result. Ideally, the list of
 provenance entries are sufficient to exactly recreate the tree sequence, but this
 is not always possible.</p>
 </section>

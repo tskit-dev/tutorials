@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -395,9 +395,9 @@ document.write(`
 <span id="sec-what-is"></span><h1>What is a tree sequence?<a class="headerlink" href="#what-is-a-tree-sequence" title="Link to this heading">#</a></h1>
 <p>A <em>succinct tree sequence</em>, or “tree sequence” for short, represents the ancestral
 relationships between a set of DNA sequences. Tree sequences are based on fundamental
-biological principles of inheritance, DNA duplication, and recombination; they can be
-created by <a class="reference external" href="https://tskit.dev/software/#simulate">evolutionary simulation</a> or by
-<a class="reference external" href="https://tskit.dev/software/#infer">inferring genealogies from empirical DNA data</a>.</p>
+biological principles of inheritance, DNA duplication, mutation, and recombination;
+they can be created by <a class="reference external" href="https://tskit.dev/software/#simulate">evolutionary simulation</a>
+or by <a class="reference external" href="https://tskit.dev/software/#infer">inferring genealogies from empirical DNA data</a>.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">Key point</p>
 <p>Tree sequences are used to encode and analyse large genetic datasets</p>
@@ -405,11 +405,12 @@ created by <a class="reference external" href="https://tskit.dev/software/#simul
 <p>Tree sequences provide an efficient way of storing
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_variation">genetic variation</a> data, and can
 power analyses of millions of whole <a class="reference external" href="https://en.wikipedia.org/wiki/Genome">genomes</a>.
-Plots (a) and (b) summarize results presented
-<a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">further</span></a> <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">down</span></a> this tutorial.</p>
+Plots (a) and (b) below summarize these aspects
+(see additional details on <a class="reference internal" href="#plot-storing-everyone"><span class="std std-ref">storage</span></a> and
+<a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">compute</span></a> further down).</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/28d90529d928db880754b16d8b90f508e7bf801324c0af532acb591abe1e2c54.svg" src="_images/28d90529d928db880754b16d8b90f508e7bf801324c0af532acb591abe1e2c54.svg" />
+<img alt="_images/d1acc3f693c1c67ff5b83c78ad0f2470641f9c3dd537c7675fd9d07529047e34.svg" src="_images/d1acc3f693c1c67ff5b83c78ad0f2470641f9c3dd537c7675fd9d07529047e34.svg" />
 </div>
 </div>
 <section id="how-to-think-about-tree-sequences">
@@ -419,8 +420,8 @@ Plots (a) and (b) summarize results presented
 <p>As the name suggests, the simplest way to think about a tree sequence is that it
 describes a sequence of correlated “local trees” — i.e. genetic trees located at
 different points along a <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.
-Here’s a tiny example based on ten genomes, <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>, spanning
-a short 1000 letter chromosome.</p>
+Here’s a tiny example based on ten haploid genomes, <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>,
+spanning a short 1000 letter chromosome.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -462,11 +463,18 @@ the nodes are referred to by <a class="reference internal" href="terminology_and
 </div>
 </aside>
 <p>The tickmarks on the X axis and background shading indicate the genomic positions covered
-by the trees. For the first short portion of the chromosome, from the
-start until position 189, the relationships between the ten genomes are shown by
-the first tree. The second tree shows the relationships between positions 189 and 546,
-and the third from position 546 to the end. We can say that the first tree spans 189
-base pairs, the second 357, and the third 454.</p>
+by the trees. The tickmarks indicate recombination events that explain relationships
+between the ten genomes. There were two such recombination events, giving us three local trees.
+For the first short portion of the chromosome, from the start until position 189,
+the relationships between the ten genomes are shown by the first tree.
+The second tree shows the relationships between positions 189 and 546.
+By inspecting the first and the second local tree we can see that genomes <span class="math notranslate nohighlight">\(\mathrm{b}-\mathrm{f}\)</span>
+changed their “most recent common ancestor” (MRCA) with genome <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to
+MRCA with genome <span class="math notranslate nohighlight">\(\mathrm{g}\)</span>.
+The third tree shows the relationships between positions 546 and 1000 (the end).
+By inspecting the second and the third local tree we can see that
+recombination changed the ancestry of genomes <span class="math notranslate nohighlight">\(\mathrm{b}-\mathrm{f}\)</span>
+back to shared MRCA with genome <span class="math notranslate nohighlight">\(\mathrm{g}\)</span>.</p>
 </section>
 <section id="created-by-a-genealogical-network">
 <span id="sec-what-is-genealogical-network"></span><h3>… created by a genealogical network<a class="headerlink" href="#created-by-a-genealogical-network" title="Link to this heading">#</a></h3>
@@ -474,8 +482,8 @@ base pairs, the second 357, and the third 454.</p>
 based on an interconnected <em>genetic genealogy</em>, in which
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a> has led
 to different regions of the chromosome having different histories. Another way of
-thinking about the tree sequence above is that it describes the full genetic
-<em>family “tree”</em> (strictly, “network”) of our 10 genomes.</p>
+thinking about the tree sequence above is that it describes the full genetic ancestry
+of our 10 genomes.</p>
 </section>
 </section>
 <section id="an-efficient-encoding-of-dna-data">
@@ -598,7 +606,7 @@ noting that the efficiency extends to processing time too: tree sequences are of
 several orders of magnitude faster to process than other storage formats.</p>
 <div class="cell tag_remove-input docutils container" id="plot-storing-everyone">
 <div class="cell_output docutils container">
-<img alt="_images/8978affb93e9fd189a693aa6f5d387445a23167ceda4844db67b95815f1481f9.svg" src="_images/8978affb93e9fd189a693aa6f5d387445a23167ceda4844db67b95815f1481f9.svg" />
+<img alt="_images/0d2ef58d56b04d5e017971d2e9e97c8340a365a095b8cefbd58f2548f5f7dee2.svg" src="_images/0d2ef58d56b04d5e017971d2e9e97c8340a365a095b8cefbd58f2548f5f7dee2.svg" />
 </div>
 </div>
 </section>
@@ -629,7 +637,7 @@ from modern day populations A (a constant-size population) and B (a recently exp
 one), where limited migration is occuring from A to B.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/1d07c30e28480f9100da290a5ff1a7e5ed59956a2b698ba3e410a4e4c23591c3.svg" src="_images/1d07c30e28480f9100da290a5ff1a7e5ed59956a2b698ba3e410a4e4c23591c3.svg" />
+<img alt="_images/f432f61b8ced8ae27ab942cd34e800e780918d3bdf99efedcfede4fa5f92c08b.svg" src="_images/f432f61b8ced8ae27ab942cd34e800e780918d3bdf99efedcfede4fa5f92c08b.svg" />
 </div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
@@ -637,10 +645,10 @@ tree sequence and the underlying biological processes that produced the genetic
 sequences in the first place, such as those pictured in the demography above. For
 example, each branch point (or “internal node”) in one of our trees can be
 imagined as a genome which existed at a specific time in the past, and
-which is a “most recent common ancestor” (MRCA) of the descendant genomes at that
-position on the chromosome. We can mark these extra “ancestral genomes” on our tree
-diagrams, distinguishing them from the <em>sampled</em> genomes (<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>)
-by using circular symbols. We can even colour the nodes by the population that we know
+which is a MRCA of the descendant genomes at that position on the chromosome.
+We can mark these extra “ancestral genomes” on our tree diagrams with circular symbols,
+distinguishing them from the <em>sampled</em> genomes (<span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>)
+marked with square symbols. We can even colour the nodes by the population that we know
 (or infer) them to belong to at the time:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -735,7 +743,7 @@ multiple correlated trees along a genome.</p>
 </aside>
 <p>For example, statistical measures of genetic variation can be thought of as a calculation
 combining the local trees with the mutations on each branch (or, often preferably, the
-length of the branches: see <a class="reference external" href="https://academic.oup.com/genetics/article/215/3/779/5930459">this summary</a>).
+length of the branches: see <a class="reference external" href="https://doi.org/10.1534/genetics.120.303253">this summary</a>).
 Because a tree sequence is built on a set of small branch changes along the chromosome,
 statistical calculations can often be updated incrementally as we
 move along the genome, without having to perform the calculation <em>de novo</em> on each tree.
@@ -745,7 +753,7 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_remove-input docutils container" id="plot-incremental-calculation">
 <div class="cell_output docutils container">
-<img alt="_images/560728fce118a03e30a9e15bb037755d1dbd572f81c110af32fbf0fd2c03f3b1.svg" src="_images/560728fce118a03e30a9e15bb037755d1dbd572f81c110af32fbf0fd2c03f3b1.svg" />
+<img alt="_images/b4daf39ca8c458c05364ced380af62285d9a9b0d13ba9e33571186f2e05d7dcb.svg" src="_images/b4daf39ca8c458c05364ced380af62285d9a9b0d13ba9e33571186f2e05d7dcb.svg" />
 </div>
 </div>
 <p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -399,15 +399,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analysing-trees">
 <span id="sec-analysing-trees"></span><h1>Analysing trees<a class="headerlink" href="#analysing-trees" title="Link to this heading">#</a></h1>
-<p>There are a number of different ways we might want to analyse a single  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>.
+<p>There are a number of different ways we might want to analyse a single  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>.
 Most involve some sort of traversal over the nodes, mutations, or branches in the tree.
 <strong class="program">tskit</strong> provides various way of traversing through a tree, and also some
-built in phylogenetic algorithms such as <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> which efficently
+built in phylogenetic algorithms such as <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> which efficently
 places mutations (“characters” in phylogenetic terminology) on a given tree.</p>
 <section id="tree-traversals">
 <span id="sec-analysing-trees-traversals"></span><h2>Tree traversals<a class="headerlink" href="#tree-traversals" title="Link to this heading">#</a></h2>
-<p>Given a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>, traversals in various orders are possible using the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nodes()</span></code></a> iterator. Take the following tree:</p>
+<p>Given a single <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a>, traversals in various orders are possible using the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nodes()</span></code></a> iterator. Take the following tree:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tskit</span>
@@ -423,7 +423,7 @@ places mutations (“characters” in phylogenetic terminology) on a given tree.
 </div>
 </div>
 <p>We can visit the nodes in different orders by providing an <code class="docutils literal notranslate"><span class="pre">order</span></code> parameter to
-the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.nodes()</span></code></a> iterator:</p>
+the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.nodes()</span></code></a> iterator:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;preorder&quot;</span><span class="p">,</span> <span class="s2">&quot;inorder&quot;</span><span class="p">,</span> <span class="s2">&quot;postorder&quot;</span><span class="p">]:</span>
@@ -455,11 +455,11 @@ here we compute the total branch length of a tree:</p>
 </div>
 </div>
 </div>
-<p>Note that this is also available as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.total_branch_length" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.total_branch_length</span></code></a> attribute.</p>
+<p>Note that this is also available as the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.total_branch_length" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.total_branch_length</span></code></a> attribute.</p>
 <section id="traversing-upwards">
 <h3>Traversing upwards<a class="headerlink" href="#traversing-upwards" title="Link to this heading">#</a></h3>
 <p>For many applications it is useful to be able to traverse upwards from the
-leaves. We can do this using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.parent" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.parent()</span></code></a> method, which
+leaves. We can do this using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.parent" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.parent()</span></code></a> method, which
 returns the parent of a node. For example, we can traverse upwards from
 each of the samples in the tree:</p>
 <div class="cell docutils container">
@@ -520,8 +520,8 @@ their path length to root:</p>
 <span id="sec-tutorial-networkx"></span><h2>Networkx<a class="headerlink" href="#networkx" title="Link to this heading">#</a></h2>
 <p>Traversals and other network analysis can also be performed using the sizeable
 <a class="reference external" href="https://networkx.github.io/documentation/stable/index.html">networkx</a>
-library. This can be achieved by calling <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_dict_of_dicts" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.as_dict_of_dicts()</span></code></a> to
-convert a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a> instance to a format that can be imported by networkx to
+library. This can be achieved by calling <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_dict_of_dicts" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.as_dict_of_dicts()</span></code></a> to
+convert a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tree</span></code></a> instance to a format that can be imported by networkx to
 create a graph:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -699,7 +699,7 @@ the position of the mutations that caused this variation:</p>
 <img alt="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" src="_images/e9a2b0e9dd5c6643e9f10d3b13d57eda512fa31b72a6db08a00ae65354077d27.svg" />
 </div>
 </div>
-<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method finds a parsimonious explanation for a
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method finds a parsimonious explanation for a
 set of discrete character observations on the samples in a tree using classical
 phylogenetic algorithms:</p>
 <div class="cell docutils container">
@@ -725,8 +725,8 @@ a mutation to blue and green over nodes 4 and 5.</p>
 <section id="building-tables">
 <h3>Building tables<a class="headerlink" href="#building-tables" title="Link to this heading">#</a></h3>
 <p>Below we show how a set of tables can be updated using the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Python)"><span class="xref std std-ref">Tables API</span></a>, taking advantage of the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method to identify parsimonious positions
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-tables-api" title="(in Project name not set)"><span class="xref std std-ref">Tables API</span></a>, taking advantage of the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method to identify parsimonious positions
 for mutations on a tree. Here’s the tree we’ll use:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -742,7 +742,7 @@ for mutations on a tree. Here’s the tree we’ll use:</p>
 </div>
 <p>Now we can modify the tables by adding mutations. To find the location of mutations,
 we infer them from some observed data (some site positions with associated genotypes
-and allelic states, in the conventional <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tskit</span> <span class="pre">encoding</span></code></a>):</p>
+and allelic states, in the conventional <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tskit</span> <span class="pre">encoding</span></code></a>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/parsimony_map.pickle&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -821,7 +821,7 @@ Site 9: parsimony sets ancestral state to G, and places mutation 9 to T above no
 <h3>Parsimony and missing data<a class="headerlink" href="#parsimony-and-missing-data" title="Link to this heading">#</a></h3>
 <p>We can also take missing data
 into account when finding a set of parsimonious state transitions. We do this by
-specifying the special value <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MISSING_DATA" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.MISSING_DATA</span></code></a> (-1) as the state, which is
+specifying the special value <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.MISSING_DATA" title="(in Project name not set)"><code class="xref py py-data docutils literal notranslate"><span class="pre">tskit.MISSING_DATA</span></code></a> (-1) as the state, which is
 treated by the algorithm as “could be anything”.</p>
 <p>For example, here we state that sample 0 is missing, indicated by the colour white:</p>
 <div class="cell docutils container">
@@ -838,7 +838,7 @@ treated by the algorithm as “could be anything”.</p>
 <img alt="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" src="_images/0c3e099a13f6091b85d5ac925e55e36efe41d9866f67db0341344ef4dc48d44a.svg" />
 </div>
 </div>
-<p>Now we run the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method, which applies the Hartigan parsimony
+<p>Now we run the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.map_mutations()</span></code></a> method, which applies the Hartigan parsimony
 algorithm:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

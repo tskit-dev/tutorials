@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -396,8 +396,8 @@ document.write(`
 <p><strong>Yan Wong</strong></p>
 <p>This tutorial is intended to be a gentle introduction to the combinatorial
 treatment of tree topologies in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>. For a more formal introduction,
-see the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/topological-analysis.html#sec-combinatorics" title="(in Python)"><span>Identifying and counting topologies</span></a> section of the
-official <code class="docutils literal notranslate"><span class="pre">tskit</span></code> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Python)"><span class="xref std std-ref">documentation</span></a>.</p>
+see the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/topological-analysis.html#sec-combinatorics" title="(in Project name not set)"><span>Identifying and counting topologies</span></a> section of the
+official <code class="docutils literal notranslate"><span class="pre">tskit</span></code> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Project name not set)"><span class="xref std std-ref">documentation</span></a>.</p>
 <p>The <em>topology</em> of a single tree is the term used to describe the branching pattern,
 regardless of the lengths of the branches. For example, both trees below have the
 same topology, although the branch lengths differ:</p>
@@ -496,7 +496,7 @@ possible labelling):</p>
 </div>
 </div>
 <p>A 3-tip tree therefore has only four possible topologies.
-These can be generated with the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a> function.</p>
+These can be generated with the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generated_trees</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -534,8 +534,8 @@ These can be generated with the <a class="reference external" href="https://tski
 <section id="enumerating-shapes-and-labellings">
 <h3>Enumerating shapes and labellings<a class="headerlink" href="#enumerating-shapes-and-labellings" title="Link to this heading">#</a></h3>
 <p>For a tree with four tips, more topologies and shapes are possible. As before, we can generate the
-topologies using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>. Alternatively, if we only want the (unlabelled) shapes,
-we can use the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> function:</p>
+topologies using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>. Alternatively, if we only want the (unlabelled) shapes,
+we can use the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For a four-tip tree there are&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">4</span><span class="p">))),</span> <span class="s2">&quot;labelled topologies.&quot;</span><span class="p">)</span>
@@ -570,7 +570,7 @@ These can be categorised into 5 shapes.
 </div>
 </div>
 <p>Each of these shapes will have a separate number of possible labellings, and trees with
-these labellings can be created using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a>:</p>
+these labellings can be created using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">shape_index</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">4</span><span class="p">)):</span>
@@ -596,7 +596,7 @@ Tree shape 4 for a four-tip tree has 3 labellings.
 <p>Any tree topology for a tree of <span class="math notranslate nohighlight">\(N\)</span> tips can therefore be described by a
 shape index combined with a labelling index. This is known as the
 <em>rank</em> of a tree, and it can be obtained using the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.rank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.rank()</span></code></a> method. For instance, here is the rank of a simulated tree
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.rank" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.rank()</span></code></a> method. For instance, here is the rank of a simulated tree
 of 10 tips:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -624,7 +624,7 @@ of 10 tips:</p>
 </div>
 </div>
 <p>A tree with the same topology (i.e. the same shape and labelling, but ignoring
-the branch lengths) can be generated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.unrank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.unrank()</span></code></a> method, by
+the branch lengths) can be generated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.unrank" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.unrank()</span></code></a> method, by
 specifying the number of tips and the appropriate <code class="docutils literal notranslate"><span class="pre">(shape,</span> <span class="pre">labelling)</span></code> tuple:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -646,8 +646,8 @@ whose a default sequence length is 1.0.</p>
 <p>The number of possible topologies for a tree with <span class="math notranslate nohighlight">\(N\)</span> tips
 grows very rapidly with <span class="math notranslate nohighlight">\(N\)</span>. For instance, with 10 tips, there are
 282,137,824 possible topologies.</p>
-<p>For this reason, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> and
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a> methods do not return a list of trees
+<p>For this reason, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_shapes" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_shapes()</span></code></a> and
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_tree_labellings" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_tree_labellings()</span></code></a> methods do not return a list of trees
 but an iterator over the trees. This means it is perfectly possible to start
 iterating over (say) all tree shapes for a tree of 100 leaves, but
 the iterator will not finish before the death of our galaxy.</p>
@@ -674,9 +674,9 @@ A 100-tip tree with shape index 6 has a b2 balance index of 1.9927249774271467
 </div>
 </div>
 </div>
-<p>For similar combinatorial reasons, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.rank" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.rank()</span></code></a> method can be
+<p>For similar combinatorial reasons, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.rank" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.rank()</span></code></a> method can be
 inefficient for large trees. To compare the topology of two trees, you are
-therefore recommended to use e.g. the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.kc_distance" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.kc_distance()</span></code></a> method
+therefore recommended to use e.g. the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.kc_distance" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.kc_distance()</span></code></a> method
 rather than comparing ranks directly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -702,7 +702,7 @@ the number of <em>embedded topologies</em> in a large tree.</p>
 <p>An embedded topology is a a topology involving a subset of the tips of a tree.
 If the tips are classified into (say) three groups, red, green, and blue,
 we can efficiently count all the embedded three-tip trees which have
-one tip from each group using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method.</p>
+one tip from each group using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -727,7 +727,7 @@ one tip from each group using the <a class="reference external" href="https://ts
 </div>
 </div>
 <p>In this tree, it is clear that the green and blue tips never cluster together.
-The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method exhaustively looks at all
+The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method exhaustively looks at all
 combinations of one red, one blue, and one green tip, and confirms that we never see
 the topology grouping green and blue. However, as might be expected from
 examination of the plot above, a red tip is equally likely to be a sister to a
@@ -765,7 +765,7 @@ green tip as to a blue tip:</p>
 <p>It can be useful to count embedded topologies over an entire tree sequence.
 For instance, we might want to know the number of embedded topologies
 that support Neanderthals as a sister group to europeans versus africans.
-<code class="docutils literal notranslate"><span class="pre">Tskit</span></code> provides the efficient <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> method to
+<code class="docutils literal notranslate"><span class="pre">Tskit</span></code> provides the efficient <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> method to
 do this <a class="reference internal" href="incremental_algorithms.html#sec-incremental"><span class="std std-ref">incrementally</span></a>, without having to re-count the topologies
 independently in each tree.</p>
 <div class="cell tag_hide-input docutils container">
@@ -815,7 +815,7 @@ calculating the average over an entire chromosome simply takes a little longer)<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3720000000000 embedded topologies in 0:00:07.857335 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3720000000000 embedded topologies in 0:00:08.168795 seconds
 </pre></div>
 </div>
 </div>

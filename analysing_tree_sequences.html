@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -403,7 +403,7 @@ document.write(`
 <span id="sec-tutorial-stats"></span><h2>Computing statistics<a class="headerlink" href="#computing-statistics" title="Link to this heading">#</a></h2>
 <p>Tskit provides an extensive and flexible interface for computing population
 genetic statistics, which is documented in detail in the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Python)"><span class="xref std std-ref">general statistics</span></a> section of the offical documentation.
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Project name not set)"><span class="xref std std-ref">general statistics</span></a> section of the offical documentation.
 This tutorial aims to give a quick overview of how the APIs work and how to use
 them effectively.</p>
 <p>First, let’s load a tree sequence to work with which has roughly human
@@ -547,7 +547,7 @@ We’d now like to compute some statistics on this dataset.</p>
 <h3>One-way statistics<a class="headerlink" href="#one-way-statistics" title="Link to this heading">#</a></h3>
 <p>We refer to statistics that are defined with respect to a single set of
 samples as “one-way”. An example of such a statistic is diversity, which
-is computed using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.diversity()</span></code></a> method:</p>
+is computed using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.diversity()</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">()</span>
@@ -563,7 +563,7 @@ is computed using the <a class="reference external" href="https://tskit.dev/tski
 </div>
 <p>This tells the average diversity across the whole sequence and returns a single
 number. We’ll usually want to compute statistics in
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Python)"><span class="xref std std-ref">windows</span></a> along the genome and we
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Project name not set)"><span class="xref std std-ref">windows</span></a> along the genome and we
 use the <code class="docutils literal notranslate"><span class="pre">windows</span></code> argument to do this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -585,7 +585,7 @@ along the genome. Here, we use numpy to create four equally spaced windows
 of size 2.5 megabases (the windows array contains k + 1 elements to define
 k windows). Because we have asked for values in windows, tskit now returns
 a numpy array rather than a single value. (See
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-output-dimensions" title="(in Python)"><span>Output dimensions</span></a> for a full description of how the output
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-output-dimensions" title="(in Project name not set)"><span>Output dimensions</span></a> for a full description of how the output
 dimensions of statistics are determined by the <code class="docutils literal notranslate"><span class="pre">windows</span></code> argument.)</p>
 <p>Suppose we wanted to compute diversity within a specific subset of samples.
 We can do this using the <code class="docutils literal notranslate"><span class="pre">sample_sets</span></code> argument:</p>
@@ -627,7 +627,7 @@ a list of sample sets as an argument:</p>
 of these statistics. We have asked for diversity within three different sample sets,
 and tskit therefore returns an array with three values. (In general, the
 dimensions of the input determines the dimensions of the output: see
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-output-dimensions" title="(in Python)"><span>Output dimensions</span></a> for a detailed description of the rules.)</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-output-dimensions" title="(in Project name not set)"><span>Output dimensions</span></a> for a detailed description of the rules.)</p>
 <p>We can also compute multiple statistics in multiple windows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -654,7 +654,7 @@ A, B and C for a particular window.</p>
 <section id="multi-way-statistics">
 <h3>Multi-way statistics<a class="headerlink" href="#multi-way-statistics" title="Link to this heading">#</a></h3>
 <p>Many population genetic statistics compare multiple sets of samples to
-each other. For example, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a> method computes
+each other. For example, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a> method computes
 the divergence between two subsets of samples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -752,7 +752,7 @@ output as an array with one value if we wish:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Please see <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-sample-sets" title="(in Python)"><span>Sample sets and indexes</span></a> for a
+<p>Please see <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-sample-sets" title="(in Project name not set)"><span>Sample sets and indexes</span></a> for a
 full description of the <code class="docutils literal notranslate"><span class="pre">sample_sets</span></code> and <code class="docutils literal notranslate"><span class="pre">indexes</span></code> arguments.</p>
 </section>
 </section>
@@ -889,7 +889,7 @@ and not present in the other sample set.</p>
 </section>
 <section id="branch-length-spectra">
 <h3>Branch length spectra<a class="headerlink" href="#branch-length-spectra" title="Link to this heading">#</a></h3>
-<p>Up to now we’ve used the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">allele_frequency_spectrum()</span></code></a> method
+<p>Up to now we’ve used the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">allele_frequency_spectrum()</span></code></a> method
 to summarise the number of sites that occur at different frequencies. We can also
 use this approach to compute the total branch lengths subtending a given
 number of samples by setting <code class="docutils literal notranslate"><span class="pre">mode=&quot;branch&quot;</span></code>:</p>

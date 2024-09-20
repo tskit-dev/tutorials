@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -413,7 +413,7 @@ inconsequential)</p></li>
 that have no sites or mutations.</p></li>
 </ol>
 <p>To illustrate the first two points, we can use the <a class="reference external" href="https://tskit.dev/msprime">msprime</a>
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_mutations()</span></code></a> function to add neutral sites and mutations onto an
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sim_mutations()</span></code></a> function to add neutral sites and mutations onto an
 simulated mutationless tree sequence of 20 diploid individuals:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -453,7 +453,7 @@ simulated mutationless tree sequence of 20 diploid individuals:</p>
 <p class="admonition-title">Note</p>
 <p>Above we have overlaid sites and mutations onto an existing tree sequence by simulation.
 It is also possible to overlay mutations in such a way as to generate a known pattern of
-genetic variation, using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tskit.Tree.map_mutations()</span></code></a>.</p>
+genetic variation, using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.map_mutations" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">tskit.Tree.map_mutations()</span></code></a>.</p>
 </div>
 <p>Although including mutations has increased the file size a fair bit in this example,
 unless you are running simulations with vast numbers of mutations, tree sequences are
@@ -515,7 +515,7 @@ such as Fst and Patterson’s f statistics.</p>
 <p>A simple example of a statistic that is normally calculated by looking at variable sites
 is the genetic divergence. This is usually defined as the
 proportion of the genome that differs between two sample genomes. In a tree sequence with
-mutations, it can be calculated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">divergence()</span></code></a> method:</p>
+mutations, it can be calculated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">divergence()</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># By default, estimating average &quot;genetic divergence&quot; requires mutations to be present</span>
@@ -538,7 +538,7 @@ mutation on the lineage connecting the two samples. Since the number of mutation
 expected to be proportional to the length of the lineage, we can use the
 lineage length directly to measure divergence (in this case adding the branch length
 from the first sample to the MRCA and the branch from the MRCA to the second sample).
-The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-mode" title="(in Python)"><span class="xref std std-ref">general statistics framework</span></a>, allows you to switch to
+The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-mode" title="(in Project name not set)"><span class="xref std std-ref">general statistics framework</span></a>, allows you to switch to
 these “branch length” measures by using the <code class="docutils literal notranslate"><span class="pre">mode=&quot;branch&quot;</span></code> parameter:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -622,7 +622,7 @@ statistic, across the two populations we previously simulated.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/53c31c989b544ef4523a2bbfe045f16fccff810d39c7f4ce0524fe7c017fd035.png" src="_images/53c31c989b544ef4523a2bbfe045f16fccff810d39c7f4ce0524fe7c017fd035.png" />
+<img alt="_images/12c442cb01556b850b73eb76d3dfc6202ee6f165728a135df36c2b1fe9bebddc.png" src="_images/12c442cb01556b850b73eb76d3dfc6202ee6f165728a135df36c2b1fe9bebddc.png" />
 </div>
 </div>
 <aside class="margin sidebar">
@@ -658,7 +658,7 @@ mutations:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f6230aefb2a1b5036d94e8a52ea81202615b0280b6aeb612d04335001fb707cb.png" src="_images/f6230aefb2a1b5036d94e8a52ea81202615b0280b6aeb612d04335001fb707cb.png" />
+<img alt="_images/c6f7176757eb28aee48ea5f1b51d72022e7b54078b6fe851576b6ada3f38fddd.png" src="_images/c6f7176757eb28aee48ea5f1b51d72022e7b54078b6fe851576b6ada3f38fddd.png" />
 </div>
 </div>
 <p>In this case, the plots are almost identical because there are thousands of
@@ -669,7 +669,7 @@ than the mutations).</p>
 the genome are small, each window will contain relatively few mutations, and statistics
 based on the genetic variation generated by mutations will be be subject to greater
 mutational noise than those based on branch lengths in the genealogy. Here’s an
-example using the basic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">genetic</span> <span class="pre">diversity</span></code></a>
+example using the basic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">genetic</span> <span class="pre">diversity</span></code></a>
 in 1Kb windows along our simulated genome:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -689,7 +689,7 @@ in 1Kb windows along our simulated genome:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/aedfe18a60fd31e1651d5f0c46e7b86453744faf54fd2cfc01fce99229f09d0c.png" src="_images/aedfe18a60fd31e1651d5f0c46e7b86453744faf54fd2cfc01fce99229f09d0c.png" />
+<img alt="_images/0a698f46583240e82525dc35e99d19bbd654874222847cd8424728f1f7d26842.png" src="_images/0a698f46583240e82525dc35e99d19bbd654874222847cd8424728f1f7d26842.png" />
 </div>
 </div>
 </section>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -509,7 +509,7 @@ NB: time diff from Neanderthal split to admixture event is 10000 gens (0.5 coale
 </div>
 </div>
 </div>
-<p>We build three different lists. The first is the set of tracts that exist in the Eurasian genome because they have come from Neanderthals via admixture at time <span class="math notranslate nohighlight">\(T_{ad}\)</span> (be careful here: in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/demography.html#sec-demography-direction-of-time" title="(in Python)"><span class="xref std std-ref">reverse time terminology</span></a>, we denote the “source” population as Eurasian and the “destination” population as Neanderthals). This is done simply by finding all migration records in which the “destination” population name is <code class="docutils literal notranslate"><span class="pre">Neanderthal</span></code>. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments of Neanderthal origin and segments that did not migrate but coalesce further back in time than the Neanderthal-Human population split at <span class="math notranslate nohighlight">\(T_{split}\)</span>.</p>
+<p>We build three different lists. The first is the set of tracts that exist in the Eurasian genome because they have come from Neanderthals via admixture at time <span class="math notranslate nohighlight">\(T_{ad}\)</span> (be careful here: in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/demography.html#sec-demography-direction-of-time" title="(in Project name not set)"><span class="xref std std-ref">reverse time terminology</span></a>, we denote the “source” population as Eurasian and the “destination” population as Neanderthals). This is done simply by finding all migration records in which the “destination” population name is <code class="docutils literal notranslate"><span class="pre">Neanderthal</span></code>. The second list (which must contain a subset of the segments in the first list) is the ancestral segments that went on to coalesce within the Neanderthal population. The third list contains all segments in which the Eurasian and Neanderthal sample coalesce before their ancestor coalesces with the African sample. The third list includes both Eurasian segments of Neanderthal origin and segments that did not migrate but coalesce further back in time than the Neanderthal-Human population split at <span class="math notranslate nohighlight">\(T_{split}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">migrating_l</span> <span class="o">=</span> <span class="n">migrating</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">migrating</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
@@ -549,7 +549,7 @@ Proportions: [0.0186865  0.00828085 0.22377805]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/86e62f96d8daf229029816f4a6b768bf531a797b734ed6926754397abf243c46.png" src="_images/86e62f96d8daf229029816f4a6b768bf531a797b734ed6926754397abf243c46.png" />
+<img alt="_images/47d33aa76a941f5698a9ce302ea15185dff518afe30b7033f073645568108864.png" src="_images/47d33aa76a941f5698a9ce302ea15185dff518afe30b7033f073645568108864.png" />
 </div>
 </div>
 <p>Note that this is just a single replicate: we would need more replicates (or a larger chromosome) to draw firm conclusions from the patterns. Nevertheless, a few things stand out. Firstly, confirming our assessment of the relative proportions of the three types, the green bars (tracts at which Neanderthals and non-African humans are most closely related to each other) far outweigh the blue (admixed tracts). In other words, ILS accounts for the vast majority of the tracts plotted in green. Secondly, although there are relatively few admixure tracts they are are on average much longer. By definition ILS tracts must be old and are therefore likely to be short; indeed most of the green tracts are very short indeed (note that the Y axis is on a log scale). Finally, although the orange tracts are a strict subset of the blue, there are places where there are orange bars without blue equivalents. That suggests that the long blue admixture tracts may contain some regions that coalesce within Neanderthals and some that don’t. We can look at (say) the longest of the blue tracts to see how it intersects with the other tracts we’ve calculated:</p>
@@ -586,7 +586,7 @@ Proportions: [0.0186865  0.00828085 0.22377805]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0897d4640cee6d3248b6f33a3b7baed0309690b62d9462edd47b95f36f4f8a74.png" src="_images/0897d4640cee6d3248b6f33a3b7baed0309690b62d9462edd47b95f36f4f8a74.png" />
+<img alt="_images/1b6d366bf80477e3e63b7e53cbccd043f12643f752f49f19373cddd58e74d51f.png" src="_images/1b6d366bf80477e3e63b7e53cbccd043f12643f752f49f19373cddd58e74d51f.png" />
 </div>
 </div>
 <p>As we go back in time, the single 178kb admixture tract (in blue) breaks down, with some regions
@@ -600,7 +600,7 @@ which regions of the genome have passed through the admixed route. In other word
 admixed tracts are likely to be hard to detect simply from the distribution of mutations.</p>
 <section id="locating-mutations">
 <h2>Locating mutations<a class="headerlink" href="#locating-mutations" title="Link to this heading">#</a></h2>
-<p>We might be interested in finding the population in which mutations arose. For this, we first need to impose some mutations on the tree sequence using <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_mutations()</span></code></a>.</p>
+<p>We might be interested in finding the population in which mutations arose. For this, we first need to impose some mutations on the tree sequence using <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_mutations" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_mutations()</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>  <span class="c1"># rate in /bp/gen</span>

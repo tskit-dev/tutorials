@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -431,10 +431,10 @@ but also additional non-coalescent nodes. These nodes correspond to
 recombination events, and common ancestor events that are not associated with
 coalescence in any of the local trees. Full ARGs can be stored and analysed in
 <a class="reference external" href="https://tskit.dev">tskit</a> like any other tree sequence. A full ARG can be generated using
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> by specifying <code class="docutils literal notranslate"><span class="pre">coalescing_segments_only=False</span></code> along with
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Project name not set)"><code class="docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> by specifying <code class="docutils literal notranslate"><span class="pre">coalescing_segments_only=False</span></code> along with
 <code class="docutils literal notranslate"><span class="pre">additional_nodes</span> <span class="pre">=</span> <span class="pre">msprime.NodeType.COMMON_ANCESTOR</span> <span class="pre">|</span> <span class="pre">msprime.NodeType.RECOMBINANT</span></code>
 (or the equivalent <code class="docutils literal notranslate"><span class="pre">record_full_arg=True</span></code>) as described
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Python)"><span class="xref std std-ref">in the msprime docs</span></a>:</p>
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-full-arg" title="(in Project name not set)"><span class="xref std std-ref">in the msprime docs</span></a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
@@ -500,7 +500,7 @@ the parental genomes of a gamete. This means that
 <em>two</em> <code class="docutils literal notranslate"><span class="pre">tskit</span></code> nodes are created for each recombination, capturing transmission
 to the left vs right of the crossover breakpoint. These two nodes, which exist
 at the same timepoint, are identified by the
-<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.msprime.NODE_IS_RE_EVENT" title="(in Python)"><code class="xref py py-data docutils literal notranslate"><span class="pre">NODE_IS_RE_EVENT</span></code></a> and
+<a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.msprime.NODE_IS_RE_EVENT" title="(in Project name not set)"><code class="xref py py-data docutils literal notranslate"><span class="pre">NODE_IS_RE_EVENT</span></code></a> and
 are displayed as a single point in the “ortho” viz below, labelled with
 two node IDs separated by a slash.</p>
 </aside>
@@ -677,7 +677,7 @@ button {
 
 .saving .message {
     display: none;
-}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_455418354'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_6595332956'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
 var step = d3.line().curve(d3.curveStep);
 var stepAfter = d3.line().curve(d3.curveStepAfter);
 var stepBefore = d3.line().curve(d3.curveStepBefore);
@@ -689,14 +689,14 @@ function draw_force_diagram() {
     var subset = [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16];
     var evenly_distributed_positions = [100.0, 170.0, 240.0, 310.0, 380.0, 450.0];
 
-    var dashboard = d3.select("#arg_455418354").append("div").attr("class", "dashboard");
+    var dashboard = d3.select("#arg_6595332956").append("div").attr("class", "dashboard");
     
     var clipboard = dashboard.append("button")
         .on("click", function() {
             navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 250.0, 'y': 250.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '1', 'fx': 240.0, 'fy': 250.0, 'y': 250.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [11], 'parent_of': [], 'label': '2', 'fx': 170.0, 'fy': 250.0, 'y': 250.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '3', 'fx': 310.0, 'fy': 250.0, 'y': 250.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [10], 'parent_of': [], 'label': '4', 'fx': 450.0, 'fy': 250.0, 'y': 250.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [7], 'parent_of': [], 'label': '5', 'fx': 380.0, 'fy': 250.0, 'y': 250.0}, {'id': 6, 'flag': 0, 'time': 56.0454802286223, 'time_01': 0.9594597716363211, 'logtime_01': 0.4408104125482307, 'rank_01': 0.8888888888888888, 'child_of': [9], 'parent_of': [1, 3], 'label': '6', 'x': 275.0, 'fy': 227.77777777777777, 'y': 227.77777777777777}, {'id': 7, 'flag': 131072, 'time': 59.45059299910596, 'time_01': 0.9569966997033771, 'logtime_01': 0.4327931901064175, 'rank_01': 0.7777777777777778, 'child_of': [10], 'parent_of': [5], 'x_pos_reference': 5, 'label': '7/8', 'x': 275.0, 'fy': 205.55555555555557, 'y': 205.55555555555557}, {'id': 9, 'flag': 0, 'time': 120.7850821708138, 'time_01': 0.9126306921779251, 'logtime_01': 0.3359364561713586, 'rank_01': 0.6666666666666667, 'child_of': [12], 'parent_of': [6, 7], 'label': '9', 'x': 275.0, 'fy': 183.33333333333334, 'y': 183.33333333333334}, {'id': 10, 'flag': 0, 'time': 142.86643656492956, 'time_01': 0.8966582507595428, 'logtime_01': 0.31289495466312167, 'rank_01': 0.5555555555555556, 'child_of': [12], 'parent_of': [4, 7], 'label': '10', 'x': 275.0, 'fy': 161.11111111111111, 'y': 161.11111111111111}, {'id': 11, 'flag': 0, 'time': 236.7237255340037, 'time_01': 0.8287670325403284, 'logtime_01': 0.24344667636347894, 'rank_01': 0.4444444444444444, 'child_of': [15], 'parent_of': [0, 2], 'label': '11', 'x': 275.0, 'fy': 138.88888888888889, 'y': 138.88888888888889}, {'id': 12, 'flag': 0, 'time': 272.05118690557765, 'time_01': 0.8032130833963393, 'logtime_01': 0.22428775813629553, 'rank_01': 0.33333333333333337, 'child_of': [13], 'parent_of': [9, 10], 'label': '12', 'x': 275.0, 'fy': 116.66666666666667, 'y': 116.66666666666667}, {'id': 13, 'flag': 131072, 'time': 588.0902773240502, 'time_01': 0.574607728510451, 'logtime_01': 0.11796030426281645, 'rank_01': 0.22222222222222232, 'child_of': [16], 'parent_of': [12], 'x_pos_reference': 12, 'label': '13/14', 'x': 275.0, 'fy': 94.44444444444446, 'y': 94.44444444444446}, {'id': 15, 'flag': 0, 'time': 610.912738605865, 'time_01': 0.5580992109919682, 'logtime_01': 0.11270418970307061, 'rank_01': 0.11111111111111116, 'child_of': [16], 'parent_of': [11, 13], 'label': '15', 'x': 275.0, 'fy': 72.22222222222223, 'y': 72.22222222222223}, {'id': 16, 'flag': 0, 'time': 1382.4658244607965, 'time_01': 0.0, 'logtime_01': -9.998911688890999e-05, 'rank_01': 0.0, 'child_of': [], 'parent_of': [13, 15], 'label': '16', 'x': 275.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 11, 'target': 0, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 6, 'target': 1, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 1.0}, {'source': 11, 'target': 2, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 6, 'target': 3, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 10, 'target': 4, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 7, 'target': 5, 'bounds': '0.0-6516.940179280937 6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 9, 'target': 6, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 7, 'region_fraction': 1.0}, {'source': 10, 'target': 7, 'bounds': '0.0-6516.940179280937', 'alt_parent': 9, 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 9, 'target': 7, 'bounds': '6516.940179280937-10000.0', 'alt_parent': 10, 'alt_child': 6, 'region_fraction': 0.34830598207190633}, {'source': 12, 'target': 9, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 1.0}, {'source': 12, 'target': 10, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 1.0}, {'source': 15, 'target': 11, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 1.0}, {'source': 13, 'target': 12, 'bounds': '0.0-2601.014547981321 2601.014547981321-10000.0', 'alt_parent': '', 'alt_child': '', 'region_fraction': 1.0}, {'source': 16, 'target': 13, 'bounds': '0.0-2601.014547981321', 'alt_parent': 15, 'alt_child': 15, 'region_fraction': 0.26010145479813207}, {'source': 15, 'target': 13, 'bounds': '2601.014547981321-10000.0', 'alt_parent': 16, 'alt_child': 11, 'region_fraction': 0.7398985452018679}, {'source': 16, 'target': 15, 'bounds': '0.0-2601.014547981321', 'alt_parent': '', 'alt_child': 13, 'region_fraction': 0.26010145479813207}], 'breakpoints': [{'start': 0, 'stop': 2601.014547981321, 'x_pos_01': 0.0, 'width_01': 0.26010145479813207, 'x_pos': 50.0, 'width': 117.04565465915942}, {'start': 2601.014547981321, 'stop': 6516.940179280937, 'x_pos_01': 0.26010145479813207, 'width_01': 0.3915925631299616, 'x_pos': 167.04565465915942, 'width': 176.21665340848273}, {'start': 6516.940179280937, 'stop': 10000.0, 'x_pos_01': 0.6516940179280937, 'width_01': 0.34830598207190633, 'x_pos': 343.26230806764215, 'width': 156.73769193235785}]}, 'width': 500, 'height': 375, 'y_axis': {'include_labels': 'true', 'ticks': [250.0, 227.77777777777777, 205.55555555555557, 183.33333333333334, 161.11111111111111, 138.88888888888889, 116.66666666666667, 94.44444444444446, 72.22222222222223, 50.0], 'text': [0, 56, 59, 121, 143, 237, 272, 588, 611, 1382], 'max_min': [250.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'ortho', 'variable_edge_width': 'false', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 170.0, 240.0, 310.0, 380.0, 450.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
-            d3.select("#arg_455418354 .copymessage").style("visibility", "visible");
+            d3.select("#arg_6595332956 .copymessage").style("visibility", "visible");
             setTimeout( function() {
-                d3.select("#arg_455418354 .copymessage").style("visibility", "hidden");
+                d3.select("#arg_6595332956 .copymessage").style("visibility", "hidden");
             }, 1000);
         });
     clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -710,8 +710,8 @@ function draw_force_diagram() {
     var reheat = dashboard.append("button")
         .on("click", function(event) {
             if (!event.active) simulation.alphaTarget(0.3).restart();       
-            var order = d3.selectAll("#arg_455418354 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_455418354 .node").classed("unfix", function(d) {
+            var order = d3.selectAll("#arg_6595332956 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_6595332956 .node").classed("unfix", function(d) {
                 if (d.flag != 1) {
                     delete d.fx;
                 } else {
@@ -728,8 +728,8 @@ function draw_force_diagram() {
     
     var evenly_distribute = dashboard.append("button")
         .on("click", function() {
-            var order = d3.selectAll("#arg_455418354 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_455418354 .sample").classed("distribute", function(d) {
+            var order = d3.selectAll("#arg_6595332956 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_6595332956 .sample").classed("distribute", function(d) {
                 d.fx = evenly_distributed_positions[order.indexOf(d.id)];
             });
         });
@@ -740,7 +740,7 @@ function draw_force_diagram() {
         .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
     evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
 
-    var svg = d3.select("#arg_455418354").append("svg")
+    var svg = d3.select("#arg_6595332956").append("svg")
         .attr("width", 500)
         .attr("height", 375)
         .style("padding-top", "10px");
@@ -821,7 +821,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#1eebb1')
                     .style("cursor", "pointer");
-                d3.select("#arg_455418354 .breakpoints")
+                d3.select("#arg_6595332956 .breakpoints")
                     .selectAll("rect")
                         .filter(function(j) {
                             return d.bounds.split(" ").some(function(region) {
@@ -835,7 +835,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#053e4e')
                     .style("cursor", "default")
-                d3.select("#arg_455418354 .breakpoints").selectAll("rect")
+                d3.select("#arg_6595332956 .breakpoints").selectAll("rect")
                     .style("fill", "#053e4e")
             });
     }
@@ -848,7 +848,7 @@ function draw_force_diagram() {
         .enter()
         .append("circle")
         .attr("id", function(d) {
-            return String(455418354) + "_node" + d.id
+            return String(6595332956) + "_node" + d.id
         })
         .attr("class", function(d) {
             var classy = ""
@@ -909,7 +909,7 @@ function draw_force_diagram() {
         if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
             vnub = 0;
         }
-        var alt_child = document.getElementById(String(455418354) + "_node" + d.alt_child);
+        var alt_child = document.getElementById(String(6595332956) + "_node" + d.alt_child);
         if (alt_child != null) {
             var alt_child_x = alt_child.getAttribute("cx");
             var alt_child_y = alt_child.getAttribute("cy");
@@ -976,7 +976,7 @@ function draw_force_diagram() {
                 }
             }
         }
-        var alt_parent = document.getElementById(String(455418354) + "_node" + d.alt_parent);
+        var alt_parent = document.getElementById(String(6595332956) + "_node" + d.alt_parent);
         if (alt_parent != null) {
             var alt_parent_x = alt_parent.getAttribute("cx");
             var alt_parent_y = alt_parent.getAttribute("cy");
@@ -1155,7 +1155,7 @@ function draw_force_diagram() {
             if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
                 return "c";
             } else if (d.child_of.length == 1) {
-                var parent = document.getElementById(String(455418354) + "_node" + d.child_of[0])
+                var parent = document.getElementById(String(6595332956) + "_node" + d.child_of[0])
                 if (parent != null) {
                     var parent_x = parent.getAttribute("cx");
                     if (parent_x > d.x) {
@@ -1245,7 +1245,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('fill', '#1eebb1')
                     .style("cursor", "pointer");
-                var highlight_links = d3.select("#arg_455418354 .links")
+                var highlight_links = d3.select("#arg_6595332956 .links")
                     .selectAll("g")
                         .filter(function(j) {
                             return j.bounds.split(" ").some(function(region) {
@@ -1270,10 +1270,10 @@ function draw_force_diagram() {
                     .style('fill', '#053e4e')
                     .style("cursor", "default");
                 //if (false) {
-                    d3.selectAll("#arg_455418354 .link")
+                    d3.selectAll("#arg_6595332956 .link")
                         .style("stroke", "#053e4e");
                 //} else {
-                //    d3.selectAll("#arg_455418354 .link")
+                //    d3.selectAll("#arg_6595332956 .link")
                 //        .style("stroke", "#053e4e")
                 //        .style("stroke-width", 3);
                 //};     
@@ -1387,7 +1387,7 @@ to 6516.94, but 1 and 3 from positions 6516.94 to 10,000.</p>
 <p>Because our ARG above was generated under the standard Hudson model (e.g. neutral
 evolution in a large population with unique recombination breakpoints along a continuous
 genome), we can calculate its likelihood under that model, for a given recombination
-rate and population size, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.log_arg_likelihood" title="(in Python)"><code class="docutils literal notranslate"><span class="pre">msprime.log_arg_likelihood()</span></code></a> method:</p>
+rate and population size, using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.log_arg_likelihood" title="(in Project name not set)"><code class="docutils literal notranslate"><span class="pre">msprime.log_arg_likelihood()</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
@@ -1591,7 +1591,7 @@ button {
 
 .saving .message {
     display: none;
-}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_9197492612'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
+}</style><script src='https://d3js.org/d3.v7.min.js'></script><div id='arg_1169705708'class='d3arg' style='min-width:540px; min-height:455px;'></div><script>var line = d3.line();
 var step = d3.line().curve(d3.curveStep);
 var stepAfter = d3.line().curve(d3.curveStepAfter);
 var stepBefore = d3.line().curve(d3.curveStepBefore);
@@ -1603,14 +1603,14 @@ function draw_force_diagram() {
     var subset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     var evenly_distributed_positions = [100.0, 170.0, 240.0, 310.0, 380.0, 450.0];
 
-    var dashboard = d3.select("#arg_9197492612").append("div").attr("class", "dashboard");
+    var dashboard = d3.select("#arg_1169705708").append("div").attr("class", "dashboard");
     
     var clipboard = dashboard.append("button")
         .on("click", function() {
             navigator.clipboard.writeText("{'arg': {'nodes': [{'id': 0, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '0', 'fx': 100.0, 'fy': 250.0, 'y': 250.0}, {'id': 1, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '1', 'fx': 240.0, 'fy': 250.0, 'y': 250.0}, {'id': 2, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [9], 'parent_of': [], 'label': '2', 'fx': 170.0, 'fy': 250.0, 'y': 250.0}, {'id': 3, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [6], 'parent_of': [], 'label': '3', 'fx': 310.0, 'fy': 250.0, 'y': 250.0}, {'id': 4, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [8, 10], 'parent_of': [], 'label': '4', 'fx': 450.0, 'fy': 250.0, 'y': 250.0}, {'id': 5, 'flag': 1, 'time': 0.0, 'time_01': 1.0, 'logtime_01': 1.0, 'rank_01': 1.0, 'child_of': [7, 8], 'parent_of': [], 'label': '5', 'fx': 380.0, 'fy': 250.0, 'y': 250.0}, {'id': 6, 'flag': 0, 'time': 56.0454802286223, 'time_01': 0.9594597716363211, 'logtime_01': 0.4408104125482307, 'rank_01': 0.8571428571428572, 'child_of': [7, 10], 'parent_of': [1, 3], 'label': '6', 'x': 275.0, 'fy': 221.42857142857144, 'y': 221.42857142857144}, {'id': 7, 'flag': 0, 'time': 120.7850821708138, 'time_01': 0.9126306921779251, 'logtime_01': 0.3359364561713586, 'rank_01': 0.7142857142857143, 'child_of': [10], 'parent_of': [5, 6], 'label': '7', 'x': 275.0, 'fy': 192.85714285714286, 'y': 192.85714285714286}, {'id': 8, 'flag': 0, 'time': 142.86643656492956, 'time_01': 0.8966582507595428, 'logtime_01': 0.31289495466312167, 'rank_01': 0.5714285714285714, 'child_of': [10], 'parent_of': [4, 5], 'label': '8', 'x': 275.0, 'fy': 164.28571428571428, 'y': 164.28571428571428}, {'id': 9, 'flag': 0, 'time': 236.7237255340037, 'time_01': 0.8287670325403284, 'logtime_01': 0.24344667636347894, 'rank_01': 0.4285714285714286, 'child_of': [11, 12], 'parent_of': [0, 2], 'label': '9', 'x': 275.0, 'fy': 135.71428571428572, 'y': 135.71428571428572}, {'id': 10, 'flag': 0, 'time': 272.05118690557765, 'time_01': 0.8032130833963393, 'logtime_01': 0.22428775813629553, 'rank_01': 0.2857142857142858, 'child_of': [11, 12], 'parent_of': [4, 6, 7, 8], 'label': '10', 'x': 275.0, 'fy': 107.14285714285717, 'y': 107.14285714285717}, {'id': 11, 'flag': 0, 'time': 610.912738605865, 'time_01': 0.5580992109919682, 'logtime_01': 0.11270418970307061, 'rank_01': 0.1428571428571429, 'child_of': [], 'parent_of': [9, 10], 'label': '11', 'x': 275.0, 'fy': 78.57142857142858, 'y': 78.57142857142858}, {'id': 12, 'flag': 0, 'time': 1382.4658244607965, 'time_01': 0.0, 'logtime_01': -9.998911688890999e-05, 'rank_01': 0.0, 'child_of': [], 'parent_of': [9, 10], 'label': '12', 'x': 275.0, 'fy': 50.0, 'y': 50.0}], 'links': [{'source': 9, 'target': 0, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 2, 'region_fraction': 1.0}, {'source': 6, 'target': 1, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 3, 'region_fraction': 1.0}, {'source': 9, 'target': 2, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 0, 'region_fraction': 1.0}, {'source': 6, 'target': 3, 'bounds': '0.0-10000.0', 'alt_parent': '', 'alt_child': 1, 'region_fraction': 1.0}, {'source': 8, 'target': 4, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 0.6516940179280937}, {'source': 10, 'target': 4, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 0.34830598207190633}, {'source': 7, 'target': 5, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 6, 'region_fraction': 0.34830598207190633}, {'source': 8, 'target': 5, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 7, 'target': 6, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 5, 'region_fraction': 0.34830598207190633}, {'source': 10, 'target': 6, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 10, 'target': 7, 'bounds': '6516.940179280937-10000.0', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.34830598207190633}, {'source': 10, 'target': 8, 'bounds': '0.0-6516.940179280937', 'alt_parent': '', 'alt_child': 4, 'region_fraction': 0.6516940179280937}, {'source': 11, 'target': 9, 'bounds': '2601.014547981321-10000.0', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.7398985452018679}, {'source': 12, 'target': 9, 'bounds': '0.0-2601.014547981321', 'alt_parent': '', 'alt_child': 10, 'region_fraction': 0.26010145479813207}, {'source': 11, 'target': 10, 'bounds': '2601.014547981321-10000.0', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.7398985452018679}, {'source': 12, 'target': 10, 'bounds': '0.0-2601.014547981321', 'alt_parent': '', 'alt_child': 9, 'region_fraction': 0.26010145479813207}], 'breakpoints': [{'start': 0, 'stop': 2601.014547981321, 'x_pos_01': 0.0, 'width_01': 0.26010145479813207, 'x_pos': 50.0, 'width': 117.04565465915942}, {'start': 2601.014547981321, 'stop': 6516.940179280937, 'x_pos_01': 0.26010145479813207, 'width_01': 0.3915925631299616, 'x_pos': 167.04565465915942, 'width': 176.21665340848273}, {'start': 6516.940179280937, 'stop': 10000.0, 'x_pos_01': 0.6516940179280937, 'width_01': 0.34830598207190633, 'x_pos': 343.26230806764215, 'width': 156.73769193235785}]}, 'width': 500, 'height': 375, 'y_axis': {'include_labels': 'true', 'ticks': [250.0, 221.42857142857144, 192.85714285714286, 164.28571428571428, 135.71428571428572, 107.14285714285717, 78.57142857142858, 50.0], 'text': [0, 56, 121, 143, 237, 272, 611, 1382], 'max_min': [250.0, 50.0], 'scale': 'rank'}, 'tree_highlighting': 'true', 'edge_type': 'line', 'variable_edge_width': 'false', 'subset_nodes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 'include_node_labels': 'true', 'evenly_distributed_positions': [100.0, 170.0, 240.0, 310.0, 380.0, 450.0]}".replace(/'nodes': .*'links'/, "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'").replaceAll("'", '"'));
-            d3.select("#arg_9197492612 .copymessage").style("visibility", "visible");
+            d3.select("#arg_1169705708 .copymessage").style("visibility", "visible");
             setTimeout( function() {
-                d3.select("#arg_9197492612 .copymessage").style("visibility", "hidden");
+                d3.select("#arg_1169705708 .copymessage").style("visibility", "hidden");
             }, 1000);
         });
     clipboard.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -1624,8 +1624,8 @@ function draw_force_diagram() {
     var reheat = dashboard.append("button")
         .on("click", function(event) {
             if (!event.active) simulation.alphaTarget(0.3).restart();       
-            var order = d3.selectAll("#arg_9197492612 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_9197492612 .node").classed("unfix", function(d) {
+            var order = d3.selectAll("#arg_1169705708 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_1169705708 .node").classed("unfix", function(d) {
                 if (d.flag != 1) {
                     delete d.fx;
                 } else {
@@ -1642,8 +1642,8 @@ function draw_force_diagram() {
     
     var evenly_distribute = dashboard.append("button")
         .on("click", function() {
-            var order = d3.selectAll("#arg_9197492612 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
-            d3.selectAll("#arg_9197492612 .sample").classed("distribute", function(d) {
+            var order = d3.selectAll("#arg_1169705708 .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+            d3.selectAll("#arg_1169705708 .sample").classed("distribute", function(d) {
                 d.fx = evenly_distributed_positions[order.indexOf(d.id)];
             });
         });
@@ -1654,7 +1654,7 @@ function draw_force_diagram() {
         .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
     evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
 
-    var svg = d3.select("#arg_9197492612").append("svg")
+    var svg = d3.select("#arg_1169705708").append("svg")
         .attr("width", 500)
         .attr("height", 375)
         .style("padding-top", "10px");
@@ -1735,7 +1735,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#1eebb1')
                     .style("cursor", "pointer");
-                d3.select("#arg_9197492612 .breakpoints")
+                d3.select("#arg_1169705708 .breakpoints")
                     .selectAll("rect")
                         .filter(function(j) {
                             return d.bounds.split(" ").some(function(region) {
@@ -1749,7 +1749,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('stroke', '#053e4e')
                     .style("cursor", "default")
-                d3.select("#arg_9197492612 .breakpoints").selectAll("rect")
+                d3.select("#arg_1169705708 .breakpoints").selectAll("rect")
                     .style("fill", "#053e4e")
             });
     }
@@ -1762,7 +1762,7 @@ function draw_force_diagram() {
         .enter()
         .append("circle")
         .attr("id", function(d) {
-            return String(9197492612) + "_node" + d.id
+            return String(1169705708) + "_node" + d.id
         })
         .attr("class", function(d) {
             var classy = ""
@@ -1823,7 +1823,7 @@ function draw_force_diagram() {
         if ("y_axis.scale" == "time" | "y_axis.scale" == "log_time") {
             vnub = 0;
         }
-        var alt_child = document.getElementById(String(9197492612) + "_node" + d.alt_child);
+        var alt_child = document.getElementById(String(1169705708) + "_node" + d.alt_child);
         if (alt_child != null) {
             var alt_child_x = alt_child.getAttribute("cx");
             var alt_child_y = alt_child.getAttribute("cy");
@@ -1890,7 +1890,7 @@ function draw_force_diagram() {
                 }
             }
         }
-        var alt_parent = document.getElementById(String(9197492612) + "_node" + d.alt_parent);
+        var alt_parent = document.getElementById(String(1169705708) + "_node" + d.alt_parent);
         if (alt_parent != null) {
             var alt_parent_x = alt_parent.getAttribute("cx");
             var alt_parent_y = alt_parent.getAttribute("cy");
@@ -2069,7 +2069,7 @@ function draw_force_diagram() {
             if (d.flag == 131072 || d.parent_of.length == 0 || d.child_of.length == 0) {
                 return "c";
             } else if (d.child_of.length == 1) {
-                var parent = document.getElementById(String(9197492612) + "_node" + d.child_of[0])
+                var parent = document.getElementById(String(1169705708) + "_node" + d.child_of[0])
                 if (parent != null) {
                     var parent_x = parent.getAttribute("cx");
                     if (parent_x > d.x) {
@@ -2159,7 +2159,7 @@ function draw_force_diagram() {
                 d3.select(this)
                     .style('fill', '#1eebb1')
                     .style("cursor", "pointer");
-                var highlight_links = d3.select("#arg_9197492612 .links")
+                var highlight_links = d3.select("#arg_1169705708 .links")
                     .selectAll("g")
                         .filter(function(j) {
                             return j.bounds.split(" ").some(function(region) {
@@ -2184,10 +2184,10 @@ function draw_force_diagram() {
                     .style('fill', '#053e4e')
                     .style("cursor", "default");
                 //if (false) {
-                    d3.selectAll("#arg_9197492612 .link")
+                    d3.selectAll("#arg_1169705708 .link")
                         .style("stroke", "#053e4e");
                 //} else {
-                //    d3.selectAll("#arg_9197492612 .link")
+                //    d3.selectAll("#arg_1169705708 .link")
                 //        .style("stroke", "#053e4e")
                 //        .style("stroke-width", 3);
                 //};     
@@ -2296,9 +2296,9 @@ difference between some classical ARG formulations, and the ARG formulation
 used in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>. Classically, nodes in an ARG are taken to represent <em>events</em>
 (specifically, “common ancestor”, “recombination”, and “sampling” events),
 and genomic regions of inheritance are encoded by storing a specific breakpoint location on
-each recombination node. In contrast, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-node" title="(in Python)"><span class="xref std std-ref">nodes</span></a> in a <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
+each recombination node. In contrast, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-node" title="(in Project name not set)"><span class="xref std std-ref">nodes</span></a> in a <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
 ARG correspond to <em>genomes</em>. More crucially, inherited regions are defined by intervals
-stored on <em>edges</em> (via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Edge.left" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">left</span></code></a> and  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Edge.right" title="(in Python)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code></a> properties),
+stored on <em>edges</em> (via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Edge.left" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">left</span></code></a> and  <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Edge.right" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">right</span></code></a> properties),
 rather than on nodes. Here, for example, is the edge table from our ARG:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2349,7 +2349,7 @@ rather than on nodes. Here, for example, is the edge table from our ARG:</p>
 <p>Technically therefore, ARGs stored by <code class="docutils literal notranslate"><span class="pre">tskit</span></code> are edge-annotated
 “genome ARGs”, or <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2023.11.03.565466v1">gARGs</a>.
 This flexible format can describe both simulated genetic ancestries (including
-those involving <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-gene-conversion" title="(in Python)"><span>Gene conversion</span></a>), and e.g. real-world
+those involving <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-gene-conversion" title="(in Project name not set)"><span>Gene conversion</span></a>), and e.g. real-world
 genetic ancestries, such as
 <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2023.06.08.544212v1">inferrred recombining viral genealogies</a>.
 The focus on genomes rather than events is also what makes
@@ -2365,16 +2365,16 @@ to node via the edges, regardless of the genomic position of the edge. This sect
 describes some of these fundamental graph operations.</p>
 <section id="graph-traversal">
 <h3>Graph traversal<a class="headerlink" href="#graph-traversal" title="Link to this heading">#</a></h3>
-<p>The standard edge iterator, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.edge_diffs" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.edge_diffs()</span></code></a>, goes from left to
-right along the genome, matching the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a> iterator. Although
+<p>The standard edge iterator, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.edge_diffs" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.edge_diffs()</span></code></a>, goes from left to
+right along the genome, matching the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.trees()</span></code></a> iterator. Although
 this will visit all the edges in the graph, these will <em>not</em> necessarily be grouped
 by the node ID either of the edge parent or the edge child. To do this, an alternative
 traversal (from top-to-bottom or bottom-to-top of the tree sequence) is required.</p>
-<p>To traverse the graph by node ID, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.nodes()</span></code></a> iterator can be
+<p>To traverse the graph by node ID, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.nodes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.nodes()</span></code></a> iterator can be
 used. In particular, because parents are required to be strictly older than their
 children, iterating through nodes using <code class="docutils literal notranslate"><span class="pre">order=&quot;timeasc&quot;</span></code> will ensure that children
 are always visited before their parents (similar to a breadth-first or “level order”
-search). However, using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.nodes" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.nodes()</span></code></a> is inefficient if you also
+search). However, using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.nodes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.nodes()</span></code></a> is inefficient if you also
 want to access the <em>edges</em> associated with each node.</p>
 <p>The examples below show how to efficiently visit the all the edges in a
 tree sequence, grouped by the nodes to which they are connected, while
@@ -2383,7 +2383,7 @@ also ensuring that children are visited before parents (or vice versa).</p>
 <h4>Traversing parent nodes<a class="headerlink" href="#traversing-parent-nodes" title="Link to this heading">#</a></h4>
 <p>The most efficient graph traversal method visits all the parent nodes in the
 tree sequence, grouping edges for which that node is a parent. This is simple
-because edges in a tree sequence are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-requirements" title="(in Python)"><span class="xref std std-ref">ordered</span></a>
+because edges in a tree sequence are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-edge-requirements" title="(in Project name not set)"><span class="xref std std-ref">ordered</span></a>
 firstly by the time of the parent node, then by node ID.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2459,8 +2459,8 @@ Node 10 at time 272.05118690557765 has these parent node IDs: {11, 12}
 <p>To visit parents before children, the <code class="docutils literal notranslate"><span class="pre">lexsort</span></code> can take the negated
 <code class="docutils literal notranslate"><span class="pre">-ts.nodes_time</span></code> rather than simply using <code class="docutils literal notranslate"><span class="pre">ts.nodes_time</span></code>. Note that nodes
 which are never children of an edge are not visited by this algorithm. Such
-nodes are either <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-isolated-nodes" title="(in Python)"><span class="xref std std-ref">isolated</span></a> or a
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-roots" title="(in Python)"><span class="xref std std-ref">root</span></a> in each local tree.</p>
+nodes are either <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-isolated-nodes" title="(in Project name not set)"><span class="xref std std-ref">isolated</span></a> or a
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-roots" title="(in Project name not set)"><span class="xref std std-ref">root</span></a> in each local tree.</p>
 </section>
 </section>
 <section id="other-graph-analysis">
@@ -2526,7 +2526,7 @@ following code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4fdcf4a2eb701146c7b7c8bd640acfa24ddfbf4f75c096d4f3ee648a6cbe0f05.png" src="_images/4fdcf4a2eb701146c7b7c8bd640acfa24ddfbf4f75c096d4f3ee648a6cbe0f05.png" />
+<img alt="_images/ee786452b38da9e1a989d23cd395b31ef9196bc466bd7e20896fb664dfe157fb.png" src="_images/ee786452b38da9e1a989d23cd395b31ef9196bc466bd7e20896fb664dfe157fb.png" />
 </div>
 </div>
 </section>

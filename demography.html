@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -398,7 +398,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="demography">
 <span id="sec-msprime-demography"></span><h1>Demography<a class="headerlink" href="#demography" title="Link to this heading">#</a></h1>
 <p><strong>Georgia Tsambos</strong></p>
-<p>By default, <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> simulates samples from a single population of a constant size,
+<p>By default, <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> simulates samples from a single population of a constant size,
 which isn’t particularly exciting!
 One of the strengths of msprime is that it can be used to specify quite complicated
 models of demography and population history with a simple Python API.</p>
@@ -413,7 +413,7 @@ models of demography and population history with a simple Python API.</p>
 <section id="population-structure">
 <h2>Population structure<a class="headerlink" href="#population-structure" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">msprime</span></code> supports simulation from multiple discrete populations,
-each of which is initialized in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population()</span></code></a> method.
+each of which is initialized in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population()</span></code></a> method.
 For each population, you can specify a sample size, an effective population size
 at time = 0, an exponential growth rate and a name.</p>
 <p>Suppose we wanted to simulate three sequences each from two populations
@@ -445,10 +445,10 @@ with a constant effective population size of 500.</p>
             .tskit-table tbody th {padding: 0.5em 0.5em;}
         </style><b>Events (0)</b><table border="1" class="tskit-table"><thead><tr></tr></thead><tbody></tbody></table></div></div></div></div>
 </div>
-<p>The <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object that we’ve just created can be passed to <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> via the <code class="docutils literal notranslate"><span class="pre">demography</span></code> argument.
+<p>The <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object that we’ve just created can be passed to <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> via the <code class="docutils literal notranslate"><span class="pre">demography</span></code> argument.
 We’ll also use the <code class="docutils literal notranslate"><span class="pre">samples</span></code> argument to specify how many sample inividuals we wish to draw from each of these populations.
 In this case, we’ll simulate three from each.
-Also, note that we no longer need to specify <code class="docutils literal notranslate"><span class="pre">population_size</span></code> in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Python)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> as we have provided a separate size for each population.</p>
+Also, note that we no longer need to specify <code class="docutils literal notranslate"><span class="pre">population_size</span></code> in <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.sim_ancestry" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">msprime.sim_ancestry()</span></code></a> as we have provided a separate size for each population.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ts = msprime.sim_ancestry(</span>
@@ -491,14 +491,14 @@ populations, as well as admixture events, divergences and one-off mass migration
 <h3>Constant migration<a class="headerlink" href="#constant-migration" title="Link to this heading">#</a></h3>
 <p><img alt="constant-migration-diagram" src="_images/tute-population-structure-1.png" /></p>
 <p>Migration rates between the populations can be thought as the elements of an
-<em>N</em> by <em>N</em> numpy array, and are passed to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object individually via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.set_migration_rate" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.set_migration_rate()</span></code></a>
+<em>N</em> by <em>N</em> numpy array, and are passed to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object individually via the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.set_migration_rate" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.set_migration_rate()</span></code></a>
 method.
 This allows us to specify the expected number of migrants moving
 from population <code class="docutils literal notranslate"><span class="pre">dest</span></code> to population <code class="docutils literal notranslate"><span class="pre">source</span></code> per generation, divided by the size of
 population <code class="docutils literal notranslate"><span class="pre">source</span></code>.  When this rate is small (close to 0), it is approximately
 equal to the fraction of population <code class="docutils literal notranslate"><span class="pre">source</span></code> that consists of new migrants from
 population <code class="docutils literal notranslate"><span class="pre">dest</span></code> in each generation.
-And if both of your populations are exchanging migrants at the same rate, you can save yourself some typing by specifying them with a single <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.set_symmetric_migration_rate" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.set_symmetric_migration_rate()</span></code></a> call.</p>
+And if both of your populations are exchanging migrants at the same rate, you can save yourself some typing by specifying them with a single <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.set_symmetric_migration_rate" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.set_symmetric_migration_rate()</span></code></a> call.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The reason for this (perhaps) counter-intuitive specification of <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">dest</span></code> is that <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulates backwards-in-time. See <a class="reference external" href="https://tskit.dev/msprime/docs/latest/demography.html#direction-of-time">this</a> for further explanation.</p>
@@ -653,7 +653,7 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
             </div>
             </div></div>
 </div>
-<p>One consequence of specifying <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Population" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Population</span></code></a> objects
+<p>One consequence of specifying <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Population" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Population</span></code></a> objects
 is that each of the simulated nodes will now belong to one of our specified
 populations:</p>
 <div class="cell docutils container">
@@ -714,7 +714,7 @@ population 0 than vice versa.</p>
 <section id="changing-migration-rates">
 <h3>Changing migration rates<a class="headerlink" href="#changing-migration-rates" title="Link to this heading">#</a></h3>
 <p>We can change any of the migration rates at any time in the simulation.
-To do this, we just need to use the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_migration_rate_change" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_migration_rate_change()</span></code></a> method on our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object,
+To do this, we just need to use the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_migration_rate_change" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_migration_rate_change()</span></code></a> method on our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object,
 specifying the populations whose migration rates are to be changed,
 the time of the change and the new migration rate.</p>
 <p>For instance, say we wanted to specify that in each generation prior to
@@ -748,7 +748,7 @@ generation, divided by the size of B.'>0.02</td><td>0</td></tr></tbody></table><
             .tskit-table tbody th {padding: 0.5em 0.5em;}
         </style><b>Events (1)</b><table border="1" class="tskit-table"><thead><tr><th>time</th><th>type</th><th>parameters</th><th>effect</th></tr></thead><tbody><tr><td>100</td><td><a href='https://tskit.dev/msprime/docs/latest/api.html#msprime.Demography.add_migration_rate_change'>Migration rate change</a></td><td>source=0, dest=1, rate=0.01</td><td>Backwards-time migration rate from 0 to 1 → 0.01</td></tr></tbody></table></div></div></div></div>
 </div>
-<p>The output above shows that we have successfully added our first demographic event to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object, a migration rate change.
+<p>The output above shows that we have successfully added our first demographic event to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object, a migration rate change.
 We are now ready to simulate:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -900,7 +900,7 @@ Suppose we wanted to specify our demography so that 50 generations ago,
 <p class="admonition-title">Todo</p>
 <p>make a diagram showing this</p>
 </div>
-<p>We can do this by using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_admixture" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_admixture()</span></code></a> method on our demography object.
+<p>We can do this by using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_admixture" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_admixture()</span></code></a> method on our demography object.
 We must supply a list of ancestral populations participating in the admixture, and a list of the same size specifying the proportions of migrants from each of these populations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1012,7 +1012,7 @@ Suppose we want to model a situation where all lineages from multiple population
 <p class="admonition-title">Todo</p>
 <p>make a diagram showing this</p>
 </div>
-<p>We’ll specify this with the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population_split" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population_split()</span></code></a> method.
+<p>We’ll specify this with the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population_split" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population_split()</span></code></a> method.
 We need to know the time of the event, and the IDs or labels of the derived and ancestral populations participating in the divergence event.
 Notice that in this case, we do not need to provide proportions as we did in the case of admixture.
 This makes sense when you think about the fact that msprime simulates backwards-in-time: all lineages in all of the derived populations originate from the ancestral population in a split event.
@@ -1081,10 +1081,10 @@ Populations of nodes from time &gt;= 100:
 <h3>Mass migrations<a class="headerlink" href="#mass-migrations" title="Link to this heading">#</a></h3>
 <p>If you used any of versions of msprime prior to 1.0,
 you may be familiar with mass migration events.
-These are used to specify one-off events in which some fraction of a population moves into another population, and can be supplied to a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_mass_migration" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_mass_migration()</span></code></a> method.</p>
+These are used to specify one-off events in which some fraction of a population moves into another population, and can be supplied to a <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object using the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_mass_migration" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_mass_migration()</span></code></a> method.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Unlike <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_admixture" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_admixture()</span></code></a> and <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population_split" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population_split()</span></code></a> mentioned above, <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_mass_migration" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_mass_migration()</span></code></a> <strong>does not</strong> change any population states or migration rates. We <strong>strongly recommend</strong> that you use the more specialised methods to model admixture and divergence events – it is both simpler and safer!</p>
+<p>Unlike <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_admixture" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_admixture()</span></code></a> and <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population_split" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population_split()</span></code></a> mentioned above, <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_mass_migration" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_mass_migration()</span></code></a> <strong>does not</strong> change any population states or migration rates. We <strong>strongly recommend</strong> that you use the more specialised methods to model admixture and divergence events – it is both simpler and safer!</p>
 </div>
 <p>You’ll need to provide the time of the mass migration in generations,
 the ID of the source and destination populations,
@@ -1149,8 +1149,8 @@ so <code class="docutils literal notranslate"><span class="pre">source</span></c
 <p><img alt="" src="_images/tute-parameter-changes.png" /></p>
 <p>We may wish to specify changes to rates of population growth,
 or sudden changes in population size at a particular time.
-Both of these can be specified by applying the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population_parameters_change" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population_parameters_change()</span></code></a>
-method to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object.</p>
+Both of these can be specified by applying the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_population_parameters_change" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_population_parameters_change()</span></code></a>
+method to our <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.Demography</span></code></a> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
@@ -1187,7 +1187,7 @@ generations in the past.</p>
 For instance, you might want to know how many different lineages are ancestral to your sample at some past time.
 Perhaps you are interested to know which populations these ancestors belonged to (ie. <em>local ancestry</em>).
 In both cases, msprime can help you by allowing you to add a <em>census</em> to your simulation at a particular time.
-This is done with the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_census" title="(in Python)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_census()</span></code></a>
+This is done with the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.Demography.add_census" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">msprime.Demography.add_census()</span></code></a>
 method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1233,7 +1233,7 @@ See <a class="reference external" href="https://tskit.dev/msprime/docs/latest/an
 <p>As we’ve seen, it’s pretty easy to make mistakes when specifying demography!</p>
 <p>To help you spot these, msprime provides a debugger that prints out your
 population history in a more human-readable form.
-It’s good to get into the habit of running the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.DemographyDebugger" title="(in Python)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.DemographyDebugger</span></code></a>
+It’s good to get into the habit of running the <a class="reference external" href="https://tskit.dev/msprime/docs/stable/api.html#msprime.DemographyDebugger" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">msprime.DemographyDebugger</span></code></a>
 before running your simulations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
