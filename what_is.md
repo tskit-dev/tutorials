@@ -79,7 +79,7 @@ they can be created by [evolutionary simulation](https://tskit.dev/software/#sim
 or by [inferring genealogies from empirical DNA data](https://tskit.dev/software/#infer).
 
 :::{margin} Key point
-Tree sequences are used to encode and analyse large genetic datasets
+Tree sequences are used to encode and analyse large genetic datasets.
 :::
 
 Tree sequences provide an efficient way of storing
@@ -226,7 +226,7 @@ branches of the trees, and the positions of the twelve variable sites associated
 mutations are shown along the X axis.
 
 :::{margin} Key point
-Mutation on trees are the source of genetic variation
+Mutation on trees are the source of genetic variation.
 :::
 
 The trees inform us that, for example, the final mutation (at position 987) is inherited
@@ -266,7 +266,7 @@ ts.draw_svg(
 ```
 
 :::{margin} Key point
-Tree sequences are efficient because they don't store each tree separately
+Tree sequences are efficient because they don't store each tree separately.
 :::
 
 A branch can be shared by many adjacent trees, but is stored as a single edge in the tree
@@ -314,9 +314,9 @@ plt.show()
 
 ::::{margin}
 :::{note}
-The genetic genealogy is sometimes referred to as an ancestral recombination graph,
-or ARG, and one way to think of tskit tree sequence is as a way
-to store various different sorts of ARGs (see the {ref}`ARG tutorial<sec_args>`)
+The genetic genealogy is sometimes referred to as an ancestral recombination graph (ARG),
+and one way to think of tskit tree sequence is as a way
+to store various different sorts of ARGs (see the {ref}`ARG tutorial<sec_args>`).
 :::
 ::::
 
@@ -428,7 +428,7 @@ multiple correlated trees along a genome.
 
 ```{margin} Key point
 Most genetic calculations involve iterating over trees, which is highly efficient in
-{program}`tskit`
+{program}`tskit`.
 ```
 
 For example, statistical measures of genetic variation can be thought of as a calculation
