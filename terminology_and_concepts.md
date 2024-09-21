@@ -48,8 +48,6 @@ def basics():
     )
     tables.mutations.time = np.full_like(tables.mutations.time, tskit.UNKNOWN_TIME)
     tables.tree_sequence().dump("data/basics.trees")
-    
-
 
 def create_notebook_data():
     basics()
@@ -71,18 +69,18 @@ concepts behind {program}`tskit`, the tree sequence toolkit.
 
 ::::{margin}
 :::{note}
-See {ref}`sec_intro_downloading_datafiles` to run this tutorial on your own computer
+See {ref}`sec_intro_downloading_datafiles` to run this tutorial on your own computer.
 :::
 ::::
 
 A tree sequence is a data structure which describes a set of correlated
 evolutionary trees, together with some associated data that specifies, for example,
-the location of mutations in the tree sequence. More technically, a tree sequence
-stores a biological structure known as an "Ancestral Recombination Graph", or ARG.
+the location of mutations in the genome. More technically, a tree sequence
+stores a population genetics object known as an Ancestral Recombination Graph (ARG).
 
-Below are the most important {ref}`terms and concepts <tskit:sec_data_model_definitions>`
-that you'll encounter in these tutorials,  but first we'll {func}`~tskit.load` a tree
-sequence from a `.trees` file using the
+Below are the most important terms and concepts that you'll encounter in these tutorials.
+A concise glossary of these terms and concepts is available at {ref}`here <tskit:sec_data_model_definitions>`.
+But first we'll {func}`~tskit.load` a tree sequence from a `.trees` file using the
 {ref}`tskit:sec_python_api` (which will be used in the rest of this tutorial):
 
 ```{code-cell} ipython3
@@ -97,7 +95,7 @@ ts = tskit.load("data/basics.trees")
 :::{note}
 {ref}`Workarounds<msprime:sec_ancestry_multiple_chromosomes>` exist
 to represent a multi-chromosome genome as a tree
-sequence, but are not covered here
+sequence, but are not covered here.
 :::
 ::::
 
@@ -126,13 +124,12 @@ ts.draw_svg(
 )
 ```
 
-Each tree records the lines of descent along which a piece of DNA has been
-inherited (ignore for the moment the red symbols, which represent a mutation).
+Each tree records the lines of descent along which a piece of DNA has been inherited.
 For example, the first tree tells us that DNA from ancestral genome 7 duplicated
 to produce two lineages, which ended up in genomes 1 and 4, both of which exist in the
 current population. In fact, since this pattern is seen in all trees, these particular
 lines of inheritance were taken by all the DNA in this 1000 base pair genome.
-
+The red symbol is a mutation, which we will describe later.
 
 (sec_terminology_nodes)=
 
@@ -148,7 +145,6 @@ an *internal node*, representing an ancestor in which a single DNA
 sequence was duplicated (in forwards-time terminology) or in which multiple sequences
 coalesced (in backwards-time terminology). 
 
-
 (sec_terminology_nodes_samples)=
 
 #### Sample nodes
@@ -163,7 +159,6 @@ labelled $0..5$, and also 6 non-sample nodes, labelled $6..11$, in the tree sequ
 print("There are", ts.num_nodes, "nodes, of which", ts.num_samples, "are sample nodes")
 ```
 
-
 (sec_terminology_edges)=
 
 ### Edges
@@ -175,10 +170,9 @@ three trees in the example above has a branch from node 7 to node 1, but those t
 branches represent just a single edge.
 
 Each edge is associated with a parent node ID and a child node ID. The time of the parent
-node must be
-strictly greater than the time of the child node, and the difference in these times is
-sometimes referred to as the "length" of the edge. Since trees in a tree sequence are
-usually taken to represent marginal trees along a genome, as well as the time dimension
+node must be strictly greater than the time of the child node, and the difference in these times
+is sometimes referred to as the "length" of the edge. Since trees in a tree sequence are
+usually taken to represent local trees along a genome, as well as the time dimension
 each edge also has a genomic _span_, defined by a *left* and a *right* position
 along the genome. There are 15 edges in the tree sequence above. Here's an example of
 one of them:
@@ -239,9 +233,6 @@ parent_of_7 = first_tree.parent(7)
 children_of_7 = first_tree.children(7)
 print("Node 7's parent is", parent_of_7, "and childen are", children_of_7, "in the first tree")
 ```
-
-
-
 
 (sec_terminology_individuals_and_populations)=
 
@@ -332,6 +323,8 @@ homozygous for "T", Bob is homozygous for "G", and Cat is heterozygous "T/G".
 In other words the ancestral state and the details of any mutations at that site,
 when coupled with the tree topology at the site {attr}`~Site.position`, is sufficient to
 define the allelic state possessed by each sample.
+See description for {attr}`~Mutation.parent` on how tskit handles multiple mutations along
+a path in a tree.
 
 Note that even though the genome is 1000 base pairs long, the tree sequence only contains
 a single site, because we usually only bother defining *variable* sites in a tree
@@ -339,7 +332,6 @@ sequence (e.g. positions seen in studies to have samples possessing different al
 that genomic location). It is perfectly possible to have a site with no mutations
 (or silent mutations) --- i.e. a "monomorphic" site --- but such sites are not normally
 used in further analysis.
-
 
 (sec_terminology_provenance)=
 
@@ -353,7 +345,6 @@ call to msprime that produced it, and the second the call to
 {meth}`~TreeSequence.simplify` that was done on the result. Ideally, the list of
 provenance entries are sufficient to exactly recreate the tree sequence, but this
 is not always possible.
-
 
 (sec_concepts)=
 
@@ -385,17 +376,18 @@ with 3 or more children in a particular tree (these are known as *polytomies*).
 ### Tree changes, ancestral recombinations, and SPRs
 
 The process of recombination usually results in trees along a genome where adjacent
-trees differ by only a few "tree edit" or SPR (subtree-prune-and-regraft) operations.
+trees differ by only a few "tree edit" or subtree-prune-and-regraft (SPR) operations.
 The result is a tree sequence in which very few edges
 {ref}`change from tree to tree<fig_what_is_edge_diffs>`.
 This is the underlying reason that `tskit` is so
 efficient, and is well illustrated in the example tree sequence above.
 
 In this (simulated) tree sequence, each tree differs from the next by a single SPR.
-The subtree defined by node 7 in the first tree has been pruned and regrafted onto the
-branch between 0 and 10, to create the second tree. The second and third trees have the
-same topology, but differ because their ultimate coalesence happened in a different
-ancestor (easy to spot in a simulation, but hard to detect in real data). This is also
+The subtree defined by node 7 in the first tree has been pruned (away from node 11) and
+regrafted onto the branch between 0 and 9, to create the second tree.
+The second and third trees have the same topology,
+but differ because their ultimate coalesence happened in a different ancestor
+(easy to spot in a simulation, but hard to detect in real data). This is also
 caused by a single SPR: looking at the second tree, either the subtree below node 8 or
 the subtree below node 9 must have been pruned and regrafted higher up on the same
 lineage to create the third tree. Because this is a fully {ref}`simplified<sec_simplification>`
@@ -409,7 +401,7 @@ positions (an "infinite sites" model of breakpoints), then the number of trees i
 sequence equals the number of ancestral recombination events plus one. If recombinations
 can occur at the same physical position (e.g. if the genome is treated as a set of
 discrete integer positions, as in the simulation that created this tree sequence) then
-moving from  one tree to the next in a tree sequence might require multiple SPRs if
+moving from one tree to the next in a tree sequence might require multiple SPRs if
 there are multiple, overlaid ancestral recombination events.
 
 (sec_concepts_args)=
@@ -418,11 +410,11 @@ there are multiple, overlaid ancestral recombination events.
 
 ::::{margin}
 :::{note}
-There is a subtle distinction between common ancestry and coalescence. In particular, all coalescent nodes are common ancestor events, but not all common ancestor events in an ARG result in coalescence in a local tree.
+There is a subtle distinction between common ancestry and coalescence. In particular, all coalescent nodes are common ancestor events, but not all common ancestor events in an ARG result in coalescence in all local trees.
 :::
 ::::
 
-The term "Ancestral Recombination Graph", or ARG, is commonly used to describe a genetic
+The term Ancestral Recombination Graph (ARG), is commonly used to describe a genetic
 genealogy. In particular, many (but not all) authors use it to mean a genetic
 genealogy in which details of the position and potentially the timing of all
 recombination and common ancestor events are explictly stored. For clarity
@@ -438,7 +430,7 @@ which omits these extra nodes. This is for two main reasons:
 2. The number of recombination and non-coalescing common ancestor events in the genealogy
    quickly grows to dominate the total number of nodes in the tree sequence,
    without actually contributing to the mutations inherited by the samples.
-   In other words, these nodes are redundant to the storing of genome data.
+   In other words, these nodes are redundant to the storing of genomic data.
 
 Therefore, compared to a full ARG, you can think of a simplified tree sequence as
 storing the trees *created by* recombination events, rather than attempting to record the
@@ -450,6 +442,8 @@ way to put it:
 > whereas a [simplified] tree sequence encodes the outcome of those events"
 > ([Kelleher _et al._, 2019](https://doi.org/10.1534/genetics.120.303253))
 
+[Wong _et al._, 2024](https://doi.org/10.1093/genetics/iyae100)
+review this topic in detail.
 
 ### Tables
 
