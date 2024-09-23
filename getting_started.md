@@ -489,7 +489,7 @@ sum(small_ts.diversity(windows="sites", span_normalise=False))
 small_ts.diversity()
 ```
 
-See {ref}`windows<tskit:sec_stats_windows>` and {ref}`windows<tskit:sec_stats_span-normalise>`
+See {ref}`windows<tskit:sec_stats_windows>` and {ref}`windows<tskit:sec_stats_span_normalise>`
 for details about the ``span_normalise=False``.
 
 (sec_tskit_getting_started_key_points)=
