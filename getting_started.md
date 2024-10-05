@@ -29,11 +29,10 @@ want to do:
 {ref}`save or export data<sec_tskit_getting_started_exporting_data>`.
 Throughout, we'll also provide pointers to where you can learn more.
 
-
 :::{note}
 The examples in this
 tutorial are all written using the {ref}`tskit:sec_python_api`, but it's also possible to
-{ref}`use R <sec_tskit_r>`, or access the API in other languages, notably
+{ref}`use R<sec_tskit_r>`, or access the API in other languages, notably
 {ref}`C<sec_c_api>` and [Rust](https://github.com/tskit-dev/tskit-rust).
 :::
 
@@ -119,7 +118,7 @@ forwards through trees in a tree sequence (or indeed backwards using the standar
 {func}`~py:reversed` function) is efficient. That means it's quick, for example to check if all
 the trees in a tree sequence have fully coalesced (which is to be expected in
 reverse-time, coalescent simulations, but not always for tree sequences produced by
-{ref}`forward simulation <sec_tskit_forward_simulations>`).
+{ref}`forward simulation<sec_tskit_forward_simulations>`).
 
 ```{code-cell} ipython3
 import time
@@ -173,7 +172,7 @@ print(f"Tree number {swept_tree.index}, which runs from position {intvl.left} to
 swept_tree.draw_svg(size=(1000, 200))
 ```
 :::{margin}
-The {ref}`visualization tutorial <sec_tskit_viz>` gives more drawing possibilities
+The {ref}`visualization tutorial<sec_tskit_viz>` gives more drawing possibilities
 :::
 
 This tree shows the classic signature of a recent expansion or selection event, with many
@@ -227,7 +226,7 @@ sites or mutations in your analyses.
 For many purposes it may be better to focus on the genealogy of your samples, rather than
 the {ref}`sites<sec_data_model_definitions_site>` and
 {ref}`mutations<sec_data_model_definitions_mutation>` that
-{ref}`define <sec_what_is_dna_data>` the genome sequence itself. Nevertheless,
+{ref}`define<sec_what_is_dna_data>` the genome sequence itself. Nevertheless,
 {program}`tskit` also provides efficient ways to return {class}`Site` object and
 {class}`Mutation` objects from a tree sequence.
 For instance, under the finite sites model of mutation that we used above, multiple mutations
@@ -285,7 +284,7 @@ To find the actual allelic states at a site, you can refer to the
 {attr}`~Variant.alleles` provided for each {class}`Variant`:
 the genotype value is an index into this list. Here's one way to print them out; for
 clarity this example also prints out the IDs of both the sample nodes (i.e. the genomes)
-and the diploid {ref}`individuals <sec_nodes_or_individuals>` in which each sample
+and the diploid {ref}`individuals<sec_nodes_or_individuals>` in which each sample
 node resides.
 
 ````{code-cell} ipython3
@@ -474,7 +473,7 @@ ac = h.count_alleles()
 allel.mean_pairwise_difference(ac)
 ```
 
-Comparative call with tskit is:
+Comparable call with {program}`tskit` is:
 
 ```{code-cell} ipython3
 # Per site (not span-normalised to match scikit-allel)

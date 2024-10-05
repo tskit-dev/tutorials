@@ -79,7 +79,7 @@ the location of mutations in the genome. More technically, a tree sequence
 stores a population genetics object known as an Ancestral Recombination Graph (ARG).
 
 Below are the most important terms and concepts that you'll encounter in these tutorials.
-A concise glossary of these terms and concepts is available at {ref}`here <tskit:sec_data_model_definitions>`.
+A concise glossary of these terms and concepts is available at {ref}`here<tskit:sec_data_model_definitions>`.
 But first we'll {func}`~tskit.load` a tree sequence from a `.trees` file using the
 {ref}`tskit:sec_python_api` (which will be used in the rest of this tutorial):
 
@@ -245,7 +245,7 @@ obtain two copies of each autosomal chromosome. The tree with six sample nodes a
 could therefore represent the result of sampling three diploid individuals from a larger
 population. The tree sequence can keep track of the individuals in which nodes reside,
 and store specific information about them (such as the individuals' spatial location)
-as well as arbitrary {ref}`metadata <sec_metadata>` (such as a name). In this particular
+as well as arbitrary {ref}`metadata<sec_metadata>` (such as a name). In this particular
 tree sequence the sample nodes are indeed associated with three named diploid
 individuals: ``Ada``, ``Bob`` and ``Cat``.
 
