@@ -86,7 +86,7 @@ print(f"Average diversity per unit sequence length = {d:e}")
 The above result tells us the average diversity across the samples and
 their whole sequence (that is their genomes), returning a single number.
 Note the emphasis on "average" in the above print statement.
-See the {ref}`Span normalisation<tskit:sec_stats_span_normalise>` sub-section
+See the {ref}`Span normalisation<sec_span_normalise>` sub-section
 below for more details on this point.
 
 #### Windows
@@ -118,8 +118,8 @@ the output dimensions of statistics are determined by the ``windows`` argument.
 #### Sample sets
 
 Suppose we wanted to compute average diversity within a specific subset of samples,
-instead of all samples. We can do this using the {ref}`tskit:sec_stats_sample_sets`
-argument:
+instead of all samples.
+We can do this using the {ref}`sample_sets<tskit:sec_stats_sample_sets>` argument:
 
 ```{code-cell} ipython3
 A = ts.samples()[:100]
@@ -169,8 +169,8 @@ Above we referred to the *average* diversity per unit sequence length,
 either for the whole sequence or within windows.
 To facilitate comparison, tskit by default normalises statistics
 by the sequence length, returning average of a statistic.
-When this is not what you want, you can use the {ref}`tskit:sec_stats_span_normalise`
-argument:
+When this is not what you want,
+you can use the {ref}`span_normalise<tskit:sec_stats_span_normalise>` argument:
 
 ```{code-cell} ipython3
 davg = ts.diversity()
@@ -226,7 +226,7 @@ ts.diversity(mode="branch") being 40534.4...)?
 Above we have computed statistics based on site mutations in the tree sequence.
 In tskit, these statistics are hence called "site-based". This "mode" of statistics
 is computed by default, but we can also compute "branch-based" and "node-based"
-statistics using the {ref}`tskit:sec_stats_mode` argument:
+statistics using the {ref}`mode<tskit:sec_stats_mode>` argument:
 
 ```{code-cell} ipython3
 ds = ts.diversity()
@@ -283,7 +283,7 @@ set A and B in each window.
 
 A powerful feature of tskit's statistics API is that we can compute
 multi-way statistics between multiple sets of samples simultaneously
-using the {ref}`indexes<tskit:sec_stats_sample_sets_multi_way` argument:
+using the {ref}`indexes<tskit:sec_stats_sample_sets_multi_way>` argument:
 
 ```{code-cell} ipython3
 d = ts.divergence(sample_sets=[A, B, C], indexes=[(0, 1), (0, 2)])
