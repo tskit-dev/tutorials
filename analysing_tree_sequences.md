@@ -86,7 +86,7 @@ print(f"Average diversity per unit sequence length = {d:e}")
 The above result tells us the average diversity across the samples and
 their whole sequence (that is their genomes), returning a single number.
 Note the emphasis on "average" in the above print statement.
-See the {ref}`Span normalisation<sec_span_normalise>` sub-section
+See the {ref}`Span normalisation<sec_span_normalisation>` sub-section
 below for more details on this point.
 
 #### Windows
