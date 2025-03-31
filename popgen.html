@@ -404,7 +404,7 @@ large genomic datasets.</p>
 <h2>Population genetic simulation<a class="headerlink" href="#population-genetic-simulation" title="Link to this heading">#</a></h2>
 <p>Several simulation tools output tree sequences. Below we use the
 standard library for population genetic simulation models
-(<a class="reference external" href="https://popsim-consortium.github.io/">stdpopsim</a>) to generate a model of
+(<a class="reference external" href="https://popsim-consortium.github.io/stdpopsim-docs/">stdpopsim</a>) to generate a model of
 <em>Homo sapiens</em>, in which African, Eurasian,
 and Asian populations combine to generate a mixed American population. We can use the
 <a class="reference external" href="https://pypi.org/project/demesdraw/">demesdraw</a> package to plot a schematic of the
@@ -416,7 +416,7 @@ migrations and population size changes that define this model.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">species</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_species</span><span class="p">(</span><span class="s2">&quot;HomSap&quot;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_demographic_model</span><span class="p">(</span><span class="s2">&quot;AmericanAdmixture_4B11&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_demographic_model</span><span class="p">(</span><span class="s2">&quot;AmericanAdmixture_4B18&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot a schematic of the model</span>
 <span class="n">demesdraw</span><span class="o">.</span><span class="n">tubes</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">to_demes</span><span class="p">(),</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">log_time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -425,12 +425,6 @@ migrations and population size changes that define this model.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:158: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
-  time=int(extended_GF.time.head(1) - 1), rate=0
-/opt/hostedtoolcache/Python/3.11.11/x64/lib/python3.11/site-packages/stdpopsim/catalog/HomSap/demographic_models.py:161: FutureWarning: Calling int on a single element Series is deprecated and will raise a TypeError in the future. Use int(ser.iloc[0]) instead
-  time=int(extended_GF.time.tail(1) + 1), rate=0
-</pre></div>
-</div>
 <img alt="_images/4b725187527b6ef29e3710af0c5e6595c4bddb6abe1713925ab5dbabf788e2de.png" src="_images/4b725187527b6ef29e3710af0c5e6595c4bddb6abe1713925ab5dbabf788e2de.png" />
 </div>
 </div>
@@ -445,7 +439,7 @@ succinct tree sequence named <code class="docutils literal notranslate"><span cl
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">&quot;chr1&quot;</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">20_000</span><span class="p">)</span>
 <span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AFR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;EUR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ASIA&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ADMIX&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span> <span class="c1"># 16 diploid samples</span>
 <span class="n">engine</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s2">&quot;msprime&quot;</span><span class="p">)</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">contig</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">contig</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>  <span class="c1"># trim to first 20kb simulated</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulated a tree sequence of </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> haploid genomes:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="si">}</span><span class="s2"> variable sites over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> base pairs&quot;</span><span class="p">)</span>
 </pre></div>
