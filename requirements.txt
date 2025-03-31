@@ -8,7 +8,7 @@ networkx
 pandas
 pygraphviz
 scikit-allel
-stdpopsim
+stdpopsim>=0.3
 tqdm
 tskit>=0.5.4
 tskit_arg_visualizer
