@@ -94,7 +94,7 @@ large genomic datasets.
 
 Several simulation tools output tree sequences. Below we use the
 standard library for population genetic simulation models
-([stdpopsim](https://popsim-consortium.github.io/)) to generate a model of
+([stdpopsim](https://popsim-consortium.github.io/stdpopsim-docs/)) to generate a model of
 *Homo sapiens*, in which African, Eurasian,
 and Asian populations combine to generate a mixed American population. We can use the
 [demesdraw](https://pypi.org/project/demesdraw/) package to plot a schematic of the
@@ -107,7 +107,7 @@ import demesdraw
 from matplotlib import pyplot as plt
 
 species = stdpopsim.get_species("HomSap")
-model = species.get_demographic_model("AmericanAdmixture_4B11")
+model = species.get_demographic_model("AmericanAdmixture_4B18")
 
 # Plot a schematic of the model
 demesdraw.tubes(model.model.to_demes(), ax=plt.gca(), seed=1, log_time=True)
@@ -125,7 +125,7 @@ succinct tree sequence named `ts`:
 contig = species.get_contig("chr1", mutation_rate=model.mutation_rate, right=20_000)
 samples = {"AFR": 4, "EUR": 4, "ASIA": 4, "ADMIX": 4} # 16 diploid samples
 engine = stdpopsim.get_engine("msprime")
-ts = engine.simulate(model, contig, samples, seed=9)
+ts = engine.simulate(model, contig, samples, seed=9).trim()  # trim to first 20kb simulated
 print(f"Simulated a tree sequence of {ts.num_samples} haploid genomes:")
 print(f"{ts.num_sites} variable sites over {ts.sequence_length} base pairs")
 ```
