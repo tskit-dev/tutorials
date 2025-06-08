@@ -10,6 +10,6 @@ pygraphviz
 scikit-allel
 stdpopsim>=0.3
 tqdm
-tskit>=0.5.4
-tskit_arg_visualizer
+tskit>=0.6.4
+tskit_arg_visualizer>=0.1.0
 tszip
