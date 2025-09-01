@@ -31,7 +31,7 @@ Throughout, we'll also provide pointers to where you can learn more.
 
 :::{note}
 The examples in this
-tutorial are all written using the {ref}`sec_python_api`, but it's also possible to
+tutorial are all written using the {ref}`tskit:sec_python_api`, but it's also possible to
 {ref}`use R <sec_tskit_r>`, or access the API in other languages, notably
 {ref}`C<sec_c_api>` and [Rust](https://github.com/tskit-dev/tskit-rust).
 :::

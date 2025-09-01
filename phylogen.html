@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -401,10 +401,10 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">Tskit</span></code>, the tree sequence toolkit, can be used as an efficient library for very large evolutionary trees. <code class="docutils literal notranslate"><span class="pre">Tskit</span></code> makes it easy to deal with trees with millions of
 tips, as in the example below:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
@@ -425,10 +425,10 @@ tips, as in the example below:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.7001838684082 Mb
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.70018577575684 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 3.53 s, sys: 114 ms, total: 3.64 s
-Wall time: 3.64 s
+CPU times: user 3.53 s, sys: 107 ms, total: 3.63 s
+Wall time: 3.63 s
 </pre></div>
 </div>
 </div>
@@ -453,8 +453,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 nodes took:
-CPU times: user 285 ms, sys: 90 μs, total: 285 ms
-Wall time: 285 ms
+CPU times: user 252 ms, sys: 32 μs, total: 252 ms
+Wall time: 252 ms
 </pre></div>
 </div>
 </div>
@@ -470,8 +470,8 @@ Wall time: 285 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 6.94 ms, sys: 2.99 ms, total: 9.93 ms
-Wall time: 9.88 ms
+CPU times: user 8.23 ms, sys: 2.03 ms, total: 10.3 ms
+Wall time: 10.1 ms
 </pre></div>
 </div>
 </div>
@@ -541,10 +541,10 @@ easy extension of the library to multiple trees produced e.g. by hybridization.
 In the simplest case, however, the tree sequence can contain just a single tree. This
 can be obtained using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">first()</span></code></a> method.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sensible node labels. It would be nice to roll this into tree.draw()</span>

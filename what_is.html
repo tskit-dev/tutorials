@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -410,7 +410,7 @@ Plots (a) and (b) below summarize these aspects
 <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">compute</span></a> further down).</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/833298e0f6c87385f527abfcde412555b0cfe9b74eb75c6b6da4111cd00a45be.svg" src="_images/833298e0f6c87385f527abfcde412555b0cfe9b74eb75c6b6da4111cd00a45be.svg" />
+<img alt="_images/2c2ce1103e975af377f57e86670c6ae205f378a93e51ef9ff19dfd5bdd98af4c.svg" src="_images/2c2ce1103e975af377f57e86670c6ae205f378a93e51ef9ff19dfd5bdd98af4c.svg" />
 </div>
 </div>
 <section id="how-to-think-about-tree-sequences">
@@ -423,10 +423,10 @@ different points along a <a class="reference external" href="https://en.wikipedi
 Here’s a tiny example based on ten haploid genomes, <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>,
 spanning a short 1000 letter chromosome.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
@@ -492,10 +492,10 @@ of our 10 genomes.</p>
 trees with a knowledge of where <em>mutations</em> occur on their branches. Here’s how that
 might look in our simple example:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mut_labels</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># An array of labels for the mutations, listing position &amp; allele change</span>
@@ -529,10 +529,10 @@ compared to the original value of <em>G</em>. In other words, once we know the a
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here’s the resulting “variant matrix”:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">haplotypes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;   &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">()]</span>
@@ -566,10 +566,10 @@ that is, they <em>share structure</em>. In our example this becomes evident
 if we highlight the branches (“edges” in tree sequence terminology) that remain
 unchanged between the first and the second tree.</p>
 <div class="cell tag_hide-input docutils container" id="fig-what-is-edge-diffs">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Highlight certain edges in certain trees. Other visualization possibilities in tutorials/viz.html</span>
@@ -606,7 +606,7 @@ noting that the efficiency extends to processing time too: tree sequences are of
 several orders of magnitude faster to process than other storage formats.</p>
 <div class="cell tag_remove-input docutils container" id="plot-storing-everyone">
 <div class="cell_output docutils container">
-<img alt="_images/49ea8362bdc30aedecd9aaa8707fef21330eff4da44656a2bf2118ecb05c9871.svg" src="_images/49ea8362bdc30aedecd9aaa8707fef21330eff4da44656a2bf2118ecb05c9871.svg" />
+<img alt="_images/d514eb490a0b78816751efff9442ee2867399d01ceb9000d44c5746144854834.svg" src="_images/d514eb490a0b78816751efff9442ee2867399d01ceb9000d44c5746144854834.svg" />
 </div>
 </div>
 </section>
@@ -637,7 +637,7 @@ from modern day populations A (a constant-size population) and B (a recently exp
 one), where limited migration is occuring from A to B.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/5bf82a52d94a34a909c1f54c62c9baceef13aaf9acd1872e94a85964c3add7a8.svg" src="_images/5bf82a52d94a34a909c1f54c62c9baceef13aaf9acd1872e94a85964c3add7a8.svg" />
+<img alt="_images/434cb468c583dd568effab61791aa8feae681d826113869beb17c1a047205f93.svg" src="_images/434cb468c583dd568effab61791aa8feae681d826113869beb17c1a047205f93.svg" />
 </div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
@@ -651,10 +651,10 @@ distinguishing them from the <em>sampled</em> genomes (<span class="math notrans
 marked with square symbols. We can even colour the nodes by the population that we know
 (or infer) them to belong to at the time:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colours</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;#1f77b4&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;#ff7f0e&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;#2ca02c&quot;</span><span class="p">}</span>
@@ -678,10 +678,10 @@ lived much longer ago than the population split, 1000 generations back, and
 resided in the ancestral (blue) population. The tree sequence also allows us to easily
 deduce these MRCA genomes, simply by looking at which mutations they have inherited:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -753,7 +753,7 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_remove-input docutils container" id="plot-incremental-calculation">
 <div class="cell_output docutils container">
-<img alt="_images/02c3d6f6fc7cb40c9453a459ca583ecd2a7cc892061ea415420f0ea75607ba39.svg" src="_images/02c3d6f6fc7cb40c9453a459ca583ecd2a7cc892061ea415420f0ea75607ba39.svg" />
+<img alt="_images/fbb050294ac478897d5291f06a0d96d0baf41a19c73304926fdd0266446b6e8b.svg" src="_images/fbb050294ac478897d5291f06a0d96d0baf41a19c73304926fdd0266446b6e8b.svg" />
 </div>
 </div>
 <p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>
