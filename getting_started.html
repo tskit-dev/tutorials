@@ -631,7 +631,7 @@ used <a class="reference external" href="https://tskit.dev/tskit/docs/stable/pyt
 that there’s a corresponding <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.first" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.first()</span></code></a> method to return the first tree.</p>
 <p>Above, we stopped iterating after Tree 4 to limit the printed output, but iterating
 forwards through trees in a tree sequence (or indeed backwards using the standard Python
-<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.13)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#reversed" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">reversed()</span></code></a> function) is efficient. That means it’s quick, for example to check if all
 the trees in a tree sequence have fully coalesced (which is to be expected in
 reverse-time, coalescent simulations, but not always for tree sequences produced by
 <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">forward simulation</span></a>).</p>
@@ -652,7 +652,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.00958776 secs
+Checked in 0.0100121 secs
 </pre></div>
 </div>
 </div>
@@ -681,7 +681,7 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8b2c721fbfb2f1357f47e547e17b988e87e41d4ebbd2cc038c993863cb216c6b.png" src="_images/8b2c721fbfb2f1357f47e547e17b988e87e41d4ebbd2cc038c993863cb216c6b.png" />
+<img alt="_images/265fb3ad2a2b759c7d59aa28748c6858f42fca203084a94a6fa89b31aba30acd.png" src="_images/265fb3ad2a2b759c7d59aa28748c6858f42fca203084a94a6fa89b31aba30acd.png" />
 </div>
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
@@ -900,7 +900,7 @@ method:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ccb6947bb4c1ede5a6eda8bced4ec9cdd79599b67dc2e42f6e8c647577f0af0c.png" src="_images/ccb6947bb4c1ede5a6eda8bced4ec9cdd79599b67dc2e42f6e8c647577f0af0c.png" />
+<img alt="_images/9d927e44e053f6541c2f4a454e0ddd5700f2125990167b939536193fdd5d893d.png" src="_images/9d927e44e053f6541c2f4a454e0ddd5700f2125990167b939536193fdd5d893d.png" />
 </div>
 </div>
 <p>By default this method returns the “folded” or unpolarized AFS that doesn’t
@@ -926,7 +926,7 @@ which provides an estimate that is not influenced by random mutational “noise�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8eecd13117f303693ff842471d1431fffb8349db1e51e6b60834485e181201bc.png" src="_images/8eecd13117f303693ff842471d1431fffb8349db1e51e6b60834485e181201bc.png" />
+<img alt="_images/b7e6298a874ab0bbfce4cf868e0744e86339297a7ec3ea00d7b7505203a3685b.png" src="_images/b7e6298a874ab0bbfce4cf868e0744e86339297a7ec3ea00d7b7505203a3685b.png" />
 </div>
 </div>
 <p>On the left is the frequency spectrum averaged over the entire genome, and on the right
@@ -966,7 +966,7 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cb950c20f56a49e212f088a3df6be76b61795175c21ece585550b81aa8728701.png" src="_images/cb950c20f56a49e212f088a3df6be76b61795175c21ece585550b81aa8728701.png" />
+<img alt="_images/6fdb10f8f1470dfe86f610d2dde9aa69e82acf2458c8fce32a2e5de64e0642f2.png" src="_images/6fdb10f8f1470dfe86f610d2dde9aa69e82acf2458c8fce32a2e5de64e0642f2.png" />
 </div>
 </div>
 <p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,

@@ -448,6 +448,23 @@ the `tree` group contains the ID of the tree (e.g. `t0`), the `site` group on th
 contains the site ID (e.g. `s15`) the `mut` class contains the mutation ID (e.g. `m16`),
 and so on.
 
+#### CSS selector quick reference
+
+If you don't do this all the time it's not easy to remember what the various separators
+mean, so here's a quick reference (for more, see
+[these docs](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors)):
+
+- `abc` (Type `abc`, like `g` for a `<g>...</g>` tag)
+- `.xyz` (Class `xyz`)
+- `#uvw` (ID `uvw`)
+- `,` (Selector list, means "or")
+- `>` (Child combinator)
+- "` `" (Descendant combinator, a space)
+- `+` (Next-sibling combinator)
+- `~` (Subsequent sibling combinator)
+- `|` (Namespace separator)
+
+
 #### Styling graphical elements 
 
 The classes above make it easy to target specific nodes or edges in one or multiple

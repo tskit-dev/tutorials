@@ -376,11 +376,11 @@ document.write(`
 <p>When performing large calculations it’s often useful to split the
 work over multiple processes or threads. The <code class="docutils literal notranslate"><span class="pre">tskit</span></code> API can
 be used without issues across multiple processes, and the Python
-<a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module often provides a very effective way to
+<a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module often provides a very effective way to
 work with many replicate simulations in parallel.</p>
 <p>When we wish to work with a single very large dataset, however, threads can
 offer better resource usage because of the shared memory space. The Python
-<a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> library gives a very simple interface to lightweight CPU
+<a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a> library gives a very simple interface to lightweight CPU
 threads and allows us to perform several CPU intensive tasks in parallel. The
 <code class="docutils literal notranslate"><span class="pre">tskit</span></code> API is designed to allow multiple threads to work in parallel when
 CPU intensive tasks are being undertaken.</p>
@@ -401,7 +401,7 @@ allowing these calculations to proceed in parallel.</p>
 We must recreate an example of parallel processing, giving examples of both
 threads and processes (but see
 <a class="reference external" href="https://stackoverflow.com/questions/47313732/jupyter-notebook-never-finishes-processing-using-multiprocessing-python-3">this stackoverflow post</a>
-for why it may be difficult to get <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> working in this notebook).
+for why it may be difficult to get <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> working in this notebook).
 A reasonable example might be to calculate many pairwise statistics between sample sets
 in parallel.</p>
 <p>We should also show how, for large tree sequences that it is better to pass the filenames
