@@ -1151,7 +1151,6 @@ def make_introgression_ts(sequence_length, random_seed=None):
             msprime.SampleSet(1, ploidy=1, time=30 * time_units, population='Neanderthal'),
         ],
         demography = demography,
-        record_migrations=True,  # Needed for tracking segments.
         random_seed=random_seed,
     )
 
