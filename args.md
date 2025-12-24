@@ -26,7 +26,7 @@ which is additionally annotated with genomic positions such that at each
 position, a path through the edges exists which defines a tree. This graph
 interpretation of a tree sequence maps very closely to the concept of
 an "ancestral recombination graph" (or ARG). See
-[this preprint](https://www.biorxiv.org/content/10.1101/2023.11.03.565466v2) for further details.
+[this paper](http://dx.doi.org/10.1093/genetics/iyae100) for further details.
 
 ## Full ARGs
 
