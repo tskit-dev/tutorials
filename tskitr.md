@@ -21,6 +21,12 @@ kernelspec:
 
 To interface with `tskit` in R, we can use the [reticulate](https://rstudio.github.io/reticulate) R package, which lets you call `tskit`'s Python API within an R session. In this tutorial, we'll go through a couple of examples to show you how to get started. You'll need to install `reticulate` in your R session via `install.packages("reticulate")` and at a minimum state the required Python packages via `reticulate::py_require(c("tskit", "msprime"))`. This setting will use `reticulate`'s isolated Python virtual environment, but you can also use an alternative Python environment as described at https://rstudio.github.io/reticulate.
 
+::::{margin}
+:::{note}
+The [slendr](https://www.slendr.net) R package uses `reticulate` extensively to work with tree sequences in R and also provides R wrappers for some `tskit` functions. 
+:::
+::::
+
 We'll begin by simulating a small tree sequence using `msprime`.
 
 ```{code-cell}
@@ -55,7 +61,7 @@ paste(
     reduced_ts$num_trees, "trees over", reduced_ts$sequence_length/1e3, "kb.")
 ```
 
-### IDs and indexes
+## IDs and indexes
 
 Note that if a bare digit is provided to one of these methods, it will be treated as a
 floating point number (numeric in R). This is useful to know when calling `tskit` methods that
