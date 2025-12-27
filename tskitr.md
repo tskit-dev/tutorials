@@ -114,7 +114,7 @@ we'll first add some mutations to our tree sequence with the
 for each of the tree sequence's sample nodes:
 
 ```{code-cell}
-ts_mut = msprime$sim_mutations(reduced_ts, rate=1e-4, random_seed=321)
+ts_mut <- msprime$sim_mutations(reduced_ts, rate=1e-4, random_seed=321)
 paste(ts_mut$num_mutations, "mutations, genetic diversity is", ts_mut$diversity())
 ```
 
@@ -123,7 +123,7 @@ sequence {meth}`~TreeSequence.genotype_matrix()` method to return the genotypes 
 the tree sequence as a matrix object in R.
 
 ```{code-cell}
-G = ts_mut$genotype_matrix()
+G <- ts_mut$genotype_matrix()
 G
 is(G)
 ```
@@ -131,7 +131,7 @@ is(G)
 We can then use R functions directly on the genotype matrix:
 
 ```{code-cell}
-allele_frequency = rowMeans(G)
+allele_frequency <- rowMeans(G)
 allele_frequency
 ```
 
@@ -168,10 +168,10 @@ phylogenetic tree representation defined in the the popular
 individual trees {meth}`exported in Newick format<Tree.as_newick>`:
 
 ```{code-cell}
-file = tempfile()
+file <- tempfile()
 ts_mut$write_nexus(file)
 # Warning - ape trees are stored independently, so this will use much more memory than tskit
-trees <- ape::read.nexus(file, force.multi = TRUE)  # return a set of trees
+trees <- ape::read.nexus(file, force.multi=TRUE)  # return a set of trees
 
 # Or simply read in a single tree
 tree <- ape::read.tree(text=ts_mut$first()$as_newick())
