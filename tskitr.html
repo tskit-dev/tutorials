@@ -371,14 +371,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ids-and-indexes">IDs and indexes</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ids-and-indexes">IDs and indexes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-tips">Jupyter notebook tips</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-with-r-libraries">Interaction with R libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-information">Further information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage-through-the-tskit-s-c-api">Advanced usage through the tskit’s C API</a></li>
 </ul>
             </nav>
         </div>
@@ -392,19 +391,25 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="tskit-and-r">
 <span id="sec-tskit-r"></span><h1>Tskit and R<a class="headerlink" href="#tskit-and-r" title="Link to this heading">#</a></h1>
-<p>To interface with <code class="docutils literal notranslate"><span class="pre">tskit</span></code> in R, we can use the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a> R package, which lets you call Python functions within an R session. In this tutorial, we’ll go through a couple of examples to show you how to get started. If you haven’t done so already, you’ll need to install <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> in your R session via <code class="docutils literal notranslate"><span class="pre">install.packages(&quot;reticulate&quot;)</span></code>.</p>
+<p>To interface with <code class="docutils literal notranslate"><span class="pre">tskit</span></code> in R, we can use the <a class="reference external" href="https://rstudio.github.io/reticulate">reticulate</a> R package, which lets you call <code class="docutils literal notranslate"><span class="pre">tskit</span></code>’s Python API within an R session. In this tutorial, we’ll go through a couple of examples to show you how to get started. You’ll need to install <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> in your R session via <code class="docutils literal notranslate"><span class="pre">install.packages(&quot;reticulate&quot;)</span></code> and at a minimum state the required Python packages via <code class="docutils literal notranslate"><span class="pre">reticulate::py_require(c(&quot;tskit&quot;,</span> <span class="pre">&quot;msprime&quot;))</span></code>. This setting will use <code class="docutils literal notranslate"><span class="pre">reticulate</span></code>’s isolated Python virtual environment, but you can also use an alternative Python environment as described at https://rstudio.github.io/reticulate.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference external" href="https://www.slendr.net">slendr</a> R package uses <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> extensively to work with tree sequences in R and also provides R wrappers for some <code class="docutils literal notranslate"><span class="pre">tskit</span></code> functions.</p>
+</div>
+</aside>
 <p>We’ll begin by simulating a small tree sequence using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
-
 <span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">80</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="o">=</span><span class="m">1e4</span><span class="p">,</span><span class="w"> </span><span class="n">recombination_rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
 <span class="n">ts</span><span class="w">  </span><span class="c1"># See &quot;Jupyter notebook tips&quot;, below for how to render this nicely</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tskit.trees.TreeSequence object at 0x7f6444af1f90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tskit.trees.TreeSequence object at 0x7f195a8d4190&gt;
 </pre></div>
 </div>
 </div>
@@ -412,17 +417,24 @@ document.write(`
 <section id="attributes-and-methods">
 <h2>Attributes and methods<a class="headerlink" href="#attributes-and-methods" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">reticulate</span></code> allows us to access a Python object’s attributes via
-the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a variable) the number of
-samples in the tree sequence:</p>
+the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. For example, we can access (and assign to a native R object)
+the number of samples in the tree sequence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">num_samples</span>
 <span class="n">n</span>
+<span class="nf">is</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w">  </span><span class="c1"># Show the type of the object</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">160</div></div>
+<div class="output text_html">160</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
+</div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">$</span></code> operator can also be used to call methods, for example, the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method associated with the tree sequence.
@@ -442,54 +454,83 @@ The method parameters are given as native R objects
 <div class="cell_output docutils container">
 <div class="output text_html">'Reduced from 26 trees over 10 kb to 6 trees over 6 kb.'</div></div>
 </div>
+</section>
 <section id="ids-and-indexes">
-<h3>IDs and indexes<a class="headerlink" href="#ids-and-indexes" title="Link to this heading">#</a></h3>
+<h2>IDs and indexes<a class="headerlink" href="#ids-and-indexes" title="Link to this heading">#</a></h2>
 <p>Note that if a bare digit is provided to one of these methods, it will be treated as a
-floating point number. This is useful to know when calling <code class="docutils literal notranslate"><span class="pre">tskit</span></code> methods that
-require integers (e.g. object IDs). For example, the following will not work:</p>
+floating point number (numeric in R). This is useful to know when calling <code class="docutils literal notranslate"><span class="pre">tskit</span></code> methods that
+require integers (such as object IDs). For example, the following will not work:</p>
 <div class="cell tag_raises-exception tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w">  </span><span class="c1"># Will raise an error</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w">  </span><span class="c1"># Will raise a TypeError</span>
+<span class="nf">is</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>In this case, to force the <code class="docutils literal notranslate"><span class="pre">0</span></code> to be passed as an integer, you can either coerce it
-using <code class="docutils literal notranslate"><span class="pre">as.integer</span></code> or simply prepend the letter <code class="docutils literal notranslate"><span class="pre">L</span></code>:</p>
+using <code class="docutils literal notranslate"><span class="pre">as.integer</span></code> or simply append the letter <code class="docutils literal notranslate"><span class="pre">L</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="nf">as.integer</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">is</span><span class="p">(</span><span class="nf">as.integer</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+<span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="nf">as.integer</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
 <span class="c1"># or</span>
+<span class="nf">is</span><span class="p">(</span><span class="m">0L</span><span class="p">)</span>
 <span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="m">0L</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b&#39;&#39;)
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b&#39;&#39;)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b&#39;&#39;)
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b&#39;&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <p>Coercing in this way is only necessary when passing parameters to those underlying
-<code class="docutils literal notranslate"><span class="pre">tskit</span></code> methods that expect integers. It is not needed e.g. to index into numeric arrays.
+<code class="docutils literal notranslate"><span class="pre">tskit</span></code> methods that expect integers. It is not needed to index into numeric arrays.
 <em>However</em>, when using arrays, very careful attention must be paid to the fact that
 <code class="docutils literal notranslate"><span class="pre">tskit</span></code> IDs start at zero, whereas R indexes start at one:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">root_id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">first</span><span class="p">()</span><span class="o">$</span><span class="n">root</span>
-<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via tskit method:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="n">root_id</span><span class="p">)</span><span class="o">$</span><span class="n">time</span><span class="p">)</span>
-<span class="c1"># When indexing into tskit arrays in R, add 1 to the ID</span>
-<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via array access:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">root_id_int</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">first</span><span class="p">()</span><span class="o">$</span><span class="n">root</span>
+<span class="nf">is</span><span class="p">(</span><span class="n">root_id_int</span><span class="p">)</span>
+<span class="n">root_id_num</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">root_id_int</span><span class="p">)</span>
+
+<span class="c1"># Using integer ID will work</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via tskit method:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="n">root_id_int</span><span class="p">)</span><span class="o">$</span><span class="n">time</span><span class="p">)</span>
+<span class="c1"># Using numeric ID will not work</span>
+<span class="c1"># paste(&quot;Root time via tskit method:&quot;, ts$node(root_id_num)$time)</span>
+
+<span class="c1"># When indexing into tskit arrays in R, add 1 to the ID (integer or numeric)</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via array access:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id_int</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via array access:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id_num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">'Root time via tskit method: 3.4634393266485'</div><div class="output text_html">'Root time via array access: 3.4634393266485'</div></div>
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
+</div><div class="output text_html">'Root time via tskit method: 3.4634393266485'</div><div class="output text_html">'Root time via array access: 3.4634393266485'</div><div class="output text_html">'Root time via array access: 3.4634393266485'</div></div>
 </div>
-</section>
 </section>
 <section id="analysis">
 <h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h2>
@@ -501,8 +542,7 @@ we’ll first add some mutations to our tree sequence with the
 for each of the tree sequence’s sample nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">reduced_ts</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">321</span><span class="p">)</span>
-
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">reduced_ts</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">321</span><span class="p">)</span>
 <span class="nf">paste</span><span class="p">(</span><span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mutations, genetic diversity is&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -515,8 +555,9 @@ sequence <a class="reference external" href="https://tskit.dev/tskit/docs/stable
 the tree sequence as a matrix object in R.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">genotype_matrix</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">genotype_matrix</span><span class="p">()</span>
 <span class="n">G</span>
+<span class="nf">is</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -539,12 +580,18 @@ the tree sequence as a matrix object in R.</p>
 	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
 </tbody>
 </table>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'matrix'</li><li>'array'</li><li>'replValueSp'</li><li>'structure'</li><li>'vector'</li></ol>
 </div></div>
 </div>
 <p>We can then use R functions directly on the genotype matrix:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">allele_frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rowMeans</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">allele_frequency</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rowMeans</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
 <span class="n">allele_frequency</span>
 </pre></div>
 </div>
@@ -719,17 +766,17 @@ can be defined that allow tskit objects to be rendered within the notebook:</p>
 </section>
 <section id="interaction-with-r-libraries">
 <h2>Interaction with R libraries<a class="headerlink" href="#interaction-with-r-libraries" title="Link to this heading">#</a></h2>
-<p>R has a number of libraries to deal with genomic data and trees. Below we focus on the
+<p>R has a number of libraries to deal with genomic data and trees. Below we demo the
 phylogenetic tree representation defined in the the popular
 <a class="reference external" href="http://ape-package.ird.fr">ape</a> package, taking all the trees
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.write_nexus" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exported</span> <span class="pre">in</span> <span class="pre">Nexus</span> <span class="pre">format</span></code></a>, or
 individual trees <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.as_newick" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">exported</span> <span class="pre">in</span> <span class="pre">Newick</span> <span class="pre">format</span></code></a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">tempfile</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tempfile</span><span class="p">()</span>
 <span class="n">ts_mut</span><span class="o">$</span><span class="nf">write_nexus</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="c1"># Warning - ape trees are stored independently, so this will use much more memory than tskit</span>
-<span class="n">trees</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ape</span><span class="o">::</span><span class="nf">read.nexus</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="n">force.multi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">  </span><span class="c1"># return a set of trees</span>
+<span class="n">trees</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ape</span><span class="o">::</span><span class="nf">read.nexus</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="n">force.multi</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">  </span><span class="c1"># return a set of trees</span>
 
 <span class="c1"># Or simply read in a single tree</span>
 <span class="n">tree</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ape</span><span class="o">::</span><span class="nf">read.tree</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">first</span><span class="p">()</span><span class="o">$</span><span class="nf">as_newick</span><span class="p">())</span>
@@ -744,17 +791,27 @@ individual trees <a class="reference external" href="https://tskit.dev/tskit/doc
 </div>
 </div>
 <p>Note that nodes are labelled with the prefix <code class="docutils literal notranslate"><span class="pre">n</span></code>, so that nodes <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, …
-become <code class="docutils literal notranslate"><span class="pre">n0</span></code>, <code class="docutils literal notranslate"><span class="pre">n1</span></code>, <code class="docutils literal notranslate"><span class="pre">n2</span></code> … etc. This helps to avoid
+become <code class="docutils literal notranslate"><span class="pre">n0</span></code>, <code class="docutils literal notranslate"><span class="pre">n1</span></code>, <code class="docutils literal notranslate"><span class="pre">n2</span></code>, … This helps to avoid
 confusion between the the zero-based counting system used natively
 by <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, and the one-based counting system used in <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p>
 </section>
 <section id="further-information">
 <h2>Further information<a class="headerlink" href="#further-information" title="Link to this heading">#</a></h2>
-<p>Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate/">reticulate</a>
+<p>Be sure to check out the <a class="reference external" href="https://rstudio.github.io/reticulate">reticulate</a>
 documentation, in particular on
 <a class="reference external" href="https://rstudio.github.io/reticulate/articles/calling_python.html">Calling Python from R</a>,
 which includes important information on how R data types are converted to their
 equivalent Python types.</p>
+</section>
+<section id="advanced-usage-through-the-tskit-s-c-api">
+<h2>Advanced usage through the tskit’s C API<a class="headerlink" href="#advanced-usage-through-the-tskit-s-c-api" title="Link to this heading">#</a></h2>
+<p>While the approach with <code class="docutils literal notranslate"><span class="pre">reticulate</span></code> is very powerful and will be useful for
+most analyses, it does have an overhead due to calling Python and conversion of objects.
+This overhead will be minimal for some use cases but could be significant for others.
+An alternative approach is to use the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> C API from R,
+via the standard <a class="reference external" href="https://cran.r-project.org/doc/manuals/R-exts.html">R Extensions</a> or
+via <a class="reference external" href="https://www.rcpp.org">Rcpp</a>,
+but these are advanced topics beyond the scope of this tutorial.</p>
 </section>
 </section>
 
@@ -822,14 +879,13 @@ equivalent Python types.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ids-and-indexes">IDs and indexes</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ids-and-indexes">IDs and indexes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-tips">Jupyter notebook tips</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-with-r-libraries">Interaction with R libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-information">Further information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage-through-the-tskit-s-c-api">Advanced usage through the tskit’s C API</a></li>
 </ul>
   </nav></div>
 
