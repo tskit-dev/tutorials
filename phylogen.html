@@ -427,8 +427,8 @@ tips, as in the example below:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.7001838684082 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 3.55 s, sys: 114 ms, total: 3.67 s
-Wall time: 3.67 s
+CPU times: user 3.51 s, sys: 70.9 ms, total: 3.58 s
+Wall time: 3.58 s
 </pre></div>
 </div>
 </div>
@@ -453,8 +453,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 nodes took:
-CPU times: user 293 ms, sys: 0 ns, total: 293 ms
-Wall time: 292 ms
+CPU times: user 287 ms, sys: 0 ns, total: 287 ms
+Wall time: 287 ms
 </pre></div>
 </div>
 </div>
@@ -470,8 +470,8 @@ Wall time: 292 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 7.8 ms, sys: 3 ms, total: 10.8 ms
-Wall time: 10.7 ms
+CPU times: user 9.55 ms, sys: 986 μs, total: 10.5 ms
+Wall time: 10.5 ms
 </pre></div>
 </div>
 </div>
@@ -566,7 +566,7 @@ can be obtained using the <a class="reference external" href="https://tskit.dev/
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/40b55724365aecba3353ab4cfad6195470e0139c4f1e502620a63d81f83793e7.svg" src="_images/40b55724365aecba3353ab4cfad6195470e0139c4f1e502620a63d81f83793e7.svg" />
+<img alt="_images/ce07e2be35f389568e77eb66b4527d9a52f8dfd45d44bc374d781940d937c484.svg" src="_images/ce07e2be35f389568e77eb66b4527d9a52f8dfd45d44bc374d781940d937c484.svg" />
 </div>
 </div>
 <p>Often you will have the tree sequence stored in a variable, such as the <code class="docutils literal notranslate"><span class="pre">ts</span></code> variable
@@ -580,8 +580,8 @@ contained using the <a class="reference external" href="https://tskit.dev/tskit/
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-              <style>
+        <div>
+            <style>
                 .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td {padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td:first-of-type {text-align: left;}
@@ -590,119 +590,139 @@ contained using the <a class="reference external" href="https://tskit.dev/tskit/
                 .tskit-table-set-table {margin: 12px 0 0 12px;}
                 details {display: inline-block;}
                 summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
+            </style>
+            <div class="tskit-table-set">
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>1</td></tr>
-                      <tr><td>Sequence Length</td><td>1000.0</td></tr>
-                      <tr><td>Time Units</td><td>unknown</td></tr>
-                      <tr><td>Sample Nodes</td><td>5</td></tr>
-                      <tr><td>Total Size</td><td>942 Bytes</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
-                    </tbody>
-                  </table>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>1</td></tr>
+                            <tr><td>Sequence Length</td><td>1 000</td></tr>
+                            <tr><td>Time Units</td><td>unknown</td></tr>
+                            <tr><td>Sample Nodes</td><td>5</td></tr>
+                            <tr><td>Total Size</td><td>942 Bytes</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">No Metadata</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>8</td>
+                <td>264 Bytes</td>
+                <td style="text-align: center;">
                     
-                  <tr>
-                    <td>Edges</td>
-                      <td>8</td>
-                      <td>264 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>0</td>
-                      <td>24 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>0</td>
-                      <td>16 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>9</td>
-                      <td>511 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>0</td>
-                      <td>16 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>0</td>
-                      <td>16 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>0</td>
+                <td>24 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>0</td>
+                <td>16 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>9</td>
+                <td>511 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>0</td>
+                <td>16 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>0</td>
+                <td>16 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
-              </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            </div></div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
+        </div>
+    </div></div>
 </div>
 </section>
 <section id="integer-node-and-edge-ids">
@@ -717,7 +737,7 @@ heavily on integer IDs. Here’s the same tree with node IDs plotted instead:</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0f03b4f626d13075aacb5a95fcb49b44abc39953ffeebf65b0e4b774bca0fb56.svg" src="_images/0f03b4f626d13075aacb5a95fcb49b44abc39953ffeebf65b0e4b774bca0fb56.svg" />
+<img alt="_images/ac3c47964cde2c47059dbbe79224bb343e50d73fb7bbb667c5053f58633ab057.svg" src="_images/ac3c47964cde2c47059dbbe79224bb343e50d73fb7bbb667c5053f58633ab057.svg" />
 </div>
 </div>
 <section id="nodes">
@@ -953,7 +973,7 @@ measured: if not known, this defaults to “unknown”:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Time units are unknown
 </pre></div>
 </div>
-<img alt="_images/ff2136b04bb55ba14742c346dc462364636d9580132bc2e29b95d25ee6e49282.svg" src="_images/ff2136b04bb55ba14742c346dc462364636d9580132bc2e29b95d25ee6e49282.svg" />
+<img alt="_images/ddf2ef573d96e439d0a1a6c1199bb5fc37f2f89000ab5036380205be570962f4.svg" src="_images/ddf2ef573d96e439d0a1a6c1199bb5fc37f2f89000ab5036380205be570962f4.svg" />
 </div>
 </div>
 <p>Although branch lengths are not stored explicitly, for convenience <code class="docutils literal notranslate"><span class="pre">tskit</span></code> provides a
@@ -1028,7 +1048,7 @@ obtained using <a class="reference external" href="https://tskit.dev/tskit/docs/
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The root node of the following tree has ID 0
 </pre></div>
 </div>
-<img alt="_images/0f03b4f626d13075aacb5a95fcb49b44abc39953ffeebf65b0e4b774bca0fb56.svg" src="_images/0f03b4f626d13075aacb5a95fcb49b44abc39953ffeebf65b0e4b774bca0fb56.svg" />
+<img alt="_images/ac3c47964cde2c47059dbbe79224bb343e50d73fb7bbb667c5053f58633ab057.svg" src="_images/ac3c47964cde2c47059dbbe79224bb343e50d73fb7bbb667c5053f58633ab057.svg" />
 </div>
 </div>
 <p>But in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, we can also create a single “tree” consisting of multiple unlinked
@@ -1048,7 +1068,7 @@ if we remove the edge above node 4, by
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c49a963a714556316d328ff1ae94a36b639243fd4243b03e22699cd6e63822b5.svg" src="_images/c49a963a714556316d328ff1ae94a36b639243fd4243b03e22699cd6e63822b5.svg" />
+<img alt="_images/25a7d82a4ad7075dc0e62037fecd3ac56e1e8f7e1cfb1edb540e24ccad1cdc4c.svg" src="_images/25a7d82a4ad7075dc0e62037fecd3ac56e1e8f7e1cfb1edb540e24ccad1cdc4c.svg" />
 </div>
 </div>
 <p>Although there are two separate topologies in this plot, in <code class="docutils literal notranslate"><span class="pre">tskit</span></code> terminology, it is
@@ -1081,7 +1101,7 @@ sample is its own root.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This empty tree has 5 roots: [1, 5, 6, 7, 8]
 </pre></div>
 </div>
-<img alt="_images/09a4dfc066ca70424aa8d941c4817e72806d7cdc7423efc31c4b3b4f941592e1.svg" src="_images/09a4dfc066ca70424aa8d941c4817e72806d7cdc7423efc31c4b3b4f941592e1.svg" />
+<img alt="_images/ca2866442da84ae2ac104a2ae54db73d1824cb47c23a7274da3afa4303160486.svg" src="_images/ca2866442da84ae2ac104a2ae54db73d1824cb47c23a7274da3afa4303160486.svg" />
 </div>
 </div>
 <p>The samples here are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-isolated-nodes" title="(in Project name not set)"><span>Isolated nodes</span></a>. This may seem like a
@@ -1176,7 +1196,7 @@ Site ID 44 @ genomic position 988: A -&gt; C
 Site ID 45 @ genomic position 997: T -&gt; G
 </pre></div>
 </div>
-<img alt="_images/fdb7e9e4fbc8a79e5554ebd6962ec70a33217ed967cb25fe1325b78c8ac381f9.svg" src="_images/fdb7e9e4fbc8a79e5554ebd6962ec70a33217ed967cb25fe1325b78c8ac381f9.svg" />
+<img alt="_images/67923050d3893d016e1dd3001311e1508af158f927c9e901d5bdfa63048296ff.svg" src="_images/67923050d3893d016e1dd3001311e1508af158f927c9e901d5bdfa63048296ff.svg" />
 </div>
 </div>
 <p>Mutations occur above nodes in a tree, with all the descendant
@@ -1235,7 +1255,7 @@ for the first half of the genome.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/692b09974f89b359d93862322506623c26b3366603c008da6291970a5a20fad9.svg" src="_images/692b09974f89b359d93862322506623c26b3366603c008da6291970a5a20fad9.svg" />
+<img alt="_images/bdcc4912a3d7a23a6b171a9255efa437f2f6dcccaeeaf5e39691e91e36234e24.svg" src="_images/bdcc4912a3d7a23a6b171a9255efa437f2f6dcccaeeaf5e39691e91e36234e24.svg" />
 </div>
 </div>
 <p>For the left hand side of the genome we lack information about the ancestry of
