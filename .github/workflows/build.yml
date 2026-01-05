@@ -41,13 +41,17 @@ jobs:
         # We need to remove R to pull in a version that's compatible with CRAN, weirdly.
         sudo apt-get update
         sudo apt-get remove r-base-core
-        sudo apt-get install r-cran-reticulate r-cran-pbdzmq r-cran-uuid r-cran-ape
-        sudo R -e 'install.packages("IRkernel")'
+        sudo apt-get install r-cran-pbdzmq r-cran-uuid r-cran-ape
+        # Numpy 2 needs a newer reticulate version than ubuntu-24.04 + r-cran-reticulate
+        sudo R -e 'install.packages(c("reticulate", "IRkernel"))'
         R -e 'IRkernel::installspec()'
 
     # Build the book
     - name: Build the book
-      run: ./build.sh
+      run: |
+        # Ensure R (reticulate) uses the python version with the new installed packages
+        export RETICULATE_PYTHON=$(which python)
+        ./build.sh
 
     - name: Copy files for users to run tutorials
       run: |
