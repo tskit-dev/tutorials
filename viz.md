@@ -230,7 +230,7 @@ styling is detailed {ref}`later in this tutorial <sec_tskit_viz_styling>`).
 (sec_tskit_viz_large_tree_sequence)=
 
 ```{code-cell} ipython3
-wide_fmt = (1200, 250)
+wide_fmt = (1200, 280)
 # Create a stylesheet that shrinks labels and rotates leaf labels, to avoid overlap
 node_label_style = (
     ".node > .lab {font-size: 80%}"
@@ -285,7 +285,7 @@ ts_mutated = tskit.load("data/viz_ts_small_mutated.trees")
 site_descr = str(next(ts_mutated.at_index(2).sites()))
 print(site_descr.replace("[", "[\n  ").replace("),", "),\n ").replace("],", "],\n"))
 ```
-
+    
 
 #### Which mutations are shown?
 
@@ -298,8 +298,8 @@ plot region, or simply plotting the tree itself:
 ```{code-cell} ipython3
 tree3 = ts_mutated.at_index(2)
 tree3.draw_svg(
-    size=(320, 300),
-    title=f"3rd tree, from position {int(tree3.interval.left)} to {int(tree3.interval.right)}",
+    size=(300, 300),
+    title=f"Third tree, from {int(tree3.interval.left)} bp to {int(tree3.interval.right)} bp",
 )
 ```
 
@@ -317,9 +317,12 @@ default these mutations are drawn in a slightly different shade (e.g. mutation 6
 
 ```{code-cell} ipython3
 tree3.draw_svg(
-    size=(320, 300),
+    size=(300, 300),
     all_edge_mutations=True,
-    title="As above, but with all mutations on visible edges"    
+    title=(
+        '<tspan dy="12">Third tree as above, but with</tspan>'
+        '<tspan dy="13" x="0">visible edges showing all mutations</tspan>'
+    ) 
 )
 ```
 
@@ -355,6 +358,105 @@ ts_mutated.draw_svg(
     mutation_labels=mut_labels,
 )
 ```
+
+
+(sec_tskit_viz_adding_bespoke)=
+
+### Adding bespoke svg
+
+The `preamble` option allows arbitrary SVG text to be added at the start of the plot.
+This can be useful to annotate plots, produce legends, etc. although it requires some
+knowledge of the SVG graphics language (see the {ref}`sec_tskit_viz_legend_example`
+later in this tutorial for a node colour legend).
+
+```{code-cell} ipython3
+mut_labels = {  # Alternative way of defining a label dictionary using a dict comprehension
+    mut.id: (
+        (ts_mutated.mutation(mut.parent).derived_state if mut.parent < 0 else site.ancestral_state) +
+        str(int(site.position)) +
+        mut.derived_state
+    )
+    for site in ts_mutated.sites() for mut in site.mutations
+}
+
+svg_text=(
+    '<rect x="30" y="267" height="30" width="245" fill="lightgrey" stroke="black" />'
+    '<text font-size="12" text-anchor="middle" y="280" fill="red">'
+    '<tspan font-size="14" x="150" fill="darkred" font-weight="bold">Mutation labels:</tspan>'
+    '<tspan dy="1em" x="150">&lt;inherited_state&gt;&lt;POSITION&gt;&lt;derived_state&gt;</tspan>'
+    '</text>'
+)
+ts_mutated.draw_svg(
+    size=(800, 300),
+    title="A plot with a rudimentary legend to describe the mutation label format",
+    y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits,
+    node_labels=nd_labels,
+    mutation_labels=mut_labels,
+    preamble=svg_text,
+)
+```
+
+As any conceivable SVG commands can be added (including nesting one SVG inside another),
+this is extremely flexible, but can be fiddly. You can, for example, plot one tree
+next to another by adding one into the preamble of the other. This is demonstrated in
+the example below, which allows space for the extra embeded tree by using the
+`canvas_size` parameter to increase the size of the canvas. This adds more space to the
+right and bottom of the plot, without rescaling the image itself. 
+
+
+(sec_tskit_viz_reordering nodes)=
+
+### Visually reordering nodes
+
+As _tskit_ is not primarily a visualization library, there are no methods for rotating
+branches when visualizing specific trees. Moreover, a tidy arrangement for one tree could
+be a poor arrangement for an adjacent tree in the tree sequence.
+
+However, because the default ordering is to put lower numbered leaves to the left,
+it is possible to obtain an arbitrary ordering by changing the node IDs
+as required (e.g. using the `subset` method). If you are labelling nodes using
+metadata, this will all be fine, but if you are using the default ID labelling scheme,
+you'll should provide labels that map back to the original IDs, to avoid confusion.
+
+Here's an example, with a reordering function:
+
+```{code-cell} ipython3
+import numpy as np
+
+def reorder_leaves(tree, leaf_order_ids):
+    # Return a new tree in an identical tree sequence but with the node IDs
+    # swapped to draw leaf order as close possible to the provided leaf_order_ids
+    # You will need to plot the node labels using metadata or the returned node_map
+    ts = tree.tree_sequence
+    all_nodes = np.arange(ts.num_nodes)
+    leaves = [u for u in tree.nodes(order="minlex_postorder") if tree.is_leaf(u)]
+    all_nodes[leaves] = leaf_order_ids
+    reorder_ts = ts.subset(all_nodes, reorder_populations=False, remove_unreferenced=False)
+    return reorder_ts.at_index(tree.index), all_nodes
+
+# swap the order of 0, 1, 2, 3, 4
+orig_tree = ts_mutated.first()
+new_tree, node_map = reorder_leaves(orig_tree, [4, 3, 2, 1, 0, 5, 7, 6])
+
+svg = new_tree.draw_svg(
+    title="Leaf nodes reordered",
+    size=(200, 200),
+    node_labels={u: v for u, v in enumerate(node_map)},  # map IDs back to the orig
+    root_svg_attributes={"x": 300},  # Shift the svg rightwards by 200 units
+)
+
+# Plot the new_tree next to the orig_tree using the preamble argument
+orig_tree.draw_svg(
+    title="Original tree",
+    size=(200, 200),
+    canvas_size=(500, 200),  # make space for the adjacent tree
+    preamble=svg,
+)
+```
+
+This approach can be used to define functions to plot ladderized trees, see e.g.
+[this GitHub discussion](https://github.com/tskit-dev/tskit/discussions/3160).
+
 
 (sec_tskit_viz_styling)=
 
@@ -437,9 +539,10 @@ Here are the css classes in a tskit SVG which can be used to style specific elem
 
 ##### ID-based classes
 
-Elements have additional classes based on the IDs of trees, nodes, parent (ancestor)
-nodes, individuals, populations, mutations, and sites. These class names start with a
-single letter (respectively `t`, `n`, `a`, `i`, `p`, `m`, and `s`) followed by a
+Elements have additional classes based on the IDs of trees, edges, nodes,
+parent (ancestor) nodes, individuals, populations, mutations, and sites.
+These class names start with a single letter (respectively
+`t`, `e`, `n`, `a`, `i`, `p`, `m`, and `s`) followed by a
 numerical ID. For example, here's a typical node in an tskit SVG plot:
 
 ```
@@ -481,12 +584,25 @@ mean, so here's a quick reference (for more, see
 #### Styling graphical elements 
 
 The classes above make it easy to target specific nodes or edges in one or multiple
-trees. For example, we can colour branches that are shared between trees
-(identified below as ones that have the same parent and child):
+trees. For example, we can colour branches that are shared between trees:
 
 ```{code-cell} ipython3
 css_string = ".a15.n9 > .edge {stroke: cyan; stroke-width: 2px}"  # branches from 15->9
 ts_small.draw_svg(time_scale="rank", size=wide_fmt, style=css_string)
+```
+
+Or rather than identifying shared branches using the same parent and child, you can
+use the edge ID, which allows effects like colouring the edges by their span, to emphasize
+the routes through which more genomic information has been inherited. Below we do this
+for a single tree, which avoids making a styling rule for every edge in the tree sequence:
+
+```{code-cell} ipython3
+tree = ts_small.at_index(2)
+edges = tree.edge_array[tree.edge_array != tskit.NULL]
+spans = tree.tree_sequence.edges_right[edges] - tree.tree_sequence.edges_left[edges]
+values = ((1-spans/spans.max()) * 255).astype(int)
+style = "".join([f".edge.e{e} {{stroke:#{v:02X}{v:02X}{v:02X}}}" for e, v in zip(edges, values)])
+tree.draw_svg(style=style + ".edge {stroke-width: 2px}")
 ```
 
 By generating the css string programatically, you can target all the edges present in a
@@ -646,10 +762,9 @@ ts_small.first().draw_svg(style=css_string)
 ```
 
 Note that when transforming elements, parts of the drawing may be plotted outsize of
-of the standard canvas. You can use the `canvas_size` parameter to increase the size of
-the canvas (adding more space to the right and bottom of the plot), without rescaling
-the graphics. This is particularly useful when performing more radical CSS
-transformations, for example to create {ref}`sec_tskit_viz_SVG_examples_3D`:
+of the standard canvas, so the `canvas_size` option is particularly useful 
+when performing more radical CSS transformations, for example to create
+{ref}`sec_tskit_viz_SVG_examples_3D`:
 
 ```{code-cell} ipython3
 skew = 0.8  # How skewed the trees are, in radians
@@ -728,7 +843,7 @@ simple 2-tip SVG tree produced by tskit looks something like this:
   <g class="plotbox">
     <g class="node n2 root">
       <g class="node n1 a2 i1 p1 m0 s0 sample leaf">
-        <path class="edge" ... />
+        <path class="edge e0" ... />
         <g class="mut m0 s0" ...>
           <line .../>
           <path class="sym" .../>
@@ -738,11 +853,11 @@ simple 2-tip SVG tree produced by tskit looks something like this:
         <text class="lab" ...>Node 1</text>
       </g>
       <g class="node n0 a2 i2 p1 sample leaf">
-        <path class="edge" ... />
+        <path class="edge e1" ... />
         <rect class="sym" .../>
         <text class="lab" ...>Node 0</text>
       </g>
-      <path class="edge" ... />
+      <path class="edge root" ... />
       <circle class="sym" ... />
       <text class="lab">Root (Node 2)</text>
     </g>
@@ -811,6 +926,17 @@ m8_mut = (
 )
 css_string = default_muts + m8_mut
 ts_mutated.draw_svg(x_lim=x_limits, node_labels=nd_labs, style=css_string)
+```
+
+If you want to colour the branches *above* a node, you can use the
+:meth:`~tskit.Tree.ancestors` method, and chain the css specifiers together using `,`:
+
+```{code-cell} ipython3
+focal_node = 9
+tree = ts_mutated.first()
+target_nodes = [focal_node] + list(tree.ancestors(focal_node))
+css_string = ",".join([f".node.n{u} > .edge" for u in target_nodes]) + "{stroke: red}"
+tree.draw_svg(style=css_string, omit_sites=True)
 ```
 
 #### Restricting styling
@@ -1076,43 +1202,6 @@ By definition, if a node is a sample, it must be present in every tree. This
 means that there can be sample nodes which are "isolated" in a tree. These are drawn
 unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).
 :::
-
-#### Adding imagery
-
-The `preamble` argument allows arbitrary SVG commands to be included in an SVG plot.
-This can be used, for instance, to annotate parts of the plot or construct legends:
-
-```{code-cell} ipython3
-:"tags": ["hide-input"]
-ts = tskit.load("data/viz_ts_full.trees")
-
-styles = [
-    f".node.p{p.id} > .sym " + "{" + f"fill: {colour}" + "}"
-    for colour, p in zip(['red', 'green', 'blue'], ts_full.populations())
-]  # styles created as in previous examples 
-
-# Make a legend: first create a surrounding box and a title
-legend = '<rect width="145" height="75" x="2" y="10" fill="#EEE" stroke="grey" />'
-legend += '<text x="65" y="25" font-weight="bold">Key</text>'
-# Now make the legend lines, one for each population. Setting classes that match those
-# used for normal nodes means that styled colours are automatically picked-up.
-legend += "".join([
-    f'<g transform="translate(5, {40 + 15*p.id})" class="node p{p.id}">'  # an SVG group
-    f'<rect width="6" height="6" class="sym" />'  # Square symbol
-    f'<text x="10" y="7">Population {p.metadata["name"]} (id={p.id})</text></g>'  # Label
-    for p in ts_full.populations()
-    if p.id < 3
-])
-
-ts.first().draw_svg(
-    size=(1200, 250),
-    node_labels={},    # Remove all node labels for a clearer viz
-    style="".join(styles),  # Apply the stylesheet
-    preamble=legend,
-)
-```
-
-SVGs can be nested, so it is even possible to add an entire SVG in the `preamble`.
 
 #### A fancy formatted plot
 
@@ -1421,6 +1510,414 @@ canvas_size = (width + y_step, height + ts.num_trees*y_step + math.tan(skew)*tre
 ts.draw_svg(size=size, x_scale="treewise", style=style, canvas_size=canvas_size)
 ```
 
+
+(sec_tskit_viz_legend_example)=
+
+#### Legend example
+
+A classic case for a legend is to explain node formatting, e.g. when nodes
+are coloured by their population. Here's an example of how it can be done:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+ts = tskit.load("data/viz_ts_full.trees")
+
+styles = [
+    f".node.p{p.id} > .sym " + "{" + f"fill: {colour}" + "}"
+    for colour, p in zip(['red', 'green', 'blue'], ts_full.populations())
+]  # styles created as in previous examples 
+
+# Make a legend: first create a surrounding box and a title
+legend = '<rect width="145" height="75" x="2" y="10" fill="#EEE" stroke="grey" />'
+legend += '<text x="65" y="25" font-weight="bold">Key</text>'
+# Now make the legend lines, one for each population. Setting classes that match those
+# used for normal nodes means that styled colours are automatically picked-up.
+legend += "".join([
+    f'<g transform="translate(5, {40 + 15*p.id})" class="node p{p.id}">'  # an SVG group
+    f'<rect width="6" height="6" class="sym" />'  # Square symbol
+    f'<text x="10" y="7">Population {p.metadata["name"]} (id={p.id})</text></g>'  # Label
+    for p in ts_full.populations()
+    if p.id < 3
+])
+
+ts.first().draw_svg(
+    size=(1200, 250),
+    node_labels={},    # Remove all node labels for a clearer viz
+    style="".join(styles),  # Apply the stylesheet
+    preamble=legend,
+)
+```
+
+
+(sec_tskit_viz_svg_plot_internals)=
+
+#### SVG plot internals
+
+Internally, SVG plots are produced by creating an object of class `.drawing.SvgTree` or
+`.drawing.SvgTreeSequence`, then calling the `.draw()` method on the object.
+<em>These internal classes and methods are deliberately undocumented, as they
+may be subject to change at any time</em>. Nevertheless, accessing them can be useful
+e.g. to extract internal settings, such as the X and Y position of point in SVG space,
+for more complex programmatic annotations.
+
+ ```{code-cell} ipython3
+:"tags": ["hide-input"]
+## WARNING - this code uses internal functions that may change in future tskit versions
+
+def node_positions(svgtree):
+    # the internal `node_x_coord` dict maps node IDs to horizontal pos
+    x = svgtree.node_x_coord
+    # the internal `timescaling.transform` function returns vertical positions
+    node_times = svgtree.ts.nodes_time  # grab node times from the associated ts
+    if svgtree.time_scale == "rank":  # NB: the "rank" scale doesn't use raw ages
+        within_tree_node_times = np.unique(node_times[svgtree.tree.preorder()])
+        node_times = np.searchsorted(within_tree_node_times, node_times)
+    y = svgtree.timescaling.transform(node_times)
+    return x, y
+
+# Create an SvgTree object using the same parameters as for draw_svg()
+internal_obj = tskit.drawing.SvgTree(
+    ts_small.first(),
+    canvas_size=(300, 200),
+    time_scale="log_time",
+    y_axis=True,
+    y_ticks=[0, 10, 100, 1000],
+    node_labels={},
+)
+
+horiz_node_pos, vert_node_pos = node_positions(internal_obj)
+
+x10, y10 = horiz_node_pos[10], vert_node_pos[10]  # Node 10
+x8, y8 = horiz_node_pos[8], vert_node_pos[8]  # Node 8
+
+internal_obj.preamble = (
+   f'<circle cx="{x10}" cy="{y10}" r="10" stroke="blue" fill="white" />'
+   f'<text x="{x10+8}" y="{y10-8}" fill="blue">This is node 10!</text>'
+   f'<line x1="{x8}" y1="{y8}" x2="{x8 + 80}" y2="{y8 - 20}" stroke="red" />'
+   f'<text x="{x8 + 82}" y="{y8 - 22}" fill="red">This is node 8!</text>'
+)
+internal_obj.draw()
+``` 
+
+Coupled with rotations etc, this allows some quite sophisticated viz possibilities,
+such as creating a "tanglegram" to compare two trees in a tree sequence:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+## WARNING: uses internal tskit apis which could change
+
+def tanglegram(
+    ts,
+    tree_indexes=None,
+    titles=None,
+    *,
+    size=None,
+    order=None,
+    separation=None,
+    line_gap=None,
+    node_labels=None,
+    style=None,
+    x_axis=None,
+    x_label=None,
+    x_ticks=None,
+    x_gridlines=None,
+    y_axis=None,
+    y_label=None,
+    y_ticks=None,
+    y_gridlines=None,
+    return_node_maps=None,
+    **kwargs
+):
+    r"""
+    Create an SvgTree object describing a "tanglegram" that compares the topology leading
+    to leaf nodes on two trees in a tree sequence, by drawing them facing each other, and
+    plotting lines between the same leaves in each tree. The object can be turned into
+    an SVG string or drawn using `returned_obj.draw()`. The separate plots can be styled
+    as the left and right SVGs are given `lft_tree` and ``rgt_tree` classes. Node IDs
+    in any stylesheet will need to be remapped by specifying `return_mappings=True`
+    and using the returned mappings to change the indexes. 
+    
+    By default, plot titles based on the tree indexes and compare the first and last
+    non-empty tree. If want to plot two trees from separate tree sequences, you can
+    concatenate them together using :meth:`tskit.TreeSequence.concatenate()`, providing
+    a node_mapping to match leaf or sample nodes between the two trees, and then
+    pass the resulting tree sequence to this function.
+    
+   
+    .. note::
+        This does not "untangle" the trees to minimise the number of line crossings,
+        but simply plots them using the default "minlex" order. If you do wish to
+        untangle them, you will need to use an external program to calculate the leaf
+        orders, and pass them in through the `order` parameter. 
+
+    :param TreeSequence ts: The tree sequence from which to take trees
+    :param tuple tree_indexes: A tuple of two integers, the indexes of the two trees to
+        compare. By default take the first and last non-empty trees in the tree sequence.
+    :param tuple titles: A tuple of two strings, the titles to use for the left and right
+        trees. By default show "Tree X". To show no titles, provide titles=(None, None).
+    :param tuple size: A tuple of two integers, the width and height of the SVG image.
+        By default, use the default (square) size per tree, giving (400, 200) in total.
+    :param tuple order: A tuple of two lists of integers, the order in which to plot the
+        leaves. Either list can be `None`, meaning default to ``minlex_postorder``.
+        If either is a list, it must contain unique integers corresponding to the IDs
+        of the leaves in the corresponding tree, with the length of each list matching
+        the number of leaves in the tree. Default: ``None`` treated as ``(None, None)``.
+    :param float separation: The distance between the base of each tree. Default:
+        ``None`` treated as a standard distance of 64px.
+    :param float line_gap: The distance between tangle_lines and each leaf on the tree.
+        If None, draw tangle lines of equal length in the middle of the plot
+    :param str path: A path to which the SVG will be saved.
+    :param dict node_labels: A dictionary mapping node IDs to label to plot. See
+        :meth:`Tree.draw_svg()` for details.
+    :param str style: a string of CSS styles. See :meth:`Tree.draw_svg()` for details.
+    :param bool x_axis: Should we plot two horizontal axes showing time underneath
+        the trees. Note that this corresponds to the y-axis in a conventional
+        SVG plot, as tanglegrams are rotated 90°.
+    :param str x_label: X axis label (equivalent of ``y_label`` in ``draw_svg()``).
+    :param tuple[Union[list, dict]] x_ticks: Location of the tick marks on the two
+        time axes. This is a tuple of two values, each of which is
+        equivalent the the ``y_ticks`` value in ``draw_svg()``.
+    :param bool x_gridlines: Whether to plot vertical lines behind the tree
+        at each y tickmark (equivalent of ``y_gridlines`` in ``draw_svg()``).
+    :param bool y_axis: Equivalent of `x_axis` parameter in ``draw_svg()``.
+        Probably not what you want.
+    :param bool y_label: Equivalent of `y_label` parameter in ``draw_svg()``
+        Probably not what you want.
+    :param bool y_ticks: Dummy option: has no effect
+    :param bool y_gridlines: Dummy option: has no effect
+    :param bool return_node_maps: Instead of just returning an ``SvgTree``, return a
+        tuple of ``(SvgTree, left_node_map, right_node_map)``.
+    :param \**kwargs: Additional keyword arguments to pass to :meth:`Tree.draw_svg()`,
+        such as `time_scale` ("log_time", "rank", etc)
+
+    :returns:
+        A tuple of an SvgTree object (that can be plotted by calling obj.draw()) and a left
+        and a right node mapping.
+    """
+    def node_positions(svgtree):
+        x = svgtree.node_x_coord
+        node_times = svgtree.ts.nodes_time
+        if svgtree.time_scale == "rank":
+            within_tree_node_times = np.unique(node_times[svgtree.tree.preorder()])
+            node_times = np.searchsorted(within_tree_node_times, node_times)
+        y = svgtree.timescaling.transform(node_times)
+        return x, y
+
+    def make_reverse_map(node_map):
+        reverse_map = np.zeros_like(node_map)
+        kept = node_map != tskit.NULL
+        reverse_map[node_map[kept]] = np.arange(len(node_map))[kept]
+        return reverse_map
+
+    def reorder_tree_nodes(tree, node_order):
+        # given a node order and a tree, make a new tree and return that and the order
+        node_map = np.arange(tree.tree_sequence.num_nodes)
+        node_map[np.sort(node_order)] = node_order
+        ts = tree.tree_sequence.subset(node_map, False, False, False)
+        return node_map, ts.at_index(tree.index)
+
+    def get_valid_leaf_order(tree, node_order):
+        # take a node ordering and return a leaf ordering on the reordered-node tree
+        if len(np.unique(node_order)) != len(node_order):
+            raise ValueError("Order must contain unique integers")
+        node_map, tree = reorder_tree_nodes(tree, node_order)
+        leaves = np.array([u for u in tree.nodes(order="minlex_postorder") if tree.is_leaf(u)])
+        return node_map[leaves]
+
+    if y_ticks is not None:
+        raise ValueError("Invalid option")
+    if y_gridlines is not None:
+        raise ValueError("Invalid option")
+    if order is None:
+        order = (None, None)
+    if tree_indexes is None:
+        tree_indexes = (
+            1 if ts.first().num_edges == 0 else 0,
+            -2 if ts.last().num_edges == 0 else -1,
+        )
+    lft = ts.at_index(tree_indexes[0])
+    rgt = ts.at_index(tree_indexes[1])
+    if titles is None:
+        titles = (f"Tree {lft.index}", f"Tree {rgt.index}")
+
+    if separation is None:
+        extra_sep = 0
+    else:
+        extra_sep = separation - 64
+    if size is None:
+        # Note that the width is twice the default tree height, as these are rotated
+        size = (200 * 2, 200)
+    w = size[0] / 2  # width (tree height) of one of the plotted trees, after 90° rotation
+    height = size[1]
+    style = (
+        ".lft_tree > g.tree, .lft_tree > g.tangle_lines {transform: translate(0, " + str(height) + "px) rotate(-90deg);}" +
+        ".lft_tree > g.tree .node > .lab {text-anchor: start; transform: rotate(90deg) translate(4px);}"
+        ".lft_tree > .title {transform: translate(" + str(w/2) + "px);}"
+        ".rgt_tree > g.tree {transform: translate(" + str(w) + "px, 0) rotate(90deg);}"
+        ".rgt_tree > g.tree .node > .lab {text-anchor: end; transform: rotate(-90deg) translate(4px);}"     
+        ".rgt_tree > .title {transform: translate(" + str(w/2) + "px);}"
+        ".lft_tree .axes .y-axis .title text {transform: translate(11px) rotate(90deg);}"
+        ".rgt_tree .axes .y-axis .title text {transform: translate(-11px) rotate(-90deg);}"
+        ".rgt_tree .axes .y-axis .ticks .lab {text-anchor: end; transform: rotate(180deg);}"
+    ) + (style or "")
+
+    
+    # For tree 1 we need to reverse the plotting order of leaves, so the leftmost
+    # tip appears at the top when the tree is rotated 90° anticlockwise. We do this
+    # by reordering using `subset()`, so minlex order will reverse the current order
+    # This also means we need to re-adjust the node labels, as the sample IDs will change
+    if node_labels is None:
+        node_labels = {u: str(u) for u in np.arange(ts.num_nodes)}
+
+    if order[0] is None:
+        leaves = np.array([u for u in lft.nodes(order="minlex_postorder") if lft.is_leaf(u)])[::-1]
+    else:
+        leaves = get_valid_leaf_order(lft, order[0][::-1])
+        
+    lft_node_map, lft = reorder_tree_nodes(lft, leaves)
+    lft_rev_map = make_reverse_map(lft_node_map)
+    # Have to change the node labels, because even provided ones will be targetting the wrong IDs
+    lft_node_labels = {u: node_labels[v] for u, v in enumerate(lft_node_map) if v in node_labels}
+    if order[1] is None:
+        # We do not reorder the RH tree, so the node IDs should stay as-is
+        # TODO - we could check the leaf IDs match here
+        rgt_node_labels = node_labels
+        rgt_node_map = rgt_rev_map = np.arange(ts.num_nodes)
+    else:
+        rleaves = get_valid_leaf_order(rgt, order[1])
+        rgt_node_map, rgt = reorder_tree_nodes(rgt, rleaves)
+        if set(rleaves) != set(leaves):
+            raise ValueError("Leaf IDs in the two trees are not the same")
+        rgt_node_labels = {u: node_labels[v] for u, v in enumerate(rgt_node_map) if v in node_labels}
+        rgt_rev_map = make_reverse_map(rgt_node_map)
+    kwargs["size"] = (height, w)
+    kwargs["order"] = "minlex_postorder"
+    kwargs["y_label"] = x_label  # Swapped because of 90° rotation
+    kwargs["y_gridlines"] = x_gridlines  # Swapped because of 90° rotation
+    kwargs["x_axis"] = y_axis  # Swapped because of 90° rotation
+    kwargs["x_label"] = y_label  # Swapped because of 90° rotation
+    # We'll embed the right tree and the tangle lines within the left tree later, via the preamble
+    svgtree_lft = tskit.drawing.SvgTree(
+        lft,
+        title=titles[0],
+        canvas_size=(w * 2 + extra_sep, height),
+        node_labels=lft_node_labels,
+        root_svg_attributes={'class': 'lft_tree'},
+        y_axis=x_axis,
+        y_ticks = None if x_ticks is None else x_ticks[0],
+        **kwargs,
+    )
+    svgtree_rgt = tskit.drawing.SvgTree(
+        rgt,
+        title=titles[1],
+        canvas_size=(w, height),
+        node_labels=rgt_node_labels,
+        root_svg_attributes={'class': 'rgt_tree', 'x': w + extra_sep},
+        y_axis='right' if x_axis else x_axis,   # Swapped because of 90° rotation
+        y_ticks = None if x_ticks is None else x_ticks[1],
+        style=style,
+        **kwargs,
+    )
+    x_lft, y_lft = node_positions(svgtree_lft)
+
+    # Here we just need any list of leaves (order doesn't matter, as long as it's consistent)
+    tip_h_lft = [x_lft[u] for u in lft_rev_map[leaves]]
+    tip_w_lft = y_lft[lft_rev_map[leaves]]
+    tip_w_lft = np.full_like(tip_w_lft, w - 10) if line_gap is None else (tip_w_lft + line_gap)
+
+    x_rgt, y_rgt = node_positions(svgtree_rgt)
+    tip_h_rgt = [x_rgt[u] for u in rgt_rev_map[leaves]]
+    tip_w_rgt = y_rgt[rgt_rev_map[leaves]]
+    tip_w_rgt = np.full_like(tip_w_rgt, w - 10) if line_gap is None else (tip_w_rgt + line_gap)
+    
+    lines = [
+        f'<line stroke="blue" x1="{x1}" y1="{y1}" x2="{height-x2}" y2="{w*2 + extra_sep - y2}" />'
+        for x1, y1, x2, y2 in zip(tip_h_lft, tip_w_lft, tip_h_rgt, tip_w_rgt)
+    ]
+
+    svgtree_lft.preamble = (  # Add the RH tree plus lines as the preamble
+        '<g class="tangle_lines">' + ''.join(lines) + '</g>' + svgtree_rgt.draw()
+    )
+    
+    return (svgtree_lft, lft_rev_map, rgt_rev_map) if return_node_maps else svgtree_lft
+
+
+# Now run the function on an edited tree sequence (make nodes 1, 4, 5 a bit older, to demo)
+tables = ts_mutated.dump_tables()
+tables.mutations.time = np.full_like(tables.mutations.time, tskit.UNKNOWN_TIME)
+tables.nodes[1] = tables.nodes[1].replace(time=1000)
+tables.nodes[4] = tables.nodes[4].replace(time=500)
+tables.nodes[5] = tables.nodes[5].replace(time=2000)
+non_ultrametric_ts = tables.tree_sequence()
+
+tanglegram(non_ultrametric_ts, node_labels={u:u for u in ts_mutated.samples()}, mutation_labels={}, line_gap=15).draw()
+```
+
+Here's a larger tanglegram example (Note that if you want to compare two trees in their
+own separate tree sequences, you can concatenate them togther using
+{meth}`.TreeSequence.concatenate`).
+
+```{code-cell} ipython3
+ts = msprime.sim_ancestry(
+    samples={0: 20, 1:5},
+    sequence_length=1e5,
+    demography=msprime.Demography.island_model([1000, 1000], migration_rate=0.01),
+    recombination_rate=1e-8,
+    random_seed=123,
+)
+
+css = ".node.sample.p0 .sym {fill: green} .node.sample.p1 .sym {fill: darkred}"
+tanglegram(
+    ts,
+    size=(600, 500),
+    line_gap=3,
+    node_labels={},
+    x_axis=True,
+    time_scale="log_time",
+    x_ticks=[[0, 1, 10, 100, 1000]] * 2,  # same x_ticks on lft and rgt
+    style=css).draw()
+```
+
+With a bit more effort, you can even identify identical clades in the same trees (although
+styling can be complex because of having to remap node IDs):
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+from hashlib import blake2b  # Use the blake2b hash to identify nodes with the same samples
+
+ts = ts.simplify(list(range(20)))
+tg, lft_map, rgt_map = tanglegram(
+    ts,
+    size=(600, 300),
+    line_gap=3,
+    node_labels={},
+    x_axis=True,
+    time_scale="log_time",
+    x_ticks=[[0, 1, 10, 100, 1000]] * 2,  # same x_ticks on lft and rgt
+    return_node_maps=True)
+
+ltree = ts.first()
+rtree = ts.last()
+def hashfunc(tree, u):
+    return blake2b(" ".join(str(v) for v in sorted(tree.samples(u))).encode(), digest_size=20).digest()
+
+hashdict1 = {hashfunc(ltree, u): u for u in ltree.nodes() if not ltree.is_sample(u)}
+hashdict2 = {hashfunc(rtree, u): u for u in rtree.nodes() if not rtree.is_sample(u)}
+    
+shared_hashes = hashdict1.keys() & hashdict2.keys()
+css = "" 
+css += ",".join([f".lft_tree > .tree .n{lft_map[hashdict1[h]]} > .sym" for h in shared_hashes]) + f"{{r: 3px; fill: magenta; stroke: black;}}"
+css += ",".join([f".rgt_tree > .tree .n{rgt_map[hashdict2[h]]} > .sym" for h in shared_hashes]) + f"{{r: 3px; fill: magenta; stroke: black;}}"
+# Add the extra styles into the preamble
+legend = (
+    '<rect x="240" y="3" height="15" width="120" fill="#EEEEEE" stroke="black" />'
+    '<circle cx="260" cy="12" r="4" fill="magenta" stroke="black" />'
+    '<text font-size="12" text-anchor="middle" x="305" y="15">= shared clades</text>'
+)
+tg.preamble = f"<style>{css}</style>" + legend + tg.preamble
+tg.draw()
+```
+
 (sec_tskit_viz_SVG_examples_animation)=
 
 #### Animation
@@ -1562,7 +2059,6 @@ HTML(html_string % (
     ts.num_trees,
 ))
 ```
-  
 
 (sec_tskit_viz_other)=
 ## Other visualizations
