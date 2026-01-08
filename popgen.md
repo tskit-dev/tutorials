@@ -376,7 +376,7 @@ at the "rs3827760" SNP:
 
 ```{code-cell}
 :"tags": ["hide-input"]
-# Make some nide labels, colours, and legend etc.
+# Make some nice labels, colours, and legend
 mutation_labels = {m.id: focal_site.metadata.get("ID") for m in focal_site.mutations}
 colours = dict(San="yellow", Han="green", Denisovan="magenta")
 styles = [
