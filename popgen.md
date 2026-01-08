@@ -115,14 +115,14 @@ plt.show()
 ```
 
 Genomic data in tree sequence format can be generated via the widely-used
-[msprime](https://tskit.dev/software/msprime.html) simulator. Here we simulate 20
-kilobases of genome sequence at the start of human chromosome 1 under this model,
+[msprime](https://tskit.dev/software/msprime.html) simulator. Here we simulate 1
+megabase of genome sequence at the start of human chromosome 1 under this model,
 together with its evolutionary history. We generate 16 diploid genomes: 4 from each of
 the populations in the model. The DNA sequences and their ancestry are stored in a
 succinct tree sequence named `ts`:
 
 ```{code-cell}
-contig = species.get_contig("chr1", mutation_rate=model.mutation_rate, right=20_000)
+contig = species.get_contig("chr1", mutation_rate=model.mutation_rate, right=1_000_000)
 samples = {"AFR": 4, "EUR": 4, "ASIA": 4, "ADMIX": 4} # 16 diploid samples
 engine = stdpopsim.get_engine("msprime")
 ts = engine.simulate(model, contig, samples, seed=9).trim()  # trim to first 20kb simulated
@@ -134,20 +134,24 @@ We can now inspect alleles and their frequencies at the variable sites we have s
 along the genome:
 
 ```{code-cell}
+print("Sample --->", " ".join([f"{u:>2}" for p in ts.populations() for u in ts.samples(population=p.id)]))
+print("Population |", "".join([f"{p.metadata['name']:^{3*(len(ts.samples(population=p.id)))-1}}|" for p in ts.populations()]))
+print("_Position_ |", "".join(["_" * (3 * len(ts.samples(population=p.id)) - 1) + "|" for p in ts.populations()]))
 for v in ts.variants():
-    display(v)
-    if v.site.id >= 2: #  Only show site 0, 1, and 2, for brevity
+    print(f"{int(v.site.position):>10} | ", "  ".join(v.states()))
+    if v.site.id >= 30: #  Only show the first 30 sites, for brevity
         break
 ```
 
-Or we can display the {meth}`~TreeSequence.haplotypes` (i.e. the variable sites) for
-each sample
+We can efficiently grab the genotypes for each sampled genome
 
-```{code-cell}
+```
 samples = ts.samples()
-for sample_id, h in zip(samples, ts.haplotypes(samples=samples)):
+
     pop = ts.node(sample_id).population
-    print(f"Sample {sample_id:<2} ({ts.population(pop).metadata['name']:^5}): {h}")
+
+for v in ts.variants():
+    print(f"Position {v.site.position:<5} ({ts.population(pop).metadata['name']:^5}): {h}")
 ```
 
 From the tree sequence it is easy to obtain the
@@ -163,7 +167,7 @@ plt.show()
 
 Similarly `tskit` allows fast and easy
 {ref}`calculation of statistics<sec_tutorial_stats>` along the genome. Here is
-a plot of windowed $F_{st}$ between Africans and admixed Americans over this short
+a plot of windowed $F_{st}$ between Africans and admixed Americans over this
 region of chromosome:
 
 ```{code-cell}
@@ -171,8 +175,8 @@ region of chromosome:
 pop_id = {p.metadata["name"]: p.id for p in ts.populations()}
 sample_sets=[ts.samples(pop_id["AFR"]), ts.samples(pop_id["ADMIX"])]
 
-# Do the windowed calculation, using windows of 2 kilobases
-windows = list(range(0, int(ts.sequence_length + 1), 2_000))
+# Do the windowed calculation, using windows of 10 kilobases
+windows = list(range(0, int(ts.sequence_length + 1), 10_000))
 F_st = ts.Fst(sample_sets, windows=windows)
 
 # Plot
@@ -185,7 +189,8 @@ plt.show()
 Extracting the genetic tree at a specific genomic location is easy using `tskit`, which
 also provides methods to {ref}`plot<sec_tskit_viz>` these trees. Here we
 grab the tree at position 10kb, and colour the different populations by
-different colours, as described in the {ref}`viz tutorial<sec_tskit_viz_styling>`:
+grab the tree at position 10kb, and colour the samples according to their population,
+as described in the {ref}`viz tutorial<sec_tskit_viz_styling>`:
 
 ```{code-cell}
 tree = ts.at(10_000)
@@ -214,7 +219,26 @@ tree.draw_svg(
     y_axis=True,
     y_ticks=range(0, 30_000, 10_000)
 )
+```
 
+Or we can plot a principal components analysis of the genome, which should reflect
+geographical distinctiveness:
+
+```{code-cell}
+from matplotlib.patches import Patch
+
+# Run the Principal Components Analysis (PCA)
+pca_obj = ts.pca(num_components=2)
+
+# Plot the PCA "factors"
+col_list = [colours[pop.metadata["name"]] for pop in ts.populations()]
+sample_pop_ids = ts.nodes_population[ts.samples()]
+plt.scatter(*pca_obj.factors.T, c=[col_list[p] for p in sample_pop_ids], edgecolors= "black")
+plt.xlabel("PCA 1")
+plt.ylabel("PCA 2")
+plt.legend(handles=[
+    Patch(color=col_list[pop.id], label=pop.metadata["name"]) for pop in ts.populations()
+]);
 ```
 
 ## Population genetic inference
@@ -230,13 +254,12 @@ The genomic region encoded in this tree sequence has been cut down to
 span positions 108Mb-110Mb of human chromosome 2, which spans the
 [EDAR](https://en.wikipedia.org/wiki/Ectodysplasin_A_receptor) gene.
 
-Note that tree sequence files are usually imported using {func}`load`,
-but because this file has been additionally compressed, we load it via
-{func}`tszip:tszip.decompress`:
+Note that we are using {func}`tszip:tszip.load` to load the file, as this
+utility can also read and write compressed tree sequences in `.tsz` format.
 
 ```{code-cell}
 import tszip
-ts = tszip.decompress("data/unified_genealogy_2q_108Mb-110Mb.tsz")
+ts = tszip.load("data/unified_genealogy_2q_108Mb-110Mb.tsz")
 
 # The ts encompasses a region on chr 2 with an interesting SNP (rs3827760) in the EDAR gene
 edar_gene_bounds = [108_894_471, 108_989_220]  # In Mb from the start of chromosome 2
@@ -256,10 +279,11 @@ import pandas as pd
 print(ts.num_populations, "populations defined in the tree sequence:")
 
 pop_names_regions = [
-    [p.metadata.get("name"), p.metadata.get("region")]
+    [p.metadata.get("name"), p.metadata.get("region"), len(ts.samples(population=p.id))]
     for p in ts.populations()
 ]
-display(pd.DataFrame(pop_names_regions, columns=["population name", "region"]))
+with pd.option_context('display.max_rows', 100):
+    display(pd.DataFrame(pop_names_regions, columns=["name", "region", "# genomes"]))
 ```
 
 You can see that there are multiple African and East asian populations, grouped by
@@ -321,16 +345,100 @@ using tree sequences is simply that they allow these sorts of analysis to
 ### Topological analysis
 
 As this inferred tree sequence stores (an estimate of) the underlying
-genealogy, we can also derive statistics based on genealogical relationships. For
-example, this tree sequence also contains a sample genome based on an ancient
-genome, a [Denisovan](https://en.wikipedia.org/wiki/Denisovan) individual. We can
-look at the closeness of relationship between samples from the different geographical
-regions and the Denisovan:
+genealogy, we can also derive statistics based on genealogical relationships. You
+may have noticed that this tree sequence also contains a sample genome based on an ancient
+genome, a [Denisovan](https://en.wikipedia.org/wiki/Denisovan) individual. We'll first
+simplify the tree sequence to focus on only the Denisovan plus
+a common East Asian and a common African population: 
 
-:::{todo}
-Show an example of looking at topological relationships between the Denisovan and
-various East Asian groups, using the {ref}`sec_counting_topologies` functionality.
-:::
+```{code-cell}
+# Focus on Han, San, and Denisovan
+focal = {
+    "Han": ts.samples(population=6),
+    "San": ts.samples(population=17),
+    "Denisovan": ts.samples(population=66),
+}
+
+for name, nodes in focal.items():  # Sanity check that we got the right IDs
+    assert ts.population(ts.node(nodes[0]).population).metadata["name"] == name
+
+# Simplify to just those samples ...
+all_focal_samples = [u for samples in focal.values() for u in samples]
+simplified_ts = ts.simplify(all_focal_samples, filter_sites=False)
+
+# ... and find the tree around the rs3827760 SNP
+focal_site = simplified_ts.site(focal_variant.site.id)
+tree = simplified_ts.at(focal_site.position)
+```
+
+With this smaller number of samples, we can easily plot the tree
+at the "rs3827760" SNP:
+
+```{code-cell}
+:"tags": ["hide-input"]
+# Make some nice labels, colours, and legend
+mutation_labels = {m.id: focal_site.metadata.get("ID") for m in focal_site.mutations}
+colours = dict(San="yellow", Han="green", Denisovan="magenta")
+styles = [
+    f".leaf.p{pop.id} > .sym {{fill: {colours[pop.metadata['name']]}; stroke: grey}}"
+    for pop in simplified_ts.populations()
+]
+legend = '<rect width="125" height="75" x="100" y="30" fill="transparent" stroke="grey" />'
+legend += '<text x="120" y="45" font-weight="bold">Populations</text>'
+# Create the legend lines, one for each population. Setting classes that match those
+# used for normal nodes means that styled colours are auto automatically picked-up.
+legend += "".join([
+    f'<g transform="translate(105, {60 + 15*p.id})" class="leaf p{p.id}">'  # an SVG group
+    f'<rect width="6" height="6" class="sym" />'  # Square symbol
+    f'<text x="10" y="7">{p.metadata["name"]}' # Label
+    f'{(" (" + p.metadata["region"].replace("_", " ").title() + ")") if "region" in p.metadata else ""}</text></g>'  
+    for p in simplified_ts.populations()
+])
+
+tree.draw_svg(
+    size=(1000, 400),
+    style="".join(styles),
+    node_labels={},
+    mutation_labels=mutation_labels,
+    preamble=legend,
+    title=f"Tree of human chromosome 2 at position {int(focal_variant.site.position)}",
+    y_axis=True,
+    y_ticks=range(0, 50_000, 10_000),
+)
+```
+
+You can see that the pair of magenta Denisovan genomes in this region tend to be
+more closely associated with the East Asian genomes. We can assess that by counting
+all the 3-tip topologies in the tree that contain one genome from each population:
+
+```{code-cell}
+topology_counter = tree.count_topologies()
+embedded_topologies = topology_counter[range(simplified_ts.num_populations)]
+```
+
+```{code-cell}
+:"tags": ["hide-input"]
+# All the following code is simply to plot the embedded_topologies nicely
+all_trees = list(tskit.all_trees(simplified_ts.num_populations))
+last = len(all_trees) - 1
+svgs = ""
+style = "".join(styles) + ".sample text.lab {baseline-shift: super; font-size: 0.7em;}"
+style = style.replace(".leaf.p", ".leaf.n")  # Hack to map node IDs to population colours
+params = {
+    "size": (160, 150),
+    "node_labels": {pop.id: pop.metadata["name"] for pop in simplified_ts.populations()}
+}
+for i, t in enumerate(all_trees):
+    rank = t.rank()
+    count = embedded_topologies[rank]
+    params["title"] = f"{count} trees"
+    if i != last:
+        svgs += t.draw_svg(root_svg_attributes={'x': (last - i) * 150}, **params)
+    else:
+        # Plot the last svg and stack the previous ones to the right
+        display(t.draw_svg(preamble=svgs, canvas_size=(1000, 150), style=style, **params))
+```
+
 
 See {ref}`sec_counting_topologies` for an introduction to topological methods in
 `tskit`.
