@@ -189,7 +189,8 @@ plt.show()
 Extracting the genetic tree at a specific genomic location is easy using `tskit`, which
 also provides methods to {ref}`plot<sec_tskit_viz>` these trees. Here we
 grab the tree at position 10kb, and colour the different populations by
-different colours, as described in the {ref}`viz tutorial<sec_tskit_viz_styling>`:
+grab the tree at position 10kb, and colour the samples according to their population,
+as described in the {ref}`viz tutorial<sec_tskit_viz_styling>`:
 
 ```{code-cell}
 tree = ts.at(10_000)
