@@ -30,7 +30,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
@@ -50,7 +50,7 @@
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
@@ -429,14 +429,14 @@ migrations and population size changes that define this model.</p>
 </div>
 </div>
 <p>Genomic data in tree sequence format can be generated via the widely-used
-<a class="reference external" href="https://tskit.dev/software/msprime.html">msprime</a> simulator. Here we simulate 20
-kilobases of genome sequence at the start of human chromosome 1 under this model,
+<a class="reference external" href="https://tskit.dev/software/msprime.html">msprime</a> simulator. Here we simulate 1
+megabase of genome sequence at the start of human chromosome 1 under this model,
 together with its evolutionary history. We generate 16 diploid genomes: 4 from each of
 the populations in the model. The DNA sequences and their ancestry are stored in a
 succinct tree sequence named <code class="docutils literal notranslate"><span class="pre">ts</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">&quot;chr1&quot;</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">20_000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">&quot;chr1&quot;</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">)</span>
 <span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AFR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;EUR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ASIA&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ADMIX&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span> <span class="c1"># 16 diploid samples</span>
 <span class="n">engine</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s2">&quot;msprime&quot;</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">contig</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>  <span class="c1"># trim to first 20kb simulated</span>
@@ -447,7 +447,7 @@ succinct tree sequence named <code class="docutils literal notranslate"><span cl
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulated a tree sequence of 32 haploid genomes:
-39 variable sites over 20000.0 base pairs
+3580 variable sites over 1000000.0 base pairs
 </pre></div>
 </div>
 </div>
@@ -457,183 +457,112 @@ along the genome:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span> <span class="c1">#  Only show site 0, 1, and 2, for brevity</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Variable site </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> at position </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="si">}</span><span class="s2"> has allele frequencies&quot;</span><span class="p">,</span>
+        <span class="p">{</span><span class="n">state</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">freq</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">frequencies</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
         <span class="k">break</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">
-        <div>
-            <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-            </style>
-            <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                <table class="tskit-table">
-                    <thead>
-                    <tr>
-                        <th style="padding:0;line-height:21px;">
-                        <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                        <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-variant-class"> Variant </a>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-        
-                <tr><td>Site Id</td><td>0</td></tr>
-                <tr><td>Site Position</td><td>1 348</td></tr>
-                <tr><td>Number of Nodes</td><td>32</td></tr>
-                <tr><td>Number of Alleles</td><td>2</td></tr>
-            <tr><td>Nodes with Allele 'A'</td><td>25 (78%)</td></tr>
-<tr><td>Nodes with Allele 'C'</td><td>7 (22%)</td></tr>
-                <tr><td>Has Missing Data</td><td>False</td></tr>
-                <tr><td>Isolated as Missing</td><td>True</td></tr>
-            
-                    </tbody>
-            </table>
-            </div>
-        </div>
-        </div>
-        </div><div class="output text_html">
-        <div>
-            <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-            </style>
-            <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                <table class="tskit-table">
-                    <thead>
-                    <tr>
-                        <th style="padding:0;line-height:21px;">
-                        <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                        <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-variant-class"> Variant </a>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-        
-                <tr><td>Site Id</td><td>1</td></tr>
-                <tr><td>Site Position</td><td>2 062</td></tr>
-                <tr><td>Number of Nodes</td><td>32</td></tr>
-                <tr><td>Number of Alleles</td><td>2</td></tr>
-            <tr><td>Nodes with Allele 'C'</td><td>31 (97%)</td></tr>
-<tr><td>Nodes with Allele 'A'</td><td>1 (3.1%)</td></tr>
-                <tr><td>Has Missing Data</td><td>False</td></tr>
-                <tr><td>Isolated as Missing</td><td>True</td></tr>
-            
-                    </tbody>
-            </table>
-            </div>
-        </div>
-        </div>
-        </div><div class="output text_html">
-        <div>
-            <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-            </style>
-            <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                <table class="tskit-table">
-                    <thead>
-                    <tr>
-                        <th style="padding:0;line-height:21px;">
-                        <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                        <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-variant-class"> Variant </a>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-        
-                <tr><td>Site Id</td><td>2</td></tr>
-                <tr><td>Site Position</td><td>3 046</td></tr>
-                <tr><td>Number of Nodes</td><td>32</td></tr>
-                <tr><td>Number of Alleles</td><td>2</td></tr>
-            <tr><td>Nodes with Allele 'C'</td><td>8 (25%)</td></tr>
-<tr><td>Nodes with Allele 'A'</td><td>24 (75%)</td></tr>
-                <tr><td>Has Missing Data</td><td>False</td></tr>
-                <tr><td>Isolated as Missing</td><td>True</td></tr>
-            
-                    </tbody>
-            </table>
-            </div>
-        </div>
-        </div>
-        </div></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable site 0 at position 1014.0 has allele frequencies {&#39;T&#39;: &#39;96.9%&#39;, &#39;G&#39;: &#39;3.1%&#39;}
+Variable site 1 at position 2137.0 has allele frequencies {&#39;A&#39;: &#39;84.4%&#39;, &#39;T&#39;: &#39;15.6%&#39;}
+Variable site 2 at position 2428.0 has allele frequencies {&#39;T&#39;: &#39;96.9%&#39;, &#39;A&#39;: &#39;3.1%&#39;}
+Variable site 3 at position 2558.0 has allele frequencies {&#39;A&#39;: &#39;78.1%&#39;, &#39;G&#39;: &#39;21.9%&#39;}
+Variable site 4 at position 3515.0 has allele frequencies {&#39;T&#39;: &#39;56.2%&#39;, &#39;G&#39;: &#39;43.8%&#39;}
+Variable site 5 at position 3626.0 has allele frequencies {&#39;T&#39;: &#39;56.2%&#39;, &#39;C&#39;: &#39;43.8%&#39;}
+...
+</pre></div>
 </div>
-<p>Or we can display the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">haplotypes()</span></code></a> (i.e. the variable sites) for
-each sample</p>
+</div>
+</div>
+<p>Or we can efficiently grab the genotypes for each sampled genome</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">sample_id</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">)):</span>
-    <span class="n">pop</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">sample_id</span><span class="p">)</span><span class="o">.</span><span class="n">population</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample </span><span class="si">{</span><span class="n">sample_id</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">^5</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample ---&gt; &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Population |&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">^</span><span class="si">{</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)))</span><span class="o">-</span><span class="mi">1</span><span class="si">}}</span><span class="s2">|&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;__________ |&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;_&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Position&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> | &quot;</span><span class="p">,</span> <span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">states</span><span class="p">()))</span>
+    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="mi">30</span><span class="p">:</span> <span class="c1">#  Only show the first 30 sites, for brevity</span>
+        <span class="k">break</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample 0  ( AFR ): CCCACGCGCGGTACAATCTTTGTGACCGTTAGAGCTTTA
-Sample 1  ( AFR ): CCCAAACGCAGTACAACGTCAGGGACCGTTAGAGCTTGG
-Sample 2  ( AFR ): ACAACGCGCGTTACAATCTTTGTGACCGTTAGAGCTTTG
-Sample 3  ( AFR ): CCCAAACGCAGTACAACCTCAGGGACCGTTAGAGCTTTA
-Sample 4  ( AFR ): CCCAAACCTAGTAAAACCTCATGGCCCGTTAGTGCGCTT
-Sample 5  ( AFR ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTA
-Sample 6  ( AFR ): CCCAAACCTAGTAAAACCTCATGGCCCGTTAGTGCGCTT
-Sample 7  ( AFR ): CCCAAACGCAGTACAACCTCAGGGACCGTTAGAGCTTTA
-Sample 8  ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTG
-Sample 9  ( EUR ): ACAACGCGCGGTACAATCTTTGTAAGCGTTAGAGCTTTG
-Sample 10 ( EUR ): AAAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 11 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTG
-Sample 12 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 13 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 14 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 15 ( EUR ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 16 (ASIA ): ACAACGCGCGGTACAATCTTTGTAAGCGTTAGAGCTTTG
-Sample 17 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 18 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGGTAGAGCTTTG
-Sample 19 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTAAGAGCTTTG
-Sample 20 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTTAAAGCTTTG
-Sample 21 (ASIA ): ACAACGCGCGGTACAATCTTTGTAAGCGTTAGAGCTTTG
-Sample 22 (ASIA ): ACATCGCGCGGTACAATCTTTGTAACCGTTAAAGCTTTG
-Sample 23 (ASIA ): ACAACGCGCGGTACAATCTTTGTAACCGTTAGAGCTTTG
-Sample 24 (ADMIX): ACAACGCGCGTTACAATCTTTGTGACCGTTAGAGCTTTG
-Sample 25 (ADMIX): ACAACGCGCGGTACAATCTTTGTAACCCTAAGAGTTTTG
-Sample 26 (ADMIX): ACAACGCGCGGTACAATCTTTGTGACGGTTAGAGCTTTG
-Sample 27 (ADMIX): ACAACGCGCGGTCCGATCTTTGTAAGCGTTAGAGCTTTG
-Sample 28 (ADMIX): ACAACGCGCGGCACAATCTTTGTAACCGGTAGAGCTTTG
-Sample 29 (ADMIX): CCCAAACGCAGTACAACCTCAGGGACCGTTTGTGCGCTT
-Sample 30 (ADMIX): ACAACGCGCGGTACACTCTTTGTAACCGTAAGAGCTTTG
-Sample 31 (ADMIX): ACCAAATGCAGTACAACCACAGGGACCGTTAGATCTTTA
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample ---&gt;   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+Population |           AFR          |          EUR          |         ASIA          |         ADMIX         |
+__________ | _______________________|_______________________|_______________________|_______________________|
+  Position
+      1014 |  T  T  T  T  G  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T
+      2137 |  A  T  A  A  A  A  A  A  A  A  A  A  A  A  T  T  T  A  A  A  A  A  A  A  A  A  A  T  A  A  A  A
+      2428 |  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  A  T  T  T  T  T  T
+      2558 |  A  G  A  A  G  A  A  A  A  A  A  A  A  A  G  G  G  A  A  A  A  A  A  A  A  G  A  G  A  A  A  A
+      3515 |  T  T  T  T  T  G  T  T  G  G  G  T  G  T  T  T  T  G  G  T  G  G  G  T  T  T  T  T  G  G  G  G
+      3626 |  T  T  T  T  T  C  T  T  C  C  C  T  C  T  T  T  T  C  C  T  C  C  C  T  T  T  T  T  C  C  C  C
+      3780 |  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  A  G  G  G  G  G  G  G  G  G  G
+      4255 |  A  A  A  A  A  A  A  A  A  A  A  C  A  C  A  A  A  A  A  C  A  A  A  C  C  A  C  A  A  A  A  A
+      4440 |  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  C  A  A  A  A  A  A
+      4543 |  A  T  A  A  T  T  A  A  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T  T
+      4604 |  T  T  T  T  T  T  T  T  T  T  T  C  T  C  T  T  T  T  T  C  T  T  T  C  C  T  T  T  T  T  T  T
+      6926 |  G  G  G  G  G  C  G  G  C  C  C  C  C  C  G  C  G  C  C  C  G  G  G  C  C  C  C  G  G  C  C  G
+      7188 |  T  A  A  A  A  A  T  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A
+      7425 |  G  C  C  C  C  G  G  C  G  G  G  G  G  G  C  G  C  G  G  G  C  C  C  G  G  G  G  C  C  G  G  C
+      7828 |  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  T  C  C  C  C  C  C  C  C  C  C
+      7883 |  A  A  A  A  A  C  A  A  C  C  C  C  C  C  A  C  A  C  C  C  A  A  A  A  C  A  C  A  A  C  C  A
+      8835 |  G  G  G  G  G  T  G  G  T  T  T  T  T  T  G  T  G  T  T  T  G  G  G  G  T  G  T  G  G  T  T  G
+      8844 |  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  A  C  C  C  C  C
+      8861 |  A  A  A  A  A  A  A  A  A  A  A  G  A  G  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A
+      8897 |  C  T  T  T  T  C  C  T  C  C  C  C  C  C  T  C  T  C  C  C  T  T  T  T  C  C  C  T  T  C  C  T
+      9037 |  G  G  G  G  G  A  G  G  A  A  A  A  A  A  G  A  G  A  A  A  G  G  G  G  A  G  A  G  G  A  A  G
+      9334 |  G  C  C  C  C  G  G  C  G  G  G  G  G  G  C  G  C  G  G  G  C  C  C  C  G  G  G  C  C  G  G  C
+      9354 |  G  C  C  C  C  G  G  C  G  G  G  G  G  G  C  G  C  G  G  G  C  C  C  C  G  G  G  C  C  G  G  C
+      9363 |  G  C  C  C  C  G  G  C  G  G  G  G  G  G  C  G  C  G  G  G  C  C  C  C  G  G  G  C  C  G  G  C
+      9387 |  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  G  C  G  G  G  G  G  G  G  G  G  G  G
+      9454 |  T  C  C  C  C  C  T  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C
+      9547 |  A  A  A  A  A  A  A  A  A  A  G  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A  A
+      9616 |  C  C  A  A  C  C  C  A  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C
+      9972 |  C  G  G  G  G  C  C  G  C  C  C  C  C  C  G  C  G  C  C  C  C  C  C  G  C  C  C  G  C  C  C  C
+     10011 |  C  C  C  C  C  G  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C  C
+     10043 |  T  G  T  T  T  T  T  T  T  T  T  T  T  T  G  T  G  T  T  T  T  T  T  G  T  T  T  G  T  T  T  T
 </pre></div>
 </div>
 </div>
 </div>
-<p>From the tree sequence it is easy to obtain the
+<p>It is also possible to grab the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes">haplotypes</a>
+for specific samples (although this is slightly less efficient)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">pop_id</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">sample_id</span><span class="p">,</span> <span class="n">haplotype</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">)):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">haplotype</span><span class="p">))</span>  <span class="c1"># Add a dot between letters, to clarify they are not  adjacent</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample </span><span class="si">{</span><span class="n">sample_id</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">pop_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">^5</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample 0  ( AFR ): T.A.T.A.T.T.G.A.A.A.T.G.T.G.C.A.G.C.A.C.G.G.G.G.G.T.A.C.C.C.T.C.G.A.G.A.C.C.C.T.C.T.C.G.G.A.G.T.T.G.C.A.T.T.T.A.G.T.C.G.A.A.T.T.C.T.T.A.A.C.G.T.A.T.C.C.A.G.A.C.G.T.A.T.T.C.T.C.A.G.T.G.C.G.A.G.G.G.T.A.T.C.A.G.T.G.A.T.A.C.A.A.A.C.G.C.G.G.C.G.T.T.T.A.C.T.T.T.C.G.C.T.A.T.C.T.C.G.G.C.A.A.G.T.C.G.C.G.T.G.A.T.G.G.A.T.T.C.T.A.T.A.G.G.T.G.A.A.C.A.G.A.G.T.A.A.C.T.T.A.A.C.G.A.T.C.C.T.C.T.T.G.G.A.C.C.T.G.A.A.G.A.C.C.G.A.A.A.T.T.A.G.C.T.A.T.C.A.G.C.A.T.G.T.A.G.G.A.A.T.C.T.C.C.A.G.G.A.G.C.G.G.G.C.C.C.G.G.A.A.T.C.A.C.A.G.C.G.G.G.T.G.T.T.T.G.G.A.G.C.G.G.A.T.T.C.G.T.T.T.A.C.T.C.C.G.C.T.A.C.G.T.A.C.T.G.A.T.C.C.A.C.G.A.A.T.G.G.C.A.A.C.A.A.G.A.G.T.G.T.G.C.G.C.C.A.T.T.G.G.T.G.G.C.G.A.C.G.T.T.C.C.C.C.G.G.C.T.G.T.G.T.A.G.T.C.C.G.T.G.G.T.T.A.C.T.G.T.C.A.T.A.A.G.G.G.G.A.T.A.C.A.A.G.T.G.T.G.A.A.G.A.C.C.T.A.C.C.A.C.A.G.A.G.A.A.G.G.A.T.C.T.T.A.A.A.T.C.A.A.C.T.T.C.A.C.T.G.T.T.G.A.A.A.C.T.A.G.T.A.C.G.G.T.G.A.A.T.C.A.C.G.C.G.G.C.C.T.T.T.G.A.C.A.G.A.G.G.T.G.C.A.C.C.C.T.A.G.G.T.C.T.C.A.C.G.A.A.C.T.A.C.C.A.A.C.A.T.G.C.A.T.G.C.C.C.T.C.T.A.C.T.G.G.C.T.A.G.C.G.C.T.A.T.G.C.T.G.G.C.G.T.A.T.C.C.G.G.G.A.T.G.A.G.G.T.T.A.G.C.T.C.T.T.C.T.T.T.T.A.A.A.A.A.C.A.A.C.C.T.G.C.T.C.G.C.T.C.G.T.C.T.C.A.A.A.G.G.C.T.C.A.T.G.T.G.A.A.T.T.C.A.C.G.C.T.C.A.C.T.T.A.G.C.A.T.T.G.T.T.G.G.T.T.G.T.T.C.T.G.G.C.C.T.A.A.A.A.A.T.C.C.C.C.T.T.G.A.C.G.A.T.A.C.T.A.A.A.T.T.C.A.T.C.C.T.G.G.A.A.T.A.C.T.A.C.A.A.G.T.C.A.G.A.A.C.T.A.G.T.C.G.T.C.G.G.G.C.G.T.A.T.G.C.C.T.C.T.C.T.A.T.C.G.G.A.C.T.G.A.A.A.T.G.C.A.C.A.C.G.C.C.A.A.T.A.A.T.C.G.T.C.A.A.T.A.C.A.T.A.G.C.G.C.T.G.A.G.C.C.T.C.A.A.T.A.T.T.A.A.A.C.G.C.A.C.T.C.A.A.T.C.T.A.G.C.A.C.T.C.G.A.T.T.A.G.C.C.G.T.G.T.C.G.G.A.G.T.T.T.A.T.G.G.A.G.T.T.A.G.G.T.C.G.A.T.T.A.T.G.A.C.T.G.G.G.A.G.A.A.G.G.C.T.A.G.G.G.C.C.G.T.T.G.T.C.C.T.T.C.A.A.C.A.T.C.G.T.A.A.A.G.C.T.G.G.A.A.G.A.C.C.C.T.C.C.T.C.A.T.C.A.A.C.C.A.G.C.A.G.G.G.A.C.C.G.C.A.C.T.T.C.G.A.T.C.A.C.T.C.T.A.C.G.A.G.G.C.G.T.G.A.A.C.C.G.T.C.C.T.C.C.T.G.C.C.T.G.A.C.C.T.T.A.T.G.C.A.A.T.G.C.C.T.G.T.C.T.T.T.G.G.C.T.G.T.T.A.C.G.A.C.A.A.C.A.C.A.T.G.C.A.G.A.A.C.C.C.T.C.G.C.T.A.T.C.A.A.T.T.T.A.T.A.C.A.T.G.T.T.T.T.G.A.T.A.A.T.G.A.G.C.T.A.C.T.T.T.C.C.A.T.T.A.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.A.C.T.T.G.G.T.G.A.T.A.T.T.G.A.C.C.A.T.C.A.C.T.A.A.C.G.C.C.T.T.A.G.T.A.C.A.G.T.A.G.T.T.G.G.T.C.A.C.T.C.C.G.G.T.C.C.A.A.A.T.C.A.A.T.C.T.T.C.A.T.C.C.G.A.G.C.C.A.G.C.A.C.A.C.T.C.C.G.C.G.T.C.T.T.G.A.A.C.T.T.A.A.C.G.A.T.G.A.C.G.T.C.G.G.T.A.G.G.A.C.C.C.C.C.A.G.C.T.C.C.G.T.T.A.T.G.T.C.A.G.A.C.T.G.C.T.C.G.G.T.C.A.G.G.C.C.A.A.A.T.G.G.A.C.T.A.C.C.T.T.T.T.A.C.C.A.A.C.G.A.A.C.A.C.A.G.G.G.G.C.A.T.T.G.G.G.A.G.C.C.C.T.T.T.A.G.A.C.A.T.C.G.T.G.G.C.G.C.C.C.T.G.C.C.C.A.C.C.G.T.T.T.C.C.T.C.T.A.C.T.T.G.A.G.G.T.G.C.A.A.C.T.A.A.C.G.G.G.T.T.C.G.G.G.G.C.T.A.T.G.C.G.A.C.C.T.C.G.G.C.T.A.G.A.A.A.T.A.T.C.A.T.T.G.C.C.T.G.A.T.C.T.T.C.A.G.C.C.A.A.A.A.G.T.G.A.A.C.G.G.G.C.A.A.C.T.C.C.T.A.T.T.G.A.A.T.C.G.T.G.A.G.G.A.A.C.C.C.C.T.G.G.G.A.C.A.G.A.T.C.A.A.A.A.T.G.T.A.T.T.C.A.A.T.C.A.C.T.C.G.T.G.A.G.T.G.C.G.C.A.C.C.T.T.C.T.C.T.T.A.C.G.C.C.G.A.A.T.T.A.T.C.A.T.G.A.A.G.A.T.G.C.C.A.T.A.G.G.G.G.C.A.C.T.T.G.T.T.A.G.G.G.G.T.G.G.G.A.T.G.C.A.C.A.C.A.T.G.C.G.C.T.G.A.T.A.T.A.A.A.A.A.T.T.A.C.G.A.C.A.G.A.C.A.G.A.C.G.T.C.C.A.G.G.A.A.G.C.T.A.T.A.C.G.A.G.G.G.C.T.G.C.G.T.C.A.T.G.C.A.T.C.C.T.A.G.G.G.G.G.G.G.C.T.A.C.T.A.C.C.A.C.A.T.G.A.T.T.C.C.A.G.C.A.A.A.T.C.G.C.T.A.T.T.G.C.T.C.G.C.G.C.C.A.T.G.T.G.C.T.G.A.T.G.C.G.G.C.C.A.T.G.C.G.T.G.G.A.T.T.A.C.G.A.T.T.A.T.T.C.G.C.A.T.G.G.T.G.T.G.A.T.A.T.A.C.A.A.G.G.T.T.A.G.T.A.G.C.A.A.T.G.T.C.T.A.T.T.G.T.A.G.T.T.A.A.A.C.A.G.G.C.G.T.C.A.C.G.A.C.C.T.A.G.C.G.A.C.T.C.C.C.C.G.A.G.T.A.C.G.G.T.T.G.G.A.C.T.C.G.A.T.G.A.C.C.A.C.T.T.T.T.C.C.A.A.A.A.G.T.A.T.C.G.A.G.A.G.A.G.G.A.C.C.G.T.T.G.A.T.C.G.A.A.C.T.C.G.C.T.A.T.G.T.C.G.A.C.A.A.G.C.T.G.G.G.G.C.C.A.T.G.G.G.C.C.C.T.T.T.A.T.C.G.T.A.A.A.G.G.A.G.T.T.T.C.A.T.A.A.C.T.C.C.C.A.G.C.C.A.C.A.A.C.T.G.G.T.A.C.A.C.T.C.T.A.T.C.T.C.A.C.G.A.T.C.C.G.A.A.C.A.T.C.G.T.T.T.G.G.A.T.A.G.C.G.C.G.C.T.C.C.G.G.C.G.T.A.G.T.C.G.C.A.G.C.A.C.G.A.A.G.T.A.G.T.A.T.A.T.T.A.C.A.T.G.A.T.C.G.A.T.A.G.T.T.T.T.C.T.C.T.C.C.A.A.G.T.C.C.A.T.G.T.A.G.C.T.G.G.G.A.A.A.C.C.T.A.C.T.T.A.C.G.A.C.T.T.C.G.G.C.C.A.A.T.G.C.T.T.C.T.T.C.T.G.G.T.C.A.C.T.A.A.A.G.G.G.G.A.C.C.A.G.T.A.C.G.T.G.G.C.G.C.G.T.C.G.A.C.G.A.C.T.G.T.G.T.G.C.A.C.G.C.G.G.A.T.T.C.T.T.C.T.T.T.C.A.G.A.A.G.T.A.A.G.C.T.G.G.A.G.T.T.C.A.C.G.A.T.G.A.A.C.G.G.G.A.T.G.G.C.G.T.T.C.G.C.T.T.C.C.T.T.C.A.A.T.G.G.C.T.A.T.A.A.G.A.T.G.A.A.C.C.A.A.T.C.C.A.T.T.G.G.G.T.A.T.A.A.C.C.T.T.T.G.G.C.G.C.T.C.T.C.G.C.G.T.A.C.C.G.A.G.G.G.A.A.C.T.T.C.T.A.A.A.A.C.C.T.A.G.T.A.T.C.G.C.C.A.C.C.A.T.C.C.G.A.T.C.C.T.C.G.C.A.T.A.C.T.C.A.A.A.A.A.A.G.A.C.A.T.G.A.C.A.A.C.T.C.C.G.A.G.A.A.C.T.A.G.G.A.T.G.A.T.A.G.T.C.C.C.T.G.G.A.G.G.G.A.A.C.T.A.C.G.G.C.T.G.A.T.T.C.G.A.G.T.A.T.G.C.G.T.A.C.A.C.C.G.A.G.G.T.T.G.G.T.C.A.A.A.G.G.T.G.T.T.T.C.A.T.A.G.T.G.C.T.A.A.T.A.C.C.C.G.A.T.C.A.A.A.T.A.A.T.C.C.T.G.C.G.G.T.C.A.G.A.C.C.A.T.G.C.T.G.T.G.A.C.A.A.A.G.T.A.T.G.A.T.T.T.C.A.T.A.T.C.G.C.G.T.T.G.C.G.T.A.T.T.C.C.A.G.G.A.C.T.T.C.A.C.T.C.A.T.G.A.A.C.C.T.C.C.A.A.T.C.C.G.A.C.T.T.A.A.C.G.C.G.T.T.A.A.C.C.C.T.C.T.A.G.G.C.C.A.G.T.A.A.C.G.C.A.A.C.C.A.G.A.T.C.A.C.G.A.A.A.G.G.A.T.T.G.G.T.T.G.A.C.C.G.A.A.C.A.A.A.T.A.C.G.C.G.G.T.G.G.T.T.C.T.C.C.T.A.A.A.A.T.G.C.A.A.A.A.T.T.A.A.G.A.G.G.T.T.T.G.C.T.A.T.A.T.G.C.C.A.G.T.A.C.G.C.G.C.A.T.C.T.G.A.G.C.G.C.G.T.A.G.C.A.A.T.C.G.C.G.C.A.G.T.C.A.A.A.G.C.C.A.G.A.C.G.G.G.G.G.A.T.G.A.A.A.C.A.G.A.G.T.C.C.A.C.G.T.T.A.C.T.T.T.C.C.C.A.C.G.A.T.C.T.T.A.T.T.A.G.A.T.A.T.A.G.G.A.G.G.A.G.G.A.C.A.T.T.C.G.C.T.G.G.T.T.A.T.C.G.A.A.G.C.T.A.T.C.A.A.A.G.C.G.G.G.T.C.G.G.T.G.T.C.C.G.G.T.T.A.A.C.T.C.A.T.A.C.A.G.C.G.C.G.C.T.G.C.C.T.G.G.T.C.C.C.A.G.C.A.T.T.T.C.T.C.A.A.C.G.T.A.G.G.C.G.C.G.T.C.C.A.T.G.C.A.A.A.T.C.T.C.C.T.T.A.T.G.A.T.T.G.G.T.G.C.T.A.C.A.A.G.T.T.C.A.A.G.A.G.T.G.T.G.G.T.C.C.T.A.C.C.T.C.A.T.T.G.C.G.A.T.T.G.A.G.A.C.T.G.C.A.C.T.T.G.C.A.C.A.T.T.T.T.T.T.T.A.G.T.T.A.C.T.G.T.G.C.G.C.G.A.G.A.G.T.C.A.A.A.G.A.T.A.A.C.G.C.C.C.G.T.C.A.A.G.C.T.C.T.A.T.G.C.T.C.T.T.C.G.C.C.G.G.G.C.G.T.G.A.T.T.C.G.C.T.G.A.A.G.G.G.G.C.C.C.T.A.C.G.A.A.G.A.A.C.T.G.C.A.T.T.C.T.A.C.C.T.T.T.C.C.T.G.A.T.T.A.T.A.T.G.T.G.C.A.T.C.T.T.C.G.C.T.A.A.G.A.G.C.G.C.C.G.T.C.G.C.C.C.A.G.G.A.T.C.A.A.A.C.C.T.G.T.G.A.G.C.C.C.A.C.A.G.C.T.C.C.C.A.A.G.G.G.A.C.T.T.A.C.A.T.T.A.T.G.T.G.G.T.A.G.A.G.T.C.T.C.G.C.G.G.C.C.T.T.T.A.T.C.T.T.T.T.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.G.C.C.C.T.T.G.C.C.A.G.A.C.G.C.A.A.T.G.G.C.G.T.C.C.C.C.G.G.T.T.G.A.A.G.T.G.A.T.C.A.T.T.A.A.C.T.C.A.T.T.G.G.T.G.C.C.T.T.T.C.C.A.C.G.G.A.C.C.T.G.G.G.T.G.A.C.G.C.C.C.C.T.C.C.A.C.G.T.G.T.A.C.G.T.C.G.C.G.A.C.T.C.A.A.C.G.G.C.G.C.A.T.T.C.A.T.G.A.C.G.G.T.G.T.T.C.G.A.G.T.G.T.A.G.A.C.C.C.G.T.G.A.A.G.T.T.A.G.A.G.A.G.T.G.C.G.C.G.C.C.A.T.A.A.T.G.A.A.G.T.A.T.G.C.A.C.A.A.C.G.G.T.C.T.T.A.T.G.A.T.T.A.A.A.C.T.G.T.G.T.A.G.C.A.G.G.C.G.C.T.T.G.G.A.T.G.A.G.A.C.T.T.T.C.G.A.A.C.C.G.C.C.G.T.A.C.C.T.G.A.C.G.C.C.C.G.C.A.C.C.C.A.A.G.A.A.A.T.T.A.T.G.T.T.C.A.A.T.C.T.T.C.G.G.A.T.C.A.A.A.T.A.A.T.G.C.T.A.T.A.A.C.A.G.A.T.G.G.A.A.T.A.C.C.G.T.C.C.T.G.G.G.T.G.A.A.A.C.G.A.T.G.C.G.A.C.T.G.T.T.G.T.C.C.A.C.T.G.C.A.T.A.C.A.G.C.A.T.A.G.G.C.T.C.G.A.T.A.G.C.T.T.C.C.A.A.A.G.A.T.G.C.T.A.C.A.G.A.G.C.T.T.G.A.A.C.C.G.G.T.C.A.C.T.T.A.C.A.G.G.C.G.G.C.G.C.A.T.A.G.A.C.T.T.A.A.G.T.A.T.A.A.C.C.A.G.C.A.A.G.T.A.C.C.G.C.T.A.A.G.G.C.A.C.G.G.G.C.C.T.G.C.A.A.A.A.C.C.C.T.G.T.G.G.C.T.A.C.A.C.A.A.C.A.A.A.G.G.T.T.A.T.A.G.T.G.A.T.T.G.C
+Sample 1  ( AFR ): T.T.T.G.T.T.G.A.A.T.T.G.A.C.C.A.G.C.A.T.G.C.C.C.G.C.A.C.G.C.G.A.G.A.G.A.C.T.C.T.C.T.A.C.T.T.A.G.G.C.G.G.C.A.T.A.T.C.T.G.A.A.T.T.C.C.A.A.C.T.T.T.C.T.T.C.A.C.A.C.G.T.C.T.T.C.T.C.T.A.T.G.T.G.C.G.G.G.T.A.T.C.T.G.G.T.G.G.A.C.A.G.A.C.G.C.G.G.C.G.T.T.G.A.C.T.T.C.C.G.C.T.A.T.C.T.A.G.C.C.A.T.G.T.C.G.C.G.T.G.A.T.G.G.A.T.T.C.G.A.G.A.G.G.T.G.A.A.C.A.G.A.G.T.A.A.C.G.T.A.A.C.A.A.T.C.C.T.C.T.T.G.G.G.G.A.T.C.C.A.G.G.C.C.C.G.T.C.G.G.G.T.C.G.A.T.C.T.G.C.T.T.G.G.C.G.G.A.A.T.C.T.G.C.C.C.G.A.G.A.G.T.C.G.T.C.G.A.A.T.A.C.C.C.A.G.T.G.G.G.A.A.T.T.T.A.C.T.G.C.G.A.A.G.T.C.G.T.T.C.G.G.C.A.G.A.C.T.C.T.G.C.T.C.T.G.G.C.C.C.A.C.G.A.A.T.C.G.C.A.A.A.A.A.G.A.G.T.G.T.G.C.G.C.C.A.T.T.G.G.T.G.G.C.G.A.C.T.T.T.C.A.C.C.G.G.A.T.A.T.G.T.A.G.T.C.A.G.T.G.G.T.T.T.T.T.G.T.A.A.T.G.G.G.C.G.G.A.T.A.C.A.A.G.T.G.G.G.A.T.G.A.G.A.C.A.C.C.A.C.C.G.A.G.G.A.C.G.A.T.C.T.T.A.A.A.T.A.A.A.C.T.T.C.C.C.T.G.T.T.G.A.A.A.G.T.G.G.T.G.C.G.G.G.G.T.A.T.C.A.C.G.C.G.T.C.C.C.T.T.A.A.T.A.G.A.G.A.T.G.T.A.C.C.C.A.A.G.G.T.A.T.C.A.C.G.A.A.A.T.A.C.C.A.A.T.A.T.T.C.A.T.G.G.C.G.T.G.T.A.G.T.T.T.C.T.A.G.C.G.C.G.G.G.G.C.T.G.T.C.G.T.A.C.C.C.G.G.G.G.C.A.A.C.G.T.T.A.G.C.T.C.T.T.C.T.T.T.T.T.A.A.G.A.C.A.A.C.C.C.T.C.T.C.G.C.T.C.G.T.C.T.C.T.T.A.G.C.A.C.C.A.T.G.T.G.A.A.T.T.C.A.A.G.C.T.C.G.T.T.T.A.G.C.G.T.T.T.A.T.G.G.G.T.G.T.T.C.T.G.G.G.C.T.A.A.A.A.G.T.C.C.C.C.T.T.G.A.C.T.A.T.A.C.A.A.A.A.T.C.C.A.T.C.C.G.G.G.A.A.T.A.T.T.C.C.C.A.G.T.C.A.G.T.A.C.G.C.G.T.C.C.C.C.G.C.C.C.G.G.A.G.A.C.C.G.C.G.C.T.C.A.G.G.A.A.C.T.G.G.T.C.A.G.T.A.C.A.C.G.C.C.A.A.T.A.A.T.C.G.T.C.C.A.T.A.C.A.T.A.G.C.G.C.T.G.A.G.T.C.G.C.A.A.T.A.T.A.A.A.A.T.T.C.G.C.T.C.A.A.T.C.T.A.G.C.A.C.T.C.G.A.C.T.A.G.G.C.G.T.G.T.T.A.G.A.G.T.T.T.A.A.G.G.A.T.T.T.A.G.G.T.C.G.A.G.T.A.T.G.A.G.T.T.A.C.T.A.C.A.A.G.T.T.A.T.G.C.G.C.C.T.G.T.T.C.T.T.C.C.G.T.C.A.T.C.G.T.A.A.A.G.C.T.G.G.A.A.G.A.C.C.C.T.C.C.T.C.A.T.C.A.A.C.C.A.G.C.A.G.G.G.A.C.C.G.C.A.C.T.T.C.G.A.T.C.A.C.T.C.G.A.C.G.A.G.G.C.G.T.G.A.A.C.C.G.T.C.C.T.C.C.T.G.C.C.T.G.A.C.C.T.T.A.T.G.C.A.A.T.G.A.G.T.G.T.C.A.G.T.T.T.A.T.G.T.T.A.C.G.A.C.A.A.C.A.C.A.T.G.C.A.G.A.A.C.C.C.T.C.G.C.T.A.T.G.G.T.T.T.T.A.T.A.G.A.T.G.G.T.A.T.A.T.A.T.A.C.G.A.A.T.T.A.C.G.T.G.C.T.G.T.T.A.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.A.C.T.T.G.G.T.G.G.T.T.T.T.G.A.C.G.A.T.C.A.C.A.C.A.C.G.T.C.T.T.G.G.A.A.C.A.G.T.G.G.T.T.G.G.T.C.A.C.T.C.C.G.C.T.C.T.A.A.T.G.T.A.A.T.C.A.T.C.A.T.T.C.G.G.G.C.C.A.G.C.C.C.A.C.T.C.C.G.C.G.T.C.G.T.G.A.A.C.T.A.A.A.T.G.A.T.G.C.C.G.G.C.G.G.T.A.G.G.C.C.C.C.C.C.A.G.C.T.C.C.G.T.T.A.T.G.G.C.A.G.A.C.T.G.C.T.C.G.G.T.C.A.G.G.C.C.C.A.A.T.G.G.A.C.T.A.C.C.T.T.T.T.A.C.T.A.A.C.G.A.T.C.C.C.A.G.G.G.G.C.A.T.T.G.G.G.A.G.C.C.C.C.T.C.A.G.A.C.A.T.C.G.T.G.A.C.G.C.G.C.C.G.C.C.C.A.C.C.G.T.T.T.C.C.T.C.T.A.C.T.T.G.A.G.G.T.G.C.A.A.C.T.A.A.C.G.G.G.T.T.C.G.G.G.G.C.T.A.A.G.C.G.A.G.C.T.C.G.G.C.T.A.C.T.A.A.T.A.T.C.A.T.T.G.C.C.G.G.A.T.C.A.T.C.A.G.C.C.C.A.A.A.G.T.G.A.A.C.G.G.G.C.A.A.T.T.C.C.T.A.T.T.G.A.A.T.A.A.T.G.A.G.G.A.A.C.C.C.C.T.G.G.G.A.C.A.G.A.T.C.C.A.A.A.T.G.T.A.G.T.C.A.A.T.C.A.C.T.C.G.T.G.A.G.A.G.C.A.T.A.C.C.G.G.C.T.C.T.T.A.G.G.C.C.G.A.A.T.T.A.T.C.C.T.C.G.A.G.A.A.C.A.C.C.T.A.G.G.C.A.G.A.G.T.C.C.G.T.G.C.A.T.A.A.A.C.T.A.G.G.C.T.G.C.C.A.C.G.C.G.C.T.G.G.T.A.T.G.A.A.A.A.T.A.A.C.G.A.C.G.G.A.C.A.A.G.C.C.T.C.C.A.G.G.G.C.G.C.T.C.C.T.C.G.A.T.T.G.A.T.C.A.G.A.C.C.G.G.A.A.G.T.C.G.A.G.T.G.C.T.G.G.C.T.A.C.T.A.C.A.A.A.C.T.G.A.T.T.A.C.G.G.C.G.G.G.A.C.G.A.T.A.T.T.G.C.T.C.G.C.G.C.C.A.T.G.T.G.C.T.G.A.T.G.C.G.G.C.T.T.A.G.T.G.C.G.G.A.T.A.A.G.G.G.T.T.A.C.T.A.A.C.A.C.A.C.T.A.A.T.A.A.A.T.A.C.G.A.G.G.T.T.A.G.T.C.T.A.A.A.T.G.T.C.T.G.A.T.A.T.A.G.T.A.A.A.A.C.C.C.G.C.A.G.C.A.G.G.A.C.C.T.A.G.G.G.A.C.T.C.C.C.C.G.A.G.T.A.C.G.G.T.T.G.G.A.C.T.C.G.A.T.G.A.A.C.A.C.T.T.T.T.C.C.A.A.A.G.G.T.T.T.C.G.A.G.A.G.C.G.G.A.C.C.G.T.T.G.A.T.C.G.A.A.G.T.C.G.C.T.A.T.C.T.C.G.T.C.A.A.G.C.A.G.G.G.G.G.C.C.T.G.G.G.T.C.C.T.T.T.A.T.T.G.T.A.A.A.G.G.A.G.T.T.T.C.A.T.A.A.C.T.G.G.C.A.G.C.C.A.C.A.T.C.T.T.G.T.A.C.A.C.T.C.T.A.T.C.A.C.A.C.G.A.G.C.C.A.A.A.C.A.T.C.G.T.T.T.G.G.A.T.A.G.C.G.C.G.C.T.C.C.G.G.G.C.T.A.G.T.C.G.C.G.G.C.G.C.A.A.A.T.C.G.G.T.A.T.A.A.T.T.C.A.T.G.A.T.C.G.A.T.A.G.G.T.T.T.G.T.C.T.A.G.A.A.G.T.C.C.A.T.G.T.A.G.C.T.G.G.T.T.T.G.A.G.T.A.C.T.T.A.C.G.A.G.T.T.C.C.G.G.C.A.A.A.G.C.T.T.C.T.T.C.T.G.G.T.C.A.C.T.A.A.A.G.C.G.A.A.C.C.A.G.T.A.C.G.T.G.G.C.G.A.T.T.A.T.A.C.C.A.C.T.G.T.G.T.G.C.A.C.C.C.G.C.A.C.C.C.G.A.G.T.T.T.C.A.T.T.T.C.T.A.T.G.C.T.G.C.A.G.T.T.C.A.C.G.A.T.C.A.A.C.G.G.G.A.T.G.G.C.G.C.T.C.T.G.A.T.C.C.A.T.A.A.C.T.G.G.C.T.A.T.A.A.G.A.T.G.A.A.C.C.A.A.T.C.C.A.T.T.G.G.G.T.A.C.A.A.C.C.T.G.T.G.C.C.G.T.T.C.T.T.G.C.A.C.C.G.A.G.A.A.G.C.A.A.C.A.T.C.T.A.A.A.A.C.C.T.A.G.T.A.T.C.G.A.C.A.C.T.A.T.C.C.G.A.T.C.C.T.C.G.A.A.T.A.C.T.C.A.A.A.A.A.A.G.G.C.A.T.G.A.C.A.A.C.T.C.C.G.A.G.A.C.C.T.A.G.G.A.T.G.A.T.A.C.T.C.C.C.G.G.G.A.G.G.G.A.A.A.A.A.T.G.G.C.A.C.G.T.T.A.G.A.G.T.A.T.C.G.T.A.A.T.C.C.C.C.A.T.C.A.G.C.G.T.G.A.A.T.A.A.A.C.G.G.T.C.C.A.A.A.T.C.T.T.G.T.T.G.T.A.T.C.A.T.C.C.A.A.T.T.T.A.C.C.T.T.C.T.G.T.C.A.G.A.C.T.A.G.A.C.T.G.T.A.G.T.A.A.A.T.T.A.G.A.A.A.A.T.T.T.T.T.T.A.G.A.G.C.T.G.C.G.G.T.T.G.C.T.C.C.G.A.C.T.T.C.T.C.T.A.T.A.T.G.A.A.C.A.C.C.G.G.G.C.T.A.G.C.T.T.A.T.C.T.C.A.A.C.C.C.G.T.C.G.C.G.G.C.C.C.C.A.C.T.A.T.C.T.C.C.C.C.T.G.G.C.T.C.T.A.A.A.G.A.A.G.A.A.C.G.A.T.G.A.A.A.C.A.A.A.T.A.A.A.T.C.C.G.C.G.G.T.A.G.T.T.C.T.C.C.T.A.A.A.A.T.C.C.C.A.G.A.T.T.A.A.G.A.G.G.T.C.T.G.C.T.A.T.A.T.G.C.C.A.G.T.C.C.C.C.A.C.T.C.C.G.A.A.T.C.C.G.C.T.G.T.C.C.G.C.T.G.C.G.T.G.A.G.T.T.C.T.G.C.C.A.G.C.C.A.G.G.G.G.A.T.G.A.A.A.G.C.T.A.A.T.C.G.A.G.G.T.T.C.C.G.C.T.C.C.T.T.G.T.T.T.G.A.T.A.A.T.T.C.T.T.A.G.T.G.G.A.A.G.A.C.A.A.A.C.T.C.G.C.C.T.T.A.T.T.A.T.T.G.A.A.G.C.T.C.A.T.A.T.A.G.C.T.G.G.T.C.T.G.T.G.T.C.G.G.G.T.T.A.A.C.T.C.A.A.C.C.A.G.C.G.C.G.C.T.G.C.C.T.G.G.T.A.T.C.G.G.C.A.T.A.T.T.T.T.A.A.C.G.T.A.G.G.T.A.A.A.G.T.C.A.T.G.A.A.T.G.T.C.T.C.G.C.T.A.T.G.G.T.T.T.C.A.A.C.T.A.C.A.A.G.T.T.G.A.G.G.A.A.T.G.G.G.G.A.C.C.T.A.C.G.T.C.C.T.T.G.C.G.A.T.T.G.A.G.A.C.T.T.C.A.G.C.T.G.C.A.C.T.C.T.T.T.T.T.T.A.G.C.T.A.A.T.G.T.G.C.G.C.G.A.T.A.G.T.A.A.G.A.G.T.T.A.A.C.G.C.C.C.G.T.C.A.A.G.C.T.C.T.A.T.G.C.T.C.T.T.C.G.C.G.G.G.G.C.G.T.G.A.T.T.C.G.C.T.G.A.A.G.G.G.G.C.C.C.C.A.C.G.A.A.G.A.C.C.T.G.C.A.T.T.C.T.C.C.C.T.T.T.C.C.T.G.A.T.T.A.T.A.T.G.T.G.C.A.T.C.T.T.C.G.C.T.A.A.G.A.G.C.G.C.C.G.T.C.G.C.C.G.A.G.G.A.T.C.A.A.A.C.C.T.G.T.G.A.G.C.C.C.A.C.A.G.C.T.C.C.C.A.A.G.G.G.A.C.T.T.A.C.A.T.T.A.T.G.T.G.G.T.A.G.A.G.T.C.T.C.G.C.G.G.C.C.T.T.T.A.T.C.T.T.T.G.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.A.C.C.C.T.T.G.C.C.A.T.A.C.G.C.A.A.C.G.A.A.G.T.A.C.C.C.G.G.T.A.T.T.A.G.A.T.A.T.C.A.T.C.A.A.C.G.T.C.T.T.G.A.T.G.C.C.T.T.T.T.C.A.C.G.G.T.C.C.T.G.G.G.T.G.A.A.G.C.C.C.A.T.C.C.A.C.A.T.G.T.A.T.G.T.C.A.A.G.G.C.T.C.A.A.C.G.C.C.G.C.T.T.T.C.C.T.G.A.A.G.G.A.T.T.T.C.T.A.G.T.T.T.A.T.G.C.C.C.G.T.G.A.A.G.T.T.A.G.A.G.A.G.G.C.C.G.T.G.T.G.A.G.A.A.T.G.A.A.G.T.A.T.T.A.A.A.C.A.C.G.G.T.C.T.T.C.T.G.A.T.T.A.T.A.C.A.G.A.G.T.A.G.C.A.G.T.C.A.C.G.T.G.G.A.T.A.A.T.C.C.A.T.T.C.C.A.A.C.C.G.C.G.G.T.A.C.G.T.G.A.C.G.C.C.C.G.C.A.G.C.C.A.A.C.A.A.A.T.T.A.C.G.T.T.C.C.A.G.C.T.T.C.G.T.A.A.C.A.C.A.G.A.A.T.G.C.T.A.T.A.A.C.A.C.A.T.C.G.C.A.T.A.C.C.G.C.C.C.T.G.G.G.T.G.A.A.A.C.G.A.G.G.C.G.A.C.G.G.T.T.G.T.C.G.A.A.T.G.A.C.T.A.C.A.T.C.A.T.A.G.G.C.T.C.C.A.T.A.G.G.T.T.C.C.A.C.G.G.T.T.G.C.C.C.C.G.C.A.G.C.C.T.T.T.C.C.C.C.G.T.C.T.C.C.A.A.A.T.G.A.C.T.C.G.G.C.A.A.T.G.A.C.T.T.A.A.G.T.A.T.A.A.C.C.A.G.C.A.A.G.T.A.C.C.G.A.T.A.A.G.G.C.A.C.G.G.G.C.C.T.G.C.A.A.A.A.C.C.C.T.G.T.A.G.C.G.C.C.G.C.A.T.G.A.C.A.A.A.T.G.C.G.C.C.T.G.A.G.T.T.G
+Sample 2  ( AFR ): T.A.T.A.T.T.G.A.A.A.T.G.A.C.C.A.G.C.A.T.G.C.C.C.G.C.A.A.G.C.T.A.G.A.G.A.C.C.C.G.G.A.A.C.T.T.A.G.G.C.G.G.C.A.T.A.T.C.C.G.A.A.T.T.C.C.A.G.C.T.T.T.C.A.T.C.A.C.A.C.G.T.C.T.T.C.T.C.T.G.T.C.C.T.C.G.C.G.T.A.A.C.T.G.G.T.G.G.A.C.C.G.G.A.G.C.G.T.T.A.T.A.G.A.A.C.T.T.C.G.C.T.A.C.C.T.A.G.C.C.A.T.T.T.C.A.C.C.A.G.T.T.G.G.A.A.T.C.G.A.T.T.G.G.C.A.T.A.C.C.G.T.T.C.C.C.T.G.C.A.A.C.G.T.G.G.A.C.T.T.T.A.G.A.C.C.T.G.A.A.T.A.G.C.G.A.A.A.T.T.A.G.C.T.A.T.C.A.G.C.A.T.G.T.A.G.G.A.A.T.C.C.G.C.C.G.G.A.G.A.G.G.G.C.C.C.G.G.A.A.T.C.A.C.A.G.C.G.G.G.T.G.T.T.T.G.G.A.G.C.G.G.A.T.T.C.G.T.T.T.A.G.T.A.C.G.C.T.A.T.G.C.A.C.T.A.A.C.C.C.A.C.G.A.A.T.G.A.C.A.A.A.A.A.G.A.G.T.A.G.G.C.C.C.C.T.T.T.G.C.T.T.G.T.G.A.C.T.T.G.C.A.A.C.G.G.A.T.A.G.G.T.A.T.T.A.A.A.T.G.G.C.T.T.T.T.G.T.A.A.C.A.G.G.C.G.G.A.T.T.C.A.T.G.T.C.G.G.A.A.A.C.C.A.T.A.A.C.T.G.A.C.T.G.A.A.C.G.A.A.T.A.T.A.A.C.A.C.A.T.C.C.T.A.C.C.C.T.G.T.G.G.T.A.G.A.A.G.A.G.C.G.T.T.T.A.G.T.C.T.C.G.A.T.T.C.C.T.T.T.G.A.T.A.G.A.G.G.A.G.C.T.C.C.A.T.A.G.G.T.A.A.C.G.A.G.T.G.A.T.A.C.C.A.A.C.A.T.G.C.A.T.G.C.C.C.T.C.T.A.C.T.G.G.A.T.A.A.C.G.C.T.A.G.T.C.T.G.T.C.G.T.A.T.C.C.G.G.G.A.C.G.A.C.G.T.T.T.A.C.T.C.T.T.C.T.T.T.C.T.A.A.A.A.C.A.A.C.C.T.G.G.T.C.G.C.C.G.A.C.C.T.C.T.T.A.G.C.A.C.C.A.T.G.T.G.A.A.T.T.C.A.A.G.C.T.C.G.C.T.T.A.G.C.G.T.T.T.A.T.G.G.T.T.G.T.T.C.T.G.G.C.C.T.A.A.A.A.G.T.C.C.C.C.T.T.G.A.C.G.A.T.A.C.A.A.A.A.T.T.C.A.T.C.C.T.G.G.A.A.T.A.C.T.A.C.A.A.G.T.C.A.G.A.A.C.T.A.T.T.C.G.T.C.G.G.G.C.G.T.A.G.A.C.C.G.C.G.C.T.C.A.G.G.A.A.C.T.G.G.T.C.A.G.T.A.C.A.T.G.C.C.A.G.T.A.A.T.A.G.G.C.C.A.G.A.C.A.C.A.G.C.C.C.C.G.A.C.C.T.G.C.A.A.G.A.T.T.C.C.T.T.G.C.A.A.T.C.T.A.A.C.G.A.G.C.T.C.T.A.G.A.C.T.A.G.C.C.G.G.T.A.T.G.C.T.G.T.T.T.T.T.G.G.A.G.T.G.A.A.G.T.C.G.A.G.T.A.T.G.A.G.T.T.G.G.A.G.A.A.A.G.T.T.C.T.G.G.C.C.G.T.T.G.T.G.C.T.T.C.G.T.C.A.T.C.G.A.A.A.A.G.C.C.G.G.A.A.G.A.C.T.C.T.C.C.C.T.A.T.C.G.A.C.C.A.G.C.T.G.C.T.A.C.G.G.G.A.C.T.T.C.G.A.T.C.A.G.T.C.G.A.C.G.C.G.G.C.G.T.G.A.A.A.T.C.A.G.G.C.T.A.T.C.A.A.T.G.A.G.C.T.T.A.A.G.T.T.A.G.G.C.G.G.T.T.C.A.G.T.T.G.C.T.G.T.T.A.T.G.C.T.C.A.T.T.G.A.C.G.C.T.G.A.A.C.C.C.T.G.G.C.T.A.T.C.A.A.T.G.T.A.G.A.C.A.T.G.T.T.A.T.G.A.T.A.A.T.G.A.A.C.T.A.C.G.T.T.C.C.A.T.T.A.G.G.T.C.A.G.A.C.C.C.T.T.A.G.T.A.A.C.T.T.G.G.T.G.G.T.T.T.T.G.A.C.G.A.T.C.A.C.A.C.G.C.G.T.C.T.T.G.G.T.A.C.T.G.T.G.G.T.A.G.C.C.C.A.C.C.G.C.C.C.T.C.T.G.A.T.T.T.A.A.G.C.A.G.C.A.T.T.T.G.G.G.A.C.T.G.T.A.T.T.A.T.A.T.G.G.G.T.T.G.T.C.A.A.C.T.A.A.A.C.G.A.T.G.A.C.G.T.A.G.G.T.A.G.G.C.C.G.C.C.C.A.G.C.T.C.C.C.T.T.A.T.G.T.C.A.G.A.C.T.G.C.T.C.G.G.T.C.A.G.G.C.C.A.T.A.T.G.G.A.C.T.A.C.C.T.T.T.T.A.G.C.A.A.C.G.A.A.A.A.C.A.G.G.G.G.C.A.T.T.G.G.G.A.G.C.C.C.T.T.C.A.G.A.C.A.T.C.G.T.G.G.C.G.C.C.C.T.G.C.C.C.A.C.C.G.T.T.T.C.C.T.C.T.A.C.T.T.G.A.G.G.T.G.C.A.A.C.T.A.A.C.G.G.G.T.T.C.G.G.G.G.C.T.A.T.G.C.G.A.C.C.T.C.G.G.C.T.A.G.A.A.A.T.A.T.C.A.T.T.G.C.C.T.G.A.T.C.T.T.C.A.G.C.C.A.A.A.A.G.T.G.A.A.C.G.G.G.C.A.A.C.T.C.C.T.A.T.T.G.A.A.T.C.G.T.G.A.G.G.A.A.C.C.C.C.T.G.G.G.A.C.A.G.A.T.C.A.A.A.A.T.G.T.A.T.T.C.A.A.T.C.A.C.T.C.G.T.G.A.G.A.G.C.A.C.A.C.C.T.T.C.G.C.T.T.A.C.G.C.C.G.A.A.T.T.A.T.C.A.T.G.A.A.G.A.T.G.C.C.A.T.A.G.G.G.G.C.A.C.T.T.G.T.T.A.G.G.G.G.T.G.G.G.A.T.G.C.A.C.A.C.A.T.G.C.G.C.T.G.A.T.A.T.A.A.A.A.A.T.T.A.C.G.A.C.A.G.A.C.A.G.A.C.G.T.C.C.A.G.G.A.A.G.C.T.A.T.A.C.A.A.G.G.G.C.T.G.C.G.T.C.A.T.G.C.T.T.T.C.G.A.G.G.G.C.T.G.G.C.T.A.C.T.A.C.A.A.A.C.T.G.A.T.T.A.C.G.G.C.G.G.G.A.C.G.A.T.A.T.T.G.C.T.C.G.C.G.C.C.A.T.G.C.G.C.T.G.A.T.G.C.G.G.C.T.A.A.G.T.C.C.G.G.A.T.T.C.G.G.A.T.T.A.C.T.A.A.C.A.C.A.C.T.A.A.T.A.A.C.T.G.C.A.A.G.G.T.T.A.G.A.A.G.C.A.A.T.G.T.C.T.G.T.T.G.T.A.T.T.A.A.A.A.C.C.C.G.A.G.G.C.T.G.C.C.C.C.C.A.G.G.G.A.T.A.C.C.G.T.A.A.T.T.C.C.T.T.T.T.A.C.A.C.T.T.G.T.T.A.T.C.C.C.C.T.T.T.T.C.T.A.A.T.A.G.T.T.G.C.G.T.G.A.T.A.G.G.T.C.A.G.T.T.G.A.T.A.G.A.A.C.T.G.G.C.T.A.T.C.T.C.G.T.C.A.A.G.C.T.G.G.G.T.C.A.C.T.G.C.G.C.C.C.G.T.C.T.T.C.G.T.A.A.A.C.A.G.C.A.A.A.A.A.C.A.A.C.T.G.G.C.A.C.A.G.A.C.A.A.C.C.T.C.T.T.C.A.C.T.C.T.C.T.C.T.C.G.C.G.A.T.C.C.G.A.A.C.T.A.C.G.T.G.T.G.G.A.A.A.G.C.G.C.G.C.T.C.C.G.G.C.G.T.A.G.T.C.G.A.A.G.C.G.C.G.A.A.T.C.A.G.T.A.T.A.A.T.A.T.G.T.C.A.T.C.G.A.T.G.G.T.T.T.T.G.T.C.T.C.C.A.A.G.T.C.C.A.T.G.T.A.G.C.A.G.T.G.A.A.A.A.G.A.A.C.A.T.C.C.G.A.G.T.T.C.G.G.G.C.A.C.T.G.G.G.T.C.C.T.C.T.G.G.T.C.A.C.T.A.A.A.T.G.G.G.G.C.C.A.G.T.A.C.T.T.G.G.G.G.C.G.T.C.G.A.C.C.A.T.T.G.T.G.T.G.C.C.A.G.C.G.G.A.T.T.C.T.A.G.T.T.T.A.A.G.A.A.G.T.A.A.G.C.T.G.C.A.C.T.G.C.T.A.T.A.T.G.C.A.C.T.G.G.A.C.G.G.C.A.T.G.C.G.C.T.T.A.C.T.T.A.T.A.C.C.G.C.T.A.T.A.A.C.T.T.G.G.T.G.G.T.A.T.T.T.A.A.T.G.G.G.G.T.T.A.A.C.C.T.G.T.G.G.C.T.C.T.A.T.C.C.C.G.C.C.C.C.A.A.G.G.C.T.A.C.A.T.C.T.A.A.C.A.A.C.G.A.G.T.A.T.C.G.C.C.A.C.C.A.G.C.C.G.A.T.C.C.T.C.G.C.A.T.A.C.T.C.A.A.A.A.G.A.G.A.A.A.C.G.A.C.A.A.C.G.C.C.G.A.G.A.C.C.T.A.G.G.T.T.G.A.T.A.C.T.C.C.C.G.G.G.A.G.G.G.A.A.C.A.T.T.G.C.C.A.C.G.T.A.A.G.A.G.T.A.T.G.G.T.A.A.T.C.C.C.C.A.T.C.A.G.C.G.T.G.A.A.T.A.A.A.C.T.G.T.C.C.A.A.A.T.C.T.T.G.T.T.G.T.A.T.G.A.T.C.C.A.A.A.T.T.A.T.C.T.T.C.G.G.T.C.A.G.A.C.T.A.G.A.C.T.G.T.A.A.T.A.G.A.T.T.A.G.A.T.A.A.T.C.T.T.T.T.A.G.A.C.T.T.G.C.G.T.T.T.T.C.T.C.C.G.A.C.T.T.C.T.C.T.A.A.A.T.G.A.A.C.A.C.C.G.G.G.C.T.A.G.T.T.T.T.T.C.T.C.A.A.C.C.C.G.T.C.G.C.G.G.C.C.C.C.A.C.A.A.T.C.T.C.C.A.C.T.G.G.A.T.C.T.C.A.A.A.A.G.T.A.T.T.T.G.T.T.A.A.C.C.A.T.G.C.A.A.A.T.A.C.A.A.G.G.T.A.G.T.T.C.T.C.C.T.A.A.A.G.T.C.C.A.T.A.A.T.T.A.C.G.A.G.G.T.C.T.G.C.T.A.T.A.T.G.C.C.A.G.T.A.T.G.C.G.C.A.T.C.T.G.A.G.A.G.C.G.C.A.G.C.A.A.T.C.G.C.G.C.A.G.T.C.A.A.A.G.C.C.A.G.C.A.G.G.G.G.G.A.T.G.A.A.A.C.A.G.A.A.T.C.G.A.C.G.T.T.A.C.T.C.T.C.C.C.A.C.T.A.T.C.T.T.G.T.T.A.G.A.G.A.T.A.G.G.A.A.C.C.C.G.A.A.A.T.C.G.G.C.T.T.A.T.T.G.T.T.G.A.C.G.C.T.C.A.T.A.T.A.G.A.T.C.G.T.C.G.G.T.G.T.C.C.G.G.T.T.T.A.G.T.C.A.T.C.C.A.G.C.G.C.A.C.T.G.C.C.T.G.G.T.C.C.A.G.G.C.A.T.A.T.T.T.T.A.A.C.G.T.A.G.G.T.A.A.A.T.C.C.A.T.G.A.G.A.G.T.C.T.C.G.T.T.A.T.G.G.C.T.T.G.A.G.G.C.A.C.C.A.G.T.A.G.T.G.G.A.G.T.T.T.G.G.A.C.C.C.C.G.G.G.G.A.G.T.G.C.G.A.A.T.G.T.G.A.C.T.T.C.A.G.T.T.G.C.A.C.A.T.T.T.T.T.T.T.A.G.T.T.A.A.T.G.T.A.C.G.C.G.A.T.A.T.T.A.A.A.A.G.T.T.A.A.C.G.T.C.C.G.T.C.A.A.C.C.T.G.C.A.T.T.A.G.C.G.G.A.T.T.C.G.G.G.C.G.A.G.C.T.T.C.G.C.T.G.A.A.G.G.G.G.C.C.C.C.A.C.G.C.T.C.A.A.T.T.G.G.A.T.T.C.T.C.C.C.T.T.T.T.C.T.G.A.G.T.A.T.A.G.G.T.G.C.A.T.C.T.T.A.G.C.T.A.A.G.A.G.C.G.T.C.G.A.C.G.C.C.G.A.A.G.A.T.C.A.C.A.C.C.T.G.C.G.A.G.C.C.C.C.C.A.T.C.T.T.A.T.A.A.G.G.G.A.C.T.T.A.C.A.T.T.C.T.G.T.G.G.T.A.G.A.G.T.C.T.C.A.C.G.G.C.C.T.T.T.A.T.C.T.T.T.T.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.A.C.C.C.T.T.G.C.C.A.G.A.C.G.C.A.A.T.G.G.C.G.T.C.C.C.C.G.G.T.T.T.T.A.G.A.G.A.T.C.C.T.C.A.A.C.G.T.A.T.T.G.A.T.G.C.C.T.T.T.T.C.A.C.G.G.T.T.C.G.G.G.G.T.G.A.A.G.C.C.C.C.T.C.C.A.C.G.T.G.T.A.C.G.T.C.G.A.G.A.C.G.C.A.A.C.G.G.C.G.C.A.T.T.A.A.G.G.A.C.G.G.A.G.T.T.C.G.A.G.T.G.T.A.T.A.C.C.C.G.T.G.A.A.G.T.C.A.G.A.G.A.G.T.G.C.G.C.G.T.G.A.T.A.A.T.G.A.A.G.G.A.T.T.C.A.C.A.A.C.G.G.T.C.T.T.A.T.G.A.T.T.G.A.A.C.A.G.A.G.T.A.G.C.A.G.T.C.A.C.T.T.G.G.A.T.G.A.G.C.A.A.T.T.C.C.A.A.C.C.G.C.G.G.T.A.C.G.T.G.A.C.C.C.C.C.G.C.A.C.C.C.A.A.G.A.A.A.T.T.A.T.G.T.T.C.A.A.T.C.T.T.C.G.G.A.T.C.A.C.A.G.A.A.T.G.C.T.G.T.A.A.C.A.G.A.T.G.G.C.A.T.A.C.C.G.C.C.C.T.G.G.G.T.G.A.A.A.C.G.A.T.G.C.G.A.C.T.G.T.T.G.T.C.C.A.C.T.G.C.A.T.A.C.A.T.C.A.T.A.G.G.C.T.C.C.A.T.A.G.C.A.T.C.C.A.A.G.G.A.G.A.C.T.A.C.A.C.A.G.C.T.A.G.T.A.C.C.C.G.T.C.T.C.T.A.A.C.A.G.G.C.G.G.G.G.C.A.A.A.T.T.C.T.T.A.A.G.T.A.T.A.A.C.C.A.T.C.A.A.G.T.A.C.C.G.C.T.A.A.G.G.C.A.C.G.G.G.C.C.T.G.C.A.A.A.A.C.C.C.T.G.T.A.G.C.T.C.T.A.C.A.T.C.A.A.A.G.A.T.T.A.T.C.C.T.G.A.T.T.T.C
+Sample 3  ( AFR ): T.A.T.A.T.T.G.A.A.A.T.G.A.C.C.A.G.C.A.T.G.C.C.C.G.C.A.A.G.C.T.A.G.A.G.A.C.C.C.G.C.A.A.C.T.T.A.G.G.C.G.G.C.A.T.A.T.C.C.G.A.A.T.T.C.C.A.G.C.T.T.T.C.A.T.C.G.C.A.C.G.T.C.T.T.C.T.C.T.G.T.C.C.T.C.G.C.G.T.A.A.A.T.G.G.T.G.G.A.C.C.G.G.A.G.C.G.G.T.A.T.T.G.A.A.C.T.T.C.G.C.T.A.C.C.G.A.G.C.C.A.T.G.T.C.A.C.C.A.G.T.T.G.G.A.A.T.A.G.A.T.A.G.G.T.A.T.T.C.A.T.T.G.C.A.A.C.G.T.T.A.C.G.A.T.C.C.C.C.G.T.G.G.A.C.C.T.G.A.A.G.A.C.A.G.A.A.A.T.T.A.G.C.T.A.T.C.A.G.C.A.T.G.T.A.G.G.A.A.T.C.T.G.C.C.G.G.A.G.A.G.G.G.C.C.C.G.G.A.A.T.C.A.C.A.G.C.G.G.A.T.G.T.T.T.G.G.A.G.C.G.G.A.T.T.C.G.T.T.T.A.G.T.A.C.G.C.T.A.T.G.C.A.C.T.A.A.C.C.C.A.C.T.A.A.T.G.G.C.A.A.A.A.A.G.A.G.T.G.T.G.C.G.C.C.A.T.T.G.G.T.G.G.C.G.A.C.G.T.T.C.C.C.C.G.G.C.T.G.T.G.T.A.G.T.C.C.G.T.G.G.T.T.A.C.C.G.T.C.A.T.A.A.G.G.A.G.A.T.A.C.A.A.G.T.G.T.G.A.A.G.A.C.A.T.A.C.C.A.C.A.G.A.G.A.A.G.G.A.T.C.T.T.A.A.A.T.C.A.A.C.T.T.C.C.C.T.G.T.T.G.A.A.C.C.T.A.G.T.A.C.G.G.T.G.A.A.T.C.A.G.G.C.G.T.C.C.T.A.T.G.A.C.A.G.C.G.G.T.G.C.A.C.C.C.A.A.G.G.T.A.T.C.A.C.A.A.A.A.T.G.A.C.A.G.C.A.T.T.C.A.T.G.G.A.G.A.G.T.A.G.A.T.T.C.T.A.G.C.G.C.T.G.G.T.C.T.G.T.C.G.T.A.T.C.C.G.G.G.A.C.G.A.C.G.T.A.T.A.C.T.C.T.T.C.T.T.T.C.T.A.A.A.A.C.A.A.C.C.T.G.G.T.C.G.C.C.G.A.C.C.T.C.T.T.A.G.C.A.C.C.A.T.G.T.G.A.A.T.T.C.A.A.G.C.T.C.G.C.T.T.A.G.C.G.T.T.T.A.T.G.G.T.T.G.T.T.C.T.G.G.C.C.T.A.A.A.A.G.T.C.C.C.C.T.T.G.A.C.G.A.T.A.C.A.A.A.A.T.T.C.A.T.C.C.T.G.G.A.A.T.A.C.T.A.C.A.A.G.T.C.A.G.A.A.C.T.A.G.T.C.G.T.C.G.G.G.C.G.T.A.G.A.C.C.G.C.G.C.T.C.A.G.G.A.A.C.T.G.G.T.C.A.G.T.A.C.A.T.G.C.C.A.G.T.A.A.T.A.G.G.C.C.A.G.A.C.A.C.C.G.C.C.C.T.G.A.C.C.T.G.C.A.A.G.A.T.T.C.C.T.T.G.C.A.A.T.C.T.A.A.C.G.A.G.C.T.C.T.A.G.A.C.T.A.G.C.C.G.G.T.A.T.G.C.T.G.T.T.T.T.T.G.G.A.G.T.G.A.A.G.T.C.G.A.G.T.A.T.G.A.G.T.T.G.G.A.G.A.A.A.G.T.T.C.T.G.G.C.C.G.T.T.G.T.G.C.T.T.C.G.T.C.A.T.C.G.A.A.A.A.G.C.C.G.G.A.A.G.A.C.T.C.T.C.C.C.T.A.T.C.G.A.C.C.A.G.C.T.G.C.T.A.C.G.G.G.A.G.T.T.C.G.A.T.C.A.G.T.C.G.A.C.G.C.G.G.C.G.T.G.A.A.A.T.C.A.G.G.C.T.A.T.C.A.A.T.C.C.C.C.T.T.G.A.G.C.A.A.T.G.C.G.T.G.T.C.A.G.T.T.T.A.T.G.T.C.A.C.G.A.C.A.A.T.T.G.A.C.G.C.A.G.A.A.C.C.C.T.C.G.C.T.A.T.C.A.A.T.T.T.A.T.T.C.G.T.G.T.T.A.T.G.A.T.A.C.T.C.A.A.C.T.A.C.G.T.T.C.C.A.T.T.A.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.A.C.T.T.G.G.T.C.G.T.T.T.T.G.A.C.G.A.T.C.A.C.A.C.A.G.G.T.T.T.T.A.G.T.A.C.A.G.T.A.G.T.T.G.G.T.C.A.C.T.C.C.G.G.T.C.C.A.A.A.T.T.A.A.T.C.T.T.C.A.T.C.C.G.A.G.C.C.A.G.C.A.C.A.C.T.C.C.G.C.G.T.C.T.T.G.A.A.C.T.T.A.A.C.G.A.T.G.A.C.G.T.C.G.G.T.A.G.G.A.C.C.C.C.C.A.G.C.T.C.C.G.T.T.A.T.T.T.C.G.A.C.C.T.G.C.T.C.G.G.T.C.A.G.G.C.C.C.A.A.T.T.G.C.C.T.A.G.C.T.T.T.T.A.C.T.A.A.C.G.A.A.C.A.C.A.G.G.G.G.C.A.T.T.G.G.G.A.G.T.C.C.C.T.C.A.G.A.C.A.T.C.G.T.G.A.C.G.C.G.C.T.G.C.A.A.A.C.C.G.T.T.T.A.C.T.G.A.G.C.A.T.G.A.C.A.T.G.G.T.G.C.T.A.A.G.A.T.A.T.T.C.G.G.G.G.C.T.A.A.G.C.G.A.C.C.T.C.G.G.C.T.A.C.A.A.A.T.A.T.C.A.T.T.G.C.C.G.G.A.T.C.T.T.C.A.G.C.C.C.A.A.A.G.T.T.A.A.C.G.G.G.C.A.A.C.T.C.C.T.A.T.T.G.A.A.T.A.G.T.G.A.G.G.A.A.C.T.C.C.T.G.G.G.A.C.A.G.A.T.C.C.A.A.A.T.G.T.A.G.T.C.A.A.T.C.A.C.T.C.G.T.G.A.T.A.G.C.A.C.A.C.C.T.T.C.T.C.T.T.A.C.G.A.C.G.A.A.T.T.A.T.C.A.T.G.A.A.G.A.T.G.A.C.A.T.A.G.G.G.G.C.A.C.T.T.G.T.T.A.C.G.G.A.T.G.G.G.A.T.G.C.A.C.A.C.A.T.G.C.G.C.T.G.G.T.A.T.A.A.A.A.A.T.A.G.G.G.A.C.G.G.A.C.A.G.G.C.C.T.A.C.A.T.G.A.C.T.A.A.A.C.A.C.G.A.G.G.G.C.T.G.A.G.T.C.C.G.G.A.A.G.T.C.G.A.G.G.G.G.G.G.G.C.T.A.C.T.A.C.C.A.C.C.T.G.A.T.T.C.C.A.G.C.A.A.A.A.C.G.C.T.A.T.T.G.A.T.C.T.A.G.C.C.A.T.G.T.G.C.T.G.A.T.G.C.G.G.C.C.A.T.G.C.G.T.G.G.A.T.T.A.G.G.A.T.T.A.T.T.C.G.C.A.T.A.G.T.G.T.T.A.A.A.T.G.A.A.A.A.G.A.C.A.G.T.A.G.C.G.A.T.G.T.C.T.A.T.T.G.T.A.G.A.T.A.A.A.C.A.G.G.C.G.T.T.A.C.G.A.C.C.T.A.G.G.A.A.T.A.G.C.G.T.A.A.T.T.A.C.T.G.T.T.A.C.A.C.T.C.G.T.T.A.A.C.C.A.C.T.T.A.T.C.C.A.A.A.A.G.T.T.T.C.G.T.A.C.T.A.G.C.T.T.C.G.T.T.G.A.T.C.G.A.A.C.T.C.G.C.T.A.T.G.T.C.G.A.G.A.A.G.C.T.G.G.G.G.C.C.A.T.C.G.G.C.C.C.T.T.T.A.T.C.G.T.A.A.A.G.G.A.G.T.T.T.C.A.T.A.A.C.T.C.C.C.A.G.C.C.A.C.A.A.C.T.T.G.T.A.C.A.C.T.C.G.A.T.C.T.C.A.C.G.A.T.C.C.G.A.A.C.A.T.A.G.T.T.T.G.G.A.T.A.G.C.G.C.G.C.T.C.C.G.G.G.G.T.C.G.G.C.C.C.A.G.C.G.C.A.A.T.T.C.A.G.T.A.T.A.A.T.A.C.G.T.C.A.A.C.G.A.T.A.G.T.T.T.T.G.T.C.T.C.C.A.A.G.T.C.C.A.G.G.T.A.G.C.T.G.G.G.A.A.A.A.G.A.A.A.A.C.A.C.G.A.G.T.T.C.C.G.G.C.A.A.A.G.C.T.T.T.T.T.C.T.G.G.T.C.A.C.T.A.A.A.G.C.G.A.A.C.C.A.G.T.A.C.G.T.G.G.C.G.A.T.T.A.T.A.C.C.A.C.T.G.T.G.T.G.C.A.C.C.C.G.C.A.C.C.C.G.A.G.T.T.C.C.A.G.A.A.G.T.A.T.A.C.T.A.C.A.G.T.T.C.A.C.T.A.G.G.C.A.C.T.G.G.T.T.G.G.C.G.T.T.C.G.C.T.T.C.C.T.T.A.A.A.T.G.G.C.T.A.T.A.A.G.A.T.G.A.A.C.C.A.A.T.C.C.A.T.T.G.G.G.T.A.T.G.A.T.C.T.G.T.G.G.A.G.C.T.C.T.C.G.C.G.T.A.C.C.G.T.G.G.C.A.A.C.A.T.C.T.A.A.A.A.C.C.T.A.G.T.A.T.C.G.A.C.A.C.T.A.T.C.A.G.A.T.C.C.T.C.G.C.A.T.A.C.T.C.A.A.A.A.A.A.G.G.C.A.T.G.A.G.T.G.G.T.G.C.T.T.T.C.A.A.A.C.C.G.A.T.C.T.T.A.C.C.T.A.C.T.G.A.T.A.G.T.T.A.C.T.A.T.G.G.C.T.G.A.T.T.C.G.A.G.T.A.T.G.C.G.T.A.C.C.C.C.G.A.G.G.T.T.G.G.T.C.A.A.A.G.G.T.G.T.T.T.C.A.T.A.G.T.G.C.T.A.A.T.A.C.C.C.G.A.T.C.A.A.T.T.A.A.T.C.C.T.G.C.G.G.T.C.A.G.A.C.C.A.T.G.C.T.G.T.G.A.C.A.A.A.G.T.A.T.G.A.T.T.T.C.A.T.A.T.C.G.C.G.T.T.G.C.G.T.A.T.T.C.C.A.G.G.A.C.T.T.C.A.C.T.C.A.T.G.A.A.C.C.T.C.C.A.A.T.C.C.G.A.C.T.T.A.A.C.G.C.G.T.T.A.A.C.C.C.G.A.T.A.G.C.T.C.A.G.T.G.T.A.G.C.C.A.A.C.G.G.A.T.C.T.C.A.A.A.A.G.T.A.T.T.T.G.T.T.A.A.C.C.A.T.G.C.A.A.A.T.A.A.A.A.G.G.T.A.G.T.T.C.T.C.C.T.A.A.A.G.T.C.C.A.A.A.A.T.T.A.C.G.A.G.G.T.C.T.G.C.T.A.T.A.T.G.C.C.A.G.T.A.T.G.C.G.C.A.T.C.T.G.A.G.A.G.C.G.C.A.G.C.A.A.T.C.G.C.G.C.A.G.T.C.A.A.A.G.C.C.A.G.C.A.G.G.G.G.G.A.T.G.A.A.A.C.A.G.A.A.T.C.G.A.C.G.T.T.A.C.T.C.T.C.C.C.A.C.T.A.T.C.T.T.G.T.T.A.G.A.G.A.T.A.G.G.A.A.C.C.C.G.A.A.A.T.C.G.G.C.T.T.A.T.T.G.T.T.G.A.C.G.C.T.C.A.T.A.T.A.G.A.T.C.G.T.C.G.G.T.G.T.C.C.G.G.T.T.T.A.G.T.C.A.T.C.T.A.G.C.G.C.A.C.T.G.C.C.T.G.C.T.C.C.C.A.G.C.A.G.T.T.C.T.C.A.A.C.G.T.A.G.G.T.G.C.G.T.C.G.A.T.G.C.A.A.A.T.C.T.C.C.T.T.A.T.G.A.T.A.G.G.T.G.C.T.A.C.A.A.G.T.T.G.A.G.G.G.G.T.T.T.G.G.A.C.C.C.C.G.G.G.C.A.G.T.G.C.G.A.A.T.G.T.G.A.C.T.T.C.A.G.T.T.G.C.A.C.A.T.T.T.T.T.T.T.A.G.T.T.A.A.T.G.T.A.C.G.C.G.A.T.A.T.T.A.A.A.A.G.T.T.A.A.C.G.T.C.C.G.T.C.A.A.C.C.T.G.C.A.T.T.A.G.C.G.G.A.T.T.C.G.G.G.C.G.A.G.C.T.T.C.T.C.T.T.A.A.G.G.C.G.C.A.C.C.C.C.G.C.T.C.A.A.T.T.G.C.A.T.T.C.T.C.C.C.T.T.T.C.C.T.G.A.G.T.A.T.A.G.G.T.G.G.A.T.C.T.T.A.G.C.T.A.A.G.A.G.C.G.T.C.G.A.C.G.C.C.G.A.A.G.A.T.C.G.A.A.C.C.T.G.C.G.A.G.C.C.C.C.C.A.T.A.T.T.C.T.A.A.G.G.G.A.C.A.C.A.C.A.T.T.A.T.G.T.T.G.T.C.G.A.G.G.C.T.T.A.C.G.T.C.C.C.T.T.G.T.A.T.T.G.T.C.A.A.T.C.C.G.C.A.T.T.G.G.G.T.A.C.C.G.A.G.T.T.C.C.G.T.A.G.T.G.C.T.G.A.C.C.T.C.C.C.T.G.C.T.T.G.A.A.G.T.G.A.T.C.A.T.C.A.A.C.T.C.A.T.T.C.G.T.G.C.C.C.T.T.C.C.G.A.G.G.T.C.C.T.C.G.A.T.G.A.A.A.T.A.A.C.C.G.G.A.G.G.C.C.C.C.C.G.A.T.G.A.T.A.G.T.G.A.A.G.G.G.C.G.A.T.T.T.C.A.T.G.A.C.G.G.A.G.T.T.C.G.A.G.T.G.T.A.T.A.C.C.C.G.T.G.A.C.G.T.T.A.G.A.G.A.G.T.G.C.G.C.G.T.G.A.T.A.T.T.G.G.A.G.T.A.T.T.A.C.C.A.A.G.G.T.T.C.T.A.A.T.G.A.T.T.A.T.C.C.A.G.A.G.T.A.G.C.A.G.G.T.A.C.T.T.G.G.A.T.G.A.G.C.A.A.A.T.C.C.A.A.C.C.G.C.G.G.T.A.C.G.T.G.A.C.C.C.C.C.G.C.A.C.C.C.A.A.G.A.A.A.T.T.A.T.G.T.T.C.A.A.T.C.T.T.C.G.G.A.T.C.A.C.A.G.A.A.T.G.C.T.G.T.A.A.C.A.G.A.T.G.G.C.A.T.A.C.C.G.C.C.C.T.G.G.G.T.G.A.A.A.C.G.A.T.G.C.G.A.C.T.G.T.T.G.T.C.C.A.C.T.G.C.A.T.A.C.A.T.C.A.T.A.G.G.C.T.C.C.A.T.A.G.G.T.T.C.C.A.C.G.G.A.T.G.C.C.C.C.G.C.T.A.C.C.T.T.T.C.C.C.C.G.T.C.T.C.C.A.A.A.T.G.A.C.G.C.G.G.C.A.A.T.G.A.A.T.T.A.A.G.T.A.T.A.A.C.C.A.G.C.A.A.G.T.A.C.C.G.C.T.A.A.G.G.C.A.C.G.G.G.C.C.C.G.C.A.A.A.A.C.G.C.T.G.T.A.G.C.G.C.C.G.C.G.T.G.A.C.A.A.A.T.G.C.G.C.C.T.G.A.T.T.T.G
+Sample 4  ( AFR ): G.A.T.G.T.T.G.A.A.T.T.G.A.C.C.A.G.C.A.T.G.C.C.C.G.C.A.C.G.C.T.A.G.A.G.A.C.C.C.G.C.A.A.C.T.T.A.G.G.C.G.G.C.A.T.A.T.C.C.G.A.A.T.T.C.C.A.A.C.T.T.T.C.T.T.C.A.C.T.C.G.T.C.T.T.C.T.C.T.G.T.G.C.G.C.G.C.G.T.A.A.C.T.A.G.T.G.T.G.T.C.G.G.A.C.C.G.G.T.A.T.T.G.A.A.C.T.T.C.G.C.A.A.C.C.T.A.G.C.C.G.T.G.T.C.A.C.C.A.G.T.T.G.G.A.A.T.A.G.A.T.A.G.G.T.A.T.T.G.A.G.A.G.T.A.A.C.T.T.A.A.C.G.A.T.C.C.T.C.T.T.G.G.A.C.C.T.G.A.A.G.A.C.C.G.A.A.A.T.T.A.G.C.T.A.T.C.A.G.C.A.T.G.T.A.G.G.A.A.T.C.T.G.C.C.G.G.A.G.A.G.G.G.C.C.G.G.G.A.T.A.C.C.C.A.G.T.G.C.G.A.A.T.T.C.G.G.T.G.C.G.A.A.G.T.G.G.C.T.C.G.G.C.A.C.G.C.A.A.T.A.C.A.C.T.A.A.C.C.C.A.G.G.T.A.T.G.G.A.T.A.A.A.A.T.A.G.T.G.T.C.C.G.C.C.T.T.T.G.G.C.G.G.C.G.A.G.T.T.T.C.A.C.C.C.G.A.T.A.T.G.T.A.G.T.C.A.G.T.G.G.T.G.T.T.T.G.T.A.T.T.G.G.G.C.G.G.A.T.A.C.A.A.G.A.G.G.G.G.T.G.A.G.A.C.A.C.C.A.C.A.G.A.C.G.A.C.G.A.T.C.T.T.A.A.A.T.A.A.A.C.T.T.C.C.G.T.G.T.T.G.A.A.A.G.T.G.G.T.G.C.G.G.G.G.T.A.T.C.A.C.G.C.G.T.C.C.C.T.T.A.A.T.A.G.A.C.A.T.G.T.A.C.C.C.A.A.G.G.T.A.T.C.A.C.G.A.A.A.T.A.C.C.A.A.C.A.T.G.C.A.T.G.C.C.C.T.C.T.A.C.T.G.G.C.T.A.G.C.G.C.T.A.G.G.C.T.G.G.C.G.T.A.T.C.C.G.G.A.A.T.G.A.G.G.T.T.A.G.C.T.C.T.T.C.T.T.T.T.T.A.A.A.G.C.A.A.T.C.T.G.C.T.C.G.C.T.C.G.T.C.T.C.A.A.A.G.G.C.T.C.A.T.G.T.G.A.A.T.T.C.A.C.G.C.T.C.A.C.T.T.A.G.C.A.T.T.G.T.T.G.C.T.T.G.T.T.C.T.G.G.C.C.T.A.A.A.A.A.T.C.C.C.C.T.G.G.A.C.G.A.T.A.C.T.A.A.A.T.T.C.A.T.C.C.T.G.G.A.A.T.A.C.T.A.C.A.A.G.T.C.A.G.A.A.C.T.A.G.T.C.G.T.A.G.G.G.C.G.T.A.T.G.C.C.T.C.T.C.T.C.T.G.G.A.C.C.T.G.A.A.A.T.G.C.T.A.A.T.G.A.C.A.A.T.A.G.T.A.G.T.C.C.T.G.G.A.A.T.A.G.C.G.C.T.G.A.G.C.C.G.C.T.A.T.G.T.T.A.A.A.T.G.C.A.C.T.C.A.A.T.C.G.A.G.C.T.C.T.C.G.A.C.T.A.G.C.C.G.G.T.A.T.G.C.T.G.T.T.G.T.T.G.G.A.G.T.T.A.G.G.T.C.G.A.G.T.A.T.G.A.G.T.T.G.G.A.G.A.A.A.G.T.T.A.T.G.G.C.A.G.C.T.G.A.C.C.T.T.C.G.T.C.A.A.C.G.A.A.G.A.G.C.T.G.G.A.A.G.G.C.T.C.T.C.C.T.C.G.T.G.G.C.C.C.A.C.G.T.G.G.G.A.C.G.G.G.A.C.T.T.C.G.A.T.C.A.G.T.C.G.A.C.G.A.G.A.A.G.T.G.A.C.A.T.G.A.G.G.C.C.A.T.G.A.A.T.C.C.C.C.T.G.G.A.G.C.A.A.T.G.C.G.T.G.G.C.A.G.T.T.T.A.T.G.T.T.A.C.G.A.C.A.A.T.T.G.A.C.G.C.T.G.G.A.C.C.C.G.C.G.C.T.A.G.G.A.A.C.T.C.A.T.A.G.A.T.G.G.T.A.T.G.T.A.T.A.C.G.A.A.T.T.A.A.G.T.T.C.T.A.T.T.A.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.A.A.C.T.G.G.T.G.G.T.A.T.T.G.A.C.C.A.T.G.G.A.A.C.A.C.G.T.C.T.T.G.G.T.A.C.A.G.T.G.G.A.A.G.C.T.C.A.C.C.G.C.C.C.T.G.T.A.C.T.T.T.A.A.T.C.A.G.C.A.T.T.T.G.G.G.A.C.T.G.T.A.T.T.A.T.A.T.T.C.G.T.T.G.T.C.A.C.C.T.A.A.A.C.G.A.T.G.A.C.G.T.C.T.G.T.A.G.G.C.C.C.C.C.C.A.G.C.T.C.C.G.T.G.A.T.T.T.C.G.A.C.C.T.G.C.T.T.G.G.T.C.A.G.G.C.C.A.A.A.T.G.G.A.C.C.A.C.A.T.T.T.T.A.C.T.A.A.C.G.A.A.C.A.T.A.G.G.G.G.C.A.T.T.G.G.G.A.G.C.C.C.C.T.C.C.G.A.C.A.T.T.A.T.C.A.C.G.A.G.C.T.G.C.A.A.G.A.C.T.A.T.C.A.C.T.G.A.A.C.A.T.G.A.G.G.T.G.G.T.G.C.T.A.A.G.A.G.A.T.G.C.G.G.G.G.C.T.A.A.G.C.C.A.C.C.C.C.T.G.T.T.C.C.A.A.A.T.A.T.C.A.A.T.A.C.C.G.G.A.G.C.T.A.C.A.G.C.C.C.A.A.A.T.T.G.A.A.C.G.G.G.C.A.A.C.T.C.C.T.A.T.T.G.A.A.T.A.G.C.G.A.G.G.A.A.C.C.C.C.T.G.G.G.A.C.A.G.A.G.C.C.A.A.A.T.G.T.A.T.T.C.A.A.T.C.A.C.T.C.G.T.G.G.G.A.G.C.A.C.A.T.C.T.T.C.T.C.T.T.A.C.G.C.C.G.A.A.T.T.A.T.C.A.T.G.A.A.G.A.T.G.A.C.A.T.A.G.G.G.G.C.A.C.T.T.G.T.T.A.C.G.G.A.T.G.G.G.A.T.G.C.A.C.A.C.A.T.G.C.G.C.T.G.G.T.A.C.A.A.A.A.A.A.T.A.C.G.A.C.G.G.A.C.A.G.A.C.G.T.C.C.A.G.C.A.A.G.C.T.A.T.A.C.G.A.G.G.G.C.T.G.C.G.T.C.A.T.G.C.A.T.C.C.G.A.G.G.G.C.G.A.C.A.G.G.T.T.G.C.C.G.C.C.T.G.G.T.T.C.C.A.G.G.A.A.A.T.C.G.C.T.A.T.T.G.C.T.C.G.C.G.C.C.A.T.G.T.G.C.T.G.A.C.G.C.A.G.C.T.A.A.G.C.G.T.T.G.A.T.T.A.G.G.A.T.T.A.C.T.A.G.C.A.T.A.G.T.G.T.T.T.A.A.T.G.C.A.A.A.G.A.T.A.G.T.A.G.C.G.A.T.G.T.C.G.A.T.T.G.T.A.G.T.T.A.A.A.C.A.G.G.C.G.T.C.A.C.G.A.C.C.T.A.G.G.A.A.T.A.C.C.G.T.A.A.T.T.A.C.T.G.T.T.A.C.A.C.T.T.G.T.T.A.T.C.C.C.C.T.T.T.T.C.T.A.A.T.A.C.T.T.T.C.G.T.G.C.T.A.G.C.T.C.C.G.T.T.G.A.T.A.G.A.A.C.T.C.G.C.T.A.T.C.T.C.C.T.C.A.A.G.C.T.G.G.G.G.C.C.A.G.G.G.G.C.C.C.T.T.T.A.T.C.A.T.A.G.A.G.G.A.G.T.T.T.C.A.T.A.A.C.T.G.G.C.A.G.C.G.A.C.A.A.C.T.T.G.T.A.A.A.C.T.C.T.A.T.C.T.C.A.C.G.A.T.C.C.G.A.A.C.T.T.C.G.T.T.T.G.C.A.T.G.G.A.G.C.G.C.T.C.C.G.G.C.G.C.A.G.T.T.G.C.A.G.C.G.C.A.A.T.T.C.A.G.T.A.A.A.A.A.A.C.A.T.G.A.T.C.C.A.G.A.G.T.T.T.C.G.T.T.C.C.C.T.A.G.T.C.C.A.T.G.G.C.G.C.T.G.G.G.A.A.G.A.G.A.T.A.A.T.C.C.G.A.G.T.T.G.G.T.G.C.A.A.T.C.C.T.T.C.T.T.C.T.G.G.T.C.A.C.T.G.A.A.G.G.G.G.A.C.C.T.G.T.A.A.G.T.G.G.C.G.C.T.T.A.G.A.C.C.A.C.T.T.C.G.T.G.C.A.A.G.C.G.G.A.T.T.G.T.A.G.T.T.T.C.A.T.A.A.C.T.A.T.G.C.T.G.C.A.G.T.T.C.A.C.G.A.T.G.A.A.C.G.G.G.A.T.G.G.C.G.T.T.C.T.G.T.T.C.C.T.T.A.A.C.T.G.T.C.T.A.T.A.A.G.A.T.G.A.A.C.C.A.A.T.C.C.A.T.T.G.G.G.T.A.C.A.A.C.C.T.G.T.G.G.C.G.C.T.C.T.T.G.C.G.T.A.C.C.G.A.G.G.C.A.A.C.A.T.C.T.A.A.A.T.C.C.T.A.G.T.A.T.C.T.A.C.G.C.T.A.T.C.C.G.A.T.C.C.T.C.G.C.A.T.A.C.T.T.A.A.A.A.A.A.G.G.C.A.T.G.A.C.A.A.C.T.C.C.G.A.G.A.C.C.T.A.G.G.A.T.G.A.C.A.C.T.C.C.C.G.G.G.A.G.G.G.A.A.A.A.A.T.G.G.C.A.C.G.G.T.A.G.A.G.T.G.T.G.G.T.A.T.T.C.C.C.C.A.T.C.A.G.C.G.T.G.A.A.T.A.A.A.C.T.G.T.T.C.A.A.A.T.C.T.T.G.T.T.G.T.A.T.G.A.T.C.C.A.A.T.T.T.A.C.C.T.T.C.T.G.T.C.G.G.A.C.T.A.G.A.C.T.G.T.A.A.T.A.A.A.T.T.A.G.A.A.A.A.T.C.T.T.T.T.A.G.A.G.C.T.G.C.G.T.T.T.G.C.C.A.C.C.A.C.T.T.C.T.T.A.C.A.A.T.G.C.A.C.A.C.C.G.G.T.T.T.G.G.C.T.T.A.A.T.T.C.G.T.T.A.A.C.C.C.G.C.T.A.C.C.C.C.A.C.T.A.T.C.T.C.C.C.C.T.G.G.C.T.C.A.C.G.A.A.A.G.G.A.T.T.G.G.T.T.G.T.C.T.G.A.A.C.A.A.A.T.A.C.A.A.T.C.T.A.T.A.T.C.C.C.C.C.A.A.A.A.T.C.C.C.A.G.A.T.T.A.A.G.T.G.C.A.C.G.A.C.T.G.T.G.T.G.G.C.A.G.C.A.C.C.G.A.C.T.C.C.G.A.A.G.C.C.G.C.T.G.T.G.A.G.C.T.G.C.G.T.G.A.G.T.A.A.T.G.C.C.C.A.C.C.G.G.G.G.G.A.T.G.A.A.T.G.C.T.G.A.T.C.G.C.G.G.T.T.C.G.G.C.T.C.C.T.T.C.T.T.T.G.A.T.A.A.T.T.C.T.T.C.G.A.G.C.C.A.C.A.C.G.A.A.A.T.C.G.G.C.T.T.A.T.C.A.T.T.G.T.A.G.C.T.C.A.T.G.T.A.G.C.G.G.G.T.C.G.G.T.G.T.C.C.G.G.T.T.A.A.C.T.C.A.T.A.C.A.G.C.G.C.G.C.T.G.C.C.T.G.G.T.C.C.C.A.G.C.A.T.A.T.T.T.T.A.A.C.G.T.A.G.G.T.A.A.A.T.C.C.A.T.G.C.A.A.G.T.C.T.C.C.T.T.A.T.C.G.T.T.G.G.T.G.C.T.A.C.A.A.G.T.T.G.A.G.G.A.A.T.G.G.G.G.A.C.T.T.A.C.G.T.C.C.T.T.G.C.G.A.T.T.G.A.G.A.C.C.T.C.A.G.T.T.G.C.A.C.A.T.T.T.T.T.T.G.A.G.T.T.A.A.A.G.T.A.C.G.C.G.C.T.C.G.G.A.A.A.A.C.T.C.T.A.C.G.C.C.C.G.T.C.A.A.G.C.T.C.T.A.T.G.C.T.C.T.T.C.G.C.C.G.G.G.C.G.T.G.A.G.T.C.G.C.T.G.T.A.G.G.G.G.C.C.C.C.A.C.G.A.A.G.A.A.C.T.G.C.A.T.T.C.T.C.C.C.T.T.T.C.C.T.G.A.T.T.A.T.A.T.G.T.G.C.A.T.C.T.A.A.G.C.T.A.A.G.A.G.C.G.T.C.G.T.C.G.C.C.G.A.G.G.A.T.C.A.A.A.C.C.T.G.C.G.A.G.C.C.C.C.C.G.T.C.T.C.C.C.A.A.C.G.G.A.G.A.C.A.C.A.T.T.C.T.G.T.G.G.T.A.G.A.G.T.C.T.C.A.C.G.G.C.C.T.T.T.A.T.C.T.T.T.T.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.A.C.C.C.T.T.G.C.C.A.G.A.C.G.C.A.A.T.G.G.C.G.T.C.C.C.C.G.G.T.T.G.A.A.G.T.G.A.T.C.A.T.T.A.A.C.T.C.A.T.T.G.G.T.A.C.A.T.T.T.C.C.A.C.G.G.T.C.C.T.G.G.G.T.G.A.A.G.C.C.C.C.T.C.C.A.C.G.T.G.T.A.C.G.T.C.G.A.G.A.C.T.C.A.C.C.G.G.C.G.C.A.T.T.C.A.T.G.A.C.G.G.A.G.T.T.T.G.A.T.T.G.T.C.T.A.C.C.C.G.T.G.A.A.G.T.C.A.G.A.G.A.G.T.G.C.G.C.G.T.G.A.T.A.T.T.G.G.A.G.T.A.T.T.A.C.C.A.A.G.G.T.T.C.T.A.A.T.G.G.T.T.A.T.C.C.A.A.A.G.T.A.G.T.A.G.T.C.A.C.T.T.G.G.A.T.A.A.G.C.C.A.T.T.C.C.A.A.C.C.G.C.G.G.T.A.C.G.T.G.A.C.G.C.A.C.T.C.A.C.C.C.A.A.C.A.A.A.T.T.A.T.A.A.T.C.A.A.T.C.T.T.C.G.G.T.T.C.A.C.A.G.A.A.T.G.C.T.A.T.A.A.C.A.C.A.T.G.G.C.A.G.G.G.G.G.C.C.C.G.T.G.A.A.C.G.A.C.C.A.A.T.A.A.T.A.A.G.G.G.T.G.T.C.C.A.A.A.G.C.C.T.G.G.C.T.C.C.T.G.A.T.G.A.C.C.C.A.T.G.C.A.G.C.C.A.A.G.G.A.T.A.G.T.A.C.G.C.A.G.C.C.T.T.T.A.C.C.C.G.T.C.T.C.C.A.A.A.T.G.A.C.G.C.G.G.C.A.A.T.G.A.C.T.T.A.T.G.T.A.T.A.A.C.C.A.G.C.A.A.G.T.A.T.C.G.C.G.T.T.C.G.C.A.G.C.T.G.A.C.T.G.C.A.C.A.A.C.C.C.T.G.T.G.G.C.T.C.C.A.T.A.A.C.A.A.A.G.A.T.T.A.T.C.C.T.A.A.T.T.T.C
+Sample 5  ( AFR ): T.A.T.A.G.C.G.A.A.T.T.C.A.G.C.C.T.C.A.C.A.G.G.G.G.C.A.C.C.G.T.C.G.G.G.A.C.C.C.T.C.T.C.G.G.A.G.T.T.G.C.A.T.T.T.A.G.T.C.G.A.A.T.T.C.C.A.A.C.T.T.T.C.T.T.C.A.C.A.C.A.T.C.A.T.C.T.C.T.G.T.C.C.T.C.G.C.G.T.A.A.C.T.G.G.T.G.G.A.C.A.A.A.C.G.T.G.G.C.G.T.T.T.A.C.T.T.T.C.G.G.T.A.T.C.T.C.G.G.C.A.A.G.T.C.G.C.G.T.G.A.T.G.G.A.T.T.C.G.A.T.A.G.T.T.G.A.A.C.A.G.A.G.T.A.A.C.G.T.A.A.A.G.A.T.C.C.C.C.T.T.G.G.G.G.A.T.G.C.A.G.G.C.C.C.G.T.C.G.G.A.G.C.T.A.A.C.T.G.T.T.T.G.T.A.G.G.A.A.T.C.T.G.C.C.G.T.C.A.A.G.T.G.G.C.C.G.G.A.T.A.C.C.C.A.G.T.C.G.G.A.A.T.T.T.A.G.T.G.C.G.A.A.G.T.C.G.T.T.C.G.G.C.A.G.A.C.T.C.T.G.C.A.C.T.A.A.C.G.C.A.C.G.A.A.T.G.G.C.A.A.C.A.A.G.A.C.T.G.G.G.A.C.T.G.T.C.A.C.G.T.T.G.C.G.T.C.G.T.T.G.C.C.C.G.G.C.T.A.T.G.T.A.G.G.C.C.G.T.G.G.T.T.A.C.T.T.T.C.A.T.A.A.G.C.G.G.A.C.A.G.A.A.G.T.G.T.G.A.A.G.A.C.A.T.A.C.C.A.C.A.G.A.G.A.A.G.G.A.T.C.T.T.A.A.A.T.C.A.A.C.T.T.C.C.C.T.G.T.T.G.A.A.A.C.T.A.G.T.A.C.G.G.T.G.A.A.T.C.T.C.C.C.G.T.C.C.T.T.T.G.A.T.A.G.A.G.A.T.G.C.T.T.C.A.T.A.G.G.T.A.A.C.G.A.G.T.A.A.T.A.C.C.A.A.C.A.C.G.C.A.T.G.C.C.C.T.C.T.A.C.T.G.G.C.G.A.G.C.G.C.T.A.G.G.C.T.G.T.T.G.T.A.C.C.T.G.G.G.A.C.G.A.C.G.G.T.A.G.G.T.G.A.A.G.T.G.G.T.T.G.A.A.A.G.A.A.C.A.T.G.G.A.C.G.C.C.G.A.C.C.T.C.T.T.A.G.C.A.C.C.A.T.G.T.G.G.A.T.T.C.A.A.T.C.T.C.A.C.T.T.A.G.C.A.T.T.G.A.T.C.G.T.G.G.C.A.T.T.G.G.G.C.G.A.A.A.A.G.T.C.G.C.C.T.T.A.A.T.G.A.T.G.C.T.A.A.A.T.T.C.A.T.C.C.T.G.G.A.A.T.G.T.A.C.C.A.A.T.A.C.C.G.A.T.A.T.A.G.T.C.G.T.C.A.G.G.C.T.T.A.G.G.C.C.T.C.T.C.T.C.T.G.T.G.A.C.G.G.A.A.A.T.T.C.A.C.A.C.G.C.C.A.A.T.A.A.T.C.G.T.C.C.A.T.A.C.A.T.A.G.C.G.C.T.G.A.G.C.C.G.C.A.A.T.A.T.T.A.A.A.T.T.C.G.C.T.C.A.A.T.C.T.A.G.C.A.C.T.C.G.A.C.T.A.G.G.C.G.T.G.T.T.A.G.A.G.T.T.T.A.A.G.G.A.G.T.T.A.G.G.T.C.G.A.G.T.A.T.G.A.G.T.T.A.C.T.A.C.A.A.G.T.T.A.T.G.C.G.C.C.T.G.T.T.C.T.T.C.C.G.T.C.C.T.C.G.T.A.A.A.G.C.T.G.G.A.A.C.A.C.C.C.T.C.C.T.C.A.T.C.A.A.C.C.A.G.C.A.G.G.G.A.C.C.G.C.A.C.T.T.C.G.A.T.C.A.C.T.C.G.A.C.G.A.G.G.C.G.T.G.A.A.C.C.G.T.C.C.T.C.C.T.G.C.C.T.G.A.C.C.T.T.A.T.G.C.A.A.T.G.A.G.T.G.T.C.A.G.T.T.T.A.T.G.T.T.A.C.G.A.C.A.A.C.A.C.A.T.G.C.A.G.A.A.C.C.C.T.C.G.C.T.A.T.C.A.A.C.T.C.A.T.A.G.A.T.G.G.T.A.T.G.T.A.T.A.C.G.A.A.T.T.A.A.G.T.T.C.T.A.T.T.T.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.G.C.T.T.G.G.T.G.G.T.T.T.T.G.A.T.G.A.C.C.A.C.A.C.A.C.G.T.C.T.T.G.G.T.A.C.A.G.T.G.G.T.A.G.G.T.C.G.C.T.C.C.G.G.C.C.C.A.A.T.T.T.A.A.T.C.T.T.C.T.T.C.C.G.G.G.C.C.A.G.C.A.C.A.C.T.C.C.G.C.G.G.C.G.T.G.A.A.C.T.A.A.A.C.G.A.T.G.A.C.G.T.C.T.G.T.A.G.G.C.C.C.C.C.C.A.G.C.T.C.C.G.T.T.A.T.T.T.C.G.A.C.C.T.G.C.T.C.G.G.T.C.A.G.G.C.A.C.A.A.T.G.G.A.C.T.A.C.C.T.T.T.C.A.C.T.A.A.C.G.A.A.C.A.C.A.G.G.G.G.C.A.T.G.G.G.G.A.G.C.T.C.C.T.C.A.G.A.C.A.T.C.G.T.G.A.C.G.A.G.G.T.G.T.A.A.A.C.C.T.A.T.T.A.C.T.G.A.A.C.A.T.G.A.C.G.T.G.G.T.G.C.T.A.A.G.A.G.A.T.T.C.G.G.G.G.A.T.C.A.G.C.G.A.C.C.T.C.G.G.C.T.C.C.A.A.G.T.T.T.G.A.T.G.G.C.A.G.G.T.T.C.T.T.C.T.A.T.C.C.G.T.A.G.T.G.A.C.G.T.T.G.T.A.A.C.T.C.C.T.A.T.T.G.A.A.T.A.G.T.G.A.G.G.A.A.C.C.C.C.T.G.G.G.A.C.A.G.A.T.C.C.A.A.A.T.G.T.A.G.T.C.A.A.T.C.A.C.T.C.G.T.G.A.G.A.G.C.A.C.A.C.C.T.T.C.T.C.T.T.A.C.G.C.C.G.A.A.T.T.A.C.C.A.T.G.A.A.G.A.T.G.A.C.A.T.A.G.G.G.G.C.A.C.T.T.G.T.A.A.C.G.G.A.T.G.G.G.A.T.G.C.A.C.A.C.A.T.G.C.G.C.T.G.G.T.A.T.A.A.A.A.A.T.A.A.C.G.G.C.G.G.A.C.A.A.G.C.C.T.C.C.A.G.G.G.C.G.C.T.C.C.T.C.G.A.T.G.G.C.T.G.A.G.T.C.C.G.G.A.A.G.T.C.G.A.G.G.G.G.G.G.G.C.T.A.C.T.A.C.C.A.C.C.T.G.A.T.T.C.C.A.G.C.A.A.A.A.G.G.C.T.T.T.C.G.C.T.C.G.C.G.C.C.A.T.G.T.G.C.T.G.A.T.G.C.A.G.C.T.A.A.G.C.G.T.T.G.A.T.T.A.G.C.A.T.A.A.C.T.A.A.C.A.C.A.C.T.A.A.T.A.A.A.T.A.C.A.A.G.G.T.T.A.G.T.A.G.C.A.A.T.C.T.C.T.G.T.T.G.T.A.G.T.A.A.A.A.C.C.C.G.A.G.G.C.T.G.C.C.C.C.T.A.G.G.G.A.T.A.C.C.G.T.A.A.T.T.A.C.T.G.T.T.A.C.A.C.T.C.G.T.T.A.A.C.C.A.C.T.T.A.G.C.C.A.A.A.A.G.C.T.T.C.G.T.G.C.T.A.G.C.T.T.C.G.T.T.G.A.T.C.G.A.A.C.T.C.G.C.T.A.T.G.T.C.G.T.C.A.A.C.C.T.G.C.G.G.C.C.A.T.G.G.G.C.C.A.T.T.T.A.T.C.G.T.C.A.A.G.G.A.G.T.T.T.C.A.T.T.T.G.T.G.G.C.A.G.A.G.A.C.T.A.C.T.T.G.G.A.C.A.G.T.C.T.A.T.C.T.C.A.C.G.A.T.A.C.G.G.A.C.T.T.C.T.T.T.T.G.G.A.T.A.G.C.G.C.G.C.T.C.C.G.G.C.G.T.C.C.T.C.C.C.A.G.T.G.G.A.G.A.T.C.A.G.T.C.T.A.A.T.A.C.G.T.C.G.T.C.G.A.T.A.G.T.T.T.T.G.T.C.T.C.C.A.A.G.T.C.C.T.T.A.T.C.C.G.T.G.G.G.A.A.G.A.C.T.A.C.T.T.A.C.G.A.G.T.A.C.G.G.C.C.T.A.T.G.C.T.C.C.T.T.C.T.A.G.T.C.A.C.T.A.A.A.G.G.G.G.A.C.C.A.G.C.A.C.T.T.G.G.G.T.C.G.T.C.G.A.C.C.A.T.T.G.T.G.T.G.T.A.A.G.C.G.G.C.T.T.C.T.A.G.T.T.T.A.A.G.A.A.G.T.G.A.G.C.T.G.C.A.C.T.G.C.T.A.T.A.T.G.C.A.C.T.G.G.A.C.G.G.C.A.T.G.C.G.C.T.T.A.C.T.T.A.T.A.T.C.G.C.T.A.T.A.A.G.T.T.G.G.T.G.G.A.A.T.T.T.A.A.T.G.G.G.G.T.T.A.A.C.C.T.G.C.G.G.C.T.C.T.A.T.C.C.C.G.C.C.C.C.A.A.G.C.C.T.A.C.A.T.C.T.A.A.A.A.A.C.G.G.G.A.T.T.G.G.A.C.A.T.T.T.T.G.C.T.A.A.G.C.A.G.G.C.A.G.A.T.C.C.C.T.C.A.A.A.C.G.C.A.T.G.A.C.A.G.C.T.C.C.G.A.G.A.A.C.T.A.G.G.A.T.G.A.T.A.C.T.C.C.C.T.G.G.A.G.G.G.A.A.C.A.A.T.G.G.C.A.C.G.T.T.A.G.A.G.T.A.T.G.G.T.A.A.T.C.C.C.C.G.T.C.A.G.C.A.T.G.A.A.T.A.A.A.C.T.T.T.C.C.A.A.A.T.C.C.T.G.T.T.G.T.A.T.G.A.T.C.C.A.A.T.T.T.A.C.C.T.T.C.T.G.T.C.A.G.A.C.T.A.G.A.C.T.G.T.A.A.T.G.A.A.T.A.C.G.A.A.T.A.T.C.T.T.T.T.C.G.A.G.T.C.G.G.A.T.T.A.T.G.C.A.C.C.A.C.T.T.T.A.C.T.C.A.T.G.G.A.C.C.T.C.C.A.A.T.C.C.G.A.C.T.T.A.A.C.T.C.G.T.T.A.A.C.C.C.G.C.T.A.G.C.T.C.A.G.T.A.T.A.G.A.C.A.A.C.G.G.A.T.C.A.C.G.A.A.A.G.G.A.T.T.G.G.T.T.G.A.C.C.G.A.A.C.A.A.A.T.A.C.G.C.G.G.T.A.G.T.T.C.T.C.C.T.A.A.A.A.T.C.C.A.A.G.C.T.T.A.A.G.A.G.C.T.C.G.A.C.T.A.T.G.T.G.G.C.A.G.T.C.C.C.C.A.C.T.C.C.G.A.A.T.C.C.G.C.T.G.T.C.A.G.C.T.G.C.G.T.G.A.G.T.T.C.T.G.C.C.A.G.C.C.A.G.G.G.G.A.T.G.A.A.A.C.A.G.A.A.T.C.G.A.C.G.T.T.A.C.T.C.T.C.C.C.A.C.G.A.T.C.T.G.A.T.T.A.G.A.T.A.T.A.G.G.A.G.G.A.G.G.A.C.A.T.T.C.G.C.T.G.G.T.T.A.T.C.G.A.A.G.C.T.A.T.C.A.T.A.C.A.T.G.G.G.C.G.G.C.C.T.C.C.A.G.T.T.A.A.C.G.C.T.T.C.C.A.G.C.G.C.G.G.G.G.T.T.A.A.G.T.C.C.C.A.G.T.A.T.T.T.C.A.C.A.A.C.G.T.A.A.G.T.A.A.A.T.C.C.C.T.G.A.A.A.G.T.C.T.C.G.T.T.A.T.G.G.T.T.T.G.A.G.C.T.A.A.A.A.G.C.T.G.A.G.G.A.A.C.G.G.A.A.A.A.C.T.A.C.G.T.C.A.T.T.C.C.G.A.T.T.G.A.G.A.C.T.T.C.G.G.T.T.C.C.A.C.A.T.T.G.T.T.T.T.A.G.T.G.A.A.T.G.T.G.C.C.G.G.C.T.C.G.T.C.A.A.A.C.T.C.T.T.A.G.C.G.T.C.C.C.A.G.G.G.A.C.T.A.T.G.C.T.C.T.G.C.G.C.C.G.T.G.C.G.A.G.C.T.T.G.T.C.G.T.A.A.G.G.C.G.C.A.C.C.C.C.A.C.T.G.G.C.T.G.T.C.A.T.T.C.G.C.C.G.T.T.T.C.C.T.C.A.T.T.C.C.G.T.G.T.C.C.A.T.C.C.T.A.T.A.T.A.G.T.C.T.G.G.T.C.G.T.A.C.C.C.G.G.G.T.A.T.T.A.A.G.C.G.A.G.C.G.A.T.T.G.G.C.A.A.G.C.T.C.C.C.G.A.G.G.T.A.C.T.T.T.C.A.T.A.A.T.G.A.T.C.T.A.G.A.G.T.C.T.C.A.C.G.G.C.C.T.T.T.A.T.C.T.C.T.T.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.A.C.C.C.T.T.G.C.C.C.G.A.C.G.C.A.A.T.G.G.C.G.T.C.C.C.C.G.G.T.T.G.T.A.C.A.G.A.C.G.A.T.C.A.G.G.G.T.A.G.T.G.A.T.G.C.C.T.A.A.C.C.A.A.A.G.T.T.C.G.G.G.G.T.G.A.A.G.C.C.C.C.T.C.C.T.C.G.T.G.T.A.C.G.T.C.G.A.G.A.C.G.C.A.A.C.G.G.C.G.C.A.T.G.C.A.T.G.A.C.G.G.T.G.T.C.C.G.A.G.T.G.T.A.G.A.C.C.C.G.T.G.A.A.G.T.T.A.G.A.G.A.G.T.G.C.G.C.G.C.C.A.T.A.A.T.G.A.A.G.T.A.T.G.C.A.C.A.A.C.G.G.T.C.T.T.A.T.G.A.T.T.A.A.A.C.A.G.A.G.T.A.G.C.G.G.G.C.G.C.T.T.G.G.A.T.G.A.G.A.C.T.T.T.C.G.A.A.C.C.G.C.C.G.T.A.C.C.T.G.A.C.G.C.C.T.G.C.A.C.C.C.A.A.G.A.A.A.T.T.A.T.G.T.T.C.A.A.T.C.T.T.C.G.G.A.T.C.A.A.A.T.A.A.T.G.C.T.A.T.A.A.C.A.G.A.T.G.G.A.A.T.A.C.C.G.C.C.C.T.G.G.G.T.G.A.A.A.C.G.A.T.G.C.G.A.C.T.G.T.T.G.T.C.C.A.C.T.G.C.A.T.A.C.A.G.C.A.T.A.G.G.C.T.C.C.A.T.A.G.C.T.T.C.C.A.A.A.G.A.T.G.C.T.A.C.A.G.A.G.C.T.T.G.A.A.C.C.G.G.T.C.A.C.T.T.A.C.A.G.G.C.G.G.G.G.G.A.T.A.T.A.C.A.T.G.A.G.T.A.G.T.A.C.C.G.G.C.A.A.G.T.G.C.C.G.C.T.T.T.C.G.C.A.C.C.G.G.C.G.T.G.C.A.A.A.A.C.G.C.T.G.T.A.G.C.G.C.C.G.C.G.T.G.A.C.A.A.A.T.G.C.G.C.C.T.G.A.T.T.T.G
+Sample 6  ( AFR ): T.A.T.A.T.T.G.A.A.A.T.G.T.G.C.A.G.C.A.C.G.G.G.G.G.T.A.C.C.C.T.C.G.A.G.A.C.C.C.T.C.T.C.G.G.A.G.T.T.G.C.A.T.T.T.A.G.T.C.G.A.A.T.T.C.C.A.A.C.T.T.C.C.T.T.C.A.C.A.C.G.T.C.T.T.C.T.T.T.G.T.C.C.T.C.G.C.G.T.A.A.C.T.G.G.T.G.G.A.C.A.A.A.C.G.C.G.G.C.G.T.T.T.A.C.T.T.T.C.G.G.T.A.T.C.T.C.G.G.C.A.A.G.T.C.G.C.G.T.G.A.T.G.G.C.T.T.C.G.C.T.A.G.G.T.G.A.A.C.A.G.A.G.T.A.A.C.G.T.A.A.C.G.A.T.C.C.T.C.T.T.G.G.G.G.A.T.C.C.A.G.G.C.C.C.G.T.C.G.G.G.T.C.G.A.T.C.T.G.C.T.T.G.G.C.G.G.A.A.T.C.T.G.C.C.C.G.A.G.A.T.G.G.C.C.C.G.G.G.A.T.C.A.C.A.G.C.G.G.G.T.G.T.T.T.G.G.A.G.C.G.G.C.T.T.C.G.T.T.T.A.G.T.A.C.G.C.T.A.T.G.C.A.C.T.A.A.C.C.C.A.C.G.A.A.T.G.G.A.A.A.A.A.A.G.A.G.T.G.G.G.C.C.C.C.A.T.T.G.G.T.G.G.C.G.A.C.T.T.T.C.A.C.C.G.G.A.T.A.T.G.C.A.G.T.C.A.G.T.G.G.T.T.T.T.T.G.T.A.A.T.G.G.G.C.G.G.A.T.A.C.A.A.G.T.G.T.G.A.A.G.A.C.A.T.A.C.T.A.C.A.G.A.G.A.A.G.G.A.T.C.T.T.A.A.A.T.C.A.A.C.T.T.C.C.C.T.G.T.T.A.A.A.A.C.T.A.G.T.A.C.G.G.T.G.A.A.T.C.A.C.G.C.G.T.C.C.T.T.T.G.A.T.A.G.A.G.A.T.G.T.A.C.C.C.T.A.G.G.T.C.T.C.A.C.G.A.A.C.T.A.C.C.A.A.C.A.T.G.A.A.A.G.C.C.C.T.C.T.A.C.T.G.G.C.T.A.G.C.C.G.T.A.G.G.C.T.G.T.C.G.T.A.T.C.C.G.G.G.A.C.G.A.G.G.T.T.A.G.C.T.C.T.T.C.A.T.T.T.T.A.A.A.A.C.A.A.C.C.T.G.C.T.C.G.C.T.C.G.T.C.T.T.T.T.A.T.G.C.C.A.A.C.A.G.C.A.T.T.T.C.C.A.G.C.A.C.A.C.A.T.A.C.C.G.T.G.T.A.T.G.G.T.T.G.T.A.C.T.G.C.G.C.T.C.A.A.A.G.G.C.G.C.T.T.T.A.A.T.G.A.T.G.C.T.A.A.A.T.T.C.A.T.C.C.T.G.G.A.A.T.A.T.A.C.T.A.A.T.A.G.C.G.A.T.A.T.A.G.T.T.G.T.C.G.G.G.C.T.T.A.G.G.C.G.T.C.T.C.T.C.T.G.G.G.A.C.T.G.A.A.A.T.G.C.A.C.C.C.G.C.T.A.A.T.A.A.T.C.G.T.G.C.A.T.A.C.A.T.A.G.C.C.C.T.G.A.C.C.T.G.C.A.A.G.A.T.T.C.C.T.T.G.C.A.A.T.C.T.A.A.C.G.A.G.C.T.C.T.A.G.A.C.T.A.G.C.C.G.G.T.A.T.G.C.T.G.T.T.T.T.T.G.G.A.G.T.G.A.A.G.G.C.G.A.G.T.A.T.G.A.G.T.T.G.G.A.G.A.A.A.G.T.T.C.T.G.G.C.C.G.T.T.G.T.G.C.T.T.C.G.T.C.A.T.C.G.A.A.A.A.G.C.C.G.G.A.A.G.A.C.T.C.T.T.C.C.T.A.T.C.G.A.C.C.A.G.C.T.G.C.T.A.C.G.G.G.A.C.T.T.C.G.A.T.C.A.G.T.G.G.A.C.G.C.G.G.C.G.T.G.A.A.A.T.C.A.G.G.C.T.A.T.C.A.A.T.C.C.C.C.T.T.G.A.G.C.A.A.T.G.C.G.T.G.T.C.A.G.T.T.T.A.T.G.T.T.A.C.G.A.C.A.A.T.T.G.A.C.G.C.A.G.A.A.C.C.C.T.C.G.C.T.A.T.C.A.A.T.T.T.A.T.T.C.G.T.G.T.T.A.T.G.A.T.A.C.T.C.A.A.C.T.A.C.G.T.T.C.C.A.T.T.A.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.A.C.T.T.C.G.T.C.G.T.T.T.A.G.A.C.G.A.T.C.A.C.A.C.A.C.G.T.C.T.G.G.G.T.A.C.A.G.T.G.G.T.T.G.G.T.C.A.C.T.C.C.G.C.T.C.T.A.A.T.T.T.C.A.T.T.A.T.C.A.T.T.C.G.G.G.C.C.A.G.C.A.C.A.C.T.C.C.G.C.G.T.C.T.T.G.A.A.C.T.T.A.A.C.G.A.G.G.A.A.A.T.C.G.G.T.A.G.G.C.T.C.C.C.G.A.G.C.T.C.C.G.T.T.A.T.T.T.C.G.A.C.C.T.G.C.T.C.G.G.T.C.A.G.G.C.C.C.A.A.T.G.G.A.C.T.A.C.C.T.T.T.T.A.C.T.A.C.C.G.A.A.C.A.C.A.G.G.G.G.C.A.T.T.G.G.G.A.G.C.C.G.C.T.C.A.G.A.G.A.T.C.G.T.G.A.C.G.A.G.C.T.G.C.A.A.A.C.C.T.A.T.T.A.C.C.C.T.A.C.T.T.G.A.G.G.T.G.C.A.A.C.T.A.A.C.G.G.G.T.T.C.G.G.G.G.C.T.A.A.G.C.G.A.C.A.T.C.G.G.C.T.A.C.A.A.A.T.A.T.C.A.T.T.G.C.C.G.G.A.T.C.T.T.C.A.G.C.C.C.A.A.A.G.T.G.A.A.C.G.G.G.C.A.A.C.T.C.C.T.A.T.T.G.A.A.T.A.G.T.G.A.G.G.A.A.C.C.C.C.T.G.G.G.A.C.A.G.A.T.C.C.A.A.G.T.G.T.A.T.T.C.A.A.T.C.A.C.T.C.G.T.G.A.G.A.G.C.A.C.A.C.C.T.G.C.T.T.T.T.A.C.G.C.C.G.A.A.T.T.A.T.C.A.T.C.A.A.G.A.T.G.A.C.A.T.G.G.G.G.G.C.G.C.T.T.G.T.T.A.C.G.G.A.T.G.G.G.A.T.G.C.T.G.C.C.A.T.G.C.G.C.T.G.G.T.A.C.A.A.A.A.A.A.A.G.G.T.A.C.G.G.A.C.A.G.G.C.C.T.A.C.A.G.G.A.C.T.A.T.A.C.A.C.G.A.G.G.G.C.T.G.A.G.T.C.C.G.G.A.A.G.T.C.G.A.G.G.G.G.G.G.G.C.T.A.C.T.A.C.C.A.C.C.T.G.A.G.T.C.C.A.G.C.A.A.A.A.C.G.C.T.A.A.T.G.C.T.C.G.C.T.C.C.A.T.G.T.T.C.T.G.C.T.G.C.G.G.G.C.A.T.G.C.G.T.G.G.A.T.T.A.G.G.A.T.T.A.C.T.A.A.C.A.C.A.C.T.A.A.T.A.A.A.T.A.C.A.A.G.G.T.T.A.G.T.A.G.C.A.A.T.C.T.C.T.G.T.T.G.T.A.G.T.A.C.A.A.C.C.C.G.A.G.G.C.T.G.C.C.C.C.T.A.G.G.G.A.T.A.C.C.G.T.G.T.G.T.A.C.T.G.T.T.G.G.A.C.T.C.G.T.T.A.A.C.C.A.C.T.T.A.T.C.C.A.C.A.A.C.T.T.T.C.G.T.G.C.T.A.G.C.T.C.C.G.T.T.G.A.T.A.G.A.A.C.T.C.G.C.T.A.T.G.C.C.G.A.C.A.A.G.C.T.A.G.G.G.G.C.C.T.G.G.G.T.C.C.T.T.T.A.T.T.G.T.A.A.A.G.G.A.G.T.T.T.C.A.T.A.A.C.T.G.G.C.G.G.C.C.A.C.A.T.C.T.T.G.T.A.C.A.C.T.C.T.A.T.C.A.C.A.C.G.A.T.C.C.A.A.A.C.A.T.C.G.T.T.T.G.G.A.T.A.G.C.G.C.G.C.T.C.C.G.G.G.C.T.A.G.T.C.G.C.G.G.C.G.C.A.A.A.T.C.A.G.T.A.T.A.A.T.A.C.G.C.C.A.T.C.G.A.T.A.G.T.T.T.T.G.T.C.T.C.C.A.T.G.T.A.C.A.T.G.T.A.G.C.T.G.G.T.T.A.G.A.G.T.A.C.T.T.C.C.G.A.G.T.T.C.G.G.G.C.A.A.T.C.C.T.T.C.T.T.C.T.G.G.T.C.A.C.T.A.A.A.G.G.G.G.A.G.C.A.G.T.A.A.G.T.G.G.C.G.C.T.T.A.G.A.C.C.T.C.T.G.C.G.T.G.C.A.A.G.C.G.G.A.T.T.G.T.A.G.T.T.T.C.A.T.A.A.C.T.A.T.G.C.T.G.C.A.G.T.T.C.A.C.G.A.T.G.A.A.T.G.G.G.A.T.G.G.C.G.T.T.C.T.G.A.T.C.C.A.T.A.A.C.T.G.G.C.T.A.T.A.A.G.A.T.G.A.A.C.C.A.A.T.C.C.A.T.T.G.G.G.T.A.C.A.A.C.C.T.G.T.G.C.C.G.T.T.C.T.T.G.C.A.C.C.G.A.G.A.A.G.C.A.T.G.A.C.T.T.G.A.A.A.C.G.T.G.C.A.T.A.G.G.A.C.A.T.T.A.T.C.C.G.A.T.C.C.T.C.G.C.A.T.A.C.T.C.A.A.A.A.A.A.G.A.C.A.T.G.A.C.A.A.C.T.C.G.G.A.G.A.A.C.T.A.G.T.A.T.G.A.T.A.G.T.C.C.C.T.T.G.A.G.A.G.A.T.C.A.A.T.C.G.C.A.C.A.T.T.A.C.T.G.T.A.T.G.G.T.A.A.T.C.C.C.C.A.T.C.A.G.C.G.T.G.A.A.T.A.A.A.C.T.G.T.C.C.A.A.A.T.C.T.T.G.T.T.G.T.A.T.G.G.T.C.C.A.A.T.T.T.A.C.C.T.T.C.T.G.A.C.A.G.A.C.T.A.G.A.C.T.G.T.A.A.T.A.A.A.T.T.A.G.A.A.A.A.T.C.T.T.T.T.A.G.A.G.C.T.G.C.G.T.T.T.G.C.T.C.C.G.A.C.T.T.C.T.C.T.A.A.A.T.G.A.A.C.A.C.C.G.G.G.C.T.A.G.C.T.T.A.T.C.T.C.A.A.C.C.C.G.T.C.G.C.G.G.C.C.C.T.T.C.T.A.T.C.T.C.C.C.C.T.G.G.C.G.C.A.C.G.A.A.A.G.G.A.T.T.G.G.T.T.G.A.C.C.G.A.A.C.A.A.A.T.A.C.G.C.G.G.T.G.G.T.T.C.T.C.C.T.A.A.A.A.T.C.C.A.A.A.A.T.T.A.A.G.A.G.G.T.C.T.G.C.T.A.T.A.T.G.C.C.A.G.T.A.C.G.C.G.C.A.T.C.G.G.A.G.C.G.C.G.T.A.G.C.A.A.T.C.G.C.G.C.A.G.T.C.A.A.A.G.C.C.A.G.C.C.G.G.G.G.G.A.T.G.A.A.A.C.A.G.A.A.T.C.G.A.C.G.T.T.A.C.T.C.T.C.C.C.A.C.T.A.T.C.T.T.G.T.T.A.G.A.G.A.T.A.G.G.A.A.C.A.C.G.A.A.A.G.C.G.G.T.T.T.A.T.T.G.T.T.G.A.A.T.A.T.C.A.C.A.T.G.G.A.T.C.G.T.C.G.G.T.G.T.C.C.G.G.T.C.A.A.C.T.C.A.T.C.C.T.G.A.G.C.G.C.T.G.C.C.T.G.G.T.C.C.C.A.G.C.A.T.T.T.C.T.C.A.C.C.G.T.A.G.G.T.G.C.G.T.C.C.A.T.G.C.A.A.G.T.C.T.C.C.T.T.A.T.G.G.T.T.G.G.T.G.C.T.A.C.A.A.G.T.T.G.A.G.G.A.A.T.G.G.G.G.A.C.T.T.A.C.G.T.C.C.T.T.G.C.G.A.T.T.G.A.G.A.C.C.T.C.A.G.T.T.G.C.A.C.A.T.T.T.T.T.T.G.A.G.T.T.T.A.T.G.A.G.C.G.C.G.A.T.A.G.T.C.T.A.A.G.T.T.A.A.C.G.C.C.C.G.T.C.A.A.G.C.T.C.T.A.T.G.C.T.C.T.T.C.G.C.C.G.G.G.C.G.T.G.A.T.T.C.G.C.T.G.A.A.G.G.G.G.C.C.C.C.A.C.G.A.A.G.A.A.C.T.G.C.A.T.T.C.T.C.C.C.T.T.T.C.C.G.G.A.T.C.A.T.A.T.G.T.G.C.A.T.C.T.T.A.G.C.A.T.A.T.A.T.G.G.T.C.G.T.A.C.C.C.G.G.G.T.A.T.T.A.A.G.C.G.A.C.C.G.A.G.C.C.C.C.C.A.G.C.T.T.C.T.A.A.G.G.G.A.C.T.T.A.C.A.T.T.C.T.G.T.G.G.T.A.G.A.G.T.C.T.C.A.C.G.G.C.C.T.T.T.A.T.C.T.T.T.T.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.A.C.C.C.T.T.G.C.C.A.G.A.C.G.C.A.A.T.G.G.C.G.T.C.C.C.C.G.G.T.T.G.A.A.G.T.G.A.T.C.A.T.T.A.A.C.T.C.A.T.T.G.G.T.A.C.A.T.T.T.C.C.A.C.G.G.T.C.C.T.G.G.G.T.G.A.A.G.C.C.C.C.T.C.C.A.C.G.T.G.T.A.C.G.T.C.G.A.G.A.C.T.C.A.A.C.G.G.C.G.C.A.T.T.C.A.T.G.A.C.G.G.A.G.T.T.C.G.A.G.C.G.T.A.T.A.C.C.C.G.A.G.G.A.G.T.C.A.G.C.G.A.A.T.G.C.T.C.G.T.G.A.T.A.A.T.G.A.A.G.T.G.T.T.C.A.C.A.C.C.T.G.A.C.T.T.A.T.A.A.G.G.A.T.C.C.A.G.A.G.T.A.G.C.A.G.G.C.A.A.T.T.G.G.A.T.G.A.G.A.C.A.T.T.C.G.A.G.A.C.G.C.G.T.C.A.C.G.G.G.A.C.G.C.C.C.G.C.A.C.C.C.A.A.C.C.A.A.G.T.A.T.G.T.T.C.A.A.T.C.T.T.C.G.G.A.T.C.A.C.A.G.A.A.C.G.C.T.A.A.A.C.G.C.G.C.T.G.G.C.A.G.G.G.G.G.C.C.C.G.T.G.G.A.C.G.A.C.C.A.A.T.A.A.T.A.A.G.G.G.C.T.T.C.C.A.A.A.C.C.C.T.G.G.C.T.C.C.T.G.A.T.G.A.A.C.C.A.T.G.C.A.T.A.C.A.A.G.G.A.T.A.C.T.A.C.A.C.A.G.C.T.T.G.T.A.C.C.C.G.T.C.T.C.T.A.C.C.A.G.G.C.G.G.G.G.C.A.A.A.T.T.C.A.T.G.A.G.C.A.G.A.T.C.C.G.G.C.A.T.C.T.G.C.C.G.C.G.T.T.C.G.C.A.G.C.T.G.A.C.T.G.C.A.C.A.A.C.C.C.T.G.T.G.G.T.T.C.C.A.C.A.T.C.A.A.A.G.G.T.T.A.T.A.G.T.G.A.T.T.G.C
+Sample 7  ( AFR ): T.A.T.A.T.T.G.A.A.A.T.G.A.C.C.A.G.C.A.T.G.C.C.C.G.C.A.A.G.C.T.A.G.A.G.A.C.C.C.G.C.A.A.C.T.T.A.G.G.C.G.G.C.A.T.A.T.C.C.G.A.A.T.T.C.C.A.G.C.T.T.T.C.A.T.C.G.C.A.C.G.T.C.T.T.C.T.C.T.G.T.C.C.T.C.G.C.G.T.A.A.A.T.G.G.T.G.G.A.C.C.G.G.A.G.C.G.G.T.A.T.T.G.A.A.C.T.T.C.G.C.T.A.C.C.G.A.G.C.C.A.T.G.T.C.A.C.C.A.G.T.T.G.G.A.A.T.A.G.A.T.A.G.G.T.A.T.T.C.A.T.T.G.C.A.A.C.G.T.T.G.C.G.A.T.C.C.C.C.T.T.G.G.A.C.C.A.G.A.A.G.A.C.C.G.A.A.A.T.T.A.G.C.T.A.T.C.A.G.C.A.T.G.T.A.G.G.A.A.T.C.T.G.C.C.G.G.A.G.A.G.G.G.C.C.C.G.G.A.A.T.C.A.C.A.G.C.G.G.A.T.G.T.T.T.G.G.A.G.C.G.G.A.T.T.C.G.T.T.T.A.G.T.A.C.G.C.T.A.T.G.C.A.C.T.A.A.C.C.C.A.C.T.A.A.T.G.G.C.A.A.A.A.A.G.A.G.T.G.T.G.C.G.C.C.A.T.T.G.G.T.G.G.C.G.A.C.G.T.T.C.C.C.C.G.G.C.T.G.T.G.T.A.G.T.C.C.G.T.G.G.T.T.A.C.C.G.T.C.A.T.A.A.G.G.G.G.A.T.A.C.A.A.G.T.G.T.G.A.A.G.A.C.A.T.A.C.C.A.C.A.G.A.G.A.A.G.G.A.T.C.T.T.A.A.A.T.C.G.A.C.T.T.C.C.C.T.G.T.T.G.A.A.A.C.T.A.G.T.A.C.G.G.T.G.A.A.T.C.A.C.G.C.G.T.C.C.T.T.T.G.A.C.A.G.A.G.G.T.G.C.A.C.C.C.A.A.G.G.T.A.T.G.A.C.G.A.A.A.T.A.C.C.A.A.C.A.T.T.C.A.T.G.G.C.G.T.G.T.A.G.T.T.T.C.T.A.G.C.G.C.T.A.G.G.C.T.T.T.C.A.A.A.C.C.T.G.G.G.A.C.G.G.C.G.G.T.A.G.G.C.C.T.T.C.T.G.T.T.T.A.A.A.A.C.A.C.C.C.T.G.G.T.A.T.A.C.C.G.T.C.T.T.T.T.A.G.G.C.C.A.A.C.A.G.C.A.T.T.T.C.C.A.G.C.A.C.A.C.A.T.A.C.C.G.T.T.T.A.T.G.G.T.T.G.T.A.C.A.G.G.G.C.T.A.A.C.A.G.T.C.G.C.C.G.T.G.G.C.G.T.T.A.A.A.A.A.C.T.C.C.A.T.C.C.G.G.G.A.A.T.A.T.T.C.C.C.A.G.T.C.A.G.T.A.C.G.C.G.T.C.C.C.C.G.C.C.C.G.G.A.G.A.C.C.G.C.G.C.T.C.T.G.G.A.A.C.T.T.A.A.A.T.G.C.A.A.A.T.T.A.C.A.A.C.C.A.T.A.G.T.C.C.T.G.A.A.T.T.A.G.C.G.C.T.G.G.G.C.C.G.C.A.A.T.G.T.T.A.A.A.T.G.C.A.C.T.C.T.A.A.C.G.A.T.C.T.A.T.A.C.A.C.T.A.T.C.C.G.G.T.A.T.G.G.T.G.A.C.T.A.T.G.G.G.G.G.T.C.G.T.T.T.G.A.T.A.G.T.G.A.C.T.T.G.G.A.G.A.A.A.T.T.G.A.T.G.G.C.C.G.T.T.G.T.C.C.G.T.C.A.A.G.A.T.C.C.A.G.A.C.T.G.T.G.A.C.G.G.A.C.T.C.T.C.C.T.C.A.T.C.G.A.G.C.G.G.C.T.G.G.G.A.A.G.C.G.C.C.C.G.C.G.A.T.T.C.C.T.C.G.A.C.C.A.A.G.C.G.C.C.A.A.C.C.G.T.C.C.T.C.C.A.G.C.C.T.G.A.G.C.T.T.A.A.G.T.T.G.T.G.C.G.T.G.T.C.A.G.T.T.G.C.T.G.T.T.A.T.G.C.C.C.A.T.T.G.T.C.A.A.T.G.A.A.C.C.C.T.C.G.T.T.A.T.G.A.T.T.T.T.A.T.A.G.A.T.G.G.T.A.T.G.T.T.A.A.T.G.A.A.C.T.A.C.G.T.T.C.T.A.T.T.A.G.G.T.C.A.G.A.C.G.C.T.T.A.G.T.A.A.A.C.T.G.G.T.G.G.T.A.T.T.G.A.C.C.A.T.G.G.A.A.C.A.C.G.T.C.T.T.G.G.T.A.C.A.G.T.G.G.A.A.G.C.T.C.A.C.C.G.C.C.C.T.G.T.A.C.T.T.T.A.A.T.C.A.G.C.A.T.T.T.G.G.G.A.C.T.G.T.A.T.T.A.T.A.T.T.C.G.T.T.G.T.C.A.A.C.T.A.A.A.C.G.A.T.G.A.C.G.T.C.T.G.T.A.G.G.C.C.C.C.C.C.A.G.C.T.C.C.G.T.G.A.T.T.T.C.G.A.C.C.T.G.C.T.T.G.G.T.C.A.G.G.C.C.A.A.A.T.G.G.A.C.C.A.C.A.T.A.T.T.A.C.T.A.A.C.G.A.A.C.A.C.A.G.G.G.G.C.A.T.T.G.G.G.A.G.C.C.C.C.T.C.C.G.A.C.A.T.T.A.T.C.A.C.G.A.G.C.T.G.C.A.A.G.A.C.T.A.T.C.A.C.T.G.A.A.C.A.T.G.A.G.G.T.G.G.T.G.C.T.A.A.G.A.G.A.T.G.C.G.C.G.G.C.T.A.A.G.C.C.A.C.C.C.C.T.G.C.G.C.C.A.T.A.T.A.T.C.A.T.T.G.T.C.G.G.A.T.G.T.T.C.A.G.C.G.C.A.A.A.G.A.G.G.A.G.G.T.A.C.C.G.C.G.A.C.G.G.C.C.T.C.G.T.A.G.T.G.T.T.G.C.G.A.C.G.T.G.A.A.A.A.T.A.A.C.T.A.C.G.C.A.G.C.G.T.G.T.C.G.A.G.T.C.C.C.T.T.T.A.A.G.A.G.A.A.C.G.C.G.G.G.T.T.C.T.C.A.C.C.C.C.A.G.A.C.T.G.T.G.A.C.C.A.A.G.A.A.G.A.C.C.A.A.G.G.G.G.C.A.G.T.T.G.T.T.A.C.G.G.A.T.G.G.G.A.T.G.C.A.C.A.C.A.T.G.C.G.C.T.G.G.A.A.T.A.A.A.A.A.T.A.A.C.G.A.C.G.G.A.C.A.A.G.C.C.T.C.C.A.G.G.G.C.G.C.T.A.T.A.C.G.A.G.G.G.C.T.G.C.G.T.C.A.T.G.C.A.T.C.C.G.A.G.G.G.C.G.A.C.A.G.G.T.G.G.C.C.G.C.C.T.G.G.T.G.C.G.A.G.C.A.G.A.A.G.G.C.T.T.T.T.C.C.T.C.G.C.G.C.C.A.T.G.T.G.T.T.G.A.T.G.C.G.G.C.C.A.T.G.C.G.T.G.G.A.C.T.A.G.G.A.T.T.A.T.T.C.G.C.A.T.A.G.T.G.T.T.A.A.A.G.G.C.A.C.A.G.A.T.A.G.T.A.G.C.G.A.T.G.A.C.T.A.T.T.G.T.A.G.T.T.A.A.A.C.A.G.G.C.G.T.C.A.C.G.A.C.C.T.A.A.G.A.A.T.A.C.C.G.T.A.A.T.T.C.C.T.T.T.T.A.C.A.C.T.T.G.T.T.A.T.C.C.C.C.T.T.T.T.C.T.A.A.A.A.G.T.T.T.C.G.A.G.A.G.A.G.G.A.C.C.G.T.T.G.A.T.C.G.C.A.C.T.C.G.C.T.A.T.G.T.T.G.A.C.A.A.G.C.T.G.G.A.G.C.C.A.T.G.G.G.C.C.C.T.C.T.A.T.C.G.T.A.A.A.G.G.A.G.T.T.T.C.A.T.A.A.C.T.C.C.C.A.G.C.C.A.C.A.A.C.T.T.G.T.A.C.A.C.T.C.T.A.T.C.T.C.A.C.G.A.T.C.C.G.A.A.C.A.T.C.G.T.T.T.G.G.A.T.A.G.C.G.C.G.C.T.C.C.C.G.C.G.T.A.G.T.C.G.C.A.G.C.A.C.G.A.A.G.T.A.G.A.A.T.A.A.T.A.C.G.C.C.A.T.G.G.A.T.A.G.T.T.T.T.G.T.C.T.C.C.A.T.G.T.A.C.A.T.G.T.A.G.C.T.G.G.G.T.A.G.A.G.T.A.C.T.T.C.C.T.A.G.T.T.C.G.G.G.C.A.A.T.C.C.T.T.C.T.T.C.T.G.G.T.C.A.C.T.A.A.A.G.G.G.G.A.G.C.A.G.T.A.A.G.G.T.G.C.G.C.T.T.A.G.A.C.C.A.C.T.G.T.G.T.G.C.A.A.G.C.G.G.A.T.T.G.T.A.G.T.T.T.C.A.T.A.A.C.T.A.T.G.C.T.G.C.A.G.T.T.C.A.C.G.A.T.G.A.A.C.G.G.G.A.T.G.G.C.G.T.T.C.T.G.A.T.C.C.A.T.A.A.C.T.G.G.C.G.A.T.A.A.G.A.T.G.A.A.C.C.A.A.T.C.C.A.T.T.G.G.G.T.A.C.A.A.C.C.T.G.T.G.C.C.G.T.T.C.T.T.G.C.A.C.C.G.A.G.A.A.G.C.A.T.G.A.C.T.T.G.A.A.A.C.G.T.G.C.A.T.A.G.G.A.C.A.T.T.A.T.C.C.G.A.T.C.C.T.C.G.C.A.T.A.C.T.C.A.A.A.C.A.A.G.A.C.A.T.G.A.C.A.A.C.T.C.C.G.A.G.A.A.C.T.A.G.T.A.T.G.A.T.A.G.T.C.C.C.G.G.G.A.G.G.G.A.A.A.A.A.T.G.G.C.A.C.G.T.T.A.G.A.G.T.A.T.G.G.T.A.A.T.C.C.C.C.A.T.C.A.G.C.G.T.G.A.A.T.A.A.A.C.T.G.T.C.C.A.A.A.T.C.T.C.G.T.T.G.T.A.T.G.A.T.C.C.A.A.A.T.T.A.C.C.T.T.C.G.G.T.C.A.G.G.C.T.A.G.A.C.T.G.T.A.A.T.A.A.A.T.T.A.G.A.A.A.A.T.C.T.T.T.T.A.G.A.G.C.T.G.C.G.T.T.T.G.C.C.A.C.C.A.C.T.T.C.T.T.A.C.A.A.T.G.C.A.C.A.C.C.G.G.T.T.T.G.G.C.T.T.A.A.T.T.C.G.T.T.A.A.C.C.C.G.C.T.A.C.C.C.C.A.C.T.A.T.C.T.C.C.C.C.T.G.G.C.T.A.T.A.A.A.G.A.A.G.A.A.C.G.A.T.T.A.A.A.C.A.A.A.T.A.A.A.G.C.C.G.C.G.G.T.A.G.T.T.C.T.C.C.C.A.A.A.A.T.C.C.C.A.G.A.T.C.A.A.G.T.C.C.T.C.G.A.C.A.A.T.G.T.G.G.C.A.G.C.A.C.C.C.A.C.T.C.C.G.A.A.G.C.C.G.C.T.G.T.C.A.G.C.T.G.G.G.T.G.A.G.T.A.A.T.G.T.C.C.A.C.C.G.C.G.G.G.A.T.G.A.A.A.G.C.T.A.A.T.T.G.A.G.G.T.T.C.C.G.C.T.C.C.T.T.C.T.T.T.G.A.T.A.A.T.T.C.T.T.C.G.A.G.C.C.A.C.A.C.G.T.A.A.T.C.G.G.C.T.T.A.G.T.A.T.T.G.A.A.G.C.T.C.A.C.A.T.A.G.A.T.G.G.T.C.G.G.T.G.T.C.C.G.G.T.T.A.A.C.T.C.A.T.C.C.A.G.C.G.C.G.C.G.G.T.C.T.G.G.T.C.C.C.A.G.C.A.T.A.T.T.T.T.T.A.C.G.T.A.G.G.T.A.A.A.T.C.C.A.T.G.A.A.A.G.A.C.C.C.G.T.T.A.A.G.G.T.T.T.G.A.A.C.T.A.C.A.A.G.T.A.G.A.G.G.G.G.T.T.T.G.G.A.C.C.T.C.G.G.G.C.A.G.T.G.C.C.A.A.T.G.T.G.A.C.T.T.C.A.G.T.T.C.C.A.G.A.T.T.G.T.T.T.T.A.G.T.G.A.A.T.G.T.G.C.C.G.G.C.T.C.G.T.C.A.A.G.G.T.T.A.A.C.G.C.C.C.G.T.T.A.A.G.C.T.C.T.G.T.G.C.T.C.T.T.C.G.C.C.G.G.G.C.G.T.G.A.T.T.C.G.C.T.G.A.A.G.G.G.A.T.C.C.C.A.C.G.A.A.G.A.A.C.T.G.C.A.T.G.C.T.C.C.G.T.T.T.C.C.T.C.A.T.T.A.C.A.T.G.T.G.C.A.T.C.C.T.A.T.A.T.A.G.G.A.T.G.G.T.A.C.T.A.C.C.C.G.G.G.T.A.T.T.A.A.G.C.G.A.G.C.G.T.T.C.G.G.C.C.A.G.C.G.T.C.T.A.A.G.G.G.A.C.T.T.A.C.A.T.T.A.T.G.T.G.G.T.A.G.A.G.T.C.T.C.A.C.C.G.C.C.T.T.T.A.G.C.T.T.T.T.T.A.A.C.C.C.G.C.A.G.G.G.G.T.T.A.C.A.C.T.T.G.C.C.A.G.A.C.G.C.A.A.T.G.G.C.G.T.C.C.C.C.G.G.T.T.T.T.A.G.A.G.A.T.C.C.T.C.A.A.C.G.T.A.T.T.G.A.T.G.C.C.T.T.T.T.C.A.C.G.G.T.T.C.G.G.G.G.T.G.A.A.G.C.C.C.C.T.C.C.A.C.G.T.G.T.A.C.G.T.C.G.A.G.A.C.G.C.A.A.C.G.G.C.G.C.A.T.T.A.A.G.G.A.C.G.G.A.G.T.T.C.G.A.G.T.G.T.A.T.A.C.C.C.G.T.G.A.A.G.T.C.A.G.A.G.A.G.T.G.C.G.C.T.T.G.A.T.A.A.T.G.A.A.G.G.A.T.T.C.A.C.A.A.C.G.G.T.C.T.T.A.T.G.A.T.T.G.A.A.C.A.G.A.G.T.A.G.C.A.G.T.C.A.C.T.T.G.G.A.T.G.A.G.C.A.A.T.T.C.C.A.A.C.T.G.C.G.G.T.A.C.G.T.G.C.C.G.C.C.C.G.C.A.C.T.C.A.A.G.A.A.A.T.T.A.T.G.T.T.C.A.A.G.C.T.T.C.G.T.A.A.C.A.C.A.G.A.A.T.G.C.T.A.A.A.C.G.C.G.C.T.G.G.C.A.G.G.G.G.G.C.C.C.G.T.G.G.A.C.G.A.C.C.A.A.T.A.A.T.A.A.G.G.G.T.G.T.C.C.A.A.A.G.C.C.T.G.G.C.T.C.C.T.G.A.T.G.A.C.C.C.A.T.G.C.A.T.C.C.C.A.G.G.A.T.A.C.T.A.C.A.C.A.G.C.T.T.G.T.A.C.C.C.C.T.C.T.C.T.A.A.C.A.G.G.C.G.G.G.G.C.A.A.A.T.T.C.A.T.G.A.G.C.A.T.A.A.T.C.A.G.C.A.A.G.T.A.C.C.A.C.T.T.T.C.C.C.A.G.C.T.G.A.C.T.G.C.A.C.A.A.C.C.C.T.T.T.A.A.C.T.C.T.A.C.A.T.C.A.A.A.G.A.T.T.A.T.C.C.T.G.A.T.A.T.C
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can easily obtain the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.allele_frequency_spectrum" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.allele_frequency_spectrum()</span></code></a> for the entire region (or for
-<a class="reference internal" href="getting_started.html#sec-tskit-getting-started-compute-statistics-windowing"><span class="std std-ref">windowed regions</span></a>)</p>
+<a class="reference internal" href="getting_started.html#sec-tskit-getting-started-compute-statistics-windowing"><span class="std std-ref">windowed regions</span></a>)
+directly from the tree sequence (i.e. without needing to reconstruct genotypes)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">()</span>
@@ -644,12 +573,12 @@ Sample 31 (ADMIX): ACCAAATGCAGTACAACCACAGGGACCGTTAGATCTTTA
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/020b76bb89fadb40f5e7817ed19423edf5ee8ef77ac6faca17d1b57c62d84ee4.png" src="_images/020b76bb89fadb40f5e7817ed19423edf5ee8ef77ac6faca17d1b57c62d84ee4.png" />
+<img alt="_images/8ece7d03d4762e2bcaa6aa892c77c3c7100997c0287fcb253eb1c04df9088e1c.png" src="_images/8ece7d03d4762e2bcaa6aa892c77c3c7100997c0287fcb253eb1c04df9088e1c.png" />
 </div>
 </div>
 <p>Similarly <code class="docutils literal notranslate"><span class="pre">tskit</span></code> allows fast and easy
 <a class="reference internal" href="analysing_tree_sequences.html#sec-tutorial-stats"><span class="std std-ref">calculation of statistics</span></a> along the genome. Here is
-a plot of windowed <span class="math notranslate nohighlight">\(F_{st}\)</span> between Africans and admixed Americans over this short
+a plot of windowed <span class="math notranslate nohighlight">\(F_{st}\)</span> between Africans and admixed Americans over this
 region of chromosome:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -657,8 +586,8 @@ region of chromosome:</p>
 <span class="n">pop_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()}</span>
 <span class="n">sample_sets</span><span class="o">=</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">&quot;AFR&quot;</span><span class="p">]),</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">&quot;ADMIX&quot;</span><span class="p">])]</span>
 
-<span class="c1"># Do the windowed calculation, using windows of 2 kilobases</span>
-<span class="n">windows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2_000</span><span class="p">))</span>
+<span class="c1"># Do the windowed calculation, using windows of 10 kilobases</span>
+<span class="n">windows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">10_000</span><span class="p">))</span>
 <span class="n">F_st</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">Fst</span><span class="p">(</span><span class="n">sample_sets</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
 
 <span class="c1"># Plot</span>
@@ -670,13 +599,14 @@ region of chromosome:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/230b3166e860dec10a200864467321a8fcca311b172df410081b907f2a9b3dff.png" src="_images/230b3166e860dec10a200864467321a8fcca311b172df410081b907f2a9b3dff.png" />
+<img alt="_images/5041104ba6f1dfeb0d3163ad610e4656e05f8a8e6edd73807bafff0e560c4ceb.png" src="_images/5041104ba6f1dfeb0d3163ad610e4656e05f8a8e6edd73807bafff0e560c4ceb.png" />
 </div>
 </div>
 <p>Extracting the genetic tree at a specific genomic location is easy using <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, which
 also provides methods to <a class="reference internal" href="viz.html#sec-tskit-viz"><span class="std std-ref">plot</span></a> these trees. Here we
 grab the tree at position 10kb, and colour the different populations by
-different colours, as described in the <a class="reference internal" href="viz.html#sec-tskit-viz-styling"><span class="std std-ref">viz tutorial</span></a>:</p>
+grab the tree at position 10kb, and colour the samples according to their population,
+as described in the <a class="reference internal" href="viz.html#sec-tskit-viz-styling"><span class="std std-ref">viz tutorial</span></a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">10_000</span><span class="p">)</span>
@@ -709,10 +639,32 @@ different colours, as described in the <a class="reference internal" href="viz.h
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:Ticks {20000: &#39;20000&#39;} lie outside the plotted axis
+<img alt="_images/20bfa553801f863774ff3f034e21d91887e5dc85388799e3f94fad0dde43bdb8.svg" src="_images/20bfa553801f863774ff3f034e21d91887e5dc85388799e3f94fad0dde43bdb8.svg" />
+</div>
+</div>
+<p>Or we can plot a principal components analysis of the genome, which should reflect
+geographical distinctiveness:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Patch</span>
+
+<span class="c1"># Run the Principal Components Analysis (PCA)</span>
+<span class="n">pca_obj</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">num_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plot the PCA &quot;factors&quot;</span>
+<span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]</span>
+<span class="n">sample_pop_ids</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes_population</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">pca_obj</span><span class="o">.</span><span class="n">factors</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">col_list</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sample_pop_ids</span><span class="p">],</span> <span class="n">edgecolors</span><span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;PCA 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;PCA 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
+<span class="p">]);</span>
 </pre></div>
 </div>
-<img alt="_images/87d1514b8135c3c8d459403bc2aa00bf01d48b77959a06c7c6311e821151d6d5.svg" src="_images/87d1514b8135c3c8d459403bc2aa00bf01d48b77959a06c7c6311e821151d6d5.svg" />
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/42b8505d6a54e161c8ca179a92ff773bea38e3e2fd0b08e1bb3fbfbd12fe5e47.png" src="_images/42b8505d6a54e161c8ca179a92ff773bea38e3e2fd0b08e1bb3fbfbd12fe5e47.png" />
 </div>
 </div>
 </section>
@@ -728,13 +680,12 @@ based on about 7500 public human genomes, including genomes from the
 The genomic region encoded in this tree sequence has been cut down to
 span positions 108Mb-110Mb of human chromosome 2, which spans the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Ectodysplasin_A_receptor">EDAR</a> gene.</p>
-<p>Note that tree sequence files are usually imported using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a>,
-but because this file has been additionally compressed, we load it via
-<a class="reference external" href="https://tskit.dev/tszip/docs/latest/python-api.html#tszip.decompress" title="(in Project name not set)"><code class="docutils literal notranslate"><span class="pre">tszip.decompress()</span></code></a>:</p>
+<p>Note that we are using <a class="reference external" href="https://tskit.dev/tszip/docs/latest/python-api.html#tszip.load" title="(in Project name not set)"><code class="docutils literal notranslate"><span class="pre">tszip.load()</span></code></a> to load the file, as this
+utility can also read and write compressed tree sequences in <code class="docutils literal notranslate"><span class="pre">.tsz</span></code> format.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tszip</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="s2">&quot;data/unified_genealogy_2q_108Mb-110Mb.tsz&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/unified_genealogy_2q_108Mb-110Mb.tsz&quot;</span><span class="p">)</span>
 
 <span class="c1"># The ts encompasses a region on chr 2 with an interesting SNP (rs3827760) in the EDAR gene</span>
 <span class="n">edar_gene_bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">108_894_471</span><span class="p">,</span> <span class="mi">108_989_220</span><span class="p">]</span>  <span class="c1"># In Mb from the start of chromosome 2</span>
@@ -800,10 +751,11 @@ variable sites, is stored in tree sequence <a class="reference internal" href="m
 <span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_populations</span><span class="p">,</span> <span class="s2">&quot;populations defined in the tree sequence:&quot;</span><span class="p">)</span>
 
 <span class="n">pop_names_regions</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">)]</span>
+    <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))]</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
 <span class="p">]</span>
-<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pop_names_regions</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;population name&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">]))</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pop_names_regions</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="s2">&quot;# genomes&quot;</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
@@ -829,8 +781,9 @@ variable sites, is stored in tree sequence <a class="reference internal" href="m
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>population name</th>
+      <th>name</th>
       <th>region</th>
+      <th># genomes</th>
     </tr>
   </thead>
   <tbody>
@@ -838,60 +791,406 @@ variable sites, is stored in tree sequence <a class="reference internal" href="m
       <th>0</th>
       <td>BantuKenya</td>
       <td>AFRICA</td>
+      <td>22</td>
     </tr>
     <tr>
       <th>1</th>
       <td>BantuSouthAfrica</td>
       <td>AFRICA</td>
+      <td>16</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Biaka</td>
       <td>AFRICA</td>
+      <td>44</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Cambodian</td>
       <td>EAST_ASIA</td>
+      <td>18</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Dai</td>
       <td>EAST_ASIA</td>
+      <td>18</td>
     </tr>
     <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
+      <th>5</th>
+      <td>Daur</td>
+      <td>EAST_ASIA</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Han</td>
+      <td>EAST_ASIA</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Hezhen</td>
+      <td>EAST_ASIA</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Japanese</td>
+      <td>EAST_ASIA</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Lahu</td>
+      <td>EAST_ASIA</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Mandenka</td>
+      <td>AFRICA</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Mbuti</td>
+      <td>AFRICA</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Miao</td>
+      <td>EAST_ASIA</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Mongolian</td>
+      <td>EAST_ASIA</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Naxi</td>
+      <td>EAST_ASIA</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>NorthernHan</td>
+      <td>EAST_ASIA</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Oroqen</td>
+      <td>EAST_ASIA</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>San</td>
+      <td>AFRICA</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>She</td>
+      <td>EAST_ASIA</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Tu</td>
+      <td>EAST_ASIA</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Tujia</td>
+      <td>EAST_ASIA</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Xibo</td>
+      <td>EAST_ASIA</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Yakut</td>
+      <td>EAST_ASIA</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Yi</td>
+      <td>EAST_ASIA</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Yoruba</td>
+      <td>AFRICA</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Ami</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Atayal</td>
+      <td>EastAsia</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>BantuHerero</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>BantuKenya</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>BantuTswana</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Biaka</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Burmese</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Cambodian</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Dai</td>
+      <td>EastAsia</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Daur</td>
+      <td>EastAsia</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Dinka</td>
+      <td>Africa</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Esan</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Gambian</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Han</td>
+      <td>EastAsia</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Hezhen</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Japanese</td>
+      <td>EastAsia</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>Ju_hoan_North</td>
+      <td>Africa</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>Khomani_San</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>Kinh</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>Korean</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>Lahu</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>Luhya</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Luo</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>Mandenka</td>
+      <td>Africa</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Masai</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Mbuti</td>
+      <td>Africa</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Mende</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Miao</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>Mozabite</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Naxi</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>Oroqen</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Saharawi</td>
+      <td>Africa</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>She</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>Somali</td>
+      <td>Africa</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>Thai</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>Tu</td>
+      <td>EastAsia</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>Tujia</td>
+      <td>EastAsia</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>62</th>
       <td>Uygur</td>
       <td>EastAsia</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>63</th>
       <td>Xibo</td>
       <td>EastAsia</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>64</th>
       <td>Yi</td>
       <td>EastAsia</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>65</th>
       <td>Yoruba</td>
       <td>Africa</td>
+      <td>6</td>
     </tr>
     <tr>
       <th>66</th>
       <td>Denisovan</td>
       <td>None</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
-<p>67 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>You can see that there are multiple African and East asian populations, grouped by
@@ -955,15 +1254,124 @@ using tree sequences is simply that they allow these sorts of analysis to
 <section id="topological-analysis">
 <span id="sec-popgen-topological"></span><h3>Topological analysis<a class="headerlink" href="#topological-analysis" title="Link to this heading">#</a></h3>
 <p>As this inferred tree sequence stores (an estimate of) the underlying
-genealogy, we can also derive statistics based on genealogical relationships. For
-example, this tree sequence also contains a sample genome based on an ancient
-genome, a <a class="reference external" href="https://en.wikipedia.org/wiki/Denisovan">Denisovan</a> individual. We can
-look at the closeness of relationship between samples from the different geographical
-regions and the Denisovan:</p>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Show an example of looking at topological relationships between the Denisovan and
-various East Asian groups, using the <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">Counting topologies</span></a> functionality.</p>
+genealogy, we can also derive statistics based on genealogical relationships. You
+may have noticed that this tree sequence also contains a sample genome based on an ancient
+genome, a <a class="reference external" href="https://en.wikipedia.org/wiki/Denisovan">Denisovan</a> individual. We’ll first
+simplify the tree sequence to focus on only the Denisovan plus
+a common East Asian and a common African population:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Focus on Han, San, and Denisovan</span>
+<span class="n">focal</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Han&quot;</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
+    <span class="s2">&quot;San&quot;</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">17</span><span class="p">),</span>
+    <span class="s2">&quot;Denisovan&quot;</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">66</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">focal</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Sanity check that we got the right IDs</span>
+    <span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span>
+
+<span class="c1"># Simplify to just those samples ...</span>
+<span class="n">all_focal_samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">samples</span> <span class="ow">in</span> <span class="n">focal</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+<span class="n">simplified_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">all_focal_samples</span><span class="p">,</span> <span class="n">filter_sites</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># ... and find the tree around the rs3827760 SNP</span>
+<span class="n">focal_site</span> <span class="o">=</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">focal_site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With this smaller number of samples, we can easily plot the tree
+at the “rs3827760” SNP:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make some nice labels, colours, and legend</span>
+<span class="n">mutation_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">focal_site</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">focal_site</span><span class="o">.</span><span class="n">mutations</span><span class="p">}</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">San</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">Han</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">Denisovan</span><span class="o">=</span><span class="s2">&quot;magenta&quot;</span><span class="p">)</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sa">f</span><span class="s2">&quot;.leaf.p</span><span class="si">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span><span class="si">}</span><span class="s2">; stroke: grey</span><span class="se">}}</span><span class="s2">&quot;</span>
+    <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
+<span class="p">]</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="s1">&#39;&lt;rect width=&quot;125&quot; height=&quot;75&quot; x=&quot;100&quot; y=&quot;30&quot; fill=&quot;transparent&quot; stroke=&quot;grey&quot; /&gt;&#39;</span>
+<span class="n">legend</span> <span class="o">+=</span> <span class="s1">&#39;&lt;text x=&quot;120&quot; y=&quot;45&quot; font-weight=&quot;bold&quot;&gt;Populations&lt;/text&gt;&#39;</span>
+<span class="c1"># Create the legend lines, one for each population. Setting classes that match those</span>
+<span class="c1"># used for normal nodes means that styled colours are auto automatically picked-up.</span>
+<span class="n">legend</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+    <span class="sa">f</span><span class="s1">&#39;&lt;g transform=&quot;translate(105, </span><span class="si">{</span><span class="mi">60</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">15</span><span class="o">*</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">)&quot; class=&quot;leaf p</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">&quot;&gt;&#39;</span>  <span class="c1"># an SVG group</span>
+    <span class="sa">f</span><span class="s1">&#39;&lt;rect width=&quot;6&quot; height=&quot;6&quot; class=&quot;sym&quot; /&gt;&#39;</span>  <span class="c1"># Square symbol</span>
+    <span class="sa">f</span><span class="s1">&#39;&lt;text x=&quot;10&quot; y=&quot;7&quot;&gt;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span> <span class="c1"># Label</span>
+    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="p">(</span><span class="s2">&quot; (&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;)&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="s2">&quot;region&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="si">}</span><span class="s1">&lt;/text&gt;&lt;/g&gt;&#39;</span>  
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
+<span class="p">])</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mutation_labels</span><span class="p">,</span>
+    <span class="n">preamble</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Tree of human chromosome 2 at position </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50_000</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/08fc2699cf55263096d48d3b06faa0cc3706568ff495e5ba2b025e79e6e7e664.svg" src="_images/08fc2699cf55263096d48d3b06faa0cc3706568ff495e5ba2b025e79e6e7e664.svg" />
+</div>
+</div>
+<p>You can see that the pair of magenta Denisovan genomes in this region tend to be
+more closely associated with the East Asian genomes. We can assess that by counting
+all the 3-tip topologies in the tree that contain one genome from each population:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topology_counter</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">count_topologies</span><span class="p">()</span>
+<span class="n">embedded_topologies</span> <span class="o">=</span> <span class="n">topology_counter</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">num_populations</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All the following code is simply to plot the embedded_topologies nicely</span>
+<span class="n">all_trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">num_populations</span><span class="p">))</span>
+<span class="n">last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_trees</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">svgs</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.sample text.lab {baseline-shift: super; font-size: 0.7em;}&quot;</span>
+<span class="n">style</span> <span class="o">=</span> <span class="n">style</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.leaf.p&quot;</span><span class="p">,</span> <span class="s2">&quot;.leaf.n&quot;</span><span class="p">)</span>  <span class="c1"># Hack to map node IDs to population colours</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+    <span class="s2">&quot;node_labels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()}</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_trees</span><span class="p">):</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">embedded_topologies</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
+    <span class="n">params</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> trees&quot;</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">last</span><span class="p">:</span>
+        <span class="n">svgs</span> <span class="o">+=</span> <span class="n">t</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">last</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="mi">150</span><span class="p">},</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Plot the last svg and stack the previous ones to the right</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">preamble</span><span class="o">=</span><span class="n">svgs</span><span class="p">,</span> <span class="n">canvas_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/1dcb2a86801e60bcb47940d1074f37cf22fb6ca713dffd45be489708cc877410.svg" src="_images/1dcb2a86801e60bcb47940d1074f37cf22fb6ca713dffd45be489708cc877410.svg" />
+</div>
 </div>
 <p>See <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">Counting topologies</span></a> for an introduction to topological methods in
 <code class="docutils literal notranslate"><span class="pre">tskit</span></code>.</p>
