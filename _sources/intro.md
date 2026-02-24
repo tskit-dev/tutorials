@@ -74,7 +74,9 @@ ts.draw_svg(size=size, x_scale="treewise", style=style, canvas_size=canvas_size)
 ```
 
 If you are new to the world of tree sequences, we suggest you start with the
-first tutorial: {ref}`sec_what_is`
+first tutorial: {ref}`sec_what_is`. If you wish to try `tskit` before
+installing it onto your computer, you might like to check out our
+[interactive online notebooks](https://tskit.dev/explore/lab/?path=tskit.ipynb).
 
 :::{note}
 Tutorials are under constant development. Those that are still a work in progress and
