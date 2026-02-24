@@ -260,9 +260,13 @@ plt.legend(handles=[
 ## Population genetic inference
 
 If, instead of simulations, you want to analyse existing genomic data (for example
-stored in a VCF file), you will need to infer a tree sequence from it, using e.g.
-[tsinfer](https://tskit.dev/tsinfer/docs/stable/). Here we load an illustrative portion
-of an [inferred tree sequence](https://zenodo.org/record/5512994)
+stored in a VCF file), you will need to infer a tree sequence from it, using [ARG
+inference software](https://www.patrickfournier.ca/arg-samplers-review/graph/#/page/arg%20inference) (such as [SINGER](https://github.com/popgenmethods/SINGER),
+[Relate](https://myersgroup.github.io/relate/),
+[Threads](https://github.com/PalamaraLab/threads), or
+[tsinfer](https://github.com/tskit-dev/tsinfer)). Here we load an
+illustrative portion of a tree sequence
+[inferred by tsinfer+tsdate](https://zenodo.org/record/5512994) which is
 based on about 7500 public human genomes, including genomes from the
 [Thousand Genomes Project](https://www.internationalgenome.org/data-portal/data-collection/grch38) and
 [Human Genome Diversity Project](https://www.internationalgenome.org/data-portal/data-collection/hgdp).
