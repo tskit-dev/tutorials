@@ -17,12 +17,12 @@ under construction.
 
 # Requirements
 
-Install the Python requirements from requirements.txt:
+Install the Python requirements from `requirements.txt`:
 ```
 $ python -m pip install -r requirements.txt
 ```
 
-You will also need a working R installation with reticulate and irkernel installed.
+You will also need a working R installation with `reticulate` and `irkernel` installed.
 This command should do the trick:
 ```
 $ R -e 'install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()'
@@ -35,8 +35,8 @@ $ R -e 'install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()'
   [jupytext](https://github.com/mwouts/jupytext) to convert the notebook into
   the right format.
 - To build locally, run ``make``. The output tells you where to find the
-  built HTML.
-- Pages rendered at https://tskit.dev/tutorials
+  built `HTML` file(s).
+- Pages rendered at https://tskit.dev/tutorials.
 - Pages might take a while to be updated after a new tutorial is merged.
 
 If you have an idea for a tutorial, please open an issue to discuss.

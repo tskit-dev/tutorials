@@ -162,6 +162,7 @@ svg_string = ts_tiny.draw_svg(
     size=svg_size,
     y_axis=True, y_label=" ",  # optional: show a time scale on the left
     time_scale="rank", x_scale="treewise",  # Force same axis settings as the text view
+    title="A basic SVG plot",
 )
 display(svg_string)  # If the last line in a cell, wrapping this in display() is not needed
 ```
@@ -201,14 +202,18 @@ with 8 samples, but where we've restricted the amount of the tree sequence we pl
 ```{code-cell} ipython3
 x_limits = [5000, 15000]
 # Create evenly-spaced y tick positions to avoid overlap
-y_tick_pos = [0, 1000, 2000, 3000, 4000]
+y_tick_pos = [0, 1000, 2000, 3000]
 
-print("The tree sequence between positions {} and {} ...".format(*x_limits))
-display(ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits))
+display(ts_small.draw_svg(
+    size=svg_size,
+    y_axis=True,
+    y_ticks=y_tick_pos,
+    x_lim=x_limits,
+    title="The tree sequence between positions {} and {}".format(*x_limits)
+))
 
 third_tree = ts_small.at_index(2)
-print("... or just look at (say) the third tree")
-display(third_tree.draw_svg())
+display(third_tree.draw_svg(title="A plot of the third tree"))
 ```
 
 As the number of sample nodes increases, internal nodes often bunch up at recent time
@@ -225,20 +230,21 @@ styling is detailed {ref}`later in this tutorial <sec_tskit_viz_styling>`).
 (sec_tskit_viz_large_tree_sequence)=
 
 ```{code-cell} ipython3
-print("A larger tree, on a log timescale")
 wide_fmt = (1200, 250)
 # Create a stylesheet that shrinks labels and rotates leaf labels, to avoid overlap
 node_label_style = (
     ".node > .lab {font-size: 80%}"
     ".leaf > .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"
 )
+
 ts_full.first().draw_svg(
     size=wide_fmt,
     time_scale="log_time",
     y_gridlines=True,
     y_axis=True,
     y_ticks=[1, 10, 100, 1000],
-    style=node_label_style,
+    style=node_label_style + "svg > .title text {font-size: 150%}",
+    title="A larger tree, on a log timescale",
 )
 ```
 
@@ -290,9 +296,11 @@ plot region, or simply plotting the tree itself:
 
 
 ```{code-cell} ipython3
-third_tree = ts_mutated.at_index(2)
-print(f"The third tree in the mutated tree sequence, which covers {third_tree.interval}")
-third_tree.draw_svg(size=(200, 300))
+tree3 = ts_mutated.at_index(2)
+tree3.draw_svg(
+    size=(320, 300),
+    title=f"3rd tree, from position {int(tree3.interval.left)} to {int(tree3.interval.right)}",
+)
 ```
 
 (sec_tskit_viz_extra_mutations)=
@@ -308,7 +316,11 @@ associated with an edge in the tree but which fall outside the interval of that 
 default these mutations are drawn in a slightly different shade (e.g. mutation 64 below).
 
 ```{code-cell} ipython3
-third_tree.draw_svg(size=(200, 300), all_edge_mutations=True)
+tree3.draw_svg(
+    size=(320, 300),
+    all_edge_mutations=True,
+    title="As above, but with all mutations on visible edges"    
+)
 ```
 
 (sec_tskit_viz_labelling)=
@@ -337,6 +349,7 @@ for mut in ts_mutated.mutations():  # Make pretty labels showing the change in s
     mut_labels[mut.id] = f"{prev}→{mut.derived_state}"
 
 ts_mutated.draw_svg(
+    size=(1000, 300),
     y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits,
     node_labels=nd_labels,
     mutation_labels=mut_labels,
@@ -1063,6 +1076,43 @@ By definition, if a node is a sample, it must be present in every tree. This
 means that there can be sample nodes which are "isolated" in a tree. These are drawn
 unconnected to the main topology in one or more trees (e.g. nodes 7 and 8 above).
 :::
+
+#### Adding imagery
+
+The `preamble` argument allows arbitrary SVG commands to be included in an SVG plot.
+This can be used, for instance, to annotate parts of the plot or construct legends:
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+ts = tskit.load("data/viz_ts_full.trees")
+
+styles = [
+    f".node.p{p.id} > .sym " + "{" + f"fill: {colour}" + "}"
+    for colour, p in zip(['red', 'green', 'blue'], ts_full.populations())
+]  # styles created as in previous examples 
+
+# Make a legend: first create a surrounding box and a title
+legend = '<rect width="145" height="75" x="2" y="10" fill="#EEE" stroke="grey" />'
+legend += '<text x="65" y="25" font-weight="bold">Key</text>'
+# Now make the legend lines, one for each population. Setting classes that match those
+# used for normal nodes means that styled colours are automatically picked-up.
+legend += "".join([
+    f'<g transform="translate(5, {40 + 15*p.id})" class="node p{p.id}">'  # an SVG group
+    f'<rect width="6" height="6" class="sym" />'  # Square symbol
+    f'<text x="10" y="7">Population {p.metadata["name"]} (id={p.id})</text></g>'  # Label
+    for p in ts_full.populations()
+    if p.id < 3
+])
+
+ts.first().draw_svg(
+    size=(1200, 250),
+    node_labels={},    # Remove all node labels for a clearer viz
+    style="".join(styles),  # Apply the stylesheet
+    preamble=legend,
+)
+```
+
+SVGs can be nested, so it is even possible to add an entire SVG in the `preamble`.
 
 #### A fancy formatted plot
 
