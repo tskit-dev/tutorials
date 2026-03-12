@@ -22,6 +22,7 @@ parts:
   - file: viz
   - file: metadata
   - file: args
+  - file: haplotype_tracking
 - caption: Simulation
   chapters:
   - file: simulation_overview
