@@ -337,19 +337,17 @@ See {ref}`sec_tskit_viz_dynamic_effects` if you want to dynamically hide and sho
 labels.
 
 ```{code-cell} ipython3
-nd_labels = {}  # An array of labels for the nodes
-for n in ts_mutated.nodes():
+nd_labels = {  # An array of labels for the nodes
     # Set sample node labels from metadata. Here we use the population name, but you might want
     # to use the *individual* name instead, if the individuals in your tree sequence have names
-    if n.is_sample():
-        nd_labels[n.id] = ts_mutated.population(n.population).metadata["name"]
+    n.id: ts_mutated.population(n.population).metadata["name"]
+    for n in ts_mutated.nodes()
+    if n.is_sample()
+}
 
-mut_labels = {}  # An array of labels for the mutations
-for mut in ts_mutated.mutations():  # Make pretty labels showing the change in state
-    site = ts_mutated.site(mut.site)
-    older_mut = mut.parent >= 0  # is there an older mutation at the same position?
-    prev = ts_mutated.mutation(mut.parent).derived_state if older_mut else site.ancestral_state
-    mut_labels[mut.id] = f"{prev}→{mut.derived_state}"
+mut_labels = { # An array of labels for the mutations
+    mut.id: f"{mut.inherited_state}→{mut.derived_state}" for mut in ts_mutated.mutations()
+}  
 
 ts_mutated.draw_svg(
     size=(1000, 300),
@@ -370,12 +368,8 @@ knowledge of the SVG graphics language (see the {ref}`sec_tskit_viz_legend_examp
 later in this tutorial for a node colour legend).
 
 ```{code-cell} ipython3
-mut_labels = {  # Alternative way of defining a label dictionary using a dict comprehension
-    mut.id: (
-        (ts_mutated.mutation(mut.parent).derived_state if mut.parent < 0 else site.ancestral_state) +
-        str(int(site.position)) +
-        mut.derived_state
-    )
+mut_labels = {
+    mut.id: f"{mut.inherited_state}{int(site.position)}{mut.derived_state}"
     for site in ts_mutated.sites() for mut in site.mutations
 }
 

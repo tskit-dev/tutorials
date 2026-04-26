@@ -49,7 +49,8 @@ coalescence in any of the local trees. Full ARGs can be stored and analysed in
 {func}`msprime:msprime.sim_ancestry` by specifying `coalescing_segments_only=False` along with
 `additional_nodes = msprime.NodeType.COMMON_ANCESTOR | msprime.NodeType.RECOMBINANT`
 (or the equivalent `record_full_arg=True`) as described
-{ref}`in the msprime docs<msprime:sec_ancestry_full_arg>`:
+{ref}`in the msprime docs<msprime:sec_ancestry_full_arg>`. To remind ourselves that this
+is a full ARG, we will use the variable `arg` rather than `ts`
 
 ```{code-cell}
 import msprime
@@ -62,7 +63,7 @@ parameters = {
     "random_seed": 333,
 }
 
-ts_arg = msprime.sim_ancestry(
+arg = msprime.sim_ancestry(
     **parameters,
     discrete_genome=False,  # the strict Hudson ARG needs unique crossover positions (i.e. a continuous genome)
     coalescing_segments_only=False,   # setting record_full_arg=True is equivalent to these last 2 parameters
@@ -71,8 +72,8 @@ ts_arg = msprime.sim_ancestry(
 
 print('Simulated a "full ARG" under the Hudson model:')
 print(
-    f" ARG stored in a tree sequence with {ts_arg.num_nodes} nodes and"
-    f" {ts_arg.num_edges} edges (creating {ts_arg.num_trees} local trees)"
+    f" ARG stored in a tree sequence with {arg.num_nodes} nodes and"
+    f" {arg.num_edges} edges (creating {arg.num_trees} local trees)"
 )
 ```
 
@@ -83,9 +84,9 @@ variation:
 ```{code-cell}
 import numpy as np
 mu = 1e-7
-ts_arg = msprime.sim_mutations(ts_arg, rate=mu, random_seed=888)
-print("     Sample node:  " + "   ".join(str(u) for u in ts_arg.samples()))
-for v in ts_arg.variants():
+arg = msprime.sim_mutations(arg, rate=mu, random_seed=888)
+print("     Sample node:  " + "   ".join(str(u) for u in arg.samples()))
+for v in arg.variants():
     print(f"Variable site {v.site.id}:", np.array(v.alleles)[v.genotypes])
 ```
 
@@ -120,7 +121,7 @@ require(["d3"], function(d3) {window.d3 = d3;});
 
 ```{code-cell} ipython3
 import tskit_arg_visualizer
-d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=ts_arg)
+d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=arg)
 w, h = 450, 300  # width and height
 d3arg.draw(w, h, edge_type="ortho", sample_order=[0, 2, 1, 3, 5, 4])
 ```
@@ -135,16 +136,16 @@ ancestor nodes (unlabelled) in blue.
 :"tags": ["hide-input"]
 # Plot the recombination nodes in red, with a horizontal line at the time of occurrence,
 # and only label nodes that are samples or recombination nodes.
-samples = set(ts_arg.samples())
-re_nodes = set(nd.id for nd in ts_arg.nodes() if nd.flags & msprime.NODE_IS_RE_EVENT)
-ca_nodes = set(np.arange(ts_arg.num_nodes)) - re_nodes - samples
-re_times = [int(nd.time) for nd in ts_arg.nodes() if nd.flags & msprime.NODE_IS_RE_EVENT]
+samples = set(arg.samples())
+re_nodes = set(nd.id for nd in arg.nodes() if nd.flags & msprime.NODE_IS_RE_EVENT)
+ca_nodes = set(np.arange(arg.num_nodes)) - re_nodes - samples
+re_times = [int(nd.time) for nd in arg.nodes() if nd.flags & msprime.NODE_IS_RE_EVENT]
 style = ".y-axis .grid {stroke: #ff000033} .mut .sym {stroke: goldenrod}"
 for u in re_nodes:
     style += f".n{u} > .sym {{fill: red}}"
 for u in ca_nodes:
     style += f".n{u} > .sym {{fill: blue}}"
-ts_arg.draw_svg(
+arg.draw_svg(
     size=(600, 300),
     y_axis=True,
     y_ticks=re_times,
@@ -210,7 +211,7 @@ rate and population size, using the {func}`msprime:msprime.log_arg_likelihood` m
 print(
     "Log likelihood of the genealogy under the Hudson model:",
     msprime.log_arg_likelihood(
-        ts_arg,
+        arg,
         recombination_rate=parameters["recombination_rate"],
         Ne=parameters["population_size"]
     )
@@ -235,7 +236,7 @@ This loses information about the timings of recombination and non-coalescent
 common ancestry, but it still keeps the local tree structure intact:
 
 ```{code-cell}
-ts = ts_arg.simplify()
+ts = arg.simplify()
 ts.draw_svg(
     size=(600, 300),
     y_axis=True,
@@ -268,7 +269,7 @@ the topology and branch lengths of the local trees remain unchanged after simpli
 
 ```{code-cell}
 print("Log likelihood of mutations given the genealogy:")
-print(' "full" ARG:',  msprime.log_mutation_likelihood(ts_arg, mutation_rate=mu))
+print(' "full" ARG:',  msprime.log_mutation_likelihood(arg, mutation_rate=mu))
 print(" simplified:", msprime.log_mutation_likelihood(ts, mutation_rate=mu))
 ```
 
@@ -290,17 +291,17 @@ its simplified version:
 ```{code-cell}
 large_sim_parameters = parameters.copy()
 large_sim_parameters["sequence_length"] *= 1000
-large_ts_arg = msprime.sim_ancestry(
+large_arg = msprime.sim_ancestry(
     **large_sim_parameters,
     discrete_genome=False,  # not technically needed, as we aren't calculating likelihoods
     coalescing_segments_only=False,
     additional_nodes=msprime.NodeType.COMMON_ANCESTOR | msprime.NodeType.RECOMBINANT,
 )
-large_ts = large_ts_arg.simplify()
+large_ts = large_arg.simplify()
 
 print(
     "Non-coalescent nodes take up "
-    f"{(1-large_ts.num_nodes/large_ts_arg.num_nodes) * 100:0.2f}% "
+    f"{(1-large_ts.num_nodes/large_arg.num_nodes) * 100:0.2f}% "
     f"of this {large_ts.sequence_length/1e6:g} megabase {large_ts.num_samples}-tip ARG"
 )
 ```
@@ -331,7 +332,7 @@ stored on *edges* (via the {attr}`~Edge.left` and  {attr}`~Edge.right` propertie
 rather than on nodes. Here, for example, is the edge table from our ARG:
 
 ```{code-cell}
-ts_arg.tables.edges
+arg.tables.edges
 ```
 
 Technically therefore, ARGs stored by `tskit` are edge-annotated
@@ -425,6 +426,27 @@ which are never children of an edge are not visited by this algorithm. Such
 nodes are either {ref}`isolated<sec_data_model_tree_isolated_nodes>` or a
 {ref}`root<sec_data_model_tree_roots>` in each local tree.
 
+(sec_args_counting_unique_children)=
+
+### Counting unique children
+
+Because edges are ordered first by parent ID, then by child ID, it is efficient
+to calculate the number of unique child IDs associated with a given parent.
+Above we passed over the edges using a `groupby` operation, but the canonical
+way to do this in the `numpy` library is to find where the group boundaries
+are, and count those:
+
+```{code-cell}
+def arg_num_children(ts):
+    # Return an array giving the number of unique child IDs for each node, anywhere in the genome.
+    # Relies on the fact that edges in a tree seq are sorted by parent ID then by child ID
+    same_parent = np.concatenate((ts.edges_parent[1:] == ts.edges_parent[:-1], [False]))
+    same_child  = np.concatenate((ts.edges_child[1:] == ts.edges_child[:-1], [False]))
+    is_last_unique = ~same_parent | ~same_child  # last occurrence of each unique child per parent
+    return np.bincount(ts.edges_parent[is_last_unique], minlength=ts.num_nodes)
+
+print(arg_num_children(arg))
+```
 
 (sec_args_other_analysis)=
 
@@ -458,26 +480,26 @@ def to_networkx_graph(ts, interval_lists=False):
     nx.set_node_attributes(G, {n.id: {'flags':n.flags, 'time': n.time} for n in ts.nodes()})
     return G
 
-arg = to_networkx_graph(ts_arg)
+graph = to_networkx_graph(arg)
 ```
 
 It is then possible to use the full range of networkx functions to analyse the graph:
 
 ```{code-cell} ipython3
-assert nx.is_directed_acyclic_graph(arg)  # All ARGs should be DAGs
-print("All descendants of node 10 are", nx.descendants(arg, 10))
+assert nx.is_directed_acyclic_graph(graph)  # All ARGs should be DAGs
+print("All descendants of node 10 are", nx.descendants(graph, 10))
 ```
 
 Networkx also has some built-in drawing functions: below is one of the simplest ones
 (for other possibilities, see the {ref}`sec_tskit_viz` tutorial).
 
 ```{code-cell} ipython3
-for layer, nodes in enumerate(nx.topological_generations(arg.reverse())):
+for layer, nodes in enumerate(nx.topological_generations(graph.reverse())):
     for node in nodes:
-        arg.nodes[node]["layer"] = layer
-pos = nx.multipartite_layout(arg, subset_key="layer", align='horizontal')
+        graph.nodes[node]["layer"] = layer
+pos = nx.multipartite_layout(graph, subset_key="layer", align='horizontal')
 
-nx.draw_networkx(arg, pos=pos)
+nx.draw_networkx(graph, pos=pos)
 ```
 
 ## Other software

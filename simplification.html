@@ -53,7 +53,7 @@
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'simplification';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Visualization" href="viz.html" />
+    <link rel="next" title="Advanced simplification" href="advanced_simplification.html" />
     <link rel="prev" title="Tables and editing" href="tables_and_editing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -179,7 +179,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tables_and_editing.html">Tables and editing</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><em>Simplification</em></a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Simplification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_simplification.html"><em>Advanced simplification</em></a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Working with Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="args.html">ARGs as tree sequences</a></li>
@@ -332,7 +335,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -348,6 +353,22 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-single-tree-example">A single tree example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-larger-simplification-example">A larger simplification example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case-1-remove-historical-samples">Use case 1: remove historical samples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case-2-simplify-to-a-subset-of-samples">Use case 2: simplify to a subset of samples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficiency">Efficiency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-other-unused-objects">Removing other unused objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-uses-for-simplification">Extra uses for simplification</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -358,10 +379,1522 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="simplification">
-<span id="sec-simplification"></span><h1><em>Simplification</em><a class="headerlink" href="#simplification" title="Link to this heading">#</a></h1>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Create content. See https://github.com/tskit-dev/tutorials/issues/52</p>
+<span id="sec-simplification"></span><h1>Simplification<a class="headerlink" href="#simplification" title="Link to this heading">#</a></h1>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method provides one of the most powerful ways to modify a
+<a class="reference external" href="https://tskit.dev">tskit</a> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>. It removes and modifies edges to leave only the
+ancestry of a provided set of focal nodes. By default it ensuring these focal nodes are marked as
+samples and removes non-ancestral nodes and associated objects such as individuals and populations.
+It is commonly used:</p>
+<ul class="simple">
+<li><p>In forward simulations, to remove lineages that have gone extinct</p></li>
+<li><p>To create a smaller tree sequence focussed on a subset of samples</p></li>
+<li><p>To remove redundant nodes and other tskit objects (e.g. unreferenced populations)</p></li>
+</ul>
+<p>Other less common uses, such as retaining unary regions of coalescent nodes, and
+simplification in parallel, are described in the <a class="reference internal" href="advanced_simplification.html#sec-advanced-simplification"><span class="std std-ref">Advanced simplification</span></a> tutorial.</p>
+<section id="a-single-tree-example">
+<h2>A single tree example<a class="headerlink" href="#a-single-tree-example" title="Link to this heading">#</a></h2>
+<p>We start with a very small example for ease of visualisation. This is
+a tree sequence consisting of a single tree with 8 haploid genomes
+(4 diploid individuals) and 2 variable sites.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/simplification_basic.trees&quot;</span><span class="p">)</span>
+<span class="n">plot_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">&quot;time_scale&quot;</span><span class="p">:</span> <span class="s2">&quot;log_time&quot;</span><span class="p">,</span> <span class="s2">&quot;y_axis&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;y_ticks&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]}</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="o">**</span><span class="n">plot_params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9d613b08b8b627386035e6dca0b3c18ccd5cb45131176c280429c70e4b4ac114.svg" src="_images/9d613b08b8b627386035e6dca0b3c18ccd5cb45131176c280429c70e4b4ac114.svg" />
+</div>
+</div>
+<p>Suppose we only want to retain the ancestry of sample nodes 0, 1, and 2. We can do this
+by passing those IDs as the new samples to the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">focal_node_ids</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">ts_simp1</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">focal_node_ids</span><span class="p">)</span>
+<span class="n">ts_simp1</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="o">**</span><span class="n">plot_params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/dbcf52ede45261fc9f696af4fd966ee65d029554a154ea69d4de14f5eefbc9c2.svg" src="_images/dbcf52ede45261fc9f696af4fd966ee65d029554a154ea69d4de14f5eefbc9c2.svg" />
+</div>
+</div>
+<p>Restricting the sample nodes to [0, 1, 2] makes the ancestry much simpler.
+Note that one of the mutations is not relevant to the new samples, so it has been
+filtered out, causing the ID of the remaining mutation to change from 1 to 0.
+Similarly, many nodes have been filtered out, resulting in changed node IDs
+(e.g. the root node at time 1000 is the same in both trees, but its ID has
+changed from 14 to 4).</p>
+<p>To keep node IDs the same, you can specify <code class="docutils literal notranslate"><span class="pre">filter_nodes=False</span></code>. Although this makes
+the result easier to compare with the original, it is not generally recommended, as it
+leaves redundant nodes cluttering up the tree sequence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_simp2</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">focal_node_ids</span><span class="p">,</span> <span class="n">filter_nodes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filter_sites</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Node IDs should now remain unchanged</span>
+<span class="n">ts_simp2</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="o">**</span><span class="n">plot_params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0a042b49438d2d8286db21d7c307b97824b3f615e7e3a3728b3e8bb566b2004f.svg" src="_images/0a042b49438d2d8286db21d7c307b97824b3f615e7e3a3728b3e8bb566b2004f.svg" />
+</div>
+</div>
+<p>Note that the example above also used another <code class="docutils literal notranslate"><span class="pre">filter_</span></code> argument, setting
+<code class="docutils literal notranslate"><span class="pre">filter_sites=False</span></code>, so that the first site, which has no mutations after
+simplification, is also retained (it is shown as a bare tick mark on the X axis,
+around position 250). However, mutations above unused nodes are still deleted
+so mutation IDs are not guaranteed to stay the same.</p>
+<p>To further reduce the size of the simplified tree sequence, simplification normally
+removes nodes from the ancestry that no longer represent branch points (coalescences).
+We can leave those in using <code class="docutils literal notranslate"><span class="pre">keep_unary=True</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_simp3</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">focal_node_ids</span><span class="p">,</span> <span class="n">filter_nodes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">keep_unary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ts_simp3</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="o">**</span><span class="n">plot_params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f2bf889ac8f401a54b6371e086f77cc5a4a4486d06142d8a17ca3c85a68b44c2.svg" src="_images/f2bf889ac8f401a54b6371e086f77cc5a4a4486d06142d8a17ca3c85a68b44c2.svg" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As modifying a tree sequence can change the IDs of nodes, sites, and other objects,
+it can be useful to use <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">metadata</span></a>:
+information that stays associated with tskit objects even when their IDs change.
+When simplifying, it is also possible to keep track of node ID changes by using
+the <code class="docutils literal notranslate"><span class="pre">map_nodes</span></code> parameter, as demonstrated later in this tutorial.</p>
+</div>
+</section>
+<section id="a-larger-simplification-example">
+<h2>A larger simplification example<a class="headerlink" href="#a-larger-simplification-example" title="Link to this heading">#</a></h2>
+<p>Here we examine the impact of simplification on the efficiency of tree sequence
+storage and processing. We’ll start with a larger backward simulation that has
+a handful of admixed individuals:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demography</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;SMALL&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;BIG&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">4000</span><span class="p">)</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ADMIX&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ANC&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_admixture</span><span class="p">(</span>
+    <span class="n">time</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">derived</span><span class="o">=</span><span class="s2">&quot;ADMIX&quot;</span><span class="p">,</span> <span class="n">ancestral</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SMALL&quot;</span><span class="p">,</span> <span class="s2">&quot;BIG&quot;</span><span class="p">],</span> <span class="n">proportions</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">demography</span><span class="o">.</span><span class="n">add_population_split</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">derived</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SMALL&quot;</span><span class="p">,</span> <span class="s2">&quot;BIG&quot;</span><span class="p">],</span> <span class="n">ancestral</span><span class="o">=</span><span class="s2">&quot;ANC&quot;</span><span class="p">)</span>
+
+<span class="n">big_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;SMALL&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span> <span class="s2">&quot;BIG&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span> <span class="s2">&quot;ADMIX&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;ANC&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">},</span>
+  <span class="n">demography</span><span class="o">=</span><span class="n">demography</span><span class="p">,</span>
+  <span class="n">sequence_length</span><span class="o">=</span><span class="mf">5e7</span><span class="p">,</span>
+  <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">2e-8</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">2432</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">big_ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">big_ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">6151</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+  <span class="sa">f</span><span class="s2">&quot;`big_ts` represents a simulation with admixture of </span><span class="si">{</span><span class="n">big_ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">,</span>
+  <span class="sa">f</span><span class="s2">&quot;over </span><span class="si">{</span><span class="n">big_ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2"> Mb (</span><span class="si">{</span><span class="n">big_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees)&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>`big_ts` represents a simulation with admixture of 2412 samples over 50 Mb (125118 trees)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-case-1-remove-historical-samples">
+<h2>Use case 1: remove historical samples<a class="headerlink" href="#use-case-1-remove-historical-samples" title="Link to this heading">#</a></h2>
+<p>Here, about a third of the sample nodes (those from the <code class="docutils literal notranslate"><span class="pre">ANC</span></code> population) exist
+at times prior to the current generation, i.e. they are <em>historical</em> sample nodes.
+In fact, in forward simulations most nodes will be of this sort, left over from
+previously simulated generations. These are often unwanted, and one of the main
+use cases for simplification is to reduce the ancestry to that of just the
+contemporary genomes: i.e. removing any edges, nodes, and mutations that track
+“extinct” lineages.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modern_sample_ids</span> <span class="o">=</span> <span class="n">big_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ts_modern</span> <span class="o">=</span> <span class="n">big_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">modern_sample_ids</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree sequence simplified to </span><span class="si">{</span><span class="n">ts_modern</span><span class="o">.</span><span class="n">nbytes</span><span class="o">/</span><span class="n">big_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> of original size&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence simplified to 81.6% of original size
+</pre></div>
+</div>
+</div>
+</div>
+<p>Simplifying has only produced a modest reduction in size, but you can imagine that
+in a forward simulation, where the majority of genomes are historical, repeated
+simplification can result in huge savings. In practice, simulators usually do this
+regular simplification of the tables used to store the paths of genetic inheritance
+automatically, so using
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> in this way is mainly of interest if you are
+<a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">building your own forward simulator</span></a>.</p>
+</section>
+<section id="use-case-2-simplify-to-a-subset-of-samples">
+<h2>Use case 2: simplify to a subset of samples<a class="headerlink" href="#use-case-2-simplify-to-a-subset-of-samples" title="Link to this heading">#</a></h2>
+<p>Often you might want to focus on only one group of samples, for example the small
+group of <code class="docutils literal notranslate"><span class="pre">ADMIX</span></code> individuals (population ID 2 in this simulation):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">admix_pop_id</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">big_ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">admix_pop_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ADMIX&quot;</span>
+<span class="n">admix_sample_ids</span> <span class="o">=</span> <span class="n">big_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">admix_pop_id</span><span class="p">)</span>
+
+<span class="n">ts_admix</span><span class="p">,</span> <span class="n">node_map</span> <span class="o">=</span> <span class="n">big_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">admix_sample_ids</span><span class="p">,</span> <span class="n">map_nodes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree sequence simplified to </span><span class="si">{</span><span class="n">ts_admix</span><span class="o">.</span><span class="n">nbytes</span><span class="o">/</span><span class="n">big_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> of original size&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Previous admixed sample IDs were </span><span class="si">{</span><span class="n">admix_sample_ids</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simplifying has changed these to </span><span class="si">{</span><span class="n">node_map</span><span class="p">[</span><span class="n">admix_sample_ids</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check that these are indeed the only sample IDs</span>
+<span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">node_map</span><span class="p">[</span><span class="n">admix_sample_ids</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">ts_admix</span><span class="o">.</span><span class="n">samples</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence simplified to 10.86% of original size
+
+Previous admixed sample IDs were [1600 1601 1602 1603 1604 1605 1606 1607 1608 1609 1610 1611]
+Simplifying has changed these to [ 0  1  2  3  4  5  6  7  8  9 10 11]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">map_nodes=True</span></code> argument means that <code class="docutils literal notranslate"><span class="pre">simplify()</span></code> returns both a new
+tree sequence and an array mapping each old node ID to its new ID, or to
+<code class="docutils literal notranslate"><span class="pre">tskit.NULL</span></code> if that node is removed.
+Here you can see that (unlike in previous examples) the sample node IDs
+have changed: unless <code class="docutils literal notranslate"><span class="pre">filter_nodes=False</span></code>, the <em>N</em> node IDs provided as the <code class="docutils literal notranslate"><span class="pre">samples</span></code>
+argument will be allocated new IDs from 0 to <em>N</em> - 1 in the returned tree sequence (so simplify can be used to reorder sample IDs, although
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.subset" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">subset()</span></code></a> is a way to do this with fewer side effects).</p>
+</div>
+<section id="efficiency">
+<h3>Efficiency<a class="headerlink" href="#efficiency" title="Link to this heading">#</a></h3>
+<p>Edges take up the majority of the space in most tree sequences. In this case you can
+see that although simplify has reduced the sample nodes to 12 genomes from
+the 6 diploid <code class="docutils literal notranslate"><span class="pre">ADMIX</span></code> individuals (a reduction of 99.5%), the number of edges
+has not been reduced by such a large amount.
+That’s because many of the ancestors of the SMALL and BIG populations are also shared
+by <code class="docutils literal notranslate"><span class="pre">ADMIX</span></code>. It also shows why tree sequence structures are so effective for encoding
+and analysing large datasets: storage and processing efficiency, in particular the
+number of edges, is sub-linear in the number of samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;The simplified tree sequence has only </span><span class="si">{</span><span class="n">ts_admix</span><span class="o">.</span><span class="n">num_samples</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">big_ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> of the samples,&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;but retains </span><span class="si">{</span><span class="n">ts_admix</span><span class="o">.</span><span class="n">num_edges</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">big_ts</span><span class="o">.</span><span class="n">num_edges</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> of the edges.&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The simplified tree sequence has only 0.50% of the samples, but retains 9.72% of the edges.
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to analyse only the admixed individuals, using the simplified tree sequence
+is much more efficient than running equivalent operations on the original <code class="docutils literal notranslate"><span class="pre">big_ts</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%timeit</span>
+<span class="c1"># Speed test for decoding all the genetic variants of the admixed individuals</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts_admix</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11.3 ms ± 109 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Identical results can be obtained using the full tree sequence and restricting calculations to the <code class="docutils literal notranslate"><span class="pre">admix_sample_ids</span></code>, but this approach is much slower:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%timeit</span>
+<span class="c1"># Equivalent processing of admixed individuals, using the full tree sequence</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">big_ts</span><span class="o">.</span><span class="n">variants</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">admix_sample_ids</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>262 ms ± 2.56 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The same efficiencies apply to calculating statistics on subsets of genomic samples.
+As simplification has been highly optimised in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, if you perform repeated
+processing of the same subset of genomes, it can be worth simplifying before
+processing.</p>
+</section>
+<section id="removing-other-unused-objects">
+<h3>Removing other unused objects<a class="headerlink" href="#removing-other-unused-objects" title="Link to this heading">#</a></h3>
+<p>If we print out the original and admix-only (simplified) tree sequence, we can see
+that a number of other tables have also been reduced in size. For instance,
+simplification has reduced the number of individuals from 1206 to 6, and the
+number of sites to less than a sixth of the original.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original tree sequence&quot;</span><span class="p">)</span>
+<span class="n">big_ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original tree sequence
+</pre></div>
+</div>
+<div class="output text_html">
+        <div>
+            <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+            </style>
+            <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>125 118</td></tr>
+                            <tr><td>Sequence Length</td><td>50 000 000</td></tr>
+                            <tr><td>Time Units</td><td>generations</td></tr>
+                            <tr><td>Sample Nodes</td><td>2 412</td></tr>
+                            <tr><td>Total Size</td><td>24.8 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">No Metadata</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>491 725</td>
+                <td>15.0 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>1 206</td>
+                <td>33.0 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>65 284</td>
+                <td>2.3 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>78 992</td>
+                <td>2.1 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>4</td>
+                <td>343 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>2</td>
+                <td>3.0 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>65 232</td>
+                <td>1.6 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>msprime</td>
+                    <td>1.4.0</td>
+                    <td>sim_mutations</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: msprime<br/>version: 1.4.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: sim_mutations<br/>
+            <div>
+                <span class="tskit-details-label">tree_sequence:</span>
+                <details >
+                    <summary>dict</summary>
+                    __constant__: __current_ts__<br/>
+                </details>
+            </div>
+            <br/>rate: 1e-08<br/>model: None<br/>start_time: None<br/>end_time: None<br/>discrete_genome: None<br/>keep: None<br/>random_seed: 6151<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: runnervmeorf1<br/>release: 6.17.0-1010-azure<br/>version: #10~24.04.1-Ubuntu SMP Fri Mar<br/>6 22:00:57 UTC 2026<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.11.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">gsl:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.6<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>msprime</td>
+                    <td>1.4.0</td>
+                    <td>sim_ancestry</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: msprime<br/>version: 1.4.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: sim_ancestry<br/>
+            <div>
+                <span class="tskit-details-label">samples:</span>
+                <details >
+                    <summary>dict</summary>
+                    SMALL: 400<br/>BIG: 400<br/>ADMIX: 6<br/>ANC: 400<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">demography:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">populations:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 1000<br/>growth_rate: 0<br/>name: SMALL<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: None<br/>initially_active: None<br/>id: 0<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 4000<br/>growth_rate: 0<br/>name: BIG<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: None<br/>initially_active: None<br/>id: 1<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 500<br/>growth_rate: 0<br/>name: ADMIX<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: None<br/>initially_active: None<br/>id: 2<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 1500<br/>growth_rate: 0<br/>name: ANC<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: 1000<br/>initially_active: False<br/>id: 3<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">events:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    time: 100<br/>derived: ADMIX<br/>
+            <div>
+                <span class="tskit-details-label">ancestral:</span>
+                <details >
+                    <summary>list</summary>
+                     SMALL<br/> BIG<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">proportions:</span>
+                <details >
+                    <summary>list</summary>
+                     0.5<br/> 0.5<br/>
+                </details>
+            </div>
+            <br/>__class__: msprime.demography.Admixture<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    time: 1000<br/>
+            <div>
+                <span class="tskit-details-label">derived:</span>
+                <details >
+                    <summary>list</summary>
+                     SMALL<br/> BIG<br/>
+                </details>
+            </div>
+            <br/>ancestral: ANC<br/>__class__: msprime.demography.PopulationS<br/>plit<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">migration_matrix:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>__class__: msprime.demography.Demography<br/>
+                </details>
+            </div>
+            <br/>sequence_length: 50000000.0<br/>discrete_genome: None<br/>recombination_rate: 2e-08<br/>gene_conversion_rate: None<br/>gene_conversion_tract_length: None<br/>population_size: None<br/>ploidy: None<br/>model: None<br/>initial_state: None<br/>start_time: None<br/>end_time: None<br/>record_migrations: None<br/>record_full_arg: None<br/>additional_nodes: None<br/>coalescing_segments_only: None<br/>num_labels: None<br/>random_seed: 2432<br/>stop_at_local_mrca: None<br/>replicate_index: 0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: runnervmeorf1<br/>release: 6.17.0-1010-azure<br/>version: #10~24.04.1-Ubuntu SMP Fri Mar<br/>6 22:00:57 UTC 2026<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.11.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">gsl:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.6<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
+        </div>
+    </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simplified tree sequence&quot;</span><span class="p">)</span>
+<span class="n">ts_admix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simplified tree sequence
+</pre></div>
+</div>
+<div class="output text_html">
+        <div>
+            <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+            </style>
+            <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>15 153</td></tr>
+                            <tr><td>Sequence Length</td><td>50 000 000</td></tr>
+                            <tr><td>Time Units</td><td>generations</td></tr>
+                            <tr><td>Sample Nodes</td><td>12</td></tr>
+                            <tr><td>Total Size</td><td>2.7 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">No Metadata</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>47 794</td>
+                <td>1.5 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>6</td>
+                <td>192 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>10 131</td>
+                <td>366.1 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>9 871</td>
+                <td>269.9 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>4</td>
+                <td>343 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>3</td>
+                <td>3.5 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>10 128</td>
+                <td>247.3 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>26 April, 2026 at 11:53:18 AM</td>
+                    <td>tskit</td>
+                    <td>1.0.0</td>
+                    <td>simplify</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tskit<br/>version: 1.0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: simplify<br/>TODO: add simplify parameters<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: runnervmeorf1<br/>release: 6.17.0-1010-azure<br/>version: #10~24.04.1-Ubuntu SMP Fri Mar<br/>6 22:00:57 UTC 2026<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.11.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>msprime</td>
+                    <td>1.4.0</td>
+                    <td>sim_mutations</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: msprime<br/>version: 1.4.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: sim_mutations<br/>
+            <div>
+                <span class="tskit-details-label">tree_sequence:</span>
+                <details >
+                    <summary>dict</summary>
+                    __constant__: __current_ts__<br/>
+                </details>
+            </div>
+            <br/>rate: 1e-08<br/>model: None<br/>start_time: None<br/>end_time: None<br/>discrete_genome: None<br/>keep: None<br/>random_seed: 6151<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: runnervmeorf1<br/>release: 6.17.0-1010-azure<br/>version: #10~24.04.1-Ubuntu SMP Fri Mar<br/>6 22:00:57 UTC 2026<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.11.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">gsl:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.6<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>msprime</td>
+                    <td>1.4.0</td>
+                    <td>sim_ancestry</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: msprime<br/>version: 1.4.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: sim_ancestry<br/>
+            <div>
+                <span class="tskit-details-label">samples:</span>
+                <details >
+                    <summary>dict</summary>
+                    SMALL: 400<br/>BIG: 400<br/>ADMIX: 6<br/>ANC: 400<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">demography:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">populations:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 1000<br/>growth_rate: 0<br/>name: SMALL<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: None<br/>initially_active: None<br/>id: 0<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 4000<br/>growth_rate: 0<br/>name: BIG<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: None<br/>initially_active: None<br/>id: 1<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 500<br/>growth_rate: 0<br/>name: ADMIX<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: None<br/>initially_active: None<br/>id: 2<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    initial_size: 1500<br/>growth_rate: 0<br/>name: ANC<br/>description: <br/>
+            <div>
+                <span class="tskit-details-label">extra_metadata:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+                </details>
+            </div>
+            <br/>default_sampling_time: 1000<br/>initially_active: False<br/>id: 3<br/>__class__: msprime.demography.Population<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">events:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    time: 100<br/>derived: ADMIX<br/>
+            <div>
+                <span class="tskit-details-label">ancestral:</span>
+                <details >
+                    <summary>list</summary>
+                     SMALL<br/> BIG<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">proportions:</span>
+                <details >
+                    <summary>list</summary>
+                     0.5<br/> 0.5<br/>
+                </details>
+            </div>
+            <br/>__class__: msprime.demography.Admixture<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    time: 1000<br/>
+            <div>
+                <span class="tskit-details-label">derived:</span>
+                <details >
+                    <summary>list</summary>
+                     SMALL<br/> BIG<br/>
+                </details>
+            </div>
+            <br/>ancestral: ANC<br/>__class__: msprime.demography.PopulationS<br/>plit<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">migration_matrix:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0.0<br/> 0.0<br/> 0.0<br/> 0.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>__class__: msprime.demography.Demography<br/>
+                </details>
+            </div>
+            <br/>sequence_length: 50000000.0<br/>discrete_genome: None<br/>recombination_rate: 2e-08<br/>gene_conversion_rate: None<br/>gene_conversion_tract_length: None<br/>population_size: None<br/>ploidy: None<br/>model: None<br/>initial_state: None<br/>start_time: None<br/>end_time: None<br/>record_migrations: None<br/>record_full_arg: None<br/>additional_nodes: None<br/>coalescing_segments_only: None<br/>num_labels: None<br/>random_seed: 2432<br/>stop_at_local_mrca: None<br/>replicate_index: 0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: runnervmeorf1<br/>release: 6.17.0-1010-azure<br/>version: #10~24.04.1-Ubuntu SMP Fri Mar<br/>6 22:00:57 UTC 2026<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.11.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.0.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">gsl:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.6<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
+        </div>
+    </div></div>
+</div>
+<p>Note that the call to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.simplify()</span></code></a> has been recorded in the
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/provenance.html#sec-provenance" title="(in Project name not set)"><span>Provenance</span></a> information. Like most tree sequence methods, you can pass
+<code class="docutils literal notranslate"><span class="pre">record_provenance=False</span></code> if you want this to be omitted (which will save space, but not
+lead to other efficiency gains).</p>
+<p>On closer inspection, you might be surprised to see that there are still 4 populations in
+the simplified tree sequence, although it contains only samples from the <code class="docutils literal notranslate"><span class="pre">ADMIX</span></code> population:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Sample nodes in `ts_admix` belong to the following populations&quot;</span><span class="p">,</span>
+    <span class="n">ts_admix</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">population</span><span class="p">[</span><span class="n">ts_admix</span><span class="o">.</span><span class="n">samples</span><span class="p">()],</span>
+<span class="p">)</span>
+<span class="n">ts_admix</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">populations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample nodes in `ts_admix` belong to the following populations [2 2 2 2 2 2 2 2 2 2 2 2]
+</pre></div>
+</div>
+<div class="output text_html">
+        <div>
+            <style scoped="">
+                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                .tskit-table tbody tr th {vertical-align: top;}
+                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                .tskit-table tbody th {padding: 0.5em 0.5em;}
+            </style>
+            <table border="1" class="tskit-table">
+                <thead>
+                    <tr>
+                        <th>id</th><th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>{'description': '', 'name': 'SMALL'}</td></tr>
+<tr><td>1</td><td>{'description': '', 'name': 'BIG'}</td></tr>
+<tr><td>2</td><td>{'description': '', 'name': 'ADMIX'}</td></tr>
+<tr><td>3</td><td>{'description': '', 'name': 'ANC'}</td></tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+</div>
+<p>The reason that the other populations (<code class="docutils literal notranslate"><span class="pre">BIG</span></code>, <code class="docutils literal notranslate"><span class="pre">SMALL</span></code>, and <code class="docutils literal notranslate"><span class="pre">ANC</span></code>) have been retained is
+that the simulation has assigned populations to both sample and nonsample nodes. If we
+<a class="reference internal" href="tables_and_editing.html#sec-tables-editing"><span class="std std-ref">edit</span></a> the tree sequence tables such that ancestral
+(non-sample) genomes are not associated with defined populations, then simplification will
+remove all but the admixed population (and reassign the population IDs as
+necessary).</p>
+<p>An example of this is given in the code below, which performs a further round of simplification,
+taking advantage of the fact that if a list of focal nodes is not given, <code class="docutils literal notranslate"><span class="pre">simplify</span></code>
+uses the existing sample nodes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
+
+<span class="n">tables</span> <span class="o">=</span> <span class="n">ts_admix</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">ts_admix</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
+<span class="c1"># Make an array of NULL population values for each node</span>
+<span class="n">nodes_population</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">population</span><span class="p">,</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">)</span>
+<span class="c1"># Set the sample node populations back to their expected population</span>
+<span class="n">nodes_population</span><span class="p">[</span><span class="n">samples</span><span class="p">]</span> <span class="o">=</span> <span class="n">ts_admix</span><span class="o">.</span><span class="n">nodes_population</span><span class="p">[</span><span class="n">samples</span><span class="p">]</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="n">nodes_population</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>  <span class="c1"># This is the tables version of simplify, often used in forward sims</span>
+<span class="n">ts_admix_only</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Sample nodes in `ts_admix_only` belong to the following populations&quot;</span><span class="p">,</span>
+    <span class="n">ts_admix_only</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">population</span><span class="p">[</span><span class="n">ts_admix_only</span><span class="o">.</span><span class="n">samples</span><span class="p">()],</span>
+<span class="p">)</span>
+<span class="n">ts_admix_only</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">populations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample nodes in `ts_admix_only` belong to the following populations [0 0 0 0 0 0 0 0 0 0 0 0]
+</pre></div>
+</div>
+<div class="output text_html">
+        <div>
+            <style scoped="">
+                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                .tskit-table tbody tr th {vertical-align: top;}
+                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                .tskit-table tbody th {padding: 0.5em 0.5em;}
+            </style>
+            <table border="1" class="tskit-table">
+                <thead>
+                    <tr>
+                        <th>id</th><th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>{'description': '', 'name': 'ADMIX'}</td></tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+</div>
+<p>Although reducing the number of populations saves space, it requires care.
+For instance <code class="docutils literal notranslate"><span class="pre">admix_pop_id</span></code> can no longer be used to refer to the correct ID
+in the <code class="docutils literal notranslate"><span class="pre">ts_admix_only</span></code> tree sequence.</p>
+</section>
+</section>
+<section id="extra-uses-for-simplification">
+<h2>Extra uses for simplification<a class="headerlink" href="#extra-uses-for-simplification" title="Link to this heading">#</a></h2>
+<p>Simplify is somewhat of a “Swiss Army knife” for tree sequences, and can be used in
+several other ways. See the <a class="reference internal" href="advanced_simplification.html#sec-advanced-simplification"><span class="std std-ref">Advanced simplification</span></a> tutorial for more details.</p>
+</section>
+<div class="toctree-wrapper compound">
 </div>
 </section>
 
@@ -405,11 +1938,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="viz.html"
+       href="advanced_simplification.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Visualization</p>
+        <p class="prev-next-title"><em>Advanced simplification</em></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -419,6 +1952,31 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-single-tree-example">A single tree example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-larger-simplification-example">A larger simplification example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case-1-remove-historical-samples">Use case 1: remove historical samples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case-2-simplify-to-a-subset-of-samples">Use case 2: simplify to a subset of samples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficiency">Efficiency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-other-unused-objects">Removing other unused objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-uses-for-simplification">Extra uses for simplification</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
