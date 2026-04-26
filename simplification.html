@@ -381,17 +381,22 @@
   <section class="tex2jax_ignore mathjax_ignore" id="simplification">
 <span id="sec-simplification"></span><h1>Simplification<a class="headerlink" href="#simplification" title="Link to this heading">#</a></h1>
 <p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> method provides one of the most powerful ways to modify a
-<a class="reference external" href="https://tskit.dev">tskit</a> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>. It removes and modifies edges to leave only the
-ancestry of a provided set of focal nodes. By default it ensuring these focal nodes are marked as
-samples and removes non-ancestral nodes and associated objects such as individuals and populations.
-It is commonly used:</p>
+<a class="reference external" href="https://tskit.dev">tskit</a> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a>.</p>
+<p>At a high level, simplification works as follows: it starts from a chosen set of focal nodes
+and then traces their ancestry back through the tree sequence. Any nodes, edges, and mutations
+(as well as individuals, populations, and sites) that are not needed to represent that ancestry
+are discarded, and the remaining information is compacted into a new, equivalent tree sequence.
+During this process, IDs of nodes and other objects may change. In particular, non-coalescent
+nodes are usually removed, unless you ask to keep them.</p>
+<p>Simplification is commonly used:</p>
 <ul class="simple">
 <li><p>In forward simulations, to remove lineages that have gone extinct</p></li>
 <li><p>To create a smaller tree sequence focussed on a subset of samples</p></li>
 <li><p>To remove redundant nodes and other tskit objects (e.g. unreferenced populations)</p></li>
 </ul>
-<p>Other less common uses, such as retaining unary regions of coalescent nodes, and
-simplification in parallel, are described in the <a class="reference internal" href="advanced_simplification.html#sec-advanced-simplification"><span class="std std-ref">Advanced simplification</span></a> tutorial.</p>
+<p>Other less common uses, such as retaining all ancestral individuals, retaining unary
+regions of coalescent nodes, and simplifying without touching the node table,
+are described in the <a class="reference internal" href="advanced_simplification.html#sec-advanced-simplification"><span class="std std-ref">Advanced simplification</span></a> tutorial.</p>
 <section id="a-single-tree-example">
 <h2>A single tree example<a class="headerlink" href="#a-single-tree-example" title="Link to this heading">#</a></h2>
 <p>We start with a very small example for ease of visualisation. This is
@@ -448,7 +453,7 @@ leaves redundant nodes cluttering up the tree sequence.</p>
 <p>Note that the example above also used another <code class="docutils literal notranslate"><span class="pre">filter_</span></code> argument, setting
 <code class="docutils literal notranslate"><span class="pre">filter_sites=False</span></code>, so that the first site, which has no mutations after
 simplification, is also retained (it is shown as a bare tick mark on the X axis,
-around position 250). However, mutations above unused nodes are still deleted
+around position 250). However, mutations above unused nodes are still deleted,
 so mutation IDs are not guaranteed to stay the same.</p>
 <p>To further reduce the size of the simplified tree sequence, simplification normally
 removes nodes from the ancestry that no longer represent branch points (coalescences).
@@ -466,11 +471,11 @@ We can leave those in using <code class="docutils literal notranslate"><span cla
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>As modifying a tree sequence can change the IDs of nodes, sites, and other objects,
-it can be useful to use <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">metadata</span></a>:
-information that stays associated with tskit objects even when their IDs change.
-When simplifying, it is also possible to keep track of node ID changes by using
-the <code class="docutils literal notranslate"><span class="pre">map_nodes</span></code> parameter, as demonstrated later in this tutorial.</p>
+<p>As modifying a tree sequence can change the IDs of nodes, sites, and other objects, it
+can be useful to use <a class="reference internal" href="metadata.html#sec-tutorial-metadata"><span class="std std-ref">metadata</span></a>: information that stays
+associated with tskit objects even when their IDs change. When simplifying, it is
+also possible to keep track of node ID changes by using the <code class="docutils literal notranslate"><span class="pre">map_nodes</span></code> parameter,
+see the <a class="reference internal" href="advanced_simplification.html#sec-advanced-simplification-map-nodes"><span class="std std-ref">advanced simplification</span></a> tutorial.</p>
 </div>
 </section>
 <section id="a-larger-simplification-example">
@@ -620,7 +625,7 @@ is much more efficient than running equivalent operations on the original <code 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11.3 ms ± 109 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9.14 ms ± 56.6 μs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre></div>
 </div>
 </div>
@@ -636,7 +641,7 @@ is much more efficient than running equivalent operations on the original <code 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>262 ms ± 2.56 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>226 ms ± 4.85 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 </pre></div>
 </div>
 </div>
@@ -799,7 +804,7 @@ number of sites to less than a sixth of the original.</p>
                         <tbody>
                             
                 <tr>
-                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>26 April, 2026 at 03:05:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_mutations</td>
@@ -900,7 +905,7 @@ number of sites to less than a sixth of the original.</p>
                 </tr>
             
                 <tr>
-                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>26 April, 2026 at 03:05:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -1325,7 +1330,7 @@ number of sites to less than a sixth of the original.</p>
                         <tbody>
                             
                 <tr>
-                    <td>26 April, 2026 at 11:53:18 AM</td>
+                    <td>26 April, 2026 at 03:05:05 PM</td>
                     <td>tskit</td>
                     <td>1.0.0</td>
                     <td>simplify</td>
@@ -1402,7 +1407,7 @@ number of sites to less than a sixth of the original.</p>
                 </tr>
             
                 <tr>
-                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>26 April, 2026 at 03:05:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_mutations</td>
@@ -1503,7 +1508,7 @@ number of sites to less than a sixth of the original.</p>
                 </tr>
             
                 <tr>
-                    <td>26 April, 2026 at 11:53:17 AM</td>
+                    <td>26 April, 2026 at 03:05:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>

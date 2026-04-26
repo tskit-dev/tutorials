@@ -746,7 +746,7 @@ css_string = (
 
     # Override default node text position to be based at (0, 0) relative to the node pos
     # Note that the .tree specifier is needed to make this more specific than the default
-    # positioning which is targetted at ".lab.lft" and ".lab.rgt"
+    # positioning which is targeted at ".lab.lft" and ".lab.rgt"
     ".tree .node > .lab {transform: translate(0, 0); text-anchor: middle; font-size: 7pt}"
 
     # For leaf nodes, override the above positioning using a subsequent CSS style
@@ -941,7 +941,7 @@ itself (and not its descendants) a slightly different specification is required,
 involving, the "`>`" symbol, or
 [child combinator](https://www.w3.org/TR/selectors-3/#child-combinators) (we have,
 in fact, used it in several previous examples). The following plot shows the difference
-when all decendant symbols are targetted, versus just the immediate child symbol:
+when all decendant symbols are targeted, versus just the immediate child symbol:
 
 ```{code-cell} ipython3
 node_style1 = ".n13 .sym {fill: yellow}"  # All symbols under node 13 
@@ -953,7 +953,7 @@ ts_small.draw_svg(y_axis=True, y_ticks=y_tick_pos, x_lim=x_limits, style=css_str
 Another example of modifying the style target is *negation*. This is needed, for example,
 to target nodes that are *not* leaves (i.e. internal nodes). One way to do this is to
 target *all* the node symbols first, then replace the style with a more specific
-targetting of the leaf symbols only:
+targeting of the leaf symbols only:
 
 ```{code-cell} ipython3
 hide_internal_symlabs = ".node > .sym, .node > .lab {display: none}"
@@ -1770,7 +1770,7 @@ def tanglegram(
         
     lft_node_map, lft = reorder_tree_nodes(lft, leaves)
     lft_rev_map = make_reverse_map(lft_node_map)
-    # Have to change the node labels, because even provided ones will be targetting the wrong IDs
+    # Have to change the node labels, because even provided ones will be targeting the wrong IDs
     lft_node_labels = {u: node_labels[v] for u, v in enumerate(lft_node_map) if v in node_labels}
     if order[1] is None:
         # We do not reorder the RH tree, so the node IDs should stay as-is

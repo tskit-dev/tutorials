@@ -38,17 +38,24 @@ def create_notebook_data():
 # Simplification
 
 The {meth}`~TreeSequence.simplify` method provides one of the most powerful ways to modify a
-[tskit](https://tskit.dev) {class}`TreeSequence`. It removes and modifies edges to leave only the
-ancestry of a provided set of focal nodes. By default it ensuring these focal nodes are marked as
-samples and removes non-ancestral nodes and associated objects such as individuals and populations.
-It is commonly used:
+[tskit](https://tskit.dev) {class}`TreeSequence`. 
+
+At a high level, simplification works as follows: it starts from a chosen set of focal nodes
+and then traces their ancestry back through the tree sequence. Any nodes, edges, and mutations
+(as well as individuals, populations, and sites) that are not needed to represent that ancestry
+are discarded, and the remaining information is compacted into a new, equivalent tree sequence.
+During this process, IDs of nodes and other objects may change. In particular, non-coalescent
+nodes are usually removed, unless you ask to keep them.
+
+Simplification is commonly used:
 
 * In forward simulations, to remove lineages that have gone extinct
 * To create a smaller tree sequence focussed on a subset of samples
 * To remove redundant nodes and other tskit objects (e.g. unreferenced populations)
 
-Other less common uses, such as retaining unary regions of coalescent nodes, and
-simplification in parallel, are described in the {ref}`sec_advanced_simplification` tutorial.
+Other less common uses, such as retaining all ancestral individuals, retaining unary
+regions of coalescent nodes, and simplifying without touching the node table,
+are described in the {ref}`sec_advanced_simplification` tutorial.
 
 
 ## A single tree example
@@ -93,7 +100,7 @@ ts_simp2.draw_svg(**plot_params)
 Note that the example above also used another `filter_` argument, setting
 `filter_sites=False`, so that the first site, which has no mutations after
 simplification, is also retained (it is shown as a bare tick mark on the X axis,
-around position 250). However, mutations above unused nodes are still deleted
+around position 250). However, mutations above unused nodes are still deleted,
 so mutation IDs are not guaranteed to stay the same.
 
 To further reduce the size of the simplified tree sequence, simplification normally
@@ -106,11 +113,11 @@ ts_simp3.draw_svg(**plot_params)
 ```
 
 :::{note}
-As modifying a tree sequence can change the IDs of nodes, sites, and other objects,
-it can be useful to use {ref}`metadata <sec_tutorial_metadata>`:
-information that stays associated with tskit objects even when their IDs change.
-When simplifying, it is also possible to keep track of node ID changes by using
-the `map_nodes` parameter, as demonstrated later in this tutorial.
+As modifying a tree sequence can change the IDs of nodes, sites, and other objects, it
+can be useful to use {ref}`metadata <sec_tutorial_metadata>`: information that stays
+associated with tskit objects even when their IDs change. When simplifying, it is
+also possible to keep track of node ID changes by using the `map_nodes` parameter,
+see the {ref}`advanced simplification <sec_advanced_simplification_map_nodes>` tutorial.
 :::
 
 ## A larger simplification example

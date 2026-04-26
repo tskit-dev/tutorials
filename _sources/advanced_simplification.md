@@ -19,6 +19,9 @@ kernelspec:
 # _Advanced simplification_
 % remove underscores in title when tutorial is complete or near-complete
 
+:::{todo}
+This tutorial is only partly complete: and there are a number of sections containing TODO items.
+:::
 
 This is a companion to the basic {ref}`sec_simplification` tutorial.
 It focuses on details of `simplify` behavior that are useful when you need precise
@@ -55,6 +58,8 @@ tables to be {meth}`sorted <TableCollection.sort>`). Simplifying tables in place
 is often useful for {ref}`forward-time simulations <sec_tskit_forward_simulations>`.
 :::
 
+(sec_advanced_simplification_map_nodes)=
+
 ## 1) Tracking node ID changes
 
 With default settings, simplification compacts tables and therefore reassigns node
@@ -73,6 +78,8 @@ print("Old sample ID", int(focal[0]), "maps to new ID", int(node_map[focal[0]]))
 Note that when simplifying tables in-place using {meth}`TableCollection.simplify` a map
 is always returned. To avoid compacting the node table, and leave node IDs unchanged, use
 `filter_nodes=False`.
+
+(sec_advanced_simplification_map_nodes_reverse)=
 
 ### Obtaining the reverse map
 
@@ -94,21 +101,52 @@ print("New sample ID 0", "maps to old ID", int(reverse_map[0]))
 ## 2) Keeping input roots
 
 :::{todo}
-This is easy to illustrate, and useful for forward sims / census approaches
+The `keep_input_roots=True` argument is easy to illustrate, and useful for
+forward sims / census approaches.
 :::
 
-## 3) Setting sample flags
+## 3) Keeping ancestral individuals
+
+In some cases, a tree sequence might contain historical individuals which are associated
+with nodes that are not samples, and you wish to retain information on individuals which
+remain ancestral after simplifying. For example a forward-time simulation could
+define individuals for all nodes in the past, including the
+{ref}`pedigree links <msprime:sec_pedigrees_encoding>` between parents and children,
+and you wish to retain the chain of individuals that define that portion of the pedigree
+which is relevant to the genetic ancestry (see also discussion in the SLiM manual, and in
+[SLiM issue #139](https://github.com/MesserLab/SLiM/issues/139)).
+
+To keep all the individuals associated with genetic ancestry, you can use
+`keep_unary_in_individuals=True`. In particular, this means
+that ancestral nodes which are not coalescent anywhere along the genome,
+but which are associated with an individual, will be retained (and
+so the referenced individuals will be retained too).
+
+:::{todo}
+Should we have a demonstration here? {ref}`sec_tskit_forward_simulations` could be used to
+create a simulator that saves pedigree information into each individual, and we could distill
+some of the discussion from https://github.com/MesserLab/SLiM/issues/139 into an example
+of storing a coherent pedigree.
+:::
+
+The `keep_unary_in_individuals` argument is a specific example of keeping some, but not all,
+non-coalescent ancestry in the tree sequence. If you need to retain a known set of
+non-coalescent nodes, it can be helpful to treat them as focal samples and use the
+`update_sample_flags=False` option, as described next.
+
+
+## 4) Setting sample flags
 
 Normally the nodes that are provided to the `simplify()` function are marked as sample
 nodes in the output (by setting the `NODE_IS_SAMPLE` flag), and other nodes have that flag unset.
-If you provide the `update_sample_flags=False` option, all node flags are left unchanged.
+If you provide the `update_sample_flags=False` argument, all node flags are left unchanged.
 Here are some cases where that can be useful.
 
 ### Parallel simplification
 
 One use for the `update_sample_flags=False` option combines it with `filter_nodes=False`,
 to ensure that the node table remains untouched during simplification.
-This is primarily a use-case targetted at developers of forward simulators, and allows
+This is primarily a use-case targeted at developers of forward simulators, and allows
 logically disjunct parts of the edge table to be simplified in parallel, without
 risking two parallel processes trying to alter the same data.
 
@@ -219,24 +257,6 @@ Here's what it looks like in graph form:
 d3arg = argviz.D3ARG.from_ts(ts=subset_arg)
 d3arg.draw(title=f"A full ARG, subset to {subset_arg.num_samples} samples");
 ```
-
-## 4) Keeping individuals
-
-In some cases, a tree sequence might contain historical individuals which are associated
-with nodes that are not samples, and you wish to retain information on individuals which are
-ancestral to the sample nodes. For example a forward-time simulation could
-define individuals for all nodes in the past, including the pedigree links between parents
-and children (see also discussion in the SLiM manual, and at
-https://github.com/MesserLab/SLiM/issues/139).
-
-To keep all the individuals associated with genetic ancestry, you can use
-`keep_unary_in_individuals=True`. 
-
-:::{todo}
-Should we have a demonstration here? {ref}`sec_tskit_forward_simulations` could be used to
-create a simulator that saves pedigree information into each individual, and we could distill
-some of the discussion from https://github.com/MesserLab/SLiM/issues/139 into that.
-:::
 
 ## 5) reduce_to_site_topology
 
