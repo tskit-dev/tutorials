@@ -20,7 +20,7 @@ kernelspec:
 % remove underscores in title when tutorial is complete or near-complete
 
 :::{todo}
-This tutorial is only partly complete: and there are a number of sections containing TODO items.
+This tutorial is only partly complete, and there are a number of sections containing TODO items.
 :::
 
 This is a companion to the basic {ref}`sec_simplification` tutorial.
@@ -41,13 +41,13 @@ import tskit_arg_visualizer as argviz
 
 arg = msprime.sim_ancestry(
     samples=10,
-    sequence_length=1e4,
+    sequence_length=1.8e4,
     recombination_rate=1e-8,
     population_size=1e4,
     record_full_arg=True,
     random_seed=123,
 )
-arg = msprime.sim_mutations(arg, rate=1e-8, random_seed=124)
+arg = msprime.sim_mutations(arg, rate=2e-8, random_seed=123)
 ```
 
 :::{note}
@@ -86,7 +86,7 @@ is always returned. To avoid compacting the node table, and leave node IDs uncha
 Often you might want a reverse map, mapping the new node IDs to the old ones. Here's
 a simple way to do this:
 
-```{code-cell} ipython3
+```{code-cell}
 def invert_map(node_mapping):
     kept = node_mapping != tskit.NULL
     indexes = node_mapping[kept]  # indexes are guaranteed 0..N-1
@@ -98,12 +98,74 @@ reverse_map = invert_map(node_map)
 print("New sample ID 0", "maps to old ID", int(reverse_map[0]))
 ```
 
-## 2) Keeping input roots
+Here's how the IDs in the first tree have changed:
 
-:::{todo}
-The `keep_input_roots=True` argument is easy to illustrate, and useful for
-forward sims / census approaches.
-:::
+```{code-cell}
+simp.first().draw_svg(
+    size=(800, 300),
+    node_labels={nd.id: f"id:{nd.id} (old id:{reverse_map[nd.id]})" for nd in simp.nodes()}
+)
+```
+
+## 2) Information above the local roots
+
+Usually there are no nodes or mutations in a tree sequence above each local root.
+However, as simplification deletes topology, it can create new local roots, leading to this
+expectation being broken.
+
+In some cases, you might want to retain nodes above the local roots, which is possible by
+setting `keep_input_roots=True`. The most common reason for this is to allow
+{ref}`recapitation <sec_completing_forward_simulations>` of forward-time simulations.
+See {ref}`this tutorial section <sec_completing_forward_simulations_input_roots>`
+for details.
+
+### Removing mutations above the root
+
+You can also end up with mutations above the root, for instance when all the chosen samples
+are monomorphic, sharing a single derived mutation. In long running forward-time
+simulations with mutation, this many mutations like this can gather above each local root.
+These can be removed by re-setting the `ancestral_state` of a site to the `derived_state`
+of the mutation immediately above the root node. There is currently no method
+provided to do this, but the following code should work
+(see [this tskit issue](https://github.com/tskit-dev/tskit/issues/260)):
+
+```{code-cell}
+def remove_root_mutations(ts):
+    tables = ts.dump_tables()
+    tables.sites.clear()
+    tables.mutations.clear()
+    for tree in ts.trees():
+        for s in tree.sites():
+            anc_state = s.ancestral_state
+            root_states = {u: anc_state for u in tree.roots if not tree.is_isolated(u)}
+            for m in s.mutations:
+                if m.node in root_states:
+                    anc_state = m.derived_state
+                    root_states[m.node] = anc_state
+                else:
+                    tables.mutations.append(m.replace(parent=tskit.NULL))
+            if all([anc == anc_state for anc in root_states.values()]):
+                if anc_state != s.ancestral_state:
+                    print(
+                        f"Changed ancestral state from {s.ancestral_state} to {anc_state} "
+                        f"for site {s.id} at position {s.position}"
+                    )
+                tables.sites.append(s.replace(ancestral_state=anc_state))
+            else:
+                raise ValueError(
+                    f"Multiple roots with different inherited states exist for the site at position {s.position}"
+                )
+    tables.compute_mutation_parents()
+    return tables.tree_sequence()
+
+simp_no_root_muts = remove_root_mutations(simp)
+# Check this encodes the same genetic variation
+for var1, var2 in zip(simp.variants(), simp_no_root_muts.variants()):
+    assert (var1.states() == var2.states()).all()
+print(
+  f"Original simplified tree sequence had {simp.num_mutations} mutations, "
+  f"now has {simp_no_root_muts.num_mutations} mutations")
+```
 
 ## 3) Keeping ancestral individuals
 
@@ -223,9 +285,9 @@ Identifying the _msprime_ recombination nodes that stay as pairs after simplific
 a little work:
 
 :::{todo}
-Currently the code below doesn't quite work, because `keep_unary` forces the nodes above the local
-roots to be kept, see https://github.com/tskit-dev/tskit/issues/3450. This means that some RE
-(and possibly CA) nodes are kept when they should be discarded. 
+Currently the code below wrongly includes a few extra RE and CA nodes, because nodes
+above local roots are retained when `keep_unary=True`, see
+https://github.com/tskit-dev/tskit/issues/3450. 
 :::
 
 ```{code-cell} ipython3
@@ -241,7 +303,7 @@ keep_CA_nodes = reverse_map[arg_num_children(simp) > 1]
 ```
 
 Now that we have defined which nodes to keep, we can use the same trick as before,
-passing these nodes as focal, but simplifying twice, once with `update_sample_flags=False`
+passing these nodes as focal, but simplifying twice, once with `update_sample_flags=False`,
 then again with `keep_unary=True`:
 
 ```{code-cell} ipython3
@@ -251,11 +313,20 @@ tmp_arg = arg.simplify(keep, update_sample_flags=False)
 subset_arg = tmp_arg.simplify(keep_unary=True)  # Defaults to focal nodes = existing samples
 ```
 
-Here's what it looks like in graph form:
+Here's what it looks like in graph form, with recombination nodes in red and common ancestor non-coalescent nodes in blue:
 
 ```{code-cell} ipython3
 d3arg = argviz.D3ARG.from_ts(ts=subset_arg)
-d3arg.draw(title=f"A full ARG, subset to {subset_arg.num_samples} samples");
+d3arg.set_all_node_styles(size=100, stroke_width=2)
+d3arg.set_node_styles({
+    u: {"symbol": "d3.symbolSquare", "fill": "black"} for u in subset_arg.samples()
+})
+d3arg.set_node_styles({i : {"fill": "red"} for i in node_map[keep_RE_nodes]})
+d3arg.set_node_styles({i : {"fill": "blue"} for i in node_map[keep_CA_nodes]})
+d3arg.draw(
+  edge_type="ortho",
+  height=800,
+  title=f"A full ARG, subset to {subset_arg.num_samples} samples");
 ```
 
 ## 5) reduce_to_site_topology

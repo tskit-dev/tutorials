@@ -44,29 +44,29 @@ Compare to expectations
 (e.g. for use as a null model). For instance,  comparison to *neutral* simulations
 can be used to identify regions subject to selection.
 
-There are two major forms of population genetic simulation: **forwards-time**
-and **backwards-time**. In general, forwards-time simulation is detailed and more
-realistic, while backwards-time simulation is fast and efficient.
+There are two major forms of population genetic simulation: **forward-time**
+and **backward-time**. In general, forward-time simulation is detailed and more
+realistic, while backward-time simulation is fast and efficient.
 
 More specifically, apart from a
 {ref}`few exceptions <msprime:sec_ancestry_models_selective_sweeps>`,
-backwards-time simulations are primarily focused on neutral simulations, while
+backward-time simulations are primarily focused on neutral simulations, while
 forward simulation is better suited to complex simulations, including those involving
 selection and continuous space.
 
 ## Advantages of tree sequences
 
-Some forwards-time ([SLiM](http://messerlab.org/slim/),
-[fwdpy](http://molpopgen.github.io/fwdpy/)) and backwards-time
+Some forward-time ([SLiM](http://messerlab.org/slim/),
+[fwdpy](http://molpopgen.github.io/fwdpy/)) and backward-time
 ([msprime](https://tskit.dev/msprime)) simulators have a built-in capacity to output
 tree sequences. This can have several benefits:
 
 1. Neutral mutations, which often account for the majority of genetic variation, do not
     need to be tracked during the simulation, but can be added afterwards. See
     "{ref}`sec_tskit_no_mutations`".
-2. Tree sequences can be used as an interchange format to combine backwards and
-    forwards simulations, allowing you to take advantage of the advantages of both
-    approaches. This is detailed in {ref}`sec_completing_forwards_simulations`.
+2. Tree sequences can be used as an interchange format to combine backward and
+    forward simulations, allowing you to take advantage of the advantages of both
+    approaches. This is detailed in {ref}`sec_completing_forward_simulations`.
 
 ## Some tips on simulation
 

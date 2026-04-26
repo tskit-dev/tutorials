@@ -25,7 +25,7 @@ along with their genomes, storing inherited genomic regions as well as the full 
 The code in this tutorial is broken into separate functions for clarity and
 to make it easier to modify for your own purposes; a simpler and substantially
 condensed forward-simulator is coded as a single function at the top of the
-{ref}`sec_completing_forwards_simulations` tutorial.
+{ref}`sec_completing_forward_simulations` tutorial.
 
 :::{note}
 If you are simply trying to obtain a tree sequence which is
@@ -210,7 +210,7 @@ that the child inherits a mosaic of the two genomes present in each parent.
 
 The exact details of the mosaic will depend on the model of recombination you
 wish to implement. For instance, a simple model such as that in the
-{ref}`sec_completing_forwards_simulations` tutorial might assume exactly one
+{ref}`sec_completing_forward_simulations` tutorial might assume exactly one
 crossover per chromosome. A complex model might allow not just multiple
 crossovers with e.g. recombination "hotspots", but also non-crossover events
 such as {ref}`msprime:sec_ancestry_gene_conversion`.
@@ -475,7 +475,7 @@ in which an alternative technique, such as backward-in-time coalescent simulatio
 is used to to fill in the "head" of the tree sequence. In other words,
 we can use a fast backward-time simulator such as `msprime` to simulate the
 prior genealogy of the oldest nodes in the simplified tree sequence.
-Details are described in the {ref}`sec_completing_forwards_simulations`
+Details are described in the {ref}`sec_completing_forward_simulations`
 tutorial.
 
 ## More complex forward-simulations

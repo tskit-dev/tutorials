@@ -9,20 +9,20 @@ kernelspec:
   name: python3
 ---
 
-(sec_completing_forwards_simulations)=
+(sec_completing_forward_simulations)=
 
-# Completing forwards simulations
+# Recapitation: completing a forward simulation
 
-The ``msprime`` simulator generates tree sequences using the backwards in
-time coalescent model. But it is also possible to output tree sequences
-from [forwards-time](https://doi.org/10.1371/journal.pcbi.1006581)
+The ``msprime`` simulator generates tree sequences using the
+backward-in-time coalescent model. But it is also possible to output tree sequences
+from [forward-time](https://doi.org/10.1371/journal.pcbi.1006581)
 simulators such as [SLiM](https://messerlab.org/slim)
 and [fwdpy11](https://fwdpy11.readthedocs.io/) (see the
 {ref}`sec_tskit_forward_simulations` tutorial).
 There are many advantages to using forward-time simulators, but they
 are usually quite slow compared to similar coalescent simulations. In this
 section we show how to combine the best of both approaches by simulating
-the recent past using a forwards-time simulator and then complete the
+the recent past using a forward-time simulator and then complete the
 simulation of the ancient past using ``msprime``. (We sometimes refer to this
 "recapitation", as we can think of it as adding a "head" onto a tree sequence.)
 
@@ -133,9 +133,10 @@ coalesced_ts = msprime.sim_ancestry(
 coalesced_ts.draw_svg()
 ```
 
-The trees have fully coalesced and we've successfully combined a forwards-time
+The trees have fully coalesced and we've successfully combined a forward-time
 Wright-Fisher simulation with a coalescent simulation: hooray!
 
+(sec_completing_forward_simulations_input_roots)=
 
 ## Why keep input roots (i.e., the initial generation)?
 
@@ -164,7 +165,7 @@ the method presented here.
 
 ## Topology gotchas
 
-The trees that we output from this combined forwards and backwards simulation
+The trees that we output from this combined forward and backward simulation
 process have some slightly odd properties that are important to be aware of.
 In the example above, we can see that the old roots are still present in both trees,
 even through they have only one child and are clearly redundant.
@@ -179,7 +180,7 @@ they may cause problems:
 2. If you are computing the overall tree "height" by taking the time of the
    root node, you may overestimate the height because there is a unary edge
    above the "real" root (this would happen if one of the trees had already
-   coalesced in the forwards-time simulation).
+   coalesced in the forward-time simulation).
 
 For these reasons it may be better to remove this redundancy from your
 computed tree sequence which is easily done using the

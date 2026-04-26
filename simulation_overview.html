@@ -197,7 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Completing forwards simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="completing_forward_sims.html">Recapitation: completing a forward simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
@@ -399,27 +399,27 @@ likelihood functions.</p>
 can be used to identify regions subject to selection.</p>
 </dd>
 </dl>
-<p>There are two major forms of population genetic simulation: <strong>forwards-time</strong>
-and <strong>backwards-time</strong>. In general, forwards-time simulation is detailed and more
-realistic, while backwards-time simulation is fast and efficient.</p>
+<p>There are two major forms of population genetic simulation: <strong>forward-time</strong>
+and <strong>backward-time</strong>. In general, forward-time simulation is detailed and more
+realistic, while backward-time simulation is fast and efficient.</p>
 <p>More specifically, apart from a
 <a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-models-selective-sweeps" title="(in Project name not set)"><span class="xref std std-ref">few exceptions</span></a>,
-backwards-time simulations are primarily focused on neutral simulations, while
+backward-time simulations are primarily focused on neutral simulations, while
 forward simulation is better suited to complex simulations, including those involving
 selection and continuous space.</p>
 <section id="advantages-of-tree-sequences">
 <h2>Advantages of tree sequences<a class="headerlink" href="#advantages-of-tree-sequences" title="Link to this heading">#</a></h2>
-<p>Some forwards-time (<a class="reference external" href="http://messerlab.org/slim/">SLiM</a>,
-<a class="reference external" href="http://molpopgen.github.io/fwdpy/">fwdpy</a>) and backwards-time
+<p>Some forward-time (<a class="reference external" href="http://messerlab.org/slim/">SLiM</a>,
+<a class="reference external" href="http://molpopgen.github.io/fwdpy/">fwdpy</a>) and backward-time
 (<a class="reference external" href="https://tskit.dev/msprime">msprime</a>) simulators have a built-in capacity to output
 tree sequences. This can have several benefits:</p>
 <ol class="arabic simple">
 <li><p>Neutral mutations, which often account for the majority of genetic variation, do not
 need to be tracked during the simulation, but can be added afterwards. See
 “<a class="reference internal" href="no_mutations.html#sec-tskit-no-mutations"><span class="std std-ref">Do you really need mutations?</span></a>”.</p></li>
-<li><p>Tree sequences can be used as an interchange format to combine backwards and
-forwards simulations, allowing you to take advantage of the advantages of both
-approaches. This is detailed in <a class="reference internal" href="completing_forward_sims.html#sec-completing-forwards-simulations"><span class="std std-ref">Completing forwards simulations</span></a>.</p></li>
+<li><p>Tree sequences can be used as an interchange format to combine backward and
+forward simulations, allowing you to take advantage of the advantages of both
+approaches. This is detailed in <a class="reference internal" href="completing_forward_sims.html#sec-completing-forward-simulations"><span class="std std-ref">Recapitation: completing a forward simulation</span></a>.</p></li>
 </ol>
 </section>
 <section id="some-tips-on-simulation">

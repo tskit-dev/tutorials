@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Completing forwards simulations &#8212; Tree Sequence Tutorials</title>
+    <title>Recapitation: completing a forward simulation &#8212; Tree Sequence Tutorials</title>
   
   
   
@@ -197,7 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Completing forwards simulations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Recapitation: completing a forward simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
@@ -348,7 +348,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Completing forwards simulations</h1>
+    <h1>Recapitation: completing a forward simulation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,18 +371,18 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="completing-forwards-simulations">
-<span id="sec-completing-forwards-simulations"></span><h1>Completing forwards simulations<a class="headerlink" href="#completing-forwards-simulations" title="Link to this heading">#</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulator generates tree sequences using the backwards in
-time coalescent model. But it is also possible to output tree sequences
-from <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1006581">forwards-time</a>
+  <section class="tex2jax_ignore mathjax_ignore" id="recapitation-completing-a-forward-simulation">
+<span id="sec-completing-forward-simulations"></span><h1>Recapitation: completing a forward simulation<a class="headerlink" href="#recapitation-completing-a-forward-simulation" title="Link to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulator generates tree sequences using the
+backward-in-time coalescent model. But it is also possible to output tree sequences
+from <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1006581">forward-time</a>
 simulators such as <a class="reference external" href="https://messerlab.org/slim">SLiM</a>
 and <a class="reference external" href="https://fwdpy11.readthedocs.io/">fwdpy11</a> (see the
 <a class="reference internal" href="forward_sims.html#sec-tskit-forward-simulations"><span class="std std-ref">Building a forward simulator</span></a> tutorial).
 There are many advantages to using forward-time simulators, but they
 are usually quite slow compared to similar coalescent simulations. In this
 section we show how to combine the best of both approaches by simulating
-the recent past using a forwards-time simulator and then complete the
+the recent past using a forward-time simulator and then complete the
 simulation of the ancient past using <code class="docutils literal notranslate"><span class="pre">msprime</span></code>. (We sometimes refer to this
 “recapitation”, as we can think of it as adding a “head” onto a tree sequence.)</p>
 <p>First, we define a simple Wright-Fisher simulator which returns a tree sequence
@@ -499,10 +499,10 @@ is haploid and msprime uses a diploid time scale by default.</p>
 <img alt="_images/6e8c3ed7166f96b1137560ee6c8a29c2f4ef42616416060924bfc88bc910423d.svg" src="_images/6e8c3ed7166f96b1137560ee6c8a29c2f4ef42616416060924bfc88bc910423d.svg" />
 </div>
 </div>
-<p>The trees have fully coalesced and we’ve successfully combined a forwards-time
+<p>The trees have fully coalesced and we’ve successfully combined a forward-time
 Wright-Fisher simulation with a coalescent simulation: hooray!</p>
 <section id="why-keep-input-roots-i-e-the-initial-generation">
-<h2>Why keep input roots (i.e., the initial generation)?<a class="headerlink" href="#why-keep-input-roots-i-e-the-initial-generation" title="Link to this heading">#</a></h2>
+<span id="sec-completing-forward-simulations-input-roots"></span><h2>Why keep input roots (i.e., the initial generation)?<a class="headerlink" href="#why-keep-input-roots-i-e-the-initial-generation" title="Link to this heading">#</a></h2>
 <p>We can now see why it is essential that we take care to preserve the roots of all
 trees when we simplified the tree sequence (by passing <code class="docutils literal notranslate"><span class="pre">keep_input_roots=True</span></code>),
 so that the initial generation can be properly used as the
@@ -525,7 +525,7 @@ the method presented here.</p>
 </section>
 <section id="topology-gotchas">
 <h2>Topology gotchas<a class="headerlink" href="#topology-gotchas" title="Link to this heading">#</a></h2>
-<p>The trees that we output from this combined forwards and backwards simulation
+<p>The trees that we output from this combined forward and backward simulation
 process have some slightly odd properties that are important to be aware of.
 In the example above, we can see that the old roots are still present in both trees,
 even through they have only one child and are clearly redundant.
@@ -540,7 +540,7 @@ inflate the values.</p></li>
 <li><p>If you are computing the overall tree “height” by taking the time of the
 root node, you may overestimate the height because there is a unary edge
 above the “real” root (this would happen if one of the trees had already
-coalesced in the forwards-time simulation).</p></li>
+coalesced in the forward-time simulation).</p></li>
 </ol>
 <p>For these reasons it may be better to remove this redundancy from your
 computed tree sequence which is easily done using the

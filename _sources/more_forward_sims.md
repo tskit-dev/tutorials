@@ -254,5 +254,5 @@ This will primarily deal with sites and mutations (and mutational metadata).
 We could also include details on selection, if that seems sensible.
 
 The section in that workbook on "Starting with a prior history" should be put in
-the {ref}`sec_completing_forwards_simulations` tutorial.
+the {ref}`sec_completing_forward_simulations` tutorial.
 :::
