@@ -19,7 +19,7 @@ kernelspec:
 # _Advanced simplification_
 % remove underscores in title when tutorial is complete or near-complete
 
-:::{todo}
+:::{note}
 This tutorial is only partly complete, and there are a number of sections containing TODO items.
 :::
 
@@ -41,8 +41,8 @@ import tskit_arg_visualizer as argviz
 
 arg = msprime.sim_ancestry(
     samples=10,
-    sequence_length=1.8e4,
-    recombination_rate=1e-8,
+    sequence_length=1e4,
+    recombination_rate=2e-8,
     population_size=1e4,
     record_full_arg=True,
     random_seed=123,
@@ -84,7 +84,7 @@ is always returned. To avoid compacting the node table, and leave node IDs uncha
 ### Obtaining the reverse map
 
 Often you might want a reverse map, mapping the new node IDs to the old ones. Here's
-a simple way to do this:
+a simple way to do that:
 
 ```{code-cell}
 def invert_map(node_mapping):
@@ -98,11 +98,12 @@ reverse_map = invert_map(node_map)
 print("New sample ID 0", "maps to old ID", int(reverse_map[0]))
 ```
 
-Here's how the IDs in the first tree have changed:
+Here's a visualization of how the IDs in the first tree have changed:
 
 ```{code-cell}
 simp.first().draw_svg(
     size=(800, 300),
+    time_scale="rank",
     node_labels={nd.id: f"id:{nd.id} (old id:{reverse_map[nd.id]})" for nd in simp.nodes()}
 )
 ```
@@ -110,10 +111,10 @@ simp.first().draw_svg(
 ## 2) Information above the local roots
 
 Usually there are no nodes or mutations in a tree sequence above each local root.
-However, as simplification deletes topology, it can create new local roots, leading to this
-expectation being broken.
+However, because simplification deletes topology, it can cause a node lower down a tree to
+become a new local root. This new root can therefore have nodes and mutations above it.
 
-In some cases, you might want to retain nodes above the local roots, which is possible by
+In some cases, you might want to retain nodes above new roots, which is possible by
 setting `keep_input_roots=True`. The most common reason for this is to allow
 {ref}`recapitation <sec_completing_forward_simulations>` of forward-time simulations.
 See {ref}`this tutorial section <sec_completing_forward_simulations_input_roots>`
@@ -121,9 +122,9 @@ for details.
 
 ### Removing mutations above the root
 
-You can also end up with mutations above the root, for instance when all the chosen samples
-are monomorphic, sharing a single derived mutation. In long running forward-time
-simulations with mutation, this many mutations like this can gather above each local root.
+You can also end up with mutations above local roots, for instance when all the chosen
+samples share a single derived mutation. In long running forward-time
+simulations with mutation, many such mutations can gather above each local root.
 These can be removed by re-setting the `ancestral_state` of a site to the `derived_state`
 of the mutation immediately above the root node. There is currently no method
 provided to do this, but the following code should work
@@ -147,7 +148,7 @@ def remove_root_mutations(ts):
             if all([anc == anc_state for anc in root_states.values()]):
                 if anc_state != s.ancestral_state:
                     print(
-                        f"Changed ancestral state from {s.ancestral_state} to {anc_state} "
+                        f"- changed ancestral state from {s.ancestral_state} to {anc_state} "
                         f"for site {s.id} at position {s.position}"
                     )
                 tables.sites.append(s.replace(ancestral_state=anc_state))
@@ -164,7 +165,7 @@ for var1, var2 in zip(simp.variants(), simp_no_root_muts.variants()):
     assert (var1.states() == var2.states()).all()
 print(
   f"Original simplified tree sequence had {simp.num_mutations} mutations, "
-  f"now has {simp_no_root_muts.num_mutations} mutations")
+  f"and now has {simp_no_root_muts.num_mutations} mutations")
 ```
 
 ## 3) Keeping ancestral individuals
@@ -179,10 +180,10 @@ which is relevant to the genetic ancestry (see also discussion in the SLiM manua
 [SLiM issue #139](https://github.com/MesserLab/SLiM/issues/139)).
 
 To keep all the individuals associated with genetic ancestry, you can use
-`keep_unary_in_individuals=True`. In particular, this means
-that ancestral nodes which are not coalescent anywhere along the genome,
-but which are associated with an individual, will be retained (and
-so the referenced individuals will be retained too).
+`keep_unary_in_individuals=True`. In particular this will retain
+ancestral nodes which are are associated with an individual but not
+coalescent anywhere along the genome, and cause
+the referenced individuals to be retained too.
 
 :::{todo}
 Should we have a demonstration here? {ref}`sec_tskit_forward_simulations` could be used to
@@ -226,12 +227,20 @@ all such nodes, which can be done by adding them to the focal node list but usin
 This is usually followed by an additional simplification pass to remove any topology
 above the additional nodes which is not ancestral to the true samples. Here are some examples:
 
+:::{todo}
+Currently the code below wrongly includes a few extra RE and CA nodes, because nodes
+above local roots are retained when `keep_unary=True`, see
+https://github.com/tskit-dev/tskit/issues/3450. 
+:::
+
 #### Keeping non-coalescent regions of coalescent nodes
 
 By default, `simplify()` deletes not just non-coalescent nodes, but also
 removes from the ancestry those regions of coalescent nodes which do not represent
-a coalescence in the local tree (i.e. are "locally unary"). We can identify coalescent
-nodes using an initial round of simplification:
+a coalescence in the local tree (i.e. are "locally unary"). Until tskit has this
+functionality [built-in](https://github.com/tskit-dev/tskit/issues/2127), we can
+implement similar functionality by identifying coalescent nodes using an initial
+round of simplification, then keeping those specific nodes through simplification:
 
 ```{code-cell}
 simp, node_map = arg.simplify(focal, map_nodes=True)
@@ -244,8 +253,8 @@ part_simp_ts = tmp_ts.simplify(keep_unary=True)
 ```
 
 Often, leaving in the non-coalescent regions of coalescent nodes can lead to a reduction
-in the number of edges. This is one reason that the {meth}`TreeSequence.extend_haplotypes` exists
-(see the documentation of that method for more detail).
+in the number of edges. This is one reason that the {meth}`TreeSequence.extend_haplotypes`
+exists (see the documentation of that method for more detail). 
 
 ```{code-cell} 
 print(f"Full simplification to samples {focal} leads to {simp.num_edges} edges")
@@ -284,11 +293,6 @@ print("RE nodes before simplification\n", re_node_pairs)
 Identifying the _msprime_ recombination nodes that stay as pairs after simplification requires
 a little work:
 
-:::{todo}
-Currently the code below wrongly includes a few extra RE and CA nodes, because nodes
-above local roots are retained when `keep_unary=True`, see
-https://github.com/tskit-dev/tskit/issues/3450. 
-:::
 
 ```{code-cell} ipython3
 simp, node_map = arg.simplify(focal, keep_unary=True, map_nodes=True)
