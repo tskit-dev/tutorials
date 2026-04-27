@@ -11,7 +11,7 @@ kernelspec:
 
 (sec_completing_forward_simulations)=
 
-# Recapitation: completing a forward simulation
+# Recapitating a forward simulation
 
 The ``msprime`` simulator generates tree sequences using the
 backward-in-time coalescent model. But it is also possible to output tree sequences
@@ -178,7 +178,7 @@ they may cause problems:
    sequence, having these unary edges and redundant nodes will slightly
    inflate the values.
 2. If you are computing the overall tree "height" by taking the time of the
-   root node, you may overestimate the height because there is a unary edge
+   root node, you may overestimate the height if there is a unary edge
    above the "real" root (this would happen if one of the trees had already
    coalesced in the forward-time simulation).
 
@@ -188,7 +188,7 @@ computed tree sequence which is easily done using the
 
 ```{code-cell} ipython3
 final_ts = coalesced_ts.simplify()
-coalesced_ts.draw_svg()
+final_ts.draw_svg()
 ```
 
 This final tree sequence is topologically identical to the original tree sequence,
