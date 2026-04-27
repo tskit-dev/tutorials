@@ -37,8 +37,9 @@ def create_notebook_data():
 
 # Simplification
 
-The {meth}`~TreeSequence.simplify` method provides one of the most powerful ways to modify a
-[tskit](https://tskit.dev) {class}`TreeSequence`. 
+The {meth}`~TreeSequence.simplify` method provides several powerful and flexible ways
+to modify a [tskit](https://tskit.dev) {class}`TreeSequence`. It has been described
+as the "swiss-army knife" of tree sequence methods.
 
 At a high level, simplification works as follows: it starts from a chosen set of focal nodes
 and then traces their ancestry back through the tree sequence. Any nodes, edges, and mutations
