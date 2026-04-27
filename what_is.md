@@ -13,8 +13,10 @@ kernelspec:
 
 ```{code-cell} ipython3
 :tags: [remove-cell]
-import msprime
 import demes
+import msprime
+import numpy as np
+import tskit
 
 
 def whatis_example():
@@ -29,9 +31,9 @@ def whatis_example():
           - name: Ancestral_population
             epochs:
               - end_time: 1000
-          - name: A
+          - name: P
             ancestors: [Ancestral_population]
-          - name: B
+          - name: Q
             ancestors: [Ancestral_population]
             epochs:
               - start_size: 2000
@@ -39,8 +41,8 @@ def whatis_example():
               - start_size: 400
                 end_size: 10000
         migrations:
-          - source: A
-            dest: B
+          - source: P
+            dest: Q
             rate: 1e-4
         """
     with open("data/whatis_example.yml", "wt") as f:
@@ -49,18 +51,51 @@ def whatis_example():
     demography = msprime.Demography.from_demes(graph)
     # Choose seed so num_trees=3, tips are in same order,
     # first 2 trees are topologically different, and all trees have the same root
-    seed = 12581
-    ts = msprime.sim_ancestry(
-        samples={"A": 2, "B": 3},
-        demography=demography,
-        recombination_rate=1e-8,
-        sequence_length=1000,
-        random_seed=seed)
+    for seed in range(21964, 10000000):
+        ts = msprime.sim_ancestry(
+            samples={"P": 2, "Q": 3},
+            demography=demography,
+            recombination_rate=1e-8,
+            sequence_length=900,
+            additional_nodes=(
+                 msprime.NodeType.RECOMBINANT |
+                 msprime.NodeType.COMMON_ANCESTOR
+                 ),
+            coalescing_segments_only=False,
+            random_seed=seed)
+        if ts.num_trees != 3:
+            continue
+        if not len(set(tree.root for tree in ts.trees())) == 1:
+            continue
+        sts = ts.simplify()
+        if sts.num_trees != ts.num_trees:
+            continue
+        if sts.at_index(0).rank() == sts.at_index(1).rank():
+            continue
+        if sts.at_index(1).rank() == sts.at_index(2).rank():
+            continue
+        samps = [list(u for u in tree.nodes(order="minlex_postorder") if tree.is_sample(u)) for tree in sts.trees()]
+        if samps[0] != samps[1] or samps[0] != samps[2]:
+            continue
+        print(f"Used demography seed {seed}")
+        break
     # Mutate
-    # Choose seed to give 12 muts, last one above node 14
-    seed = 1476
-    ts = msprime.sim_mutations(ts, rate=1e-7, random_seed=seed)
+    # Choose seed to give 12 muts, last one above node 15
+    for seed in range(273, 10000):
+        mts = msprime.sim_mutations(ts, rate=2e-7, random_seed=seed)
+        if mts.num_mutations != 12:
+            continue
+        if mts.mutation(-1).node != 15:
+            continue
+        print(f"Used mutations seed {seed}")
+        break
+    # put the mutations along midpoints of branches
+    tables = mts.dump_tables()
+    tables.mutations.time = np.full_like(tables.mutations.time, tskit.UNKNOWN_TIME)
+    ts = tables.tree_sequence()
     ts.dump("data/whatis_example.trees")
+    return ts
+
 
 def create_notebook_data():
     whatis_example()
@@ -77,6 +112,8 @@ relationships between a set of DNA sequences. Tree sequences are based on fundam
 biological principles of inheritance, DNA duplication, mutation, and recombination;
 they can be created by [evolutionary simulation](https://tskit.dev/software/#simulate)
 or by [inferring genealogies from empirical DNA data](https://tskit.dev/software/#infer).
+Technically, this means they
+{ref}`can be used to represent "ancestral recombination graphs"<sec_concepts_args>`, or ARGs.
 
 :::{margin} Key point
 Tree sequences are used to encode and analyse large genetic datasets.
@@ -140,10 +177,15 @@ plt.show()
 ### A sequence of trees...
 
 As the name suggests, the simplest way to think about a tree sequence is that it
-describes a sequence of correlated "local trees" --- i.e. genetic trees located at
+describes a sequence of correlated "local trees" --- i.e. evolutionary trees located at
 different points along a [chromosome](https://en.wikipedia.org/wiki/Chromosome).
-Here's a tiny example based on ten haploid genomes, $\mathrm{a}$ to $\mathrm{j}$,
-spanning a short 1000 letter chromosome.
+
+Below is a tiny example based on 10 haploid copies of a short chromosome spanning only
+900 basepairs (letters) in length. Each chromosome copy, which we can think of as a
+small genome, is shown as a square symbol. These are labelled $\mathrm{a}$ to $\mathrm{j}$
+and represent "sampled" lengths of DNA, whose ancestry and genetic
+variation is stored in the tree sequence.  The tickmarks on the X axis and their
+associated background shading indicate the genomic positions covered by the local trees.
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -156,14 +198,23 @@ ts = mutated_ts.delete_sites(list(range(mutated_ts.num_sites)))
 labels = {i: string.ascii_lowercase[i] for i in range(ts.num_nodes)}
 genome_order = [n for n in ts.first().nodes(order="minlex_postorder") if ts.node(n).is_sample()]
 labels.update({n: labels[i] for i, n in enumerate(genome_order)})
+rev_lab = {v: k for k, v in labels.items()}
 style1 = (
     ".node:not(.sample) > .sym, .node:not(.sample) > .lab {visibility: hidden;}"
-    ".mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}")
+    ".mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}"
+)
+highlt = ".t0 .n%(u)i .lab, .t1 .n%(u)i .lab {font-weight: bold; fill: red}" % {"u": rev_lab["e"]}
+
 sz = (800, 250)  # size of the plot, slightly larger than the default
-ticks = [0, 5000, 10000, 15000, 20000]
+ticks = [0, 5000, 10000, 15000]
 ts.draw_svg(
-    size=sz, node_labels=labels, style=style1, y_label="Time ago",
-    y_axis=True, y_ticks=ticks)
+    size=sz,
+    node_labels=labels,
+    style=style1 + highlt,
+    y_label="Time ago",
+    y_axis=True,
+    y_ticks=ticks,
+)
 ```
 
 ::::{margin}
@@ -173,30 +224,52 @@ the nodes are referred to by {ref}`numerical ID<sec_terminology_nodes>`.
 :::
 ::::
 
-The tickmarks on the X axis and background shading indicate the genomic positions covered
-by the trees. The tickmarks indicate recombination events that explain relationships
-between the ten genomes. There were two such recombination events, giving us three local trees.
-For the first short portion of the chromosome, from the start until position 189,
+
+For the first short portion of the chromosome, from the start until position 367,
 the relationships between the ten genomes are shown by the first tree.
-The second tree shows the relationships between positions 189 and 546.
-By inspecting the first and the second local tree we can see that genomes $\mathrm{b}-\mathrm{f}$
-changed their "most recent common ancestor" (MRCA) with genome $\mathrm{a}$ to
-MRCA with genome $\mathrm{g}$.
-The third tree shows the relationships between positions 546 and 1000 (the end).
-By inspecting the second and the third local tree we can see that
-recombination changed the ancestry of genomes $\mathrm{b}-\mathrm{f}$
-back to shared MRCA with genome $\mathrm{g}$.
+The second tree shows the relationships between positions 367 and 600.
+Note that in the first tree, genome $\mathrm{e}$ (highlighted in red) is closest to
+$\mathrm{a}-\mathrm{d}$, whereas in the second tree $\mathrm{e}$ is closest to
+$\mathrm{f}-\mathrm{h}$. The third tree shows the relationships between positions
+600 and 900 (the end of the genome). In this case, an entire subtree (or "clade"),
+composed of nodes $\mathrm{e}-\mathrm{h}$ has changed its relationship with the other six 
+genomes. More specifically, the most recent common ancestor (MRCA) with any of these
+others has switched: in the third tree it is now above $\mathrm{i}$ and $\mathrm{j}$.
 
 (sec_what_is_genealogical_network)=
 
 ### ... created by a genealogical network
 
-In fact, succinct tree sequences don't store each tree separately, but instead are
-based on an interconnected *genetic genealogy*, in which
-[genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination) has led
+In fact, succinct tree sequences don't store each tree separately, but are instead
+based on a network of *genetic ancestry*, in which
+[genetic recombination](https://en.wikipedia.org/wiki/Genetic_recombination)
+(represented by red symbols below) has led
 to different regions of the chromosome having different histories. Another way of
-thinking about the tree sequence above is that it describes the full genetic ancestry
-of our 10 genomes.
+thinking about the tree sequence above is that it describes the full genetic genealogy
+of our 10 genomes. If we combine all the relationships encoded in the trees (you can
+loosely think of this as lying the trees on top of each other), the result is a network or
+_graph_ (hence the term "[ARG](https://doi.org/10.1371/journal.pgen.1011110)")
+
+```{code-cell} ipython3
+:"tags": ["hide-input"]
+import json
+import tskit_arg_visualizer as argviz
+d3arg = argviz.D3ARG.from_ts(ts=ts)
+with open("data/whatis_example.json") as f:
+    d3arg.set_node_x_positions(
+        argviz.extract_x_positions_from_json(json.load(f))
+    )
+d3arg.nodes.loc[:, 'label'] = ""
+d3arg.nodes.loc[d3arg.nodes.ts_flags & msprime.NODE_IS_RE_EVENT != 0, 'fill'] = "red"
+d3arg.set_node_labels({u: labels[u] for u in ts.samples()})
+d3arg.set_all_node_styles(size=50, stroke_width=3)
+d3arg.set_node_styles({u: {"symbol": "d3.symbolSquare", "fill": "black"} for u in ts.samples()})
+d3arg.draw(
+    title="An interactive graph representation\n(hover over the bottom bar to see the trees)",
+    edge_type="ortho",
+    height=220);
+```
+
 
 (sec_what_is_dna_data)=
 
@@ -229,9 +302,9 @@ mutations are shown along the X axis.
 Mutation on trees are the source of genetic variation.
 :::
 
-The trees inform us that, for example, the final mutation (at position 987) is inherited
-by genomes $\mathrm{h}$ to $\mathrm{j}$. These genomes must have an *T* at that position,
-compared to the original value of *G*. In other words, once we know the ancestry, placing
+The trees inform us that, for example, the final mutation (at position 851) is inherited
+by genomes $\mathrm{i}$ and $\mathrm{j}$. These genomes must have an *C* at that position,
+compared to the original value of *A*. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here's the resulting "variant matrix":
 
@@ -312,14 +385,6 @@ plt.show()
 
 ## A record of genetic ancestry
 
-::::{margin}
-:::{note}
-The genetic genealogy is sometimes referred to as an ancestral recombination graph (ARG),
-and one way to think of tskit tree sequence is as a way
-to store various different sorts of ARGs (see the {ref}`ARG tutorial<sec_args>`).
-:::
-::::
-
 Often, we're not interested so much in the DNA sequence data as the genetic ancestry
 itself (discussed e.g. [here](https://www.nature.com/articles/s41588-019-0492-x)).
 In other words, the main consideration is the actual trees in a tree sequence, rather
@@ -333,8 +398,8 @@ The tree sequence in this tutorial was actually generated using a model of popul
 splits and expansions as shown in the following schematic,
 {ref}`plotted<sec_tskit_viz_other_demographic>` using the
 [DemesDraw](https://pypi.org/project/demesdraw/) package. Our 10 genomes were sampled
-from modern day populations A (a constant-size population) and B (a recently expanding
-one), where limited migration is occuring from A to B.
+from modern day populations P (a constant-size population) and Q (a recently expanding
+one), where limited migration is occuring from P to Q.
 
 ```{code-cell} ipython3
 :"tags": ["remove-input"]
@@ -352,7 +417,7 @@ def size_max(graph):
 
 graph = demes.load("data/whatis_example.yml")
 w = 1.5 * size_max(graph)
-positions = dict(Ancestral_population=0, A=-w, B=w)
+positions = dict(Ancestral_population=0, P=-w, Q=w)
 fig, ax = plt.subplots(1, figsize=(5, 3))
 ax = demesdraw.tubes(graph, ax=ax, positions=positions, seed=1)
 plt.show(ax.figure)
@@ -376,7 +441,7 @@ style2 = ".y-axis .tick .lab {font-size: 85%}"
 style2 += "#svg2 .node > .sym {visibility: visible;}"  # force-show all nodes: not normally needed
 style2 += "".join([f".p{n.population} > .sym {{fill: {colours[n.population]}}}" for n in ts.nodes()])
 
-mutated_ts.draw_svg(
+mutated_ts.simplify().draw_svg(
     size=sz, root_svg_attributes={'id':'svg2'}, y_label="Time ago (generations)",
     y_axis=True, y_ticks=ticks, node_labels=labels, mutation_labels={}, style=style2)
 ```
@@ -389,7 +454,7 @@ deduce these MRCA genomes, simply by looking at which mutations they have inheri
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
 import numpy as np
-tables = mutated_ts.dump_tables()
+tables = mutated_ts.simplify().dump_tables()
 # Flip sample and nonsample flags, making the haplotypes() method print out nonsample nodes
 s_flags = tables.nodes.flags[ts.samples()[0]]
 no_flags = s_flags-s_flags
@@ -466,7 +531,7 @@ The {program}`tskit` library has {ref}`extensive support<sec_analysing_tree_sequ
 for these sorts of population genetic calculations. It provides efficient methods for
 traversing through large {ref}`trees<sec_analysing_trees_traversals>` and
 {ref}`tree sequences<sec_processing_trees>`, as well as providing other
-phylogenetically relevant methods such as
+relevant methods such as principal component analysis, 
 {ref}`parsimonious placement of mutations<sec_analysing_trees_parsimony>`,
 and the {ref}`counting of topologies<sec_counting_topologies>` embedded within
 larger trees.
