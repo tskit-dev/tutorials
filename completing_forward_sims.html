@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Recapitation: completing a forward simulation &#8212; Tree Sequence Tutorials</title>
+    <title>Recapitating a forward simulation &#8212; Tree Sequence Tutorials</title>
   
   
   
@@ -197,7 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="introgression.html">Introgression</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Recapitation: completing a forward simulation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Recapitating a forward simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forward_sims.html">Building a forward simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more_forward_sims.html"><em>Advanced forward simulations</em></a></li>
 </ul>
@@ -348,7 +348,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Recapitation: completing a forward simulation</h1>
+    <h1>Recapitating a forward simulation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,8 +371,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="recapitation-completing-a-forward-simulation">
-<span id="sec-completing-forward-simulations"></span><h1>Recapitation: completing a forward simulation<a class="headerlink" href="#recapitation-completing-a-forward-simulation" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="recapitating-a-forward-simulation">
+<span id="sec-completing-forward-simulations"></span><h1>Recapitating a forward simulation<a class="headerlink" href="#recapitating-a-forward-simulation" title="Link to this heading">#</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">msprime</span></code> simulator generates tree sequences using the
 backward-in-time coalescent model. But it is also possible to output tree sequences
 from <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1006581">forward-time</a>
@@ -538,7 +538,7 @@ they may cause problems:</p>
 sequence, having these unary edges and redundant nodes will slightly
 inflate the values.</p></li>
 <li><p>If you are computing the overall tree “height” by taking the time of the
-root node, you may overestimate the height because there is a unary edge
+root node, you may overestimate the height if there is a unary edge
 above the “real” root (this would happen if one of the trees had already
 coalesced in the forward-time simulation).</p></li>
 </ol>
@@ -548,12 +548,12 @@ computed tree sequence which is easily done using the
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_ts</span> <span class="o">=</span> <span class="n">coalesced_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
-<span class="n">coalesced_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
+<span class="n">final_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6e8c3ed7166f96b1137560ee6c8a29c2f4ef42616416060924bfc88bc910423d.svg" src="_images/6e8c3ed7166f96b1137560ee6c8a29c2f4ef42616416060924bfc88bc910423d.svg" />
+<img alt="_images/ec783d312fcede86d73a84c6b332380f2dfcf56e259e4b3e367a787cfee1ebeb.svg" src="_images/ec783d312fcede86d73a84c6b332380f2dfcf56e259e4b3e367a787cfee1ebeb.svg" />
 </div>
 </div>
 <p>This final tree sequence is topologically identical to the original tree sequence,
