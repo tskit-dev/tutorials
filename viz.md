@@ -2228,7 +2228,7 @@ def size_max(graph):
 # See https://popsim-consortium.github.io/demes-docs/ for the yml spec for the file below
 graph = demes.load("data/whatis_example.yml")
 w = 1.5 * size_max(graph)
-positions = dict(Ancestral_population=0, A=-w, B=w)
+positions = dict(Ancestral_population=0, P=-w, Q=w)
 ax = demesdraw.tubes(graph, positions=positions, seed=1)
 plt.show(ax.figure)
 ```
