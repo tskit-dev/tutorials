@@ -210,8 +210,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tskit for ...</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="popgen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="popgen.html"><strong class="program">Tskit</strong> for population genetics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong class="program">Tskit</strong> for phylogenetics</a></li>
 </ul>
 
     </div>
@@ -386,8 +386,9 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="tskit-for-phylogenetics">
-<span id="sec-phylogen"></span><h1><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics<a class="headerlink" href="#tskit-for-phylogenetics" title="Link to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">Tskit</span></code>, the tree sequence toolkit, can be used as an efficient library for very large evolutionary trees. <code class="docutils literal notranslate"><span class="pre">Tskit</span></code> makes it easy to deal with trees with millions of
+<span id="sec-phylogen"></span><h1><strong class="program">Tskit</strong> for phylogenetics<a class="headerlink" href="#tskit-for-phylogenetics" title="Link to this heading">#</a></h1>
+<p><strong class="program">Tskit</strong>, the tree sequence toolkit, can be used as an efficient library for
+very large evolutionary trees. <strong class="program">Tskit</strong> makes it easy to deal with trees with millions of
 tips, as in the example below:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="admonition hide above-input">
@@ -416,8 +417,8 @@ tips, as in the example below:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.7001838684082 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 3.5 s, sys: 64.8 ms, total: 3.57 s
-Wall time: 3.57 s
+CPU times: user 3.43 s, sys: 90 ms, total: 3.52 s
+Wall time: 3.52 s
 </pre></div>
 </div>
 </div>
@@ -442,8 +443,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 nodes took:
-CPU times: user 251 ms, sys: 0 ns, total: 251 ms
-Wall time: 250 ms
+CPU times: user 249 ms, sys: 40 μs, total: 249 ms
+Wall time: 249 ms
 </pre></div>
 </div>
 </div>
@@ -459,8 +460,8 @@ Wall time: 250 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 10 ms, sys: 0 ns, total: 10 ms
-Wall time: 9.76 ms
+CPU times: user 8.48 ms, sys: 3.02 ms, total: 11.5 ms
+Wall time: 11.6 ms
 </pre></div>
 </div>
 </div>
@@ -487,7 +488,7 @@ this means when reading in a large tree you are mainly limited by disk access sp
 </div>
 </div>
 </div>
-<p>The “succinct tree sequence” format used by <code class="docutils literal notranslate"><span class="pre">tskit</span></code> can also store mutations
+<p>The “succinct tree sequence” format used by <strong class="program">tskit</strong> can also store mutations
 (and optionally a reference genome) along with the tree(s). This results in a
 single unified representation of large genomic datasets, storing trees,
 sequence data and metadata in a single efficient structure. Examples are given
@@ -500,11 +501,11 @@ sorting. An overview, and links to further details are given at the
 <a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">end of this page</span></a>.</p>
 <section id="hints-for-phylogeneticists">
 <h2>Hints for phylogeneticists<a class="headerlink" href="#hints-for-phylogeneticists" title="Link to this heading">#</a></h2>
-<p>Unlike other phylogenetic libraries, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is designed to efficiently store not just
+<p>Unlike other phylogenetic libraries, <strong class="program">tskit</strong> is designed to efficiently store not just
 single trees, but sequences of correlated trees along a genome. This means that the
 library has some features not found in more standard phylogenetic libraries.
 Here we focus on the <a class="reference external" href="https://tskit.dev/tszip/docs/latest/python-api.html#sec-python-api" title="(in Project name not set)"><span>Python API</span></a>,
-introducing seven <code class="docutils literal notranslate"><span class="pre">tskit</span></code> concepts that may be useful to those with a background in
+introducing seven <strong class="program">tskit</strong> concepts that may be useful to those with a background in
 phylogenetics (each is linked to a separate section below):</p>
 <ol class="arabic simple">
 <li><p>An evolutionary tree is always contained within a “tree sequence”.
@@ -716,7 +717,7 @@ contained using the <a class="reference external" href="https://tskit.dev/tskit/
 </section>
 <section id="integer-node-and-edge-ids">
 <span id="sec-phylogen-ids"></span><h3>Integer node and edge IDs<a class="headerlink" href="#integer-node-and-edge-ids" title="Link to this heading">#</a></h3>
-<p>The plot above labels nodes by their name, but internally the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> library relies
+<p>The plot above labels nodes by their name, but internally the <strong class="program">tskit</strong> library relies
 heavily on integer IDs. Here’s the same tree with node IDs plotted instead:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -735,9 +736,9 @@ heavily on integer IDs. Here’s the same tree with node IDs plotted instead:</p
 integer ID starting from 0 to <code class="docutils literal notranslate"><span class="pre">ts.num_nodes</span> <span class="pre">-</span> <span class="pre">1</span></code> (IDs can be allocated in any order;
 often the tips are labelled starting from 0 but this is not necessarily so, and
 is not the case in the example above).</p>
-<p>For efficiency reasons, tree traversal routines, as well as many other <code class="docutils literal notranslate"><span class="pre">tskit</span></code> methods,
-tend to return integer IDs. You can use this ID to get specific information about the
-node and its position in the tree, for example</p>
+<p>For efficiency reasons, tree traversal routines, as well as many other <strong class="program">tskit</strong>
+methods, tend to return integer IDs. You can use this ID to get specific information
+about the node and its position in the tree, for example</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_id</span> <span class="o">=</span> <span class="mi">4</span>
@@ -766,8 +767,8 @@ The parents of nodes 0..8 are [-1  0  0  2  2  3  3  4  4 -1]
 <p>Rather than refer to “branches” of a tree, tskit tends to refer to
 <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-edges"><span class="std std-ref">Edges</span></a> (the term “edge” emphasises that these can span
 <a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">Multiple trees</span></a>, although for tree sequences containing a single
-tree, the terms are interchangeable). Like other entities in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, edges are referred
-to by an integer ID. For instance, here is the edge above the internal node 4</p>
+tree, the terms are interchangeable). Like other entities in <strong class="program">tskit</strong>, edges
+are referred to by an integer ID. For instance, here is the edge above the internal node 4</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_id</span> <span class="o">=</span> <span class="mi">4</span>
@@ -841,7 +842,7 @@ Node IDs in postorder: [1 5 6 3 7 8 4 2 0]
 such as genomes A, B, C, D, and E in the example above. These are designated as
 <em>sample nodes</em>, and are plotted as square nodes. The concept of
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-sample" title="(in Project name not set)"><span class="xref std std-ref">sample nodes</span></a> is integral
-to the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> format. They can be identified by using the
+to the <strong class="program">tskit</strong> format. They can be identified by using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Node.is_sample" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Node.is_sample()</span></code></a> and <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.is_sample" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.is_sample()</span></code></a> methods, or can be listed using
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.samples" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.samples()</span></code></a> or <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.samples" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.samples()</span></code></a> (internally, the <code class="docutils literal notranslate"><span class="pre">node.flags</span></code>
 field is used to <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-node-table-definition" title="(in Project name not set)"><span class="xref std std-ref">flag up</span></a> which nodes are samples):</p>
@@ -933,17 +934,17 @@ times for all nodes, which provides direct memory access into the
 </section>
 <section id="nodes-must-have-times">
 <span id="sec-phylogen-node-time"></span><h3>Nodes must have times<a class="headerlink" href="#nodes-must-have-times" title="Link to this heading">#</a></h3>
-<p>Perhaps the most noticable different between a <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tree and the encoding of trees
-in other phylogenetic libraries is that <code class="docutils literal notranslate"><span class="pre">tskit</span></code> does not explicitly store branch lengths.
+<p>Perhaps the most noticable different between a <strong class="program">tskit</strong> tree and the encoding of trees
+in other phylogenetic libraries is that <strong class="program">tskit</strong> does not explicitly store branch lengths.
 Instead, each node has a <em>time</em> associated with it. Branch lengths can therefore be
 found by calculating the difference between the time of a node and the time of its
 parent node.</p>
-<p>Since nodes <em>must</em> have a time, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> trees aways have these (implicit) branch
+<p>Since nodes <em>must</em> have a time, <strong class="program">tskit</strong> trees aways have these (implicit) branch
 lengths. To represent a tree (“cladogram”) in which the branch lengths are not
 meaningful, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.time_units" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TreeSequence.time_units</span></code></a> of a tree sequence can be
 specified as <code class="docutils literal notranslate"><span class="pre">&quot;uncalibrated&quot;</span></code> (see below)</p>
-<p>Another implication of storing node times rather than branch lengths is that <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
-trees are always directional (i.e. they are “rooted”). The reason that <code class="docutils literal notranslate"><span class="pre">tskit</span></code> stores
+<p>Another implication of storing node times rather than branch lengths is that <strong class="program">tskit</strong>
+trees are always directional (i.e. they are “rooted”). The reason that <strong class="program">tskit</strong> stores
 times of nodes (rather than e.g. genetic distances between them) is to ensure temporal
 consistency. In particular it makes it impossible for a node to be an ancestor of a
 node in one tree, and a descendant of the same node in another tree in the tree sequence.
@@ -965,7 +966,7 @@ measured: if not known, this defaults to “unknown”:</p>
 <img alt="_images/ddf2ef573d96e439d0a1a6c1199bb5fc37f2f89000ab5036380205be570962f4.svg" src="_images/ddf2ef573d96e439d0a1a6c1199bb5fc37f2f89000ab5036380205be570962f4.svg" />
 </div>
 </div>
-<p>Although branch lengths are not stored explicitly, for convenience <code class="docutils literal notranslate"><span class="pre">tskit</span></code> provides a
+<p>Although branch lengths are not stored explicitly, for convenience <strong class="program">tskit</strong> provides a
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.branch_length" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.branch_length()</span></code></a> method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1004,7 +1005,7 @@ measured: if not known, this defaults to “unknown”:</p>
 </div>
 <p>It is worth noting that this distance is the basis for the “genetic divergence”
 between two samples in a tree. For this reason, an equivalent way to carry out the
-calculation is to use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a>, part of the the standard <code class="docutils literal notranslate"><span class="pre">tskit</span></code>
+calculation is to use <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.divergence" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.divergence()</span></code></a>, part of the the standard <strong class="program">tskit</strong>
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats" title="(in Project name not set)"><span>Statistics</span></a> framework, setting <code class="docutils literal notranslate"><span class="pre">mode=&quot;branch&quot;</span></code> and
 <code class="docutils literal notranslate"><span class="pre">windows=&quot;trees&quot;</span></code>. This is a more flexible approach, as it allows the distance between
 multiple sets of samples in <a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">Multiple trees</span></a> to be calculated
@@ -1022,7 +1023,7 @@ efficiently:</p>
 </section>
 <section id="roots-and-multiroot-trees">
 <span id="sec-phylogen-multiroot"></span><h3>Roots and multiroot trees<a class="headerlink" href="#roots-and-multiroot-trees" title="Link to this heading">#</a></h3>
-<p>In <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-roots" title="(in Project name not set)"><span>Roots</span></a> of trees are defined with respect to the
+<p>In <strong class="program">tskit</strong>, <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-roots" title="(in Project name not set)"><span>Roots</span></a> of trees are defined with respect to the
 sample nodes. In particular, if we move back in time along the tree branches from a
 sample, the oldest node that we encounter is defined as a root. The ID of a root can be
 obtained using <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.root" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Tree.root</span></code></a>:</p>
@@ -1040,7 +1041,7 @@ obtained using <a class="reference external" href="https://tskit.dev/tskit/docs/
 <img alt="_images/ac3c47964cde2c47059dbbe79224bb343e50d73fb7bbb667c5053f58633ab057.svg" src="_images/ac3c47964cde2c47059dbbe79224bb343e50d73fb7bbb667c5053f58633ab057.svg" />
 </div>
 </div>
-<p>But in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, we can also create a single “tree” consisting of multiple unlinked
+<p>But in <strong class="program">tskit</strong>, we can also create a single “tree” consisting of multiple unlinked
 clades. In our example, we can create one of these phylogenetically unusual objects
 if we remove the edge above node 4, by
 <a class="reference internal" href="tables_and_editing.html#sec-tables-editing"><span class="std std-ref">editing the underlying tables</span></a>:</p>
@@ -1060,8 +1061,8 @@ if we remove the edge above node 4, by
 <img alt="_images/25a7d82a4ad7075dc0e62037fecd3ac56e1e8f7e1cfb1edb540e24ccad1cdc4c.svg" src="_images/25a7d82a4ad7075dc0e62037fecd3ac56e1e8f7e1cfb1edb540e24ccad1cdc4c.svg" />
 </div>
 </div>
-<p>Although there are two separate topologies in this plot, in <code class="docutils literal notranslate"><span class="pre">tskit</span></code> terminology, it is
-considered a single tree, but with two roots:</p>
+<p>Although there are two separate topologies in this plot, in <strong class="program">tskit</strong> terminology,
+it is considered a single tree, but with two roots:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The first tree has&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">),</span> <span class="s2">&quot;roots:&quot;</span><span class="p">,</span> <span class="n">new_tree</span><span class="o">.</span><span class="n">roots</span><span class="p">)</span>
@@ -1094,7 +1095,7 @@ sample is its own root.</p>
 </div>
 </div>
 <p>The samples here are <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-tree-isolated-nodes" title="(in Project name not set)"><span>Isolated nodes</span></a>. This may seem like a
-strange corner case, but in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>, isolated sample nodes are used to represent
+strange corner case, but in <strong class="program">tskit</strong>, isolated sample nodes are used to represent
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-missing-data" title="(in Project name not set)"><span>Missing data</span></a>. This therefore represents a tree in which
 relationships between the samples are not known. This could apply, for instance,
 in regions of the genome where no genetic data exists, or where genetic ancestry
@@ -1116,7 +1117,7 @@ has not been simulated.</p>
 </section>
 <section id="storing-and-accessing-genetic-data">
 <span id="sec-phylogen-unified-structure"></span><h2>Storing and accessing genetic data<a class="headerlink" href="#storing-and-accessing-genetic-data" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> has been designed to capture both evolutionary tree topologies and the genetic
+<p><strong class="program">Tskit</strong> has been designed to capture both evolutionary tree topologies and the genetic
 sequences that evolve along the branches of these trees. This is achieved by defining
 <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-mutations-and-sites"><span class="std std-ref">Mutations and sites</span></a> which are associated with specific positions
 along the genome.</p>
@@ -1219,12 +1220,12 @@ Node 8: ...............................................G........................
 </section>
 <section id="multiple-trees">
 <span id="sec-phylogen-multiple-trees"></span><h2>Multiple trees<a class="headerlink" href="#multiple-trees" title="Link to this heading">#</a></h2>
-<p>Where <code class="docutils literal notranslate"><span class="pre">tskit</span></code> really shines is when the ancestry of your dataset cannot be adequately
+<p>Where <strong class="program">tskit</strong> really shines is when the ancestry of your dataset cannot be adequately
 represented by a single tree. This is a pervasive issue in genomes (even from different
 species) that have undergone recombination in the past. The resulting series of
 <a class="reference internal" href="what_is.html#sec-what-is-local-trees"><span class="std std-ref">local trees</span></a> along a genome are highly correlated
 (see <a class="reference internal" href="terminology_and_concepts.html#sec-concepts"><span class="std std-ref">Concepts</span></a>).</p>
-<p>Instead of storing each tree along a genome separately, <code class="docutils literal notranslate"><span class="pre">tskit</span></code> records the genomic
+<p>Instead of storing each tree along a genome separately, <strong class="program">tskit</strong> records the genomic
 coordinates of each edge, which leads to enormous efficiencies in storage and
 analysis. As a basic demonstration, we can repeat the edge removal example
 <a class="reference internal" href="#sec-phylogen-multiroot"><span class="std std-ref">above</span></a>, but only remove the ancestral link above node 4
@@ -1252,7 +1253,7 @@ node 4, but for the right hand side we know this information. The result is to
 generate 2 trees in the tree sequence, which differ only in the presence of absence of
 a single branch. We do not have to separately store the entire tree on the right: all
 the edges that are shared between trees are stored only once.</p>
-<p>The rest of the <code class="docutils literal notranslate"><span class="pre">tskit</span></code> tutorials will lead you through the concepts involved with
+<p>The rest of the <strong class="program">tskit</strong> tutorials will lead you through the concepts involved with
 storing and analysing sequences of many correlated trees. For a simple introduction, you
 might want to start with <a class="reference internal" href="what_is.html#sec-what-is"><span class="std std-ref">What is a tree sequence?</span></a>.</p>
 </section>
@@ -1294,7 +1295,7 @@ might want to start with <a class="reference internal" href="what_is.html#sec-wh
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</p>
+        <p class="prev-next-title"><strong class="program">Tskit</strong> for population genetics</p>
       </div>
     </a>
 </div>

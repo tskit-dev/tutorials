@@ -213,8 +213,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tskit for ...</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="popgen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for population genetics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phylogen.html"><code class="docutils literal notranslate"><span class="pre">Tskit</span></code> for phylogenetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="popgen.html"><strong class="program">Tskit</strong> for population genetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phylogen.html"><strong class="program">Tskit</strong> for phylogenetics</a></li>
 </ul>
 
     </div>
@@ -384,9 +384,9 @@
 <span id="sec-counting-topologies"></span><h1>Counting topologies<a class="headerlink" href="#counting-topologies" title="Link to this heading">#</a></h1>
 <p><strong>Yan Wong</strong></p>
 <p>This tutorial is intended to be a gentle introduction to the combinatorial
-treatment of tree topologies in <code class="docutils literal notranslate"><span class="pre">tskit</span></code>. For a more formal introduction,
+treatment of tree topologies in <strong class="program">tskit</strong>. For a more formal introduction,
 see the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/topological-analysis.html#sec-combinatorics" title="(in Project name not set)"><span>Identifying and counting topologies</span></a> section of the
-official <code class="docutils literal notranslate"><span class="pre">tskit</span></code> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Project name not set)"><span class="xref std std-ref">documentation</span></a>.</p>
+official <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tskit/docs/stable/introduction.html#sec-introduction" title="(in Project name not set)"><span class="xref std std-ref">documentation</span></a>.</p>
 <p>The <em>topology</em> of a single tree is the term used to describe the branching pattern,
 regardless of the lengths of the branches. For example, both trees below have the
 same topology, although the branch lengths differ:</p>
@@ -409,7 +409,7 @@ same topology, although the branch lengths differ:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The treatment of topologies in <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is restricted to trees with a single defined root,
+<p>The treatment of topologies in <strong class="program">tskit</strong> is restricted to trees with a single defined root,
 without nodes with a single child (i.e. trees must consist of nodes that are either leaves,
 or internal nodes with two or more children).  For convenience in the examples
 below, trees are drawn with the tips flagged as samples, although whether a node is a sample or
@@ -428,40 +428,74 @@ different topologies:</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">string</span><span class="w"> </span><span class="kn">import</span> <span class="n">ascii_lowercase</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVG</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">str_none</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot; = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">None</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">draw_svg_trees</span><span class="p">(</span><span class="n">trees</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">x_lab_attr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">width</span> <span class="o">+</span> <span class="n">space</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="n">height</span> <span class="o">+</span> <span class="n">space</span>
-    <span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;svg height=&quot;</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s1">&quot; width=&quot;</span><span class="si">{</span><span class="n">w</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&#39;</span>
-    <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&lt;style&gt;.x-axis </span><span class="se">{{</span><span class="s1">transform: translateY(</span><span class="si">{</span><span class="n">space</span><span class="si">}</span><span class="s1">px)</span><span class="se">}}</span><span class="s1">&lt;/style&gt;&#39;</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tree</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trees</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">+=</span> <span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-            <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
-            <span class="n">canvas_size</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span>
-            <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">w</span><span class="p">},</span>
-            <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
-            <span class="n">x_label</span><span class="o">=</span><span class="n">str_none</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">(),</span> <span class="n">x_lab_attr</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">x_lab_attr</span><span class="p">)</span>
+<span class="c1"># This helper is copied from the side-by-side SVG example in the visualization tutorial.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_svg_side_by_side</span><span class="p">(</span>
+    <span class="n">drawables</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+    <span class="n">sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">canvas_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">per_svg_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">drawables</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Need at least one drawable&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">per_svg_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">per_svg_kwargs</span> <span class="o">=</span> <span class="p">[{}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">drawables</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">per_svg_kwargs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">drawables</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;per_svg_kwargs must have the same length as drawables&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sizes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">size</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">drawables</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">drawables</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sizes must have the same length as drawables&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">canvas_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">canvas_size</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">drawables</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">padding</span><span class="p">,</span>
+            <span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">),</span>
         <span class="p">)</span>
-    <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/svg&gt;&#39;</span>
-    <span class="k">return</span> <span class="n">SVG</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-<span class="n">draw_svg_trees</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_labellings</span><span class="p">(</span><span class="n">tree</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()})</span>
+    <span class="n">preamble</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">x_offset</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">padding</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">drawable</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">drawables</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">svg_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">svg_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">per_svg_kwargs</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">svg_kwargs</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">svg_kwargs</span><span class="p">[</span><span class="s2">&quot;root_svg_attributes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="o">**</span><span class="n">svg_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;root_svg_attributes&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">x_offset</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">preamble</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drawable</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="o">**</span><span class="n">svg_kwargs</span><span class="p">))</span>
+        <span class="n">x_offset</span> <span class="o">+=</span> <span class="n">sizes</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">padding</span>
+
+    <span class="n">first_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">first_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">per_svg_kwargs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">first_kwargs</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_kwargs</span><span class="p">[</span><span class="s2">&quot;canvas_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">canvas_size</span>
+    <span class="n">first_kwargs</span><span class="p">[</span><span class="s2">&quot;preamble&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">first_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;preamble&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">preamble</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">drawables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="o">**</span><span class="n">first_kwargs</span><span class="p">)</span>
+
+
+<span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_labellings</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+<span class="n">draw_svg_side_by_side</span><span class="p">(</span>
+    <span class="n">trees</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">per_svg_kwargs</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;node_labels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()},</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;label </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">trees</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/549b9dc29eb096a6236d90f1158c5a6343bdf5ff5e510d5429043fde0e77bdf5.svg" src="_images/549b9dc29eb096a6236d90f1158c5a6343bdf5ff5e510d5429043fde0e77bdf5.svg" />
+<img alt="_images/83dcf64a2758f4eb198cf2d24eda04f1044d8e2f7cfb9216a2bace3eb0cec958.svg" src="_images/83dcf64a2758f4eb198cf2d24eda04f1044d8e2f7cfb9216a2bace3eb0cec958.svg" />
 </div>
 </div>
 <p>These are, in fact, the only possible three labellings for a three-tip tree of that shape.
@@ -484,8 +518,9 @@ possible labelling):</p>
 <img alt="_images/3cedd5fc73e5d38478982cf3b6f1f4a40b56536c02b0f9ea63fcb1a14167b19e.svg" src="_images/3cedd5fc73e5d38478982cf3b6f1f4a40b56536c02b0f9ea63fcb1a14167b19e.svg" />
 </div>
 </div>
-<p>A 3-tip tree therefore has only four possible topologies.
-These can be generated with the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a> function.</p>
+<p>A 3-tip tree therefore has two shapes, one of which has 3 labellings and one of which
+has only one labelling. That gives four possible topologies, which
+can be generated using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.all_trees" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">all_trees()</span></code></a> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generated_trees</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -507,17 +542,24 @@ These can be generated with the <a class="reference external" href="https://tski
 <p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">draw_svg_trees</span><span class="p">(</span>
-    <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-    <span class="n">node_labels</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()},</span>
-    <span class="n">x_lab_attr</span><span class="o">=</span><span class="s2">&quot;shape&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">draw_svg_side_by_side</span><span class="p">(</span>
+    <span class="n">trees</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+    <span class="n">per_svg_kwargs</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;node_labels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">()},</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;shape </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> (lab </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">trees</span>
+    <span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/faaa43f5dd68b399f78714a1afb1aa5c3274987ebd30a218996ce2e5b60ffd54.svg" src="_images/faaa43f5dd68b399f78714a1afb1aa5c3274987ebd30a218996ce2e5b60ffd54.svg" />
+<img alt="_images/c8c36d0d9d22a43d98571e291cd2bbbcb02660f2a8920522114d33377983c022.svg" src="_images/c8c36d0d9d22a43d98571e291cd2bbbcb02660f2a8920522114d33377983c022.svg" />
 </div>
 </div>
 <section id="enumerating-shapes-and-labellings">
@@ -549,13 +591,20 @@ These can be categorised into 5 shapes.
 <p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">draw_svg_trees</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">x_lab_attr</span><span class="o">=</span><span class="s2">&quot;shape&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_tree_shapes</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">draw_svg_side_by_side</span><span class="p">(</span>
+    <span class="n">trees</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">per_svg_kwargs</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;shape </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/72fd4711957353f6132784d8e2c867f22da6596e6cfc409ff0bb0222d4d6988f.svg" src="_images/72fd4711957353f6132784d8e2c867f22da6596e6cfc409ff0bb0222d4d6988f.svg" />
+<img alt="_images/40f9c69fbe0e8c0ab2ca81ac34962441889836eb5a5db53d84a742d87cf5c2ba.svg" src="_images/40f9c69fbe0e8c0ab2ca81ac34962441889836eb5a5db53d84a742d87cf5c2ba.svg" />
 </div>
 </div>
 <p>Each of these shapes will have a separate number of possible labellings, and trees with
@@ -626,8 +675,8 @@ specifying the number of tips and the appropriate <code class="docutils literal 
 <img alt="_images/68ff3c280816bf20d5301a7991e8bead31daecc9916a4673117ae355f18a92cf.svg" src="_images/68ff3c280816bf20d5301a7991e8bead31daecc9916a4673117ae355f18a92cf.svg" />
 </div>
 </div>
-<p>Note that this method generates a single tree in a new tree sequence
-whose a default sequence length is 1.0.</p>
+<p>Note that this method generates a single tree in a new tree sequence,
+using a default sequence length of 1.0.</p>
 </section>
 </section>
 <section id="methods-for-large-trees">
@@ -672,7 +721,7 @@ rather than comparing ranks directly.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_tree</span> <span class="o">=</span> <span class="n">simulated_ts</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">sample_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># kc_distance requires sample lists</span>
 <span class="k">if</span> <span class="n">simulated_ts</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">sample_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">kc_distance</span><span class="p">(</span><span class="n">simulated_tree</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trees are identical&quot;</span><span class="p">)</span>
-    <span class="c1"># To compare to the new_tree we need to fix </span>
+    <span class="c1"># NB: to compare to the new_tree we need to ensure that their sample IDs are equivalent.</span>
     <span class="c1"># print(&quot;The simulated and topology-constructed trees have the same topology&quot;)</span>
 </pre></div>
 </div>
@@ -688,7 +737,7 @@ many-tip trees, it is still possible to efficiently count
 the number of <em>embedded topologies</em> in a large tree.</p>
 <section id="embedded-topologies">
 <h3>Embedded topologies<a class="headerlink" href="#embedded-topologies" title="Link to this heading">#</a></h3>
-<p>An embedded topology is a a topology involving a subset of the tips of a tree.
+<p>An embedded topology is a topology involving a subset of the tips of a tree.
 If the tips are classified into (say) three groups, red, green, and blue,
 we can efficiently count all the embedded three-tip trees which have
 one tip from each group using the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.count_topologies" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.count_topologies()</span></code></a> method.</p>
@@ -706,7 +755,7 @@ one tip from each group using the <a class="reference external" href="https://ts
     <span class="sa">f</span><span class="s2">&quot;.node.sample.p</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym &quot;</span> <span class="o">+</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;fill: </span><span class="si">{</span><span class="n">colour</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
     <span class="k">for</span> <span class="n">colour</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="n">big_tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">populations</span><span class="p">())</span>
 <span class="p">]</span>
-<span class="n">big_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">x_label</span><span class="o">=</span><span class="s2">&quot;big_tree&quot;</span><span class="p">)</span>
+<span class="n">big_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -732,19 +781,25 @@ green tip as to a blue tip:</p>
 <span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">&gt;.sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colours</span><span class="p">)]</span>
 
 <span class="n">embedded_counts</span> <span class="o">=</span> <span class="n">topology_counter</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">embedded_tree</span> <span class="ow">in</span> <span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">rank</span> <span class="o">=</span> <span class="n">embedded_tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()</span>
-    <span class="n">number_of_instances</span> <span class="o">=</span> <span class="n">embedded_counts</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">number_of_instances</span><span class="si">}</span><span class="s2"> instances embedded in big_tree&quot;</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">embedded_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">x_label</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+<span class="n">embedded_trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">draw_svg_side_by_side</span><span class="p">(</span>
+    <span class="n">embedded_trees</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">per_svg_kwargs</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+            <span class="s2">&quot;node_labels&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">embedded_counts</span><span class="p">[</span><span class="n">embedded_tree</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span><span class="si">}</span><span class="s2"> embedded instances&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">embedded_tree</span> <span class="ow">in</span> <span class="n">embedded_trees</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9e9dace55fbcb6d3fcc66decbd53dd30db77ecdaa2115d3107942131ebe1369a.svg" src="_images/9e9dace55fbcb6d3fcc66decbd53dd30db77ecdaa2115d3107942131ebe1369a.svg" />
-<img alt="_images/1e24860c7c0affa8cbe6809af8c13800c1d362b73fa112672c99bf6693be05bf.svg" src="_images/1e24860c7c0affa8cbe6809af8c13800c1d362b73fa112672c99bf6693be05bf.svg" />
-<img alt="_images/af025f5b7a4fa564fe7e8436a28c520f5b43a3daf7dafa54a832d910f3c21473.svg" src="_images/af025f5b7a4fa564fe7e8436a28c520f5b43a3daf7dafa54a832d910f3c21473.svg" />
-<img alt="_images/fef82c288c78d0a68ea733ccacd7806e7e6a489c67bf947809354c9d284a7d09.svg" src="_images/fef82c288c78d0a68ea733ccacd7806e7e6a489c67bf947809354c9d284a7d09.svg" />
+<img alt="_images/87ee65d0ca341f97aa30026cf76fdf5fbc2afd278074000198002d8940182ad6.svg" src="_images/87ee65d0ca341f97aa30026cf76fdf5fbc2afd278074000198002d8940182ad6.svg" />
 </div>
 </div>
 </section>
@@ -753,10 +808,10 @@ green tip as to a blue tip:</p>
 <h2>Methods over tree sequences<a class="headerlink" href="#methods-over-tree-sequences" title="Link to this heading">#</a></h2>
 <p>It can be useful to count embedded topologies over an entire tree sequence.
 For instance, we might want to know the number of embedded topologies
-that support Neanderthals as a sister group to europeans versus africans.
-<code class="docutils literal notranslate"><span class="pre">Tskit</span></code> provides the efficient <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> method to
-do this <a class="reference internal" href="incremental_algorithms.html#sec-incremental"><span class="std std-ref">incrementally</span></a>, without having to re-count the topologies
-independently in each tree.</p>
+that support Neanderthals as a sister group to Europeans versus Africans.
+<strong class="program">Tskit</strong> provides the efficient <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.count_topologies" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.count_topologies()</span></code></a> method
+to do this <a class="reference internal" href="incremental_algorithms.html#sec-incremental"><span class="std std-ref">incrementally</span></a>, without having to re-count the
+topologies independently in each tree.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -804,7 +859,7 @@ calculating the average over an entire chromosome simply takes a little longer)<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3720000000000 embedded topologies in 0:00:07.939992 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counted 3720000000000 embedded topologies in 0:00:07.335073 seconds
 </pre></div>
 </div>
 </div>
@@ -826,19 +881,26 @@ calculating the average over an entire chromosome simply takes a little longer)<
     <span class="n">styles</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&gt;.sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">&quot;</span>
 
 <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">topology_span</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">topology_span</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">weight</span><span class="o">/</span><span class="n">total</span><span class="w"> </span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% of genome&quot;</span>
-    <span class="n">embedded_tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">unrank</span><span class="p">(</span><span class="n">ntips</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">embedded_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">x_label</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+<span class="n">embedded_trees</span> <span class="o">=</span> <span class="p">[</span><span class="n">tskit</span><span class="o">.</span><span class="n">Tree</span><span class="o">.</span><span class="n">unrank</span><span class="p">(</span><span class="n">ntips</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span> <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">topology_span</span><span class="p">]</span>
+<span class="n">draw_svg_side_by_side</span><span class="p">(</span>
+    <span class="n">embedded_trees</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">per_svg_kwargs</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+            <span class="s2">&quot;node_labels&quot;</span><span class="p">:</span> <span class="n">node_labels</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">weight</span><span class="o">/</span><span class="n">total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% of genome&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">topology_span</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/e0e03406abab3a3afd413704a1bd229c46ca282a7f50a1d8b869d2803b14d978.svg" src="_images/e0e03406abab3a3afd413704a1bd229c46ca282a7f50a1d8b869d2803b14d978.svg" />
-<img alt="_images/3a1e96f467d8275155d2da86bde895df9c85b2b27a8adee83147d831ad14c294.svg" src="_images/3a1e96f467d8275155d2da86bde895df9c85b2b27a8adee83147d831ad14c294.svg" />
-<img alt="_images/c132eba0599708a9e4728273256c1f692538979306a1f42a388c2e340b4f15d2.svg" src="_images/c132eba0599708a9e4728273256c1f692538979306a1f42a388c2e340b4f15d2.svg" />
-<img alt="_images/6a6907c7c8e8d21c79b31994583c4609e8f1f8e8dbbbe2bb07063c8c4867dbe6.svg" src="_images/6a6907c7c8e8d21c79b31994583c4609e8f1f8e8dbbbe2bb07063c8c4867dbe6.svg" />
+<img alt="_images/1716f7cb5754c87ca23f91e92106647aa1e63072a86b246ae2c02d077c508803.svg" src="_images/1716f7cb5754c87ca23f91e92106647aa1e63072a86b246ae2c02d077c508803.svg" />
 </div>
 </div>
 <p>Perhaps unsurprisingly, the most common topology is the one that groups the non-African
