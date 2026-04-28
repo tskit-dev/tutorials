@@ -120,7 +120,15 @@ reproduceable code.
 This tutorial is primarily focussed on showing a tree sequence as a set of marginal
 trees along a genome. The section titled {ref}`sec_tskit_viz_other`
 provides examples of other representations of tree sequences, or the processes that
-can create them. 
+can create them.
+
+Additionally, other software tools exist that can plot genealogies (ARGs) in tree
+sequence format. For example, in these tutorials we use the
+[tskit_arg_visualizer](https://github.com/kitchensjn/tskit_arg_visualizer) tool
+to provide simple graph-centric visualizations. You might also want to explore
+tools such as [ARGscape](https://www.argscape.com), [Lorax](https://lorax.ucsc.edu),
+[tsbrowse](https://tskit.dev/tsbrowse/docs/stable/intro.html), or even high-level
+analysis tools like [TwisstNTern](https://github.com/HilaLifchitz/twisstntern_v2).
 :::
 
 
