@@ -49,9 +49,9 @@ def create_notebook_data():
 **Yan Wong**
 
 This tutorial is intended to be a gentle introduction to the combinatorial
-treatment of tree topologies in `tskit`. For a more formal introduction,
+treatment of tree topologies in {program}`tskit`. For a more formal introduction,
 see the {ref}`sec_combinatorics` section of the
-official `tskit` {ref}`documentation<tskit:sec_introduction>`.
+official {program}`tskit` {ref}`documentation<tskit:sec_introduction>`.
 
 The *topology* of a single tree is the term used to describe the branching pattern,
 regardless of the lengths of the branches. For example, both trees below have the
@@ -68,7 +68,7 @@ display(deep_tree.draw_svg(node_labels=node_labels, y_axis=True))
 ```
 
 :::{note}
-The treatment of topologies in `tskit` is restricted to trees with a single defined root,
+The treatment of topologies in {program}`tskit` is restricted to trees with a single defined root,
 without nodes with a single child (i.e. trees must consist of nodes that are either leaves,
 or internal nodes with two or more children).  For convenience in the examples
 below, trees are drawn with the tips flagged as samples, although whether a node is a sample or
@@ -84,34 +84,68 @@ different topologies:
 ```{code-cell}
 :tags: [hide-input]
 from string import ascii_lowercase
-from IPython.display import SVG
 
-def str_none(s, prefix=None):
-    if s is not None:
-        if prefix is None:
-            return str(s)
-        else:
-            return prefix + " = " + str(s)
-    return None
-
-def draw_svg_trees(trees, node_labels={}, x_lab_attr=None, width=100, height=150, space=10):
-    w = width + space
-    h = height + space
-    trees = list(trees)
-    s = f'<svg height="{h}" width="{w * len(trees)}" xmlns="http://www.w3.org/2000/svg">'
-    s += f'<style>.x-axis {{transform: translateY({space}px)}}</style>'
-    for i, tree in enumerate(trees):
-        s += tree.draw_svg(
-            size=(width, height),
-            canvas_size=(w, h),
-            root_svg_attributes={"x": i * w},
-            node_labels=node_labels,
-            x_label=str_none(getattr(tree.rank(), x_lab_attr or "", None), x_lab_attr)
+# This helper is copied from the side-by-side SVG example in the visualization tutorial.
+def draw_svg_side_by_side(
+    drawables,
+    *,
+    size=(200, 200),
+    sizes=None,
+    padding=40,
+    canvas_size=None,
+    per_svg_kwargs=None,
+    **kwargs,
+):
+    if len(drawables) == 0:
+        raise ValueError("Need at least one drawable")
+    if per_svg_kwargs is None:
+        per_svg_kwargs = [{} for _ in drawables]
+    if len(per_svg_kwargs) != len(drawables):
+        raise ValueError("per_svg_kwargs must have the same length as drawables")
+    if sizes is None:
+        sizes = [size for _ in drawables]
+    if len(sizes) != len(drawables):
+        raise ValueError("sizes must have the same length as drawables")
+    if canvas_size is None:
+        canvas_size = (
+            sum(s[0] for s in sizes) + (len(drawables) - 1) * padding,
+            max(s[1] for s in sizes),
         )
-    s += '</svg>'
-    return SVG(s)
 
-draw_svg_trees(tskit.all_tree_labellings(tree), node_labels={u: ascii_lowercase[u] for u in tree.samples()})
+    preamble = []
+    x_offset = sizes[0][0] + padding
+    for j, drawable in enumerate(drawables[1:], start=1):
+        svg_kwargs = dict(kwargs)
+        svg_kwargs.update(per_svg_kwargs[j])
+        svg_kwargs["size"] = sizes[j]
+        svg_kwargs["root_svg_attributes"] = {
+            **svg_kwargs.get("root_svg_attributes", {}),
+            "x": x_offset,
+        }
+        preamble.append(drawable.draw_svg(**svg_kwargs))
+        x_offset += sizes[j][0] + padding
+
+    first_kwargs = dict(kwargs)
+    first_kwargs.update(per_svg_kwargs[0])
+    first_kwargs["size"] = sizes[0]
+    first_kwargs["canvas_size"] = canvas_size
+    first_kwargs["preamble"] = first_kwargs.get("preamble", "") + "".join(preamble)
+    return drawables[0].draw_svg(**first_kwargs)
+
+
+trees = list(tskit.all_tree_labellings(tree))
+draw_svg_side_by_side(
+    trees,
+    size=(100, 150),
+    padding=10,
+    per_svg_kwargs=[
+        {
+            "node_labels": {u: ascii_lowercase[u] for u in tree.samples()},
+            "title": f"label {tree.rank().label}",
+        }
+        for tree in trees
+    ],
+)
 ```
 
 These are, in fact, the only possible three labellings for a three-tip tree of that shape.
@@ -124,8 +158,9 @@ possible labelling):
 tskit.Tree.generate_star(3).draw_svg(node_labels={})
 ```
 
-A 3-tip tree therefore has only four possible topologies.
-These can be generated with the {func}`~tskit.all_trees` function.
+A 3-tip tree therefore has two shapes, one of which has 3 labellings and one of which
+has only one labelling. That gives four possible topologies, which
+can be generated using the {func}`~tskit.all_trees` function.
 
 ```{code-cell}
 generated_trees = tskit.all_trees(3)
@@ -136,10 +171,17 @@ Here they are, plotted out with their shapes enumerated from zero:
 
 ```{code-cell}
 :tags: [hide-input]
-draw_svg_trees(
-    tskit.all_trees(3),
-    node_labels={u: ascii_lowercase[u] for u in tree.samples()},
-    x_lab_attr="shape"
+trees = list(tskit.all_trees(3))
+draw_svg_side_by_side(
+    trees,
+    size=(100, 150),
+    per_svg_kwargs=[
+        {
+            "node_labels": {u: ascii_lowercase[u] for u in tree.samples()},
+            "title": f"shape {tree.rank().shape} (lab {tree.rank().label})",
+        }
+        for tree in trees
+    ],
 )
 ```
 
@@ -160,7 +202,14 @@ Again, we can give each shape a number or *index*, starting from zero:
 
 ```{code-cell}
 :tags: [hide-input]
-draw_svg_trees(tskit.all_tree_shapes(4), x_lab_attr="shape")
+trees = list(tskit.all_tree_shapes(4))
+draw_svg_side_by_side(
+    trees,
+    size=(100, 150),
+    padding=10,
+    node_labels={},
+    per_svg_kwargs=[{"title": f"shape {tree.rank().shape}"} for tree in trees],
+)
 ```
 
 Each of these shapes will have a separate number of possible labellings, and trees with
@@ -203,8 +252,8 @@ new_tree = tskit.Tree.unrank(num_tips, (1270, 21580))
 new_tree.draw_svg(node_labels=ascii_node_labels)
 ```
 
-Note that this method generates a single tree in a new tree sequence
-whose a default sequence length is 1.0.
+Note that this method generates a single tree in a new tree sequence,
+using a default sequence length of 1.0.
 
 ## Methods for large trees
 
@@ -236,7 +285,7 @@ rather than comparing ranks directly.
 simulated_tree = simulated_ts.first(sample_lists=True)  # kc_distance requires sample lists
 if simulated_ts.first(sample_lists=True).kc_distance(simulated_tree) == 0:
     print("Trees are identical")
-    # To compare to the new_tree we need to fix 
+    # NB: to compare to the new_tree we need to ensure that their sample IDs are equivalent.
     # print("The simulated and topology-constructed trees have the same topology")
 ```
 
@@ -246,7 +295,7 @@ the number of *embedded topologies* in a large tree.
 
 ### Embedded topologies
 
-An embedded topology is a a topology involving a subset of the tips of a tree.
+An embedded topology is a topology involving a subset of the tips of a tree.
 If the tips are classified into (say) three groups, red, green, and blue,
 we can efficiently count all the embedded three-tip trees which have
 one tip from each group using the {meth}`Tree.count_topologies` method.
@@ -260,7 +309,7 @@ styles = [
     f".node.sample.p{p.id} > .sym " + "{" + f"fill: {colour}" + "}"
     for colour, p in zip(['red', 'green', 'blue'], big_tree.tree_sequence.populations())
 ]
-big_tree.draw_svg(style="".join(styles), node_labels={}, time_scale="rank", x_label="big_tree")
+big_tree.draw_svg(style="".join(styles), node_labels={}, time_scale="rank")
 ```
 
 In this tree, it is clear that the green and blue tips never cluster together.
@@ -280,21 +329,30 @@ colours = ['red', 'green', 'blue']
 styles = [f".n{u}>.sym {{fill: {c} }}" for u, c in enumerate(colours)]
 
 embedded_counts = topology_counter[0, 1, 2]
-for embedded_tree in tskit.all_trees(3):
-    rank = embedded_tree.rank()
-    number_of_instances = embedded_counts[rank]
-    label = f"{number_of_instances} instances embedded in big_tree"
-    display(embedded_tree.draw_svg(style="".join(styles), node_labels={}, x_label=label))
+embedded_trees = list(tskit.all_trees(3))
+draw_svg_side_by_side(
+    embedded_trees,
+    size=(160, 150),
+    padding=10,
+    per_svg_kwargs=[
+        {
+            "style": "".join(styles),
+            "node_labels": {},
+            "title": f"{embedded_counts[embedded_tree.rank()]} embedded instances",
+        }
+        for embedded_tree in embedded_trees
+    ],
+)
 ```
 
 ## Methods over tree sequences
 
 It can be useful to count embedded topologies over an entire tree sequence.
 For instance, we might want to know the number of embedded topologies
-that support Neanderthals as a sister group to europeans versus africans.
-`Tskit` provides the efficient {meth}`TreeSequence.count_topologies` method to
-do this [incrementally](sec_incremental), without having to re-count the topologies
-independently in each tree.
+that support Neanderthals as a sister group to Europeans versus Africans.
+{program}`Tskit` provides the efficient {meth}`TreeSequence.count_topologies` method
+to do this [incrementally](sec_incremental), without having to re-count the
+topologies independently in each tree.
 
 ```{code-cell}
 :tags: [hide-input]
@@ -340,10 +398,20 @@ for p in range(ntips):
     styles += f".n{p}>.sym {{fill: {colours[name]} }}"
 
 total = sum(topology_span.values())
-for rank, weight in topology_span.items():
-    label = f"{weight/total *100:.1f}% of genome"
-    embedded_tree = tskit.Tree.unrank(ntips, rank)
-    display(embedded_tree.draw_svg(size=(160, 150), style="".join(styles), node_labels=node_labels, x_label=label))
+embedded_trees = [tskit.Tree.unrank(ntips, rank) for rank in topology_span]
+draw_svg_side_by_side(
+    embedded_trees,
+    size=(160, 150),
+    padding=10,
+    per_svg_kwargs=[
+        {
+            "style": "".join(styles),
+            "node_labels": node_labels,
+            "title": f"{weight/total * 100:.1f}% of genome",
+        }
+        for weight in topology_span.values()
+    ],
+)
 ```
 
 Perhaps unsurprisingly, the most common topology is the one that groups the non-African
