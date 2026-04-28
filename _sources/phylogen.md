@@ -25,6 +25,105 @@ tips, as in the example below:
 ```{code-cell}
 :"tags": ["hide-input"]
 import tskit
+import numpy as np
+
+def collapse_tree_for_plot(tree, max_tips=20, style=None):
+    """
+    Return a condensed version of a single tree by collapsing large clades until
+    at most `max_tips` labelled tips remain.
+
+    The returned tuple is:
+        (plot_tree, node_labels, style)
+
+    where `plot_tree` is a tree suitable for plotting with `draw_svg`, `node_labels`
+    labels the retained sample tips plus the collapsed clades, and `style` highlights
+    the collapsed clades.
+
+    This helper is intended for plotting a single large tree. It requires the tree to
+    come from a tree sequence containing exactly one tree.
+    """
+    ts = tree.tree_sequence
+    if ts.num_trees != 1:
+        raise ValueError("collapse_tree_for_plot currently expects a single-tree tree sequence")
+    if tree.num_roots != 1:
+        raise ValueError("collapse_tree_for_plot currently expects a single-root tree")
+    if max_tips < 2:
+        raise ValueError("max_tips must be at least 2")
+
+    postorder = list(tree.nodes(order="postorder"))
+    counts = np.zeros(ts.num_nodes, dtype=int)
+    for u in postorder:
+        if tree.is_sample(u):
+            counts[u] = 1
+        else:
+            counts[u] = sum(counts[v] for v in tree.children(u))
+
+    displayed_tips = tree.num_samples()
+    candidate_nodes = [
+        u for u in postorder
+        if counts[u] > 1 and tree.parent(u) != tskit.NULL
+    ]
+    collapsed_nodes = set()
+    forbidden = set()
+
+    while displayed_tips > max_tips:
+        needed_reduction = displayed_tips - max_tips
+        candidates = [u for u in candidate_nodes if u not in collapsed_nodes and u not in forbidden]
+        if len(candidates) == 0:
+            break
+
+        # Prefer a clade that gets us close to the target without overshooting.
+        acceptable = [u for u in candidates if counts[u] - 1 <= needed_reduction]
+        if len(acceptable) > 0:
+            u = max(acceptable, key=lambda x: counts[x])
+        else:
+            u = min(candidates, key=lambda x: counts[x])
+
+        collapsed_nodes.add(u)
+        displayed_tips -= counts[u] - 1
+
+        # Do not collapse descendants or ancestors of an already-collapsed node.
+        stack = list(tree.children(u))
+        while len(stack) > 0:
+            v = stack.pop()
+            forbidden.add(v)
+            stack.extend(tree.children(v))
+        v = tree.parent(u)
+        while v != tskit.NULL:
+            forbidden.add(v)
+            v = tree.parent(v)
+
+    keep_nodes = []
+    stack = list(tree.roots)
+    while len(stack) > 0:
+        u = stack.pop()
+        if u in collapsed_nodes:
+            keep_nodes.append(u)
+        elif tree.is_sample(u):
+            keep_nodes.append(u)
+        else:
+            stack.extend(tree.children(u))
+
+    plot_ts = ts.simplify(sorted(keep_nodes), filter_nodes=False)
+    plot_tree = plot_ts.first()
+
+    node_labels = {}
+    style = [style or ""]
+    for u in plot_tree.nodes():
+        if u in collapsed_nodes:
+            node_labels[u] = f"{counts[u]:,} tips"
+            scale = min(8.0, 1.0 + counts[u] / max_tips)
+            style.append(
+                f".n{u} > .sym {{clip-path: polygon(50% 0%, 100% 100%, 0% 100%); "
+                f"transform: scale({scale}, 3.5)}}"
+            )
+            style.append(
+                f".n{u} > .lab {{transform: translateY(20px); font-size: 12px}}"
+            )
+        elif plot_tree.is_sample(u):
+            node_labels[u] = str(u)
+
+    return plot_tree, node_labels, "".join(style)
 ```
 
 ```{code-cell}
@@ -36,11 +135,19 @@ print("Tree sequence takes up", big_tree.tree_sequence.nbytes / 1024**2, "Mb")
 print(f"Generating a 'comb' (pectinate) tree of {num_tips} tips took:")
 ```
 
-:::{todo}
-Display the million tip tree in condensed form, when
-https://github.com/tskit-dev/tskit/issues/2372#issuecomment-1298518380 and
-https://github.com/tskit-dev/tskit/issues/2628 are solved
-:::
+Clearly, plotting a tree with a million tips is problematic, but we can draw a summary
+(see the {ref}`visualization tutorial<sec_tskit_viz_SVG_examples_larger_plots>` for details):
+
+
+```{code-cell}
+plot_tree, labels, css = collapse_tree_for_plot(  # function from the top of this notebook
+    big_tree, max_tips=20, style=".y-axis .tick .lab {font-size: 8pt}"
+)
+plot_tree.draw_svg(
+    size=(1000, 400), node_labels=labels, style=css, time_scale="rank", y_axis=True
+)
+```
+
 
 Calculations on these huge trees can be very efficient:
 
@@ -322,11 +429,11 @@ print(
     tree.branch_length(node_id),
 )
 ```
-:::{todo}
-The branch distance between two samples is also easy to calculate
 
-NB: Turn the following in to a code cell
-```
+The branch distance between two samples is also easy to calculate using
+{meth}`~Tree.distance_between`:
+
+```{code-cell}
 target_node_1 = 5
 target_node_2 = 7
 print(
@@ -335,9 +442,7 @@ print(
     "and",
     target_node_2,
     "is",
-    # See https://github.com/tskit-dev/tskit/issues/2627 - what should be call this
-    # so as not to get mixed up with tree.path_length which counts the number of edges
-    # tree.branch_distance(target_node_1, target_node_2),
+    tree.distance_between(target_node_1, target_node_2), # beware: tree.path_length counts number of edges
 )
 ```
 
@@ -349,17 +454,14 @@ calculation is to use {meth}`TreeSequence.divergence`, part of the the standard 
 multiple sets of samples in {ref}`sec_phylogen_multiple_trees` to be calculated
 efficiently:
 
-NB: Turn the following in to a code cell
-```
+```{code-cell}
 target_node_1 = 5
 target_node_2 = 7
 print(
-    "Branch distance using built-in stats framework:"
+    "Branch distance using built-in stats framework:",
     tree.tree_sequence.divergence(([5], [7]), mode="branch", windows="trees")
 )
 ```
-
-:::
 
 
 (sec_phylogen_multiroot)=
@@ -502,5 +604,4 @@ the edges that are shared between trees are stored only once.
 The rest of the {program}`tskit` tutorials will lead you through the concepts involved with
 storing and analysing sequences of many correlated trees. For a simple introduction, you
 might want to start with {ref}`sec_what_is`.
-
 

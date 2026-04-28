@@ -398,6 +398,105 @@ tips, as in the example below:</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">collapse_tree_for_plot</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">max_tips</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a condensed version of a single tree by collapsing large clades until</span>
+<span class="sd">    at most `max_tips` labelled tips remain.</span>
+
+<span class="sd">    The returned tuple is:</span>
+<span class="sd">        (plot_tree, node_labels, style)</span>
+
+<span class="sd">    where `plot_tree` is a tree suitable for plotting with `draw_svg`, `node_labels`</span>
+<span class="sd">    labels the retained sample tips plus the collapsed clades, and `style` highlights</span>
+<span class="sd">    the collapsed clades.</span>
+
+<span class="sd">    This helper is intended for plotting a single large tree. It requires the tree to</span>
+<span class="sd">    come from a tree sequence containing exactly one tree.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span>
+    <span class="k">if</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;collapse_tree_for_plot currently expects a single-tree tree sequence&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_roots</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;collapse_tree_for_plot currently expects a single-root tree&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_tips</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_tips must be at least 2&quot;</span><span class="p">)</span>
+
+    <span class="n">postorder</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;postorder&quot;</span><span class="p">))</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">postorder</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">is_sample</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+
+    <span class="n">displayed_tips</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">num_samples</span><span class="p">()</span>
+    <span class="n">candidate_nodes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">postorder</span>
+        <span class="k">if</span> <span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span>
+    <span class="p">]</span>
+    <span class="n">collapsed_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">forbidden</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="n">displayed_tips</span> <span class="o">&gt;</span> <span class="n">max_tips</span><span class="p">:</span>
+        <span class="n">needed_reduction</span> <span class="o">=</span> <span class="n">displayed_tips</span> <span class="o">-</span> <span class="n">max_tips</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">candidate_nodes</span> <span class="k">if</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">collapsed_nodes</span> <span class="ow">and</span> <span class="n">u</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">forbidden</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Prefer a clade that gets us close to the target without overshooting.</span>
+        <span class="n">acceptable</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">needed_reduction</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">acceptable</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">acceptable</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+        <span class="n">collapsed_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="n">displayed_tips</span> <span class="o">-=</span> <span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># Do not collapse descendants or ancestors of an already-collapsed node.</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">forbidden</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
+            <span class="n">forbidden</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="n">keep_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">roots</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">collapsed_nodes</span><span class="p">:</span>
+            <span class="n">keep_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tree</span><span class="o">.</span><span class="n">is_sample</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+            <span class="n">keep_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+
+    <span class="n">plot_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">keep_nodes</span><span class="p">),</span> <span class="n">filter_nodes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plot_tree</span> <span class="o">=</span> <span class="n">plot_ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+    <span class="n">node_labels</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="p">[</span><span class="n">style</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">plot_tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">collapsed_nodes</span><span class="p">:</span>
+            <span class="n">node_labels</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> tips&quot;</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="n">counts</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">/</span> <span class="n">max_tips</span><span class="p">)</span>
+            <span class="n">style</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">clip-path: polygon(50% 0%, 100% 100%, 0% 100%); &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;transform: scale(</span><span class="si">{</span><span class="n">scale</span><span class="si">}</span><span class="s2">, 3.5)</span><span class="se">}}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">style</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2"> &gt; .lab </span><span class="se">{{</span><span class="s2">transform: translateY(20px); font-size: 12px</span><span class="se">}}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">plot_tree</span><span class="o">.</span><span class="n">is_sample</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+            <span class="n">node_labels</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">plot_tree</span><span class="p">,</span> <span class="n">node_labels</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -417,17 +516,28 @@ tips, as in the example below:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tree sequence takes up 129.7001838684082 Mb
 Generating a &#39;comb&#39; (pectinate) tree of 1000000 tips took:
-CPU times: user 3.43 s, sys: 90 ms, total: 3.52 s
-Wall time: 3.52 s
+CPU times: user 3.49 s, sys: 64.8 ms, total: 3.55 s
+Wall time: 3.55 s
 </pre></div>
 </div>
 </div>
 </div>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Display the million tip tree in condensed form, when
-https://github.com/tskit-dev/tskit/issues/2372#issuecomment-1298518380 and
-https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
+<p>Clearly, plotting a tree with a million tips is problematic, but we can draw a summary
+(see the <a class="reference internal" href="viz.html#sec-tskit-viz-svg-examples-larger-plots"><span class="std std-ref">visualization tutorial</span></a> for details):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_tree</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">css</span> <span class="o">=</span> <span class="n">collapse_tree_for_plot</span><span class="p">(</span>  <span class="c1"># function from the top of this notebook</span>
+    <span class="n">big_tree</span><span class="p">,</span> <span class="n">max_tips</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;.y-axis .tick .lab {font-size: 8pt}&quot;</span>
+<span class="p">)</span>
+<span class="n">plot_tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">css</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/90cc536b8bf5cbf3bf3ead400add09c773c921572465e889397a39679d215ef3.svg" src="_images/90cc536b8bf5cbf3bf3ead400add09c773c921572465e889397a39679d215ef3.svg" />
+</div>
 </div>
 <p>Calculations on these huge trees can be very efficient:</p>
 <div class="cell docutils container">
@@ -443,8 +553,8 @@ https://github.com/tskit-dev/tskit/issues/2628 are solved</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Postorder traversal through 1999999 nodes took:
-CPU times: user 249 ms, sys: 40 μs, total: 249 ms
-Wall time: 249 ms
+CPU times: user 283 ms, sys: 0 ns, total: 283 ms
+Wall time: 282 ms
 </pre></div>
 </div>
 </div>
@@ -460,14 +570,14 @@ Wall time: 249 ms
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>B1 balance index is 14.39272472286399. Calculation took:
-CPU times: user 8.48 ms, sys: 3.02 ms, total: 11.5 ms
-Wall time: 11.6 ms
+CPU times: user 8.61 ms, sys: 952 μs, total: 9.57 ms
+Wall time: 9.47 ms
 </pre></div>
 </div>
 </div>
 </div>
 <p>We can also read trees efficiently, e.g. in Newick format:</p>
-<div class="admonition-todo admonition" id="id2">
+<div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>Add example of fast reading of a newick file, once
 https://github.com/tskit-dev/tskit/issues/2187 is solved. E.g. we could say</p>
@@ -985,11 +1095,11 @@ measured: if not known, this defaults to “unknown”:</p>
 </div>
 </div>
 </div>
-<div class="admonition-todo admonition" id="id3">
-<p class="admonition-title">Todo</p>
-<p>The branch distance between two samples is also easy to calculate</p>
-<p>NB: Turn the following in to a code cell</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target_node_1</span> <span class="o">=</span> <span class="mi">5</span>
+<p>The branch distance between two samples is also easy to calculate using
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.distance_between" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distance_between()</span></code></a>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_node_1</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">target_node_2</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="nb">print</span><span class="p">(</span>
     <span class="s2">&quot;The branch distance between nodes&quot;</span><span class="p">,</span>
@@ -997,11 +1107,16 @@ measured: if not known, this defaults to “unknown”:</p>
     <span class="s2">&quot;and&quot;</span><span class="p">,</span>
     <span class="n">target_node_2</span><span class="p">,</span>
     <span class="s2">&quot;is&quot;</span><span class="p">,</span>
-    <span class="c1"># See https://github.com/tskit-dev/tskit/issues/2627 - what should be call this</span>
-    <span class="c1"># so as not to get mixed up with tree.path_length which counts the number of edges</span>
-    <span class="c1"># tree.branch_distance(target_node_1, target_node_2),</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">distance_between</span><span class="p">(</span><span class="n">target_node_1</span><span class="p">,</span> <span class="n">target_node_2</span><span class="p">),</span> <span class="c1"># beware: tree.path_length counts number of edges</span>
 <span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The branch distance between nodes 5 and 7 is 6.0
+</pre></div>
+</div>
+</div>
 </div>
 <p>It is worth noting that this distance is the basis for the “genetic divergence”
 between two samples in a tree. For this reason, an equivalent way to carry out the
@@ -1010,14 +1125,21 @@ calculation is to use <a class="reference external" href="https://tskit.dev/tski
 <code class="docutils literal notranslate"><span class="pre">windows=&quot;trees&quot;</span></code>. This is a more flexible approach, as it allows the distance between
 multiple sets of samples in <a class="reference internal" href="#sec-phylogen-multiple-trees"><span class="std std-ref">Multiple trees</span></a> to be calculated
 efficiently:</p>
-<p>NB: Turn the following in to a code cell</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target_node_1</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_node_1</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">target_node_2</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Branch distance using built-in stats framework:&quot;</span>
+    <span class="s2">&quot;Branch distance using built-in stats framework:&quot;</span><span class="p">,</span>
     <span class="n">tree</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">divergence</span><span class="p">(([</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">]),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="s2">&quot;trees&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Branch distance using built-in stats framework: [6.]
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -1104,7 +1226,7 @@ has not been simulated.</p>
 </section>
 <section id="phylogenetic-methods">
 <span id="sec-phylogen-methods"></span><h2>Phylogenetic methods<a class="headerlink" href="#phylogenetic-methods" title="Link to this heading">#</a></h2>
-<div class="admonition-todo admonition" id="id4">
+<div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
 <p>Demo some phylogenetic methods. e.g.</p>
 <ol class="arabic simple">
