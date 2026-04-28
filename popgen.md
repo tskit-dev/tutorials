@@ -76,7 +76,7 @@ def create_notebook_data():
 
 (sec_intro_popgen)=
 
-# `Tskit` for population genetics
+# {program}`Tskit` for population genetics
 
 {ref}`Tskit<tskit:sec_introduction>`, the tree sequence toolkit, brings the power of
 evolutionary trees to the field of population genetics. The
@@ -85,9 +85,9 @@ is designed to store DNA sequences jointly with their ancestral history (the
 "genetic genealogy" or {ref}`ARG<sec_args>`). Storing population genetic data in this
 form enables highly efficient computation and analysis.
 
-The core `tskit` library provides methods for storing genetic data, a flexible
+The core {program}`tskit` library provides methods for storing genetic data, a flexible
 analysis framework, and APIs to build your own efficient population genetic algorithms.
-Because of its speed and scalability, `tskit` is well-suited to interactive analysis of
+Because of its speed and scalability, {program}`tskit` is well-suited to interactive analysis of
 large genomic datasets. 
 
 ## Population genetic simulation
@@ -181,7 +181,7 @@ plt.title("Allele frequency spectrum")
 plt.show()
 ```
 
-Similarly `tskit` allows fast and easy
+Similarly {program}`tskit` allows fast and easy
 {ref}`calculation of statistics<sec_tutorial_stats>` along the genome. Here is
 a plot of windowed $F_{st}$ between Africans and admixed Americans over this
 region of chromosome:
@@ -202,7 +202,7 @@ plt.xlabel("Genome position")
 plt.show()
 ```
 
-Extracting the genetic tree at a specific genomic location is easy using `tskit`, which
+Extracting the genetic tree at a specific genomic location is easy using {program}`tskit`, which
 also provides methods to {ref}`plot<sec_tskit_viz>` these trees. Here we
 grab the tree at position 10kb, and colour the different populations by
 grab the tree at position 10kb, and colour the samples according to their population,
@@ -355,7 +355,7 @@ plt.show()
 
 Other population genetic libraries such as
 [scikit-allel](https://scikit-allel.readthedocs.io/en/stable/) (which is
-{ref}`interoperable<sec_tskit_getting_started_exporting_data_allel>` with `tskit`)
+{ref}`interoperable<sec_tskit_getting_started_exporting_data_allel>` with {program}`tskit`)
 could also have been used to produce the plot above. In this case, the advantage of
 using tree sequences is simply that they allow these sorts of analysis to
 {ref}`scale<plot_incremental_calculation>` to datasets of millions of whole genomes.
@@ -438,30 +438,75 @@ embedded_topologies = topology_counter[range(simplified_ts.num_populations)]
 
 ```{code-cell}
 :"tags": ["hide-input"]
-# All the following code is simply to plot the embedded_topologies nicely
+# This helper is copied from the side-by-side SVG example in the visualization tutorial.
+def draw_svg_side_by_side(
+    drawables,
+    *,
+    size=(200, 200),
+    sizes=None,
+    padding=40,
+    canvas_size=None,
+    per_svg_kwargs=None,
+    **kwargs,
+):
+    if len(drawables) == 0:
+        raise ValueError("Need at least one drawable")
+    if per_svg_kwargs is None:
+        per_svg_kwargs = [{} for _ in drawables]
+    if len(per_svg_kwargs) != len(drawables):
+        raise ValueError("per_svg_kwargs must have the same length as drawables")
+    if sizes is None:
+        sizes = [size for _ in drawables]
+    if len(sizes) != len(drawables):
+        raise ValueError("sizes must have the same length as drawables")
+    if canvas_size is None:
+        canvas_size = (
+            sum(s[0] for s in sizes) + (len(drawables) - 1) * padding,
+            max(s[1] for s in sizes),
+        )
+
+    preamble = []
+    x_offset = sizes[0][0] + padding
+    for j, drawable in enumerate(drawables[1:], start=1):
+        svg_kwargs = dict(kwargs)
+        svg_kwargs.update(per_svg_kwargs[j])
+        svg_kwargs["size"] = sizes[j]
+        svg_kwargs["root_svg_attributes"] = {
+            **svg_kwargs.get("root_svg_attributes", {}),
+            "x": x_offset,
+        }
+        preamble.append(drawable.draw_svg(**svg_kwargs))
+        x_offset += sizes[j][0] + padding
+
+    first_kwargs = dict(kwargs)
+    first_kwargs.update(per_svg_kwargs[0])
+    first_kwargs["size"] = sizes[0]
+    first_kwargs["canvas_size"] = canvas_size
+    first_kwargs["preamble"] = first_kwargs.get("preamble", "") + "".join(preamble)
+    return drawables[0].draw_svg(**first_kwargs)
+
+
 all_trees = list(tskit.all_trees(simplified_ts.num_populations))
-last = len(all_trees) - 1
-svgs = ""
 style = "".join(styles) + ".sample text.lab {baseline-shift: super; font-size: 0.7em;}"
 style = style.replace(".leaf.p", ".leaf.n")  # Hack to map node IDs to population colours
-params = {
-    "size": (160, 150),
-    "node_labels": {pop.id: pop.metadata["name"] for pop in simplified_ts.populations()}
-}
-for i, t in enumerate(all_trees):
-    rank = t.rank()
-    count = embedded_topologies[rank]
-    params["title"] = f"{count} trees"
-    if i != last:
-        svgs += t.draw_svg(root_svg_attributes={'x': (last - i) * 150}, **params)
-    else:
-        # Plot the last svg and stack the previous ones to the right
-        display(t.draw_svg(preamble=svgs, canvas_size=(1000, 150), style=style, **params))
+draw_svg_side_by_side(
+    all_trees,
+    size=(160, 150),
+    padding=10,
+    style=style,
+    per_svg_kwargs=[
+        {
+            "node_labels": {pop.id: pop.metadata["name"] for pop in simplified_ts.populations()},
+            "title": f"{embedded_topologies[t.rank()]} trees",
+        }
+        for t in all_trees
+    ],
+)
 ```
 
 
 See {ref}`sec_counting_topologies` for an introduction to topological methods in
-`tskit`.
+{program}`tskit`.
 
 ## Further information
 

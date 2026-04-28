@@ -398,13 +398,84 @@ ts_mutated.draw_svg(
 )
 ```
 
-As any conceivable SVG commands can be added (including nesting one SVG inside another),
-this is extremely flexible, but can be fiddly. You can, for example, plot one tree
-next to another by adding one into the preamble of the other. This is demonstrated in
-the example below, which allows space for the extra embeded tree by using the
-`canvas_size` parameter to increase the size of the canvas. This adds more space to the
-right and bottom of the plot, without rescaling the image itself. 
+#### Plotting side-by-side
 
+As any conceivable SVG commands can be added (including nesting one SVG inside another),
+using `preamble` is extremely flexible, but can be fiddly. You can, for example, plot
+one tree next to a completely different one by adding one into the preamble of the other.
+This is demonstrated in the helper function below. It adds space into the first
+plot without rescaling the image itself by using the `canvas_size` parameter. Further
+plots are then added into the preamble, moved to the left using
+`root_svg_attributes={"x", x_offset}`.
+
+```{code-cell} ipython3
+def draw_svg_side_by_side(
+    drawables,
+    *,
+    size=(200, 200),
+    sizes=None,
+    padding=40,
+    canvas_size=None,
+    per_svg_kwargs=None,
+    **kwargs,
+):
+    """
+    Plot multiple Tree or TreeSequence objects side-by-side by embedding the SVG for
+    each later object in the preamble of the first.
+
+    :param list drawables: A list of Tree or TreeSequence objects.
+    :param tuple size: The size of each individual SVG plot, if `sizes` is not given.
+    :param list sizes: An optional list of sizes, one per plot.
+    :param int padding: The horizontal gap between adjacent plots.
+    :param tuple canvas_size: The overall canvas size. If None, infer it from `size`.
+    :param list per_svg_kwargs: An optional list of dicts of keyword arguments to pass
+        to each individual `draw_svg` call. These are merged on top of `**kwargs`.
+    :param kwargs: Common keyword arguments passed to each `draw_svg` call.
+    """
+    if len(drawables) == 0:
+        raise ValueError("Need at least one drawable")
+    if per_svg_kwargs is None:
+        per_svg_kwargs = [{} for _ in drawables]
+    if len(per_svg_kwargs) != len(drawables):
+        raise ValueError("per_svg_kwargs must have the same length as drawables")
+    if sizes is None:
+        sizes = [size for _ in drawables]
+    if len(sizes) != len(drawables):
+        raise ValueError("sizes must have the same length as drawables")
+    if canvas_size is None:
+        canvas_size = (
+            sum(s[0] for s in sizes) + (len(drawables) - 1) * padding,
+            max(s[1] for s in sizes),
+        )
+
+    preamble = []
+    x_offset = sizes[0][0] + padding
+    for j, drawable in enumerate(drawables[1:], start=1):
+        svg_kwargs = dict(kwargs)
+        svg_kwargs.update(per_svg_kwargs[j])
+        svg_kwargs["size"] = sizes[j]
+        svg_kwargs["root_svg_attributes"] = {
+            **svg_kwargs.get("root_svg_attributes", {}),
+            "x": x_offset,
+        }
+        preamble.append(drawable.draw_svg(**svg_kwargs))
+        x_offset += sizes[j][0] + padding
+
+    first_kwargs = dict(kwargs)
+    first_kwargs.update(per_svg_kwargs[0])
+    first_kwargs["size"] = sizes[0]
+    first_kwargs["canvas_size"] = canvas_size
+    first_kwargs["preamble"] = first_kwargs.get("preamble", "") + "".join(preamble)
+    return drawables[0].draw_svg(**first_kwargs)
+```
+
+```{code-cell} ipython3
+draw_svg_side_by_side(
+    [tree3, tree3],  # these could be different trees from different tree sequences
+    size=(300, 300),
+    per_svg_kwargs=[{"title": "3rd tree"}, {"title": "3rd tree, no sites", "omit_sites": True}],
+)
+```
 
 (sec_tskit_viz_reordering nodes)=
 
@@ -420,7 +491,8 @@ as required (e.g. using the `subset` method). If you are labelling nodes using
 metadata, this will all be fine, but if you are using the default ID labelling scheme,
 you'll should provide labels that map back to the original IDs, to avoid confusion.
 
-Here's an example, with a reordering function:
+Here's an example, using a generic reordering function to reverse the visual
+order of nodes 0...4 ()
 
 ```{code-cell} ipython3
 import numpy as np
@@ -440,19 +512,12 @@ def reorder_leaves(tree, leaf_order_ids):
 orig_tree = ts_mutated.first()
 new_tree, node_map = reorder_leaves(orig_tree, [4, 3, 2, 1, 0, 5, 7, 6])
 
-svg = new_tree.draw_svg(
-    title="Leaf nodes reordered",
-    size=(200, 200),
-    node_labels={u: v for u, v in enumerate(node_map)},  # map IDs back to the orig
-    root_svg_attributes={"x": 300},  # Shift the svg rightwards by 200 units
-)
-
-# Plot the new_tree next to the orig_tree using the preamble argument
-orig_tree.draw_svg(
-    title="Original tree",
-    size=(200, 200),
-    canvas_size=(500, 200),  # make space for the adjacent tree
-    preamble=svg,
+draw_svg_side_by_side(
+    [orig_tree, new_tree],
+    per_svg_kwargs=[
+        {"title": "Original tree"},
+        {"title": "Leaf nodes reordered", "node_labels": {u: v for u, v in enumerate(node_map)}},
+    ],
 )
 ```
 
