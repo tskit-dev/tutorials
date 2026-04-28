@@ -386,10 +386,12 @@
 relationships between a set of DNA sequences. Tree sequences are based on fundamental
 biological principles of inheritance, DNA duplication, mutation, and recombination;
 they can be created by <a class="reference external" href="https://tskit.dev/software/#simulate">evolutionary simulation</a>
-or by <a class="reference external" href="https://tskit.dev/software/#infer">inferring genealogies from empirical DNA data</a>.</p>
+or by <a class="reference external" href="https://tskit.dev/software/#infer">inferring genealogies from empirical DNA data</a>.
+Technically, this means they
+<a class="reference internal" href="terminology_and_concepts.html#sec-concepts-args"><span class="std std-ref">can be used to represent “ancestral recombination graphs”</span></a>, or ARGs.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">Key point</p>
-<p>Tree sequences are used to encode and analyse large genetic datasets</p>
+<p>Tree sequences are used to encode and analyse large genetic datasets.</p>
 </aside>
 <p>Tree sequences provide an efficient way of storing
 <a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_variation">genetic variation</a> data, and can
@@ -399,7 +401,7 @@ Plots (a) and (b) below summarize these aspects
 <a class="reference internal" href="#plot-incremental-calculation"><span class="std std-ref">compute</span></a> further down).</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/0e6fe9e6e23686127f9de3c1553d8d9fe36e9747b1bb97a24e5ebbfd799d4b00.svg" src="_images/0e6fe9e6e23686127f9de3c1553d8d9fe36e9747b1bb97a24e5ebbfd799d4b00.svg" />
+<img alt="_images/162c4cc802810753fdc56e8d49ade3e7d41928c397a8b0f34b20c08198141afc.svg" src="_images/162c4cc802810753fdc56e8d49ade3e7d41928c397a8b0f34b20c08198141afc.svg" />
 </div>
 </div>
 <section id="how-to-think-about-tree-sequences">
@@ -407,10 +409,14 @@ Plots (a) and (b) below summarize these aspects
 <section id="a-sequence-of-trees">
 <span id="sec-what-is-local-trees"></span><h3>A sequence of trees…<a class="headerlink" href="#a-sequence-of-trees" title="Link to this heading">#</a></h3>
 <p>As the name suggests, the simplest way to think about a tree sequence is that it
-describes a sequence of correlated “local trees” — i.e. genetic trees located at
-different points along a <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.
-Here’s a tiny example based on ten haploid genomes, <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>,
-spanning a short 1000 letter chromosome.</p>
+describes a sequence of correlated “local trees” — i.e. evolutionary trees located at
+different points along a <a class="reference external" href="https://en.wikipedia.org/wiki/Chromosome">chromosome</a>.</p>
+<p>Below is a tiny example based on 10 haploid copies of a short chromosome spanning only
+900 basepairs (letters) in length. Each chromosome copy, which we can think of as a
+small genome, is shown as a square symbol. These are labelled <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>
+and represent “sampled” lengths of DNA, whose ancestry and genetic
+variation is stored in the tree sequence.  The tickmarks on the X axis and their
+associated background shading indicate the genomic positions covered by the local trees.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -427,20 +433,29 @@ spanning a short 1000 letter chromosome.</p>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)}</span>
 <span class="n">genome_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;minlex_postorder&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">is_sample</span><span class="p">()]</span>
 <span class="n">labels</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">n</span><span class="p">:</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genome_order</span><span class="p">)})</span>
+<span class="n">rev_lab</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">labels</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 <span class="n">style1</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;.node:not(.sample) &gt; .sym, .node:not(.sample) &gt; .lab {visibility: hidden;}&quot;</span>
-    <span class="s2">&quot;.mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}&quot;</span><span class="p">)</span>
+    <span class="s2">&quot;.mut {font-size: 12px} .y-axis .tick .lab {font-size: 85%}&quot;</span>
+<span class="p">)</span>
+<span class="n">highlt</span> <span class="o">=</span> <span class="s2">&quot;.t0 .n</span><span class="si">%(u)i</span><span class="s2"> .lab, .t1 .n</span><span class="si">%(u)i</span><span class="s2"> .lab {font-weight: bold; fill: red}&quot;</span> <span class="o">%</span> <span class="p">{</span><span class="s2">&quot;u&quot;</span><span class="p">:</span> <span class="n">rev_lab</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]}</span>
+
 <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>  <span class="c1"># size of the plot, slightly larger than the default</span>
-<span class="n">ticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">]</span>
+<span class="n">ticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">]</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style1</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
-    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">)</span>
+    <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span>
+    <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">style1</span> <span class="o">+</span> <span class="n">highlt</span><span class="p">,</span>
+    <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago&quot;</span><span class="p">,</span>
+    <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/8230ac085a41f9c5c8bb24e7033b5be88e6f3f3f755f63925297b840fcbb6783.svg" src="_images/8230ac085a41f9c5c8bb24e7033b5be88e6f3f3f755f63925297b840fcbb6783.svg" />
+<img alt="_images/a730f6b9234893d81737daca4284eda3122039dd466456136d47feaefdc63c65.svg" src="_images/a730f6b9234893d81737daca4284eda3122039dd466456136d47feaefdc63c65.svg" />
 </div>
 </div>
 <aside class="margin sidebar">
@@ -451,28 +466,1608 @@ spanning a short 1000 letter chromosome.</p>
 the nodes are referred to by <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes"><span class="std std-ref">numerical ID</span></a>.</p>
 </div>
 </aside>
-<p>The tickmarks on the X axis and background shading indicate the genomic positions covered
-by the trees. The tickmarks indicate recombination events that explain relationships
-between the ten genomes. There were two such recombination events, giving us three local trees.
-For the first short portion of the chromosome, from the start until position 189,
+<p>For the first short portion of the chromosome, from the start until position 367,
 the relationships between the ten genomes are shown by the first tree.
-The second tree shows the relationships between positions 189 and 546.
-By inspecting the first and the second local tree we can see that genomes <span class="math notranslate nohighlight">\(\mathrm{b}-\mathrm{f}\)</span>
-changed their “most recent common ancestor” (MRCA) with genome <span class="math notranslate nohighlight">\(\mathrm{a}\)</span> to
-MRCA with genome <span class="math notranslate nohighlight">\(\mathrm{g}\)</span>.
-The third tree shows the relationships between positions 546 and 1000 (the end).
-By inspecting the second and the third local tree we can see that
-recombination changed the ancestry of genomes <span class="math notranslate nohighlight">\(\mathrm{b}-\mathrm{f}\)</span>
-back to shared MRCA with genome <span class="math notranslate nohighlight">\(\mathrm{g}\)</span>.</p>
+The second tree shows the relationships between positions 367 and 600.
+Note that in the first tree, genome <span class="math notranslate nohighlight">\(\mathrm{e}\)</span> (highlighted in red) is closest to
+<span class="math notranslate nohighlight">\(\mathrm{a}-\mathrm{d}\)</span>, whereas in the second tree <span class="math notranslate nohighlight">\(\mathrm{e}\)</span> is closest to
+<span class="math notranslate nohighlight">\(\mathrm{f}-\mathrm{h}\)</span>. The third tree shows the relationships between positions
+600 and 900 (the end of the genome). In this case, an entire subtree (or “clade”),
+composed of nodes <span class="math notranslate nohighlight">\(\mathrm{e}-\mathrm{h}\)</span> has changed its relationship with the other six
+genomes. More specifically, the most recent common ancestor (MRCA) with any of these
+others has switched: in the third tree it is now above <span class="math notranslate nohighlight">\(\mathrm{i}\)</span> and <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>.</p>
 </section>
 <section id="created-by-a-genealogical-network">
 <span id="sec-what-is-genealogical-network"></span><h3>… created by a genealogical network<a class="headerlink" href="#created-by-a-genealogical-network" title="Link to this heading">#</a></h3>
-<p>In fact, succinct tree sequences don’t store each tree separately, but instead are
-based on an interconnected <em>genetic genealogy</em>, in which
-<a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a> has led
+<p>In fact, succinct tree sequences don’t store each tree separately, but are instead
+based on a network of <em>genetic ancestry</em>, in which
+<a class="reference external" href="https://en.wikipedia.org/wiki/Genetic_recombination">genetic recombination</a>
+(represented by red symbols below) has led
 to different regions of the chromosome having different histories. Another way of
-thinking about the tree sequence above is that it describes the full genetic ancestry
-of our 10 genomes.</p>
+thinking about the tree sequence above is that it describes the full genetic genealogy
+of our 10 genomes. If we combine all the relationships encoded in the trees (you can
+loosely think of this as lying the trees on top of each other), the result is a network or
+<em>graph</em> (hence the term “<a class="reference external" href="https://doi.org/10.1371/journal.pgen.1011110">ARG</a>”)</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tskit_arg_visualizer</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">argviz</span>
+<span class="n">d3arg</span> <span class="o">=</span> <span class="n">argviz</span><span class="o">.</span><span class="n">D3ARG</span><span class="o">.</span><span class="n">from_ts</span><span class="p">(</span><span class="n">ts</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/whatis_example.json&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">d3arg</span><span class="o">.</span><span class="n">set_node_x_positions</span><span class="p">(</span>
+        <span class="n">argviz</span><span class="o">.</span><span class="n">extract_x_positions_from_json</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    <span class="p">)</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">d3arg</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">ts_flags</span> <span class="o">&amp;</span> <span class="n">msprime</span><span class="o">.</span><span class="n">NODE_IS_RE_EVENT</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;fill&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">set_node_labels</span><span class="p">({</span><span class="n">u</span><span class="p">:</span> <span class="n">labels</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()})</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">set_all_node_styles</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">stroke_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">set_node_styles</span><span class="p">({</span><span class="n">u</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;d3.symbolSquare&quot;</span><span class="p">,</span> <span class="s2">&quot;fill&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">}</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()})</span>
+<span class="n">d3arg</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;An interactive graph representation</span><span class="se">\n</span><span class="s2">(hover over the bottom bar to see the trees)&quot;</span><span class="p">,</span>
+    <span class="n">edge_type</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">220</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>.d3arg {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px 20px 60px 20px;
+}
+
+.d3arg:hover .dashboard {
+    visibility: visible;
+}
+
+.d3arg .dashboard {
+    display: flex;
+    visibility: hidden;
+}
+
+.d3arg .dashboard .dashbutton {
+    position: relative;
+    font-size: 30px;
+    border: 0px;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+}
+
+.d3arg .dashboard .dashbutton .tip {
+    width: 150px;
+    font-size: 12px;
+    background-color: lightgrey;
+    color: #053e4e;
+    text-align: center;
+    padding: 5px 0px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%; 
+    margin-left: -60px;
+    visibility: hidden;
+}
+
+.d3arg .dashboard .dashbutton:hover .desc {
+    visibility: visible;
+}
+
+.d3arg .dashboard path {
+    fill: grey;
+}
+
+.d3arg .dashboard .dashbutton:hover path {
+    fill: #053e4e;
+}
+
+.d3arg .dashboard .activecolor:active path {
+    fill: #1eebb1;
+}
+
+.d3arg .savemethods, .d3arg .labelmethods {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.d3arg .savemethods button, .d3arg .labelmethods button {
+    background-color: lightgrey;
+    color: #053e4e;
+    font-size: 12px;
+    width: auto;
+    border: none;
+}
+
+.d3arg .savemethods button:hover, .d3arg .labelmethods button:hover {
+    color: #1eebb1;
+}
+
+.d3arg .labelmethods button.node-labels-default {
+    text-decoration: underline;
+}
+
+.d3arg .yaxis path {
+    stroke: #053e4e;
+    stroke-width: 3px;
+}
+
+.d3arg .yaxis line {
+    stroke: #053e4e;
+    stroke-width: 3px;
+}
+
+.d3arg .yaxis text {
+    fill: #053e4e;
+    stroke: 1px;
+}
+
+.d3arg .hiddennode {
+    fill: lightgrey;
+    stroke: lightgrey;
+    stroke-width: 4px;
+}
+
+.d3arg .underlink {
+    stroke: #ffffff;
+    stroke-width: 12px;
+    fill: none;
+}
+
+.d3arg .hiddenlink {
+    stroke: lightgrey;
+    stroke-width: 4px;
+    fill: none;
+}
+
+.d3arg .labels {
+    text-anchor: middle;
+}
+
+.d3arg .label {
+    fill: #053e4e;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.d3arg .label.start {
+    text-anchor: start;
+}
+
+.d3arg .label.stop {
+    text-anchor: end;
+}
+
+.d3arg .hiddenlabel {
+    fill: lightgrey;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.d3arg svg {
+    display: block;
+}
+
+.d3arg button {
+    display: block;
+    cursor: pointer;
+}
+
+.d3arg .saving {
+    display: flex;
+    flex-direction: row;
+}
+
+.d3arg .saving .message {
+    display: none;
+}
+
+.d3arg .tooltip {
+    position: absolute;
+    max-width: 500px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    z-index: 9999;
+}
+
+.d3arg .sites text {
+    text-anchor: middle;
+}</style><div id="arg_6778209236" class="d3arg" style="min-width:640.0px; min-height:425.0px;"></div><script>function parseRgbString(rgbString) {
+  const match = rgbString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d*\.?\d+))?\)/);
+  if (match) {
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+    const a = match[4] ? parseFloat(match[4]) : 1; // Default alpha to 1 if not present
+    return { r, g, b, a };
+  }
+  return null; // Or throw an error for invalid format
+}
+
+function ensureRequire() {
+    // Needed e.g. in Jupyter notebooks: if require is already available, return resolved promise
+    if (typeof require !== 'undefined') {
+        return Promise.resolve(require);
+    }
+
+    // Otherwise, dynamically load require.js
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
+        script.onload = () => resolve(require);
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+};
+
+function main_visualizer(
+    d3,
+    divnum,
+    graph,
+    width,
+    height,
+    y_axis,
+    edge_styles,
+    condense_mutations,
+    label_mutations,
+    tree_highlighting,
+    title,
+    rotate_tip_labels,
+    plot_type,
+    preamble,
+    source,
+    filename_for_saving,
+) {
+    /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+    
+    function download (url, name, opts) {
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', url)
+        xhr.responseType = 'blob'
+        xhr.onload = function () {
+            saveAs(xhr.response, name, opts)
+        }
+        xhr.onerror = function () {
+            console.error('could not download file')
+        }
+        xhr.send()
+    }
+    
+    function corsEnabled (url) {
+        var xhr = new XMLHttpRequest()
+        // use sync to avoid popup blocker
+        xhr.open('HEAD', url, false)
+        try {
+            xhr.send()
+        } catch (e) {}
+        return xhr.status >= 200 && xhr.status <= 299
+    }
+    
+    // 'a.click()' doesn't work for all browsers (#465)
+    function click (node) {
+        try {
+            node.dispatchEvent(new MouseEvent('click'))
+        } catch (e) {
+            var evt = document.createEvent('MouseEvents')
+            evt.initMouseEvent('click', true, true, window, 0, 0, 0, 80,
+                                20, false, false, false, false, 0, null)
+            node.dispatchEvent(evt)
+        }
+    }
+    
+    function saveAs (blob, name, opts) {
+        var URL = URL || webkitURL
+        // Namespace is used to prevent conflict w/ Chrome Poper Blocker extension (Issue #561)
+        var a = document.createElementNS('http://www.w3.org/1999/xhtml', 'a')
+        name = name || blob.name || 'download'
+
+        a.download = name
+        a.rel = 'noopener' // tabnabbing
+
+        // TODO: detect chrome extensions & packaged apps
+        // a.target = '_blank'
+
+        if (typeof blob === 'string') {
+            // Support regular links
+            a.href = blob
+            if (a.origin !== location.origin) {
+            corsEnabled(a.href)
+                ? download(blob, name, opts)
+                : click(a, a.target = '_blank')
+            } else {
+            click(a)
+            }
+        } else {
+            // Support blobs
+            a.href = URL.createObjectURL(blob)
+            setTimeout(function () { URL.revokeObjectURL(a.href) }, 4E4) // 40s
+            setTimeout(function () { click(a) }, 0)
+        }
+    }
+
+    const NODE_IS_SAMPLE = 1;
+    const NODE_IS_RE_EVENT = 131072;
+    var line = d3.line();
+    var step = d3.line().curve(d3.curveStep);
+    var stepAfter = d3.line().curve(d3.curveStepAfter);
+    var stepBefore = d3.line().curve(d3.curveStepBefore);
+
+
+    // https://gist.github.com/Rokotyan/0556f8facbaf344507cdc45dc3622177
+    // Below are the functions that handle actual exporting:
+    // getSVGString ( svgNode ) and svgString2Image( svgString, width, height, format, callback )
+    function getSVGString( svgNode ) {
+        svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
+        var cssStyleText = getCSSStyles();
+        appendCSS( cssStyleText, svgNode );
+        var serializer = new XMLSerializer();
+        var svgString = serializer.serializeToString(svgNode);
+        svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
+        svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
+        return svgString;
+
+        function getCSSStyles() {
+            // Extract CSS Rules
+            var extractedCSSText = "";
+            for (var i = 0; i < document.styleSheets.length; i++) { // this could be improved as it loops through all stylings on page
+                var s = document.styleSheets[i];
+                try {
+                    if(!s.cssRules) continue;
+                } catch( e ) {
+                    if(e.name !== 'SecurityError') throw e; // for Firefox
+                    continue;
+                }
+                var cssRules = s.cssRules;
+                for (var r = 0; r < cssRules.length; r++) {
+                    extractedCSSText += cssRules[r].cssText.replace(".d3arg ", ""); // removing reference to d3arg
+                }
+            }
+            return extractedCSSText;
+
+        }
+
+        function appendCSS( cssText, element ) {
+            var styleElement = document.createElement("style");
+            styleElement.setAttribute("type","text/css"); 
+            styleElement.innerHTML = cssText;
+            var refNode = element.hasChildNodes() ? element.children[0] : null;
+            element.insertBefore( styleElement, refNode );
+        }
+    }
+
+
+    function svgString2Image( svgString, width, height, format, callback ) {
+        var format = format ? format : 'png';
+        var imgsrc = 'data:image/svg+xml;base64,'+ btoa( unescape( encodeURIComponent( svgString ) ) ); // Convert SVG string to data URL
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        canvas.width = width;
+        canvas.height = height;
+        var image = new Image();
+        image.onload = function() {
+            context.clearRect ( 0, 0, width, height);
+            context.drawImage(image, 0, 0, width, height);
+            canvas.toBlob( function(blob) {
+                var filesize = Math.round( blob.length/1024 ) + ' KB';
+                if ( callback ) callback( blob, filesize );
+            });
+        };
+        image.src = imgsrc;
+    }
+
+    function draw_force_diagram() {
+        var evenly_distributed_positions = graph.evenly_distributed_positions;
+        var div_selector = "#arg_" + String(divnum);
+        if (preamble) {
+            d3.select(div_selector).html(preamble);
+        }
+        var tip = d3.select(div_selector).append("div")
+            .attr("class", "tooltip")
+            .style("display", "none");
+
+        var dashboard = d3.select(div_selector).append("div").attr("class", "dashboard");
+        
+        var saving = dashboard.append("button").attr("class", "dashbutton");
+        saving.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .attr("viewBox", "0 0 512 512")
+            .append("path")
+            .attr("d", "M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z");
+        var saving_methods = saving.append("span").attr("class", "tip desc");
+        var methods = saving_methods.append("div").text("Download As:").append("div").attr("class", "savemethods")
+
+        methods.append("button").text("JSON")
+            .on("click", function() {
+                d3.selectAll(div_selector + " .node").classed("fix", function(d) {
+                    d.fx = d.x;
+                });
+                src = JSON.parse(source);
+                src.data.nodes = graph.nodes;
+                var textBlob = new Blob([JSON.stringify(src)], {type: "text/plain"});
+                saveAs(textBlob, filename_for_saving + ".json");
+            });
+        methods.append("button").text("SVG")
+            .on('click', function(){
+                var svgString = getSVGString(svg.node());
+                var svgBlob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
+                saveAs(svgBlob, filename_for_saving);
+            });
+        methods.append("button").text("PNG")
+            .on('click', function(){
+                var svgString = getSVGString(svg.node());
+                svgString2Image(svgString, 2*width, 2*height, 'png', save); // passes Blob and filesize String to the callback
+            
+                function save(dataBlob){
+                    saveAs(dataBlob, filename_for_saving); // FileSaver.js function
+                }
+            });
+        
+        /*
+        methods.append("button").text("HTML")
+            .on("click", function(){
+                d3.selectAll(div_selector + " .node").classed("fix", function(d) {
+                    d.fx = d.x;
+                });
+                var html = document.querySelector("html").outerHTML;
+                var arg_div = document.getElementById(div_selector).innerHTML;
+                console.log(arg_div);
+                html = html.replace(arg_div, "");
+                html = html.replace(source.match(/'nodes': .*'links'/), "'nodes': " + JSON.stringify(graph.nodes) + ", 'links'")
+                saveAs(new Blob([html], {type:"text/plain;charset=utf-8"}), "tskit_arg_visualizer.html");
+            })
+        */
+
+        var reheat = dashboard.append("button").attr("class", "dashbutton activecolor")
+            .on("click", function(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();       
+                var order = d3.selectAll(div_selector + " .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+                d3.selectAll(div_selector + " .node").classed("unfix", function(d) {
+                    if ((d.ts_flags & NODE_IS_SAMPLE) && (d.x_pos_reference == -1)) {
+                        delete d.fx;
+                    } else {
+                        d.fx = evenly_distributed_positions[order.indexOf(d.id)];
+                    }
+                });
+            });
+        reheat.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .attr("viewBox", "0 0 384 512")
+            .append("path")
+            .attr("d", "M153.6 29.9l16-21.3C173.6 3.2 180 0 186.7 0C198.4 0 208 9.6 208 21.3V43.5c0 13.1 5.4 25.7 14.9 34.7L307.6 159C356.4 205.6 384 270.2 384 337.7C384 434 306 512 209.7 512H192C86 512 0 426 0 320v-3.8c0-48.8 19.4-95.6 53.9-130.1l3.5-3.5c4.2-4.2 10-6.6 16-6.6C85.9 176 96 186.1 96 198.6V288c0 35.3 28.7 64 64 64s64-28.7 64-64v-3.9c0-18-7.2-35.3-19.9-48l-38.6-38.6c-24-24-37.5-56.7-37.5-90.7c0-27.7 9-54.8 25.6-76.9z");
+        reheat.append("span").attr("class", "tip desc").text("Reheat Simulation");
+        
+        if (plot_type == "full") {
+            var evenly_distribute = dashboard.append("button").attr("class", "dashbutton activecolor")
+                .on("click", function() {
+                    var order = d3.selectAll(div_selector + " .sample").data().sort((a, b) => d3.ascending(a.x, b.x)).map(a => a.id);;
+                    d3.selectAll(div_selector + " .sample").classed("distribute", function(d) {
+                        d.fx = evenly_distributed_positions[order.indexOf(d.id)];
+                    });
+                });
+            evenly_distribute.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                .attr("xmlns", "http://www.w3.org/2000/svg")
+                .attr("viewBox", "0 0 512 512")
+                .append("path")
+                .attr("d", "M504.3 273.6c4.9-4.5 7.7-10.9 7.7-17.6s-2.8-13-7.7-17.6l-112-104c-7-6.5-17.2-8.2-25.9-4.4s-14.4 12.5-14.4 22l0 56-192 0 0-56c0-9.5-5.7-18.2-14.4-22s-18.9-2.1-25.9 4.4l-112 104C2.8 243 0 249.3 0 256s2.8 13 7.7 17.6l112 104c7 6.5 17.2 8.2 25.9 4.4s14.4-12.5 14.4-22l0-56 192 0 0 56c0 9.5 5.7 18.2 14.4 22s18.9 2.1 25.9-4.4l112-104z")
+            evenly_distribute.append("span").attr("class", "tip desc").text("Space Samples");
+        }
+
+        var labelling = dashboard.append("button").attr("class", "dashbutton");
+        labelling.append("svg") //<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .attr("viewBox", "0 0 512 512")
+            .append("path")
+            .attr("d", "M0 80L0 229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7L48 32C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z");
+        var labelling_methods = labelling.append("span").attr("class", "tip desc");
+        var methods = labelling_methods.append("div").text("Node Labels:").append("div").attr("class", "labelmethods")
+        
+        function switch_node_label(selected) {
+            label_text.each(function(d) {
+                d3.select(this).selectAll("*").remove();
+                if (selected == "default") {
+                    multi_line_text.call(this, d.label, (d.parent_of.length == 0));
+                } else if (selected == "id") {
+                    multi_line_text.call(this, "#" + String(d.id));
+                } else {
+                    multi_line_text.call(this, "");
+                }
+            })
+        }
+        
+        methods.append("button").attr("class", "node-labels-default").text("DEFAULT")
+            .on("click", function() {
+                switch_node_label("default");
+                // Underline the current selection (could use different highlighting method here)
+                d3.selectAll(div_selector + " .labelmethods button").style("text-decoration", "none");
+                d3.select(this).style("text-decoration", "underline");
+            });
+        methods.append("button").attr("class", "node-labels-id").text("#ID")
+            .on('click', function(){
+                switch_node_label("id");
+                // Underline the current selection (could use different highlighting method here)
+                d3.selectAll(div_selector + " .labelmethods button").style("text-decoration", "none");
+                d3.select(this).style("text-decoration", "underline");
+            });
+        methods.append("button").attr("class", "node-labels-none").text("NONE")
+            .on('click', function(){
+                switch_node_label("none");
+                // Underline the current selection (could use different highlighting method here)
+                d3.selectAll(div_selector + " .labelmethods button").style("text-decoration", "none");
+                d3.select(this).style("text-decoration", "underline");
+            });
+
+
+        var svg = d3.select(div_selector).append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", "white");
+
+        var result = y_axis.ticks.map(function (x) { 
+            return parseInt(x, 10); 
+        });
+
+        if (y_axis.include_labels) {
+            var bottom = height - 50;
+            if (tree_highlighting) {
+                bottom = height - 125;
+            }
+            var top = 50;
+            if (title != "None") {
+                top = 100
+            }
+            var yscale = d3.scaleLinear() 
+                .domain([y_axis.max_min[0], y_axis.max_min[1]]) 
+                .range([y_axis.max_min[0], y_axis.max_min[1]]); 
+
+            var y_axis_text = y_axis.text;
+
+            var d3_y_axis = d3.axisRight().scale(yscale)
+                .tickValues(result)
+                .tickFormat((d, i) => y_axis_text[i]); 
+
+            var y_axis_labels = svg
+                .append("g")
+                .attr("class", "yaxis")
+                .attr("transform", "translate(25,0)")
+                .call(d3_y_axis);
+            
+            if (y_axis.title != "None") {
+                y_axis_labels.append("text")
+                .attr("x", -15)
+                .attr("y", (y_axis.max_min[0]+y_axis.max_min[1])/2)
+                .attr("fill", "black")
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .attr("class", "label")
+                .attr("transform", "rotate(-90, -15, " + (y_axis.max_min[0]+y_axis.max_min[1])/2 + ")")
+                .text(y_axis.title);
+            }
+        }
+
+        var simulation = d3
+            .forceSimulation(graph.nodes)
+            .force("link", d3.forceLink()
+                .id(d => d.id)
+                .links(graph.links)
+            )
+            //.force("center", d3.forceCenter(275,250).strength(-10))
+            .force("charge", d3.forceManyBody().strength(-100))
+            .on("tick", ticked);
+
+        var link_container = svg
+            .append("g")
+            .attr("class", "links")
+            .selectAll("path")
+            .data(graph.links)
+            .enter()
+            .append("g")
+            .attr("edge_id", d => d.id) /* this is the ARGviz edge ID, not the tskit edge ID */
+            .attr("bounds", d => d.bounds);
+
+        if ((edge_styles.type == "ortho") && edge_styles.include_underlink) {
+            var underlink = link_container
+                .append("path")
+                .attr("class", "underlink");
+        }
+
+        var link = link_container
+            .append("path")
+            .attr("class", "link")
+            .attr("stroke", d => d.stroke)
+            .attr("stroke-width", "4px");
+        
+        if (edge_styles.variable_width) {
+            link
+                .style("stroke-width", d => d.region_fraction * 7 + 1);
+        }
+
+        if (tree_highlighting) {
+            d3.selectAll(div_selector + " .link")
+                .on('mouseover', function (event, d) {
+                    if (!d3.select(div_selector + ">svg").classed("no-hover")) {
+                        d3.select(this)
+                            .style('stroke', '#1eebb1')
+                            .style("cursor", "pointer");
+                        d3.selectAll(div_selector + " .sites .e" + d.id).style("display", "block");
+                        d3.selectAll(div_selector + " .endpoints")
+                            .style('display', 'none'); /* hide other labels to avoid clashes */
+                        const bars = d3.select(div_selector + " .breakpoints").selectAll(".included");
+                        bars /* colour in all bars covered by these bounds */
+                            .filter(function(j) {
+                                return d.bounds.split(" ").some(function(region) {
+                                    region = region.split("-");
+                                    return (parseFloat(region[0]) <= j.start) && (parseFloat(region[1]) >= j.stop)
+                                });
+                            })
+                            .selectAll("rect").style('fill', '#1eebb1');
+                        bars /* show the leftmost position label */
+                            .filter(function(j) {
+                                return d.bounds.split(" ").some(function(region) {
+                                    region = region.split("-");
+                                    return (parseFloat(region[0]) == j.start)
+                                });
+                            })
+                            .selectAll("text.start").style('display', 'block');
+                        bars /* show the rightmost position label */
+                            .filter(function(j) {
+                                return d.bounds.split(" ").some(function(region) {
+                                    region = region.split("-");
+                                    return (parseFloat(region[1]) == j.stop)
+                                });
+                            })
+                            .selectAll("text.stop").style('display', 'block');
+                    }
+                })
+                .on('mouseout', function (event, d) {
+                    if (!d3.select(div_selector + ">svg").classed("no-hover")) {
+                        d3.select(this)
+                            .style('stroke', d.stroke)
+                            .style("cursor", "default");
+                        const bars = d3.select(div_selector + " .breakpoints").selectAll(".included");
+                        bars.selectAll("rect").style("fill", d.fill);
+                        bars.selectAll("text").style("display", "none");
+                        d3.selectAll(div_selector + " .endpoints")
+                            .style('display', 'block');
+                        d3.selectAll(div_selector + " .sites .e" + d.id).style("display", "none");
+                    }
+                });
+        }
+
+        var node_group = svg
+            .append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(graph.nodes)
+            .enter()
+            .append("g");
+
+        var missing_edges = node_group
+            .filter(d => (d.not_included_parents>0) | (d.not_included_children>0))
+            .append("g")
+            .attr("class", "missing");
+
+        var missing_parents = missing_edges
+            .filter(d => d.not_included_parents>0)
+            .append("g")
+            .attr("class", "parents")
+            .append("g");
+        var missing_parents_paths = missing_parents.append("path");
+        var missing_parents_texts = missing_parents
+            .append("text")
+                .attr("class", "label")
+                .style("fill", "gray")
+                .text(d => d.not_included_parents);
+
+        var missing_children = missing_edges
+            .filter(d => d.not_included_children>0)
+            .append("g")
+            .attr("class", "children")
+            .append("g");
+        var missing_children_paths = missing_children.append("path");
+        var missing_children_texts = missing_children
+            .append("text")
+                .attr("class", "label")
+                .style("fill", "gray")
+                .text(d => d.not_included_children);
+
+        function multi_line_text(text, top_align) {
+            if (text != null) {
+                // Split label text onto separate lines by newline characters, if they exist
+                const lines = text.split("\n");
+                const parentX = d3.select(this).attr("x") || "0";  // Get parent text's x position
+                const initialDy = top_align ? "0em" : (-1 * (lines.length - 1)) + "em";
+
+                d3.select(this).text(null); // clear existing text
+                d3.select(this).selectAll('tspan')
+                    .data(lines)
+                    .enter()
+                    .append('tspan')
+                    .text(d => d)
+                    .attr('x', parentX)  // Use parent's x position
+                    .attr('dy', (d, i) => ((i === 0) ? initialDy : "1em"));
+            }
+        }
+        var node = node_group
+            .append("path")
+            .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
+            /* d.symbol is a string like "d3.symbolCircle" that we need to evaluate */
+            .attr("d", d3.symbol().type(d => eval(d.symbol)).size(d => d.size))
+            .attr("fill", d => d.fill)
+            .attr("stroke", d => d.stroke)
+            .attr("stroke-width", d => d.stroke_width)
+            .attr("id", d => String(divnum) + "_node" + d.id)
+            .attr("class", d => "node flag" + d.ts_flags + (d.ts_flags & NODE_IS_SAMPLE ? " sample" : ""))
+            .attr("parents", d => d.child_of.toString().replace(",", " "))
+            .attr("children", d => d.parent_of.toString().replace(",", " "))
+            .call(
+                d3
+                    .drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended)
+            )
+            .on('mouseover', function (d, i) {
+                d3.select(this)
+                    .style("cursor", "pointer")
+            });
+
+        function highlight_mut(mutation_id, site_id, fill) {
+            /* other mutations at the same site on the tree */
+            d3.selectAll(div_selector + " .mutations .s" + site_id + " rect").style("stroke", fill);
+            /* highlight only this mutation in the bar */
+            d3.select(div_selector + " .sites .m" + mutation_id).style("display", "block");
+        }
+
+        function dehighlight_mut(mutation_id, site_id) {
+            d3.selectAll(div_selector + " .mutations .s" + site_id + " rect")
+                .each(function(d) {
+                    d3.select(this)
+                        .style("stroke", d.stroke)
+                        .style("fill", d.fill);
+                    });
+            d3.select(div_selector + " .sites .m" + mutation_id).style("display", "none");
+        }
+
+        var mut_symbol = svg
+            .append("g")
+            .attr("class", "mutations")
+            .selectAll("rect")
+            .data(graph.mutations)
+            .enter()
+            .append("g")
+            .attr("class", d => {
+                if (condense_mutations) {
+                    return (
+                        d.site_id.map(id => "s" + id).join(" ") + " " +
+                        d.mutation_id.map(id => "m" + id).join(" ") + " " +
+                        "e" + d.edge
+                    )
+                } else {
+                    return "s" + d.site_id + " " + "m" + d.mutation_id + " " + "e" + d.edge;
+                }}
+            )
+            .on("mouseover", function(event, d) {
+                if (!d3.select(div_selector + ">svg").classed("no-hover")) {
+                    d3.select(this).style("cursor", "pointer");
+                    /* highlight all mutations at the same site (easy to spot reversions etc) */
+                    if (condense_mutations) {
+                        d.mutation_id.forEach((id, i) => highlight_mut(id, d.site_id[i], d.fill));
+                    } else {
+                        highlight_mut(d.mutation_id, d.site_id, d.fill)
+                    }
+                    /* Show a tooltip with the mutation information */
+                    var rect = d3.select(div_selector).node().getBoundingClientRect();
+                    tip
+                        .style("display", "block")
+                        .html("<p style='margin: 0px;'>" + d.content + "</p>")
+                        .style("border", d.fill + " solid 2px")
+                        .style("left", (event.pageX - rect.x) + "px")
+                        .style("top", (event.pageY - rect.y + 25) + "px")
+                        .style("transform", "translateX(-50%)");
+                }
+            })
+            .on("mouseout", function(event, d) {
+                if (!d3.select(div_selector + ">svg").classed("no-hover")) {
+                    if (!d.active) {
+                        d3.select(this).style("cursor", "default");
+                        if (condense_mutations) {
+                            d.mutation_id.forEach((id, i) => dehighlight_mut(id, d.site_id[i]));
+                        } else {
+                            dehighlight_mut(d.mutation_id, d.site_id);
+                        } 
+                        tip.style("display", "none");
+                    }
+                }
+            });
+
+        if (label_mutations) {
+            var mut_symbol_label = mut_symbol
+                .append("text")
+                //.attr("class", "label")
+                .style("font-size", d => (d.size * 2 + "px"))
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .attr("fill", d => {
+                    var box = document.createElement("div");
+                    box.style.color = d.fill;
+                    document.body.appendChild(box);
+                    var rgb = parseRgbString(window.getComputedStyle(box).color);
+                    document.body.removeChild(box);
+                    var lightness = 0.2126*rgb["r"] + 0.7152*rgb["g"] + 0.0722*rgb["b"];
+                    if (lightness > 0.5) {
+                        return "#053e4e"
+                    }
+                    return "white"
+                })
+                .text(d => d.label)
+                .each(function(d) {
+                    // Store the text width on the data object
+                    d.textWidth = this.getComputedTextLength();
+                });
+        }
+
+        var mut_symbol_rect = mut_symbol
+            .append("rect")
+            .attr("class", "symbol")
+            .attr("fill", d => d.fill)
+            .attr("stroke", d => d.stroke)
+            .attr("stroke-width", 2)
+            // Set the rect width / height based on the calculated text width
+            .attr("width", function(d) {
+                if (label_mutations && d.textWidth) {
+                    d.computedWidth = d.textWidth + 6; // Add left/right padding
+                } else {
+                    d.computedWidth = d.size * 3; // aspect ratio is 3 (3 times wider than tall)
+                }
+                return d.computedWidth;  
+            })
+            .attr("height", function(d) {
+                if (label_mutations) {
+                    d.computedHeight = (d.size * 2) + 4; // Font size + top/bottom padding
+                }
+                else {
+                    d.computedHeight = d.size;
+                }
+                return d.computedHeight;
+            })
+            .lower();
+
+        function rotate_tip(d) {
+            if ((d.parent_of.length == 0) && (rotate_tip_labels)) {
+                return "translate(-4, 0) rotate(90)"
+            }
+            return null
+        }
+
+        var label = svg
+            .append("g")
+            .attr("class", "node-labels")
+            .selectAll("text")
+            .data(graph.nodes)
+            .enter()
+            //.filter(d => d.include_label)
+            .append("g");
+
+        var label_text = label
+            .attr("class", d => "label n" + d.id)
+            .append("text")
+            .each(function(d) {
+                multi_line_text.call(this, d.label, (d.parent_of.length == 0));
+            })
+            //.each(d => multi_line_text.call(this, d.label, (d.parent_of.length == 0)))
+            .attr("transform", rotate_tip);
+
+        function determine_path_type(d) {
+            path_type = ""
+            var start_position_x = d.source.x;
+            var start_position_y = d.source.y;
+            var stop_position_x = d.target.x;
+            var stop_position_y = d.target.y;
+            var vnub = Math.min((stop_position_y-start_position_y)/2, 20);
+            if (y_axis.scale == "time" || y_axis.scale == "log_time") {
+                vnub = 0;
+            }
+            var alt_child = document.getElementById(String(divnum) + "_node" + d.alt_child);
+            if (alt_child != null) {
+                var alt_child_x = alt_child.getAttribute("cx");
+                var alt_child_y = alt_child.getAttribute("cy");
+            }
+            if (d.source.ts_flags & NODE_IS_RE_EVENT) {
+                path_type += "r0";
+                start_position_y = d.source.y + vnub;
+            } else {
+                if (d.target.y < alt_child_y) {
+                    if (d.target.x < d.source.x) {
+                        if (d.target.x < d.source.x - 40) {
+                            path_type += "tL";
+                        } else {
+                            path_type += "fL";
+                        }
+                        start_position_x = d.source.x - 20;
+                    } else {
+                        if (d.target.x > d.source.x + 40) {
+                            path_type += "tR";
+                        } else {
+                            path_type += "fR";
+                        }
+                        start_position_x = d.source.x + 20;
+                    }
+                } else if (d.target.y > alt_child_y) {
+                    if (alt_child_x < d.source.x) {
+                        if (d.target.x < d.source.x + 40) {
+                            path_type += "fR";
+                        } else {
+                            path_type += "tR";
+                        }
+                        start_position_x = d.source.x + 20;
+                    } else {
+                        if (d.target.x > d.source.x - 40) {
+                            path_type += "fL";
+                        } else {
+                            path_type += "tL";
+                        }
+                        start_position_x = d.source.x - 20;
+                    }
+                } else {
+                    if (d.target.x < alt_child_x) {
+                        if (d.target.x < d.source.x - 40) {
+                            path_type += "tL";
+                        } else {
+                            path_type += "fL";
+                        }
+                        start_position_x = d.source.x - 20;
+                    } else if (d.target.x > alt_child_x) {
+                        if (d.target.x > d.source.x + 40) {
+                            path_type += "tR";
+                        } else {
+                            path_type += "fR";
+                        }
+                        start_position_x = d.source.x + 20;
+                    } else {
+                        if (d.index % 2 == 0) {
+                            path_type += "fL";
+                            start_position_x = d.source.x - 20;
+                        } else {
+                            path_type += "fR";
+                            start_position_x = d.source.x + 20;
+                        }
+                    }
+                }
+            }
+            var alt_parent = document.getElementById(String(divnum) + "_node" + d.alt_parent);
+            if (alt_parent != null) {
+                var alt_parent_x = alt_parent.getAttribute("cx");
+                var alt_parent_y = alt_parent.getAttribute("cy");
+            }
+            if (d.target.ts_flags & NODE_IS_RE_EVENT) {
+                if (d.source.y < alt_parent_y) {
+                    if (alt_parent_x < d.target.x) {
+                        if (d.source.x < d.target.x + 40) {
+                            path_type += "fR";
+                        } else {
+                            path_type += "tR";
+                        }
+                        stop_position_x = d.target.x + 20;
+                    } else {
+                        if (d.source.x > d.target.x - 40) {
+                            path_type += "fL";
+                        } else {
+                            path_type += "tL";
+                        }
+                        stop_position_x = d.target.x - 20;
+                    }
+                } else if (d.source.y > alt_parent_y) {
+                    if (d.source.x < d.target.x) {
+                        if (d.source.x < d.target.x - 40) {
+                            path_type += "tL";
+                        } else {
+                            path_type += "fL";
+                        }
+                        stop_position_x = d.target.x - 20;
+                    } else {
+                        if (d.source.x > d.target.x + 40) {
+                            path_type += "tR";
+                        } else {
+                            path_type += "fR";
+                        }
+                        stop_position_x = d.target.x + 20;
+                    }
+                } else {
+                    if (d.index % 2 == 0) {
+                        path_type += "fL";
+                        stop_position_x = d.target.x - 20;
+                    } else {
+                        path_type += "fR";
+                        stop_position_x = d.target.x + 20;
+                    }
+                }
+            } else {
+                path_type += "b0";
+                stop_position_y = d.target.y - vnub;
+            }
+            if (path_type == "fLb0" ) {
+                if (start_position_x >= stop_position_x) {
+                    path_type = "tLb0";
+                }
+            } else if (path_type == "fRb0") {
+                if (start_position_x <= stop_position_x) {
+                    path_type = "tRb0";
+                }
+            } else if (path_type == "r0fL") {
+                if (start_position_x <= stop_position_x) {
+                    path_type = "r0tL";
+                }
+            } else if (path_type == "r0fR") {
+                if (start_position_x >= stop_position_x) {
+                    path_type = "r0tR";
+                }
+            } else if (path_type == "fLfL") {
+                if (start_position_x <= stop_position_x) {
+                    path_type = "fLtL";
+                } else {
+                    path_type = "tLfL";
+                }
+            } else if (path_type == "fRfR") {
+                if (start_position_x >= stop_position_x) {
+                    path_type = "fRtR";
+                } else {
+                    path_type = "tRfR";
+                }
+            }
+            return [path_type, start_position_x, start_position_y, stop_position_x, stop_position_y];
+        }
+
+        function ortho_pathing(d, path_info, underlink=false) {      
+            const path_type = path_info[0];
+            const simple_path_type = Array.from(path_type)[0] + Array.from(path_type)[2];
+            const start_position_x = path_info[1];
+            const start_position_y = path_info[2];
+            const stop_position_x = path_info[3];
+            const stop_position_y = path_info[4];
+
+            const after_paths = ["rf", "tb", "tf"];
+            const before_paths = ["rt", "fb", "ft"];
+            const step_paths = ["tt"];
+            const mid_paths = ["rb", "ff"];
+
+            if (underlink) {
+                if (after_paths.includes(simple_path_type)) {
+                    return stepAfter([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]);
+                } else if (before_paths.includes(simple_path_type)) {
+                    return stepBefore([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]);
+                } else if (step_paths.includes(simple_path_type)) {
+                    return step([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]);
+                } else if (mid_paths.includes(simple_path_type)) {
+                    return line([[start_position_x, start_position_y],[start_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[start_position_x, start_position_y + (stop_position_y - start_position_y)/2],[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2], [stop_position_x, stop_position_y]]);
+                }
+            } else {
+                if (after_paths.includes(simple_path_type)) {
+                    return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepAfter([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                } else if (before_paths.includes(simple_path_type)) {
+                    return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + stepBefore([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                } else if (step_paths.includes(simple_path_type)) {
+                    return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + step([[start_position_x, start_position_y],[stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                } else if (mid_paths.includes(simple_path_type)) {
+                    return line([[d.source.x, d.source.y],[start_position_x, start_position_y]]) + line([[start_position_x, start_position_y],[start_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[start_position_x, start_position_y + (stop_position_y - start_position_y)/2],[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2]]) + line([[stop_position_x, start_position_y + (stop_position_y - start_position_y)/2], [stop_position_x, stop_position_y]]) + line([[stop_position_x, stop_position_y], [d.target.x, d.target.y]]);
+                }
+            }
+        }
+
+        function ticked() {
+            node
+                .attr("transform", function(d) {
+                    if (y_axis.include_labels) {
+                        return "translate(" + Math.max(150, Math.min(width-50, d.x)) + "," + d.y + ")";
+                    } else {
+                        return "translate(" + Math.max(50, Math.min(width-50, d.x)) + "," + d.y + ")";
+                    }
+                })
+                .attr("cx", function(d) {
+                    if ((edge_styles.type == "ortho") && (d.x_pos_reference != -1)) {
+                        var ref = document.getElementById(String(divnum) + "_node" + d.x_pos_reference);
+                        if (ref != null) {
+                            d.fx = ref.getAttribute("cx");
+                        }
+                    }
+                    if (y_axis.include_labels) {
+                        return d.x = Math.max(150, Math.min(width-50, d.x));
+                    } else {
+                        return d.x = Math.max(50, Math.min(width-50, d.x));
+                    }
+                })
+                .attr("cy", d => d.y);
+            
+            link_container.each(function(d) {
+                var path_info = determine_path_type(d);
+                var path = "";
+                if (edge_styles.type == "ortho") {
+                    path = ortho_pathing(d, path_info);
+                    var underlink_path = ortho_pathing(d, path_info, underlink=true);
+                } else if (d.source.id == d.alt_parent) {
+                    var leftOrRight = 20;
+                    if (d.index % 2 == 0) {
+                        leftOrRight = -20;
+                    }
+                    path = "M " + d.source.x + " " + d.source.y + " C " + (d.source.x + leftOrRight).toString() + " " +  (d.source.y - 10).toString() + ", " + (d.target.x + leftOrRight).toString() + " " + (d.target.y + 10).toString() + ", " + d.target.x + " " + d.target.y;
+                } else {
+                    path = line([[d.source.x, d.source.y], [d.target.x, d.target.y]]);
+                }
+                if ((edge_styles.type == "ortho") && edge_styles.include_underlink) {
+                    var u = d3.select(this).select(".underlink");
+                    u.attr("d", underlink_path);
+                }
+                var l = d3.select(this).select(".link");
+                l.attr("path_type", path_info[0]);
+                l.attr("d", path)
+                l.attr("fill", "none");
+            });
+
+            mut_symbol_rect
+                .attr("x", function(d) {
+                    var parent = document.getElementById(String(divnum) + "_node" + d.source);
+                    if (parent != null) {
+                        var parent_x = parseFloat(parent.getAttribute("cx"));
+                        var parent_y = parseFloat(parent.getAttribute("cy"));
+                        var child = document.getElementById(String(divnum) + "_node" + d.target);
+                        if (child != null) {
+                            var child_x = parseFloat(child.getAttribute("cx"));
+                            var child_y = parseFloat(child.getAttribute("cy"));
+                            if (parent_x - child_x == 0) {
+                                return parent_x - d.computedWidth/2;
+                            } else {
+                                var slope = (parent_y - child_y) / (parent_x - child_x);
+                                var intercept = parent_y - slope * parent_x;
+                                return ((d.y - intercept) / slope) - d.computedWidth/2;
+                            }
+                        } else {
+                            return 0;
+                        }
+                    } else {
+                        return 0;
+                    }
+                })
+                .attr("y", d => d.y - d.computedHeight/2);
+
+            mut_symbol
+                .attr("transform", function(d) {
+                    var parent = document.getElementById(String(divnum) + "_node" + d.source);
+                    if (parent != null) {
+                        var parent_x = parseFloat(parent.getAttribute("cx"));
+                        var parent_y = parseFloat(parent.getAttribute("cy"));
+                        var child = document.getElementById(String(divnum) + "_node" + d.target);
+                        if (child != null) {
+                            var child_x = parseFloat(child.getAttribute("cx"));
+                            var child_y = parseFloat(child.getAttribute("cy"));
+                            var slope = (parent_y - child_y) / (parent_x - child_x);
+                            var rect = this.children[0];
+                            return "rotate(" + String(-Math.atan((1/slope))*180/Math.PI) + ", " + String(parseFloat(rect.getAttribute("x"))+parseFloat(rect.getAttribute("width"))/2) + ", " + String(parseFloat(rect.getAttribute("y"))+parseFloat(rect.getAttribute("height"))/2) + ")";
+                        } else {
+                            return "rotate(0)";
+                        }
+                    } else {
+                        return "rotate(0)";
+                    }
+                });
+            
+            if (label_mutations) {
+                mut_symbol_label
+                    .attr("transform", function(d) {
+                        var y = d.y + 1;
+                        var x = 0;
+                        var parent = document.getElementById(String(divnum) + "_node" + d.source);
+                        if (parent != null) {
+                            var parent_x = parseFloat(parent.getAttribute("cx"));
+                            var parent_y = parseFloat(parent.getAttribute("cy"));
+                            var child = document.getElementById(String(divnum) + "_node" + d.target);
+                            if (child != null) {
+                                var child_x = parseFloat(child.getAttribute("cx"));
+                                var child_y = parseFloat(child.getAttribute("cy"));
+                                if (parent_x - child_x == 0) {
+                                    x = parent_x;
+                                } else {
+                                    var slope = (parent_y - child_y) / (parent_x - child_x);
+                                    var intercept = parent_y - slope * parent_x;
+                                    x = ((d.y - intercept) / slope);
+                                }
+                            } else {
+                                x = 0;
+                            }
+                        } else {
+                            x = 0;
+                        }
+                        return "translate(" + String(x) + "," + String(y) + ")";
+                    });
+            }
+
+            function determine_label_positioning(d) {
+                if (d.ts_flags & NODE_IS_RE_EVENT || d.parent_of.length == 0 || d.child_of.length == 0) {
+                    return "c";
+                } else if (d.child_of.length == 1) {
+                    var parent = document.getElementById(String(divnum) + "_node" + d.child_of[0])
+                    if (parent != null) {
+                        var parent_x = parent.getAttribute("cx");
+                        if (parent_x > d.x+1) {
+                            return "l";
+                        } else {
+                            return "r";
+                        }
+                    } else {
+                        return "r";
+                    }
+                } else {
+                    return "r";
+                }
+            };
+
+            label
+                .each(function(d) {
+                    var l = d3.select(this);
+                    var positioning = determine_label_positioning(d);
+                    var x = d.x;
+                    var anchor = "middle";
+                    // Find offsets from CSS
+                    const cstyle = getComputedStyle(this)
+                    const symbolSize = Math.sqrt(d.size);
+                    const cssOffset = cstyle.getPropertyValue('--offset');
+                    // default should depend on the symbol size (which is square pixels) and the font size
+                    const offset = cssOffset ? parseInt(cssOffset) : symbolSize/2 + parseFloat(cstyle.fontSize)/2;
+                    const cssTipoffset = cstyle.getPropertyValue('--tipoffset');
+                    // default of 25 if not set: perhaps should be related to the tip symbol size?
+                    const tipoffset = cssTipoffset ? parseInt(cssTipoffset) : symbolSize/2 + parseFloat(cstyle.fontSize);
+                    if (positioning == "l") {
+                        x = d.x - offset;
+                        anchor = "end";
+                    } else if (positioning == "r") {
+                        x = d.x + offset;
+                        anchor = "start";
+                    }
+                    l.attr("text-anchor", anchor);
+                    l.attr("transform", function(d) {
+                        // adding slightly more spacing in the y-axis when positioning is middle (c)
+                        var y = d.y - offset;
+                        if (positioning == "c") {
+                            y = y - 3;
+                        }
+                        if (d.parent_of.length == 0) {
+                            y = d.y + tipoffset;
+                            if (positioning == "c") {
+                                y = y + 3;
+                            }
+                        }
+                        // only bother showing up to 4 d.p.
+                        return "translate(" + parseFloat(x.toFixed(4)) + "," + parseFloat(y.toFixed(4)) + ")";
+                    })
+                });
+
+            missing_parents_paths
+                .each(function(d) {
+                    var l = d3.select(this);
+                    l.style("stroke-width", "4px");
+                    l.style("stroke-dasharray", "5");
+                    l.style("stroke", "gray");
+                    l.attr("d", line([[d.x, d.y], [d.x, d.y-30]]));
+                });
+            
+            missing_parents_texts
+                .each(function(d) {
+                    var l = d3.select(this);
+                    l.attr("text-anchor", "middle");
+                    l.attr("x", d.x);
+                    l.attr("y", d.y-30);
+                });
+
+            missing_children_paths
+                .each(function(d) {
+                    var l = d3.select(this);
+                    l.style("stroke-width", "4px");
+                    l.style("stroke-dasharray", "5");
+                    l.style("stroke", "gray");
+                    l.attr("d", line([[d.x, d.y], [d.x, d.y+30]]));
+                });
+            
+            missing_children_texts
+                .each(function(d) {
+                    var l = d3.select(this);
+                    l.attr("text-anchor", "middle");
+                    l.attr("x", d.x);
+                    l.attr("y", d.y+40);
+                });
+        }
+
+        function updateReferenceNodePositions(d, x) {
+            d3.selectAll(div_selector + " .node").classed("ref", function(j) {
+                if ((edge_styles.type == "ortho") && (j.id == d.x_pos_reference)) {
+                    j.fx = x;
+                }
+            });
+        }
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            updateReferenceNodePositions(d, d.x);
+            svg.attr("class", "no-hover");
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            updateReferenceNodePositions(d, event.x);
+        }
+
+        function dragended(event, d) {
+            svg.attr("class", null);
+        }
+
+        if (tree_highlighting) {
+            
+            var th_group = svg.append("g").attr("class", "tree_highlighting");
+            
+            var breakpoint_regions = th_group
+                .append("g")
+                .attr("class", "breakpoints")
+                .selectAll("g")
+                .data(graph.breakpoints)
+                .enter()
+                .append("g")
+                .attr("class", d => (d.included) ? "included" : null)
+                .attr("start", d => d.start)
+                .attr("stop", d => d.stop);
+
+            breakpoint_regions
+                .append("rect")
+                .attr("x", d => d.x_pos)
+                .attr("y", height-60)
+                .attr("width", d => d.width)
+                .attr("height", 40)
+                .attr("stroke", "#FFFFFF")
+                .attr("stroke-width", 1)
+                .attr("fill", d => (d.included) ? d.fill : "gray");
+
+            breakpoint_regions
+                .append("text")
+                .attr("x", d => d.x_pos)
+                .attr("y", height-5)
+                .attr("class", "label start")
+                .style("display", "none")
+                .text(d => String(d.start));
+
+            breakpoint_regions
+                .append("text")
+                .attr("x", d => d.x_pos + d.width)
+                .attr("y", height-5)
+                .attr("class", "label stop")
+                .style("display", "none")
+                .text(d => String(d.stop));
+
+            breakpoint_regions
+                /* when hovering over the genome bar */
+                .on('mouseover', function (event, d) {
+                    if (!d3.select(div_selector + ">svg").classed("no-hover")) {
+                        if (d.included) {
+                            d3.select(this).selectAll("rect")
+                                .style('fill', '#1eebb1')
+                                .style("cursor", "pointer");
+                            d3.select(this).selectAll("text")
+                                .style('display', 'block');
+                            d3.selectAll(div_selector + " .endpoints")
+                                .style('display', 'none'); /* hide other labels to avoid clashes */
+                            var highlight_links = d3.select(div_selector + " .links")
+                                .selectAll("g")
+                                    .filter(function(j) {
+                                        return j.bounds.split(" ").some(function(region) {
+                                            region = region.split("-");
+                                            return (parseFloat(region[1]) > d.start) && (parseFloat(region[0]) < d.stop)
+                                        });
+                                    });
+                            
+                            const edge_set = new Set(
+                                highlight_links.nodes().map(el => parseInt(el.getAttribute("edge_id"), 10))
+                            );
+                            const site_set = new Set(
+                                mutation_data
+                                    .filter(m => m.position > d.start && m.position < d.stop)
+                                    .map(m => m.site_id)
+                            );
+                            d3.selectAll(div_selector + " .mutations, " + div_selector + " .sites")
+                                .selectAll("g")
+                                .style("display", "none")
+                                .filter(function() {
+                                    // find an 'eN' token in classList
+                                    for (const cls of this.classList) {
+                                        if (cls[0] === 'e') {
+                                            const id = parseInt(cls.slice(1), 10);
+                                            if (!Number.isNaN(id) && edge_set.has(id)) return true;
+                                        }
+                                    }
+                                    return false;
+                                })
+                                .style("display", null)
+                                .filter(function() {
+                                    // exclude if any 'mN' token is in mut_set
+                                    for (const tok of this.classList) {
+                                        if (tok[0] === 's') {
+                                            const id = parseInt(tok.slice(1), 10);
+                                            if (!Number.isNaN(id) && site_set.has(id)) return false;
+                                        }
+                                    }
+                                    return true; // when no matching site found, make translucent
+                                })
+                                .style("opacity", 0.2); /* we could make 0.2 a parameter */
+
+                            highlight_links.raise();
+                            highlight_links
+                                .select(".link")
+                                .style("stroke", "#1eebb1");
+                        }
+                    }
+                })
+                .on('mouseout', function (event, d) {
+                    if (!d3.select(div_selector + ">svg").classed("no-hover")) {
+                        if (d.included) {
+                            d3.select(this).selectAll("rect")
+                                .style('fill', d.fill)
+                                .style("cursor", "default");
+                            d3.select(this).selectAll("text")
+                                .style('display', 'none');
+                            d3.selectAll(div_selector + " .endpoints")
+                                .style('display', 'block');
+                            d3.selectAll(div_selector + " .link")
+                                .style("stroke", d => d.stroke);
+                            d3.select(div_selector + " .mutations")
+                                .selectAll("g")
+                                .style("display", null)
+                                .style("opacity", null);
+                            d3.select(div_selector + " .sites")
+                                .selectAll("g")
+                                .style("display", "none")
+                                .style("opacity", null);
+                        }
+                    }
+                });
+            
+            var endpoints = th_group.append("g").attr("class", "endpoints");
+            
+            endpoints
+                .append("text")
+                    .attr("class", "label")
+                    .style("text-anchor", "start")
+                    .text(graph.breakpoints[0].start)
+                    .attr("x", graph.breakpoints[0].x_pos)
+                    .attr("y", height-5);
+            
+            endpoints
+                .append("text")
+                    .attr("class", "label")
+                    .style("text-anchor", "end")
+                    .text(graph.breakpoints[graph.breakpoints.length-1].stop)
+                    .attr("x", width)
+                    .attr("y", height-5);
+
+            var mutation_data = graph.mutations;
+            if (condense_mutations) { /* explode the graph.mutations df into one row per mut */
+                mutation_data = [];
+                graph.mutations.forEach(function(d) {
+                    d.mutation_id.forEach(function(x, i) {
+                        mutation_data.push({
+                            mutation_id: x,
+                            site_id: d.site_id[i],
+                            edge: d.edge,
+                            fill: d.fill,
+                            x_pos: d.x_pos[i], 
+                            position: d.position[i]
+                        });
+                    });
+                });
+            };
+
+            var site_pos = th_group
+                .append("g")
+                .attr("class", "sites")
+                .selectAll("line")
+                .data(mutation_data)  /* NB: one per mutation to allow different line colors */
+                .enter()
+                .append("g")
+                .attr("class", d => "s" + d.site_id + " " + "e" + d.edge + " " + "m" + d.mutation_id)
+                .attr("transform", d => "translate(" + d.x_pos + "," + (height-60) + ")")
+                .style("display", "none");
+
+            function createSiteLine(selection) {
+                return selection
+                    .append("line")
+                    .attr("y1", -5)
+                    .attr("y2", 40+5)
+                    .style("stroke-width", 3)
+                    .style("fill", "none");
+            }
+                  
+            function createSiteText(selection) {
+                return selection
+                    .append("text")
+                    .attr("y", -8)  /* above the tick */
+                    .attr("class", "label");
+            }
+            
+            site_pos
+                .each(function(d) {
+                    const select = d3.select(this);
+                    createSiteLine(select)
+                        .style("stroke", d.fill);
+                    createSiteText(select)
+                        .text(String(d.position));
+                });
+            
+            /*
+            var mut_text = mut_pos
+                .append("text")
+                .attr("text-anchor", function(d) {
+                    if (d.x_pos > (width*9/10)) {
+                        return "end";
+                    } else if (d.x_pos < width*1/10) {
+                        return "start";
+                    } else {
+                        return "middle";
+                    }
+                })
+                .style("font-size", "10px")
+                .style("font-family", "Arial")
+                .attr("fill", d => d.fill)
+                .attr("transform", d => "translate(" + String(d.x_pos) + "," + String(height-60-10) + ")");
+        
+            mut_text
+                .text(function(d) {
+                    if (label_mutations) {
+                        return String(d.site_id) + ":" + String(d.position);
+                    } else {
+                        return d.label;
+                    }
+                });
+            */
+        }
+
+        if (title != "None") {
+            svg.append("text")
+                .style("font-size", "20px")
+                .attr("x", width / 2)
+                .attr("text-anchor", "middle")
+                .attr("y", 30)
+                .each(function() { 
+                    multi_line_text.call(this, title, true); 
+                });
+        }
+    }
+
+    draw_force_diagram()
+}
+
+/* NB: the code below fires up the visualizer: templates in this call
+    can be used to pass in the appropriate data
+*/
+
+ensureRequire()
+    .then(require => {
+        require.config({ paths: {d3: 'https://d3js.org/d3.v7.min'}});
+        require(["d3"], function(d3) {
+            main_visualizer(d3, 6778209236, {"nodes": [{"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 0, "ts_flags": 1, "time": 0.0, "child_of": [10], "parent_of": [], "x_pos_reference": -1, "label": "a", "x_pos_01": 0.1111111111111111, "fx": 194.44444444444446, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 1, "ts_flags": 1, "time": 0.0, "child_of": [18], "parent_of": [], "x_pos_reference": -1, "label": "d", "x_pos_01": 0.4066666666666667, "fx": 312.66666666666663, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 2, "ts_flags": 1, "time": 0.0, "child_of": [13], "parent_of": [], "x_pos_reference": -1, "label": "e", "x_pos_01": 0.5066666666666667, "fx": 352.6666666666667, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 3, "ts_flags": 1, "time": 0.0, "child_of": [10], "parent_of": [], "x_pos_reference": -1, "label": "b", "x_pos_01": 0.2088888888888889, "fx": 233.55555555555554, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 4, "ts_flags": 1, "time": 0.0, "child_of": [17], "parent_of": [], "x_pos_reference": -1, "label": "c", "x_pos_01": 0.3088888888888889, "fx": 273.55555555555554, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 5, "ts_flags": 1, "time": 0.0, "child_of": [12], "parent_of": [], "x_pos_reference": -1, "label": "f", "x_pos_01": 0.6044444444444445, "fx": 391.77777777777777, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 6, "ts_flags": 1, "time": 0.0, "child_of": [11], "parent_of": [], "x_pos_reference": -1, "label": "g", "x_pos_01": 0.7044444444444444, "fx": 431.77777777777777, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 7, "ts_flags": 1, "time": 0.0, "child_of": [15], "parent_of": [], "x_pos_reference": -1, "label": "i", "x_pos_01": 0.9022222222222223, "fx": 510.8888888888889, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 8, "ts_flags": 1, "time": 0.0, "child_of": [11], "parent_of": [], "x_pos_reference": -1, "label": "h", "x_pos_01": 0.8022222222222222, "fx": 470.88888888888886, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolSquare", "fill": "black", "stroke": "#053e4e", "stroke_width": 3, "id": 9, "ts_flags": 1, "time": 0.0, "child_of": [15], "parent_of": [], "x_pos_reference": -1, "label": "j", "x_pos_01": 1.0, "fx": 550.0, "fy": 220.0, "y": 220.0}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 10, "ts_flags": 0, "time": 311.25976965689426, "child_of": [17], "parent_of": [0, 3], "x_pos_reference": -1, "label": "", "x_pos_01": 0.16, "fx": 214.0, "fy": 210.76923076923077, "y": 210.76923076923077}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 11, "ts_flags": 0, "time": 487.8028220685495, "child_of": [12], "parent_of": [6, 8], "x_pos_reference": -1, "label": "", "x_pos_01": 0.7506064406253805, "fx": 450.2425762501522, "fy": 201.53846153846155, "y": 201.53846153846155}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 12, "ts_flags": 0, "time": 1223.6271803895934, "child_of": [16], "parent_of": [5, 11], "x_pos_reference": -1, "label": "", "x_pos_01": 0.6609252885710218, "fx": 414.3701154284087, "fy": 192.3076923076923, "y": 192.3076923076923}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "red", "stroke": "#053e4e", "stroke_width": 3, "id": 13, "ts_flags": 131072, "time": 1246.4183161012481, "child_of": [16, 19], "parent_of": [2], "x_pos_reference": 2, "label": "", "x_pos_01": 0.5066666666666667, "fx": 352.6666666666667, "fy": 183.0769230769231, "y": 183.0769230769231}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 15, "ts_flags": 0, "time": 1271.2734779542789, "child_of": [22], "parent_of": [7, 9], "x_pos_reference": -1, "label": "", "x_pos_01": 0.9540505681822421, "fx": 531.6202272728968, "fy": 173.84615384615387, "y": 173.84615384615387}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 16, "ts_flags": 0, "time": 1659.725091972838, "child_of": [20], "parent_of": [12, 13], "x_pos_reference": -1, "label": "", "x_pos_01": 0.6073628475332763, "fx": 392.9451390133105, "fy": 164.6153846153846, "y": 164.6153846153846}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 17, "ts_flags": 0, "time": 1961.7599532212648, "child_of": [18], "parent_of": [4, 10], "x_pos_reference": -1, "label": "", "x_pos_01": 0.20973554017940235, "fx": 233.89421607176092, "fy": 155.38461538461536, "y": 155.38461538461536}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 18, "ts_flags": 0, "time": 4135.539932100284, "child_of": [19], "parent_of": [1, 17], "x_pos_reference": -1, "label": "", "x_pos_01": 0.3219830011998558, "fx": 278.79320047994236, "fy": 146.15384615384613, "y": 146.15384615384613}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 19, "ts_flags": 0, "time": 6272.301763476431, "child_of": [23], "parent_of": [13, 18], "x_pos_reference": -1, "label": "", "x_pos_01": 0.4171479324210053, "fx": 316.8591729684021, "fy": 136.92307692307693, "y": 136.92307692307693}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "red", "stroke": "#053e4e", "stroke_width": 3, "id": 20, "ts_flags": 131072, "time": 7008.788482970518, "child_of": [22, 23], "parent_of": [16], "x_pos_reference": 16, "label": "", "x_pos_01": 0.6073628475337307, "fx": 392.9451390134923, "fy": 127.69230769230768, "y": 127.69230769230768}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 22, "ts_flags": 0, "time": 8592.848809367675, "child_of": [24], "parent_of": [15, 20], "x_pos_reference": -1, "label": "", "x_pos_01": 0.7956666336843178, "fx": 468.2666534737271, "fy": 118.46153846153845, "y": 118.46153846153845}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 23, "ts_flags": 0, "time": 10524.123281839178, "child_of": [24], "parent_of": [19, 20], "x_pos_reference": -1, "label": "", "x_pos_01": 0.5038760468660145, "fx": 351.5504187464058, "fy": 109.23076923076923, "y": 109.23076923076923}, {"size": 50, "symbol": "d3.symbolCircle", "fill": "#1eebb1", "stroke": "#053e4e", "stroke_width": 3, "id": 24, "ts_flags": 0, "time": 15165.157197158467, "child_of": [], "parent_of": [22, 23], "x_pos_reference": -1, "label": "", "x_pos_01": 0.6619680002873083, "fx": 414.78720011492334, "fy": 100.0, "y": 100.0}], "links": [{"id": 0, "source": 10, "source_time": 311.25976965689426, "target": 0, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 3, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 1, "source": 10, "source_time": 311.25976965689426, "target": 3, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 0, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 2, "source": 11, "source_time": 487.8028220685495, "target": 6, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 8, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 3, "source": 11, "source_time": 487.8028220685495, "target": 8, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 6, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 4, "source": 12, "source_time": 1223.6271803895934, "target": 5, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 11, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 5, "source": 12, "source_time": 1223.6271803895934, "target": 11, "target_time": 487.8028220685495, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 5, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 6, "source": 13, "source_time": 1246.4183161012481, "target": 2, "target_time": 0.0, "bounds": "0.0-367.0 367.0-900.0", "alt_parent": -1, "alt_child": -1, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 7, "source": 15, "source_time": 1271.2734779542789, "target": 7, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 9, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 8, "source": 15, "source_time": 1271.2734779542789, "target": 9, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 7, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 9, "source": 16, "source_time": 1659.725091972838, "target": 12, "target_time": 1223.6271803895934, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 13, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 10, "source": 16, "source_time": 1659.725091972838, "target": 13, "target_time": 1246.4183161012481, "bounds": "367.0-900.0", "alt_parent": 19, "alt_child": 12, "region_fraction": 0.5922222222222222, "stroke": "#053e4e"}, {"id": 11, "source": 17, "source_time": 1961.7599532212648, "target": 4, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 10, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 12, "source": 17, "source_time": 1961.7599532212648, "target": 10, "target_time": 311.25976965689426, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 4, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 13, "source": 18, "source_time": 4135.539932100284, "target": 1, "target_time": 0.0, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 17, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 14, "source": 18, "source_time": 4135.539932100284, "target": 17, "target_time": 1961.7599532212648, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 1, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 15, "source": 19, "source_time": 6272.301763476431, "target": 13, "target_time": 1246.4183161012481, "bounds": "0.0-367.0", "alt_parent": 16, "alt_child": 18, "region_fraction": 0.4077777777777778, "stroke": "#053e4e"}, {"id": 16, "source": 19, "source_time": 6272.301763476431, "target": 18, "target_time": 4135.539932100284, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 13, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 17, "source": 20, "source_time": 7008.788482970518, "target": 16, "target_time": 1659.725091972838, "bounds": "0.0-600.0 600.0-900.0", "alt_parent": -1, "alt_child": -1, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 18, "source": 22, "source_time": 8592.848809367675, "target": 15, "target_time": 1271.2734779542789, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 20, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 19, "source": 22, "source_time": 8592.848809367675, "target": 20, "target_time": 7008.788482970518, "bounds": "600.0-900.0", "alt_parent": 23, "alt_child": 15, "region_fraction": 0.3333333333333333, "stroke": "#053e4e"}, {"id": 20, "source": 23, "source_time": 10524.123281839178, "target": 19, "target_time": 6272.301763476431, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 20, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 21, "source": 23, "source_time": 10524.123281839178, "target": 20, "target_time": 7008.788482970518, "bounds": "0.0-600.0", "alt_parent": 22, "alt_child": 19, "region_fraction": 0.6666666666666666, "stroke": "#053e4e"}, {"id": 22, "source": 24, "source_time": 15165.157197158467, "target": 22, "target_time": 8592.848809367675, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 23, "region_fraction": 1.0, "stroke": "#053e4e"}, {"id": 23, "source": 24, "source_time": 15165.157197158467, "target": 23, "target_time": 10524.123281839178, "bounds": "0.0-900.0", "alt_parent": -1, "alt_child": 22, "region_fraction": 1.0, "stroke": "#053e4e"}], "mutations": [], "breakpoints": [{"id": 0, "start": 0.0, "stop": 367.0, "x_pos_01": 0.0, "width_01": 0.4077777777777778, "fill": "#053e4e", "x_pos": 100.0, "width": 203.88888888888889, "included": true}, {"id": 1, "start": 367.0, "stop": 600.0, "x_pos_01": 0.4077777777777778, "width_01": 0.2588888888888889, "fill": "#053e4e", "x_pos": 303.8888888888889, "width": 129.44444444444446, "included": true}, {"id": 2, "start": 600.0, "stop": 900.0, "x_pos_01": 0.6666666666666666, "width_01": 0.3333333333333333, "fill": "#053e4e", "x_pos": 433.3333333333333, "width": 166.66666666666666, "included": true}], "evenly_distributed_positions": [150.0, 194.0, 239.0, 283.0, 328.0, 372.0, 417.0, 461.0, 506.0, 550.0]}, 600, 345, {"title": "Time ago (generations)", "units": "generations", "include_labels": true, "ticks": [220.0, 210.76923076923077, 201.53846153846155, 192.3076923076923, 183.0769230769231, 173.84615384615387, 164.6153846153846, 155.38461538461536, 146.15384615384613, 136.92307692307693, 127.69230769230768, 118.46153846153845, 109.23076923076923, 100.0], "text": [0, 311, 488, 1224, 1246, 1271, 1660, 1962, 4136, 6272, 7009, 8593, 10524, 15165], "max_min": [220.0, 100.0], "scale": "rank"}, {"type": "ortho", "variable_width": false, "include_underlink": true}, false, false, true, "An interactive graph representation\n(hover over the bottom bar to see the trees)", false, "full", null, "{\"data\": {\"nodes\": [{\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 0, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [10], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"a\", \"x_pos_01\": 0.1111111111111111, \"fx\": 194.44444444444446, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 1, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [18], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"d\", \"x_pos_01\": 0.4066666666666667, \"fx\": 312.66666666666663, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 2, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [13], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"e\", \"x_pos_01\": 0.5066666666666667, \"fx\": 352.6666666666667, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 3, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [10], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"b\", \"x_pos_01\": 0.2088888888888889, \"fx\": 233.55555555555554, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 4, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [17], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"c\", \"x_pos_01\": 0.3088888888888889, \"fx\": 273.55555555555554, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 5, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [12], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"f\", \"x_pos_01\": 0.6044444444444445, \"fx\": 391.77777777777777, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 6, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [11], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"g\", \"x_pos_01\": 0.7044444444444444, \"fx\": 431.77777777777777, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 7, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [15], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"i\", \"x_pos_01\": 0.9022222222222223, \"fx\": 510.8888888888889, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 8, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [11], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"h\", \"x_pos_01\": 0.8022222222222222, \"fx\": 470.88888888888886, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolSquare\", \"fill\": \"black\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 9, \"ts_flags\": 1, \"time\": 0.0, \"child_of\": [15], \"parent_of\": [], \"x_pos_reference\": -1, \"label\": \"j\", \"x_pos_01\": 1.0, \"fx\": 550.0, \"fy\": 220.0, \"y\": 220.0}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 10, \"ts_flags\": 0, \"time\": 311.25976965689426, \"child_of\": [17], \"parent_of\": [0, 3], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.16, \"fx\": 214.0, \"fy\": 210.76923076923077, \"y\": 210.76923076923077}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 11, \"ts_flags\": 0, \"time\": 487.8028220685495, \"child_of\": [12], \"parent_of\": [6, 8], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.7506064406253805, \"fx\": 450.2425762501522, \"fy\": 201.53846153846155, \"y\": 201.53846153846155}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 12, \"ts_flags\": 0, \"time\": 1223.6271803895934, \"child_of\": [16], \"parent_of\": [5, 11], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.6609252885710218, \"fx\": 414.3701154284087, \"fy\": 192.3076923076923, \"y\": 192.3076923076923}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"red\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 13, \"ts_flags\": 131072, \"time\": 1246.4183161012481, \"child_of\": [16, 19], \"parent_of\": [2], \"x_pos_reference\": 2, \"label\": \"\", \"x_pos_01\": 0.5066666666666667, \"fx\": 352.6666666666667, \"fy\": 183.0769230769231, \"y\": 183.0769230769231}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 15, \"ts_flags\": 0, \"time\": 1271.2734779542789, \"child_of\": [22], \"parent_of\": [7, 9], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.9540505681822421, \"fx\": 531.6202272728968, \"fy\": 173.84615384615387, \"y\": 173.84615384615387}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 16, \"ts_flags\": 0, \"time\": 1659.725091972838, \"child_of\": [20], \"parent_of\": [12, 13], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.6073628475332763, \"fx\": 392.9451390133105, \"fy\": 164.6153846153846, \"y\": 164.6153846153846}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 17, \"ts_flags\": 0, \"time\": 1961.7599532212648, \"child_of\": [18], \"parent_of\": [4, 10], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.20973554017940235, \"fx\": 233.89421607176092, \"fy\": 155.38461538461536, \"y\": 155.38461538461536}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 18, \"ts_flags\": 0, \"time\": 4135.539932100284, \"child_of\": [19], \"parent_of\": [1, 17], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.3219830011998558, \"fx\": 278.79320047994236, \"fy\": 146.15384615384613, \"y\": 146.15384615384613}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 19, \"ts_flags\": 0, \"time\": 6272.301763476431, \"child_of\": [23], \"parent_of\": [13, 18], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.4171479324210053, \"fx\": 316.8591729684021, \"fy\": 136.92307692307693, \"y\": 136.92307692307693}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"red\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 20, \"ts_flags\": 131072, \"time\": 7008.788482970518, \"child_of\": [22, 23], \"parent_of\": [16], \"x_pos_reference\": 16, \"label\": \"\", \"x_pos_01\": 0.6073628475337307, \"fx\": 392.9451390134923, \"fy\": 127.69230769230768, \"y\": 127.69230769230768}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 22, \"ts_flags\": 0, \"time\": 8592.848809367675, \"child_of\": [24], \"parent_of\": [15, 20], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.7956666336843178, \"fx\": 468.2666534737271, \"fy\": 118.46153846153845, \"y\": 118.46153846153845}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 23, \"ts_flags\": 0, \"time\": 10524.123281839178, \"child_of\": [24], \"parent_of\": [19, 20], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.5038760468660145, \"fx\": 351.5504187464058, \"fy\": 109.23076923076923, \"y\": 109.23076923076923}, {\"size\": 50, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 3, \"id\": 24, \"ts_flags\": 0, \"time\": 15165.157197158467, \"child_of\": [], \"parent_of\": [22, 23], \"x_pos_reference\": -1, \"label\": \"\", \"x_pos_01\": 0.6619680002873083, \"fx\": 414.78720011492334, \"fy\": 100.0, \"y\": 100.0}], \"links\": [{\"id\": 0, \"source\": 10, \"source_time\": 311.25976965689426, \"target\": 0, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 3, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 1, \"source\": 10, \"source_time\": 311.25976965689426, \"target\": 3, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 0, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 2, \"source\": 11, \"source_time\": 487.8028220685495, \"target\": 6, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 8, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 3, \"source\": 11, \"source_time\": 487.8028220685495, \"target\": 8, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 6, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 4, \"source\": 12, \"source_time\": 1223.6271803895934, \"target\": 5, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 11, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 5, \"source\": 12, \"source_time\": 1223.6271803895934, \"target\": 11, \"target_time\": 487.8028220685495, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 5, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 6, \"source\": 13, \"source_time\": 1246.4183161012481, \"target\": 2, \"target_time\": 0.0, \"bounds\": \"0.0-367.0 367.0-900.0\", \"alt_parent\": -1, \"alt_child\": -1, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 7, \"source\": 15, \"source_time\": 1271.2734779542789, \"target\": 7, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 9, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 8, \"source\": 15, \"source_time\": 1271.2734779542789, \"target\": 9, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 7, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 9, \"source\": 16, \"source_time\": 1659.725091972838, \"target\": 12, \"target_time\": 1223.6271803895934, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 13, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 10, \"source\": 16, \"source_time\": 1659.725091972838, \"target\": 13, \"target_time\": 1246.4183161012481, \"bounds\": \"367.0-900.0\", \"alt_parent\": 19, \"alt_child\": 12, \"region_fraction\": 0.5922222222222222, \"stroke\": \"#053e4e\"}, {\"id\": 11, \"source\": 17, \"source_time\": 1961.7599532212648, \"target\": 4, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 10, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 12, \"source\": 17, \"source_time\": 1961.7599532212648, \"target\": 10, \"target_time\": 311.25976965689426, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 4, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 13, \"source\": 18, \"source_time\": 4135.539932100284, \"target\": 1, \"target_time\": 0.0, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 17, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 14, \"source\": 18, \"source_time\": 4135.539932100284, \"target\": 17, \"target_time\": 1961.7599532212648, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 1, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 15, \"source\": 19, \"source_time\": 6272.301763476431, \"target\": 13, \"target_time\": 1246.4183161012481, \"bounds\": \"0.0-367.0\", \"alt_parent\": 16, \"alt_child\": 18, \"region_fraction\": 0.4077777777777778, \"stroke\": \"#053e4e\"}, {\"id\": 16, \"source\": 19, \"source_time\": 6272.301763476431, \"target\": 18, \"target_time\": 4135.539932100284, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 13, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 17, \"source\": 20, \"source_time\": 7008.788482970518, \"target\": 16, \"target_time\": 1659.725091972838, \"bounds\": \"0.0-600.0 600.0-900.0\", \"alt_parent\": -1, \"alt_child\": -1, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 18, \"source\": 22, \"source_time\": 8592.848809367675, \"target\": 15, \"target_time\": 1271.2734779542789, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 20, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 19, \"source\": 22, \"source_time\": 8592.848809367675, \"target\": 20, \"target_time\": 7008.788482970518, \"bounds\": \"600.0-900.0\", \"alt_parent\": 23, \"alt_child\": 15, \"region_fraction\": 0.3333333333333333, \"stroke\": \"#053e4e\"}, {\"id\": 20, \"source\": 23, \"source_time\": 10524.123281839178, \"target\": 19, \"target_time\": 6272.301763476431, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 20, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 21, \"source\": 23, \"source_time\": 10524.123281839178, \"target\": 20, \"target_time\": 7008.788482970518, \"bounds\": \"0.0-600.0\", \"alt_parent\": 22, \"alt_child\": 19, \"region_fraction\": 0.6666666666666666, \"stroke\": \"#053e4e\"}, {\"id\": 22, \"source\": 24, \"source_time\": 15165.157197158467, \"target\": 22, \"target_time\": 8592.848809367675, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 23, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}, {\"id\": 23, \"source\": 24, \"source_time\": 15165.157197158467, \"target\": 23, \"target_time\": 10524.123281839178, \"bounds\": \"0.0-900.0\", \"alt_parent\": -1, \"alt_child\": 22, \"region_fraction\": 1.0, \"stroke\": \"#053e4e\"}], \"mutations\": [], \"breakpoints\": [{\"id\": 0, \"start\": 0.0, \"stop\": 367.0, \"x_pos_01\": 0.0, \"width_01\": 0.4077777777777778, \"fill\": \"#053e4e\", \"x_pos\": 100.0, \"width\": 203.88888888888889, \"included\": true}, {\"id\": 1, \"start\": 367.0, \"stop\": 600.0, \"x_pos_01\": 0.4077777777777778, \"width_01\": 0.2588888888888889, \"fill\": \"#053e4e\", \"x_pos\": 303.8888888888889, \"width\": 129.44444444444446, \"included\": true}, {\"id\": 2, \"start\": 600.0, \"stop\": 900.0, \"x_pos_01\": 0.6666666666666666, \"width_01\": 0.3333333333333333, \"fill\": \"#053e4e\", \"x_pos\": 433.3333333333333, \"width\": 166.66666666666666, \"included\": true}], \"evenly_distributed_positions\": [150.0, 194.0, 239.0, 283.0, 328.0, 372.0, 417.0, 461.0, 506.0, 550.0]}, \"width\": 600, \"height\": 345, \"y_axis\": {\"title\": \"Time ago (generations)\", \"units\": \"generations\", \"include_labels\": true, \"ticks\": [220.0, 210.76923076923077, 201.53846153846155, 192.3076923076923, 183.0769230769231, 173.84615384615387, 164.6153846153846, 155.38461538461536, 146.15384615384613, 136.92307692307693, 127.69230769230768, 118.46153846153845, 109.23076923076923, 100.0], \"text\": [0, 311, 488, 1224, 1246, 1271, 1660, 1962, 4136, 6272, 7009, 8593, 10524, 15165], \"max_min\": [220.0, 100.0], \"scale\": \"rank\"}, \"edges\": {\"type\": \"ortho\", \"variable_width\": false, \"include_underlink\": true}, \"condense_mutations\": false, \"label_mutations\": false, \"tree_highlighting\": true, \"rotate_tip_labels\": false, \"plot_type\": \"full\", \"default_node_style\": {\"size\": 150, \"symbol\": \"d3.symbolCircle\", \"fill\": \"#1eebb1\", \"stroke\": \"#053e4e\", \"stroke_width\": 4}, \"title\": \"An interactive graph representation\\n(hover over the bottom bar to see the trees)\", \"preamble\": null, \"save_filename\": \"tskit_arg_visualizer\"}", "tskit_arg_visualizer")
+        });
+    })
+    .catch(err => console.error('Failed to load require.js:', err));
+
+</script></div></div>
+</div>
 </section>
 </section>
 <section id="an-efficient-encoding-of-dna-data">
@@ -502,7 +2097,7 @@ might look in our simple example:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/eeed929f9ed8a18c055c111489d3c0966b355f69aaca55cdac82f84071fda54c.svg" src="_images/eeed929f9ed8a18c055c111489d3c0966b355f69aaca55cdac82f84071fda54c.svg" />
+<img alt="_images/693660726ad4851fe5c0a4d04264dc4e79a2f042cc657a10e46395f13caccb75.svg" src="_images/693660726ad4851fe5c0a4d04264dc4e79a2f042cc657a10e46395f13caccb75.svg" />
 </div>
 </div>
 <p>There are now twelve single nucleotide mutations in the tree sequence. They are shown on the
@@ -510,11 +2105,11 @@ branches of the trees, and the positions of the twelve variable sites associated
 mutations are shown along the X axis.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">Key point</p>
-<p>Mutation on trees are the source of genetic variation</p>
+<p>Mutation on trees are the source of genetic variation.</p>
 </aside>
-<p>The trees inform us that, for example, the final mutation (at position 987) is inherited
-by genomes <span class="math notranslate nohighlight">\(\mathrm{h}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>. These genomes must have an <em>T</em> at that position,
-compared to the original value of <em>G</em>. In other words, once we know the ancestry, placing
+<p>The trees inform us that, for example, the final mutation (at position 851) is inherited
+by genomes <span class="math notranslate nohighlight">\(\mathrm{i}\)</span> and <span class="math notranslate nohighlight">\(\mathrm{j}\)</span>. These genomes must have an <em>C</em> at that position,
+compared to the original value of <em>A</em>. In other words, once we know the ancestry, placing
 a relatively small number of mutations is enough to explain all the observed genetic
 variation. Here’s the resulting “variant matrix”:</p>
 <div class="cell tag_hide-input docutils container">
@@ -533,17 +2128,17 @@ variation. Here’s the resulting “variant matrix”:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position:  6   51 108 417 496 569 617 731 822 863 907 987 
-Genome a:  A   C   A   T   T   C   A   A   G   C   C   G
-Genome b:  A   C   A   A   T   C   A   A   C   C   C   G
-Genome c:  A   C   A   A   T   G   A   A   C   C   C   G
-Genome d:  A   C   A   A   T   C   A   A   C   C   C   G
-Genome e:  A   C   A   A   T   C   A   A   C   C   C   G
-Genome f:  A   C   A   A   T   C   A   A   C   C   C   G
-Genome g:  A   C   C   T   C   C   A   A   C   A   C   G
-Genome h:  C   G   A   T   T   C   T   T   C   A   G   T
-Genome i:  C   G   A   T   T   C   T   T   C   A   G   T
-Genome j:  C   G   A   T   T   C   T   T   C   A   G   T
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Position:  11 165 173 273 338 537 609 624 727 754 846 851 
+Genome a:  G   T   C   A   T   T   C   G   A   C   G   A
+Genome b:  G   T   C   A   T   T   C   G   A   C   G   A
+Genome c:  G   T   G   A   T   T   C   T   A   G   G   A
+Genome d:  G   T   G   A   T   T   C   G   A   G   G   A
+Genome e:  A   T   G   A   T   C   A   G   A   G   C   A
+Genome f:  G   G   G   A   A   C   A   G   A   G   C   A
+Genome g:  G   G   G   A   A   C   A   G   A   G   C   A
+Genome h:  G   G   G   A   A   C   A   G   A   G   C   A
+Genome i:  G   G   G   T   A   T   A   G   G   G   C   C
+Genome j:  G   G   G   T   A   T   A   G   G   G   C   C
 </pre></div>
 </div>
 </div>
@@ -575,12 +2170,12 @@ unchanged between the first and the second tree.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/4663c136e5a08708f5b70d4bb451615d4081d39f8ddf3284b90afba89aeec901.svg" src="_images/4663c136e5a08708f5b70d4bb451615d4081d39f8ddf3284b90afba89aeec901.svg" />
+<img alt="_images/d86e12a2c4229932d3e3c7f62615902a9e159f65e40235f25425b09a527663f5.svg" src="_images/d86e12a2c4229932d3e3c7f62615902a9e159f65e40235f25425b09a527663f5.svg" />
 </div>
 </div>
 <aside class="margin sidebar">
 <p class="sidebar-title">Key point</p>
-<p>Tree sequences are efficient because they don’t store each tree separately</p>
+<p>Tree sequences are efficient because they don’t store each tree separately.</p>
 </aside>
 <p>A branch can be shared by many adjacent trees, but is stored as a single edge in the tree
 sequence. For large datasets this is a great saving, because typically each tree-change
@@ -595,21 +2190,12 @@ noting that the efficiency extends to processing time too: tree sequences are of
 several orders of magnitude faster to process than other storage formats.</p>
 <div class="cell tag_remove-input docutils container" id="plot-storing-everyone">
 <div class="cell_output docutils container">
-<img alt="_images/0d938f884c14f0ea9cb7fdd07d0be6a7898869570fa287d35e6871b24b58b9a4.svg" src="_images/0d938f884c14f0ea9cb7fdd07d0be6a7898869570fa287d35e6871b24b58b9a4.svg" />
+<img alt="_images/e107e6ef1bf19b9128d735b013088fd64b5395d784b01612e82acec36010173d.svg" src="_images/e107e6ef1bf19b9128d735b013088fd64b5395d784b01612e82acec36010173d.svg" />
 </div>
 </div>
 </section>
 <section id="a-record-of-genetic-ancestry">
 <span id="sec-what-is-ancestry"></span><h2>A record of genetic ancestry<a class="headerlink" href="#a-record-of-genetic-ancestry" title="Link to this heading">#</a></h2>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The genetic genealogy is sometimes referred to as an ancestral recombination graph,
-or ARG, and one way to think of tskit tree sequence is as a way
-to store various different sorts of ARGs (see the <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARG tutorial</span></a>)</p>
-</div>
-</aside>
 <p>Often, we’re not interested so much in the DNA sequence data as the genetic ancestry
 itself (discussed e.g. <a class="reference external" href="https://www.nature.com/articles/s41588-019-0492-x">here</a>).
 In other words, the main consideration is the actual trees in a tree sequence, rather
@@ -622,11 +2208,11 @@ of hybridization and admixture in the past.</p>
 splits and expansions as shown in the following schematic,
 <a class="reference internal" href="viz.html#sec-tskit-viz-other-demographic"><span class="std std-ref">plotted</span></a> using the
 <a class="reference external" href="https://pypi.org/project/demesdraw/">DemesDraw</a> package. Our 10 genomes were sampled
-from modern day populations A (a constant-size population) and B (a recently expanding
-one), where limited migration is occuring from A to B.</p>
+from modern day populations P (a constant-size population) and Q (a recently expanding
+one), where limited migration is occuring from P to Q.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/bd6b12809f3e526b96165874827d46150813475f36c9db26ea14d4851cc809d2.svg" src="_images/bd6b12809f3e526b96165874827d46150813475f36c9db26ea14d4851cc809d2.svg" />
+<img alt="_images/86a205d8e5fe09b87a2a5e9f5e70828fd5529a3cc439b1ebfad45b1a37619a4c.svg" src="_images/86a205d8e5fe09b87a2a5e9f5e70828fd5529a3cc439b1ebfad45b1a37619a4c.svg" />
 </div>
 </div>
 <p>A major benefit of “tree sequence thinking” is the close relationship between the
@@ -651,7 +2237,7 @@ marked with square symbols. We can even colour the nodes by the population that 
 <span class="n">style2</span> <span class="o">+=</span> <span class="s2">&quot;#svg2 .node &gt; .sym {visibility: visible;}&quot;</span>  <span class="c1"># force-show all nodes: not normally needed</span>
 <span class="n">style2</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;.p</span><span class="si">{</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">population</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()])</span>
 
-<span class="n">mutated_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">mutated_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="n">sz</span><span class="p">,</span> <span class="n">root_svg_attributes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;svg2&#39;</span><span class="p">},</span> <span class="n">y_label</span><span class="o">=</span><span class="s2">&quot;Time ago (generations)&quot;</span><span class="p">,</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">y_ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">,</span> <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">style</span><span class="o">=</span><span class="n">style2</span><span class="p">)</span>
 </pre></div>
@@ -659,7 +2245,7 @@ marked with square symbols. We can even colour the nodes by the population that 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/1d6419e22b15078cb09bd1dd5c216250d134fd8e439b0291e349ebcedd5e0fce.svg" src="_images/1d6419e22b15078cb09bd1dd5c216250d134fd8e439b0291e349ebcedd5e0fce.svg" />
+<img alt="_images/13a1f118cc960f3e2b486108b2dca44e41f7dc6cb8ebb090b22d65b2e778bef1.svg" src="_images/13a1f118cc960f3e2b486108b2dca44e41f7dc6cb8ebb090b22d65b2e778bef1.svg" />
 </div>
 </div>
 <p>The diagram shows that most of the ancestral genomes <span class="math notranslate nohighlight">\(\mathrm{k}\)</span> to <span class="math notranslate nohighlight">\(\mathrm{u}\)</span>
@@ -674,7 +2260,7 @@ deduce these MRCA genomes, simply by looking at which mutations they have inheri
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">mutated_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
 <span class="c1"># Flip sample and nonsample flags, making the haplotypes() method print out nonsample nodes</span>
 <span class="n">s_flags</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
 <span class="n">no_flags</span> <span class="o">=</span> <span class="n">s_flags</span><span class="o">-</span><span class="n">s_flags</span>
@@ -695,18 +2281,18 @@ deduce these MRCA genomes, simply by looking at which mutations they have inheri
 </details>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      
-||ANCESTRAL GENOMES||     Position:  6   51 108 417 496 569 617 731 822 863 907 987 
-Genome u (19697.9 generations ago):  A   C   A   T   T   C   T   T   C   A   G   G
-Genome t (12059.9 generations ago):  A   C   A   T   T                            
-Genome s (10172.9 generations ago):              T   T   C   A   A   C   A   C   G
-Genome r ( 9770.8 generations ago):  A   C   A                                    
-Genome q ( 3795.0 generations ago):                      C   A   A   C   C   C   G
-Genome p ( 3215.9 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
-Genome o ( 3200.2 generations ago):  C   G   A   T   T   C   T   T   C   A   G   T
-Genome n ( 1428.2 generations ago):  C   G   A   T   T   C   T   T   C   A   G   T
-Genome m ( 1249.5 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
-Genome l (  449.6 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
-Genome k (  377.0 generations ago):  A   C   A   A   T   C   A   A   C   C   C   G
+||ANCESTRAL GENOMES||     Position:  11 165 173 273 338 537 609 624 727 754 846 851 
+Genome u ( 7008.8 generations ago):  G   G   G   A   A   T   C   G   A   G   G   A
+Genome t ( 6272.3 generations ago):  G   G   G   A   A   T                        
+Genome s ( 4135.5 generations ago):                          A   G   A   G   C   A
+Genome r ( 1961.8 generations ago):  G   T   G   A   T                            
+Genome q ( 1659.7 generations ago):  G   T   G   A   T   T   C   G   A   G   G   A
+Genome p ( 1271.3 generations ago):  G   T   G   A   T   T   C   G   A   G   G   A
+Genome o ( 1246.4 generations ago):                      C   A   G   A   G   C   A
+Genome n ( 1246.4 generations ago):  G   G   G   T   A   T   A   G   G   G   C   C
+Genome m ( 1223.6 generations ago):  G   G   G   A   A   C   A   G   A   G   C   A
+Genome l (  487.8 generations ago):  G   G   G   A   A   C   A   G   A   G   C   A
+Genome k (  311.3 generations ago):  G   T   C   A   T   T   C   G   A   C   G   A
 </pre></div>
 </div>
 </div>
@@ -728,7 +2314,7 @@ multiple correlated trees along a genome.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">Key point</p>
 <p>Most genetic calculations involve iterating over trees, which is highly efficient in
-<strong class="program">tskit</strong></p>
+<strong class="program">tskit</strong>.</p>
 </aside>
 <p>For example, statistical measures of genetic variation can be thought of as a calculation
 combining the local trees with the mutations on each branch (or, often preferably, the
@@ -742,14 +2328,14 @@ calculating <a class="reference external" href="https://en.wikipedia.org/wiki/Ta
 (from <a class="reference external" href="https://www.genetics.org/content/215/3/779#F9">here</a>):</p>
 <div class="cell tag_remove-input docutils container" id="plot-incremental-calculation">
 <div class="cell_output docutils container">
-<img alt="_images/041a67eb54ba6dbf7c9f2f94a87366fbb8ab05844e8ff164487e5bab1844020a.svg" src="_images/041a67eb54ba6dbf7c9f2f94a87366fbb8ab05844e8ff164487e5bab1844020a.svg" />
+<img alt="_images/8c1650beb4107764dcef0a7ac31f01950d495fb85ea0113975f561d80bb9c5b4.svg" src="_images/8c1650beb4107764dcef0a7ac31f01950d495fb85ea0113975f561d80bb9c5b4.svg" />
 </div>
 </div>
 <p>The <strong class="program">tskit</strong> library has <a class="reference internal" href="analysing_tree_sequences.html#sec-analysing-tree-sequences"><span class="std std-ref">extensive support</span></a>
 for these sorts of population genetic calculations. It provides efficient methods for
 traversing through large <a class="reference internal" href="analysing_trees.html#sec-analysing-trees-traversals"><span class="std std-ref">trees</span></a> and
 <a class="reference internal" href="getting_started.html#sec-processing-trees"><span class="std std-ref">tree sequences</span></a>, as well as providing other
-phylogenetically relevant methods such as
+relevant methods such as principal component analysis,
 <a class="reference internal" href="analysing_trees.html#sec-analysing-trees-parsimony"><span class="std std-ref">parsimonious placement of mutations</span></a>,
 and the <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">counting of topologies</span></a> embedded within
 larger trees.</p>

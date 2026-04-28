@@ -362,7 +362,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-trees">Processing trees</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-sites-and-mutations">Processing sites and mutations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-genotypes">Processing genotypes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-genotypes">Extracting genotypes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-statistics">Computing statistics</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windowing">Windowing</a></li>
 </ul>
@@ -388,13 +388,13 @@
   <section class="tex2jax_ignore mathjax_ignore" id="getting-started-with-tskit">
 <span id="sec-tskit-getting-started"></span><h1>Getting started with <strong class="program">tskit</strong><a class="headerlink" href="#getting-started-with-tskit" title="Link to this heading">#</a></h1>
 <p>You’ve run some simulations or inference methods, and you now have a
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> object; what now? This tutorial is aimed at
 users who are new to <strong class="program">tskit</strong> and would like to get some
 basic tasks completed. We’ll look at five fundamental things you might
-need to do:
+want to do:
 <a class="reference internal" href="#sec-processing-trees"><span class="std std-ref">process trees</span></a>,
-<a class="reference internal" href="#sec-processing-sites-and-mutations"><span class="std std-ref">sites &amp; mutations</span></a>, and
-<a class="reference internal" href="#sec-processing-genotypes"><span class="std std-ref">genotypes</span></a>,
+<a class="reference internal" href="#sec-processing-sites-and-mutations"><span class="std std-ref">process sites &amp; mutations</span></a>,
+<a class="reference internal" href="#sec-processing-genotypes"><span class="std std-ref">extract genotypes</span></a>,
 <a class="reference internal" href="#sec-tskit-getting-started-compute-statistics"><span class="std std-ref">compute statistics</span></a>, and
 <a class="reference internal" href="#sec-tskit-getting-started-exporting-data"><span class="std std-ref">save or export data</span></a>.
 Throughout, we’ll also provide pointers to where you can learn more.</p>
@@ -427,9 +427,9 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
     <span class="n">population_size</span><span class="o">=</span><span class="n">pop_size</span><span class="p">,</span>
     <span class="n">sequence_length</span><span class="o">=</span><span class="n">seq_length</span><span class="p">,</span>
     <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
-    <span class="n">random_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>  <span class="c1"># only needed for repeatabilty</span>
+    <span class="n">random_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>  <span class="c1"># only needed for repeatability</span>
     <span class="p">)</span>
-<span class="c1"># Optionally add finite-site mutations to the ts using the Jukes &amp; Cantor model, creating SNPs</span>
+<span class="c1"># Optionally add finite-site mutations to the ts using the default Jukes &amp; Cantor model, creating SNPs</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">4321</span><span class="p">)</span>
 <span class="n">ts</span>
 </pre></div>
@@ -572,7 +572,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
                         <tbody>
                             
                 <tr>
-                    <td>27 April, 2026 at 01:35:24 PM</td>
+                    <td>28 April, 2026 at 02:04:23 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_mutations</td>
@@ -673,7 +673,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
                 </tr>
             
                 <tr>
-                    <td>27 April, 2026 at 01:35:24 PM</td>
+                    <td>28 April, 2026 at 02:04:23 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -868,7 +868,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">trees</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">has_multiple_roots</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree </span><span class="si">{tree.index}</span><span class="s2"> has not coalesced&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tree </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2"> has not coalesced&quot;</span><span class="p">)</span>
         <span class="k">break</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">elapsed</span>
@@ -879,7 +879,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 11167 trees coalesced
-Checked in 0.0101957 secs
+Checked in 0.00977516 secs
 </pre></div>
 </div>
 </div>
@@ -913,7 +913,7 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
 chromosome, where the selective sweep occurred.</p>
-<p>Although tskit is designed so that is it rapid to pass through trees sequentially,
+<p>Although tskit is designed so that it is rapid to pass through trees sequentially,
 it is also possible to pull out individual trees from the middle of a tree sequence
 via the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.at" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.at()</span></code></a> method. Here’s how you can use that to extract
 the tree at location <span class="math notranslate nohighlight">\(5\ 000\ 000\)</span> — the position of the sweep — and draw it
@@ -995,7 +995,7 @@ sites or mutations in your analyses.</p>
 the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-site" title="(in Project name not set)"><span class="xref std std-ref">sites</span></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions-mutation" title="(in Project name not set)"><span class="xref std std-ref">mutations</span></a> that
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">define</span></a> the genome sequence itself. Nevertheless,
-<strong class="program">tskit</strong> also provides efficient ways to return <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Site</span></code></a> object and
+<strong class="program">tskit</strong> also provides efficient ways to return <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Site</span></code></a> and
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mutation</span></code></a> objects from a tree sequence.
 For instance, under the finite sites model of mutation that we used above, multiple mutations
 can occur at some sites, and we can identify them by iterating over the sites using the
@@ -1026,13 +1026,15 @@ can occur at some sites, and we can identify them by iterating over the sites us
 </div>
 </div>
 </section>
-<section id="processing-genotypes">
-<span id="sec-processing-genotypes"></span><h2>Processing genotypes<a class="headerlink" href="#processing-genotypes" title="Link to this heading">#</a></h2>
+<section id="extracting-genotypes">
+<span id="sec-processing-genotypes"></span><h2>Extracting genotypes<a class="headerlink" href="#extracting-genotypes" title="Link to this heading">#</a></h2>
 <p>At each site, the sample nodes will have a particular allelic state (or be flagged as
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/data-model.html#sec-data-model-missing-data" title="(in Project name not set)"><span>Missing data</span></a>). The
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.variants()</span></code></a> method gives access to the
-full variation data. For efficiency, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.genotypes" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">genotypes</span></code></a>
-at a site are returned as a <a class="reference external" href="https://numpy.org">numpy</a> array of integers:</p>
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.variants()</span></code></a> method gives access to
+full variation data - allelic states and node genotypes at each site.
+Since nodes are by definition haploid, their genotype at a site is simply the
+allelic state, but for efficiency, the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.genotypes" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">genotypes</span></code></a> attribute
+at a site returns a <a class="reference external" href="https://numpy.org">numpy</a> array of integers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1062,11 +1064,11 @@ Site 4: [0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 1 0 1 0
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tree sequences are optimised to look at all samples at one site, then all samples at an
-adjacent site, and so on along the genome. It is much less efficient look at all the
+adjacent site, and so on along the genome. It is much less efficient to look at all the
 sites for a single sample, then all the sites for the next sample, etc. In other words,
 you should generally iterate over sites, not samples. Nevertheless, all the alleles for
-a single sample can be obtained via the
-<a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.haplotypes()</span></code></a> method.</p>
+a single sample can be obtained via the inefficient <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.haplotypes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.haplotypes()</span></code></a> method.
+If a reference sequence is defined,</p>
 </div>
 <p>To find the actual allelic states at a site, you can refer to the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant.alleles" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">alleles</span></code></a> provided for each <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variant</span></code></a>:
@@ -1081,7 +1083,7 @@ node resides.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;       ID of (sample) node: &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samp_ids</span><span class="p">]))</span>
 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
     <span class="n">site</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span>
-    <span class="n">alleles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span>
+    <span class="n">alleles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span>  <span class="c1"># NB, a shortcut is to use v.states()</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> (ancestral state &#39;</span><span class="si">{</span><span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">,</span>  <span class="n">alleles</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">genotypes</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># only print up to site ID 4</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
@@ -1161,21 +1163,21 @@ is the spectrum for a section of the tree sequence between 5 and 5.5Mb, which we
 created by deleting the regions outside that interval using
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.keep_intervals()</span></code></a>. Unsurprisingly,
 as we noted when looking at the trees, there’s a far higher proportion of singletons in
-the region of the sweep.</p>
+the region of the sweep compared to the entire genome.</p>
 <section id="windowing">
 <span id="sec-tskit-getting-started-compute-statistics-windowing"></span><h3>Windowing<a class="headerlink" href="#windowing" title="Link to this heading">#</a></h3>
 <p>It is often useful to see how statistics vary in different genomic regions. This is done
-by calculating them in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Project name not set)"><span>Windows</span></a> along the genome. For this,
+by calculating them in <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Project name not set)"><span class="xref std std-ref">windows</span></a> along the genome. For this,
 let’s look at a single statistic, the genetic <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">diversity()</span></code></a> (π). As a
-site statistic this measures the average number of genetic differences between two
-randomly chosen samples, whereas as a branch length statistic it measures the average
+site statistic, it measures the average number of genetic differences between two
+randomly chosen samples, whereas as a branch statistic, it measures the average
 branch length between them. We’ll plot how the value of π changes using 10kb windows,
 plotting the resulting diversity between positions 4 and 6 Mb:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">L</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">)</span>
-<span class="n">windows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">L</span><span class="o">//</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="n">windows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">L</span><span class="o">//</span><span class="mi">10_000</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">),</span> <span class="n">windows</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># Default is mode=&quot;site&quot;</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Diversity&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
@@ -1185,7 +1187,7 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">),</span> <span class="n">windows</span><span class="o">/</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (kb)&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch-length-based calculation&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Branch-based calculation&quot;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">4e3</span><span class="p">,</span> <span class="mf">6e3</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1193,11 +1195,12 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f9ed0b1294a9111f2aa21d5fdafde14aef14c45d472f3c076cec9d5926a7a44e.png" src="_images/f9ed0b1294a9111f2aa21d5fdafde14aef14c45d472f3c076cec9d5926a7a44e.png" />
+<img alt="_images/650e7879f1ed2ac8a8d7f0ceed8179c570327f4850fa10683880d4612deead87.png" src="_images/650e7879f1ed2ac8a8d7f0ceed8179c570327f4850fa10683880d4612deead87.png" />
 </div>
 </div>
 <p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,
-the statistic based on branch-lengths gives a less noisy signal.</p>
+the statistic based on branch lengths gives a less noisy signal than the statistic based
+on randomly occurring mutations at sites.</p>
 </section>
 </section>
 <section id="saving-and-exporting-data">
@@ -1273,7 +1276,7 @@ END;
 </section>
 <section id="vcf">
 <h3>VCF<a class="headerlink" href="#vcf" title="Link to this heading">#</a></h3>
-<p>The standard way of interchanging genetic variation data is the Variant Call Format,
+<p>The standard way of interchanging genetic variation data is the Variant Call Format (VCF),
 for which tskit has basic support:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1305,8 +1308,8 @@ for which tskit has basic support:</p>
 </div>
 </div>
 </div>
-<p>The write_vcf method takes a file object as a parameter; to get it to write out to the
-notebook here we ask it to write to stdout.</p>
+<p>The <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.write_vcf" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.write_vcf()</span></code></a> method takes a file object as a parameter;
+to get it to write out to the notebook here we ask it to write to stdout.</p>
 </section>
 <section id="scikit-allel">
 <span id="sec-tskit-getting-started-exporting-data-allel"></span><h3>Scikit-allel<a class="headerlink" href="#scikit-allel" title="Link to this heading">#</a></h3>
@@ -1333,11 +1336,9 @@ numpy array, which <strong class="program">scikit-allel</strong> can then proces
 </div>
 <div class="output text_html"><div class="allel allel-DisplayAs2D"><span>&lt;HaplotypeArray shape=(12, 10) dtype=int32&gt;</span><table><thead><tr><th></th><th style="text-align: center">0</th><th style="text-align: center">1</th><th style="text-align: center">2</th><th style="text-align: center">3</th><th style="text-align: center">4</th><th style="text-align: center">5</th><th style="text-align: center">6</th><th style="text-align: center">7</th><th style="text-align: center">8</th><th style="text-align: center">9</th></tr></thead><tbody><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">0</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">1</th><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">2</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">...</th><td style="text-align: center" colspan="11">...</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">9</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">10</th><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">0</td></tr><tr><th style="text-align: center; background-color: white; border-right: 1px solid black; ">11</th><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">0</td><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">1</td></tr></tbody></table></div></div></div>
 </div>
-<p>Sckit.allel has a wide-ranging and efficient suite of tools for working with genotype
-data, so should provide anything that’s needed. For example, it gives us an
-another way to compute the pairwise diversity statistic (that we calculated
-<a class="reference internal" href="#sec-tskit-getting-started-compute-statistics-windowing"><span class="std std-ref">above</span></a>
-using the native <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.diversity()</span></code></a> method):</p>
+<p><strong class="program">scikit-allel</strong> has a wide-ranging and efficient suite of tools for working
+with genotype data for most users’ needs. For example, it gives us an
+another way to compute the pairwise diversity statistic:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">count_alleles</span><span class="p">()</span>
@@ -1351,11 +1352,28 @@ using the native <a class="reference external" href="https://tskit.dev/tskit/doc
 </div>
 </div>
 </div>
+<p>Here’s the equivalent using the native <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.diversity" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TreeSequence.diversity()</span></code></a> method,
+<a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-windows" title="(in Project name not set)"><span class="xref std std-ref">windowed</span></a> by site:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Per site (not span-normalised to match scikit-allel)</span>
+<span class="n">small_ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="s2">&quot;sites&quot;</span><span class="p">,</span> <span class="n">span_normalise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.46666667, 0.46666667, 0.46666667, 0.46666667, 0.46666667, 0.46666667, 0.46666667, 0.2       , 0.2       , 0.46666667, 0.2       , 0.46666667])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note, however, that you would normally want to set <code class="docutils literal notranslate"><span class="pre">span_normalise=True</span></code>  to account
+for the fact that sites are not evenly spread along the genome (see <a class="reference external" href="https://tskit.dev/tskit/docs/stable/stats.html#sec-stats-span-normalise" title="(in Project name not set)"><span class="xref std std-ref">these docs</span></a>).</p>
 </section>
 </section>
 <section id="key-points-covered-above">
 <span id="sec-tskit-getting-started-key-points"></span><h2>Key points covered above<a class="headerlink" href="#key-points-covered-above" title="Link to this heading">#</a></h2>
-<p>Some simple methods and take-home messages from this introduction to the
+<p>Here are the simple methods and take-home messages from this introduction to the
 <strong class="program">tskit</strong> <a class="reference external" href="https://tskit.dev/tszip/docs/latest/python-api.html#sec-python-api" title="(in Project name not set)"><span>Python API</span></a>,
 in rough order of importance:</p>
 <ul class="simple">
@@ -1370,7 +1388,7 @@ object has a <a class="reference external" href="https://tskit.dev/tskit/docs/st
 <li><p><a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes"><span class="std std-ref">Nodes</span></a> (i.e. genomes) can belong to
 <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-individuals-and-populations"><span class="std std-ref">individuals</span></a>. For example,
 sampling a diploid individual results in an <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Individual" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Individual</span></code></a> object which
-possesses two distinct <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes-samples"><span class="std std-ref">sample nodes</span></a>.</p></li>
+links to two distinct <a class="reference internal" href="terminology_and_concepts.html#sec-terminology-nodes-samples"><span class="std std-ref">sample nodes</span></a>.</p></li>
 </ul>
 </li>
 <li><p>Key tree sequence methods</p>
@@ -1380,8 +1398,8 @@ nodes that are marked as samples</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.node" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">node()</span></code></a> returns the node object for a given integer node ID</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.trees" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trees()</span></code></a> iterates over all the trees</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.sites" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sites()</span></code></a> iterates over all the sites</p></li>
-<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">variants()</span></code></a> iterates over all the sites with their genotypes
-and alleles</p></li>
+<li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.variants" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">variants()</span></code></a> iterates over all the sites with their list of
+unique alleles and genotypes</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.simplify" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simplify()</span></code></a> reduces the number of sample nodes in the tree
 sequence to a specified subset</p></li>
 <li><p><a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence.keep_intervals" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">keep_intervals()</span></code></a> (or its complement,
@@ -1470,7 +1488,7 @@ also be calculated in windows along the genome.</p></li>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-trees">Processing trees</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-sites-and-mutations">Processing sites and mutations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-genotypes">Processing genotypes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-genotypes">Extracting genotypes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-statistics">Computing statistics</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windowing">Windowing</a></li>
 </ul>

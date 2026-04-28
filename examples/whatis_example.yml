@@ -8,9 +8,9 @@
           - name: Ancestral_population
             epochs:
               - end_time: 1000
-          - name: A
+          - name: P
             ancestors: [Ancestral_population]
-          - name: B
+          - name: Q
             ancestors: [Ancestral_population]
             epochs:
               - start_size: 2000
@@ -18,7 +18,7 @@
               - start_size: 400
                 end_size: 10000
         migrations:
-          - source: A
-            dest: B
+          - source: P
+            dest: Q
             rate: 1e-4
         

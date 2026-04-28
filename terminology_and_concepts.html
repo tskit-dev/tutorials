@@ -375,8 +375,8 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-changes-ancestral-recombinations-and-sprs">Tree changes, ancestral recombinations, and SPRs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-sequences-and-args">Tree sequences and ARGs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">Tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-sequences-and-args">Tree sequences and ARGs</a></li>
 </ul>
 </li>
 </ul>
@@ -401,21 +401,22 @@ concepts behind <strong class="program">tskit</strong>, the tree sequence toolki
 <p class="sidebar-title"></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <a class="reference internal" href="intro.html#sec-intro-downloading-datafiles"><span class="std std-ref">Downloading tutorial datafiles</span></a> to run this tutorial on your own computer</p>
+<p>See <a class="reference internal" href="intro.html#sec-intro-downloading-datafiles"><span class="std std-ref">Downloading tutorial datafiles</span></a> to run this tutorial on your own computer.</p>
 </div>
 </aside>
 <p>A tree sequence is a data structure which describes a set of correlated
 evolutionary trees, together with some associated data that specifies, for example,
-the location of mutations in the tree sequence. More technically, a tree sequence
-stores a biological structure known as an “Ancestral Recombination Graph”, or ARG.</p>
-<p>Below are the most important <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions" title="(in Project name not set)"><span class="xref std std-ref">terms and concepts</span></a>
-that you’ll encounter in these tutorials,  but first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree
-sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the
+the location of mutations in the genome. More technically, it is a format that can
+be used to store a variety of different population genetic structures that are loosely
+known as ancestral recombination graphs (ARGs).</p>
+<p>Below are the most important terms and concepts that you’ll encounter in these tutorials.
+A concise glossary of these terms and concepts is available at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/glossary.html#sec-data-model-definitions" title="(in Project name not set)"><span class="xref std std-ref">here</span></a>.
+But first we’ll <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.load" title="(in Project name not set)"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> a tree sequence from a <code class="docutils literal notranslate"><span class="pre">.trees</span></code> file using the
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#sec-python-api" title="(in Project name not set)"><span>Python API</span></a> (which will be used in the rest of this tutorial):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
-<span class="c1"># We will often store the python tree sequence object in a variable named &quot;ts&quot;</span>
+<span class="c1"># We will often store the python tree sequence object in a variable named &quot;ts&quot; or &quot;arg&quot;</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/basics.trees&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -429,7 +430,7 @@ sequence from a <code class="docutils literal notranslate"><span class="pre">.tr
 <p class="admonition-title">Note</p>
 <p><a class="reference external" href="https://tskit.dev/msprime/docs/stable/ancestry.html#sec-ancestry-multiple-chromosomes" title="(in Project name not set)"><span class="xref std std-ref">Workarounds</span></a> exist
 to represent a multi-chromosome genome as a tree
-sequence, but are not covered here</p>
+sequence, but are not covered here.</p>
 </div>
 </aside>
 <p>A tree sequence covers a contiguous section of a single chromosome.
@@ -473,12 +474,12 @@ pairs. This is accessible using the <a class="reference external" href="https://
 <img alt="_images/5ed13c40770f96780a6cc89e34791d55d5746b9e250e137c0901f10b89f6c31a.svg" src="_images/5ed13c40770f96780a6cc89e34791d55d5746b9e250e137c0901f10b89f6c31a.svg" />
 </div>
 </div>
-<p>Each tree records the lines of descent along which a piece of DNA has been
-inherited (ignore for the moment the red symbols, which represent a mutation).
+<p>Each tree records the lines of descent along which a piece of DNA has been inherited.
 For example, the first tree tells us that DNA from ancestral genome 7 duplicated
 to produce two lineages, which ended up in genomes 1 and 4, both of which exist in the
 current population. In fact, since this pattern is seen in all trees, these particular
-lines of inheritance were taken by all the DNA in this 1000 base pair genome.</p>
+lines of inheritance were taken by all the DNA in this 1000 base pair genome.
+The red symbol is a mutation, which we will describe later.</p>
 </section>
 <section id="nodes">
 <span id="sec-terminology-nodes"></span><h3>Nodes<a class="headerlink" href="#nodes" title="Link to this heading">#</a></h3>
@@ -520,10 +521,9 @@ as <em>edges</em>, emphasizing that they usually persist across multiple trees. 
 three trees in the example above has a branch from node 7 to node 1, but those three
 branches represent just a single edge.</p>
 <p>Each edge is associated with a parent node ID and a child node ID. The time of the parent
-node must be
-strictly greater than the time of the child node, and the difference in these times is
-sometimes referred to as the “length” of the edge. Since trees in a tree sequence are
-usually taken to represent marginal trees along a genome, as well as the time dimension
+node must be strictly greater than the time of the child node, and the difference in these times
+is sometimes referred to as the “length” of the edge. Since trees in a tree sequence are
+usually taken to represent local trees along a genome, as well as the time dimension
 each edge also has a genomic <em>span</em>, defined by a <em>left</em> and a <em>right</em> position
 along the genome. There are 15 edges in the tree sequence above. Here’s an example of
 one of them:</p>
@@ -560,7 +560,7 @@ as in the drawing above, as a set of correlated trees. The
 sample nodes, <span class="math notranslate nohighlight">\(0..5\)</span> in the drawing, are present in all the trees (since we have their
 full genomes), but the other nodes, such as node <span class="math notranslate nohighlight">\(9\)</span>, need not be: indeed in larger
 tree sequences they are rarely so.</p>
-<p>In tree sequence terminology, we don’t explictly keep track of where nodes
+<p>In tree sequence terminology, we don’t explicitly keep track of where nodes
 start and end. Only edges (not nodes) possess a genomic span. So for example, this tree
 sequence is defined using edges like <span class="math notranslate nohighlight">\((7\rightarrow1)\)</span> which span the entire genome,
 edges like <span class="math notranslate nohighlight">\((11\rightarrow10)\)</span> which only span the leftmost section of the genome, and
@@ -594,12 +594,12 @@ information about (say) node <span class="math notranslate nohighlight">\(7\)</s
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 <span class="n">parent_of_7</span> <span class="o">=</span> <span class="n">first_tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">children_of_7</span> <span class="o">=</span> <span class="n">first_tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node 7&#39;s parent is&quot;</span><span class="p">,</span> <span class="n">parent_of_7</span><span class="p">,</span> <span class="s2">&quot;and childen are&quot;</span><span class="p">,</span> <span class="n">children_of_7</span><span class="p">,</span> <span class="s2">&quot;in the first tree&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node 7&#39;s parent is&quot;</span><span class="p">,</span> <span class="n">parent_of_7</span><span class="p">,</span> <span class="s2">&quot;and children are&quot;</span><span class="p">,</span> <span class="n">children_of_7</span><span class="p">,</span> <span class="s2">&quot;in the first tree&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 7&#39;s parent is 11 and childen are (1, 4) in the first tree
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 7&#39;s parent is 11 and children are (1, 4) in the first tree
 </pre></div>
 </div>
 </div>
@@ -725,7 +725,7 @@ this case, site ID 0 (which happens to be at position 751):</p>
 </div>
 </div>
 </div>
-<p>In the plot above, since the the only mutation is above node 8 in the last tree, and has
+<p>In the plot above, since the only mutation is above node 8 in the last tree, and has
 a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.derived_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">derived_state</span></code></a> of “G”, we know that the samples descending from node
 8 in the last tree (sample genomes 2, 3, and 5) have a “G” at <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> 751,
 while the others have the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a> of “T”. This means that Ada is
@@ -733,6 +733,11 @@ homozygous for “T”, Bob is homozygous for “G”, and Cat is heterozygous �
 In other words the ancestral state and the details of any mutations at that site,
 when coupled with the tree topology at the site <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.position" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a>, is sufficient to
 define the allelic state possessed by each sample.</p>
+<p><strong class="program">Tskit</strong> can also handle multiple mutations at a site. In this case, it can be
+helpful to know the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.inherited_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">inherited_state</span></code></a> for a mutation (i.e. the state at this
+site before the mutation occurred). Often this might be the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Site.ancestral_state" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ancestral_state</span></code></a>,
+but it need not be if there are sequential mutations along a single path in a tree. In this
+case the mutation will also be associated with the ID of a <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Mutation.parent" title="(in Project name not set)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent</span></code></a> mutation.</p>
 <p>Note that even though the genome is 1000 base pairs long, the tree sequence only contains
 a single site, because we usually only bother defining <em>variable</em> sites in a tree
 sequence (e.g. positions seen in studies to have samples possessing different alleles at
@@ -780,22 +785,23 @@ For reference, here is the tree sequence topology that we have been using:</p>
 </div>
 <p>Note that all these trees show strictly bifurcating splits, but this does not need to be
 the case for tree sequences in general. In particular, where tree sequences have been
-created by the multiple-merger coalecent process, or in tree
+created by the multiple-merger coalescent process, or in tree
 sequences that have been inferred from real data, it is possible to have a parent node
 with 3 or more children in a particular tree (these are known as <em>polytomies</em>).</p>
 <section id="tree-changes-ancestral-recombinations-and-sprs">
 <span id="sec-concepts-sprs"></span><h3>Tree changes, ancestral recombinations, and SPRs<a class="headerlink" href="#tree-changes-ancestral-recombinations-and-sprs" title="Link to this heading">#</a></h3>
 <p>The process of recombination usually results in trees along a genome where adjacent
-trees differ by only a few “tree edit” or SPR (subtree-prune-and-regraft) operations.
+trees differ by only a few “tree edit” or subtree-prune-and-regraft (SPR) operations.
 The result is a tree sequence in which very few edges
 <a class="reference internal" href="what_is.html#fig-what-is-edge-diffs"><span class="std std-ref">change from tree to tree</span></a>.
-This is the underlying reason that <code class="docutils literal notranslate"><span class="pre">tskit</span></code> is so
+This is the underlying reason that <strong class="program">tskit</strong> is so
 efficient, and is well illustrated in the example tree sequence above.</p>
 <p>In this (simulated) tree sequence, each tree differs from the next by a single SPR.
-The subtree defined by node 7 in the first tree has been pruned and regrafted onto the
-branch between 0 and 10, to create the second tree. The second and third trees have the
-same topology, but differ because their ultimate coalesence happened in a different
-ancestor (easy to spot in a simulation, but hard to detect in real data). This is also
+The subtree defined by node 7 in the first tree has been pruned (away from node 11) and
+regrafted onto the branch between 0 and 9, to create the second tree.
+The second and third trees have the same topology,
+but differ because their ultimate coalescence happened in a different ancestor
+(easy to spot in a simulation, but hard to detect in real data). This is also
 caused by a single SPR: looking at the second tree, either the subtree below node 8 or
 the subtree below node 9 must have been pruned and regrafted higher up on the same
 lineage to create the third tree. Because this is a fully <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">simplified</span></a>
@@ -803,51 +809,13 @@ tree sequence, it is impossible to tell which of these two possible SPRs occurre
 know this, we would need to have a tree sequence with the exact history of recombinations
 recorded (see below).</p>
 <p>In general, each detectable recombination occurring in ancestral history results in a
-single SPR in the tree sequence. If recombination breakpoints occurs at unique
+single SPR in the tree sequence. If recombination breakpoints occur at unique
 positions (an “infinite sites” model of breakpoints), then the number of trees in a tree
 sequence equals the number of ancestral recombination events plus one. If recombinations
 can occur at the same physical position (e.g. if the genome is treated as a set of
 discrete integer positions, as in the simulation that created this tree sequence) then
-moving from  one tree to the next in a tree sequence might require multiple SPRs if
+moving from one tree to the next in a tree sequence might require multiple SPRs if
 there are multiple, overlaid ancestral recombination events.</p>
-</section>
-<section id="tree-sequences-and-args">
-<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Link to this heading">#</a></h3>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>There is a subtle distinction between common ancestry and coalescence. In particular, all coalescent nodes are common ancestor events, but not all common ancestor events in an ARG result in coalescence in a local tree.</p>
-</div>
-</aside>
-<p>The term “Ancestral Recombination Graph”, or ARG, is commonly used to describe a genetic
-genealogy. In particular, many (but not all) authors use it to mean a genetic
-genealogy in which details of the position and potentially the timing of all
-recombination and common ancestor events are explictly stored. For clarity
-we refer to this sort of genetic genealogy as a “full ARG”. Succinct tree sequences can
-represent many different sorts of ARGs, including “full ARGs”, by incorporating extra
-non-coalescent nodes (see the <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARGs as tree sequences</span></a> tutorial). However, tree sequences are
-often shown and stored in <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">fully simplified</span></a> form,
-which omits these extra nodes. This is for two main reasons:</p>
-<ol class="arabic simple">
-<li><p>Many recombination events are undetectable from sequence data, and even if they are
-detectable, they can be logically impossible to place in the genealogy (as in the
-second SPR example above).</p></li>
-<li><p>The number of recombination and non-coalescing common ancestor events in the genealogy
-quickly grows to dominate the total number of nodes in the tree sequence,
-without actually contributing to the mutations inherited by the samples.
-In other words, these nodes are redundant to the storing of genome data.</p></li>
-</ol>
-<p>Therefore, compared to a full ARG, you can think of a simplified tree sequence as
-storing the trees <em>created by</em> recombination events, rather than attempting to record the
-recombination events themselves. The actual recombination events can be sometimes be
-inferred from these trees but, as we have seen, it’s not always possible. Here’s another
-way to put it:</p>
-<blockquote>
-<div><p>“an ARG encodes the events that occurred in the history of a sample,
-whereas a [simplified] tree sequence encodes the outcome of those events”
-(<a class="reference external" href="https://doi.org/10.1534/genetics.120.303253">Kelleher <em>et al.</em>, 2019</a>)</p>
-</div></blockquote>
 </section>
 <section id="tables">
 <h3>Tables<a class="headerlink" href="#tables" title="Link to this heading">#</a></h3>
@@ -1282,6 +1250,46 @@ which can be useful for dealing with large datasets, and is needed if you want t
 <a class="reference internal" href="tables_and_editing.html#sec-tables-editing"><span class="std std-ref">edit</span></a> an existing tree sequence. This is covered in
 the <a class="reference internal" href="tables_and_editing.html#sec-tables"><span class="std std-ref">Tables and editing</span></a> tutorial.</p>
 </section>
+<section id="tree-sequences-and-args">
+<span id="sec-concepts-args"></span><h3>Tree sequences and ARGs<a class="headerlink" href="#tree-sequences-and-args" title="Link to this heading">#</a></h3>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a subtle distinction between common ancestry and coalescence. In particular, all coalescent nodes are common ancestor events, but not all common ancestor events in an ARG result in coalescence in all local trees.</p>
+</div>
+</aside>
+<p>The term Ancestral Recombination Graph (ARG), is commonly used to describe a genetic
+genealogy. In particular, many (but not all) authors use it to mean a genetic
+genealogy in which details of the position and potentially the timing of all
+recombination and common ancestor events are explicitly stored. For clarity
+we refer to this sort of genetic genealogy as a “full ARG”. Succinct tree sequences can
+represent many different sorts of ARGs, including “full ARGs”, by incorporating extra
+non-coalescent nodes (see the <a class="reference internal" href="args.html#sec-args"><span class="std std-ref">ARGs as tree sequences</span></a> tutorial). However, tree sequences are
+often shown and stored in <a class="reference internal" href="simplification.html#sec-simplification"><span class="std std-ref">fully simplified</span></a> form,
+which omits these extra nodes. This is for two main reasons:</p>
+<ol class="arabic simple">
+<li><p>Many recombination events are undetectable from sequence data, and even if they are
+detectable, they can be logically impossible to place in the genealogy (as in the
+second SPR example above).</p></li>
+<li><p>The number of recombination and non-coalescing common ancestor events in the genealogy
+quickly grows to dominate the total number of nodes in the tree sequence,
+without actually contributing to the mutations inherited by the samples.
+In other words, these nodes are redundant to the storing of genomic data.</p></li>
+</ol>
+<p>Therefore, compared to a full ARG, you can think of a simplified tree sequence as
+storing the trees <em>created by</em> recombination events, rather than attempting to record the
+recombination events themselves. The actual recombination events can sometimes be
+inferred from these trees but, as we have seen, it’s not always possible. Here’s another
+way to put it:</p>
+<blockquote>
+<div><p>“an ARG encodes the events that occurred in the history of a sample,
+whereas a [simplified] tree sequence encodes the outcome of those events”
+(<a class="reference external" href="https://doi.org/10.1534/genetics.120.303253">Kelleher <em>et al.</em>, 2019</a>)</p>
+</div></blockquote>
+<p><a class="reference external" href="https://doi.org/10.1093/genetics/iyae100">Wong <em>et al.</em>, 2024</a>
+review this topic in detail.</p>
+</section>
 </section>
 </section>
 
@@ -1366,8 +1374,8 @@ the <a class="reference internal" href="tables_and_editing.html#sec-tables"><spa
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">Concepts</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-changes-ancestral-recombinations-and-sprs">Tree changes, ancestral recombinations, and SPRs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-sequences-and-args">Tree sequences and ARGs</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">Tables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-sequences-and-args">Tree sequences and ARGs</a></li>
 </ul>
 </li>
 </ul>
