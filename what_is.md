@@ -231,7 +231,7 @@ The second tree shows the relationships between positions 367 and 600.
 Note that in the first tree, genome $\mathrm{e}$ (highlighted in red) is closest to
 $\mathrm{a}-\mathrm{d}$, whereas in the second tree $\mathrm{e}$ is closest to
 $\mathrm{f}-\mathrm{h}$. The third tree shows the relationships between positions
-600 and 900 (the end of the genome). In this case, an entire subtree (or "clade"),
+600 and the end of the genome. In this case, an entire subtree (or "clade"),
 composed of nodes $\mathrm{e}-\mathrm{h}$ has changed its relationship with the other six 
 genomes. More specifically, the most recent common ancestor (MRCA) with any of these
 others has switched: in the third tree it is now above $\mathrm{i}$ and $\mathrm{j}$.
@@ -246,9 +246,10 @@ based on a network of *genetic ancestry*, in which
 (represented by red symbols below) has led
 to different regions of the chromosome having different histories. Another way of
 thinking about the tree sequence above is that it describes the full genetic genealogy
-of our 10 genomes. If we combine all the relationships encoded in the trees (you can
-loosely think of this as lying the trees on top of each other), the result is a network or
-_graph_ (hence the term "[ARG](https://doi.org/10.1371/journal.pgen.1011110)")
+of our 10 genomes. If we combine all the relationships encoded in the trees - you can
+loosely think of this as lying the trees on top of each other - the result is a network or
+[_graph_](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)), hence the term
+"[ARG](https://doi.org/10.1371/journal.pgen.1011110)"
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]

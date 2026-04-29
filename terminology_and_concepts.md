@@ -436,8 +436,8 @@ There is a subtle distinction between common ancestry and coalescence. In partic
 
 The term Ancestral Recombination Graph (ARG), is commonly used to describe a genetic
 genealogy. In particular, many (but not all) authors use it to mean a genetic
-genealogy in which details of the position and potentially the timing of all
-recombination and common ancestor events are explicitly stored. For clarity
+genealogy which explictly records details of the position - and potentially the timing -
+of all recombination and common ancestor events. For clarity
 we refer to this sort of genetic genealogy as a "full ARG". Succinct tree sequences can
 represent many different sorts of ARGs, including "full ARGs", by incorporating extra
 non-coalescent nodes (see the {ref}`sec_args` tutorial). However, tree sequences are
