@@ -1821,7 +1821,7 @@ def tanglegram(
         ".lft_tree > g.tree .node > .lab {text-anchor: start; transform: rotate(90deg) translate(4px);}"
         ".lft_tree > .title {transform: translate(" + str(w/2) + "px);}"
         ".rgt_tree > g.tree {transform: translate(" + str(w) + "px, 0) rotate(90deg);}"
-        ".rgt_tree > g.tree .node > .lab {text-anchor: end; transform: rotate(-90deg) translate(4px);}"     
+        ".rgt_tree > g.tree .node > .lab {text-anchor: end; transform: rotate(-90deg) translate(-4px);}"     
         ".rgt_tree > .title {transform: translate(" + str(w/2) + "px);}"
         ".lft_tree .axes .y-axis .title text {transform: translate(11px) rotate(90deg);}"
         ".rgt_tree .axes .y-axis .title text {transform: translate(-11px) rotate(-90deg);}"
