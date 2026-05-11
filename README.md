@@ -25,7 +25,7 @@ $ python -m pip install -r requirements.txt
 You will also need a working R installation with `reticulate` and `irkernel` installed.
 This command should do the trick:
 ```
-$ R -e 'install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()'
+$ R -e 'options(repos=c(CRAN="http://cran.r-project.org")); install.packages(c("reticulate", "IRkernel")); IRkernel::installspec()'
 ```
 
 # Building tutorials

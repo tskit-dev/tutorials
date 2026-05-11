@@ -15,6 +15,7 @@ parts:
   - file: incremental_algorithms
   - file: counting_topologies
   - file: parallelization
+  - file: PCA
 - caption: Further tskit tutorials
   chapters:
   - file: tables_and_editing
