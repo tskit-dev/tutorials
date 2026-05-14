@@ -46,7 +46,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
 ```{code-cell} ipython3
 import msprime
 
-pop_size=10_000
+pop_size=5000
 seq_length=10_000_000
 
 sweep_model = msprime.SweepGenicSelection(
@@ -167,9 +167,14 @@ using the {meth}`Tree.draw_svg` method.
 ```{code-cell} ipython3
 swept_tree = ts.at(5_000_000)  # or you can get e.g. the nth tree using ts.at_index(n)
 intvl = swept_tree.interval
-print(f"Tree number {swept_tree.index}, which runs from position {intvl.left} to {intvl.right}:")
-# Draw it at a wide size, to make room for all 40 tips
-swept_tree.draw_svg(size=(1000, 200))
+
+swept_tree.draw_svg(
+    size=(1000, 200),  # Draw the tree at a wide size, to make room for all 40 tips
+    title=f"Tree number {swept_tree.index}, which runs from position {intvl.left} to {intvl.right}:",
+    y_axis=True,
+    y_ticks=[0, 20, 40, 60, 80],
+    node_labels={}
+)
 ```
 :::{margin}
 The {ref}`visualization tutorial<sec_tskit_viz>` gives more drawing possibilities
@@ -193,8 +198,14 @@ more than one tree: either the entire tree sequence, or
 
 ```{code-cell} ipython3
 reduced_ts = ts.simplify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])  # simplify to the first 10 samples
-print("Genealogy of the first 10 samples for the first 5kb of the genome")
-reduced_ts.draw_svg(x_lim=(0, 5000))
+
+reduced_ts.draw_svg(
+    x_lim=(0, 10000),
+    title="Genealogy of the first 10 samples for the first 10kb of the genome",
+    y_axis=True,
+    y_ticks=[0, 2000, 4000, 6000, 8000],
+    node_labels = {u: u for u in reduced_ts.samples()},
+)
 ```
 
 These are much more standard-looking coalescent trees, with far longer branches higher
