@@ -336,7 +336,7 @@ tree3.draw_svg(
 
 (sec_tskit_viz_labelling)=
 
-### Labelling
+### Labelling and annotation
 
 Although the default node and mutation labels show unique identifiers, they are't
 terribly intuituive. The `node_labels` and `mutation_labels` parameters can be used
@@ -365,10 +365,42 @@ ts_mutated.draw_svg(
 )
 ```
 
+#### Annotating genome regions
+
+To annotate genomic regions along the X axis of the tree sequence plot, you can pass a
+dictionary of `x_regions`, mapping `(start, end)` tuples to labels. Below we have also
+used css to hide all but the first and last x axis tick label to avoid visual clashing,
+and hidden all the mutation and node labels by setting them to `{}`:
+
+```{code-cell} ipython3
+
+x_regions = {(5_000, 12_000): "Gene 1", (21_123, 33_321): "Gene 2"}
+hide_internal_x_tick_labels = (
+    ".x-axis .tick .lab {visibility: hidden}"
+    ".x-axis .tick:first-of-type .lab, .x-axis .tick:last-of-type .lab  {visibility: visible}"
+    ".x-regions .r1 rect {fill: cyan}"  # 2nd region (ID 1) tagged with class="r1"
+)
+ts_mutated.draw_svg(
+    size=(1000, 300),
+    y_axis=True,
+    y_ticks=range(0, int(ts_mutated.max_time), 1000),
+    node_labels={},
+    mutation_labels={},
+    style=hide_internal_x_tick_labels,
+    x_regions=x_regions,
+)
+```
+
+#### Arbitrary annotation
+
+It is also possible to add arbitrary annotations to the SVG plot, as detailed
+in the next section. To locate positions for annotation, see the examples in
+ {ref}`sec_tskit_viz_svg_plot_internals`.
+
 
 (sec_tskit_viz_adding_bespoke)=
 
-### Adding bespoke svg
+### Adding bespoke SVG
 
 The `preamble` option allows arbitrary SVG text to be added at the start of the plot.
 This can be useful to annotate plots, produce legends, etc. although it requires some
@@ -1921,7 +1953,7 @@ tanglegram(non_ultrametric_ts, node_labels={u:u for u in ts_mutated.samples()}, 
 ```
 
 Here's a larger tanglegram example (Note that if you want to compare two trees in their
-own separate tree sequences, you can concatenate them togther using
+own separate tree sequences, you can concatenate them together using
 {meth}`.TreeSequence.concatenate`).
 
 ```{code-cell} ipython3
@@ -2191,7 +2223,7 @@ drawinfo = d3arg.draw(
     show_mutations=True,
     label_mutations=True,
 )
-print(f"Extra styling is possible by targetting CSS at this unique id: {drawinfo.uid}")
+print(f"Extra styling is possible by targetting CSS at this unique id: #{drawinfo.uid}")
 ```
 
 For more general graph plots, it can be helpful convert the tree sequence to a
