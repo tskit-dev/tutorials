@@ -114,7 +114,7 @@ ts_full = tskit.load("data/viz_ts_full.trees")
 
 If you just want a quick look at visualization possibilities, you might want to skip
 the explanations and just browse some {ref}`sec_tskit_viz_examples`, which contain fully
-reproduceable code.
+reproducible code.
 
 :::{note}
 This tutorial is primarily focussed on showing a tree sequence as a set of marginal
@@ -204,7 +204,7 @@ which will be used in most subsequent examples in this tutorial.
 So far, we have plotted only very small tree sequences. To visualize larger tree
 sequences it is sometimes advisable to focus on a small region of the genome, possibly
 even a single tree. The `x_lim` parameter allows you to plot the part of a tree
-sequence that spans a particular genomic region: here's a slighly larger tree sequence
+sequence that spans a particular genomic region: here's a slightly larger tree sequence
 with 8 samples, but where we've restricted the amount of the tree sequence we plot:
 
 ```{code-cell} ipython3
@@ -338,7 +338,7 @@ tree3.draw_svg(
 
 ### Labelling and annotation
 
-Although the default node and mutation labels show unique identifiers, they are't
+Although the default node and mutation labels show unique identifiers, they aren't
 terribly intuituive. The `node_labels` and `mutation_labels` parameters can be used
 to set more meaningful labels (for example from the tree sequence {ref}`sec_metadata`).
 See {ref}`sec_tskit_viz_dynamic_effects` if you want to dynamically hide and show such
@@ -642,7 +642,7 @@ Elements have additional classes based on the IDs of trees, edges, nodes,
 parent (ancestor) nodes, individuals, populations, mutations, and sites.
 These class names start with a single letter (respectively
 `t`, `e`, `n`, `a`, `i`, `p`, `m`, and `s`) followed by a
-numerical ID. For example, here's a typical node in an tskit SVG plot:
+numerical ID. For example, here's a typical node in a tskit SVG plot:
 
 ```
 <g class="a10 i3 leaf m16 m17 node n7 p2 s15 s16 sample">...</g>
@@ -652,7 +652,7 @@ This corresponds to node 7, the rightmost leaf in the third tree in the mutated 
 sequence (plotted in the previous section but one). The classes indicate that it
 has an immediate ancestor (parent) node with ID 10 (`a10`), and that the node
 belongs to an {ref}`individual <sec_nodes_or_individuals>` with ID 3 (`i3`).
-The classes `n7` and `p2` tell us that the node ID is 7 and is is from the
+The classes `n7` and `p2` tell us that the node ID is 7 and is from the
 population with ID 2 (`p2`). Other ID classes on the node tell us about the mutations
 above that node, of which there are two in this case, with
 IDs 16 and 17 (`m16`, `m17`); those mutations are associated with
@@ -1435,7 +1435,7 @@ It is common to want to visualise a tree sequence with many samples and trees. I
 are many trees, the `max_num_trees` parameter can be used to just show those at the start
 and end of the genome. To reduce the size of each tree, multiple samples can be clustered
 into a single representative clade. If that clade has the same set of descendant samples
-throughout the tree sequence, {ref}`sec_simplification` can be used to to turn the MRCA
+throughout the tree sequence, {ref}`sec_simplification` can be used to turn the MRCA
 of these samples into a sample node itself, while removing the original descendants.
 By using the scaling and masking method described in
 {ref}`sec_tskit_viz_styling_transforming_and_masking` this summary MRCA can be shown
