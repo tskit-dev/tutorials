@@ -2143,9 +2143,11 @@ A tree sequence can be treated as a specific form of (directed)
 of nodes connected by edges. Standard graph visualization software,
 such as [graphviz](https://graphviz.org) can therefore be used to depict tree sequence
 topologies. Alternatively, the [tskit_arg_visualizer](https://github.com/kitchensjn/tskit_arg_visualizer)
-project will draw a interactive `tskit` graph directly. Below is an example, which uses the
-`variable_edge_width` option to highlight the spans of genome inherited through different routes.
-Nodes can be dragged horizontally and embedded trees highlighted:
+project will draw a interactive `tskit` graph directly, in which nodes can be dragged horizontally,
+and embedded (local) trees highlighted by hovering over the "genome bar" underneath the graph.
+Below is an example, showing an `msprime` "full ARG" tree sequence. In this case, nodes have only 2 children
+in the graph, so `edge_type="ortho"` can be used to draw a traditional
+"[Ancestral Recombination Graph](sec_args)" style plot:
 
 ```{code-cell} ipython3
 :"tags": ["hide-input"]
@@ -2154,27 +2156,42 @@ require.config({paths: {d3: 'https://d3js.org/d3.v7.min'}});
 require(["d3"], function(d3) {window.d3 = d3;});
 ```
 
+
 ```{code-cell} ipython3
 import msprime
 import tskit_arg_visualizer
-ts = msprime.sim_ancestry(4, sequence_length=1000, recombination_rate=0.001, random_seed=3)
-d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=ts)
-tip_order = [0, 6, 3, 1, 2, 7, 4, 5]  # Found by trial and error for this seed
-d3arg.draw(width=500, height=500, variable_edge_width=True, sample_order=tip_order)
+tip_order = [3, 0, 1, 2, 6, 7, 4, 5]  # Found by trial and error for this seed
+full_arg_ts = msprime.sim_ancestry(
+    4, sequence_length=1000, recombination_rate=0.001, record_full_arg=True, random_seed=3)
+d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=full_arg_ts)
+d3arg.draw(width=500, height=500, edge_type="ortho", sample_order=tip_order);
 ```
 
-For an `msprime` "full ARG" tree sequence, `edge_type="ortho"` can be used to draw a
-traditional "[Ancestral Recombination Graph](sec_args)" style plot (variable edge widths
-turned off for clarity):
+For tree sequences that may not be "full ARGs", the default `edge_type="line"` is preferable.
+The example below also uses uses the `variable_edge_width` option to emphasise which edges have
+wider spans, and `show_mutations` to display mutations on edges in an interactive style
+(hovering over the mutation or the genome bar will reveal their locations along the chromosome):
 
 ```{code-cell} ipython3
 import msprime
 import tskit_arg_visualizer
-tip_order = [3, 0, 1, 2, 6, 7, 4, 5]
-full_arg_ts = msprime.sim_ancestry(
-    4, sequence_length=1000, recombination_rate=0.001, random_seed=3, record_full_arg=True)
-d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=full_arg_ts)
-d3arg.draw(width=500, height=500, edge_type="ortho", sample_order=tip_order)
+ts = msprime.sim_ancestry(
+    4, sequence_length=1000, recombination_rate=0.001, record_full_arg=True, random_seed=3)
+# simplify into a standard (non "full ARG") tree sequence
+ts = ts.simplify()
+ts = msprime.sim_mutations(ts, rate=0.001, random_seed=5)
+d3arg = tskit_arg_visualizer.D3ARG.from_ts(ts=ts)
+tip_order = [3, 0, 1, 2, 6, 7, 4, 5] 
+drawinfo = d3arg.draw(
+    width=500,
+    height=500,
+    edge_type="line",
+    variable_edge_width=True,
+    sample_order=tip_order,
+    show_mutations=True,
+    label_mutations=True,
+)
+print(f"Extra styling is possible by targetting CSS at this unique id: {drawinfo.uid}")
 ```
 
 For more general graph plots, it can be helpful convert the tree sequence to a
