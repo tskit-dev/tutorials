@@ -1105,8 +1105,8 @@ from an old one. This is often an easier way to changing one or two attributes:<
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_pos</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">new_site_id</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-    <span class="n">position</span><span class="o">=</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;An empty site&quot;</span>
-    <span class="c1"># NB: For this example table we have to feed a raw byte string as metadata</span>
+    <span class="n">position</span><span class="o">=</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;A new site&quot;</span>
+    <span class="c1"># NB: This site table has no scheme, so metadata must be a raw byte string</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New empty site allocated at position </span><span class="si">{</span><span class="n">new_pos</span><span class="si">}</span><span class="s2"> with ID </span><span class="si">{</span><span class="n">new_site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span>
@@ -1135,7 +1135,7 @@ from an old one. This is often an easier way to changing one or two attributes:<
                     <tr><td>0</td><td>15</td><td>C</td><td></td></tr>
 <tr><td>1</td><td>42</td><td>G</td><td></td></tr>
 <tr><td>2</td><td>60</td><td>T</td><td></td></tr>
-<tr><td>3</td><td>10</td><td>G</td><td>b'An empty site'</td></tr>
+<tr><td>3</td><td>10</td><td>G</td><td>b'A new site'</td></tr>
 
                 </tbody>
             </table>
