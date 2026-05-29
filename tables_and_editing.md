@@ -505,8 +505,8 @@ It is also easy to add more rows:
 ```{code-cell} ipython3
 new_pos = 10
 new_site_id = new_tables.sites.add_row(
-    position=new_pos, ancestral_state="G", metadata=b"An empty site"
-    # NB: For this example table we have to feed a raw byte string as metadata
+    position=new_pos, ancestral_state="G", metadata=b"A new site"
+    # NB: This site table has no scheme, so metadata must be a raw byte string
 )
 print(f"New empty site allocated at position {new_pos} with ID {new_site_id}")
 new_tables.sites
