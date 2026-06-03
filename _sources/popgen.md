@@ -438,69 +438,27 @@ embedded_topologies = topology_counter[range(simplified_ts.num_populations)]
 
 ```{code-cell}
 :"tags": ["hide-input"]
-# This helper is copied from the side-by-side SVG example in the visualization tutorial.
-def draw_svg_side_by_side(
-    drawables,
-    *,
-    size=(200, 200),
-    sizes=None,
-    padding=40,
-    canvas_size=None,
-    per_svg_kwargs=None,
-    **kwargs,
-):
-    if len(drawables) == 0:
-        raise ValueError("Need at least one drawable")
-    if per_svg_kwargs is None:
-        per_svg_kwargs = [{} for _ in drawables]
-    if len(per_svg_kwargs) != len(drawables):
-        raise ValueError("per_svg_kwargs must have the same length as drawables")
-    if sizes is None:
-        sizes = [size for _ in drawables]
-    if len(sizes) != len(drawables):
-        raise ValueError("sizes must have the same length as drawables")
-    if canvas_size is None:
-        canvas_size = (
-            sum(s[0] for s in sizes) + (len(drawables) - 1) * padding,
-            max(s[1] for s in sizes),
-        )
+# Here we concatenate trees together into a pseudo tree sequence, simply for plotting
+# Alternatively there is code to plot side-by-side trees in the visualization tutorial.
+def tree_centre_x(i, n):
+    # calc the centre X plot position of tree i in a default tree sequence viz of n trees
+    w = tskit.drawing.SvgPlot.default_width
+    l, r = tskit.drawing.SvgTree.margin_left, tskit.drawing.SvgTree.margin_right
+    return l + (w - (l+r)/n) * i + w/2
 
-    preamble = []
-    x_offset = sizes[0][0] + padding
-    for j, drawable in enumerate(drawables[1:], start=1):
-        svg_kwargs = dict(kwargs)
-        svg_kwargs.update(per_svg_kwargs[j])
-        svg_kwargs["size"] = sizes[j]
-        svg_kwargs["root_svg_attributes"] = {
-            **svg_kwargs.get("root_svg_attributes", {}),
-            "x": x_offset,
-        }
-        preamble.append(drawable.draw_svg(**svg_kwargs))
-        x_offset += sizes[j][0] + padding
+trees = list(tskit.all_trees(3))
+concat_trees = trees[0].tree_sequence.concatenate(*[t.tree_sequence for t in trees[1:]])
+style = "".join(styles) + ".sample text.lab {font-size: 0.7em;}"
 
-    first_kwargs = dict(kwargs)
-    first_kwargs.update(per_svg_kwargs[0])
-    first_kwargs["size"] = sizes[0]
-    first_kwargs["canvas_size"] = canvas_size
-    first_kwargs["preamble"] = first_kwargs.get("preamble", "") + "".join(preamble)
-    return drawables[0].draw_svg(**first_kwargs)
-
-
-all_trees = list(tskit.all_trees(simplified_ts.num_populations))
-style = "".join(styles) + ".sample text.lab {baseline-shift: super; font-size: 0.7em;}"
-style = style.replace(".leaf.p", ".leaf.n")  # Hack to map node IDs to population colours
-draw_svg_side_by_side(
-    all_trees,
-    size=(160, 150),
-    padding=10,
-    style=style,
-    per_svg_kwargs=[
-        {
-            "node_labels": {pop.id: pop.metadata["name"] for pop in simplified_ts.populations()},
-            "title": f"{embedded_topologies[t.rank()]} trees",
-        }
-        for t in all_trees
-    ],
+concat_trees.draw_svg(
+    title="",  # Make room for labels
+    x_axis=False,  # this is not "along the genome", so X axis is meaningless
+    style=style.replace(".leaf.p", ".leaf.n"),  # Hack to map node IDs to population colours
+    node_labels = {pop.id: pop.metadata["name"] for pop in simplified_ts.populations()},
+    preamble="".join([
+        f'<text text-anchor="middle" y="15" x="{tree_centre_x(i, ts.num_trees)}">{embedded_topologies[t.rank()]} trees</text>'
+        for i, t in enumerate(trees)
+    ]),
 )
 ```
 
