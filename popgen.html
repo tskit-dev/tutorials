@@ -653,7 +653,7 @@ geographical distinctiveness:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/62964152a4123a2a354d8ba81035f7d8b49a18165fb4e3146ca428705258e922.png" src="_images/62964152a4123a2a354d8ba81035f7d8b49a18165fb4e3146ca428705258e922.png" />
+<img alt="_images/fcdc8c2b8c3601d004a084008510ac402f874496686cde5dd49053271ab73249.png" src="_images/fcdc8c2b8c3601d004a084008510ac402f874496686cde5dd49053271ab73249.png" />
 </div>
 </div>
 </section>
@@ -1348,16 +1348,16 @@ all the 3-tip topologies in the tree that contain one genome from each populatio
     <span class="k">return</span> <span class="n">l</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">w</span><span class="o">/</span><span class="mi">2</span>
 
 <span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">concat_trees</span> <span class="o">=</span> <span class="n">trees</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">tree_sequence</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
-<span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.sample text.lab {font-size: 0.7em;}&quot;</span>
+<span class="n">concat_ts</span> <span class="o">=</span> <span class="n">trees</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">tree_sequence</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
+<span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>  <span class="c1"># previously defined to colour nodes by population ID, e.g. p1, p2</span>
 
-<span class="n">concat_trees</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
+<span class="n">concat_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="c1"># Make room for labels</span>
     <span class="n">x_axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># this is not &quot;along the genome&quot;, so X axis is meaningless</span>
     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.leaf.p&quot;</span><span class="p">,</span> <span class="s2">&quot;.leaf.n&quot;</span><span class="p">),</span>  <span class="c1"># Hack to map node IDs to population colours</span>
     <span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()},</span>
     <span class="n">preamble</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-        <span class="sa">f</span><span class="s1">&#39;&lt;text text-anchor=&quot;middle&quot; y=&quot;15&quot; x=&quot;</span><span class="si">{</span><span class="n">tree_centre_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">embedded_topologies</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span><span class="si">}</span><span class="s1"> trees&lt;/text&gt;&#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;&lt;text text-anchor=&quot;middle&quot; y=&quot;15&quot; x=&quot;</span><span class="si">{</span><span class="n">tree_centre_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">concat_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">embedded_topologies</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span><span class="si">}</span><span class="s1"> trees&lt;/text&gt;&#39;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span>
     <span class="p">]),</span>
 <span class="p">)</span>
@@ -1366,7 +1366,7 @@ all the 3-tip topologies in the tree that contain one genome from each populatio
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/c72e43f5a222ec6b3787f2a8827d081a56b634e2fb9b7202ecb60a2dad4bc836.svg" src="_images/c72e43f5a222ec6b3787f2a8827d081a56b634e2fb9b7202ecb60a2dad4bc836.svg" />
+<img alt="_images/dd20e218350e96ee0a2c40d87532a1abdac00b05b4e2693fa1142e51865a4c98.svg" src="_images/dd20e218350e96ee0a2c40d87532a1abdac00b05b4e2693fa1142e51865a4c98.svg" />
 </div>
 </div>
 <p>See <a class="reference internal" href="counting_topologies.html#sec-counting-topologies"><span class="std std-ref">Counting topologies</span></a> for an introduction to topological methods in
