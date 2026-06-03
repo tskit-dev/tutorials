@@ -447,16 +447,16 @@ def tree_centre_x(i, n):
     return l + (w - (l+r)/n) * i + w/2
 
 trees = list(tskit.all_trees(3))
-concat_trees = trees[0].tree_sequence.concatenate(*[t.tree_sequence for t in trees[1:]])
-style = "".join(styles) + ".sample text.lab {font-size: 0.7em;}"
+concat_ts = trees[0].tree_sequence.concatenate(*[t.tree_sequence for t in trees[1:]])
+style = "".join(styles)  # previously defined to colour nodes by population ID, e.g. p1, p2
 
-concat_trees.draw_svg(
+concat_ts.draw_svg(
     title="",  # Make room for labels
     x_axis=False,  # this is not "along the genome", so X axis is meaningless
     style=style.replace(".leaf.p", ".leaf.n"),  # Hack to map node IDs to population colours
     node_labels = {pop.id: pop.metadata["name"] for pop in simplified_ts.populations()},
     preamble="".join([
-        f'<text text-anchor="middle" y="15" x="{tree_centre_x(i, ts.num_trees)}">{embedded_topologies[t.rank()]} trees</text>'
+        f'<text text-anchor="middle" y="15" x="{tree_centre_x(i, concat_ts.num_trees)}">{embedded_topologies[t.rank()]} trees</text>'
         for i, t in enumerate(trees)
     ]),
 )
