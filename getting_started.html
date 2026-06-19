@@ -177,6 +177,7 @@
 <li class="toctree-l1"><a class="reference internal" href="incremental_algorithms.html"><em>Incremental algorithms</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="counting_topologies.html">Counting topologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallelization.html"><em>Parallelization</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PCA.html">PCA, on branches and SNPs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Further tskit tutorials</span></p>
 <ul class="nav bd-sidenav">
@@ -572,7 +573,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
                         <tbody>
                             
                 <tr>
-                    <td>03 June, 2026 at 09:28:20 PM</td>
+                    <td>19 June, 2026 at 02:07:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_mutations</td>
@@ -618,7 +619,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm3jyl0<br/>release: 6.17.0-1015-azure<br/>version: #15~24.04.1-Ubuntu SMP Wed May<br/>6 22:37:49 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -673,7 +674,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
                 </tr>
             
                 <tr>
-                    <td>03 June, 2026 at 09:28:20 PM</td>
+                    <td>19 June, 2026 at 02:07:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -735,7 +736,7 @@ of the chromosome, then throw some neutral mutations onto the resulting tree seq
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm3jyl0<br/>release: 6.17.0-1015-azure<br/>version: #15~24.04.1-Ubuntu SMP Wed May<br/>6 22:37:49 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -879,7 +880,7 @@ reverse-time, coalescent simulations, but not always for tree sequences produced
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All 5216 trees coalesced
-Checked in 0.0045414 secs
+Checked in 0.00468564 secs
 </pre></div>
 </div>
 </div>
@@ -908,7 +909,7 @@ returns a <a class="reference external" href="https://tskit.dev/tskit/docs/stabl
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1ddf3f566ac5bd2f9a1cd8fe2b68028c1b28418f38e6d91d84a3a653bcdff68d.png" src="_images/1ddf3f566ac5bd2f9a1cd8fe2b68028c1b28418f38e6d91d84a3a653bcdff68d.png" />
+<img alt="_images/b88f167fe903361df25fc986355e26481f1f81fd3d422370532b83f38e74d6fc.png" src="_images/b88f167fe903361df25fc986355e26481f1f81fd3d422370532b83f38e74d6fc.png" />
 </div>
 </div>
 <p>It’s obvious that there’s something unusual about the trees in the middle of this
@@ -1133,7 +1134,7 @@ method:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d6b80142c3963204e345aebf115c6852f82e67d017f97c0b68c453530d2d6d4a.png" src="_images/d6b80142c3963204e345aebf115c6852f82e67d017f97c0b68c453530d2d6d4a.png" />
+<img alt="_images/a0ebdb4995512485e11230f526f8d49444e72a95915ffc840bb910f6400fb0fb.png" src="_images/a0ebdb4995512485e11230f526f8d49444e72a95915ffc840bb910f6400fb0fb.png" />
 </div>
 </div>
 <p>By default this method returns the “folded” or unpolarized AFS that doesn’t
@@ -1159,7 +1160,7 @@ which provides an estimate that is not influenced by random mutational “noise�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9e4799f1407eccb4dfbec65da39ae441e2202ce61f0ee12f8380535c38531bc8.png" src="_images/9e4799f1407eccb4dfbec65da39ae441e2202ce61f0ee12f8380535c38531bc8.png" />
+<img alt="_images/2686ebe86fa5b6e2980f7eedb0287bcf412f19b3d137062023334add15bf1ff9.png" src="_images/2686ebe86fa5b6e2980f7eedb0287bcf412f19b3d137062023334add15bf1ff9.png" />
 </div>
 </div>
 <p>On the left is the frequency spectrum averaged over the entire genome, and on the right
@@ -1199,7 +1200,7 @@ plotting the resulting diversity between positions 4 and 6 Mb:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/01e269d7e0cfd4373b4d990afca6ee54eda245936f802177b9002fd80e11a885.png" src="_images/01e269d7e0cfd4373b4d990afca6ee54eda245936f802177b9002fd80e11a885.png" />
+<img alt="_images/0bcfa7ed8b84a5c77cec1935ac0e57c68f01d20e16d9036028eee2a4112b0b79.png" src="_images/0bcfa7ed8b84a5c77cec1935ac0e57c68f01d20e16d9036028eee2a4112b0b79.png" />
 </div>
 </div>
 <p>There’s a clear drop in diversity in the region of the selective sweep. And as expected,
