@@ -80,7 +80,7 @@ is computed using the {meth}`TreeSequence.diversity` method:
 
 ```{code-cell} ipython3
 d = ts.diversity()
-print("Average diversity per unit sequence length = {d:.3G}")
+print(f"Average diversity per unit sequence length = {d:.3G}")
 ```
 
 This tells the average diversity across the whole sequence and returns a single
