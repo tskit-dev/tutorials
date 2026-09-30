@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,6 +63,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tskitr';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Developing new tutorials" href="tutorial_development.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -360,7 +411,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ids-and-indexing">IDs and indexing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
@@ -390,8 +441,8 @@ install the required Python packages with
 <p>By default, this uses <code class="docutils literal notranslate"><span class="pre">reticulate</span></code>’s isolated Python virtual environment, but
 you can also use another Python environment as described at
 <a class="reference external" href="https://rstudio.github.io/reticulate/">https://rstudio.github.io/reticulate/</a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s2">&quot;reticulate&quot;</span><span class="p">)</span>
-<span class="n">reticulate</span><span class="p">::</span><span class="n">py_require</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="s2">&quot;tskit&quot;</span><span class="p">,</span> <span class="s2">&quot;msprime&quot;</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s2">"reticulate"</span><span class="p">)</span>
+<span class="n">reticulate</span><span class="p">::</span><span class="n">py_require</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="s2">"tskit"</span><span class="p">,</span> <span class="s2">"msprime"</span><span class="p">))</span>
 </pre></div>
 </div>
 <aside class="margin sidebar">
@@ -414,14 +465,14 @@ with <code class="docutils literal notranslate"><span class="pre">reticulate</sp
 by calling <code class="docutils literal notranslate"><span class="pre">msprime$sim_ancestry()</span></code> from R.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">&quot;msprime&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">msprime</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reticulate</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="s">"msprime"</span><span class="p">)</span>
 <span class="n">ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_ancestry</span><span class="p">(</span><span class="m">80</span><span class="p">,</span><span class="w"> </span><span class="n">sequence_length</span><span class="o">=</span><span class="m">1e4</span><span class="p">,</span><span class="w"> </span><span class="n">recombination_rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">42</span><span class="p">)</span>
-<span class="n">ts</span><span class="w">  </span><span class="c1"># See &quot;Jupyter notebook tips&quot; below for nicer rendering</span>
+<span class="n">ts</span><span class="w">  </span><span class="c1"># See "Jupyter notebook tips" below for nicer rendering</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tskit.trees.TreeSequence object at 0x7f53db86fa10&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tskit.trees.TreeSequence object at 0x7fcc00cd4410&gt;
 </pre></div>
 </div>
 </div>
@@ -458,8 +509,8 @@ Method arguments are given as native R objects and then passed to <code class="d
 <span class="n">reduced_ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="nf">delete_intervals</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">6000</span><span class="p">,</span><span class="w"> </span><span class="m">10000</span><span class="p">)))</span><span class="w">  </span><span class="c1"># delete data after 6 kb</span>
 <span class="n">reduced_ts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="nf">trim</span><span class="p">()</span><span class="w">  </span><span class="c1"># remove the deleted region</span>
 <span class="nf">paste</span><span class="p">(</span>
-<span class="w">    </span><span class="s">&quot;Reduced from&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">num_trees</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trees over&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">sequence_length</span><span class="o">/</span><span class="m">1e3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kb to&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">reduced_ts</span><span class="o">$</span><span class="n">num_trees</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trees over&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="n">sequence_length</span><span class="o">/</span><span class="m">1e3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kb.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="s">"Reduced from"</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">num_trees</span><span class="p">,</span><span class="w"> </span><span class="s">"trees over"</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">sequence_length</span><span class="o">/</span><span class="m">1e3</span><span class="p">,</span><span class="w"> </span><span class="s">"kb to"</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reduced_ts</span><span class="o">$</span><span class="n">num_trees</span><span class="p">,</span><span class="w"> </span><span class="s">"trees over"</span><span class="p">,</span><span class="w"> </span><span class="n">reduced_ts</span><span class="o">$</span><span class="n">sequence_length</span><span class="o">/</span><span class="m">1e3</span><span class="p">,</span><span class="w"> </span><span class="s">"kb."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -482,7 +533,7 @@ following raises a <code class="docutils literal notranslate"><span class="pre">
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error in py_call_impl(callable, call_args$unnamed, call_args$named) : 
-  TypeError: Index must be of integer type, not &#39;float&#39;
+  TypeError: Index must be of integer type, not 'float'
 Run `reticulate::py_last_error()` for details.
 </pre></div>
 </div>
@@ -512,7 +563,7 @@ Run `reticulate::py_last_error()` for details.
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
 <ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
-</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b&#39;&#39;)
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b'')
 </pre></div>
 </div>
 <div class="output text_html"><style>
@@ -521,7 +572,7 @@ Run `reticulate::py_last_error()` for details.
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
 <ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
-</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b&#39;&#39;)
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node(id=0, flags=1, time=0.0, population=0, individual=0, metadata=b'')
 </pre></div>
 </div>
 </div>
@@ -537,13 +588,13 @@ R indexes start at one:</p>
 <span class="n">root_id_num</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">root_id_int</span><span class="p">)</span>
 
 <span class="c1"># Using integer ID will work</span>
-<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via tskit method using integer ID:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="n">root_id_int</span><span class="p">)</span><span class="o">$</span><span class="n">time</span><span class="p">)</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">"Root time via tskit method using integer ID:"</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="n">root_id_int</span><span class="p">)</span><span class="o">$</span><span class="n">time</span><span class="p">)</span>
 <span class="c1"># Using numeric ID will raise TypeError</span>
-<span class="nf">try</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via tskit method using float ID:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="n">root_id_num</span><span class="p">)</span><span class="o">$</span><span class="n">time</span><span class="p">))</span>
+<span class="nf">try</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">"Root time via tskit method using float ID:"</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="nf">node</span><span class="p">(</span><span class="n">root_id_num</span><span class="p">)</span><span class="o">$</span><span class="n">time</span><span class="p">))</span>
 
 <span class="c1"># When indexing into tskit arrays in R, add 1 to the ID (integer or numeric)</span>
-<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via integer array:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id_int</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
-<span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Root time via float   array:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id_num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">"Root time via integer array:"</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id_int</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
+<span class="nf">paste</span><span class="p">(</span><span class="s">"Root time via float   array:"</span><span class="p">,</span><span class="w"> </span><span class="n">ts</span><span class="o">$</span><span class="n">nodes_time</span><span class="p">[</span><span class="n">root_id_num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -555,7 +606,7 @@ R indexes start at one:</p>
 </style>
 <ol class=list-inline><li>'integer'</li><li>'double'</li><li>'numeric'</li><li>'vector'</li><li>'data.frameRowLabels'</li><li>'index'</li><li>'replValue'</li><li>'numLike'</li><li>'number'</li><li>'atomicVector'</li><li>'replValueSp'</li></ol>
 </div><div class="output text_html">'Root time via tskit method using integer ID: 3.4634393266485'</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error in py_call_impl(callable, call_args$unnamed, call_args$named) : 
-  TypeError: Index must be of integer type, not &#39;float&#39;
+  TypeError: Index must be of integer type, not 'float'
 Run `reticulate::py_last_error()` for details.
 </pre></div>
 </div>
@@ -572,7 +623,7 @@ function and then compute genetic diversity:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">ts_mut</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">msprime</span><span class="o">$</span><span class="nf">sim_mutations</span><span class="p">(</span><span class="n">reduced_ts</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="m">1e-4</span><span class="p">,</span><span class="w"> </span><span class="n">random_seed</span><span class="o">=</span><span class="m">321</span><span class="p">)</span>
-<span class="nf">paste</span><span class="p">(</span><span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mutations, genetic diversity is&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">())</span>
+<span class="nf">paste</span><span class="p">(</span><span class="n">ts_mut</span><span class="o">$</span><span class="n">num_mutations</span><span class="p">,</span><span class="w"> </span><span class="s">"mutations, genetic diversity is"</span><span class="p">,</span><span class="w"> </span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">diversity</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -794,7 +845,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                         <tbody>
                             
                 <tr>
-                    <td>19 June, 2026 at 02:08:05 PM</td>
+                    <td>30 September, 2026 at 07:13:06 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_mutations</td>
@@ -840,7 +891,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -848,7 +899,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -895,7 +946,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 </tr>
             
                 <tr>
-                    <td>19 June, 2026 at 02:08:04 PM</td>
+                    <td>30 September, 2026 at 07:13:05 PM</td>
                     <td>tskit</td>
                     <td>1.0.3</td>
                     <td>trim</td>
@@ -933,7 +984,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -941,7 +992,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -972,7 +1023,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 </tr>
             
                 <tr>
-                    <td>19 June, 2026 at 02:08:04 PM</td>
+                    <td>30 September, 2026 at 07:13:05 PM</td>
                     <td>tskit</td>
                     <td>1.0.3</td>
                     <td>delete_intervals</td>
@@ -1010,7 +1061,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1018,7 +1069,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -1049,7 +1100,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 </tr>
             
                 <tr>
-                    <td>19 June, 2026 at 02:08:04 PM</td>
+                    <td>30 September, 2026 at 07:13:05 PM</td>
                     <td>tskit</td>
                     <td>1.0.3</td>
                     <td>simplify</td>
@@ -1087,7 +1138,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1095,7 +1146,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -1126,7 +1177,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 </tr>
             
                 <tr>
-                    <td>19 June, 2026 at 02:08:04 PM</td>
+                    <td>30 September, 2026 at 07:13:05 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -1164,7 +1215,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1172,7 +1223,7 @@ few functions so that <code class="docutils literal notranslate"><span class="pr
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -1257,7 +1308,7 @@ individual trees <a class="reference external" href="https://tskit.dev/tskit/doc
 <span class="n">tree</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ape</span><span class="o">::</span><span class="nf">read.tree</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">ts_mut</span><span class="o">$</span><span class="nf">first</span><span class="p">()</span><span class="o">$</span><span class="nf">as_newick</span><span class="p">())</span>
 
 <span class="c1"># Now we can plot the tree in tskit style, but using the ape library</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="o">=</span><span class="s">&quot;downward&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">srt</span><span class="o">=</span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span><span class="w">  </span><span class="c1"># or equivalently use trees[[1]]</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="o">=</span><span class="s">"downward"</span><span class="p">,</span><span class="w"> </span><span class="n">srt</span><span class="o">=</span><span class="m">90</span><span class="p">,</span><span class="w"> </span><span class="n">adj</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span><span class="w">  </span><span class="c1"># or equivalently use trees[[1]]</span>
 </pre></div>
 </div>
 </div>
@@ -1355,7 +1406,7 @@ topic beyond the scope of this tutorial.</p>
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">Attributes and methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ids-and-indexing">IDs and indexing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
@@ -1411,8 +1462,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

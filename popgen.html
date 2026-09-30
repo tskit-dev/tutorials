@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,6 +63,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'popgen';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tskit for phylogenetics" href="phylogen.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -360,7 +411,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-simulation">Population genetic simulation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-inference">Population genetic inference</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-analysis">Topological analysis</a></li>
@@ -405,8 +456,8 @@ migrations and population size changes that define this model.</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">demesdraw</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="n">species</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_species</span><span class="p">(</span><span class="s2">&quot;HomSap&quot;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_demographic_model</span><span class="p">(</span><span class="s2">&quot;AmericanAdmixture_4B18&quot;</span><span class="p">)</span>
+<span class="n">species</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_species</span><span class="p">(</span><span class="s2">"HomSap"</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_demographic_model</span><span class="p">(</span><span class="s2">"AmericanAdmixture_4B18"</span><span class="p">)</span>
 
 <span class="c1"># Plot a schematic of the model</span>
 <span class="n">demesdraw</span><span class="o">.</span><span class="n">tubes</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">to_demes</span><span class="p">(),</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">log_time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -415,7 +466,7 @@ migrations and population size changes that define this model.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/97e10aeefeeabd3741d98879b00594de5d05c0ba9dd8119ae6d132a3a90e25a8.png" src="_images/97e10aeefeeabd3741d98879b00594de5d05c0ba9dd8119ae6d132a3a90e25a8.png" />
+<img alt="_images/1024bfee2f4370545d08894733e1d8a84e61778e24090f2a9ee0d63720855a31.png" src="_images/1024bfee2f4370545d08894733e1d8a84e61778e24090f2a9ee0d63720855a31.png" />
 </div>
 </div>
 <p>Genomic data in tree sequence format can be generated via the widely-used
@@ -426,12 +477,12 @@ the populations in the model. The DNA sequences and their ancestry are stored in
 succinct tree sequence named <code class="docutils literal notranslate"><span class="pre">ts</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">&quot;chr1&quot;</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">)</span>
-<span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AFR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;EUR&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ASIA&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;ADMIX&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span> <span class="c1"># 16 diploid samples</span>
-<span class="n">engine</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s2">&quot;msprime&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contig</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_contig</span><span class="p">(</span><span class="s2">"chr1"</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"AFR"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"EUR"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"ASIA"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"ADMIX"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span> <span class="c1"># 16 diploid samples</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">get_engine</span><span class="p">(</span><span class="s2">"msprime"</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">contig</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>  <span class="c1"># trim to first 20kb simulated</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simulated a tree sequence of </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> haploid genomes:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="si">}</span><span class="s2"> variable sites over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> base pairs&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Simulated a tree sequence of </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> haploid genomes:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="si">}</span><span class="s2"> variable sites over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> base pairs"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -448,22 +499,22 @@ along the genome:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Variable site </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> at position </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="si">}</span><span class="s2"> has allele frequencies&quot;</span><span class="p">,</span>
-        <span class="p">{</span><span class="n">state</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">freq</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">frequencies</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="sa">f</span><span class="s2">"Variable site </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> at position </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="si">}</span><span class="s2"> has allele frequencies"</span><span class="p">,</span>
+        <span class="p">{</span><span class="n">state</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">freq</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">frequencies</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span>
         <span class="k">break</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable site 0 at position 1014.0 has allele frequencies {&#39;T&#39;: &#39;96.9%&#39;, &#39;G&#39;: &#39;3.1%&#39;}
-Variable site 1 at position 2137.0 has allele frequencies {&#39;A&#39;: &#39;84.4%&#39;, &#39;T&#39;: &#39;15.6%&#39;}
-Variable site 2 at position 2428.0 has allele frequencies {&#39;T&#39;: &#39;96.9%&#39;, &#39;A&#39;: &#39;3.1%&#39;}
-Variable site 3 at position 2558.0 has allele frequencies {&#39;A&#39;: &#39;78.1%&#39;, &#39;G&#39;: &#39;21.9%&#39;}
-Variable site 4 at position 3515.0 has allele frequencies {&#39;T&#39;: &#39;56.2%&#39;, &#39;G&#39;: &#39;43.8%&#39;}
-Variable site 5 at position 3626.0 has allele frequencies {&#39;T&#39;: &#39;56.2%&#39;, &#39;C&#39;: &#39;43.8%&#39;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable site 0 at position 1014.0 has allele frequencies {'T': '96.9%', 'G': '3.1%'}
+Variable site 1 at position 2137.0 has allele frequencies {'A': '84.4%', 'T': '15.6%'}
+Variable site 2 at position 2428.0 has allele frequencies {'T': '96.9%', 'A': '3.1%'}
+Variable site 3 at position 2558.0 has allele frequencies {'A': '78.1%', 'G': '21.9%'}
+Variable site 4 at position 3515.0 has allele frequencies {'T': '56.2%', 'G': '43.8%'}
+Variable site 5 at position 3626.0 has allele frequencies {'T': '56.2%', 'C': '43.8%'}
 ...
 </pre></div>
 </div>
@@ -472,12 +523,12 @@ Variable site 5 at position 3626.0 has allele frequencies {&#39;T&#39;: &#39;56.
 <p>Or we can efficiently grab the genotypes for each sampled genome</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample ---&gt; &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">u</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Population |&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">^</span><span class="si">{</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)))</span><span class="o">-</span><span class="mi">1</span><span class="si">}}</span><span class="s2">|&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;__________ |&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;_&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Position&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Sample ---&gt; "</span><span class="p">,</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">u</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Population |"</span><span class="p">,</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">:</span><span class="s2">^</span><span class="si">{</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)))</span><span class="o">-</span><span class="mi">1</span><span class="si">}}</span><span class="s2">|"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"__________ |"</span><span class="p">,</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">"_"</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"|"</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"  Position"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> | &quot;</span><span class="p">,</span> <span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">states</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> | "</span><span class="p">,</span> <span class="s2">"  "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">states</span><span class="p">()))</span>
     <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">id</span> <span class="o">&gt;=</span> <span class="mi">30</span><span class="p">:</span> <span class="c1">#  Only show the first 30 sites, for brevity</span>
         <span class="k">break</span>
 </pre></div>
@@ -531,8 +582,8 @@ for specific samples (although this is slightly less efficient)</p>
 <span class="n">samples</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">pop_id</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">sample_id</span><span class="p">,</span> <span class="n">haplotype</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">)):</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">haplotype</span><span class="p">))</span>  <span class="c1"># Add a dot between letters, to clarify they are not  adjacent</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample </span><span class="si">{</span><span class="n">sample_id</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">pop_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">^5</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="s2">"."</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">haplotype</span><span class="p">))</span>  <span class="c1"># Add a dot between letters, to clarify they are not  adjacent</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sample </span><span class="si">{</span><span class="n">sample_id</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">pop_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">:</span><span class="s2">^5</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -557,13 +608,13 @@ directly from the tree sequence (i.e. without needing to reconstruct genotypes)<
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afs</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">allele_frequency_spectrum</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">afs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Allele frequency spectrum&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Allele frequency spectrum"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/da2fd54cf4633b29334cd295a1bec74f0e77cb0b86ac4f41c4770bfd73e6259d.png" src="_images/da2fd54cf4633b29334cd295a1bec74f0e77cb0b86ac4f41c4770bfd73e6259d.png" />
+<img alt="_images/8f50c523061a81e878a40f67557d500cd0c701c577c164a79bb099bfb3b62e60.png" src="_images/8f50c523061a81e878a40f67557d500cd0c701c577c164a79bb099bfb3b62e60.png" />
 </div>
 </div>
 <p>Similarly <strong class="program">tskit</strong> allows fast and easy
@@ -573,8 +624,8 @@ region of chromosome:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the samples between which Fst will be calculated</span>
-<span class="n">pop_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()}</span>
-<span class="n">sample_sets</span><span class="o">=</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">&quot;AFR&quot;</span><span class="p">]),</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">&quot;ADMIX&quot;</span><span class="p">])]</span>
+<span class="n">pop_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]:</span> <span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()}</span>
+<span class="n">sample_sets</span><span class="o">=</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">"AFR"</span><span class="p">]),</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pop_id</span><span class="p">[</span><span class="s2">"ADMIX"</span><span class="p">])]</span>
 
 <span class="c1"># Do the windowed calculation, using windows of 10 kilobases</span>
 <span class="n">windows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">10_000</span><span class="p">))</span>
@@ -582,14 +633,14 @@ region of chromosome:</p>
 
 <span class="c1"># Plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">F_st</span><span class="p">,</span> <span class="n">windows</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;AFR-ADMIX Fst&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"AFR-ADMIX Fst"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Genome position"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/aa0e85a44286ca14f4ff914604dc79046d491b782b16e20aca9888936a18f113.png" src="_images/aa0e85a44286ca14f4ff914604dc79046d491b782b16e20aca9888936a18f113.png" />
+<img alt="_images/616a6245666e3b068a22b3f445a923abf3081e272db2862664a6667f73ff4883.png" src="_images/616a6245666e3b068a22b3f445a923abf3081e272db2862664a6667f73ff4883.png" />
 </div>
 </div>
 <p>Extracting the genetic tree at a specific genomic location is easy using <strong class="program">tskit</strong>, which
@@ -601,19 +652,19 @@ as described in the <a class="reference internal" href="viz.html#sec-tskit-viz-s
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">10_000</span><span class="p">)</span>
 
-<span class="n">colours</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">AFR</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">EUR</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">ASIA</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">ADMIX</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">AFR</span><span class="o">=</span><span class="s2">"yellow"</span><span class="p">,</span> <span class="n">EUR</span><span class="o">=</span><span class="s2">"cyan"</span><span class="p">,</span> <span class="n">ASIA</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">ADMIX</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
 <span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="sa">f</span><span class="s2">&quot;.leaf.p</span><span class="si">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">".leaf.p</span><span class="si">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]]</span><span class="si">}</span><span class="se">}}</span><span class="s2">"</span>
     <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
 <span class="p">]</span>
 
 <span class="n">styles</span> <span class="o">+=</span> <span class="p">[</span> <span class="c1"># rotate the population labels, etc</span>
-    <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;.leaf &gt; .sym {stroke: black}&quot;</span>
+    <span class="s2">".leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"</span><span class="p">,</span>
+    <span class="s2">".leaf &gt; .sym {stroke: black}"</span>
 <span class="p">]</span>
 
 <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># Label samples by population</span>
-    <span class="n">u</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+    <span class="n">u</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()</span>
 <span class="p">}</span>
 
@@ -621,7 +672,7 @@ as described in the <a class="reference internal" href="viz.html#sec-tskit-viz-s
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
     <span class="n">canvas_size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">520</span><span class="p">),</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30_000</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">)</span>
 <span class="p">)</span>
@@ -641,20 +692,20 @@ geographical distinctiveness:</p>
 <span class="c1"># Run the Principal Components Analysis (PCA)</span>
 <span class="n">pca_obj</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">num_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="c1"># Plot the PCA &quot;factors&quot;</span>
-<span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]</span>
+<span class="c1"># Plot the PCA "factors"</span>
+<span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()]</span>
 <span class="n">sample_pop_ids</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes_population</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">()]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">pca_obj</span><span class="o">.</span><span class="n">factors</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">col_list</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sample_pop_ids</span><span class="p">],</span> <span class="n">edgecolors</span><span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;PCA 1&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;PCA 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">pca_obj</span><span class="o">.</span><span class="n">factors</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">col_list</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sample_pop_ids</span><span class="p">],</span> <span class="n">edgecolors</span><span class="o">=</span> <span class="s2">"black"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"PCA 1"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"PCA 2"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span>
-    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7adba8e1af55a333ff638d926d89a0901aab8ca8cbaaac5d62cb82541983b238.png" src="_images/7adba8e1af55a333ff638d926d89a0901aab8ca8cbaaac5d62cb82541983b238.png" />
+<img alt="_images/d449692bfc7f951655bea161a85f6afd6bafec38d09198fe2ee822ce90ee7ac2.png" src="_images/d449692bfc7f951655bea161a85f6afd6bafec38d09198fe2ee822ce90ee7ac2.png" />
 </div>
 </div>
 </section>
@@ -679,12 +730,12 @@ utility can also read and write compressed tree sequences in <code class="docuti
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tszip</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/unified_genealogy_2q_108Mb-110Mb.tsz&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/unified_genealogy_2q_108Mb-110Mb.tsz"</span><span class="p">)</span>
 
 <span class="c1"># The ts encompasses a region on chr 2 with an interesting SNP (rs3827760) in the EDAR gene</span>
 <span class="n">edar_gene_bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">108_894_471</span><span class="p">,</span> <span class="mi">108_989_220</span><span class="p">]</span>  <span class="c1"># In Mb from the start of chromosome 2</span>
-<span class="n">focal_variant</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;rs3827760&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;An interesting SNP within the EDAR gene:&quot;</span><span class="p">)</span>
+<span class="n">focal_variant</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">variants</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ID"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"rs3827760"</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"An interesting SNP within the EDAR gene:"</span><span class="p">)</span>
 <span class="n">focal_variant</span>
 </pre></div>
 </div>
@@ -742,14 +793,14 @@ variable sites, is stored in tree sequence <a class="reference internal" href="m
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_populations</span><span class="p">,</span> <span class="s2">&quot;populations defined in the tree sequence:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_populations</span><span class="p">,</span> <span class="s2">"populations defined in the tree sequence:"</span><span class="p">)</span>
 
 <span class="n">pop_names_regions</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))]</span>
+    <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"region"</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">))]</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
 <span class="p">]</span>
-<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pop_names_regions</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="s2">&quot;# genomes&quot;</span><span class="p">]))</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">'display.max_rows'</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pop_names_regions</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">,</span> <span class="s2">"# genomes"</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
@@ -1194,8 +1245,8 @@ region:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_lists</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">rgns</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;Africa&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;AFRICA&#39;</span><span class="p">,</span> <span class="s1">&#39;Africa&#39;</span><span class="p">},</span> <span class="s2">&quot;East asia&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;EAST_ASIA&#39;</span><span class="p">,</span> <span class="s1">&#39;EastAsia&#39;</span><span class="p">}}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">pop_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rgns</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">rgns</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"Africa"</span><span class="p">:</span> <span class="p">{</span><span class="s1">'AFRICA'</span><span class="p">,</span> <span class="s1">'Africa'</span><span class="p">},</span> <span class="s2">"East asia"</span><span class="p">:</span> <span class="p">{</span><span class="s1">'EAST_ASIA'</span><span class="p">,</span> <span class="s1">'EastAsia'</span><span class="p">}}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">pop_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"region"</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rgns</span><span class="p">]</span>
     <span class="n">sample_lists</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pop_ids</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="n">p</span><span class="p">)]</span>
 </pre></div>
 </div>
@@ -1209,11 +1260,11 @@ region:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edar_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>  <span class="c1"># remove regions with no data (changes the coordinate system)</span>
 <span class="n">windows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">edar_ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">))</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Genetic diversity&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Genetic diversity"</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">region</span><span class="p">:</span> <span class="n">edar_ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">region</span><span class="p">,</span> <span class="n">samples</span> <span class="ow">in</span> <span class="n">sample_lists</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">},</span>
-    <span class="s2">&quot;Tajima&#39;s D&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Tajima's D"</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">region</span><span class="p">:</span> <span class="n">edar_ts</span><span class="o">.</span><span class="n">Tajimas_D</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">windows</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">region</span><span class="p">,</span> <span class="n">samples</span> <span class="ow">in</span> <span class="n">sample_lists</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">},</span>  
@@ -1225,18 +1276,18 @@ region:</p>
 
 <span class="k">for</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">plot_data</span><span class="p">),</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">axes</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">plot_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">stairs</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">windows</span><span class="o">+</span><span class="n">start</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;EDAR&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">edar_gene_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"EDAR"</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b9e32bd3e72256102b936b1f435bb3237deb92fec4e6714bd29bbfe0b6bc62a9.png" src="_images/b9e32bd3e72256102b936b1f435bb3237deb92fec4e6714bd29bbfe0b6bc62a9.png" />
+<img alt="_images/e4ade37ccd6ae94e920169ee82bdc71361660501b4e41a9029f978e58dcf147f.png" src="_images/e4ade37ccd6ae94e920169ee82bdc71361660501b4e41a9029f978e58dcf147f.png" />
 </div>
 </div>
 <p>Other population genetic libraries such as
@@ -1257,13 +1308,13 @@ a common East Asian and a common African population:</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Focus on Han, San, and Denisovan</span>
 <span class="n">focal</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;Han&quot;</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
-    <span class="s2">&quot;San&quot;</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">17</span><span class="p">),</span>
-    <span class="s2">&quot;Denisovan&quot;</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">66</span><span class="p">),</span>
+    <span class="s2">"Han"</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
+    <span class="s2">"San"</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">17</span><span class="p">),</span>
+    <span class="s2">"Denisovan"</span><span class="p">:</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">population</span><span class="o">=</span><span class="mi">66</span><span class="p">),</span>
 <span class="p">}</span>
 
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">focal</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Sanity check that we got the right IDs</span>
-    <span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span>
+    <span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span>
 
 <span class="c1"># Simplify to just those samples ...</span>
 <span class="n">all_focal_samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">samples</span> <span class="ow">in</span> <span class="n">focal</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
@@ -1286,31 +1337,31 @@ at the “rs3827760” SNP:</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make some nice labels, colours, and legend</span>
-<span class="n">mutation_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">focal_site</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">focal_site</span><span class="o">.</span><span class="n">mutations</span><span class="p">}</span>
-<span class="n">colours</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">San</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">Han</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">Denisovan</span><span class="o">=</span><span class="s2">&quot;magenta&quot;</span><span class="p">)</span>
+<span class="n">mutation_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">focal_site</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ID"</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">focal_site</span><span class="o">.</span><span class="n">mutations</span><span class="p">}</span>
+<span class="n">colours</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">San</span><span class="o">=</span><span class="s2">"yellow"</span><span class="p">,</span> <span class="n">Han</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">Denisovan</span><span class="o">=</span><span class="s2">"magenta"</span><span class="p">)</span>
 <span class="n">styles</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="sa">f</span><span class="s2">&quot;.leaf.p</span><span class="si">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span><span class="si">}</span><span class="s2">; stroke: grey</span><span class="se">}}</span><span class="s2">&quot;</span>
+    <span class="sa">f</span><span class="s2">".leaf.p</span><span class="si">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">colours</span><span class="p">[</span><span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]]</span><span class="si">}</span><span class="s2">; stroke: grey</span><span class="se">}}</span><span class="s2">"</span>
     <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
 <span class="p">]</span>
-<span class="n">legend</span> <span class="o">=</span> <span class="s1">&#39;&lt;rect width=&quot;125&quot; height=&quot;75&quot; x=&quot;100&quot; y=&quot;30&quot; fill=&quot;transparent&quot; stroke=&quot;grey&quot; /&gt;&#39;</span>
-<span class="n">legend</span> <span class="o">+=</span> <span class="s1">&#39;&lt;text x=&quot;120&quot; y=&quot;45&quot; font-weight=&quot;bold&quot;&gt;Populations&lt;/text&gt;&#39;</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="s1">'&lt;rect width="125" height="75" x="100" y="30" fill="transparent" stroke="grey" /&gt;'</span>
+<span class="n">legend</span> <span class="o">+=</span> <span class="s1">'&lt;text x="120" y="45" font-weight="bold"&gt;Populations&lt;/text&gt;'</span>
 <span class="c1"># Create the legend lines, one for each population. Setting classes that match those</span>
 <span class="c1"># used for normal nodes means that styled colours are auto automatically picked-up.</span>
-<span class="n">legend</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-    <span class="sa">f</span><span class="s1">&#39;&lt;g transform=&quot;translate(105, </span><span class="si">{</span><span class="mi">60</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">15</span><span class="o">*</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">)&quot; class=&quot;leaf p</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">&quot;&gt;&#39;</span>  <span class="c1"># an SVG group</span>
-    <span class="sa">f</span><span class="s1">&#39;&lt;rect width=&quot;6&quot; height=&quot;6&quot; class=&quot;sym&quot; /&gt;&#39;</span>  <span class="c1"># Square symbol</span>
-    <span class="sa">f</span><span class="s1">&#39;&lt;text x=&quot;10&quot; y=&quot;7&quot;&gt;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span> <span class="c1"># Label</span>
-    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="p">(</span><span class="s2">&quot; (&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;)&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="s2">&quot;region&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="si">}</span><span class="s1">&lt;/text&gt;&lt;/g&gt;&#39;</span>  
+<span class="n">legend</span> <span class="o">+=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+    <span class="sa">f</span><span class="s1">'&lt;g transform="translate(105, </span><span class="si">{</span><span class="mi">60</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">15</span><span class="o">*</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">)" class="leaf p</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">"&gt;'</span>  <span class="c1"># an SVG group</span>
+    <span class="sa">f</span><span class="s1">'&lt;rect width="6" height="6" class="sym" /&gt;'</span>  <span class="c1"># Square symbol</span>
+    <span class="sa">f</span><span class="s1">'&lt;text x="10" y="7"&gt;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span> <span class="c1"># Label</span>
+    <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="p">(</span><span class="s2">" ("</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"region"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_"</span><span class="p">,</span><span class="w"> </span><span class="s2">" "</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">")"</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="s2">"region"</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">metadata</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">""</span><span class="si">}</span><span class="s1">&lt;/text&gt;&lt;/g&gt;'</span>  
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()</span>
 <span class="p">])</span>
 
 <span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
-    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">),</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span>
     <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mutation_labels</span><span class="p">,</span>
     <span class="n">preamble</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Tree of human chromosome 2 at position </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Tree of human chromosome 2 at position </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">focal_variant</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50_000</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">),</span>
 <span class="p">)</span>
@@ -1350,15 +1401,15 @@ all the 3-tip topologies in the tree that contain one genome from each populatio
 
 <span class="n">trees</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tskit</span><span class="o">.</span><span class="n">all_trees</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 <span class="n">concat_ts</span> <span class="o">=</span> <span class="n">trees</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tree_sequence</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">tree_sequence</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
-<span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>  <span class="c1"># previously defined to colour nodes by population ID, e.g. p1, p2</span>
+<span class="n">style</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>  <span class="c1"># previously defined to colour nodes by population ID, e.g. p1, p2</span>
 
 <span class="n">concat_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="c1"># Make room for labels</span>
-    <span class="n">x_axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># this is not &quot;along the genome&quot;, so X axis is meaningless</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.leaf.p&quot;</span><span class="p">,</span> <span class="s2">&quot;.leaf.n&quot;</span><span class="p">),</span>  <span class="c1"># Hack to map node IDs to population colours</span>
-    <span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()},</span>
-    <span class="n">preamble</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-        <span class="sa">f</span><span class="s1">&#39;&lt;text text-anchor=&quot;middle&quot; y=&quot;15&quot; x=&quot;</span><span class="si">{</span><span class="n">tree_centre_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">concat_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">embedded_topologies</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span><span class="si">}</span><span class="s1"> trees&lt;/text&gt;&#39;</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>  <span class="c1"># Make room for labels</span>
+    <span class="n">x_axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># this is not "along the genome", so X axis is meaningless</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">".leaf.p"</span><span class="p">,</span> <span class="s2">".leaf.n"</span><span class="p">),</span>  <span class="c1"># Hack to map node IDs to population colours</span>
+    <span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">pop</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">pop</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">pop</span> <span class="ow">in</span> <span class="n">simplified_ts</span><span class="o">.</span><span class="n">populations</span><span class="p">()},</span>
+    <span class="n">preamble</span><span class="o">=</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+        <span class="sa">f</span><span class="s1">'&lt;text text-anchor="middle" y="15" x="</span><span class="si">{</span><span class="n">tree_centre_x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">concat_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">)</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">embedded_topologies</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">rank</span><span class="p">()]</span><span class="si">}</span><span class="s1"> trees&lt;/text&gt;'</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span>
     <span class="p">]),</span>
 <span class="p">)</span>
@@ -1450,7 +1501,7 @@ are relevant to population genetic analysis and research. You can also visit the
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-simulation">Population genetic simulation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-genetic-inference">Population genetic inference</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-analysis">Topological analysis</a></li>
@@ -1505,8 +1556,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -61,6 +61,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'analysing_trees';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Incremental algorithms" href="incremental_algorithms.html" />
@@ -68,20 +69,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -107,7 +114,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -358,7 +409,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-traversals">Tree traversals</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversing-upwards">Traversing upwards</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversals-with-information">Traversals with information</a></li>
@@ -402,7 +453,7 @@ places mutations (“characters” in phylogenetic terminology) on a given tree.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
 
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tree_traversals.trees&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/tree_traversals.trees"</span><span class="p">)</span>
 <span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 <span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
@@ -416,8 +467,8 @@ places mutations (“characters” in phylogenetic terminology) on a given tree.
 the <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Tree.nodes" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Tree.nodes()</span></code></a> iterator:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;preorder&quot;</span><span class="p">,</span> <span class="s2">&quot;inorder&quot;</span><span class="p">,</span> <span class="s2">&quot;postorder&quot;</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"preorder"</span><span class="p">,</span> <span class="s2">"inorder"</span><span class="p">,</span> <span class="s2">"postorder"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -435,7 +486,7 @@ here we compute the total branch length of a tree:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_branch_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">branch_length</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total branch length: </span><span class="si">{</span><span class="n">total_branch_length</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total branch length: </span><span class="si">{</span><span class="n">total_branch_length</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -460,7 +511,7 @@ each of the samples in the tree:</p>
     <span class="k">while</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">:</span>
         <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -537,8 +588,8 @@ networkx using a depth-first search algorithm:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">as_dict_of_dicts</span><span class="p">())</span>
 <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">():</span>
     <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">parent</span> <span class="k">for</span> <span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span>
-                  <span class="n">nx</span><span class="o">.</span><span class="n">edge_dfs</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">)]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+                  <span class="n">nx</span><span class="o">.</span><span class="n">edge_dfs</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"reverse"</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -582,9 +633,9 @@ Let us start with an example tree with three samples that were sampled at
 different time points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/different_time_samples.trees&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/different_time_samples.trees"</span><span class="p">)</span>
 <span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">"rank"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -596,7 +647,7 @@ different time points:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">: time </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Node </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">: time </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -632,10 +683,10 @@ branch length:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4, 2, {&#39;branch_length&#39;: 0.0053987782633306836})
-(4, 3, {&#39;branch_length&#39;: 2.1719063206836786})
-(3, 0, {&#39;branch_length&#39;: 17.833492457579652})
-(3, 1, {&#39;branch_length&#39;: 16.833492457579652})
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4, 2, {'branch_length': 0.0053987782633306836})
+(4, 3, {'branch_length': 2.1719063206836786})
+(3, 0, {'branch_length': 17.833492457579652})
+(3, 1, {'branch_length': 16.833492457579652})
 </pre></div>
 </div>
 </div>
@@ -651,7 +702,7 @@ search:</p>
 <span class="n">dist_dod</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="mi">2</span><span class="p">):</span>
     <span class="n">dist_dod</span><span class="p">[</span><span class="n">source</span><span class="p">][</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shortest_path_length</span><span class="p">(</span>
-        <span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;branch_length&quot;</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"branch_length"</span>
     <span class="p">)</span>
     <span class="n">dist_dod</span><span class="p">[</span><span class="n">target</span><span class="p">][</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_dod</span><span class="p">[</span><span class="n">source</span><span class="p">][</span><span class="n">target</span><span class="p">]</span>
 
@@ -677,11 +728,11 @@ samples are coloured by the allele they possess, but where we don’t know
 the position of the mutations that caused this variation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/parsimony_simple.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/parsimony_simple.trees"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">]</span>
 <span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)]</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">".n</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)]</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -695,9 +746,9 @@ phylogenetic algorithms:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ancestral state = &quot;</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Ancestral state = "</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -721,8 +772,8 @@ for mutations on a tree. Here’s the tree we’ll use:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/parsimony_map.trees&quot;</span><span class="p">)</span>
-<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/parsimony_map.trees"</span><span class="p">)</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">"rank"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -735,19 +786,19 @@ we infer them from some observed data (some site positions with associated genot
 and allelic states, in the conventional <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.Variant" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tskit</span> <span class="pre">encoding</span></code></a>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/parsimony_map.pickle&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"data/parsimony_map.pickle"</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  <span class="c1"># Load saved variant data from a file</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variant data: each site has a position, allele list, and genotypes array:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Variant data: each site has a position, allele list, and genotypes array:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> (pos </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">): alleles: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;alleles&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, genotypes: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;genotypes&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Site </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> (pos </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">'pos'</span><span class="p">]</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">): alleles: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">'alleles'</span><span class="p">]</span><span class="si">}</span><span class="s2">, genotypes: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="s1">'genotypes'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">()</span>
-<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>  <span class="c1"># there&#39;s only one tree anyway</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>  <span class="c1"># there's only one tree anyway</span>
 <span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
 <span class="c1"># Infer the sites and mutations from the variants.</span>
 <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-    <span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">variant</span><span class="p">[</span><span class="s2">&quot;genotypes&quot;</span><span class="p">],</span> <span class="n">variant</span><span class="p">[</span><span class="s1">&#39;alleles&#39;</span><span class="p">])</span>
-    <span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">variant</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">],</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="n">ancestral_state</span><span class="p">)</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Site </span><span class="si">{</span><span class="n">site_id</span><span class="si">}</span><span class="s2">: parsimony sets ancestral state to </span><span class="si">{</span><span class="n">ancestral_state</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">variant</span><span class="p">[</span><span class="s2">"genotypes"</span><span class="p">],</span> <span class="n">variant</span><span class="p">[</span><span class="s1">'alleles'</span><span class="p">])</span>
+    <span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">variant</span><span class="p">[</span><span class="s1">'pos'</span><span class="p">],</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="n">ancestral_state</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Site </span><span class="si">{</span><span class="n">site_id</span><span class="si">}</span><span class="s2">: parsimony sets ancestral state to </span><span class="si">{</span><span class="n">ancestral_state</span><span class="si">}</span><span class="s2">"</span>
     <span class="n">parent_offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
         <span class="n">parent</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span>
@@ -755,7 +806,7 @@ and allelic states, in the conventional <a class="reference external" href="http
             <span class="n">parent</span> <span class="o">+=</span> <span class="n">parent_offset</span>
         <span class="n">mut_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
             <span class="n">site_id</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">derived_state</span><span class="o">=</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">)</span>
-        <span class="n">info</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, and places mutation </span><span class="si">{</span><span class="n">mut_id</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2"> above node </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">info</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">", and places mutation </span><span class="si">{</span><span class="n">mut_id</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2"> above node </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2">"</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 <span class="n">new_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 </pre></div>
@@ -763,16 +814,16 @@ and allelic states, in the conventional <a class="reference external" href="http
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variant data: each site has a position, allele list, and genotypes array:
-Site 0 (pos  8.3726): alleles: (&#39;G&#39;, &#39;A&#39;), genotypes: [1 1 0 0 0 0]
-Site 1 (pos 24.4759): alleles: (&#39;T&#39;, &#39;C&#39;), genotypes: [0 0 0 0 1 1]
-Site 2 (pos 34.3178): alleles: (&#39;G&#39;, &#39;T&#39;), genotypes: [0 0 1 1 0 0]
-Site 3 (pos 39.2118): alleles: (&#39;G&#39;, &#39;C&#39;), genotypes: [0 0 1 1 0 0]
-Site 4 (pos 44.0257): alleles: (&#39;G&#39;, &#39;C&#39;), genotypes: [1 1 0 0 0 0]
-Site 5 (pos 48.0932): alleles: (&#39;C&#39;, &#39;G&#39;), genotypes: [0 0 1 1 0 0]
-Site 6 (pos 68.4830): alleles: (&#39;C&#39;, &#39;G&#39;), genotypes: [0 0 1 1 0 0]
-Site 7 (pos 69.4755): alleles: (&#39;A&#39;, &#39;C&#39;), genotypes: [0 0 0 0 1 1]
-Site 8 (pos 71.2330): alleles: (&#39;C&#39;, &#39;T&#39;), genotypes: [1 1 0 0 0 0]
-Site 9 (pos 71.9150): alleles: (&#39;G&#39;, &#39;T&#39;), genotypes: [0 0 0 0 0 1]
+Site 0 (pos  8.3726): alleles: ('G', 'A'), genotypes: [1 1 0 0 0 0]
+Site 1 (pos 24.4759): alleles: ('T', 'C'), genotypes: [0 0 0 0 1 1]
+Site 2 (pos 34.3178): alleles: ('G', 'T'), genotypes: [0 0 1 1 0 0]
+Site 3 (pos 39.2118): alleles: ('G', 'C'), genotypes: [0 0 1 1 0 0]
+Site 4 (pos 44.0257): alleles: ('G', 'C'), genotypes: [1 1 0 0 0 0]
+Site 5 (pos 48.0932): alleles: ('C', 'G'), genotypes: [0 0 1 1 0 0]
+Site 6 (pos 68.4830): alleles: ('C', 'G'), genotypes: [0 0 1 1 0 0]
+Site 7 (pos 69.4755): alleles: ('A', 'C'), genotypes: [0 0 0 0 1 1]
+Site 8 (pos 71.2330): alleles: ('C', 'T'), genotypes: [1 1 0 0 0 0]
+Site 9 (pos 71.9150): alleles: ('G', 'T'), genotypes: [0 0 0 0 0 1]
 
 Site 0: parsimony sets ancestral state to G, and places mutation 0 to A above node 6
 Site 1: parsimony sets ancestral state to T, and places mutation 1 to C above node 8
@@ -796,9 +847,9 @@ Site 9: parsimony sets ancestral state to G, and places mutation 9 to T above no
     <span class="n">site</span> <span class="o">=</span> <span class="n">new_ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">site</span><span class="p">)</span>
     <span class="n">older_mut</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1"># is there an older mutation at the same position?</span>
     <span class="n">prev</span> <span class="o">=</span> <span class="n">new_ts</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
-    <span class="n">mut_labels</span><span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">→</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">mut_labels</span><span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">prev</span><span class="si">}</span><span class="s2">→</span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">"</span>
 
-<span class="n">new_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span>
+<span class="n">new_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">,</span> <span class="n">time_scale</span><span class="o">=</span><span class="s2">"rank"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -816,11 +867,11 @@ treated by the algorithm as “could be anything”.</p>
 <p>For example, here we state that sample 0 is missing, indicated by the colour white:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/parsimony_simple.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/parsimony_simple.trees"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">]</span>
 <span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">tskit</span><span class="o">.</span><span class="n">MISSING_DATA</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.n</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)]</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">".n</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="si">}</span><span class="se">}}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)]</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -833,9 +884,9 @@ algorithm:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ancestral state = &quot;</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Ancestral state = "</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -854,13 +905,13 @@ out mutation table as above, we would impute the missing value for 0 as red.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">]</span>
+<span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">]</span>
 <span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">node_colours</span> <span class="o">=</span> <span class="p">{</span><span class="n">j</span><span class="p">:</span> <span class="n">alleles</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">genotypes</span><span class="p">)}</span>
 <span class="n">ancestral_state</span><span class="p">,</span> <span class="n">mutations</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">map_mutations</span><span class="p">(</span><span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ancestral state = &quot;</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Ancestral state = "</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mutation: node = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">node</span><span class="si">}</span><span class="s2"> derived_state = </span><span class="si">{</span><span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">node_colours</span><span class="o">=</span><span class="n">node_colours</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -956,7 +1007,7 @@ algorithms. There are a good number of worked-up examples with timings in
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-traversals">Tree traversals</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversing-upwards">Traversing upwards</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traversals-with-information">Traversals with information</a></li>
@@ -1022,8 +1073,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

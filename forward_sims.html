@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,6 +63,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'forward_sims';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Advanced forward simulations" href="more_forward_sims.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -360,7 +411,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
@@ -492,10 +543,10 @@ without using individual IDs.</p>
 <span class="n">default_node_flags</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NODE_IS_SAMPLE</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">make_diploid</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">parent_individuals</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Make an individual and its diploid genomes by adding to tables, returning the IDs.</span>
 <span class="sd">    Specifying parent_individuals is optional but results in the pedigree being stored.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">individual_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="n">parent_individuals</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">individual_id</span><span class="p">,</span> <span class="p">(</span>
         <span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">default_node_flags</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">individual</span><span class="o">=</span><span class="n">individual_id</span><span class="p">),</span>
@@ -541,14 +592,14 @@ for the order of edges in the edge table, so we need to <a class="reference exte
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">forward_WF</span><span class="p">(</span><span class="n">num_diploids</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Run a forward-time Wright Fisher simulation of a diploid population, returning</span>
 <span class="sd">    a tree sequence representing the genetic genealogy of the simulated genomes.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">global</span> <span class="n">random</span>
     <span class="n">random</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span> 
     <span class="n">tables</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">TableCollection</span><span class="p">(</span><span class="n">seq_len</span><span class="p">)</span>
-    <span class="n">tables</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>  <span class="c1"># optional, but helpful when plotting</span>
+    <span class="n">tables</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">"generations"</span>  <span class="c1"># optional, but helpful when plotting</span>
 
     <span class="n">pop</span> <span class="o">=</span> <span class="n">initialise_population</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">generations</span><span class="p">,</span> <span class="n">num_diploids</span><span class="p">)</span>
     <span class="k">while</span> <span class="n">generations</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -571,7 +622,7 @@ can be coded as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_inheritance_paths</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">parent_nodes</span><span class="p">,</span> <span class="n">child_node</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">):</span>
-    <span class="s2">&quot;Add inheritance paths from a randomly chosen parent genome to the child genome.&quot;</span>
+    <span class="s2">"Add inheritance paths from a randomly chosen parent genome to the child genome."</span>
     <span class="k">assert</span> <span class="n">recombination_rate</span> <span class="o">==</span> <span class="mi">0</span>
     <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20_000</span><span class="p">,</span> <span class="mi">21_000</span><span class="p">]</span>  <span class="c1"># only define inheritance in this focal region</span>
     <span class="n">inherit_from</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># randomly choose the 1st or the 2nd parent node</span>
@@ -601,7 +652,7 @@ few breakpoints per chromosome (in humans, around 1 or 2).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_inheritance_paths</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">parent_genomes</span><span class="p">,</span> <span class="n">child_genome</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="p">):</span>
-    <span class="s2">&quot;Add paths from parent genomes to the child genome, with crossover recombination.&quot;</span>
+    <span class="s2">"Add paths from parent genomes to the child genome, with crossover recombination."</span>
     <span class="n">L</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sequence_length</span>
     <span class="n">num_recombinations</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">recombination_rate</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
     <span class="n">breakpoints</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_recombinations</span><span class="p">)</span>
@@ -654,9 +705,9 @@ material at this genomic position (they appear as isolated nodes at the top of t
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
 <span class="n">graphics_params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;y_axis&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="s2">&quot;y_label&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Time (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">time_units</span><span class="si">}</span><span class="s2"> ago)&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;y_ticks&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="s1">&#39;Current&#39;</span> <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">)},</span>
+    <span class="s2">"y_axis"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"y_label"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Time (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">time_units</span><span class="si">}</span><span class="s2"> ago)"</span><span class="p">,</span>
+    <span class="s2">"y_ticks"</span><span class="p">:</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="s1">'Current'</span> <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">21</span><span class="p">)},</span>
 <span class="p">}</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="o">**</span><span class="n">graphics_params</span><span class="p">)</span>
 </pre></div>
@@ -741,7 +792,7 @@ of the genome may have different ancestries. This results in multiple trees alon
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="mf">1e-7</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="n">rho</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A recombination rate of </span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s2"> has created </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> bp&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"A recombination rate of </span><span class="si">{</span><span class="n">rho</span><span class="si">}</span><span class="s2"> has created </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> bp"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -754,7 +805,7 @@ of the genome may have different ancestries. This results in multiple trees alon
 <p>Here’s how the full (unsimplified) genealogy looks (labels omitted for clarity):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics_params</span><span class="p">[</span><span class="s2">&quot;y_ticks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span> <span class="p">,</span><span class="mi">50</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graphics_params</span><span class="p">[</span><span class="s2">"y_ticks"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span> <span class="p">,</span><span class="mi">50</span><span class="p">]</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">node_labels</span><span class="o">=</span><span class="p">{},</span> <span class="n">symbol_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">graphics_params</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -772,13 +823,13 @@ analysis and visualization.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">generations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="n">rho</span><span class="p">)</span>
 <span class="n">simplified_ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">graphics_params</span><span class="p">[</span><span class="s2">&quot;y_ticks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span> <span class="p">,</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">graphics_params</span><span class="p">[</span><span class="s2">"y_ticks"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span> <span class="p">,</span><span class="mi">50</span><span class="p">]</span>
 <span class="n">simplified_ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="o">**</span><span class="n">graphics_params</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:Ticks {40: &#39;40&#39;, 50: &#39;50&#39;} lie outside the plotted axis
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:Ticks {40: '40', 50: '50'} lie outside the plotted axis
 </pre></div>
 </div>
 <img alt="_images/e9ced09cd4fce8cdb84488ca32fc402001a198559cb2e558667e79bb9cfd7a14.svg" src="_images/e9ced09cd4fce8cdb84488ca32fc402001a198559cb2e558667e79bb9cfd7a14.svg" />
@@ -801,8 +852,8 @@ can have a dramatic effect on the disk storage and memory required:</p>
 <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 <span class="n">large_ts</span> <span class="o">=</span> <span class="n">forward_WF</span><span class="p">(</span><span class="n">population_size</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">gens</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="n">rho</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Simulated </span><span class="si">{</span><span class="n">population_size</span><span class="si">}</span><span class="s2"> individuals (</span><span class="si">{</span><span class="n">population_size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2"> genomes)&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;for </span><span class="si">{</span><span class="n">gens</span><span class="si">}</span><span class="s2"> generations in </span><span class="si">{</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"Simulated </span><span class="si">{</span><span class="n">population_size</span><span class="si">}</span><span class="s2"> individuals (</span><span class="si">{</span><span class="n">population_size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2"> genomes)"</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"for </span><span class="si">{</span><span class="n">gens</span><span class="si">}</span><span class="s2"> generations in </span><span class="si">{</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -815,16 +866,16 @@ can have a dramatic effect on the disk storage and memory required:</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full tree sequence including dead lineages: </span><span class="si">{</span><span class="n">large_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Full tree sequence including dead lineages: </span><span class="si">{</span><span class="n">large_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB"</span><span class="p">)</span>
 <span class="n">current_day_genomes</span> <span class="o">=</span> <span class="n">large_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">simplified_ts</span> <span class="o">=</span> <span class="n">large_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">current_day_genomes</span><span class="p">,</span> <span class="n">keep_input_roots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Tree sequence of current-day individuals: </span><span class="si">{</span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB,&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees.&quot;</span>
+    <span class="sa">f</span><span class="s2">"Tree sequence of current-day individuals: </span><span class="si">{</span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB,"</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> trees."</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Simplification has reduced the size by a factor of&quot;</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">large_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="s2">"Simplification has reduced the size by a factor of"</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">large_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">simplified_ts</span><span class="o">.</span><span class="n">nbytes</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -832,7 +883,7 @@ can have a dramatic effect on the disk storage and memory required:</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Full tree sequence including dead lineages: 16.79 MB
 Tree sequence of current-day individuals: 0.05 MB, 113 trees.
-Simplification has reduced the size by a factor of 320.56
+Simplification has reduced the size by a factor of 320.61
 </pre></div>
 </div>
 </div>
@@ -858,14 +909,14 @@ long enough to capture the ancestry back to a single common ancestor
     <span class="n">simplified_ts</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">(</span><span class="n">as_array</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Genome position (bp)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of roots&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Genome position (bp)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Number of roots"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e8d8e07c033c6a500d7b9723d25a10c42bc0512a6ff1a967c83cf17c22d8508c.png" src="_images/e8d8e07c033c6a500d7b9723d25a10c42bc0512a6ff1a967c83cf17c22d8508c.png" />
+<img alt="_images/2f488ccd4bea9044f85d5fc543e290209ce1daa71b847c910da172e2838eb7f1.png" src="_images/2f488ccd4bea9044f85d5fc543e290209ce1daa71b847c910da172e2838eb7f1.png" />
 </div>
 </div>
 <p>Most of our trees have one root, but a handful have two.
@@ -894,14 +945,14 @@ tMRCAs using <code class="docutils literal notranslate"><span class="pre">msprim
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">tmrca</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;tMRCA (units of N generations)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Proportion of trees&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"tMRCA (units of N generations)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Proportion of trees"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2ac19b113020761b611693d6a264c32ef67c95399d83aa6ac019fb15feaa5ba1.png" src="_images/2ac19b113020761b611693d6a264c32ef67c95399d83aa6ac019fb15feaa5ba1.png" />
+<img alt="_images/f07dae154e59a014f18e2e5e614a111ba418545982904c4cf4a0074857f88520.png" src="_images/f07dae154e59a014f18e2e5e614a111ba418545982904c4cf4a0074857f88520.png" />
 </div>
 </div>
 <p>So, some fraction of local trees have very large tMRCAs! And of course
@@ -995,7 +1046,7 @@ It also details several extra tips and tricks we have learned when building forw
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
@@ -1064,8 +1115,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

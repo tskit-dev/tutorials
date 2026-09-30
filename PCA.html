@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,6 +63,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'PCA';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tables and editing" href="tables_and_editing.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -360,7 +411,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branch-pca-tskit">Branch PCA (tskit)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca-by-hand">PCA ‘by hand’</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-for-comparison">Plot for comparison</a></li>
@@ -404,7 +455,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set a mutation rate</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="mf">1e-8</span>
-<span class="c1"># number of sub-populations/&#39;islands&#39;</span>
+<span class="c1"># number of sub-populations/'islands'</span>
 <span class="n">nPop</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="c1"># number of diploids sampled from each sub-population</span>
 <span class="n">nSamp</span> <span class="o">=</span> <span class="mi">10</span>
@@ -576,7 +627,7 @@
                         <tbody>
                             
                 <tr>
-                    <td>19 June, 2026 at 02:06:10 PM</td>
+                    <td>30 September, 2026 at 07:11:12 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -774,7 +825,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -782,7 +833,7 @@
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -984,7 +1035,7 @@
                         <tbody>
                             
                 <tr>
-                    <td>19 June, 2026 at 02:06:10 PM</td>
+                    <td>30 September, 2026 at 07:11:12 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_mutations</td>
@@ -1030,7 +1081,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1038,7 +1089,7 @@
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -1085,7 +1136,7 @@
                 </tr>
             
                 <tr>
-                    <td>19 June, 2026 at 02:06:10 PM</td>
+                    <td>30 September, 2026 at 07:11:12 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -1283,7 +1334,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1291,7 +1342,7 @@
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -1350,7 +1401,7 @@
 <p>The migration rates between the islands are quite low. This should lead to considerable genetic differentiation. Let us compute pairwise <span class="math notranslate nohighlight">\(F_{ST}\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Considerable pairwise Fst between the &#39;islands&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Considerable pairwise Fst between the 'islands'</span>
 <span class="n">fstmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nPop</span><span class="p">,</span><span class="n">nPop</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nPop</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">nPop</span><span class="p">):</span>
@@ -1410,7 +1461,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add each individual&#39;s two haplotypes to generate individual genotypes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add each individual's two haplotypes to generate individual genotypes</span>
 <span class="n">sample_ids_to_mat_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">tsm</span><span class="o">.</span><span class="n">samples</span><span class="p">(),</span> <span class="n">tskit</span><span class="o">.</span><span class="n">NULL</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">tsm</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)</span>
 <span class="n">sample_ids_to_mat_index</span><span class="p">[</span><span class="n">tsm</span><span class="o">.</span><span class="n">samples</span><span class="p">()]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tsm</span><span class="o">.</span><span class="n">samples</span><span class="p">()))</span>
 <span class="n">gtMat</span> <span class="o">=</span> <span class="n">htMat</span><span class="p">[</span><span class="n">sample_ids_to_mat_index</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">individuals_nodes</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1445,34 +1496,34 @@
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">hapSvd</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
                   <span class="n">hapSvd</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
                   <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">nHap</span><span class="p">]</span> <span class="o">*</span> <span class="n">nPop</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Haplotypes (sites)&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Haplotypes (sites)'</span><span class="p">)</span>
 
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;PC2&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"PC2"</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dipSvd</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
                  <span class="n">dipSvd</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
                  <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">nSamp</span><span class="p">]</span> <span class="o">*</span> <span class="n">nPop</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Individuals (sites)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Individuals (sites)"</span><span class="p">)</span>
 
 <span class="c1"># flipping the axes to make similarity clearer:</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">hapBranchPca</span><span class="o">.</span><span class="n">factors</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
                  <span class="n">hapBranchPca</span><span class="o">.</span><span class="n">factors</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
                  <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">nHap</span><span class="p">]</span> <span class="o">*</span> <span class="n">nPop</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Haplotypes (branches)&quot;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;PC2&quot;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;PC1&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Haplotypes (branches)"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"PC2"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"PC1"</span><span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dipBranchPca</span><span class="o">.</span><span class="n">factors</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
                  <span class="n">dipBranchPca</span><span class="o">.</span><span class="n">factors</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
                  <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">nSamp</span><span class="p">]</span> <span class="o">*</span> <span class="n">nPop</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Individuals (branches)&quot;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;PC1&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Individuals (branches)"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"PC1"</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5027cfeee51adfd721b306ec62e775cee03848f2ce1cbbc17e70b7e3b59c8182.png" src="_images/5027cfeee51adfd721b306ec62e775cee03848f2ce1cbbc17e70b7e3b59c8182.png" />
+<img alt="_images/49d283bd3d18e1f9b3f79f4568ba63f80de7ca4d2724251788b3c1192f4ebe59.png" src="_images/49d283bd3d18e1f9b3f79f4568ba63f80de7ca4d2724251788b3c1192f4ebe59.png" />
 </div>
 </div>
 <p>The plots on the left show one dot per haplotype. These have twice as many dots as the plots on the right, which show individuals. The colours indicate from which of the five islands a haplotype or individual was sampled. As expected with low geneflow, there is some grouping by island. Feel free to re-run with higher or lower values of <code class="docutils literal notranslate"><span class="pre">migRate</span></code> to see how the separations between the island samples changes.</p>
@@ -1494,13 +1545,13 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Intercept: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">intercept</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">    Slope: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">slope</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">      r^2: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">rvalue</span><span class="o">**</span><span class="mi">2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intercept: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">intercept</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">    Slope: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">slope</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">      r^2: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">rvalue</span><span class="o">**</span><span class="mi">2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept: 0.2160
-    Slope: 1.0008
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept: 0.1953
+    Slope: 1.0010
       r^2: 0.9996
 </pre></div>
 </div>
@@ -1510,19 +1561,19 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;sqrt(Branch eigenvals)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;GT svd.S&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">slope</span><span class="o">*</span><span class="n">xx</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;fitted line&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Branches: $\sqrt{eigenvals * \mu}$&quot;</span><span class="p">)</span> <span class="c1"># use raw string to avoid error message about \s</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;SNPs: $S$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Variance components of SNP and branch PCA&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"sqrt(Branch eigenvals)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"GT svd.S"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">slope</span><span class="o">*</span><span class="n">xx</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'fitted line'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Branches: $\sqrt{eigenvals * \mu}$"</span><span class="p">)</span> <span class="c1"># use raw string to avoid error message about \s</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"SNPs: $S$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Variance components of SNP and branch PCA"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/391a048b568dc06ebcf08f649bdd255a2ddcb2b68d5d5d9abcefbb3ca7441a5b.png" src="_images/391a048b568dc06ebcf08f649bdd255a2ddcb2b68d5d5d9abcefbb3ca7441a5b.png" />
+<img alt="_images/1b6be60ff9e3e61b4de3f56e610300c1e491fe6f5f7011470b69318ea011c7f9.png" src="_images/1b6be60ff9e3e61b4de3f56e610300c1e491fe6f5f7011470b69318ea011c7f9.png" />
 </div>
 </div>
 </section>
@@ -1557,20 +1608,20 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">evecs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
                 <span class="n">evecs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">20</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Branch PCA, (window: </span><span class="si">{</span><span class="mi">10</span><span class="o">**</span><span class="n">i</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2"> gens)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Branch PCA, (window: </span><span class="si">{</span><span class="mi">10</span><span class="o">**</span><span class="n">i</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2"> gens)"</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/63952028463c1d65bed0fa2d70388227a8c4a2360247afd6def6c3e5eac771f5.png" src="_images/63952028463c1d65bed0fa2d70388227a8c4a2360247afd6def6c3e5eac771f5.png" />
-<img alt="_images/2927c90bb481b9ac56b8296e11ae923b14234057e46338a4e8d159adfb04e870.png" src="_images/2927c90bb481b9ac56b8296e11ae923b14234057e46338a4e8d159adfb04e870.png" />
-<img alt="_images/8eee4c9df99187691febdd8934901e23115a2b35e362e48d10d4c633b8c960f7.png" src="_images/8eee4c9df99187691febdd8934901e23115a2b35e362e48d10d4c633b8c960f7.png" />
-<img alt="_images/d3abf1cf657111ca4d5a4b1f87f890e8e59ea999fa75da3a73c075008ec5ceb7.png" src="_images/d3abf1cf657111ca4d5a4b1f87f890e8e59ea999fa75da3a73c075008ec5ceb7.png" />
-<img alt="_images/c701fea1cf8f5d66612a72fef6c25d3c15aaa444a49fb023bd8cc3a70f589a8d.png" src="_images/c701fea1cf8f5d66612a72fef6c25d3c15aaa444a49fb023bd8cc3a70f589a8d.png" />
-<img alt="_images/21b354ad489239d120ebf0441cc405c1c20e57d5d3cecd1ae667af3fa9def143.png" src="_images/21b354ad489239d120ebf0441cc405c1c20e57d5d3cecd1ae667af3fa9def143.png" />
-<img alt="_images/bbd77a3a50728c07e8a7cd8928455ef729fb69d09d39362459fd6aa1fcf38514.png" src="_images/bbd77a3a50728c07e8a7cd8928455ef729fb69d09d39362459fd6aa1fcf38514.png" />
-<img alt="_images/e0038890894976df5fe671ff90fc01d7ce11f982395e7462cbf7ee6ac4413f1a.png" src="_images/e0038890894976df5fe671ff90fc01d7ce11f982395e7462cbf7ee6ac4413f1a.png" />
+<img alt="_images/d2f1f9c2367092388636ef828847a7aec1d7e43deed60ad08d949084d37b7a57.png" src="_images/d2f1f9c2367092388636ef828847a7aec1d7e43deed60ad08d949084d37b7a57.png" />
+<img alt="_images/bcfa68dd69b36d55c5a483f6a7a77725ecb49784d56a22900a6cd768cdf9e5d9.png" src="_images/bcfa68dd69b36d55c5a483f6a7a77725ecb49784d56a22900a6cd768cdf9e5d9.png" />
+<img alt="_images/630cd079092746f8ada0e4d39093531cd30460e700d2c13f0154ea1e2f0ff1f2.png" src="_images/630cd079092746f8ada0e4d39093531cd30460e700d2c13f0154ea1e2f0ff1f2.png" />
+<img alt="_images/ddfeb392c6e8365f1d6f77fe6239c00b241617ddc6a6464145ed31f25314826b.png" src="_images/ddfeb392c6e8365f1d6f77fe6239c00b241617ddc6a6464145ed31f25314826b.png" />
+<img alt="_images/2784ce438b1617f310e7f8f910c691b2a668d33de4350c6c29898fe50d4ce891.png" src="_images/2784ce438b1617f310e7f8f910c691b2a668d33de4350c6c29898fe50d4ce891.png" />
+<img alt="_images/21b3e30b1034d530137eefd1e33fbd28468b819491030679d863bfe3507fe1e8.png" src="_images/21b3e30b1034d530137eefd1e33fbd28468b819491030679d863bfe3507fe1e8.png" />
+<img alt="_images/2ad01c03a17d4b93070f915e70715230f5151a7b7dbd37b0cd07a9a9ed44afdb.png" src="_images/2ad01c03a17d4b93070f915e70715230f5151a7b7dbd37b0cd07a9a9ed44afdb.png" />
+<img alt="_images/e923cf968638ee2a543d6e67808b15b0b9752f52104b686022b3d9d147aa6ef2.png" src="_images/e923cf968638ee2a543d6e67808b15b0b9752f52104b686022b3d9d147aa6ef2.png" />
 </div>
 </div>
 <p>When selecting a very old window, each individual contributes to its own PC, causing most to be plotted at the origin (0,0). We can see this when inspecting the oldest window’s PC scores, which are an identityt matrix. All haplotypes below the first two have 0 entries for the first two PC scores (the two left-most columns).</p>
@@ -1678,7 +1729,7 @@
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branch-pca-tskit">Branch PCA (tskit)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca-by-hand">PCA ‘by hand’</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-for-comparison">Plot for comparison</a></li>
@@ -1733,8 +1784,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

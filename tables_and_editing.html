@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,6 +63,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tables_and_editing';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Simplification" href="simplification.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -360,7 +411,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correspondence-between-tables-and-trees">Correspondence between tables and trees</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-and-edge-tables">Node and edge tables</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#site-and-mutation-tables">Site and mutation tables</a></li>
@@ -415,7 +466,7 @@ them. In this tutorial we give some pointers about what you can and cannot do wi
 <p>Consider the following sequence of trees:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tables_example.trees&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/tables_example.trees"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -549,7 +600,7 @@ and 5 respectively) allow us to construct all trees across the entire interval.<
 <a class="reference internal" href="what_is.html#sec-what-is-dna-data"><span class="std std-ref">stored as mutations overlaid on the trees</span></a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/tables_example_muts.trees&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/tables_example_muts.trees"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -566,7 +617,7 @@ and 5 respectively) allow us to construct all trees across the entire interval.<
     <span class="n">site</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">site</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">site</span><span class="p">)</span>
     <span class="n">older_mut</span> <span class="o">=</span> <span class="n">mut</span><span class="o">.</span><span class="n">parent</span> <span class="o">&gt;=</span> <span class="mi">0</span>  <span class="c1"># is there an older mutation at the same position?</span>
     <span class="n">prev</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">mutation</span><span class="p">(</span><span class="n">mut</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">derived_state</span> <span class="k">if</span> <span class="n">older_mut</span> <span class="k">else</span> <span class="n">site</span><span class="o">.</span><span class="n">ancestral_state</span>
-    <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">→</span><span class="si">{}</span><span class="s2"> @</span><span class="si">{:g}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">,</span> <span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+    <span class="n">mut_labels</span><span class="p">[</span><span class="n">mut</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">→</span><span class="si">{}</span><span class="s2"> @</span><span class="si">{:g}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">mut</span><span class="o">.</span><span class="n">derived_state</span><span class="p">,</span> <span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mutation_labels</span><span class="o">=</span><span class="n">mut_labels</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -659,7 +710,7 @@ of the sample nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">sample</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">haplotypes</span><span class="p">()):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample </span><span class="si">{</span><span class="n">sample</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sample </span><span class="si">{</span><span class="n">sample</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -803,12 +854,12 @@ metadata of the population and individual tables is stored as
 easy to access the metadata values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Information from the tree sequence&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Information from the tree sequence"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">individuals</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Individual </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> is named </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Equivalent information from the associated tables&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Individual </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> is named </span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Equivalent information from the associated tables"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Individual name: </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Individual name: </span><span class="si">{</span><span class="n">row</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -901,7 +952,7 @@ every <code class="docutils literal notranslate"><span class="pre">time</span></
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_table</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">nodes</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Old node times:&quot;</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Old node times:"</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
 <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="mf">0.25</span>
 <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span>
 <span class="n">node_table</span>
@@ -954,19 +1005,19 @@ expected length:</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">node_table</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/tables.py:707,</span> in <span class="ni">MutableBaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/tables.py:707,</span> in <span class="ni">MutableBaseTable.__setattr__</span><span class="nt">(self, name, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 <span class="ne">--&gt; </span><span class="mi">707</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">708</span> <span class="k">else</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">709</span>     <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/tables.py:1559,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1526</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/tables.py:1559,</span> in <span class="ni">NodeTable.set_columns</span><span class="nt">(self, flags, time, population, individual, metadata, metadata_offset, metadata_schema)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1526</span><span class="w"> </span><span class="sd">"""</span>
 <span class="g g-Whitespace">   </span><span class="mi">1527</span><span class="sd"> Sets the values for each column in this :class:`NodeTable` using the values in</span>
 <span class="g g-Whitespace">   </span><span class="mi">1528</span><span class="sd"> the specified arrays. Overwrites existing data in all the table columns.</span>
 <span class="sd">   (...)   1556 :type metadata_schema: str</span>
-<span class="g g-Whitespace">   </span><span class="mi">1557</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1557</span><span class="sd"> """</span>
 <span class="g g-Whitespace">   </span><span class="mi">1558</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_required_args</span><span class="p">(</span><span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
 <span class="ne">-&gt; </span><span class="mi">1559</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll_table</span><span class="o">.</span><span class="n">set_columns</span><span class="p">(</span>
 <span class="g g-Whitespace">   </span><span class="mi">1560</span>     <span class="nb">dict</span><span class="p">(</span>
@@ -994,9 +1045,9 @@ raw values, accessible via attributes</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Node 3, belonging to individual&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">individual</span><span class="p">,</span>
-    <span class="s2">&quot;in population&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">population</span><span class="p">,</span>
-    <span class="s2">&quot;exists at time&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+    <span class="s2">"Node 3, belonging to individual"</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">individual</span><span class="p">,</span>
+    <span class="s2">"in population"</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">population</span><span class="p">,</span>
+    <span class="s2">"exists at time"</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </pre></div>
@@ -1004,13 +1055,13 @@ raw values, accessible via attributes</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 3, belonging to individual 2 in population 0 exists at time 0.15
-NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b&#39;&#39;)
+NodeTableRow(flags=0, time=0.15, population=0, individual=2, metadata=b'')
 </pre></div>
 </div>
 </div>
 </div>
 <p>Additionally, many rows can be extracted into a new table using slices or
-<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v2.4)"><span class="xref std std-ref">numpy indexing</span></a></p>
+<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v2.5)"><span class="xref std std-ref">numpy indexing</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
@@ -1046,12 +1097,12 @@ on the copy that was produced by <a class="reference external" href="https://tsk
 change the ancestral state value of site 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Check the site&#39;s ancestral state (&quot;A&quot;)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Check the site's ancestral state ("A")</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SiteTableRow(position=15.0, ancestral_state=&#39;A&#39;, metadata=b&#39;&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SiteTableRow(position=15.0, ancestral_state='A', metadata=b'')
 </pre></div>
 </div>
 </div>
@@ -1060,7 +1111,7 @@ change the ancestral state value of site 0.</p>
 the attributes enforce read-only access:</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span> <span class="c1"># This will not work: attributes are read-only</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">"C"</span> <span class="c1"># This will not work: attributes are read-only</span>
 </pre></div>
 </div>
 </div>
@@ -1068,12 +1119,12 @@ the attributes enforce read-only access:</p>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">FrozenInstanceError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span> <span class="c1"># This will not work: attributes are read-only</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ancestral_state</span> <span class="o">=</span> <span class="s2">"C"</span> <span class="c1"># This will not work: attributes are read-only</span>
 
 <span class="nn">File &lt;string&gt;:4,</span> in <span class="ni">__create_fn__.&lt;locals&gt;.__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="s1">&#39;Could not get source, probably due dynamically evaluated source code.&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="s1">'Could not get source, probably due dynamically evaluated source code.'</span>
 
-<span class="ne">FrozenInstanceError</span>: cannot assign to field &#39;ancestral_state&#39;
+<span class="ne">FrozenInstanceError</span>: cannot assign to field 'ancestral_state'
 </pre></div>
 </div>
 </div>
@@ -1081,7 +1132,7 @@ the attributes enforce read-only access:</p>
 <p>So to change row data you need to replace the row completely:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">SiteTableRow</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">SiteTableRow</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">"C"</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1091,12 +1142,12 @@ from an old one. This is often an easier way to changing one or two attributes:<
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Another way to change a single entry: create a new row to replace the old one ...</span>
-<span class="n">replacement_row</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="n">replacement_row</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="s2">"C"</span><span class="p">)</span>
 <span class="c1"># ... then overwrite the original</span>
 <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">replacement_row</span>
 
 <span class="c1"># Or equivalently, do both in a single step</span>
-<span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ancestral_state</span><span class="o">=</span><span class="s2">"C"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1106,10 +1157,10 @@ from an old one. This is often an easier way to changing one or two attributes:<
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_pos</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">new_site_id</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-    <span class="n">position</span><span class="o">=</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;A new site&quot;</span>
+    <span class="n">position</span><span class="o">=</span><span class="n">new_pos</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s2">"G"</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">"A new site"</span>
     <span class="c1"># NB: This site table has no scheme, so metadata must be a raw byte string</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New empty site allocated at position </span><span class="si">{</span><span class="n">new_pos</span><span class="si">}</span><span class="s2"> with ID </span><span class="si">{</span><span class="n">new_site_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"New empty site allocated at position </span><span class="si">{</span><span class="n">new_pos</span><span class="si">}</span><span class="s2"> with ID </span><span class="si">{</span><span class="n">new_site_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="n">new_tables</span><span class="o">.</span><span class="n">sites</span>
 </pre></div>
 </div>
@@ -1169,7 +1220,7 @@ in the order required for a tree sequence. That means we need to call
 <code class="docutils literal notranslate"><span class="pre">new_tables.sort()</span></code> before turning the table collection into a tree sequence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># altered_ts = new_tables.tree_sequence()  # This won&#39;t work</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># altered_ts = new_tables.tree_sequence()  # This won't work</span>
 <span class="n">new_tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="n">altered_ts</span> <span class="o">=</span> <span class="n">new_tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>  <span class="c1"># Now it will</span>
 </pre></div>
@@ -1201,7 +1252,7 @@ understand how tables work. We’ll build an extremely simple tree sequence, con
 a single tree that looks like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/construction_example.trees&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/construction_example.trees"</span><span class="p">)</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1299,11 +1350,11 @@ type. We’ll use that for the edges:</p>
 ATGC.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site_id</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">derived_state</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">site_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">ancestral_state</span><span class="o">=</span><span class="s1">'0'</span><span class="p">)</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="n">site_id</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">derived_state</span><span class="o">=</span><span class="s1">'1'</span><span class="p">)</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  <span class="c1"># make sure the edges &amp; sites are in the right order</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A hand-built tree sequence!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"A hand-built tree sequence!"</span><span class="p">)</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1355,7 +1406,7 @@ sequences together.</p></li>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">discrete_genome</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot;sites in the simulated tree sequence&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">"sites in the simulated tree sequence"</span><span class="p">)</span>
 
 <span class="c1"># Identify sites with a singleton allele</span>
 <span class="n">sites_with_a_singleton_allele</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1366,7 +1417,7 @@ sequences together.</p></li>
         
 <span class="c1"># Strip those sites from the tree sequence</span>
 <span class="n">ts_new</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">delete_sites</span><span class="p">(</span><span class="n">sites_with_a_singleton_allele</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ts_new</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">&quot;sites after removing singletons&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_new</span><span class="o">.</span><span class="n">num_sites</span><span class="p">,</span> <span class="s2">"sites after removing singletons"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1388,8 +1439,8 @@ the <code class="docutils literal notranslate"><span class="pre">metadata</span>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">altered_ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>
-<span class="c1"># Change the name &quot;Bob&quot; to &quot;Robert&quot;</span>
-<span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Robert&quot;</span><span class="p">})</span>
+<span class="c1"># Change the name "Bob" to "Robert"</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Robert"</span><span class="p">})</span>
 <span class="n">edited_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 <span class="n">edited_ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span>
 </pre></div>
@@ -1437,7 +1488,7 @@ note the extra step of validating and encoding before calling
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a surname to all individuals</span>
-<span class="n">new_metadata</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; Smith&quot;</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">]</span>
+<span class="n">new_metadata</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">+</span> <span class="s2">" Smith"</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">]</span>
 <span class="n">validated_metadata</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">new_metadata</span>
 <span class="p">]</span>
@@ -1486,7 +1537,7 @@ This also involves changing the ancestral state at the site if necessary.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a tree sequence with loads of recurrent/back mutations, for testing only</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">456</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original ts has&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="p">,</span> <span class="s2">&quot;mutations on&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">&quot;trees&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Original ts has"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="p">,</span> <span class="s2">"mutations on"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">"trees"</span><span class="p">)</span>
 
 <span class="n">tables</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dump_tables</span><span class="p">()</span>  <span class="c1"># Copy the table collection associated with this tree sequence</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">mutations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  <span class="c1"># Clear all mutations in the table collection copy</span>
@@ -1511,7 +1562,7 @@ This also involves changing the ancestral state at the site if necessary.</p>
 <span class="n">tables</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="n">parsimonious_ts</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">tree_sequence</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parsimonious ts has&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">-</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="p">,</span> <span class="s2">&quot;fewer muts&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Parsimonious ts has"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">-</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="p">,</span> <span class="s2">"fewer muts"</span><span class="p">)</span>
 
 <span class="c1"># Optional checks</span>
 <span class="k">assert</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span> <span class="o">==</span> <span class="n">parsimonious_ts</span><span class="o">.</span><span class="n">num_trees</span>
@@ -1606,7 +1657,7 @@ collection as we go. This is a common idiom.</p>
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correspondence-between-tables-and-trees">Correspondence between tables and trees</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-and-edge-tables">Node and edge tables</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#site-and-mutation-tables">Site and mutation tables</a></li>
@@ -1680,8 +1731,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

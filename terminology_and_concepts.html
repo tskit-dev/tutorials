@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,6 +63,7 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'terminology_and_concepts';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting started with tskit" href="getting_started.html" />
@@ -70,20 +71,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -109,7 +116,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -360,7 +411,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genomes">Genomes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a><ul class="nav section-nav flex-column">
@@ -417,8 +468,8 @@ But first we’ll <a class="reference external" href="https://tskit.dev/tskit/do
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
-<span class="c1"># We will often store the python tree sequence object in a variable named &quot;ts&quot; or &quot;arg&quot;</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/basics.trees&quot;</span><span class="p">)</span>
+<span class="c1"># We will often store the python tree sequence object in a variable named "ts" or "arg"</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/basics.trees"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -464,7 +515,7 @@ pairs. This is accessible using the <a class="reference external" href="https://
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">"log_time"</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
@@ -502,7 +553,7 @@ and which therefore have a fully known genetic sequence. There are 6 sample node
 labelled <span class="math notranslate nohighlight">\(0..5\)</span>, and also 6 non-sample nodes, labelled <span class="math notranslate nohighlight">\(6..11\)</span>, in the tree sequence above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="s2">&quot;nodes, of which&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="p">,</span> <span class="s2">&quot;are sample nodes&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"There are"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="s2">"nodes, of which"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_samples</span><span class="p">,</span> <span class="s2">"are sample nodes"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -530,13 +581,13 @@ along the genome. There are 15 edges in the tree sequence above. Here’s an exa
 one of them:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_edges</span><span class="p">,</span> <span class="s2">&quot;edges, one of which is:</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"There are"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_edges</span><span class="p">,</span> <span class="s2">"edges, one of which is:</span><span class="se">\n</span><span class="s2"> "</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 15 edges, one of which is:
-  Edge(left=307.0, right=567.0, parent=10, child=9, metadata=b&#39;&#39;, id=10)
+  Edge(left=307.0, right=567.0, parent=10, child=9, metadata=b'', id=10)
 </pre></div>
 </div>
 </div>
@@ -570,7 +621,7 @@ edge changes it creates a new tree; the location of the change is known as a <em
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breakpoints</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">(</span><span class="n">as_array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">&quot;trees, associated with breakpoints&quot;</span><span class="p">,</span> <span class="n">breakpoints</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"There are"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="s2">"trees, associated with breakpoints"</span><span class="p">,</span> <span class="n">breakpoints</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -595,12 +646,12 @@ information about (say) node <span class="math notranslate nohighlight">\(7\)</s
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">first_tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 <span class="n">parent_of_7</span> <span class="o">=</span> <span class="n">first_tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">children_of_7</span> <span class="o">=</span> <span class="n">first_tree</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Node 7&#39;s parent is&quot;</span><span class="p">,</span> <span class="n">parent_of_7</span><span class="p">,</span> <span class="s2">&quot;and children are&quot;</span><span class="p">,</span> <span class="n">children_of_7</span><span class="p">,</span> <span class="s2">&quot;in the first tree&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Node 7's parent is"</span><span class="p">,</span> <span class="n">parent_of_7</span><span class="p">,</span> <span class="s2">"and children are"</span><span class="p">,</span> <span class="n">children_of_7</span><span class="p">,</span> <span class="s2">"in the first tree"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 7&#39;s parent is 11 and children are (1, 4) in the first tree
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 7's parent is 11 and children are (1, 4) in the first tree
 </pre></div>
 </div>
 </div>
@@ -620,17 +671,17 @@ tree sequence the sample nodes are indeed associated with three named diploid
 individuals: <code class="docutils literal notranslate"><span class="pre">Ada</span></code>, <code class="docutils literal notranslate"><span class="pre">Bob</span></code> and <code class="docutils literal notranslate"><span class="pre">Cat</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_individuals</span><span class="si">}</span><span class="s2"> individuals defined in the tree sequence:&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"There are </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_individuals</span><span class="si">}</span><span class="s2"> individuals defined in the tree sequence:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">individuals</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Individual </span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: metadata=</span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">metadata</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Individual </span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: metadata=</span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">metadata</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 3 individuals defined in the tree sequence:
-* Individual 0: metadata={&#39;name&#39;: &#39;Ada&#39;}
-* Individual 1: metadata={&#39;name&#39;: &#39;Bob&#39;}
-* Individual 2: metadata={&#39;name&#39;: &#39;Cat&#39;}
+* Individual 0: metadata={'name': 'Ada'}
+* Individual 1: metadata={'name': 'Bob'}
+* Individual 2: metadata={'name': 'Cat'}
 </pre></div>
 </div>
 </div>
@@ -647,17 +698,17 @@ together in the trees, as the original simulation was of a randomly mating popul
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()}</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">samples</span><span class="p">():</span>
-    <span class="n">node_labels</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">individual</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="n">node_labels</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">individual</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span>
 <span class="n">styles</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;.node &gt; .lab {font-size: 70%}&quot;</span>
-    <span class="s2">&quot;.leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}&quot;</span>
+    <span class="s2">".node &gt; .lab {font-size: 70%}"</span>
+    <span class="s2">".leaf &gt; .lab {text-anchor: start; transform: rotate(90deg) translate(6px)}"</span>
 <span class="p">)</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">node_labels</span><span class="o">=</span><span class="n">node_labels</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">styles</span><span class="p">,</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">"log_time"</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
@@ -673,15 +724,15 @@ be associated with a larger <em>population</em>. In this example, there is only 
 (to which all the nodes belong):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_populations</span><span class="si">}</span><span class="s2"> population(s) defined:&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_populations</span><span class="si">}</span><span class="s2"> population(s) defined:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">population</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">populations</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 population(s) defined:
-* Population(id=0, metadata={&#39;description&#39;: &#39;British from England and Scotland&#39;, &#39;name&#39;: &#39;GBR&#39;})
+* Population(id=0, metadata={'description': 'British from England and Scotland', 'name': 'GBR'})
 </pre></div>
 </div>
 </div>
@@ -696,15 +747,15 @@ site (specified by a site ID), and involves a change of allelic state to a defin
 this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="si">}</span><span class="s2"> mutation(s) in the tree sequence:&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_mutations</span><span class="si">}</span><span class="s2"> mutation(s) in the tree sequence:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">mutation</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">mutations</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">mutation</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">mutation</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 mutation(s) in the tree sequence:
-* Mutation(id=0, site=0, node=8, derived_state=&#39;G&#39;, parent=-1, metadata=b&#39;&#39;, time=nan, edge=12, inherited_state=&#39;T&#39;)
+* Mutation(id=0, site=0, node=8, derived_state='G', parent=-1, metadata=b'', time=nan, edge=12, inherited_state='T')
 </pre></div>
 </div>
 </div>
@@ -721,7 +772,7 @@ this case, site ID 0 (which happens to be at position 751):</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site(id=0, position=751.0, ancestral_state=&#39;T&#39;, mutations=[Mutation(id=0, site=0, node=8, derived_state=&#39;G&#39;, parent=-1, metadata=b&#39;&#39;, time=nan, edge=12, inherited_state=&#39;T&#39;)], metadata=b&#39;&#39;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Site(id=0, position=751.0, ancestral_state='T', mutations=[Mutation(id=0, site=0, node=8, derived_state='G', parent=-1, metadata=b'', time=nan, edge=12, inherited_state='T')], metadata=b'')
 </pre></div>
 </div>
 </div>
@@ -772,9 +823,9 @@ For reference, here is the tree sequence topology that we have been using:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span>
     <span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">y_gridlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">time_scale</span><span class="o">=</span><span class="s2">&quot;log_time&quot;</span><span class="p">,</span>
+    <span class="n">time_scale</span><span class="o">=</span><span class="s2">"log_time"</span><span class="p">,</span>
     <span class="n">y_ticks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span><span class="mi">1000</span><span class="p">],</span>
-    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;.mut, .site {display: none}&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">".mut, .site {display: none}"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1359,7 +1410,7 @@ review this topic in detail.</p>
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genomes">Genomes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodes">Nodes</a><ul class="nav section-nav flex-column">
@@ -1427,8 +1478,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

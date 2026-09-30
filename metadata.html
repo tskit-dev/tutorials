@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -61,6 +61,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'metadata';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ARGs as tree sequences" href="args.html" />
@@ -68,20 +69,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -107,7 +114,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -358,7 +409,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-metadata-and-schemas">Reading metadata and schemas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-metadata-and-schemas">Modifying metadata and schemas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-raw-metadata">Viewing raw metadata</a></li>
@@ -391,7 +442,7 @@ which contains some demonstration metadata:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
-<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/metadata.trees&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"data/metadata.trees"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -402,14 +453,14 @@ which contains some demonstration metadata:</p>
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TreeSequence" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeSequence</span></code></a> or <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.TableCollection" title="(in Project name not set)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TableCollection</span></code></a> Python API. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metadata for individual 0:&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">individual</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>  <span class="c1"># Tree sequence access</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metadata for individual 0:&quot;</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>  <span class="c1"># Table access</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Metadata for individual 0:"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">individual</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>  <span class="c1"># Tree sequence access</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Metadata for individual 0:"</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>  <span class="c1"># Table access</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metadata for individual 0: {&#39;accession&#39;: &#39;ERS0001&#39;, &#39;pcr&#39;: True}
-Metadata for individual 0: {&#39;accession&#39;: &#39;ERS0001&#39;, &#39;pcr&#39;: True}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metadata for individual 0: {'accession': 'ERS0001', 'pcr': True}
+Metadata for individual 0: {'accession': 'ERS0001', 'pcr': True}
 </pre></div>
 </div>
 </div>
@@ -423,7 +474,7 @@ its metadata, as it can contain descriptions and constraints:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&quot;additionalProperties&quot;:false,&quot;codec&quot;:&quot;json&quot;,&quot;properties&quot;:{&quot;accession&quot;:{&quot;description&quot;:&quot;ENA accession number&quot;,&quot;type&quot;:&quot;string&quot;},&quot;pcr&quot;:{&quot;description&quot;:&quot;Was PCR used on this sample&quot;,&quot;name&quot;:&quot;PCR Used&quot;,&quot;type&quot;:&quot;boolean&quot;}},&quot;required&quot;:[&quot;accession&quot;,&quot;pcr&quot;],&quot;type&quot;:&quot;object&quot;}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{"additionalProperties":false,"codec":"json","properties":{"accession":{"description":"ENA accession number","type":"string"},"pcr":{"description":"Was PCR used on this sample","name":"PCR Used","type":"boolean"}},"required":["accession","pcr"],"type":"object"}
 </pre></div>
 </div>
 </div>
@@ -439,24 +490,24 @@ on each table (printed prettily here using <code class="docutils literal notrans
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
-    &quot;additionalProperties&quot;: false,
-    &quot;codec&quot;: &quot;json&quot;,
-    &quot;properties&quot;: {
-        &quot;accession&quot;: {
-            &quot;description&quot;: &quot;ENA accession number&quot;,
-            &quot;type&quot;: &quot;string&quot;
+    "additionalProperties": false,
+    "codec": "json",
+    "properties": {
+        "accession": {
+            "description": "ENA accession number",
+            "type": "string"
         },
-        &quot;pcr&quot;: {
-            &quot;description&quot;: &quot;Was PCR used on this sample&quot;,
-            &quot;name&quot;: &quot;PCR Used&quot;,
-            &quot;type&quot;: &quot;boolean&quot;
+        "pcr": {
+            "description": "Was PCR used on this sample",
+            "name": "PCR Used",
+            "type": "boolean"
         }
     },
-    &quot;required&quot;: [
-        &quot;accession&quot;,
-        &quot;pcr&quot;
+    "required": [
+        "accession",
+        "pcr"
     ],
-    &quot;type&quot;: &quot;object&quot;
+    "type": "object"
 }
 </pre></div>
 </div>
@@ -484,18 +535,18 @@ will validate the schema. Here are a few examples: the first one allows arbitrar
 to be added, the second one (which will construct the schema we printed above) does not:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basic_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="p">({</span><span class="s1">&#39;codec&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basic_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="p">({</span><span class="s1">'codec'</span><span class="p">:</span> <span class="s1">'json'</span><span class="p">})</span>
 
 <span class="n">complex_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="p">({</span>
-    <span class="s1">&#39;codec&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;additionalProperties&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;accession&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;ENA accession number&#39;</span><span class="p">,</span>
-                                 <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
-                   <span class="s1">&#39;pcr&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Was PCR used on this sample&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;PCR Used&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;boolean&#39;</span><span class="p">}},</span>
-    <span class="s1">&#39;required&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;accession&#39;</span><span class="p">,</span> <span class="s1">&#39;pcr&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+    <span class="s1">'codec'</span><span class="p">:</span> <span class="s1">'json'</span><span class="p">,</span>
+    <span class="s1">'additionalProperties'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'properties'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'accession'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'description'</span><span class="p">:</span> <span class="s1">'ENA accession number'</span><span class="p">,</span>
+                                 <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'string'</span><span class="p">},</span>
+                   <span class="s1">'pcr'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Was PCR used on this sample'</span><span class="p">,</span>
+                           <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'PCR Used'</span><span class="p">,</span>
+                           <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'boolean'</span><span class="p">}},</span>
+    <span class="s1">'required'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'accession'</span><span class="p">,</span> <span class="s1">'pcr'</span><span class="p">],</span>
+    <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'object'</span><span class="p">,</span>
 <span class="p">})</span>
 </pre></div>
 </div>
@@ -516,8 +567,8 @@ metadata against the new schema. Now that the table has a schema, calls to
 <a class="reference external" href="https://tskit.dev/tskit/docs/stable/python-api.html#tskit.IndividualTable.add_row" title="(in Project name not set)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_row()</span></code></a> will validate and encode the metadata:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Row </span><span class="si">{</span><span class="n">row_id</span><span class="si">}</span><span class="s2"> added to the individuals table&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">row_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"Bob1234"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Row </span><span class="si">{</span><span class="n">row_id</span><span class="si">}</span><span class="s2"> added to the individuals table"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -531,39 +582,39 @@ metadata against the new schema. Now that the table has a schema, calls to
 string instead of a proper Python boolean, we’ll get an error:</p>
 <div class="cell tag_raises-exception tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"Bob1234"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValidationError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/metadata.py:1004,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/metadata.py:1004,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1003</span> <span class="k">try</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1004</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1005</span> <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/jsonschema/validators.py:432,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/jsonschema/validators.py:432,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">431</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="ne">--&gt; </span><span class="mi">432</span>     <span class="k">raise</span> <span class="n">error</span>
 
-<span class="ne">ValidationError</span>: &#39;false&#39; is not of type &#39;boolean&#39;
+<span class="ne">ValidationError</span>: 'false' is not of type 'boolean'
 
-<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">&#39;type&#39;</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">[</span><span class="s1">&#39;properties&#39;</span><span class="p">][</span><span class="s1">&#39;pcr&#39;</span><span class="p">]:</span>
-    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;Was PCR used on this sample&#39;</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;PCR Used&#39;</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">)])</span>
+<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">'type'</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="s1">'pcr'</span><span class="p">]:</span>
+    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'description'</span><span class="p">,</span> <span class="s1">'Was PCR used on this sample'</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'PCR Used'</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'boolean'</span><span class="p">)])</span>
 
-<span class="n">On</span> <span class="n">instance</span><span class="p">[</span><span class="s1">&#39;pcr&#39;</span><span class="p">]:</span>
-    <span class="s1">&#39;false&#39;</span>
+<span class="n">On</span> <span class="n">instance</span><span class="p">[</span><span class="s1">'pcr'</span><span class="p">]:</span>
+    <span class="s1">'false'</span>
 
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"Bob1234"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">})</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/tables.py:1261,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/tables.py:1261,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1259</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1260</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
 <span class="ne">-&gt; </span><span class="mi">1261</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
@@ -571,21 +622,21 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 <span class="g g-Whitespace">   </span><span class="mi">1263</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
 <span class="g g-Whitespace">   </span><span class="mi">1264</span> <span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/metadata.py:1006,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/metadata.py:1006,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1004</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1005</span>     <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1006</span>         <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">ve</span>
 <span class="g g-Whitespace">   </span><span class="mi">1007</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-<span class="ne">MetadataValidationError</span>: &#39;false&#39; is not of type &#39;boolean&#39;
+<span class="ne">MetadataValidationError</span>: 'false' is not of type 'boolean'
 
-<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">&#39;type&#39;</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">[</span><span class="s1">&#39;properties&#39;</span><span class="p">][</span><span class="s1">&#39;pcr&#39;</span><span class="p">]:</span>
-    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;Was PCR used on this sample&#39;</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;PCR Used&#39;</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">)])</span>
+<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">'type'</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="s1">'pcr'</span><span class="p">]:</span>
+    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'description'</span><span class="p">,</span> <span class="s1">'Was PCR used on this sample'</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'PCR Used'</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'boolean'</span><span class="p">)])</span>
 
-<span class="n">On</span> <span class="n">instance</span><span class="p">[</span><span class="s1">&#39;pcr&#39;</span><span class="p">]:</span>
-    <span class="s1">&#39;false&#39;</span>
+<span class="n">On</span> <span class="n">instance</span><span class="p">[</span><span class="s1">'pcr'</span><span class="p">]:</span>
+    <span class="s1">'false'</span>
 </pre></div>
 </div>
 </div>
@@ -594,51 +645,51 @@ string instead of a proper Python boolean, we’ll get an error:</p>
 also raised if we attempt to add new fields:</p>
 <div class="cell tag_raises-exception tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"Bob1234"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"newKey"</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValidationError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/metadata.py:1004,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/metadata.py:1004,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1003</span> <span class="k">try</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1004</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1005</span> <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/jsonschema/validators.py:432,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/jsonschema/validators.py:432,</span> in <span class="ni">create.&lt;locals&gt;.Validator.validate</span><span class="nt">(self, *args, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">431</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_errors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="ne">--&gt; </span><span class="mi">432</span>     <span class="k">raise</span> <span class="n">error</span>
 
-<span class="ne">ValidationError</span>: Additional properties are not allowed (&#39;newKey&#39; was unexpected)
+<span class="ne">ValidationError</span>: Additional properties are not allowed ('newKey' was unexpected)
 
-<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">&#39;additionalProperties&#39;</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">:</span>
-    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;additionalProperties&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;codec&#39;</span><span class="p">,</span> <span class="s1">&#39;json&#39;</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;properties&#39;</span><span class="p">,</span>
-                  <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;accession&#39;</span><span class="p">,</span>
-                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span>
-                                              <span class="s1">&#39;ENA accession number&#39;</span><span class="p">),</span>
-                                             <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)])),</span>
-                               <span class="p">(</span><span class="s1">&#39;pcr&#39;</span><span class="p">,</span>
-                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span>
-                                              <span class="s1">&#39;Was PCR used on this &#39;</span>
-                                              <span class="s1">&#39;sample&#39;</span><span class="p">),</span>
-                                             <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;PCR Used&#39;</span><span class="p">),</span>
-                                             <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">)]))])),</span>
-                 <span class="p">(</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;accession&#39;</span><span class="p">,</span> <span class="s1">&#39;pcr&#39;</span><span class="p">]),</span>
-                 <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;object&#39;</span><span class="p">)])</span>
+<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">'additionalProperties'</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">:</span>
+    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'additionalProperties'</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'codec'</span><span class="p">,</span> <span class="s1">'json'</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'properties'</span><span class="p">,</span>
+                  <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'accession'</span><span class="p">,</span>
+                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'description'</span><span class="p">,</span>
+                                              <span class="s1">'ENA accession number'</span><span class="p">),</span>
+                                             <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'string'</span><span class="p">)])),</span>
+                               <span class="p">(</span><span class="s1">'pcr'</span><span class="p">,</span>
+                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'description'</span><span class="p">,</span>
+                                              <span class="s1">'Was PCR used on this '</span>
+                                              <span class="s1">'sample'</span><span class="p">),</span>
+                                             <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'PCR Used'</span><span class="p">),</span>
+                                             <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'boolean'</span><span class="p">)]))])),</span>
+                 <span class="p">(</span><span class="s1">'required'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'accession'</span><span class="p">,</span> <span class="s1">'pcr'</span><span class="p">]),</span>
+                 <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">)])</span>
 
 <span class="n">On</span> <span class="n">instance</span><span class="p">:</span>
-    <span class="p">{</span><span class="s1">&#39;accession&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob1234&#39;</span><span class="p">,</span> <span class="s1">&#39;newKey&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;pcr&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="p">{</span><span class="s1">'accession'</span><span class="p">:</span> <span class="s1">'Bob1234'</span><span class="p">,</span> <span class="s1">'newKey'</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">'pcr'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
 <span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
 
 <span class="ne">MetadataValidationError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;newKey&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"Bob1234"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"newKey"</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/tables.py:1261,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/tables.py:1261,</span> in <span class="ni">IndividualTable.add_row</span><span class="nt">(self, flags, location, parents, metadata)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1259</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 <span class="g g-Whitespace">   </span><span class="mi">1260</span>     <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">empty_value</span>
 <span class="ne">-&gt; </span><span class="mi">1261</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
@@ -646,33 +697,33 @@ also raised if we attempt to add new fields:</p>
 <span class="g g-Whitespace">   </span><span class="mi">1263</span>     <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="n">parents</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span>
 <span class="g g-Whitespace">   </span><span class="mi">1264</span> <span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/tskit/metadata.py:1006,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/tskit/metadata.py:1006,</span> in <span class="ni">MetadataSchema.validate_and_encode_row</span><span class="nt">(self, row)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1004</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="g g-Whitespace">   </span><span class="mi">1005</span>     <span class="k">except</span> <span class="n">jsonschema</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ValidationError</span> <span class="k">as</span> <span class="n">ve</span><span class="p">:</span>
 <span class="ne">-&gt; </span><span class="mi">1006</span>         <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">MetadataValidationError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ve</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">ve</span>
 <span class="g g-Whitespace">   </span><span class="mi">1007</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_row</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
-<span class="ne">MetadataValidationError</span>: Additional properties are not allowed (&#39;newKey&#39; was unexpected)
+<span class="ne">MetadataValidationError</span>: Additional properties are not allowed ('newKey' was unexpected)
 
-<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">&#39;additionalProperties&#39;</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">:</span>
-    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;additionalProperties&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;codec&#39;</span><span class="p">,</span> <span class="s1">&#39;json&#39;</span><span class="p">),</span>
-                 <span class="p">(</span><span class="s1">&#39;properties&#39;</span><span class="p">,</span>
-                  <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;accession&#39;</span><span class="p">,</span>
-                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span>
-                                              <span class="s1">&#39;ENA accession number&#39;</span><span class="p">),</span>
-                                             <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)])),</span>
-                               <span class="p">(</span><span class="s1">&#39;pcr&#39;</span><span class="p">,</span>
-                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span>
-                                              <span class="s1">&#39;Was PCR used on this &#39;</span>
-                                              <span class="s1">&#39;sample&#39;</span><span class="p">),</span>
-                                             <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;PCR Used&#39;</span><span class="p">),</span>
-                                             <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">)]))])),</span>
-                 <span class="p">(</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;accession&#39;</span><span class="p">,</span> <span class="s1">&#39;pcr&#39;</span><span class="p">]),</span>
-                 <span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;object&#39;</span><span class="p">)])</span>
+<span class="n">Failed</span> <span class="n">validating</span> <span class="s1">'additionalProperties'</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">:</span>
+    <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'additionalProperties'</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'codec'</span><span class="p">,</span> <span class="s1">'json'</span><span class="p">),</span>
+                 <span class="p">(</span><span class="s1">'properties'</span><span class="p">,</span>
+                  <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'accession'</span><span class="p">,</span>
+                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'description'</span><span class="p">,</span>
+                                              <span class="s1">'ENA accession number'</span><span class="p">),</span>
+                                             <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'string'</span><span class="p">)])),</span>
+                               <span class="p">(</span><span class="s1">'pcr'</span><span class="p">,</span>
+                                <span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">'description'</span><span class="p">,</span>
+                                              <span class="s1">'Was PCR used on this '</span>
+                                              <span class="s1">'sample'</span><span class="p">),</span>
+                                             <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'PCR Used'</span><span class="p">),</span>
+                                             <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'boolean'</span><span class="p">)]))])),</span>
+                 <span class="p">(</span><span class="s1">'required'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'accession'</span><span class="p">,</span> <span class="s1">'pcr'</span><span class="p">]),</span>
+                 <span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">)])</span>
 
 <span class="n">On</span> <span class="n">instance</span><span class="p">:</span>
-    <span class="p">{</span><span class="s1">&#39;accession&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob1234&#39;</span><span class="p">,</span> <span class="s1">&#39;newKey&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;pcr&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="p">{</span><span class="s1">'accession'</span><span class="p">:</span> <span class="s1">'Bob1234'</span><span class="p">,</span> <span class="s1">'newKey'</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">'pcr'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -682,13 +733,13 @@ specified by the top-level metadata schema</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">metadata_schema</span> <span class="o">=</span> <span class="n">basic_schema</span>  <span class="c1"># Allows new fields to be added that are not validated</span>
-<span class="n">tables</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mean_coverage&quot;</span><span class="p">:</span> <span class="mf">200.5</span><span class="p">}</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"mean_coverage"</span><span class="p">:</span> <span class="mf">200.5</span><span class="p">}</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;mean_coverage&#39;: 200.5}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'mean_coverage': 200.5}
 </pre></div>
 </div>
 </div>
@@ -704,16 +755,16 @@ modify, then write back:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">schema_dict</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">schema</span>
-<span class="n">schema_dict</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">][</span><span class="s2">&quot;newKey&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">}</span>
+<span class="n">schema_dict</span><span class="p">[</span><span class="s2">"properties"</span><span class="p">][</span><span class="s2">"newKey"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"integer"</span><span class="p">}</span>
 <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">metadata_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="p">(</span><span class="n">schema_dict</span><span class="p">)</span>
 <span class="c1"># Now this will work:</span>
-<span class="n">new_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;accession&#39;</span><span class="p">:</span> <span class="s1">&#39;abc123&#39;</span><span class="p">,</span> <span class="s1">&#39;pcr&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;newKey&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
+<span class="n">new_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">'accession'</span><span class="p">:</span> <span class="s1">'abc123'</span><span class="p">,</span> <span class="s1">'pcr'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'newKey'</span><span class="p">:</span> <span class="mi">25</span><span class="p">})</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="n">new_id</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;accession&#39;: &#39;abc123&#39;, &#39;newKey&#39;: 25, &#39;pcr&#39;: False}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'accession': 'abc123', 'newKey': 25, 'pcr': False}
 </pre></div>
 </div>
 </div>
@@ -726,21 +777,21 @@ modify, then write back:</p>
 schema, for instance:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">individual_table</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># don&#39;t change the original tables.individual</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">individual_table</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># don't change the original tables.individual</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metadata:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">individual_table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Metadata:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">individual_table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
 
 <span class="n">individual_table</span><span class="o">.</span><span class="n">metadata_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Raw metadata:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">individual_table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Raw metadata:</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">individual_table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metadata:
- {&#39;accession&#39;: &#39;Bob1234&#39;, &#39;pcr&#39;: True}
+ {'accession': 'Bob1234', 'pcr': True}
 
 Raw metadata:
- b&#39;{&quot;accession&quot;:&quot;Bob1234&quot;,&quot;pcr&quot;:true}&#39;
+ b'{"accession":"Bob1234","pcr":true}'
 </pre></div>
 </div>
 </div>
@@ -756,9 +807,9 @@ for these methods:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metadata_column</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;etho1234&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;richard1235&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;accession&quot;</span><span class="p">:</span> <span class="s2">&quot;albert1236&quot;</span><span class="p">,</span> <span class="s2">&quot;pcr&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"etho1234"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"richard1235"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"accession"</span><span class="p">:</span> <span class="s2">"albert1236"</span><span class="p">,</span> <span class="s2">"pcr"</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
 <span class="p">]</span>
 <span class="n">encoded_metadata_column</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">tables</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">metadata_schema</span><span class="o">.</span><span class="n">validate_and_encode_row</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">metadata_column</span>
@@ -812,13 +863,13 @@ for these methods:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">metadata_schema</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">MetadataSchema</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;SOME CUSTOM BYTES #!@&quot;</span><span class="p">)</span>
+<span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="sa">b</span><span class="s2">"SOME CUSTOM BYTES #!@"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">populations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;SOME CUSTOM BYTES #!@&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b'SOME CUSTOM BYTES #!@'
 </pre></div>
 </div>
 </div>
@@ -891,7 +942,7 @@ for these methods:</p>
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-metadata-and-schemas">Reading metadata and schemas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-metadata-and-schemas">Modifying metadata and schemas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-raw-metadata">Viewing raw metadata</a></li>
@@ -945,8 +996,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>

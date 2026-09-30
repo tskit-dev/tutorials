@@ -27,8 +27,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
@@ -39,10 +39,10 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -61,6 +61,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'demography';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Instantaneous Bottlenecks" href="bottlenecks.html" />
@@ -68,20 +69,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -107,7 +114,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -358,7 +409,7 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-structure">Population structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrations">Migrations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-migration">Constant migration</a></li>
@@ -411,8 +462,8 @@ with a constant effective population size of 500.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in red.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in blue.&quot;</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in red."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in blue."</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">dem</span>  
 </pre></div>
 </div>
@@ -442,7 +493,7 @@ Also, note that we no longer need to specify <code class="docutils literal notra
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ts = msprime.sim_ancestry(</span>
-<span class="c1">#   samples={&quot;A&quot; : 3, &quot;B&quot; : 3}, </span>
+<span class="c1">#   samples={"A" : 3, "B" : 3}, </span>
 <span class="c1">#   demography=dem,</span>
 <span class="c1">#   random_seed=12,</span>
 <span class="c1">#   sequence_length=1000, </span>
@@ -499,8 +550,8 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in red.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in blue.&quot;</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in red."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in blue."</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
 <span class="c1"># Set migration rates.</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
@@ -508,7 +559,7 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
 
 <span class="c1"># Simulate.</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"A"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"B"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
   <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span>
   <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">141</span><span class="p">,</span>
@@ -654,7 +705,7 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
                         <tbody>
                             
                 <tr>
-                    <td>19 June, 2026 at 02:06:54 PM</td>
+                    <td>30 September, 2026 at 07:11:55 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -780,7 +831,7 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -788,7 +839,7 @@ approximately 2% of population 1 consists of migrants from population 0.</p>
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -887,10 +938,10 @@ If you are working in a Jupyter notebook, you can draw the tree sequence
 with nodes coloured by population label using SVG:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colour_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s2">&quot;blue&quot;</span><span class="p">}</span>
-<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;.node.p</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colour_map</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colour_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">"red"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s2">"blue"</span><span class="p">}</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">".node.p</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2"> &gt; .sym </span><span class="se">{{</span><span class="s2">fill: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> </span><span class="se">}}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colour_map</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
 <span class="c1"># The code below will only work in a Jupyter notebook with SVG output enabled.</span>
-<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">styles</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -944,7 +995,7 @@ We are now ready to simulate:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"A"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"B"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
   <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span>
   <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">63461</span><span class="p">,</span>
@@ -1090,7 +1141,7 @@ We are now ready to simulate:</p>
                         <tbody>
                             
                 <tr>
-                    <td>19 June, 2026 at 02:06:54 PM</td>
+                    <td>30 September, 2026 at 07:11:55 PM</td>
                     <td>msprime</td>
                     <td>1.4.0</td>
                     <td>sim_ancestry</td>
@@ -1224,7 +1275,7 @@ We are now ready to simulate:</p>
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: runnervm7b5n9<br/>release: 6.17.0-1018-azure<br/>version: #18~24.04.1-Ubuntu SMP Thu May<br/>28 16:39:11 UTC 2026<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: runnervm8df0l<br/>release: 6.17.0-1022-azure<br/>version: #22-Ubuntu SMP Mon Jul 27<br/>17:24:03 UTC 2026<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1232,7 +1283,7 @@ We are now ready to simulate:</p>
                 <span class="tskit-details-label">python:</span>
                 <details >
                     <summary>dict</summary>
-                    implementation: CPython<br/>version: 3.11.15<br/>
+                    implementation: CPython<br/>version: 3.11.16<br/>
                 </details>
             </div>
             <br/>
@@ -1305,14 +1356,14 @@ We must supply a list of ancestral populations participating in the admixture, a
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;AncestralPop0&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in red.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;AncestralPop1&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in blue.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;AdmixedPop&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in green.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"AncestralPop0"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in red."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"AncestralPop1"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in blue."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"AdmixedPop"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in green."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 
 <span class="c1"># Specify admixture event.</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_admixture</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">derived</span><span class="o">=</span><span class="s2">&quot;AdmixedPop&quot;</span><span class="p">,</span> <span class="n">ancestral</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AncestralPop0&quot;</span><span class="p">,</span> <span class="s2">&quot;AncestralPop1&quot;</span><span class="p">],</span> <span class="n">proportions</span><span class="o">=</span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]);</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_admixture</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">derived</span><span class="o">=</span><span class="s2">"AdmixedPop"</span><span class="p">,</span> <span class="n">ancestral</span><span class="o">=</span><span class="p">[</span><span class="s2">"AncestralPop0"</span><span class="p">,</span> <span class="s2">"AncestralPop1"</span><span class="p">],</span> <span class="n">proportions</span><span class="o">=</span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -1321,15 +1372,15 @@ We must supply a list of ancestral populations participating in the admixture, a
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AncestralPop0&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;AncestralPop1&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;AdmixedPop&quot;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">},</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"AncestralPop0"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"AncestralPop1"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"AdmixedPop"</span> <span class="p">:</span> <span class="mi">6</span><span class="p">},</span>
   <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span>
   <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">63</span><span class="p">,</span>
   <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Populations of nodes from time &lt; 50:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Populations of nodes from time &lt; 50:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">population</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Populations of nodes from time &gt;= 50:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Populations of nodes from time &gt;= 50:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">population</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1391,9 +1442,9 @@ AdmixedPop.'>0</td><td>0</td></tr></tbody></table></div><div><style scoped="">
 <p>This means that, for example, adding any demographic events that affect <code class="docutils literal notranslate"><span class="pre">AdmixedPop</span></code> beyond this time will produce an error:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span><span class="o">.</span><span class="n">add_migration_rate_change</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;AncestralPop0&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;AdmixedPop&quot;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span><span class="o">.</span><span class="n">add_migration_rate_change</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"AncestralPop0"</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">"AdmixedPop"</span><span class="p">);</span>
 <span class="c1"># ts = msprime.sim_ancestry(</span>
-<span class="c1">#   samples={&quot;AncestralPop0&quot; : 0, &quot;AncestralPop1&quot; : 0, &quot;AdmixedPop&quot; : 6},</span>
+<span class="c1">#   samples={"AncestralPop0" : 0, "AncestralPop1" : 0, "AdmixedPop" : 6},</span>
 <span class="c1">#   demography=dem,</span>
 <span class="c1">#   sequence_length=1000,</span>
 <span class="c1">#   random_seed=63,</span>
@@ -1420,12 +1471,12 @@ Any differences in ‘quantities’ of migrants must be modelled by sizes of the
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in red.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in blue.&quot;</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;AncestralPopulation&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in green.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in red."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in blue."</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"AncestralPopulation"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in green."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
 <span class="c1"># Add the population split.</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population_split</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">derived</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">ancestral</span><span class="o">=</span><span class="s2">&quot;AncestralPopulation&quot;</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population_split</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">derived</span><span class="o">=</span><span class="p">[</span><span class="s2">"A"</span><span class="p">,</span><span class="s2">"B"</span><span class="p">],</span> <span class="n">ancestral</span><span class="o">=</span><span class="s2">"AncestralPopulation"</span><span class="p">)</span>
 <span class="n">dem</span>
 </pre></div>
 </div>
@@ -1453,15 +1504,15 @@ changing them from active to inactive at the time of the split.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;AncestralPopulation&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"A"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"B"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"AncestralPopulation"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
   <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span>
   <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">63</span><span class="p">,</span>
   <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Populations of nodes from time &lt; 100:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Populations of nodes from time &lt; 100:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">population</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Populations of nodes from time &gt;= 100:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Populations of nodes from time &gt;= 100:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">population</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1495,8 +1546,8 @@ and a migration proportion.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in red.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in blue.&quot;</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in red."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in blue."</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 
@@ -1533,7 +1584,7 @@ so <code class="docutils literal notranslate"><span class="pre">source</span></c
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"A"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"B"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
   <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span>
   <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">63461</span><span class="p">,</span>
@@ -1554,8 +1605,8 @@ method to our <a class="reference external" href="https://tskit.dev/msprime/docs
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in red.&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plotted in blue.&quot;</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in red."</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Plotted in blue."</span><span class="p">,</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">set_migration_rate</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 
@@ -1566,11 +1617,11 @@ method to our <a class="reference external" href="https://tskit.dev/msprime/docs
 <span class="c1"># Exponential growth in Population 1 starting 50 generations ago.</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">add_population_parameters_change</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># Sort events, since we&#39;ve added some out of time order.</span>
+<span class="c1"># Sort events, since we've added some out of time order.</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">sort_events</span><span class="p">()</span>
 
 <span class="c1"># Simulate.</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">63461</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span><span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"A"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"B"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">63461</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1592,14 +1643,14 @@ method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">Demography</span><span class="p">()</span>
-<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">dem</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
 <span class="c1"># Add a census at time 350.</span>
 <span class="n">dem</span><span class="o">.</span><span class="n">add_census</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">350</span><span class="p">)</span>
 
 <span class="c1"># Simulate.</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">sim_ancestry</span><span class="p">(</span>
-  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+  <span class="n">samples</span><span class="o">=</span><span class="p">{</span><span class="s2">"A"</span> <span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
   <span class="n">demography</span><span class="o">=</span><span class="n">dem</span><span class="p">,</span>
   <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">112</span><span class="p">,</span>
@@ -1611,7 +1662,7 @@ method:</p>
 <p>The effect of the census is to add nodes onto each branch of the tree sequence at the census time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IDs of census nodes:&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"IDs of census nodes:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ts</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">flags</span><span class="o">==</span><span class="n">msprime</span><span class="o">.</span><span class="n">NODE_IS_CEN_EVENT</span><span class="p">])</span>
 <span class="n">ts</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">()</span>
 </pre></div>
@@ -1728,7 +1779,7 @@ before running your simulations.</p>
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-structure">Population structure</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrations">Migrations</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-migration">Constant migration</a></li>
@@ -1792,8 +1843,8 @@ By Tskit Developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
 
   <footer class="bd-footer">
   </footer>
